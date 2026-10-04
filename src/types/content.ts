@@ -30,6 +30,8 @@ export interface ComplexityRow {
   space?: string;
 }
 
+export type TopicSection = 'core' | 'collections' | 'concurrent' | 'advanced';
+
 export interface Topic {
   slug: string;
   title: string;
@@ -37,6 +39,7 @@ export interface Topic {
   order: number;
   summary: string;
   level: TopicLevel;
+  section?: TopicSection;
   prerequisites: string[];
   sections: Section[];
   complexity: ComplexityRow[];
@@ -45,7 +48,7 @@ export interface Topic {
   vizId?: string;
   problemIds: string[];
   /** Ids of Concept Gallery visuals for this topic (populated by gallery steps). */
-  illustrations: string[];
+  illustrations?: string[];
   /** JDK classes covered by this topic, e.g. `java.util.ArrayList`. */
   javaBuiltIn?: string[];
   /** Related topic slugs for cross-linking. */

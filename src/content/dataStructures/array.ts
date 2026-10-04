@@ -7,6 +7,7 @@ export const arrayTopic: Topic = {
   category: 'data-structures',
   order: 1,
   summary: 'Contiguous blocks of memory that store elements side by side — the foundation of almost every other data structure.',
+  section: 'core',
   level: 'beginner',
   prerequisites: [],
   sections: [

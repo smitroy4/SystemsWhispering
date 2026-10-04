@@ -2,13 +2,16 @@ import { NavLink } from 'react-router-dom';
 import type { TopicCategory, TopicLevel } from '../types/content.ts';
 import { getAllTopics } from '../utils/content.ts';
 
+/** Props for the sidebar component. */
 interface TopicSidebarProps {
   category: TopicCategory;
   activeSlug: string;
 }
 
+/** Order of levels for grouping. */
 const LEVEL_ORDER: TopicLevel[] = ['beginner', 'intermediate', 'advanced', 'expert'];
 
+/** Human‑readable headings for each level. */
 const LEVEL_HEADINGS: Record<TopicLevel, string> = {
   beginner: 'Beginner',
   intermediate: 'Intermediate',
@@ -54,3 +57,4 @@ export default function TopicSidebar({ category, activeSlug }: TopicSidebarProps
     </aside>
   );
 }
+

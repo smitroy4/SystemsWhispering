@@ -1,0 +1,1292 @@
+# Low-Level Design Outline
+
+## Module 1: Introduction to Software Design
+- What is Software Design?
+  - Software design as decisions
+  - Structure and communication
+  - Design enforced by code
+  - Design vs diagrams
+  - Runtime behavior
+- High-Level vs Low-Level Design — Drawing the Boundary
+  - HLD vs LLD
+  - Scope of decisions
+  - System-level decisions
+  - Component-level decisions
+  - Moving HLD/LLD boundary
+- Software Architecture vs Software Design
+  - Architecture vs design
+  - Scope of decisions
+  - Reversibility
+  - Architectural decisions
+  - Architecture emerging from design decisions
+- Functional vs Non-Functional Requirements
+  - Functional requirements
+  - Non-functional requirements
+  - Performance constraints
+  - Quantifiable requirements
+  - Requirements influencing architecture
+- The Software Design Process and Design Thinking
+  - Software design process
+  - Iterative design
+  - Design thinking
+  - Define
+  - Design activities
+  - Problem understanding
+- Characteristics of Good Software Design
+  - Maintainability
+  - Coupling
+  - Cohesion
+  - Cost of change
+  - Change impact
+  - Measuring design quality
+- Common Software Design Mistakes
+  - God objects
+  - Premature abstraction
+  - Poor design decisions
+  - Design review
+  - Refactoring prevention
+- How to Read and Write Design Documents
+  - Design documents
+  - Decisions
+  - Non-goals
+  - Alternatives
+  - Design review
+  - Recording trade-offs
+- The Framework: How to Approach LLD Problems
+  - Restate the problem
+  - Define scope
+  - Identify requirements
+  - Design structure
+  - Analyze dependencies
+  - Consider NFRs
+  - Review the design
+  - LLD interview framework
+
+## Module 2: Object-Oriented Programming Fundamentals
+- Introduction to OOP and the Java Memory Model
+  - OOP fundamentals
+  - Stack
+  - Heap
+  - Objects
+  - References
+  - Java pass-by-value
+  - Shared references
+- Classes, Objects, and the this Keyword
+  - Classes
+  - Objects
+  - Instance methods
+  - this
+  - Object references
+  - Heap objects
+- Constructors and Object Initialization
+  - Constructors
+  - Object creation
+  - Initialization order
+  - Field initialization
+  - Constructor delegation
+  - Canonical constructors
+- Encapsulation and Access Modifiers
+  - Encapsulation
+  - State and behavior
+  - private
+  - protected
+  - Package-private
+  - public
+  - Getters/setters
+  - Behavior-oriented APIs
+- Abstraction: Interfaces vs Abstract Classes
+  - Abstraction
+  - Interfaces
+  - Abstract classes
+  - Contracts
+  - Shared state
+  - Choosing interface vs abstract class
+- Inheritance and Its Types
+  - Inheritance
+  - Is-a relationship
+  - Subclasses
+  - Method overriding
+  - Types of inheritance
+  - Multiple inheritance limitation
+- Polymorphism: Compile-Time vs Runtime
+  - Polymorphism
+  - Method overloading
+  - Method overriding
+  - Compile-time polymorphism
+  - Runtime polymorphism
+  - Dynamic dispatch
+  - Parent-type references
+- Association, Aggregation, and Composition
+  - Association
+  - Aggregation
+  - Composition
+  - Has-a relationship
+  - Object ownership
+  - Object lifetime
+  - Resource ownership
+- Dependency Relationships
+  - Dependencies
+  - Dependency direction
+  - Abstractions
+  - Dependency injection
+  - Constructor injection
+  - Coupling
+  - Testability
+- Generics and Type Safety
+  - Generics
+  - Generic collections
+  - Type safety
+  - Type erasure
+  - Generic invariance
+  - Raw types
+- The Golden Rule: Composition Over Inheritance
+  - Composition
+  - Delegation
+  - Inheritance
+  - Deep hierarchies
+  - Is-a vs has-a
+  - Reuse through composition
+
+## Module 3: Core Design Principles
+- Introduction to Design Principles
+  - Design principles
+  - Cost of change
+  - Change
+  - Contract
+  - Restraint
+  - SOLID
+  - DRY
+  - KISS
+  - YAGNI
+- Single Responsibility Principle
+  - SRP
+  - One reason to change
+  - Responsibility
+  - Change ownership
+  - Collaborators
+  - Class decomposition
+- Open-Closed Principle
+  - OCP
+  - Open for extension
+  - Closed for modification
+  - Extension points
+  - Abstraction
+  - Variation
+- Liskov Substitution Principle
+  - LSP
+  - Behavioral contracts
+  - Substitutability
+  - Subclass behavior
+  - Invalid inheritance
+  - Composition as alternative
+- Interface Segregation Principle
+  - ISP
+  - Fat interfaces
+  - Client-specific interfaces
+  - Interface dependencies
+  - UnsupportedOperationException
+  - Interface decomposition
+- Dependency Inversion Principle
+  - DIP
+  - Dependency direction
+  - Policy vs implementation
+  - Abstractions
+  - Dependency injection
+  - Inversion of control
+- DRY, KISS, and YAGNI Principles
+  - DRY
+  - KISS
+  - YAGNI
+  - Duplication
+  - Simplicity
+  - Avoiding overengineering
+  - Future requirements
+- High Cohesion and Loose Coupling
+  - Cohesion
+  - Coupling
+  - Module boundaries
+  - Change blast radius
+  - Responsibility grouping
+- Law of Demeter
+  - Law of Demeter
+  - Immediate collaborators
+  - Object graphs
+  - Delegation
+  - Coupling through object chains
+- Separation of Concerns and Information Hiding
+  - Separation of concerns
+  - Information hiding
+  - Responsibilities
+  - Encapsulation
+  - Changeable implementation details
+  - Repository abstraction
+- Designing for Testability: The Ultimate Proof of Loose Coupling
+  - Testability
+  - Construction seams
+  - Control seams
+  - Observation seams
+  - Isolation
+  - Mocking
+  - Loose coupling
+
+## Module 4: UML and Design Visualization
+- Why UML Matters in LLD
+  - UML purpose
+  - Design visualization
+  - Design decisions
+  - UML as thinking tool
+  - Diagrams vs implementation
+- Class Diagrams
+  - Classes
+  - Attributes
+  - Methods
+  - Relationships
+  - Association arrows
+  - Dependency direction
+  - Java mapping
+- Sequence Diagrams
+  - Lifelines
+  - Messages
+  - Returns
+  - Activation bars
+  - Interaction order
+  - Synchronous/asynchronous communication
+- Activity Diagrams
+  - Activities
+  - Control flow
+  - Decisions
+  - Guards
+  - Branching
+  - Fork
+  - Join
+  - Parallelism
+- State Diagrams
+  - States
+  - Events
+  - Transitions
+  - Guards
+  - State machines
+  - Legal transitions
+  - Object lifecycle
+- Component and Object Diagrams
+  - Components
+  - Interfaces
+  - Component dependencies
+  - Object instances
+  - Runtime snapshots
+  - Class vs object
+- Using UML Effectively in Interviews
+  - Choosing the right diagram
+  - Minimal diagrams
+  - Narrating while drawing
+  - Design review
+  - Interview communication
+- Common UML Mistakes to Avoid
+  - Incorrect arrows
+  - Diagram/code mismatch
+  - Over-drawing
+  - Drifted diagrams
+  - Incorrect relationships
+
+## Module 5: Design Pattern Foundations
+- What Are Design Patterns?
+  - Design pattern definition
+  - Problem
+  - Solution
+  - Consequences
+  - Pattern vocabulary
+  - Pattern vs library
+  - Pattern vs algorithm
+- History and the Gang of Four
+  - Design pattern history
+  - Smalltalk
+  - Gang of Four
+  - 23 GoF patterns
+  - Java influence
+- Categories of Design Patterns
+  - Creational patterns
+  - Structural patterns
+  - Behavioral patterns
+  - Pattern families
+  - Problem classification
+- How to Choose a Design Pattern
+  - Identify instability
+  - Identify variation
+  - Shortlist patterns
+  - Compare consequences
+  - YAGNI check
+  - Pattern selection
+- Anti-Patterns and Common Misuse
+  - God Object
+  - Singleton abuse
+  - Pattern spam
+  - Pattern misuse
+  - Smell detection
+  - When not to use patterns
+- Design Patterns Interview Strategy
+  - Identify problem first
+  - Identify constraints
+  - Identify instability
+  - Select pattern
+  - Justify pattern
+  - Say "no pattern" when appropriate
+
+## Module 6: Creational Design Patterns
+- Creational Patterns Overview
+  - Object creation
+  - Five GoF creational patterns
+  - Construction decisions
+  - Deferred construction
+  - Avoiding unnecessary abstraction
+- Singleton Pattern
+  - Singleton
+  - Thread safety
+  - Lazy initialization
+  - Synchronized implementation
+  - Double-checked locking
+  - Bill Pugh implementation
+  - Singleton trade-offs
+- Factory Method Pattern
+  - Factory Method
+  - Creation seam
+  - Subclass-controlled creation
+  - Abstraction
+  - Template Method relationship
+- Abstract Factory Pattern
+  - Abstract Factory
+  - Related object families
+  - Product consistency
+  - Factory interfaces
+  - Multiple product variants
+- Builder and Fluent Builder Pattern
+  - Builder
+  - Telescoping constructors
+  - Optional parameters
+  - Fluent API
+  - Immutable objects
+  - Validation
+  - Defaults
+- Prototype Pattern
+  - Prototype
+  - Object copying
+  - Shallow copy
+  - Deep copy
+  - Object.clone()
+  - Mutable fields
+- Factory vs Builder: When to Use Which
+  - Factory
+  - Builder
+  - Construction decisions
+  - Optional configuration
+  - Growing parameter lists
+  - Combining Factory + Builder
+- Real-World Usage of Creational Patterns
+  - JVM
+  - Spring
+  - Hibernate
+  - Framework-managed objects
+  - Spring singleton beans
+  - Recognizing pattern shapes
+
+## Module 7: Structural Design Patterns
+- Structural Patterns Overview
+  - Structural patterns
+  - Object arrangement
+  - Intent
+  - Adapter
+  - Facade
+  - Proxy
+- Adapter Pattern
+  - Adapter
+  - Interface translation
+  - External systems
+  - Legacy APIs
+  - Object Adapter
+  - External boundaries
+- Bridge Pattern
+  - Bridge
+  - Abstraction hierarchy
+  - Implementation hierarchy
+  - Independent dimensions
+  - Class explosion
+  - Bridge vs Adapter
+- Composite Pattern
+  - Composite
+  - Leaf
+  - Composite node
+  - Tree structures
+  - Uniform interface
+  - Recursive structures
+- Decorator Pattern
+  - Decorator
+  - Wrapping
+  - Layered behavior
+  - Same-interface wrapping
+  - Subclass explosion
+  - Ordering
+  - Object identity
+- Facade Pattern
+  - Facade
+  - Subsystem
+  - Simplified interface
+  - Orchestration
+  - Delegation
+  - Business policy separation
+- Proxy Pattern
+  - Proxy
+  - Same interface
+  - Access control
+  - Virtual proxy
+  - Protection proxy
+  - Remote proxy
+  - Proxy vs Decorator
+- Flyweight Pattern
+  - Flyweight
+  - Shared state
+  - Intrinsic state
+  - Extrinsic state
+  - Immutability
+  - Memory optimization
+- Adapter vs Facade vs Proxy
+  - Adapter -> change/translate
+  - Facade -> simplify
+  - Proxy -> control
+  - Wrapper intent
+  - Multiple wrapper responsibilities
+- Real-World Usage of Structural Patterns
+  - Spring Security
+  - DelegatingFilterProxy
+  - FilterChainProxy
+  - Security filter chain
+  - Proxy-based architecture
+
+## Module 8: Behavioral Design Patterns
+- Behavioral Patterns Overview
+  - Behavioral patterns
+  - Object collaboration
+  - Runtime behavior
+  - Hardcoded behavior
+  - Behavioral pattern categories
+- Strategy Pattern
+  - Strategy
+  - Algorithm interface
+  - Multiple algorithms
+  - Runtime selection
+  - Composition root
+  - Encapsulated algorithms
+- Observer Pattern
+  - Observer
+  - Subject
+  - One-to-many communication
+  - Event notification
+  - Loose coupling
+  - Broadcast
+- Command Pattern
+  - Command
+  - Action as object
+  - Queueing
+  - Replay
+  - Undo
+  - Encapsulated operations
+- Chain of Responsibility
+  - Chain
+  - Handlers
+  - Ordered processing
+  - Request propagation
+  - Terminal handler
+  - Handler ordering
+- Template Method Pattern
+  - Template Method
+  - Algorithm skeleton
+  - Base class
+  - Final method
+  - Overridable steps
+  - Composition alternative
+- State Pattern
+  - State
+  - State classes
+  - State-dependent behavior
+  - State transitions
+  - Legal operations
+  - Replacing large switches
+- Mediator Pattern
+  - Mediator
+  - Central communication hub
+  - Object interaction
+  - Reduced direct references
+  - Coordination
+  - Sequencing
+- Iterator Pattern
+  - Iterator
+  - Cursor
+  - Collection traversal
+  - Storage abstraction
+  - Fail-fast behavior
+  - Generic iterator
+- Memento Pattern
+  - Memento
+  - State snapshot
+  - Originator
+  - Caretaker
+  - Undo
+  - Encapsulation
+- Visitor Pattern
+  - Visitor
+  - Operations
+  - Stable class hierarchy
+  - Double dispatch
+  - Closed type set
+  - Growing operations
+- Strategy vs State — Key Differences
+  - Strategy = choice
+  - State = condition
+  - Runtime behavior
+  - Legal operations
+  - Algorithm variation
+  - Similar object structure
+- Real-World Usage of Behavioral Patterns
+  - Chain
+  - Strategy
+  - Mediator
+  - Pattern composition
+  - Production workflows
+
+## Module 9: Domain Modeling and Object Design
+- Introduction to Domain Modeling
+  - Domain model
+  - Business concepts
+  - Business rules
+  - Object-owned rules
+  - Domain vs database model
+- Identifying Entities and Value Objects
+  - Entities
+  - Value Objects
+  - Identity
+  - Structural equality
+  - Immutability
+  - Modeling decisions
+- Aggregates and Aggregate Roots
+  - Aggregate
+  - Aggregate Root
+  - Consistency boundary
+  - Invariants
+  - Aggregate size
+  - References by ID
+- Domain Services
+  - Domain Service
+  - Business rules
+  - Cross-object operations
+  - Transaction-level logic
+  - Object vs service responsibility
+- Repositories in Domain Design
+  - Repository abstraction
+  - Aggregate collection
+  - Persistence abstraction
+  - Repository interface
+  - Storage implementation
+  - Testability
+- Business Rules Modeling
+  - Invariants
+  - Constraints
+  - Derivations
+  - Rule ownership
+  - Guarded operations
+  - Preventing bypasses
+- Domain Events
+  - Domain events
+  - Past-tense facts
+  - Aggregate-generated events
+  - Event listeners
+  - Stable event data
+  - Decoupled reactions
+- Designing Rich vs Anemic Domain Models
+  - Rich domain model
+  - Anemic domain model
+  - Business logic placement
+  - Domain objects
+  - Services
+  - Modeling smells
+- Putting It Together — Full Domain Model Walkthrough
+  - Order aggregate
+  - Customer
+  - Domain service
+  - Repository
+  - Domain event
+  - Checkout flow
+  - Rule ownership
+
+## Module 10: API and Interface Design
+- Introduction to API Design — Principles and Goals
+  - APIs as contracts
+  - API consumers
+  - Stable interfaces
+  - Endpoint design
+  - Overloaded endpoints
+  - Database-shaped APIs
+  - Additive changes
+- REST Principles and Resource Modeling
+  - REST
+  - Resources
+  - HTTP methods
+  - Resource URLs
+  - Nouns vs verbs
+  - Statelessness
+  - Retryability
+- DTO Design and Mapping Strategies — MapStruct and Jackson
+  - DTOs
+  - Request/response models
+  - Domain separation
+  - MapStruct
+  - Jackson
+  - Entity exposure
+- Request and Response Design
+  - HTTP status codes
+  - Response body
+  - Location header
+  - Caching headers
+  - Create responses
+  - HTTP contract
+- Input Validation Design
+  - DTO validation
+  - Syntax validation
+  - Domain invariants
+  - Cross-object validation
+  - Service-level validation
+  - Validation ownership
+- Error Handling and Standardized Error Responses
+  - Error envelope
+  - Error codes
+  - Error messages
+  - Trace IDs
+  - Global error handling
+  - Internal error protection
+- Pagination, Filtering and Sorting
+  - Pagination
+  - Offset pagination
+  - Cursor pagination
+  - Filtering
+  - Sorting
+  - Stable keys
+  - Live-data pagination
+- API Versioning Strategies
+  - API versions
+  - Multiple API shapes
+  - Backward compatibility
+  - Additive changes
+  - Deprecation
+  - Version retirement
+- Idempotency in APIs
+  - Idempotency
+  - Idempotency keys
+  - Duplicate requests
+  - Request replay
+  - Atomic writes
+  - POST retries
+- API Security Basics
+  - Authentication
+  - Authorization
+  - Tokens
+  - Identity
+  - Role/permission checks
+  - Security ordering
+- Designing Internal vs External APIs
+  - Internal APIs
+  - External APIs
+  - Internal contracts
+  - Public contracts
+  - Versioning
+  - Adapters
+  - Shared core + separate interfaces
+
+## Module 11: Persistence and Data Design
+- Introduction to Persistence Design
+  - Persistence layers
+  - Storage engine
+  - Data access layer
+  - Domain logic
+  - Database schema
+  - Layer boundaries
+- Repository Pattern — Spring Data JPA Under the Hood
+  - Repository abstraction
+  - Spring Data JPA
+  - Generated proxies
+  - Persistence context
+  - save()
+  - SQL generation
+  - Entity lifecycle
+- DAO vs Repository Pattern
+  - DAO
+  - Repository
+  - Physical storage access
+  - Domain-facing access
+  - DAO abstraction
+  - Storage leakage
+- Transactions and ACID Properties
+  - Transactions
+  - Atomicity
+  - Consistency
+  - Isolation
+  - Durability
+  - @Transactional
+  - Transaction boundaries
+  - Business-rule consistency
+- Unit of Work Pattern
+  - Unit of Work
+  - Persistence context
+  - Change tracking
+  - Dirty checking
+  - Commit
+  - Flush boundary
+- Optimistic vs Pessimistic Locking
+  - Optimistic locking
+  - Version checking
+  - Pessimistic locking
+  - Row locking
+  - Contention
+  - Retry behavior
+- Lazy Loading vs Eager Loading and the N+1 Problem
+  - Lazy loading
+  - Eager loading
+  - JPA relationships
+  - N+1 queries
+  - Fetch joins
+  - Entity graphs
+  - Query optimization
+- Caching Fundamentals
+  - Cache
+  - Cache hit rate
+  - TTL
+  - Capacity
+  - Invalidation
+  - Staleness
+  - Cache trade-offs
+- Write-Through vs Write-Back vs Cache-Aside
+  - Write-through
+  - Write-back
+  - Cache-aside
+  - Write ordering
+  - Consistency window
+  - Cache invalidation
+  - Crash window
+- Persistence Design Best Practices
+  - Invariant ownership
+  - Short transactions
+  - Write-path consistency
+  - Schema design
+  - Framework defaults
+  - Deliberate persistence decisions
+- Designing for Data Consistency in Concurrent Systems
+  - Data consistency
+  - Database consistency
+  - Idempotency
+  - Transactional outbox
+  - Distributed consistency
+  - Distributed locking
+
+## Module 12: Concurrency and Multithreading
+- Introduction to Concurrency — Threads vs Processes
+  - Processes
+  - Threads
+  - Memory ownership
+  - Shared heap
+  - I/O concurrency
+  - CPU work
+  - Shared-state problems
+- Thread Lifecycle
+  - Thread states
+  - State transitions
+  - Thread dumps
+  - Waiting
+  - Locks
+  - Signals
+  - Timers
+- Thread Class vs Runnable vs Callable
+  - Thread
+  - Runnable
+  - Callable
+  - Return values
+  - Exceptions
+  - Thread inheritance
+  - Task abstraction
+- Executor Framework and Thread Pools
+  - Executor framework
+  - Thread pools
+  - Worker threads
+  - Task queues
+  - Queue sizing
+  - CPU-bound pools
+  - Bounded concurrency
+- Synchronization and Locks
+  - synchronized
+  - Mutual exclusion
+  - Monitor
+  - Memory barriers
+  - Critical sections
+  - Lock scope
+- ReentrantLock and ReadWriteLock
+  - ReentrantLock
+  - Explicit locking
+  - Unlocking
+  - ReadWriteLock
+  - Read locks
+  - Write locks
+  - Read-heavy workloads
+- Semaphores and Countdown Latches
+  - Semaphore
+  - Permits
+  - Concurrency limits
+  - CountDownLatch
+  - Synchronization barriers
+  - Shared counters
+- Concurrent Collections — ConcurrentHashMap and Friends
+  - Concurrent collections
+  - ConcurrentHashMap
+  - Thread-safe collections
+  - Parallel reads
+  - Fine-grained locking
+  - Atomic operations
+  - Compound operations
+- Future and CompletableFuture for Async Design
+  - Future
+  - CompletableFuture
+  - Async execution
+  - Callbacks
+  - Stage composition
+  - Timeouts
+  - Exception handling
+- Thread Communication — Wait, Notify, NotifyAll
+  - wait()
+  - notify()
+  - notifyAll()
+  - Monitor communication
+  - Producer/consumer
+  - BlockingQueue
+  - Thread coordination
+- Common Concurrency Problems
+  - Deadlock
+  - Livelock
+  - Starvation
+  - Race conditions
+  - Circular waits
+  - Lock ordering
+  - Fairness
+- Designing Thread-Safe Classes
+  - Thread safety
+  - Immutable state
+  - Thread confinement
+  - Lock-protected state
+  - Shared mutable state
+  - Thread-safe contracts
+- Concurrency Design Best Practices
+  - Minimize shared state
+  - Choose appropriate synchronization
+  - Short critical sections
+  - Timeouts
+  - Lock as last resort
+  - Concurrency design strategy
+
+## Module 13: Event-Driven Design
+- Introduction to Event-Driven Architecture
+  - Event-driven architecture
+  - Events
+  - Synchronous vs asynchronous communication
+  - Availability
+  - Eventual consistency
+  - Replayability
+  - Commands vs events
+- Publisher-Subscriber Model
+  - Publisher
+  - Subscriber
+  - Broker
+  - Topics
+  - Queues
+  - Consumer groups
+  - Kafka model
+- Observer Pattern vs Pub-Sub — Where They Differ
+  - Observer
+  - Pub/Sub
+  - Direct references
+  - Broker-based communication
+  - In-process communication
+  - Cross-process communication
+- Event Modeling — Designing Good Events
+  - Immutable events
+  - Timestamp
+  - Event keys
+  - Event payload
+  - Deltas
+  - Consumer requirements
+  - Event evolution
+  - Event versioning
+- Message Queues — Concepts and Internal Design
+  - Message queues
+  - Partitioned logs
+  - Keys
+  - Offsets
+  - Consumer groups
+  - Ordering
+  - Parallelism
+  - At-least-once delivery
+  - Idempotent consumers
+- Eventual Consistency and What It Means for Object Design
+  - Eventual consistency
+  - Read models
+  - Projections
+  - Event lag
+  - Idempotent processing
+  - Rebuildable views
+  - As-of timestamps
+- Event Sourcing — Concepts and When to Use It
+  - Event log
+  - Source of truth
+  - Derived state
+  - State reconstruction
+  - Audit history
+  - Temporal queries
+  - Ledger use cases
+- CQRS — Command Query Responsibility Segregation
+  - CQRS
+  - Command model
+  - Query model
+  - Aggregates
+  - Projections
+  - Read/write separation
+  - Read replicas
+  - Event sourcing independence
+- Common Pitfalls in Event-Driven Systems
+  - Lost events
+  - Duplicate events
+  - Out-of-order events
+  - Stale read models
+  - Transactional outbox
+  - Idempotent consumers
+  - Keyed streams
+  - Rebuilding projections
+
+## Module 14: Reliability and Observability
+- Logging Fundamentals and Best Practices
+  - Structured logging
+  - Log templates
+  - Log fields
+  - MDC
+  - Stack traces
+  - Log levels
+  - Logging schema
+- Audit Logging
+  - Audit logs
+  - Actor identity
+  - Actions
+  - Timestamps
+  - Tamper resistance
+  - Append-only records
+  - Transactional audit logging
+- Monitoring and Metrics Design
+  - Monitoring
+  - Counters
+  - Gauges
+  - Percentiles
+  - Latency
+  - Cardinality
+  - SLOs
+  - Error budgets
+- Health Checks
+  - Health checks
+  - Liveness
+  - Readiness
+  - Dependency failures
+  - Restart behavior
+  - Probe design
+- Retry Mechanisms and Backoff Strategies
+  - Retryable failures
+  - Retry policy
+  - Exponential backoff
+  - Jitter
+  - Retry storms
+  - Idempotency
+- Circuit Breaker Pattern
+  - Circuit breaker
+  - Closed state
+  - Open state
+  - Half-open state
+  - Fail-fast
+  - Retry interaction
+  - Fallbacks
+- Rate Limiting Algorithms
+  - Rate limiting
+  - Token bucket
+  - Fixed window
+  - Sliding window
+  - Burst handling
+  - Global vs per-instance limits
+  - Storage considerations
+- Feature Flags
+  - Feature flags
+  - Runtime feature control
+  - Release vs enablement
+  - Fail-safe behavior
+  - Flag lifecycle
+  - Dead flags
+- Designing for Observability — Putting It All Together
+  - Logs
+  - Metrics
+  - Traces
+  - Health
+  - Incident correlation
+  - End-to-end observability
+
+## Module 15: LLD Case Studies — Classic Systems
+- How to Approach Any LLD Case Study — The 45-Minute Framework
+  - Requirements
+  - Scope
+  - Entities
+  - Class design
+  - Interactions
+  - Trade-offs
+  - Interview walkthrough
+- Design a Parking Lot
+  - Vehicle
+  - Parking spot
+  - Vehicle size
+  - Entry flow
+  - Exit flow
+  - Pricing strategy
+  - Availability
+- Design an Elevator System
+  - Elevator
+  - Controller
+  - Requests
+  - Direction
+  - Scheduling
+  - Sorted sets
+  - Next-stop algorithm
+- Design a Vending Machine
+  - State machine
+  - IDLE
+  - HAS_MONEY
+  - DISPENSING
+  - State transitions
+  - Guarded operations
+  - Product selection
+  - Payment
+- Design an ATM Machine
+  - ATM terminal
+  - Bank
+  - Account
+  - Balance ownership
+  - Transactions
+  - Atomic account operations
+  - Concurrency
+- Design a Chess Game
+  - Board
+  - Pieces
+  - Movement
+  - Move validation
+  - Blocking
+  - King safety
+  - Move simulation
+- Design Tic-Tac-Toe
+  - Board
+  - Players
+  - Turns
+  - Win condition
+  - Game state
+  - Minimal design
+  - Avoiding unnecessary patterns
+- Design Snake and Ladder
+  - Board
+  - Graph representation
+  - Snakes
+  - Ladders
+  - Player movement
+  - BFS
+  - Minimum rolls
+- Design a Library Management System
+  - Book title
+  - Book copies
+  - Loan
+  - Borrowing
+  - Returns
+  - Availability
+  - Transaction records
+- Design a Logging Framework
+  - Log producer
+  - Log records
+  - Consumer
+  - Queue
+  - Writer thread
+  - Log levels
+  - Immutable records
+  - Producer-consumer design
+- Design an Inventory Management System
+  - Inventory ledger
+  - Stock position
+  - Stock movements
+  - Release
+  - Atomic check-and-apply
+  - Overselling prevention
+- Design a Car Rental System
+  - Vehicle
+  - Rental
+  - Time intervals
+  - Availability calendar
+  - Date-range checking
+  - Reservation
+- Design a Hotel Booking System
+  - Hotel
+  - Room type
+  - Availability count
+  - Per-night inventory
+  - Booking
+  - Whole-stay commit
+  - Partial booking prevention
+- Design a URL Shortener
+  - Short key
+  - Long URL
+  - Key generation
+  - URL lookup
+  - Read path
+  - Caching
+  - Collision considerations
+- Design Splitwise
+  - Users
+  - Expenses
+  - Balances
+  - Settlement
+  - Split strategies
+  - Zero-sum invariant
+  - Greedy settlement
+
+## Module 16: Advanced LLD and Interview Masterclass
+- Advanced LLD — What Changes at the Senior Level
+  - Senior-level LLD
+  - Design justification
+  - Trade-offs
+  - Race conditions
+  - Design reasoning
+  - Production concerns
+- Design a Movie Ticket Booking System — Handling Concurrency and Locking
+  - Movie
+  - Show
+  - Seat
+  - Seat contention
+  - Seat holds
+  - Hold expiration
+  - Locking
+  - Checkout fairness
+  - Concurrency
+- Design an E-Commerce Shopping Cart and Order Flow
+  - Shopping cart
+  - Session scope
+  - Order
+  - Reservation
+  - Payment
+  - Reserve-then-charge
+  - Idempotency keys
+  - Overselling prevention
+- Design a Notification System — Internal Class Orchestration
+  - Events
+  - Notification pipeline
+  - Channels
+  - Per-channel messages
+  - Queue
+  - Dispatcher
+  - Retry behavior
+  - Channel-specific processing
+- Design a Rate Limiter
+  - Rate limiting
+  - Counting algorithms
+  - Fixed window
+  - Sliding window
+  - Token bucket
+  - Memory trade-offs
+  - Burst handling
+  - Production implementation
+- Design a Job Scheduler
+  - Jobs
+  - Scheduling
+  - Priority queue
+  - Next execution time
+  - Worker lifecycle
+  - Crash recovery
+  - At-least-once delivery
+  - Idempotent jobs
+- Design a Real-Time Chat System
+  - WebSocket
+  - Socket registry
+  - Message layer
+  - Broker
+  - Message persistence
+  - Offline delivery
+  - Load balancing
+  - Per-instance state
+- Design a Pub-Sub System Like Kafka
+  - Broker
+  - Append-only log
+  - Partitions
+  - File-backed segments
+  - Offsets
+  - Consumer groups
+  - Ordering
+  - At-least-once delivery
+- Design a Payment Processing System
+  - Payment request
+  - Idempotency key
+  - Provider call
+  - Atomic claim
+  - Payment state
+  - Timeout handling
+  - Pending state
+  - Duplicate-charge prevention
+- Requirement Gathering Techniques for Interviews
+  - Requirement categories
+  - Functional requirements
+  - Non-functional requirements
+  - Scope
+  - Requirement restatement
+  - Early clarification
+  - Interview communication
+- Identifying Entities and Relationships Under Pressure
+  - Extract nouns
+  - Filter by responsibility
+  - Identify entities
+  - Identify relationships
+  - Remove unnecessary entities
+  - Hidden domain objects
+  - Modeling under time pressure
+- Choosing Design Patterns in an Interview
+  - Identify variation
+  - Identify instability
+  - Pattern selection
+  - Load-bearing abstractions
+  - Avoid unnecessary patterns
+  - Pattern justification
+- Discussing Trade-Offs Confidently
+  - Design position
+  - Cost
+  - Alternative
+  - Trigger condition
+  - Trade-off analysis
+  - Defending design decisions
+- Common LLD Interview Mistakes
+  - Missing records
+  - Incorrect ordering
+  - Missing checks
+  - Poor response to interviewer pushback
+  - Lack of self-review
+  - Design completeness
+- Mock LLD Interview Walkthrough — End to End
+  - Full mock interview
+  - Requirements extraction
+  - Elevator example
+  - Class design
+  - Follow-up questions
+  - Interview reasoning
+  - Final design
+- What to Do After the Interview — Learning from Every Session
+  - Post-interview review
+  - Hot-capture notes
+  - Cold review
+  - Self-analysis
+  - Three-change commitment
+  - Learning from mistakes
+  - Continuous improvement
