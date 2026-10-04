@@ -1,0 +1,193 @@
+/* Shared visualization styles. All colors live in styles/tokens.css
+   (--viz-* vars per theme); transitions stay here. */
+
+.viz-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* All primitive motion: CSS transform/opacity, 300ms. */
+.viz-anim {
+  transition:
+    transform 300ms ease,
+    opacity 300ms ease;
+}
+
+.viz-cell rect,
+.viz-node circle,
+.viz-bar rect {
+  transition:
+    fill 300ms ease,
+    stroke 300ms ease,
+    opacity 300ms ease;
+}
+
+/* Tones */
+.viz-tone-default rect,
+.viz-tone-default circle {
+  fill: var(--viz-default-fill);
+  stroke: var(--viz-default-stroke);
+  stroke-width: 2;
+}
+
+.viz-tone-active rect,
+.viz-tone-active circle {
+  fill: var(--viz-active-fill);
+  stroke: var(--viz-active-stroke);
+  stroke-width: 2.5;
+}
+
+.viz-tone-compared rect,
+.viz-tone-compared circle {
+  fill: var(--viz-compared-fill);
+  stroke: var(--viz-compared-stroke);
+  stroke-width: 2.5;
+}
+
+.viz-tone-swapped rect,
+.viz-tone-swapped circle {
+  fill: var(--viz-swapped-fill);
+  stroke: var(--viz-swapped-stroke);
+  stroke-width: 2.5;
+}
+
+.viz-tone-done rect,
+.viz-tone-done circle {
+  fill: var(--viz-done-fill);
+  stroke: var(--viz-done-stroke);
+  stroke-width: 2;
+}
+
+.viz-cell-value,
+.viz-node-value,
+.viz-bar-value {
+  fill: var(--viz-ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.viz-cell-index {
+  fill: var(--viz-muted-ink);
+  font-size: 11px;
+}
+
+.viz-pointer-label {
+  fill: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.viz-pointer-arrow {
+  fill: var(--color-primary);
+}
+
+.viz-edge line {
+  stroke: var(--viz-muted-ink);
+}
+
+.viz-edge polygon {
+  fill: var(--viz-muted-ink);
+}
+
+.viz-edge.viz-tone-active line {
+  stroke: var(--viz-active-stroke);
+}
+
+.viz-edge.viz-tone-active polygon {
+  fill: var(--viz-active-stroke);
+}
+
+.viz-edge-label {
+  fill: var(--viz-muted-ink);
+  font-size: 12px;
+}
+
+/* Word-end marker dot (tries): uses the swapped accent in both themes. */
+.viz-end-dot {
+  fill: var(--viz-swapped-stroke);
+  stroke: var(--viz-ink);
+  stroke-width: 1.5;
+}
+
+/* Small caption above a labeled array inside a multi-array scene. */
+.viz-array-label {
+  margin: var(--space-2) 0 var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* Legend */
+.viz-legend {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.viz-legend__title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.viz-legend__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.viz-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.viz-legend__swatch {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 4px;
+  border: 2px solid;
+  flex-shrink: 0;
+}
+
+.viz-legend__swatch.viz-tone-default {
+  background: var(--viz-default-fill);
+  border-color: var(--viz-default-stroke);
+}
+
+.viz-legend__swatch.viz-tone-active {
+  background: var(--viz-active-fill);
+  border-color: var(--viz-active-stroke);
+}
+
+.viz-legend__swatch.viz-tone-compared {
+  background: var(--viz-compared-fill);
+  border-color: var(--viz-compared-stroke);
+}
+
+.viz-legend__swatch.viz-tone-swapped {
+  background: var(--viz-swapped-fill);
+  border-color: var(--viz-swapped-stroke);
+}
+
+.viz-legend__swatch.viz-tone-done {
+  background: var(--viz-done-fill);
+  border-color: var(--viz-done-stroke);
+}
+
+.viz-legend__hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}

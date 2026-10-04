@@ -1,0 +1,26 @@
+.footer {
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  margin-top: var(--space-10);
+}
+
+.footer__inner {
+  padding-block: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.footer__text {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.footer__brand {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-accent);
+}

@@ -1,0 +1,69 @@
+/* Shared styles for concept visualizations (light + dark via variables). */
+
+.viz-chart-axis {
+  stroke: var(--viz-muted-ink);
+  stroke-width: 1.5;
+}
+
+.viz-chart-grid {
+  stroke: var(--viz-muted-ink);
+  stroke-width: 1;
+  opacity: 0.25;
+}
+
+.viz-chart-label {
+  fill: var(--viz-muted-ink);
+  font-size: 11px;
+}
+
+.viz-curve {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: opacity 300ms ease;
+}
+
+.viz-curve-o1 {
+  stroke: var(--curve-o1);
+}
+
+.viz-curve-ologn {
+  stroke: var(--curve-ologn);
+}
+
+.viz-curve-on {
+  stroke: var(--curve-on);
+}
+
+.viz-curve-onlogn {
+  stroke: var(--curve-onlogn);
+}
+
+.viz-curve-on2 {
+  stroke: var(--curve-on2);
+}
+
+.viz-curve-tag {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.viz-curve-tag-o1 {
+  fill: var(--curve-o1);
+}
+
+.viz-curve-tag-ologn {
+  fill: var(--curve-ologn);
+}
+
+.viz-curve-tag-on {
+  fill: var(--curve-on-ink);
+}
+
+.viz-curve-tag-onlogn {
+  fill: var(--curve-onlogn);
+}
+
+.viz-curve-tag-on2 {
+  fill: var(--curve-on2);
+}

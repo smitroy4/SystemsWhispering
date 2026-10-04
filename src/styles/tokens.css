@@ -1,0 +1,168 @@
+/**
+ * Design tokens — single source of truth for colors, spacing, radius, type.
+ * ALL hardcoded colors live here; no other stylesheet may contain `#xxx`
+ * or rgb()/hsl() literals (shadows reference the tokens below).
+ *
+ * LIGHT "Ivory & Ink" is the default (:root); DARK "Ink & Champagne"
+ * applies via [data-theme="dark"]. The `system` theme mode resolves to
+ * one of the two in JS (utils/theme.ts).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* --- Colors: LIGHT "Ivory & Ink" --- */
+  --color-bg: #FAF8F4;
+  --color-bg-raised: #F3F0E9;
+  --color-bg-code: #F3F0E9;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F3F0E9;
+  --color-border: #E6E1D6;
+  --color-text: #1A1C22;
+  --color-text-muted: #6B6F7B;
+  --color-primary: #8A6A2F;
+  --color-primary-hover: #755A27;
+  --color-primary-contrast: #FFFFFF;
+  --color-accent: #8A6A2F;
+  --color-accent-soft: rgba(138, 106, 47, 0.1);
+  --color-success: #2E7D5B;
+  --color-warning: #A96F1F;
+  --color-danger: #B25048;
+  --color-info: #3F6DA8;
+  --color-badge-bg: #E6E1D6;
+  --color-badge-text: #1A1C22;
+
+  /* --- Soft layered shadows --- */
+  --shadow-sm: 0 1px 2px rgb(26, 28, 34, 0.06);
+  --shadow-md: 0 8px 24px rgb(26, 28, 34, 0.08);
+
+  /* --- Code token colors (light code surface) --- */
+  --tok-plain: #1A1C22;
+  --tok-keyword: #6A4FA3;
+  --tok-string: #8A6A2F;
+  --tok-char: #8A6A2F;
+  --tok-comment: #8A8FA0;
+  --tok-number: #2E7D5B;
+  --tok-annotation: #B25048;
+
+  /* --- Visualization tones (harmonized with Ivory & Ink) --- */
+  --viz-default-fill: #FFFFFF;
+  --viz-default-stroke: #C9C2B2;
+  --viz-active-fill: #E3EBF7;
+  --viz-active-stroke: #3F6DA8;
+  --viz-compared-fill: #F7ECD4;
+  --viz-compared-stroke: #A96F1F;
+  --viz-swapped-fill: #DFF0E7;
+  --viz-swapped-stroke: #2E7D5B;
+  --viz-done-fill: #EFE7D3;
+  --viz-done-stroke: #8A6A2F;
+  --viz-ink: #1A1C22;
+  --viz-muted-ink: #6B6F7B;
+
+  /* --- Big-O chart curves --- */
+  --curve-o1: #3F6DA8;
+  --curve-ologn: #2E7D5B;
+  --curve-on: #C9A227;
+  --curve-on-ink: #8A6A2F;
+  --curve-onlogn: #C26A2B;
+  --curve-on2: #B25048;
+
+  /* --- Spacing (4px base) --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* --- Radius --- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  /* --- Typography (self-hosted via @fontsource, see main.tsx) --- */
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+
+  /* --- Layout --- */
+  --max-content-width: 72rem;
+  --navbar-height: 4rem;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* --- Colors: DARK "Ink & Champagne" --- */
+  --color-bg: #0B0D12;
+  --color-bg-raised: #12151C;
+  --color-bg-code: #181C26;
+  --color-surface: #12151C;
+  --color-surface-2: #181C26;
+  --color-border: #232836;
+  --color-text: #E8E6E1;
+  --color-text-muted: #8B90A0;
+  --color-primary: #C9A96E;
+  --color-primary-hover: #D8BC86;
+  --color-primary-contrast: #0B0D12;
+  --color-accent: #C9A96E;
+  --color-accent-soft: rgba(201, 169, 110, 0.12);
+  --color-success: #5FB49C;
+  --color-warning: #D9A441;
+  --color-danger: #D4726A;
+  --color-info: #6E9BD1;
+  --color-badge-bg: #232836;
+  --color-badge-text: #E8E6E1;
+
+  /* --- Soft layered shadows --- */
+  --shadow-sm: 0 1px 2px rgb(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgb(0, 0, 0, 0.45);
+
+  /* --- Code token colors (dark code surface) --- */
+  --tok-plain: #E8E6E1;
+  --tok-keyword: #8FB8F0;
+  --tok-string: #D9A441;
+  --tok-char: #D9A441;
+  --tok-comment: #69707F;
+  --tok-number: #8FD6B8;
+  --tok-annotation: #D4726A;
+
+  /* --- Visualization tones (harmonized with Ink & Champagne) --- */
+  --viz-default-fill: #181C26;
+  --viz-default-stroke: #3A4152;
+  --viz-active-fill: #1B2B4A;
+  --viz-active-stroke: #6E9BD1;
+  --viz-compared-fill: #3A2C12;
+  --viz-compared-stroke: #D9A441;
+  --viz-swapped-fill: #12352C;
+  --viz-swapped-stroke: #5FB49C;
+  --viz-done-fill: #2E2820;
+  --viz-done-stroke: #C9A96E;
+  --viz-ink: #E8E6E1;
+  --viz-muted-ink: #8B90A0;
+
+  /* --- Big-O chart curves --- */
+  --curve-o1: #6E9BD1;
+  --curve-ologn: #5FB49C;
+  --curve-on: #E3C566;
+  --curve-on-ink: #E3C566;
+  --curve-onlogn: #E09A5A;
+  --curve-on2: #D4726A;
+}
