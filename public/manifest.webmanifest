@@ -1,0 +1,32 @@
+{
+  "name": "Systems Whispering — Learn the craft. Whisper to systems.",
+  "short_name": "SysWhisper",
+  "description": "Java DSA learned visually: animations, compilable Java, LeetCode practice, study sheets, and low-level design.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#141419",
+  "theme_color": "#D8BC86",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

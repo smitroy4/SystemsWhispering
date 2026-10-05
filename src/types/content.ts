@@ -22,6 +22,12 @@ export interface CodeSnippet {
   code: string;
 }
 
+/** "Choose this when / avoid when" box rendered under the topic header. */
+export interface ChoiceBox {
+  choose: string[];
+  avoid: string[];
+}
+
 export interface ComplexityRow {
   operation: string;
   best: string;
@@ -32,6 +38,12 @@ export interface ComplexityRow {
 
 export type TopicSection = 'core' | 'collections' | 'concurrent' | 'advanced';
 
+/** Structural grouping for data-structure topics (index page + sidebar). */
+export type TopicGroup = 'linear' | 'non-linear' | 'collections' | 'concurrent';
+
+/** Publication status. Stubs are 'draft' until their content step marks them 'complete'. */
+export type TopicStatus = 'draft' | 'complete';
+
 export interface Topic {
   slug: string;
   title: string;
@@ -40,6 +52,10 @@ export interface Topic {
   summary: string;
   level: TopicLevel;
   section?: TopicSection;
+  /** Structural group. Required for data-structure topics, unused elsewhere. */
+  group?: TopicGroup;
+  /** Omitted status means a complete (fully written) topic. */
+  status?: TopicStatus;
   prerequisites: string[];
   sections: Section[];
   complexity: ComplexityRow[];
@@ -47,8 +63,15 @@ export interface Topic {
   mistakes: string[];
   vizId?: string;
   problemIds: string[];
+  /**
+   * Shown above the practice list for concept-level topics where fewer than
+   * three relevant LeetCode problems exist (e.g. Skip List, Bloom Filter).
+   */
+  practiceNote?: string;
   /** Ids of Concept Gallery visuals for this topic (populated by gallery steps). */
   illustrations?: string[];
+  /** "Choose this when / avoid when" box (Collections + Concurrent topics). */
+  choiceBox?: ChoiceBox;
   /** JDK classes covered by this topic, e.g. `java.util.ArrayList`. */
   javaBuiltIn?: string[];
   /** Related topic slugs for cross-linking. */
@@ -56,15 +79,18 @@ export interface Topic {
 }
 
 export interface Problem {
+  /** LeetCode problem number as a string, e.g. "1" for Two Sum. Unique. */
   id: string;
   title: string;
-  /** Real LeetCode slug, e.g. "two-sum". */
+  /** Real LeetCode slug, e.g. "two-sum". Unique. */
   slug: string;
   leetcodeUrl: string;
   difficulty: ProblemDifficulty;
   dataStructures: string[];
   patterns: string[];
   sheets?: string[];
+  /** Hiring companies, only when certain — otherwise omitted. */
+  companies?: string[];
 }
 
 export interface SheetDay {
@@ -75,10 +101,14 @@ export interface SheetDay {
   goal: string;
 }
 
+export type SheetDifficulty = 'Beginner' | 'Intermediate' | 'Advanced' | 'Veteran';
+
 export interface Sheet {
   slug: string;
   title: string;
   description: string;
+  /** Displayed on the Sheets cards (study intensity). */
+  difficulty: SheetDifficulty;
   days: SheetDay[];
 }
 

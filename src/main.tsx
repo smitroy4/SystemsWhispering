@@ -7,6 +7,7 @@ import '@fontsource-variable/fraunces';
 import '@fontsource-variable/jetbrains-mono';
 import './styles/tokens.css';
 import './styles/global.css';
+import './styles/pwa.css';
 
 const rootEl = document.getElementById('root');
 
@@ -21,3 +22,11 @@ createRoot(rootEl).render(
     </BrowserRouter>
   </StrictMode>,
 );
+
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Offline shell unavailable (private mode, unsupported browser).
+    });
+  });
+}

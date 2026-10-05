@@ -4,52 +4,25 @@ import { PageShell } from '../components/layout/index.ts';
 import { Card } from '../components/ui/index.ts';
 import { getAllTopics } from '../utils/content.ts';
 import { problems } from '../content/problems/index.ts';
-import { sheets } from '../content/sheets/index.ts';
+import { lldModules } from '../content/lld/index.ts';
 import { usePageMeta } from '../utils/pageMeta.ts';
 import './HomePage.css';
 
 interface ResumeState {
-  sheetSlug: string;
-  sheetTitle: string;
-  nextDay: number;
-  totalDays: number;
   solvedCount: number;
 }
 
 function readResumeState(): ResumeState | null {
   try {
-    let best: { slug: string; title: string; done: number; total: number } | null = null;
-    for (const sheet of sheets) {
-      const raw = window.localStorage.getItem(`s4j-sheet-progress-${sheet.slug}`);
-      if (!raw) continue;
-      const parsed: unknown = JSON.parse(raw);
-      if (!Array.isArray(parsed)) continue;
-      const done = parsed.filter((d): d is number => typeof d === 'number').length;
-      if (done === 0) continue;
-      if (!best || done / sheet.days.length > best.done / best.total) {
-        best = { slug: sheet.slug, title: sheet.title, done, total: sheet.days.length };
-      }
-    }
     const solvedRaw = window.localStorage.getItem('s4j-dsa-solved-problems');
     const solvedParsed: unknown = solvedRaw ? JSON.parse(solvedRaw) : [];
-    const solvedCount = Array.isArray(solvedParsed) ? solvedParsed.length : 0;
-    if (!best) {
-      return solvedCount > 0
-        ? { sheetSlug: '', sheetTitle: '', nextDay: 0, totalDays: 0, solvedCount }
-        : null;
-    }
-    const sheet = sheets.find((s) => s.slug === best.slug);
-    const completedDays = new Set<number>(
-      JSON.parse(window.localStorage.getItem(`s4j-sheet-progress-${best.slug}`) ?? '[]') as number[],
-    );
-    const nextDay = sheet?.days.map((d) => d.day).find((d) => !completedDays.has(d)) ?? 1;
-    return {
-      sheetSlug: best.slug,
-      sheetTitle: best.title,
-      nextDay,
-      totalDays: best.total,
-      solvedCount,
-    };
+    const ids = Array.isArray(solvedParsed)
+      ? solvedParsed.filter((id): id is string => typeof id === 'string')
+      : Object.keys(solvedParsed as Record<string, unknown>).filter(
+          (id) => (solvedParsed as Record<string, unknown>)[id] === true,
+        );
+    const solvedCount = ids.length;
+    return solvedCount > 0 ? { solvedCount } : null;
   } catch {
     return null;
   }
@@ -59,7 +32,7 @@ const SECTIONS = [
   {
     to: '/data-structures',
     title: 'Data Structures',
-    blurb: 'Arrays to advanced graphs, with memory-level Java intuition.',
+    blurb: 'Linear, non-linear, Java collections, and concurrent structures — with memory-level intuition.',
     count: (n: number) => `${n} topics`,
   },
   {
@@ -71,7 +44,7 @@ const SECTIONS = [
   {
     to: '/concepts',
     title: 'Concepts',
-    blurb: 'Complexity, recursion, Java memory, and collections know-how.',
+    blurb: 'Complexity, recursion, Java memory, bit tricks, and collections know-how.',
     count: (n: number) => `${n} topics`,
   },
   {
@@ -80,58 +53,54 @@ const SECTIONS = [
     blurb: 'Curated LeetCode practice with filters and progress tracking.',
     count: (n: number) => `${n} problems`,
   },
+  {
+    to: '/lld',
+    title: 'Low-Level Design',
+    blurb: 'Object-oriented design, SOLID, and patterns in Java — growing module by module.',
+    count: (n: number) => `${n} ${n === 1 ? 'module' : 'modules'}`,
+  },
 ] as const;
 
 export default function HomePage() {
   usePageMeta(
-    'Learn Data Structures & Algorithms in Java',
-    'Systems Whispering — learn the craft, whisper to systems: data structures and algorithms from scratch, arrays to advanced graphs, with Java code and animated visualizations.',
+    'Java Data Structures & Algorithms, Collections, Concurrency and Low-Level Design',
+    'Systems Whispering — learn Java DSA visually: 60+ animated topics, compilable Java code, curated LeetCode practice with progress tracking, guided study sheets, and low-level design.',
   );
 
   const [resume] = useState<ResumeState | null>(readResumeState);
-  const counts = {
+  const counts: Record<string, number> = {
     'data-structures': getAllTopics('data-structures').length,
     algorithms: getAllTopics('algorithms').length,
     concepts: getAllTopics('concepts').length,
     problems: problems.length,
+    lld: lldModules.length,
   };
   const path = getAllTopics('data-structures');
 
   return (
     <PageShell
       title="Systems Whispering"
-      description="Learn the craft. Whisper to systems. Data structures and algorithms from scratch — arrays to advanced graphs — with Java code and animated visualizations."
+      description="Learn the craft. Whisper to systems. Java data structures, algorithms, and collections — then low-level design — taught visually with animations and code you can compile."
     >
       <section className="hero" aria-label="Introduction">
-        <h2 className="hero__title">From arrays to advanced graphs, one visualization at a time.</h2>
+        <h2 className="hero__title">From arrays to system design, one visualization at a time.</h2>
         <p className="hero__text">
           Every topic pairs plain-English explanation with compilable Java and a
-          step-by-step animation you can play, pause, and scrub.
+          step-by-step animation you can play, pause, and scrub — then locks it
+          in with curated practice and guided study sheets.
         </p>
         <div className="hero__actions">
-          <Link className="hero__cta" to="/data-structures/array">
-            Start with Arrays
-          </Link>
-          <Link className="hero__secondary" to="/sheets">
-            Pick a study sheet
+          <Link className="hero__cta" to="/sheets">
+            Start with a Sheet
           </Link>
         </div>
       </section>
 
       {resume ? (
         <Card title="Continue where you left off">
-          {resume.sheetSlug ? (
-            <p>
-              <Link to={`/sheets/${resume.sheetSlug}`}>
-                {resume.sheetTitle} — day {resume.nextDay} of {resume.totalDays}
-              </Link>
-            </p>
-          ) : null}
-          {resume.solvedCount > 0 ? (
-            <p>
-              <Link to="/problems">{resume.solvedCount} problems solved — keep going</Link>
-            </p>
-          ) : null}
+          <p>
+            <Link to="/problems">{resume.solvedCount} problems solved — keep going</Link>
+          </p>
         </Card>
       ) : null}
 
@@ -142,18 +111,30 @@ export default function HomePage() {
             <p>{section.blurb}</p>
             <p>
               <Link to={section.to}>
-                {section.to === '/problems'
-                  ? section.count(counts.problems)
-                  : section.count(
-                      counts[
-                        section.to.slice(1) as 'data-structures' | 'algorithms' | 'concepts'
-                      ],
-                    )}{' '}
-                →
+                {section.count(counts[section.to.slice(1)] ?? 0)} →
               </Link>
+              {section.to === '/problems' ? (
+                <span>
+                  {' '}
+                  · <Link to="/sheets">Study sheets</Link>
+                </span>
+              ) : null}
             </p>
           </Card>
         ))}
+      </div>
+
+      <h2 className="home-section-title">How it works</h2>
+      <div className="home-cards">
+        <Card title="Learn the intuition">
+          <p>Plain-English explanations with memory-level detail — when to use each structure, and when to avoid it.</p>
+        </Card>
+        <Card title="Watch it move">
+          <p>Step-by-step SVG animations with play, pause, and speed controls. Every operation, frame by frame.</p>
+        </Card>
+        <Card title="Practice deliberately">
+          <p>Curated LeetCode problems per topic, five guided study sheets, and progress that saves in your browser.</p>
+        </Card>
       </div>
 
       <h2 className="home-section-title">Learning path</h2>
@@ -164,18 +145,6 @@ export default function HomePage() {
           </li>
         ))}
       </ol>
-
-      <h2 className="home-section-title">Study sheets</h2>
-      <div className="home-cards">
-        {sheets.map((sheet) => (
-          <Card key={sheet.slug} title={sheet.title}>
-            <p>{sheet.description}</p>
-            <p>
-              <Link to={`/sheets/${sheet.slug}`}>{sheet.days.length} days →</Link>
-            </p>
-          </Card>
-        ))}
-      </div>
     </PageShell>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import type { ThemeMode } from '../../utils/theme.ts';
 import SearchBox from './SearchBox.tsx';
 import './Navbar.css';
@@ -32,21 +32,75 @@ function MoonIcon() {
   );
 }
 
-const NAV_LINKS = [
-  { to: '/data-structures', label: 'Data Structures' },
-  { to: '/algorithms', label: 'Algorithms' },
-  { to: '/concepts', label: 'Concepts' },
-  { to: '/problems', label: 'Problems' },
-  { to: '/lld', label: 'Low-Level Design' },
+interface NavMenuItem {
+  label: string;
+  /** Omitted while the section has no route yet — renders as a "soon" row. */
+  to?: string;
+}
+
+interface NavMenu {
+  label: string;
+  items: NavMenuItem[];
+}
+
+const NAV_MENUS: NavMenu[] = [
+  {
+    label: 'Data Structures & Algorithms',
+    items: [
+      { label: 'Data Structures', to: '/data-structures' },
+      { label: 'Algorithms', to: '/algorithms' },
+      { label: 'Concepts', to: '/concepts' },
+      { label: 'Problems', to: '/problems' },
+      { label: 'Sheets', to: '/sheets' },
+    ],
+  },
+  {
+    label: 'System Design',
+    items: [
+      { label: 'Low-level Design', to: '/lld' },
+      { label: 'High-level Design' },
+    ],
+  },
+  {
+    label: 'The Backend Craft',
+    items: [
+      { label: 'Spring: Systems Bloom' },
+      { label: 'Cloud-native Architecture' },
+      { label: 'The Persistence Layer' },
+    ],
+  },
+  {
+    label: 'AI & ML',
+    items: [
+      { label: 'AI Fundamentals' },
+      { label: 'LLMs & Generative AI' },
+      { label: 'RAG & AI Applications' },
+      { label: 'AI Engineering & Agents' },
+    ],
+  },
 ];
 
 export default function Navbar({ mode, onCycleTheme }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const location = useLocation();
+
+  const closeMenus = () => {
+    setMenuOpen(false);
+    setOpenMenu(null);
+  };
+
+  const menuActive = (menu: NavMenu): boolean =>
+    menu.items.some(
+      (item) =>
+        item.to !== undefined &&
+        (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
+    );
 
   return (
     <header className="navbar">
       <div className="container navbar__inner">
-        <Link to="/" className="navbar__brand" onClick={() => setMenuOpen(false)}>
+        <Link to="/" className="navbar__brand" onClick={closeMenus}>
           Systems <span className="navbar__brand-accent">Whispering</span>
         </Link>
 
@@ -66,20 +120,63 @@ export default function Navbar({ mode, onCycleTheme }: NavbarProps) {
           className={`navbar__nav${menuOpen ? ' navbar__nav--open' : ''}`}
           aria-label="Primary"
         >
-          {NAV_LINKS.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                `navbar__link${isActive ? ' navbar__link--active' : ''}`
-              }
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </NavLink>
-          ))}
+          {NAV_MENUS.map((menu) => {
+            const isOpen = openMenu === menu.label;
+            return (
+              <div
+                key={menu.label}
+                className="navbar__dropdown"
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                    setOpenMenu(null);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') setOpenMenu(null);
+                }}
+              >
+                <button
+                  type="button"
+                  className={`navbar__link navbar__dropdown-toggle${menuActive(menu) ? ' navbar__link--active' : ''}`}
+                  aria-expanded={isOpen}
+                  aria-haspopup="true"
+                  onClick={() => setOpenMenu(isOpen ? null : menu.label)}
+                >
+                  {menu.label} <span className="navbar__caret" aria-hidden="true" />
+                </button>
+                {isOpen ? (
+                  <div className="navbar__dropdown-menu" role="menu" aria-label={menu.label}>
+                    {menu.items.map((item) =>
+                      item.to ? (
+                        <NavLink
+                          key={item.label}
+                          to={item.to}
+                          role="menuitem"
+                          className={({ isActive }) =>
+                            `navbar__link${isActive ? ' navbar__link--active' : ''}`
+                          }
+                          onClick={closeMenus}
+                        >
+                          {item.label}
+                        </NavLink>
+                      ) : (
+                        <span
+                          key={item.label}
+                          role="menuitem"
+                          aria-disabled="true"
+                          className="navbar__link navbar__link--disabled"
+                        >
+                          {item.label} <span className="navbar__soon">soon</span>
+                        </span>
+                      ),
+                    )}
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
           <div className="navbar__search">
-            <SearchBox onNavigate={() => setMenuOpen(false)} />
+            <SearchBox onNavigate={closeMenus} />
           </div>
         </nav>
 

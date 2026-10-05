@@ -8,6 +8,7 @@ export const stackTopic: Topic = {
   order: 6,
   summary: 'Last-in, first-out: push and pop from one end. The shape of method calls, undo, brackets, and next-greater problems.',
   level: 'beginner',
+  group: 'linear',
   prerequisites: ['dynamic-array'],
   sections: [
     {

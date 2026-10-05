@@ -3,6 +3,7 @@ import type {
   ProblemDifficulty,
   Topic,
   TopicCategory,
+  TopicGroup,
 } from '../types/content.ts';
 import { dataStructures } from '../content/dataStructures/index.ts';
 import { algorithms } from '../content/algorithms/index.ts';
@@ -25,9 +26,42 @@ export function getTopic(category: TopicCategory, slug: string): Topic | undefin
   return topicsByCategory[category].find((topic) => topic.slug === slug);
 }
 
-/** A single practice problem by id. */
+/** A single practice problem by id (numeric) or slug (legacy refs). */
 export function getProblem(id: string): Problem | undefined {
-  return problems.find((problem) => problem.id === id);
+  return problems.find((problem) => problem.id === id || problem.slug === id);
+}
+
+/** Display order of data-structure groups on index + sidebar. */
+export const TOPIC_GROUP_ORDER: TopicGroup[] = ['linear', 'non-linear', 'collections', 'concurrent'];
+
+/** Heading + short description for each data-structure group. */
+export const TOPIC_GROUP_META: Record<TopicGroup, { title: string; description: string }> = {
+  linear: {
+    title: 'Linear',
+    description: 'Sequential storage — arrays, linked lists, stacks, queues. One element after another.',
+  },
+  'non-linear': {
+    title: 'Non-linear',
+    description: 'Branching structures — trees, heaps, tries, graphs. Hierarchies and networks.',
+  },
+  collections: {
+    title: 'Collections',
+    description: 'The Java Collections Framework — ArrayList, HashMap, TreeSet and friends.',
+  },
+  concurrent: {
+    title: 'Concurrent Collections',
+    description: 'Thread-safe structures — ConcurrentHashMap, queues and more for many threads.',
+  },
+};
+
+/** True when a topic is a not-yet-written stub. */
+export function isDraftTopic(topic: Topic): boolean {
+  return topic.status === 'draft';
+}
+
+/** Topics of a category in one group, sorted by `order`. */
+export function getTopicsByGroup(category: TopicCategory, group: TopicGroup): Topic[] {
+  return getAllTopics(category).filter((topic) => topic.group === group);
 }
 
 /** Find a topic by slug across all categories (for cross-links). */

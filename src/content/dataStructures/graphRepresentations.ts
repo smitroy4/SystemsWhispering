@@ -8,6 +8,7 @@ export const graphRepresentationsTopic: Topic = {
   order: 17,
   summary: 'Three ways to store a graph — edge lists, adjacency lists, adjacency matrices — and how the choice shapes every algorithm.',
   level: 'intermediate',
+  group: 'non-linear',
   prerequisites: ['dynamic-array', 'singly-linked-list'],
   sections: [
     {

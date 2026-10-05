@@ -51,6 +51,10 @@
     "title": "Burst Balloons",
     "difficulty": "Hard"
   },
+  "building-h2o": {
+    "title": "Building H2O",
+    "difficulty": "Medium"
+  },
   "car-fleet": {
     "title": "Car Fleet",
     "difficulty": "Medium"
@@ -131,6 +135,10 @@
     "title": "Design Add and Search Words Data Structure",
     "difficulty": "Medium"
   },
+  "design-bounded-blocking-queue": {
+    "title": "Design Bounded Blocking Queue",
+    "difficulty": "Medium"
+  },
   "design-browser-history": {
     "title": "Design Browser History",
     "difficulty": "Medium"
@@ -138,6 +146,10 @@
   "design-hashmap": {
     "title": "Design HashMap",
     "difficulty": "Easy"
+  },
+  "design-hit-counter": {
+    "title": "Design Hit Counter",
+    "difficulty": "Medium"
   },
   "design-linked-list": {
     "title": "Design Linked List",
@@ -198,6 +210,10 @@
   "first-bad-version": {
     "title": "First Bad Version",
     "difficulty": "Easy"
+  },
+  "fizz-buzz-multithreaded": {
+    "title": "Fizz Buzz Multithreaded",
+    "difficulty": "Medium"
   },
   "gas-station": {
     "title": "Gas Station",
@@ -346,6 +362,10 @@
   "lowest-common-ancestor-of-a-binary-search-tree": {
     "title": "Lowest Common Ancestor of a Binary Search Tree",
     "difficulty": "Easy"
+  },
+  "lfu-cache": {
+    "title": "LFU Cache",
+    "difficulty": "Hard"
   },
   "lru-cache": {
     "title": "LRU Cache",
@@ -523,6 +543,18 @@
     "title": "Pow(x, n)",
     "difficulty": "Medium"
   },
+  "print-foobar-alternately": {
+    "title": "Print FooBar Alternately",
+    "difficulty": "Medium"
+  },
+  "print-in-order": {
+    "title": "Print in Order",
+    "difficulty": "Easy"
+  },
+  "print-zero-even-odd": {
+    "title": "Print Zero Even Odd",
+    "difficulty": "Medium"
+  },
   "product-of-array-except-self": {
     "title": "Product of Array Except Self",
     "difficulty": "Medium"
@@ -671,6 +703,10 @@
     "title": "Task Scheduler",
     "difficulty": "Medium"
   },
+  "the-dining-philosophers": {
+    "title": "The Dining Philosophers",
+    "difficulty": "Medium"
+  },
   "time-based-key-value-store": {
     "title": "Time Based Key-Value Store",
     "difficulty": "Medium"
@@ -678,6 +714,10 @@
   "top-k-frequent-elements": {
     "title": "Top K Frequent Elements",
     "difficulty": "Medium"
+  },
+  "traffic-light-controlled-intersection": {
+    "title": "Traffic Light Controlled Intersection",
+    "difficulty": "Easy"
   },
   "trapping-rain-water": {
     "title": "Trapping Rain Water",

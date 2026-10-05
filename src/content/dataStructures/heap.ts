@@ -8,6 +8,7 @@ export const heapTopic: Topic = {
   order: 12,
   summary: 'Complete binary trees packed into arrays: O(1) max/min, O(log n) insert and extract — the engine behind PriorityQueue.',
   level: 'intermediate',
+  group: 'non-linear',
   prerequisites: ['binary-tree', 'dynamic-array'],
   sections: [
     {

@@ -1,2363 +1,1281 @@
 import type { Sheet } from '../../types/content.ts';
 
-export const s4j180DaysMasterySheet: Sheet = {
-  "slug": "s4j-180-days-mastery",
-  "title": "180-Day Deep Dive",
-  "description": "Full immersion into CS fundamentals, advanced DSA, and system design basics.",
-  "days": [
-    {
-      "day": 1,
-      "title": "Linear Search",
-      "goal": "Master Linear Search",
-      "topicSlugs": [
-        "linear-search"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 2,
-      "title": "Big-O & Complexity Analysis",
-      "goal": "Master Big-O & Complexity Analysis",
-      "topicSlugs": [
-        "big-o-notation"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 3,
-      "title": "Binary Search",
-      "goal": "Master Binary Search",
-      "topicSlugs": [
-        "binary-search"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 4,
-      "title": "Amortized Analysis",
-      "goal": "Master Amortized Analysis",
-      "topicSlugs": [
-        "amortized-analysis"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 5,
-      "title": "Bubble Sort",
-      "goal": "Master Bubble Sort",
-      "topicSlugs": [
-        "bubble-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 6,
-      "title": "Recursion & the Call Stack",
-      "goal": "Master Recursion & the Call Stack",
-      "topicSlugs": [
-        "recursion-call-stack"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 7,
-      "title": "Weekly Revision 1",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "linear-search",
-        "big-o-notation",
-        "binary-search",
-        "amortized-analysis",
-        "bubble-sort",
-        "recursion-call-stack"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
+/**
+ * 180-day mastery: foundations sprint, algorithms depth, graphs, DP,
+ * collections + concurrency, advanced hardening, then LLD fundamentals
+ * (Step 18 links) and graduation. Every 7th day is revision; every 14th
+ * day is a mock test.
+ */
+export const s4j180DaysMastery: Sheet = {
+  slug: 's4j-180-days-mastery',
+  title: 'S4J 180-Day Mastery',
+  description:
+    'Six months from fundamentals to advanced graphs, DP, and concurrency: weekly revision, a mock test every 14 days, hardening phases, LLD fundamentals, and a graduation capstone.',
+  difficulty: 'Advanced',
+  days: [
     {
-      "day": 8,
-      "title": "Selection Sort",
-      "goal": "Master Selection Sort",
-      "topicSlugs": [
-        "selection-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 9,
-      "title": "Memory: Stack vs Heap",
-      "goal": "Master Memory: Stack vs Heap",
-      "topicSlugs": [
-        "memory-stack-vs-heap"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 10,
-      "title": "Insertion Sort",
-      "goal": "Master Insertion Sort",
-      "topicSlugs": [
-        "insertion-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 11,
-      "title": "Pass-by-Value in Java",
-      "goal": "Master Pass-by-Value in Java",
-      "topicSlugs": [
-        "pass-by-value-java"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 12,
-      "title": "Merge Sort",
-      "goal": "Master Merge Sort",
-      "topicSlugs": [
-        "merge-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 13,
-      "title": "equals/hashCode Contract",
-      "goal": "Master equals/hashCode Contract",
-      "topicSlugs": [
-        "equals-hashcode-contract"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 14,
-      "title": "Weekly Revision 2",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "binary-search",
-        "amortized-analysis",
-        "bubble-sort",
-        "recursion-call-stack",
-        "selection-sort",
-        "memory-stack-vs-heap",
-        "insertion-sort",
-        "pass-by-value-java",
-        "merge-sort",
-        "equals-hashcode-contract"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 15,
-      "title": "Quick Sort",
-      "goal": "Master Quick Sort",
-      "topicSlugs": [
-        "quick-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 16,
-      "title": "Comparable vs Comparator",
-      "goal": "Master Comparable vs Comparator",
-      "topicSlugs": [
-        "comparable-vs-comparator"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 17,
-      "title": "Heap Sort",
-      "goal": "Master Heap Sort",
-      "topicSlugs": [
-        "heap-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 18,
-      "title": "Collections Framework Map",
-      "goal": "Master Collections Framework Map",
-      "topicSlugs": [
-        "collections-framework-map"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 19,
-      "title": "Counting Sort",
-      "goal": "Master Counting Sort",
-      "topicSlugs": [
-        "counting-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 20,
-      "title": "Bit Manipulation",
-      "goal": "Master Bit Manipulation",
-      "topicSlugs": [
-        "bit-manipulation"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 21,
-      "title": "Weekly Revision 3",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "insertion-sort",
-        "pass-by-value-java",
-        "merge-sort",
-        "equals-hashcode-contract",
-        "quick-sort",
-        "comparable-vs-comparator",
-        "heap-sort",
-        "collections-framework-map",
-        "counting-sort",
-        "bit-manipulation"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 22,
-      "title": "Arrays",
-      "goal": "Master Arrays",
-      "topicSlugs": [
-        "array"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 23,
-      "title": "Doubly Linked Lists",
-      "goal": "Master Doubly Linked Lists",
-      "topicSlugs": [
-        "doubly-linked-list"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 24,
-      "title": "Segment Trees",
-      "goal": "Master Segment Trees",
-      "topicSlugs": [
-        "segment-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 25,
-      "title": "Bloom Filter",
-      "goal": "Master Bloom Filter",
-      "topicSlugs": [
-        "bloom-filter"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 26,
-      "title": "Two Pointers",
-      "goal": "Master Two Pointers",
-      "topicSlugs": [
-        "two-pointers"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 27,
-      "title": "Interval Problems",
-      "goal": "Master Interval Problems",
-      "topicSlugs": [
-        "interval-problems"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 28,
-      "title": "Weekly Revision 4",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "heap-sort",
-        "collections-framework-map",
-        "counting-sort",
-        "bit-manipulation",
-        "array",
-        "doubly-linked-list",
-        "segment-tree",
-        "bloom-filter",
-        "two-pointers",
-        "interval-problems"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 29,
-      "title": "Sliding Window",
-      "goal": "Master Sliding Window",
-      "topicSlugs": [
-        "sliding-window"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 30,
-      "title": "Monotonic Stack & Queue",
-      "goal": "Master Monotonic Stack & Queue",
-      "topicSlugs": [
-        "monotonic-stack-queue"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 31,
-      "title": "Prefix Sums",
-      "goal": "Master Prefix Sums",
-      "topicSlugs": [
-        "prefix-sum"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 32,
-      "title": "Problem-Solving Framework",
-      "goal": "Master Problem-Solving Framework",
-      "topicSlugs": [
-        "problem-solving-framework"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 33,
-      "title": "Fast & Slow Pointers",
-      "goal": "Master Fast & Slow Pointers",
-      "topicSlugs": [
-        "fast-slow-pointers"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 34,
-      "title": "Recursion Trees",
-      "goal": "Master Recursion Trees",
-      "topicSlugs": [
-        "recursion-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 35,
-      "title": "Weekly Revision 5",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "segment-tree",
-        "bloom-filter",
-        "two-pointers",
-        "interval-problems",
-        "sliding-window",
-        "monotonic-stack-queue",
-        "prefix-sum",
-        "problem-solving-framework",
-        "fast-slow-pointers",
-        "recursion-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 36,
-      "title": "Backtracking",
-      "goal": "Master Backtracking",
-      "topicSlugs": [
-        "backtracking"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 37,
-      "title": "Divide & Conquer",
-      "goal": "Master Divide & Conquer",
-      "topicSlugs": [
-        "divide-and-conquer"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 38,
-      "title": "Greedy Algorithms",
-      "goal": "Master Greedy Algorithms",
-      "topicSlugs": [
-        "greedy"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 39,
-      "title": "Breadth-First Search",
-      "goal": "Master Breadth-First Search",
-      "topicSlugs": [
-        "bfs"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 40,
-      "title": "Depth-First Search",
-      "goal": "Master Depth-First Search",
-      "topicSlugs": [
-        "dfs"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 41,
-      "title": "2D Arrays & Matrices",
-      "goal": "Master 2D Arrays & Matrices",
-      "topicSlugs": [
-        "2d-arrays-and-matrices"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 42,
-      "title": "Weekly Revision 6",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "prefix-sum",
-        "problem-solving-framework",
-        "fast-slow-pointers",
-        "recursion-tree",
-        "backtracking",
-        "divide-and-conquer",
-        "greedy",
-        "bfs",
-        "dfs",
-        "2d-arrays-and-matrices"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 43,
-      "title": "Hash Tables",
-      "goal": "Master Hash Tables",
-      "topicSlugs": [
-        "hash-table"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 44,
-      "title": "Lazy Propagation Segment Tree",
-      "goal": "Master Lazy Propagation Segment Tree",
-      "topicSlugs": [
-        "lazy-propagation-segment-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 45,
-      "title": "Count-Min Sketch & HyperLogLog",
-      "goal": "Master Count-Min Sketch & HyperLogLog",
-      "topicSlugs": [
-        "count-min-sketch-and-hyperloglog"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 46,
-      "title": "Topological Sort",
-      "goal": "Master Topological Sort",
-      "topicSlugs": [
-        "topological-sort"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 47,
-      "title": "Dijkstra's Algorithm",
-      "goal": "Master Dijkstra's Algorithm",
-      "topicSlugs": [
-        "dijkstra"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 48,
-      "title": "Bellman-Ford",
-      "goal": "Master Bellman-Ford",
-      "topicSlugs": [
-        "bellman-ford"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 49,
-      "title": "Weekly Revision 7",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "greedy",
-        "bfs",
-        "dfs",
-        "2d-arrays-and-matrices",
-        "hash-table",
-        "lazy-propagation-segment-tree",
-        "count-min-sketch-and-hyperloglog",
-        "topological-sort",
-        "dijkstra",
-        "bellman-ford"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 50,
-      "title": "Union-Find Cycle Detection",
-      "goal": "Master Union-Find Cycle Detection",
-      "topicSlugs": [
-        "union-find-cycle-detection"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 51,
-      "title": "Kruskal's Algorithm",
-      "goal": "Master Kruskal's Algorithm",
-      "topicSlugs": [
-        "kruskal"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 52,
-      "title": "Prim's Algorithm",
-      "goal": "Master Prim's Algorithm",
-      "topicSlugs": [
-        "prim"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 53,
-      "title": "1D Dynamic Programming",
-      "goal": "Master 1D Dynamic Programming",
-      "topicSlugs": [
-        "dynamic-programming-1d"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 54,
-      "title": "2D Dynamic Programming",
-      "goal": "Master 2D Dynamic Programming",
-      "topicSlugs": [
-        "dynamic-programming-2d"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 55,
-      "title": "0/1 Knapsack",
-      "goal": "Master 0/1 Knapsack",
-      "topicSlugs": [
-        "knapsack"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 56,
-      "title": "Weekly Revision 8",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "count-min-sketch-and-hyperloglog",
-        "topological-sort",
-        "dijkstra",
-        "bellman-ford",
-        "union-find-cycle-detection",
-        "kruskal",
-        "prim",
-        "dynamic-programming-1d",
-        "dynamic-programming-2d",
-        "knapsack"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 57,
-      "title": "Arrays & Collections Utility Classes",
-      "goal": "Master Arrays & Collections Utility Classes",
-      "topicSlugs": [
-        "arrays-and-collections-utility-classes"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 58,
-      "title": "LinkedHashMap & LinkedHashSet",
-      "goal": "Master LinkedHashMap & LinkedHashSet",
-      "topicSlugs": [
-        "linkedhashmap-and-linkedhashset"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 59,
-      "title": "Fenwick Trees (BIT)",
-      "goal": "Master Fenwick Trees (BIT)",
-      "topicSlugs": [
-        "fenwick-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 60,
-      "title": "Merkle Tree",
-      "goal": "Master Merkle Tree",
-      "topicSlugs": [
-        "merkle-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 61,
-      "title": "Dynamic Arrays",
-      "goal": "Master Dynamic Arrays",
-      "topicSlugs": [
-        "dynamic-array"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 62,
-      "title": "LRU Cache",
-      "goal": "Master LRU Cache",
-      "topicSlugs": [
-        "lru-cache"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 63,
-      "title": "Weekly Revision 9",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "prim",
-        "dynamic-programming-1d",
-        "dynamic-programming-2d",
-        "knapsack",
-        "arrays-and-collections-utility-classes",
-        "linkedhashmap-and-linkedhashset",
-        "fenwick-tree",
-        "merkle-tree",
-        "dynamic-array",
-        "lru-cache"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 64,
-      "title": "Red-Black Tree",
-      "goal": "Master Red-Black Tree",
-      "topicSlugs": [
-        "red-black-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 65,
-      "title": "KD-Tree",
-      "goal": "Master KD-Tree",
-      "topicSlugs": [
-        "kd-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 66,
-      "title": "Strings & StringBuilder",
-      "goal": "Master Strings & StringBuilder",
-      "topicSlugs": [
-        "string"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 67,
-      "title": "Binary Search Trees",
-      "goal": "Master Binary Search Trees",
-      "topicSlugs": [
-        "binary-search-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 68,
-      "title": "B-Tree & B+ Tree",
-      "goal": "Master B-Tree & B+ Tree",
-      "topicSlugs": [
-        "b-tree-and-b-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 69,
-      "title": "Java Collections Framework Hierarchy",
-      "goal": "Master Java Collections Framework Hierarchy",
-      "topicSlugs": [
-        "java-collections-framework-hierarchy"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 70,
-      "title": "Weekly Revision 10",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "fenwick-tree",
-        "merkle-tree",
-        "dynamic-array",
-        "lru-cache",
-        "red-black-tree",
-        "kd-tree",
-        "string",
-        "binary-search-tree",
-        "b-tree-and-b-tree",
-        "java-collections-framework-hierarchy"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 71,
-      "title": "AVL Tree",
-      "goal": "Master AVL Tree",
-      "topicSlugs": [
-        "avl-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 72,
-      "title": "Skip List",
-      "goal": "Master Skip List",
-      "topicSlugs": [
-        "skip-list"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 73,
-      "title": "Iterators & Fail-Fast Behavior",
-      "goal": "Master Iterators & Fail-Fast Behavior",
-      "topicSlugs": [
-        "iterators-and-fail-fast-behavior"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 74,
-      "title": "TreeMap & TreeSet",
-      "goal": "Master TreeMap & TreeSet",
-      "topicSlugs": [
-        "treemap-and-treeset"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 75,
-      "title": "ConcurrentSkipListMap & Lock-Free Queues",
-      "goal": "Master ConcurrentSkipListMap & Lock-Free Queues",
-      "topicSlugs": [
-        "concurrentskiplistmap-and-lock-free-queues"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 76,
-      "title": "Singly Linked Lists",
-      "goal": "Master Singly Linked Lists",
-      "topicSlugs": [
-        "singly-linked-list"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 77,
-      "title": "Weekly Revision 11",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "string",
-        "binary-search-tree",
-        "b-tree-and-b-tree",
-        "java-collections-framework-hierarchy",
-        "avl-tree",
-        "skip-list",
-        "iterators-and-fail-fast-behavior",
-        "treemap-and-treeset",
-        "concurrentskiplistmap-and-lock-free-queues",
-        "singly-linked-list"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 78,
-      "title": "Multiset via TreeMap",
-      "goal": "Master Multiset via TreeMap",
-      "topicSlugs": [
-        "multiset-via-treemap"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 79,
-      "title": "Interval Tree",
-      "goal": "Master Interval Tree",
-      "topicSlugs": [
-        "interval-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 80,
-      "title": "Circular Linked List",
-      "goal": "Master Circular Linked List",
-      "topicSlugs": [
-        "circular-linked-list"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 81,
-      "title": "Heaps & Priority Queues",
-      "goal": "Master Heaps & Priority Queues",
-      "topicSlugs": [
-        "heap"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 82,
-      "title": "LFU Cache",
-      "goal": "Master LFU Cache",
-      "topicSlugs": [
-        "lfu-cache"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 83,
-      "title": "Java LinkedList Class",
-      "goal": "Master Java LinkedList Class",
-      "topicSlugs": [
-        "java-linkedlist-class"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 84,
-      "title": "Weekly Revision 12",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "iterators-and-fail-fast-behavior",
-        "treemap-and-treeset",
-        "concurrentskiplistmap-and-lock-free-queues",
-        "singly-linked-list",
-        "multiset-via-treemap",
-        "interval-tree",
-        "circular-linked-list",
-        "heap",
-        "lfu-cache",
-        "java-linkedlist-class"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 85,
-      "title": "Monotonic Stack & Queue",
-      "goal": "Master Monotonic Stack & Queue",
-      "topicSlugs": [
-        "monotonic-stack-and-queue"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 86,
-      "title": "Advanced Graphs",
-      "goal": "Master Advanced Graphs",
-      "topicSlugs": [
-        "advanced-graphs"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 87,
-      "title": "Stacks",
-      "goal": "Master Stacks",
-      "topicSlugs": [
-        "stack"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 88,
-      "title": "Tries",
-      "goal": "Master Tries",
-      "topicSlugs": [
-        "trie"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 89,
-      "title": "Minimum Spanning Tree",
-      "goal": "Master Minimum Spanning Tree",
-      "topicSlugs": [
-        "minimum-spanning-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 90,
-      "title": "Queues & Deques",
-      "goal": "Master Queues & Deques",
-      "topicSlugs": [
-        "queue-deque"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 91,
-      "title": "Weekly Revision 13",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "circular-linked-list",
-        "heap",
-        "lfu-cache",
-        "java-linkedlist-class",
-        "monotonic-stack-and-queue",
-        "advanced-graphs",
-        "stack",
-        "trie",
-        "minimum-spanning-tree",
-        "queue-deque"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 92,
-      "title": "Union-Find (DSU)",
-      "goal": "Master Union-Find (DSU)",
-      "topicSlugs": [
-        "union-find"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 93,
-      "title": "Strongly Connected Components",
-      "goal": "Master Strongly Connected Components",
-      "topicSlugs": [
-        "strongly-connected-components"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 94,
-      "title": "ArrayDeque",
-      "goal": "Master ArrayDeque",
-      "topicSlugs": [
-        "arraydeque"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 95,
-      "title": "Graph Representations",
-      "goal": "Master Graph Representations",
-      "topicSlugs": [
-        "graph-representations"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 96,
-      "title": "Bridges & Articulation Points",
-      "goal": "Master Bridges & Articulation Points",
-      "topicSlugs": [
-        "bridges-and-articulation-points"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 97,
-      "title": "Circular Queue / Ring Buffer",
-      "goal": "Master Circular Queue / Ring Buffer",
-      "topicSlugs": [
-        "circular-queue-ring-buffer"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 98,
-      "title": "Weekly Revision 14",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "stack",
-        "trie",
-        "minimum-spanning-tree",
-        "queue-deque",
-        "union-find",
-        "strongly-connected-components",
-        "arraydeque",
-        "graph-representations",
-        "bridges-and-articulation-points",
-        "circular-queue-ring-buffer"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 99,
-      "title": "Weighted Graphs",
-      "goal": "Master Weighted Graphs",
-      "topicSlugs": [
-        "weighted-graph"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 100,
-      "title": "Network Flow",
-      "goal": "Master Network Flow",
-      "topicSlugs": [
-        "network-flow"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 101,
-      "title": "Hash Sets",
-      "goal": "Master Hash Sets",
-      "topicSlugs": [
-        "hash-set"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 102,
-      "title": "Sparse Table",
-      "goal": "Master Sparse Table",
-      "topicSlugs": [
-        "sparse-table"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 103,
-      "title": "Binary Trees & Traversals",
-      "goal": "Master Binary Trees & Traversals",
-      "topicSlugs": [
-        "binary-tree"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 104,
-      "title": "Immutable Collections",
-      "goal": "Master Immutable Collections",
-      "topicSlugs": [
-        "immutable-collections"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 105,
-      "title": "Weekly Revision 15",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "arraydeque",
-        "graph-representations",
-        "bridges-and-articulation-points",
-        "circular-queue-ring-buffer",
-        "weighted-graph",
-        "network-flow",
-        "hash-set",
-        "sparse-table",
-        "binary-tree",
-        "immutable-collections"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 106,
-      "title": "BitSet",
-      "goal": "Master BitSet",
-      "topicSlugs": [
-        "bitset"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 107,
-      "title": "IdentityHashMap & WeakHashMap",
-      "goal": "Master IdentityHashMap & WeakHashMap",
-      "topicSlugs": [
-        "identityhashmap-and-weakhashmap"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 108,
-      "title": "EnumSet & EnumMap",
-      "goal": "Master EnumSet & EnumMap",
-      "topicSlugs": [
-        "enumset-and-enummap"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 109,
-      "title": "ConcurrentHashMap",
-      "goal": "Master ConcurrentHashMap",
-      "topicSlugs": [
-        "concurrenthashmap"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 110,
-      "title": "Legacy Collections",
-      "goal": "Master Legacy Collections",
-      "topicSlugs": [
-        "legacy-collections"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 111,
-      "title": "CopyOnWriteArrayList & CopyOnWriteArraySet",
-      "goal": "Master CopyOnWriteArrayList & CopyOnWriteArraySet",
-      "topicSlugs": [
-        "copyonwritearraylist-and-copyonwritearrayset"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 112,
-      "title": "Weekly Revision 16",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "hash-set",
-        "sparse-table",
-        "binary-tree",
-        "immutable-collections",
-        "bitset",
-        "identityhashmap-and-weakhashmap",
-        "enumset-and-enummap",
-        "concurrenthashmap",
-        "legacy-collections",
-        "copyonwritearraylist-and-copyonwritearrayset"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 113,
-      "title": "BlockingQueue Family",
-      "goal": "Master BlockingQueue Family",
-      "topicSlugs": [
-        "blockingqueue-family"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 114,
-      "title": "Day 114: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 115,
-      "title": "Day 115: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 116,
-      "title": "Day 116: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 117,
-      "title": "Day 117: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 118,
-      "title": "Day 118: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 119,
-      "title": "Weekly Revision 17",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [
-        "enumset-and-enummap",
-        "concurrenthashmap",
-        "legacy-collections",
-        "copyonwritearraylist-and-copyonwritearrayset",
-        "blockingqueue-family"
-      ],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 120,
-      "title": "Day 120: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 121,
-      "title": "Day 121: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 122,
-      "title": "Day 122: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 123,
-      "title": "Day 123: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 124,
-      "title": "Day 124: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 125,
-      "title": "Day 125: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 126,
-      "title": "Weekly Revision 18",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 127,
-      "title": "Day 127: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 128,
-      "title": "Day 128: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 129,
-      "title": "Day 129: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 130,
-      "title": "Day 130: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 131,
-      "title": "Day 131: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 132,
-      "title": "Day 132: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 133,
-      "title": "Weekly Revision 19",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 134,
-      "title": "Day 134: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 135,
-      "title": "Day 135: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 136,
-      "title": "Day 136: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 137,
-      "title": "Day 137: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 138,
-      "title": "Day 138: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 139,
-      "title": "Day 139: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 140,
-      "title": "Weekly Revision 20",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 141,
-      "title": "Day 141: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 142,
-      "title": "Day 142: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 143,
-      "title": "Day 143: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 144,
-      "title": "Day 144: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 145,
-      "title": "Day 145: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 146,
-      "title": "Day 146: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 147,
-      "title": "Weekly Revision 21",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 148,
-      "title": "Day 148: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 149,
-      "title": "Day 149: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 150,
-      "title": "Day 150: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 151,
-      "title": "Day 151: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 152,
-      "title": "Day 152: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 153,
-      "title": "Day 153: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 154,
-      "title": "Weekly Revision 22",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 155,
-      "title": "Day 155: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 156,
-      "title": "Day 156: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 157,
-      "title": "Day 157: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 158,
-      "title": "Day 158: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 159,
-      "title": "Day 159: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 160,
-      "title": "Day 160: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 161,
-      "title": "Weekly Revision 23",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 162,
-      "title": "Day 162: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 163,
-      "title": "Day 163: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 164,
-      "title": "Day 164: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 165,
-      "title": "Day 165: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 166,
-      "title": "Day 166: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 167,
-      "title": "Day 167: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 168,
-      "title": "Weekly Revision 24",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 169,
-      "title": "Day 169: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 170,
-      "title": "Day 170: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 171,
-      "title": "Day 171: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 172,
-      "title": "Day 172: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 173,
-      "title": "Day 173: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 174,
-      "title": "Day 174: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 175,
-      "title": "Weekly Revision 25",
-      "goal": "Revisit the week's topics and solve gaps in understanding.",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 176,
-      "title": "Day 176: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 177,
-      "title": "Day 177: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 178,
-      "title": "Day 178: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 179,
-      "title": "Day 179: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    },
-    {
-      "day": 180,
-      "title": "Day 180: Core Practice",
-      "goal": "Master ",
-      "topicSlugs": [],
-      "problemIds": [
-        "two-sum",
-        "contains-duplicate",
-        "best-time-to-buy-and-sell-stock"
-      ]
-    }
-  ]
+      day: 1,
+      title: 'Complexity glasses on',
+      topicSlugs: ['big-o-notation', 'problem-solving-framework'],
+      problemIds: ['two-sum', 'contains-duplicate'],
+      goal: 'Rank loops by growth and run the full solve loop twice.',
+    },
+    {
+      day: 2,
+      title: 'Array mechanics',
+      topicSlugs: ['array', 'dynamic-array'],
+      problemIds: ['best-time-to-buy-and-sell-stock', 'move-zeroes'],
+      goal: 'Shift and grow arrays by hand before trusting ArrayList.',
+    },
+    {
+      day: 3,
+      title: 'Search ladder',
+      topicSlugs: ['linear-search', 'binary-search'],
+      problemIds: ['binary-search', 'search-insert-position'],
+      goal: 'Lower-bound thinking, not just lookup.',
+    },
+    {
+      day: 4,
+      title: 'String craft',
+      topicSlugs: ['string', 'pass-by-value-java'],
+      problemIds: ['valid-anagram', 'valid-palindrome'],
+      goal: 'Two-pointer strings; predict every mutation.',
+    },
+    {
+      day: 5,
+      title: 'Nodes and references',
+      topicSlugs: ['memory-stack-vs-heap', 'singly-linked-list'],
+      problemIds: ['reverse-linked-list', 'middle-of-the-linked-list'],
+      goal: 'Draw the heap for a reversal; dummy heads everywhere.',
+    },
+    {
+      day: 6,
+      title: 'LIFO vs FIFO',
+      topicSlugs: ['stack', 'queue-deque'],
+      problemIds: ['valid-parentheses', 'implement-queue-using-stacks'],
+      goal: 'Match discipline to problem; queues from stacks.',
+    },
+    {
+      day: 7,
+      title: 'Revision: week 1',
+      topicSlugs: ['array', 'stack'],
+      problemIds: ['two-sum', 'valid-parentheses'],
+      goal: 'Re-solve the week blind; log every hesitation.',
+    },
+    {
+      day: 8,
+      title: 'Amortized cost and hashing',
+      topicSlugs: ['amortized-analysis', 'hash-table'],
+      problemIds: ['group-anagrams', 'design-hashmap'],
+      goal: 'Argue doubling and ship a chained map.',
+    },
+    {
+      day: 9,
+      title: 'Equality and sets',
+      topicSlugs: ['equals-hashcode-contract', 'hash-set'],
+      problemIds: ['happy-number', 'intersection-of-two-arrays'],
+      goal: 'Correct value types plus cycle-by-set detection.',
+    },
+    {
+      day: 10,
+      title: 'Ranges and pairs',
+      topicSlugs: ['prefix-sum', 'two-pointers'],
+      problemIds: ['find-pivot-index', '3sum'],
+      goal: 'O(1) range sums and a sorted triple scan.',
+    },
+    {
+      day: 11,
+      title: 'Window discipline',
+      topicSlugs: ['sliding-window'],
+      problemIds: ['longest-substring-without-repeating-characters', 'permutation-in-string'],
+      goal: 'State the validity invariant before coding.',
+    },
+    {
+      day: 12,
+      title: 'Tree walks begin',
+      topicSlugs: ['binary-tree', 'recursion-call-stack'],
+      problemIds: ['maximum-depth-of-binary-tree', 'diameter-of-binary-tree'],
+      goal: 'Height-returning recursion with depth awareness.',
+    },
+    {
+      day: 13,
+      title: 'Ordered trees begin',
+      topicSlugs: ['binary-search-tree', 'comparable-vs-comparator'],
+      problemIds: ['lowest-common-ancestor-of-a-binary-search-tree', 'kth-smallest-element-in-a-bst'],
+      goal: 'Ancestor walks and order statistics.',
+    },
+    {
+      day: 14,
+      title: 'Mock test 1: fundamentals',
+      topicSlugs: ['array', 'hash-table'],
+      problemIds: ['two-sum', 'group-anagrams', 'valid-anagram'],
+      goal: '45-minute trio under interview conditions.',
+    },
+    {
+      day: 15,
+      title: 'Quadratic sorts',
+      topicSlugs: ['bubble-sort', 'selection-sort'],
+      problemIds: ['sort-colors', 'height-checker'],
+      goal: 'Trace both by hand; name stability outcomes.',
+    },
+    {
+      day: 16,
+      title: 'Adaptive and counting sorts',
+      topicSlugs: ['insertion-sort', 'counting-sort'],
+      problemIds: ['h-index', 'majority-element'],
+      goal: 'Shift-based insertion and range-limited counting.',
+    },
+    {
+      day: 17,
+      title: 'Merge and quick',
+      topicSlugs: ['merge-sort', 'quick-sort'],
+      problemIds: ['merge-intervals', 'kth-largest-element-in-an-array'],
+      goal: 'Stable merges vs pivot defense, complexity narrated.',
+    },
+    {
+      day: 18,
+      title: 'Heaps begin',
+      topicSlugs: ['heap'],
+      problemIds: ['last-stone-weight', 'kth-largest-element-in-a-stream'],
+      goal: 'Swim/sink mechanics plus stream minimums.',
+    },
+    {
+      day: 19,
+      title: 'Tries begin',
+      topicSlugs: ['trie'],
+      problemIds: ['implement-trie-prefix-tree', 'design-add-and-search-words-data-structure'],
+      goal: 'Shared prefixes and wildcard DFS.',
+    },
+    {
+      day: 20,
+      title: 'Cycles and cursors',
+      topicSlugs: ['fast-slow-pointers', 'doubly-linked-list'],
+      problemIds: ['linked-list-cycle', 'add-two-numbers'],
+      goal: 'Tortoise-and-hare plus carry walks.',
+    },
+    {
+      day: 21,
+      title: 'Revision: algorithms I',
+      topicSlugs: ['quick-sort', 'heap'],
+      problemIds: ['sort-an-array', 'top-k-frequent-elements'],
+      goal: 'Re-derive partition logic; heapify a frequency table.',
+    },
+    {
+      day: 22,
+      title: 'Split and enumerate',
+      topicSlugs: ['divide-and-conquer', 'backtracking'],
+      problemIds: ['maximum-subarray', 'subsets'],
+      goal: 'Crossing combines and include/exclude with undo.',
+    },
+    {
+      day: 23,
+      title: 'Greed and bits',
+      topicSlugs: ['greedy', 'bit-manipulation'],
+      problemIds: ['jump-game', 'single-number'],
+      goal: 'Exchange arguments and XOR cancellation.',
+    },
+    {
+      day: 24,
+      title: 'Sweeps and monotonicity',
+      topicSlugs: ['interval-problems', 'monotonic-stack-queue'],
+      problemIds: ['non-overlapping-intervals', 'daily-temperatures'],
+      goal: 'Earliest-finish greed and next-greater scans.',
+    },
+    {
+      day: 25,
+      title: 'Search deep cut',
+      topicSlugs: ['binary-search', 'heap'],
+      problemIds: ['search-in-rotated-sorted-array', 'find-minimum-in-rotated-sorted-array'],
+      goal: 'Rotated halves with sorted-side detection.',
+    },
+    {
+      day: 26,
+      title: 'Windows deep cut',
+      topicSlugs: ['sliding-window', 'prefix-sum'],
+      problemIds: ['minimum-window-substring', 'subarray-sum-equals-k'],
+      goal: 'Two hard windows with validity proofs.',
+    },
+    {
+      day: 27,
+      title: 'Stacks deep cut',
+      topicSlugs: ['stack', 'queue-deque'],
+      problemIds: ['evaluate-reverse-polish-notation', 'largest-rectangle-in-histogram'],
+      goal: 'Postfix machines and boundary stacks.',
+    },
+    {
+      day: 28,
+      title: 'Mock test 2: techniques',
+      topicSlugs: ['two-pointers', 'stack'],
+      problemIds: ['container-with-most-water', 'daily-temperatures', '3sum'],
+      goal: '60-minute trio: scans plus candidate stacks.',
+    },
+    {
+      day: 29,
+      title: 'Recursion deep cut',
+      topicSlugs: ['recursion-tree', 'divide-and-conquer'],
+      problemIds: ['powx-n', 'kth-largest-element-in-an-array'],
+      goal: 'Halving recurrences and size-k heaps.',
+    },
+    {
+      day: 30,
+      title: 'Heaps deep cut',
+      topicSlugs: ['heap-sort', 'min-max-heap'],
+      problemIds: ['task-scheduler', 'find-median-from-data-stream'],
+      goal: 'Cooldown counting and two-heap balance.',
+    },
+    {
+      day: 31,
+      title: 'Graphs: how they live',
+      topicSlugs: ['graph-representations'],
+      problemIds: ['number-of-islands', 'max-area-of-island'],
+      goal: 'Adjacency lists vs matrices; grid floods.',
+    },
+    {
+      day: 32,
+      title: 'BFS and DFS',
+      topicSlugs: ['bfs', 'dfs'],
+      problemIds: ['binary-tree-level-order-traversal', 'clone-graph'],
+      goal: 'Waves vs dives; copy-maps for clones.',
+    },
+    {
+      day: 33,
+      title: 'Union-find',
+      topicSlugs: ['union-find', 'union-find-cycle-detection'],
+      problemIds: ['number-of-provinces', 'redundant-connection'],
+      goal: 'Union-all-edges plus first-cycle detection.',
+    },
+    {
+      day: 34,
+      title: 'Topo and safety',
+      topicSlugs: ['topological-sort', 'advanced-graphs'],
+      problemIds: ['course-schedule', 'find-eventual-safe-states'],
+      goal: 'Kahn ordering plus safe-state analysis.',
+    },
+    {
+      day: 35,
+      title: 'Revision: graphs I',
+      topicSlugs: ['bfs', 'union-find'],
+      problemIds: ['rotting-oranges', 'number-of-connected-components-in-an-undirected-graph'],
+      goal: 'Multi-source waves and component counting.',
+    },
+    {
+      day: 36,
+      title: 'Weighted routes',
+      topicSlugs: ['weighted-graph', 'dijkstra'],
+      problemIds: ['network-delay-time', 'path-with-minimum-effort'],
+      goal: 'Heap Dijkstra with stale skips; bottleneck variants.',
+    },
+    {
+      day: 37,
+      title: 'Negatives and spanning',
+      topicSlugs: ['bellman-ford', 'kruskal'],
+      problemIds: ['cheapest-flights-within-k-stops', 'min-cost-to-connect-all-points'],
+      goal: 'Round-limited relaxations; sort-and-union MST.',
+    },
+    {
+      day: 38,
+      title: 'Growing trees and flows',
+      topicSlugs: ['prim', 'advanced-graphs'],
+      problemIds: ['is-graph-bipartite', 'pacific-atlantic-water-flow'],
+      goal: 'Frontier MSTs and two-sided ocean reachability.',
+    },
+    {
+      day: 39,
+      title: 'Surrounded and word ladders',
+      topicSlugs: ['graph-representations', 'bfs'],
+      problemIds: ['surrounded-regions', 'word-ladder'],
+      goal: 'Border-first marking and implicit graphs.',
+    },
+    {
+      day: 40,
+      title: 'Walls, gates, itineraries',
+      topicSlugs: ['bfs', 'advanced-graphs'],
+      problemIds: ['walls-and-gates', 'reconstruct-itinerary'],
+      goal: 'Multi-source distance plus Hierholzer Eulerian trails.',
+    },
+    {
+      day: 41,
+      title: 'Swimming and aliens',
+      topicSlugs: ['weighted-graph', 'advanced-graphs'],
+      problemIds: ['swimming-in-rising-water', 'alien-dictionary'],
+      goal: 'Bottleneck paths and character topo order.',
+    },
+    {
+      day: 42,
+      title: 'Mock test 3: graphs',
+      topicSlugs: ['bfs', 'dijkstra'],
+      problemIds: ['number-of-islands', 'network-delay-time', 'course-schedule'],
+      goal: '60-minute trio: flood, settle, order.',
+    },
+    {
+      day: 43,
+      title: 'Range trees',
+      topicSlugs: ['segment-tree', 'fenwick-tree'],
+      problemIds: ['range-sum-query-mutable', 'range-sum-query-immutable'],
+      goal: 'Updates decide the structure: segtree vs BIT vs prefix.',
+    },
+    {
+      day: 44,
+      title: 'Sparse and sqrt structures',
+      topicSlugs: ['sparse-table', 'sqrt-decomposition'],
+      problemIds: ['range-sum-query-immutable', 'count-of-smaller-numbers-after-self'],
+      goal: 'Static O(1) vs block O(√n) tradeoffs.',
+    },
+    {
+      day: 45,
+      title: 'Skip lists and balanced trees',
+      topicSlugs: ['skip-list', 'avl-tree'],
+      problemIds: ['balanced-binary-tree', 'validate-binary-search-tree'],
+      goal: 'Coin-flip lanes and rotation rebalancing.',
+    },
+    {
+      day: 46,
+      title: 'Red-black and B-trees',
+      topicSlugs: ['red-black-tree', 'b-tree'],
+      problemIds: ['kth-smallest-element-in-a-bst', 'time-based-key-value-store'],
+      goal: 'Color rules and page-sized nodes, conceptual.',
+    },
+    {
+      day: 47,
+      title: 'Bloom and suffix structures',
+      topicSlugs: ['bloom-filter', 'suffix-array'],
+      problemIds: ['contains-duplicate', 'longest-palindromic-substring'],
+      goal: 'Probabilistic membership and sorted suffixes.',
+    },
+    {
+      day: 48,
+      title: 'LRU structures',
+      topicSlugs: ['lru-lfu-cache', 'linkedhashmap-lru'],
+      problemIds: ['lru-cache', 'lfu-cache'],
+      goal: 'Hash-plus-list caches, both eviction policies.',
+    },
+    {
+      day: 49,
+      title: 'Revision: structures II',
+      topicSlugs: ['segment-tree', 'avl-tree'],
+      problemIds: ['range-sum-query-mutable', 'balanced-binary-tree'],
+      goal: 'Rebuild a segtree and rotate an AVL blind.',
+    },
+    {
+      day: 50,
+      title: '1D DP foundations',
+      topicSlugs: ['dynamic-programming-1d'],
+      problemIds: ['climbing-stairs', 'house-robber'],
+      goal: 'States, transitions, and rolling compression.',
+    },
+    {
+      day: 51,
+      title: 'House robberies and coins',
+      topicSlugs: ['dynamic-programming-1d'],
+      problemIds: ['house-robber-ii', 'coin-change'],
+      goal: 'Circular splits and min-over-coins.',
+    },
+    {
+      day: 52,
+      title: 'Subsequence DP',
+      topicSlugs: ['dynamic-programming-1d', 'dynamic-programming-2d'],
+      problemIds: ['longest-increasing-subsequence', 'decode-ways'],
+      goal: 'Patience piles and one-two-step decoding.',
+    },
+    {
+      day: 53,
+      title: '2D DP foundations',
+      topicSlugs: ['dynamic-programming-2d'],
+      problemIds: ['unique-paths', 'minimum-path-sum'],
+      goal: 'Grid fills with rolling rows.',
+    },
+    {
+      day: 54,
+      title: 'String DP',
+      topicSlugs: ['dynamic-programming-2d'],
+      problemIds: ['longest-common-subsequence', 'edit-distance'],
+      goal: 'Diagonal matches and three-neighbor edits.',
+    },
+    {
+      day: 55,
+      title: 'Interleavings and palindromes',
+      topicSlugs: ['dynamic-programming-2d'],
+      problemIds: ['interleaving-string', 'palindromic-substrings'],
+      goal: 'Two-pointer tables and center expansion.',
+    },
+    {
+      day: 56,
+      title: 'Mock test 4: DP I',
+      topicSlugs: ['dynamic-programming-1d', 'dynamic-programming-2d'],
+      problemIds: ['house-robber', 'unique-paths', 'longest-common-subsequence'],
+      goal: '60-minute trio: states aloud, tables clean.',
+    },
+    {
+      day: 57,
+      title: 'Knapsack day',
+      topicSlugs: ['knapsack'],
+      problemIds: ['partition-equal-subset-sum', 'target-sum'],
+      goal: 'Take-or-skip tables and subset transforms.',
+    },
+    {
+      day: 58,
+      title: 'Unbounded knapsack',
+      topicSlugs: ['knapsack'],
+      problemIds: ['coin-change-ii', 'ones-and-zeroes'],
+      goal: 'Reuse-branch counting and two-capacity tables.',
+    },
+    {
+      day: 59,
+      title: 'Stocks and bursts',
+      topicSlugs: ['dynamic-programming-1d', 'dynamic-programming-2d'],
+      problemIds: ['best-time-to-buy-and-sell-stock-with-cooldown', 'burst-balloons'],
+      goal: 'State machines and last-burst intervals.',
+    },
+    {
+      day: 60,
+      title: 'Regex and distinct',
+      topicSlugs: ['dynamic-programming-2d'],
+      problemIds: ['regular-expression-matching', 'distinct-subsequences'],
+      goal: 'Star branches and match-count tables.',
+    },
+    {
+      day: 61,
+      title: 'Matrix paths and words',
+      topicSlugs: ['dynamic-programming-2d'],
+      problemIds: ['longest-increasing-path-in-a-matrix', 'word-break'],
+      goal: 'Memoized DFS grids and breakable prefixes.',
+    },
+    {
+      day: 62,
+      title: 'Backtracking drills',
+      topicSlugs: ['backtracking'],
+      problemIds: ['combination-sum', 'permutations'],
+      goal: 'Reuse branches and used-set permutations.',
+    },
+    {
+      day: 63,
+      title: 'Revision: DP I',
+      topicSlugs: ['knapsack', 'dynamic-programming-2d'],
+      problemIds: ['coin-change', 'edit-distance'],
+      goal: 'Rebuild both tables from blank files.',
+    },
+    {
+      day: 64,
+      title: 'Subsets and boards',
+      topicSlugs: ['backtracking'],
+      problemIds: ['subsets', 'n-queens'],
+      goal: 'Include/exclude plus constraint propagation.',
+    },
+    {
+      day: 65,
+      title: 'Words and phones',
+      topicSlugs: ['backtracking', 'trie'],
+      problemIds: ['word-search', 'letter-combinations-of-a-phone-number'],
+      goal: 'Board DFS and digit-letter trees.',
+    },
+    {
+      day: 66,
+      title: 'Partitions and hard boards',
+      topicSlugs: ['backtracking', 'trie'],
+      problemIds: ['palindrome-partitioning', 'word-search-ii'],
+      goal: 'Cut positions and trie-pruned searches.',
+    },
+    {
+      day: 67,
+      title: 'Greedy classification',
+      topicSlugs: ['greedy'],
+      problemIds: ['jump-game', 'gas-station'],
+      goal: 'Reach envelopes and restart-on-deficit.',
+    },
+    {
+      day: 68,
+      title: 'Greedy schedules',
+      topicSlugs: ['greedy', 'interval-problems'],
+      problemIds: ['merge-triplets-to-form-target-triplet', 'partition-labels'],
+      goal: 'Cover flags and last-occurrence cuts.',
+    },
+    {
+      day: 69,
+      title: 'Hands and combos',
+      topicSlugs: ['greedy', 'backtracking'],
+      problemIds: ['hand-of-straights', 'combination-sum-ii'],
+      goal: 'Ordered counts and duplicate-skipping branches.',
+    },
+    {
+      day: 70,
+      title: 'Mock test 5: DP II + backtracking',
+      topicSlugs: ['knapsack', 'backtracking'],
+      problemIds: ['partition-equal-subset-sum', 'word-search', 'jump-game'],
+      goal: '90 minutes: tables, boards, and greed.',
+    },
+    {
+      day: 71,
+      title: 'Collections map tour',
+      topicSlugs: ['collections-framework', 'iterable-iterator'],
+      problemIds: ['contains-duplicate', 'valid-anagram'],
+      goal: 'Navigate the framework map; iterator mechanics.',
+    },
+    {
+      day: 72,
+      title: 'Lists in the JDK',
+      topicSlugs: ['arraylist-jcf', 'linkedlist-jcf'],
+      problemIds: ['merge-sorted-array', 'reverse-linked-list'],
+      goal: 'Growth policy vs node splicing, API fluency.',
+    },
+    {
+      day: 73,
+      title: 'Legacy and deques',
+      topicSlugs: ['vector-stack-legacy', 'arraydeque-jcf'],
+      problemIds: ['min-stack', 'implement-queue-using-stacks'],
+      goal: 'Recognize legacy code; drive ArrayDeque.',
+    },
+    {
+      day: 74,
+      title: 'Priority queues',
+      topicSlugs: ['priorityqueue-jcf', 'heap'],
+      problemIds: ['kth-largest-element-in-an-array', 'task-scheduler'],
+      goal: 'Comparators, size-k patterns, cooldown counts.',
+    },
+    {
+      day: 75,
+      title: 'HashMap deep dive',
+      topicSlugs: ['hashmap-internals', 'hash-table'],
+      problemIds: ['two-sum', 'group-anagrams'],
+      goal: 'Buckets, spreading, treeification, resize.',
+    },
+    {
+      day: 76,
+      title: 'Order-preserving maps and sets',
+      topicSlugs: ['linkedhashmap-lru', 'linkedhashset'],
+      problemIds: ['lru-cache', 'contains-duplicate'],
+      goal: 'Access order eviction; first-seen dedupe.',
+    },
+    {
+      day: 77,
+      title: 'Revision: collections I',
+      topicSlugs: ['hashmap-internals', 'arraylist-jcf'],
+      problemIds: ['top-k-frequent-elements', 'move-zeroes'],
+      goal: 'Re-explain growth and hashing without notes.',
+    },
+    {
+      day: 78,
+      title: 'Sorted maps and sets',
+      topicSlugs: ['treemap-navigablemap', 'treeset-navigableset'],
+      problemIds: ['hand-of-straights', 'time-based-key-value-store'],
+      goal: 'Neighbour queries and live range views.',
+    },
+    {
+      day: 79,
+      title: 'Special maps and sets',
+      topicSlugs: ['enummap-enumset', 'hashset-jcf'],
+      problemIds: ['happy-number', 'single-number'],
+      goal: 'Bit-vector enums; membership patterns.',
+    },
+    {
+      day: 80,
+      title: 'Utilities and immutables',
+      topicSlugs: ['collections-utility', 'arrays-utility'],
+      problemIds: ['sort-an-array', 'squares-of-a-sorted-array'],
+      goal: 'Sort/search/copy idioms; print grids properly.',
+    },
+    {
+      day: 81,
+      title: 'Immutable and streams',
+      topicSlugs: ['immutable-collections', 'streams-with-collections'],
+      problemIds: ['group-anagrams', 'top-k-frequent-elements'],
+      goal: 'Snapshot discipline; pipeline rewrites.',
+    },
+    {
+      day: 82,
+      title: 'Iterators under stress',
+      topicSlugs: ['fail-fast-fail-safe', 'iterable-iterator'],
+      problemIds: ['remove-duplicates-from-sorted-array', 'merge-two-sorted-lists'],
+      goal: 'Cursor-safe mutation menu from memory.',
+    },
+    {
+      day: 83,
+      title: 'Identity and weak maps',
+      topicSlugs: ['identityhashmap-weakhashmap', 'hash-table'],
+      problemIds: ['copy-list-with-random-pointer', 'clone-graph'],
+      goal: 'Reference keys; registries that clear themselves.',
+    },
+    {
+      day: 84,
+      title: 'Mock test 6: collections',
+      topicSlugs: ['hashmap-internals', 'treemap-navigablemap'],
+      problemIds: ['lru-cache', 'hand-of-straights', 'group-anagrams'],
+      goal: '60 minutes: eviction, ordering, grouping.',
+    },
+    {
+      day: 85,
+      title: 'Concurrency map',
+      topicSlugs: ['concurrent-overview', 'synchronized-wrappers'],
+      problemIds: ['print-in-order', 'the-dining-philosophers'],
+      goal: 'Race taxonomy; wrapper holes narrated.',
+    },
+    {
+      day: 86,
+      title: 'Concurrent maps',
+      topicSlugs: ['concurrent-hashmap', 'concurrent-skiplist'],
+      problemIds: ['design-hit-counter', 'lfu-cache'],
+      goal: 'Bin locks and lock-free lanes.',
+    },
+    {
+      day: 87,
+      title: 'Snapshots and queues',
+      topicSlugs: ['copy-on-write', 'concurrent-linked-queue'],
+      problemIds: ['number-of-recent-calls', 'design-hit-counter'],
+      goal: 'Snapshot costs; CAS handoff mechanics.',
+    },
+    {
+      day: 88,
+      title: 'Blocking and patterns',
+      topicSlugs: ['blocking-queue-family', 'producer-consumer-collections'],
+      problemIds: ['design-bounded-blocking-queue', 'print-foobar-alternately'],
+      goal: 'Pills, bounds, and shutdown choreography.',
+    },
+    {
+      day: 89,
+      title: 'Concurrency extras',
+      topicSlugs: ['concurrent-overview', 'blocking-queue-family'],
+      problemIds: ['building-h2o', 'fizz-buzz-multithreaded'],
+      goal: 'Barriers and staged handoffs, timed.',
+    },
+    {
+      day: 90,
+      title: 'Revision: collections + concurrency',
+      topicSlugs: ['concurrent-hashmap', 'linkedhashmap-lru'],
+      problemIds: ['lru-cache', 'design-hit-counter'],
+      goal: 'Rebuild both caches from blank files.',
+    },
+    {
+      day: 91,
+      title: 'Revision: half-way audit',
+      topicSlugs: ['problem-solving-framework', 'big-o-notation'],
+      problemIds: ['two-sum', 'valid-parentheses'],
+      goal: 'Re-run day one; list every remaining weak pattern.',
+    },
+    {
+      day: 92,
+      title: 'Advanced graphs I',
+      topicSlugs: ['advanced-graphs', 'union-find-cycle-detection'],
+      problemIds: ['is-graph-bipartite', 'redundant-connection'],
+      goal: 'Two-coloring plus first-cycle edges.',
+    },
+    {
+      day: 93,
+      title: 'Advanced graphs II',
+      topicSlugs: ['advanced-graphs', 'topological-sort'],
+      problemIds: ['find-eventual-safe-states', 'course-schedule-ii'],
+      goal: 'Safety analysis and ordering verdicts.',
+    },
+    {
+      day: 94,
+      title: 'Weighted hardening',
+      topicSlugs: ['weighted-graph', 'dijkstra'],
+      problemIds: ['cheapest-flights-within-k-stops', 'swimming-in-rising-water'],
+      goal: 'Bounded relaxations and bottleneck paths.',
+    },
+    {
+      day: 95,
+      title: 'MST hardening',
+      topicSlugs: ['kruskal', 'prim'],
+      problemIds: ['min-cost-to-connect-all-points', 'network-delay-time'],
+      goal: 'Sort-and-union vs frontier growth, timed.',
+    },
+    {
+      day: 96,
+      title: 'Grid hardening',
+      topicSlugs: ['bfs', 'graph-representations'],
+      problemIds: ['pacific-atlantic-water-flow', 'surrounded-regions'],
+      goal: 'Two-sided reachability and border-first marking.',
+    },
+    {
+      day: 97,
+      title: 'Hard graphs',
+      topicSlugs: ['advanced-graphs', 'weighted-graph'],
+      problemIds: ['alien-dictionary', 'reconstruct-itinerary'],
+      goal: 'Character order plus Eulerian trails.',
+    },
+    {
+      day: 98,
+      title: 'Mock test 7: graphs hard',
+      topicSlugs: ['advanced-graphs', 'dijkstra'],
+      problemIds: ['alien-dictionary', 'swimming-in-rising-water', 'course-schedule'],
+      goal: '90 minutes: order, bottleneck, cycles.',
+    },
+    {
+      day: 99,
+      title: 'DP hardening I',
+      topicSlugs: ['dynamic-programming-1d', 'dynamic-programming-2d'],
+      problemIds: ['house-robber', 'coin-change'],
+      goal: 'Compression plus min-over-coins, no notes.',
+    },
+    {
+      day: 100,
+      title: 'DP hardening II',
+      topicSlugs: ['knapsack', 'dynamic-programming-2d'],
+      problemIds: ['target-sum', 'longest-increasing-path-in-a-matrix'],
+      goal: 'Subset transforms and memoized grids.',
+    },
+    {
+      day: 101,
+      title: 'DP hardening III',
+      topicSlugs: ['dynamic-programming-2d'],
+      problemIds: ['burst-balloons', 'regular-expression-matching'],
+      goal: 'Interval DP and star branches, timed.',
+    },
+    {
+      day: 102,
+      title: 'Strings hardening',
+      topicSlugs: ['string', 'suffix-array'],
+      problemIds: ['minimum-window-substring', 'longest-palindromic-substring'],
+      goal: 'Hard windows plus palindromic centers.',
+    },
+    {
+      day: 103,
+      title: 'Tries hardening',
+      topicSlugs: ['trie', 'backtracking'],
+      problemIds: ['word-search-ii', 'design-add-and-search-words-data-structure'],
+      goal: 'Pruned boards and wildcard maps.',
+    },
+    {
+      day: 104,
+      title: 'Heaps hardening',
+      topicSlugs: ['heap', 'min-max-heap'],
+      problemIds: ['sliding-window-maximum', 'find-median-from-data-stream'],
+      goal: 'Monotonic windows and dual extremes.',
+    },
+    {
+      day: 105,
+      title: 'Revision: hardening I',
+      topicSlugs: ['dynamic-programming-2d', 'advanced-graphs'],
+      problemIds: ['edit-distance', 'alien-dictionary'],
+      goal: 'Rebuild both solutions from blank files.',
+    },
+    {
+      day: 106,
+      title: 'Trees hardening',
+      topicSlugs: ['binary-tree', 'avl-tree'],
+      problemIds: ['binary-tree-maximum-path-sum', 'balanced-binary-tree'],
+      goal: 'Gain-or-drop paths and balance checks.',
+    },
+    {
+      day: 107,
+      title: 'Search hardening',
+      topicSlugs: ['binary-search', 'heap'],
+      problemIds: ['median-of-two-sorted-arrays', 'kth-largest-element-in-an-array'],
+      goal: 'Partition halves and size-k heaps.',
+    },
+    {
+      day: 108,
+      title: 'Range hardening',
+      topicSlugs: ['segment-tree', 'sparse-table'],
+      problemIds: ['range-sum-query-mutable', 'count-of-smaller-numbers-after-self'],
+      goal: 'Updates vs static queries, structure choice aloud.',
+    },
+    {
+      day: 109,
+      title: 'Bit and math hardening',
+      topicSlugs: ['bit-manipulation', 'sqrt-decomposition'],
+      problemIds: ['reverse-bits', 'single-number'],
+      goal: 'Mirror loops, XOR, and block thinking.',
+    },
+    {
+      day: 110,
+      title: 'Intervals hardening',
+      topicSlugs: ['interval-problems', 'monotonic-structures'],
+      problemIds: ['merge-intervals', 'largest-rectangle-in-histogram'],
+      goal: 'Sweeps and boundary stacks at speed.',
+    },
+    {
+      day: 111,
+      title: 'Lists hardening',
+      topicSlugs: ['singly-linked-list', 'lru-lfu-cache'],
+      problemIds: ['merge-k-sorted-lists', 'reverse-nodes-in-k-group'],
+      goal: 'Heap merges and k-group surgery.',
+    },
+    {
+      day: 112,
+      title: 'Mock test 8: mixed hard',
+      topicSlugs: ['binary-tree', 'heap'],
+      problemIds: ['serialize-and-deserialize-binary-tree', 'sliding-window-maximum', 'edit-distance'],
+      goal: '90 minutes: codecs, windows, tables.',
+    },
+    {
+      day: 113,
+      title: 'Speed round: easies',
+      topicSlugs: ['array', 'string'],
+      problemIds: ['two-sum', 'valid-palindrome', 'best-time-to-buy-and-sell-stock'],
+      goal: 'Three easies in 30 minutes, zero stumbles.',
+    },
+    {
+      day: 114,
+      title: 'Speed round: mediums',
+      topicSlugs: ['hash-table', 'two-pointers'],
+      problemIds: ['group-anagrams', '3sum'],
+      goal: 'Two mediums in 45 with tested edges.',
+    },
+    {
+      day: 115,
+      title: 'Weak-spot surgery I',
+      topicSlugs: ['dynamic-programming-1d', 'backtracking'],
+      problemIds: ['coin-change', 'combination-sum'],
+      goal: 'Unbounded vs reuse-branch decisions, drilled.',
+    },
+    {
+      day: 116,
+      title: 'Weak-spot surgery II',
+      topicSlugs: ['graph-representations', 'dijkstra'],
+      problemIds: ['clone-graph', 'network-delay-time'],
+      goal: 'Copy-maps and stale-entry skips, drilled.',
+    },
+    {
+      day: 117,
+      title: 'Weak-spot surgery III',
+      topicSlugs: ['sliding-window', 'heap'],
+      problemIds: ['longest-repeating-character-replacement', 'k-closest-points-to-origin'],
+      goal: 'Counters plus bounded heaps, drilled.',
+    },
+    {
+      day: 118,
+      title: 'Full mock I',
+      topicSlugs: ['array', 'binary-tree'],
+      problemIds: ['product-of-array-except-self', 'balanced-binary-tree'],
+      goal: '60 minutes, interview conditions, loud thinking.',
+    },
+    {
+      day: 119,
+      title: 'Revision: surgery review',
+      topicSlugs: ['two-pointers', 'hash-table'],
+      problemIds: ['two-sum-ii-input-array-is-sorted', 'subarray-sum-equals-k'],
+      goal: 'Extract templates from every fixed weak spot.',
+    },
+    {
+      day: 120,
+      title: 'Full mock II',
+      topicSlugs: ['dynamic-programming-2d', 'advanced-graphs'],
+      problemIds: ['edit-distance', 'course-schedule'],
+      goal: '90 minutes: hard DP plus directed cycles.',
+    },
+    {
+      day: 121,
+      title: 'Full mock III',
+      topicSlugs: ['backtracking', 'trie'],
+      problemIds: ['n-queens', 'implement-trie-prefix-tree'],
+      goal: '90 minutes: constraint sets plus prefix maps.',
+    },
+    {
+      day: 122,
+      title: 'Behavioral + warmup',
+      topicSlugs: ['problem-solving-framework', 'array'],
+      problemIds: ['contains-duplicate', 'move-zeroes'],
+      goal: 'Narrate one project deeply; warm up hands.',
+    },
+    {
+      day: 123,
+      title: 'Final trees pass',
+      topicSlugs: ['binary-search-tree', 'red-black-tree'],
+      problemIds: ['kth-smallest-element-in-a-bst', 'validate-binary-search-tree'],
+      goal: 'Order statistics and color-rule narration.',
+    },
+    {
+      day: 124,
+      title: 'Final graphs pass',
+      topicSlugs: ['weighted-graph', 'union-find'],
+      problemIds: ['cheapest-flights-within-k-stops', 'number-of-connected-components-in-an-undirected-graph'],
+      goal: 'Bounded relaxations and component counting.',
+    },
+    {
+      day: 125,
+      title: 'Final DP pass',
+      topicSlugs: ['dynamic-programming-2d', 'knapsack'],
+      problemIds: ['longest-common-subsequence', 'partition-equal-subset-sum'],
+      goal: 'Diagonal matches and half-sum reductions.',
+    },
+    {
+      day: 126,
+      title: 'Mock test 9: finals I',
+      topicSlugs: ['binary-search-tree', 'dynamic-programming-2d'],
+      problemIds: ['validate-binary-search-tree', 'coin-change', 'number-of-islands'],
+      goal: '90 minutes across three pillars.',
+    },
+    {
+      day: 127,
+      title: 'Final techniques pass',
+      topicSlugs: ['monotonic-stack-queue', 'interval-problems'],
+      problemIds: ['daily-temperatures', 'merge-intervals'],
+      goal: 'Candidate stacks and sweep merges at speed.',
+    },
+    {
+      day: 128,
+      title: 'Final collections pass',
+      topicSlugs: ['hashmap-internals', 'treemap-navigablemap'],
+      problemIds: ['top-k-frequent-elements', 'time-based-key-value-store'],
+      goal: 'Bucket mechanics plus floor-entry history.',
+    },
+    {
+      day: 129,
+      title: 'Final concurrency pass',
+      topicSlugs: ['concurrent-hashmap', 'blocking-queue-family'],
+      problemIds: ['design-hit-counter', 'print-foobar-alternately'],
+      goal: 'Compounds plus handoff choreography.',
+    },
+    {
+      day: 130,
+      title: 'Dress rehearsal',
+      topicSlugs: ['array', 'binary-tree'],
+      problemIds: ['3sum', 'binary-tree-right-side-view'],
+      goal: 'Full interview simulation with a peer or rubber duck.',
+    },
+    {
+      day: 131,
+      title: 'Capstone: strings',
+      topicSlugs: ['string', 'dynamic-programming-1d'],
+      problemIds: ['longest-palindromic-substring', 'decode-ways'],
+      goal: 'Centers and decodings under exam pressure.',
+    },
+    {
+      day: 132,
+      title: 'Capstone: graphs',
+      topicSlugs: ['bfs', 'dijkstra'],
+      problemIds: ['rotting-oranges', 'swimming-in-rising-water'],
+      goal: 'Multi-source waves and bottleneck paths.',
+    },
+    {
+      day: 133,
+      title: 'Revision: capstone review',
+      topicSlugs: ['bfs', 'dynamic-programming-1d'],
+      problemIds: ['clone-graph', 'house-robber'],
+      goal: 'Re-solve capstone stumbles at one level down.',
+    },
+    {
+      day: 134,
+      title: 'Capstone: DP',
+      topicSlugs: ['dynamic-programming-2d', 'knapsack'],
+      problemIds: ['regular-expression-matching', 'ones-and-zeroes'],
+      goal: 'Star branches and two-capacity tables.',
+    },
+    {
+      day: 135,
+      title: 'Capstone: structures',
+      topicSlugs: ['stack', 'singly-linked-list'],
+      problemIds: ['car-fleet', 'merge-k-sorted-lists'],
+      goal: 'Fleet stacks and heap merges to close structures.',
+    },
+    {
+      day: 136,
+      title: 'Capstone: mixed hard',
+      topicSlugs: ['segment-tree', 'binary-search'],
+      problemIds: ['median-of-two-sorted-arrays', 'minimum-interval-to-include-each-query'],
+      goal: 'Two hards, full narration, no surrender.',
+    },
+    {
+      day: 137,
+      title: 'System design primer',
+      topicSlugs: ['hash-table', 'queue-deque'],
+      problemIds: ['design-twitter', 'design-hit-counter'],
+      goal: 'Feeds and counters: APIs before internals.',
+    },
+    {
+      day: 138,
+      title: 'Cache design primer',
+      topicSlugs: ['lru-lfu-cache', 'concurrent-hashmap'],
+      problemIds: ['lru-cache', 'lfu-cache'],
+      goal: 'Eviction policies with thread-safe variants.',
+    },
+    {
+      day: 139,
+      title: 'Rate limiting primer',
+      topicSlugs: ['queue-deque', 'concurrent-linked-queue'],
+      problemIds: ['number-of-recent-calls', 'design-hit-counter'],
+      goal: 'Windows, buckets, and token math.',
+    },
+    {
+      day: 140,
+      title: 'Mock test 10: design blend',
+      topicSlugs: ['hash-table', 'concurrent-overview'],
+      problemIds: ['design-twitter', 'lru-cache', 'print-in-order'],
+      goal: '90 minutes: two designs plus one concurrency drill.',
+    },
+    {
+      day: 141,
+      title: 'Mock test 11: full loop',
+      topicSlugs: ['array', 'binary-tree'],
+      problemIds: ['product-of-array-except-self', 'invert-binary-tree'],
+      goal: '60 minutes, interview conditions, loud thinking.',
+    },
+    {
+      day: 142,
+      title: 'Mock test 12: graphs loop',
+      topicSlugs: ['union-find', 'weighted-graph'],
+      problemIds: ['redundant-connection', 'network-delay-time'],
+      goal: '60 minutes: cycles plus settling.',
+    },
+    {
+      day: 143,
+      title: 'Mock test 13: DP loop',
+      topicSlugs: ['dynamic-programming-1d', 'knapsack'],
+      problemIds: ['house-robber', 'target-sum'],
+      goal: '60 minutes: states and subset transforms.',
+    },
+    {
+      day: 144,
+      title: 'Mock test 14: mixed loop',
+      topicSlugs: ['heap', 'trie'],
+      problemIds: ['kth-largest-element-in-an-array', 'design-add-and-search-words-data-structure'],
+      goal: '60 minutes: heaps plus wildcard maps.',
+    },
+    {
+      day: 145,
+      title: 'Behavioral + warmup II',
+      topicSlugs: ['problem-solving-framework', 'string'],
+      problemIds: ['valid-anagram', 'reverse-string'],
+      goal: 'Second project story; hands warm.',
+    },
+    {
+      day: 146,
+      title: 'Speed round: easies II',
+      topicSlugs: ['array', 'hash-set'],
+      problemIds: ['contains-duplicate', 'happy-number', 'single-number'],
+      goal: 'Three easies in 30 minutes, zero stumbles.',
+    },
+    {
+      day: 147,
+      title: 'Revision: loop review',
+      topicSlugs: ['heap', 'trie'],
+      problemIds: ['last-stone-weight', 'implement-trie-prefix-tree'],
+      goal: 'Convert loop stumbles into drill cards.',
+    },
+    {
+      day: 148,
+      title: 'Hard day: trees II',
+      topicSlugs: ['binary-tree', 'suffix-array'],
+      problemIds: ['serialize-and-deserialize-binary-tree', 'longest-palindromic-substring'],
+      goal: 'Codecs and centers at full pressure.',
+    },
+    {
+      day: 149,
+      title: 'Hard day: graphs II',
+      topicSlugs: ['advanced-graphs', 'union-find'],
+      problemIds: ['word-ladder', 'min-cost-to-connect-all-points'],
+      goal: 'Implicit ladders and complete-graph MST.',
+    },
+    {
+      day: 150,
+      title: 'Hard day: DP II',
+      topicSlugs: ['dynamic-programming-2d', 'knapsack'],
+      problemIds: ['distinct-subsequences', 'interleaving-string'],
+      goal: 'Match counts and two-string tables.',
+    },
+    {
+      day: 151,
+      title: 'Hard day: windows II',
+      topicSlugs: ['sliding-window', 'monotonic-structures'],
+      problemIds: ['minimum-window-substring', 'sliding-window-maximum'],
+      goal: 'The two hardest windows, back to back.',
+    },
+    {
+      day: 152,
+      title: 'Hard day: mixed II',
+      topicSlugs: ['heap', 'segment-tree'],
+      problemIds: ['find-median-from-data-stream', 'count-of-smaller-numbers-after-self'],
+      goal: 'Streaming medians and indexed counts.',
+    },
+    {
+      day: 153,
+      title: 'Consistency week begins',
+      topicSlugs: ['array', 'string'],
+      problemIds: ['best-time-to-buy-and-sell-stock', 'longest-substring-without-repeating-characters'],
+      goal: 'Daily minimums resume: one scan, one window.',
+    },
+    {
+      day: 154,
+      title: 'Mock test 15: consistency I',
+      topicSlugs: ['array', 'hash-table'],
+      problemIds: ['two-sum', 'subarray-sum-equals-k'],
+      goal: '45 minutes: complements and prefix counts.',
+    },
+    {
+      day: 155,
+      title: 'Trees consistency',
+      topicSlugs: ['binary-tree', 'binary-search-tree'],
+      problemIds: ['same-tree', 'subtree-of-another-tree'],
+      goal: 'Structural recursion at maintenance pace.',
+    },
+    {
+      day: 156,
+      title: 'Graphs consistency',
+      topicSlugs: ['bfs', 'dfs'],
+      problemIds: ['max-area-of-island', 'find-eventual-safe-states'],
+      goal: 'Floods and safety at maintenance pace.',
+    },
+    {
+      day: 157,
+      title: 'DP consistency',
+      topicSlugs: ['dynamic-programming-1d', 'knapsack'],
+      problemIds: ['climbing-stairs', 'coin-change'],
+      goal: 'Never let the tables go cold.',
+    },
+    {
+      day: 158,
+      title: 'Structures consistency',
+      topicSlugs: ['stack', 'heap'],
+      problemIds: ['min-stack', 'kth-largest-element-in-a-stream'],
+      goal: 'Auxiliary designs plus stream tops.',
+    },
+    {
+      day: 159,
+      title: 'Collections consistency',
+      topicSlugs: ['collections-framework', 'streams-with-collections'],
+      problemIds: ['group-anagrams', 'valid-anagram'],
+      goal: 'Framework fluency plus one pipeline rewrite.',
+    },
+    {
+      day: 160,
+      title: 'Concurrency consistency',
+      topicSlugs: ['concurrent-overview', 'producer-consumer-collections'],
+      problemIds: ['print-in-order', 'print-zero-even-odd'],
+      goal: 'Ordering plus staged handoffs, timed.',
+    },
+    {
+      day: 161,
+      title: 'Revision: consistency review',
+      topicSlugs: ['big-o-notation', 'problem-solving-framework'],
+      problemIds: ['contains-duplicate', 'valid-parentheses'],
+      goal: 'Audit the whole system; patch the weakest link.',
+    },
+    {
+      day: 162,
+      title: 'Mock test 16: breadth',
+      topicSlugs: ['string', 'binary-tree'],
+      problemIds: ['longest-palindromic-substring', 'diameter-of-binary-tree'],
+      goal: '60 minutes across two pillars.',
+    },
+    {
+      day: 163,
+      title: 'Mock test 17: depth',
+      topicSlugs: ['dynamic-programming-2d', 'advanced-graphs'],
+      problemIds: ['edit-distance', 'alien-dictionary'],
+      goal: '90 minutes: the two deepest pillars.',
+    },
+    {
+      day: 164,
+      title: 'Mock test 18: speed',
+      topicSlugs: ['array', 'stack'],
+      problemIds: ['move-zeroes', 'valid-parentheses', 'best-time-to-buy-and-sell-stock'],
+      goal: '45 minutes, three clean solves.',
+    },
+    {
+      day: 165,
+      title: 'Mock test 19: systems',
+      topicSlugs: ['hash-table', 'concurrent-hashmap'],
+      problemIds: ['design-twitter', 'design-hit-counter'],
+      goal: '60 minutes: design narration plus counters.',
+    },
+    {
+      day: 166,
+      title: 'Open drill I',
+      topicSlugs: ['two-pointers', 'backtracking'],
+      problemIds: ['container-with-most-water', 'subsets'],
+      goal: 'Student’s choice from the weak list.',
+    },
+    {
+      day: 167,
+      title: 'Open drill II',
+      topicSlugs: ['heap', 'trie'],
+      problemIds: ['top-k-frequent-elements', 'implement-trie-prefix-tree'],
+      goal: 'Student’s choice from the weak list.',
+    },
+    {
+      day: 168,
+      title: 'Mock test 20: final rehearsal',
+      topicSlugs: ['array', 'binary-tree'],
+      problemIds: ['3sum', 'binary-tree-right-side-view'],
+      goal: 'Full simulation with a peer or rubber duck.',
+    },
+    {
+      day: 169,
+      title: 'Final review I',
+      topicSlugs: ['big-o-notation', 'collections-framework'],
+      problemIds: ['two-sum', 'group-anagrams'],
+      goal: 'Complexity recitation and framework navigation.',
+    },
+    {
+      day: 170,
+      title: 'Final review II',
+      topicSlugs: ['dynamic-programming-1d', 'graph-representations'],
+      problemIds: ['climbing-stairs', 'number-of-islands'],
+      goal: 'Two pillars, zero notes, full narration.',
+    },
+    // TODO(Step 18): LLD fundamentals week — link LLD module slugs
+    // (lld-...) once Step 17 slugs exist; these days use the closest
+    // valid design-adjacent topics until the re-run validation in Step 18.
+    {
+      day: 171,
+      title: 'LLD fundamentals I: objects',
+      topicSlugs: ['collections-framework', 'immutable-collections'],
+      problemIds: ['design-hashmap', 'design-twitter'],
+      goal: 'Value objects, encapsulation, and API-first class design.',
+    },
+    {
+      day: 172,
+      title: 'LLD fundamentals II: patterns',
+      topicSlugs: ['collections-framework', 'concurrent-overview'],
+      problemIds: ['lru-cache', 'design-hit-counter'],
+      goal: 'Strategy, observer, and factory sightings in JDK types.',
+    },
+    {
+      day: 173,
+      title: 'LLD fundamentals III: concurrency design',
+      topicSlugs: ['concurrent-hashmap', 'blocking-queue-family'],
+      problemIds: ['print-foobar-alternately', 'design-bounded-blocking-queue'],
+      goal: 'Thread-safe facades and producer-consumer APIs.',
+    },
+    {
+      day: 174,
+      title: 'LLD fundamentals IV: review',
+      topicSlugs: ['problem-solving-framework', 'collections-framework'],
+      problemIds: ['design-linked-list', 'design-browser-history'],
+      goal: 'Re-narrate three designs; list Step-18 targets.',
+    },
+    {
+      day: 175,
+      title: 'Revision: pre-graduation',
+      topicSlugs: ['big-o-notation', 'hash-table'],
+      problemIds: ['two-sum', 'top-k-frequent-elements'],
+      goal: 'Last full-system audit before the capstone.',
+    },
+    {
+      day: 176,
+      title: 'Capstone: structures',
+      topicSlugs: ['stack', 'heap'],
+      problemIds: ['car-fleet', 'merge-k-sorted-lists'],
+      goal: 'Fleet stacks and heap merges to close structures.',
+    },
+    {
+      day: 177,
+      title: 'Capstone: graphs + DP',
+      topicSlugs: ['bfs', 'dynamic-programming-2d'],
+      problemIds: ['rotting-oranges', 'unique-paths'],
+      goal: 'Waves and grid fills under exam pressure.',
+    },
+    {
+      day: 178,
+      title: 'Capstone: mixed hard',
+      topicSlugs: ['binary-tree', 'sliding-window'],
+      problemIds: ['binary-tree-maximum-path-sum', 'minimum-window-substring'],
+      goal: 'Two hards, full narration, no surrender.',
+    },
+    {
+      day: 179,
+      title: 'Capstone: systems + mocks',
+      topicSlugs: ['hash-table', 'concurrent-overview'],
+      problemIds: ['lru-cache', 'print-in-order'],
+      goal: 'Cache design plus ordering, interview pace.',
+    },
+    {
+      day: 180,
+      title: 'Graduation',
+      topicSlugs: ['problem-solving-framework'],
+      problemIds: ['two-sum', 'climbing-stairs'],
+      goal: 'Re-run day one favorites; compare the engineer you are now.',
+    },
+  ],
 };
 
-export default s4j180DaysMasterySheet;

@@ -8,6 +8,7 @@ export const hashTableTopic: Topic = {
   order: 8,
   summary: 'Key → value in O(1): hash functions pick a bucket, chains absorb collisions, resizing keeps it all fast.',
   level: 'intermediate',
+  group: 'non-linear',
   prerequisites: ['array', 'dynamic-array'],
   sections: [
     {

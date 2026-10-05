@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { PageShell } from '../components/layout/index.ts';
 import { Badge } from '../components/ui/index.ts';
 import type { ProblemDifficulty } from '../types/content.ts';
@@ -119,12 +119,6 @@ export default function ProblemsPage() {
           <div className="problems-progress__fill" style={{ width: `${percent}%` }} />
         </div>
       </section>
-
-      <p className="problems-sheets-cta">
-        <Link className="problems-sheets-btn" to="/sheets">
-          Study Sheets →
-        </Link>
-      </p>
 
       <section className="problems-filters" aria-label="Problem filters">
         <label className="problems-filters__search">

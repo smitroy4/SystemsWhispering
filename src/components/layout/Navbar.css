@@ -93,6 +93,67 @@
   background-color: var(--color-accent);
 }
 
+.navbar__link--disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.navbar__link--disabled:hover {
+  color: var(--color-text-muted);
+  background: none;
+}
+
+.navbar__soon {
+  display: inline-block;
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0 var(--space-2);
+}
+
+.navbar__dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Mouse-click focus sticks on touch devices: don't leave the hover wash behind. */
+.navbar__dropdown-toggle:focus:not(:focus-visible) {
+  background-color: transparent;
+}
+
+.navbar__caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: var(--space-1);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+  vertical-align: middle;
+  transition: transform 200ms ease;
+}
+
+.navbar__dropdown-toggle[aria-expanded='true'] .navbar__caret {
+  transform: rotate(180deg);
+}
+
+.navbar__dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: var(--space-1) 0 var(--space-1) var(--space-3);
+}
+
 .navbar__search {
   padding: var(--space-2);
 }
@@ -151,7 +212,7 @@
   transform: translateX(26px);
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 64rem) {
   .navbar__menu-button {
     display: none;
   }
@@ -174,6 +235,28 @@
     font-size: var(--text-sm);
   }
 
+  .navbar__dropdown {
+    position: relative;
+  }
+
+  .navbar__dropdown-toggle {
+    width: auto;
+  }
+
+  .navbar__dropdown-menu {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    left: 0;
+    min-width: 14rem;
+    max-width: calc(100vw - 2rem);
+    padding: var(--space-2);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    z-index: 60;
+  }
+
   .navbar__search {
     padding: 0;
     width: 10rem;
@@ -182,7 +265,7 @@
   }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 80rem) {
   .navbar__search {
     width: 15rem;
   }

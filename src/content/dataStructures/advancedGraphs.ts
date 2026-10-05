@@ -8,6 +8,7 @@ export const advancedGraphsTopic: Topic = {
   order: 19,
   summary: 'Structure beyond traversal: DAGs and topo order, bipartite coloring, and strongly connected components.',
   level: 'advanced',
+  group: 'non-linear',
   prerequisites: ['graph-representations', 'weighted-graph'],
   sections: [
     {

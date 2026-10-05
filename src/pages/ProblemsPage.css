@@ -220,24 +220,6 @@
   white-space: nowrap;
 }
 
-.problems-sheets-cta {
-  margin: 0 0 var(--space-4);
-}
-
-.problems-sheets-btn {
-  display: inline-block;
-  font-weight: 600;
-  color: var(--color-primary-contrast);
-  background: var(--color-primary);
-  border-radius: var(--radius-full);
-  padding: var(--space-2) var(--space-6);
-}
-
-.problems-sheets-btn:hover {
-  text-decoration: none;
-  background: var(--color-primary-hover);
-}
-
 @media (min-width: 48rem) {
   .problems-filters {
     display: grid;

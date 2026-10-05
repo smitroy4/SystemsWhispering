@@ -3,9 +3,10 @@ import type { Sheet } from '../../types/content.ts';
 /** 60-day mastery: fundamentals first, then algorithms, heaps, graphs, and intro DP. */
 export const s4j60DaysMastery: Sheet = {
   slug: 's4j-60-days-mastery',
-  title: 'S4J 60-Day Mastery',
+  title: 'S4J 60-Day Strive',
   description:
     'Two months from zero to confident: weeks 1–4 rebuild fundamentals with fresh problem sets, weeks 5–8 add sorting depth, heaps, graphs, and your first dynamic programming.',
+  difficulty: 'Intermediate',
   days: [
     {
       day: 1,

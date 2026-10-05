@@ -8,6 +8,7 @@ export const fenwickTreeTopic: Topic = {
   order: 15,
   summary: 'Binary Indexed Trees: prefix sums and point updates in O(log n) with one array and bit tricks.',
   level: 'advanced',
+  group: 'non-linear',
   prerequisites: ['array', 'segment-tree'],
   sections: [
     {

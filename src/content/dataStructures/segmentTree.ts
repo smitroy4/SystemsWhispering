@@ -8,6 +8,7 @@ export const segmentTreeTopic: Topic = {
   order: 14,
   summary: 'A binary tree over array intervals: range sums, minimums, and point updates — all in O(log n).',
   level: 'advanced',
+  group: 'non-linear',
   prerequisites: ['binary-tree', 'array'],
   sections: [
     {

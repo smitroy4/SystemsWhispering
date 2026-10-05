@@ -45,7 +45,7 @@ export const module01: LldModule = {
           code: `// Service Interface\npublic interface PaymentProcessor {\n    void process(double amount);\n}\n\n// Implementation is package-private\nclass StripePaymentProcessor implements PaymentProcessor {\n    @Override\n    public void process(double amount) {\n        System.out.println("Processing $" + amount + " via Stripe");\n    }\n}\n\n// Public Factory enforces the design\npublic class PaymentProcessorFactory {\n    public static PaymentProcessor getProcessor() {\n        return new StripePaymentProcessor();\n    }\n}`,
         },
       ],
-      diagrams: [],
+      diagrams: ['design-decisions-flow'],
       keyTakeaways: [
         'Design is the sum of intentional decisions about structure and behavior.',
         'Good design reduces cognitive load and minimizes the cost of change.',
@@ -121,7 +121,7 @@ export const module01: LldModule = {
           code: `// Poor LLD: Everything in one class\nclass OrderService {\n    public void placeOrder(Order o) {\n        // 1. Validate\n        // 2. Calculate Tax\n        // 3. Save to DB\n        // 4. Send Email\n    }\n}\n\n// Good LLD: Delegating to specialized components\nclass OrderService {\n    private final OrderValidator validator;\n    private final TaxCalculator taxCalc;\n    private final OrderRepository repo;\n    private final NotificationService notifier;\n\n    public void placeOrder(Order o) {\n        validator.validate(o);\n        double tax = taxCalc.calculate(o);\n        repo.save(o);\n        notifier.sendEmail(o);\n    }\n}`,
         },
       ],
-      diagrams: [],
+      diagrams: ['hld-lld-layers'],
       keyTakeaways: [
         'HLD is about services and infrastructure; LLD is about classes and patterns.',
         'HLD answers "What"; LLD answers "How".',
@@ -196,7 +196,7 @@ export const module01: LldModule = {
           code: `// ARCHITECTURAL DECISION: Layered Architecture\n// The design ensures that the Controller NEVER talks to the Repository directly.\npublic class UserController {\n    private final UserService service; // Architectural boundary\n\n    public void handleRequest(Request req) {\n        service.process(req);\n    }\n}\n\n// DESIGN DECISION: Using a specific data structure\nclass UserService {\n    // Local design choice: Using a Map for O(1) lookup\n    private final Map<String, User> userCache = new HashMap<>();\n\n    public User findUser(String id) {\n        return userCache.get(id);\n    }\n}`,
         },
       ],
-      diagrams: [],
+      diagrams: ['reversibility-scale'],
       keyTakeaways: [
         'Architecture is about expensive-to-change, global decisions.',
         'Design is about cheaper-to-change, local decisions.',
@@ -351,7 +351,7 @@ export const module01: LldModule = {
           code: `// Iteration 1: Simple requirements\nclass DiscountService {\n    public double apply(double price) {\n        return price * 0.9; // Hardcoded 10% discount\n    }\n}\n\n// Iteration 2: New requirement - "Different discounts for different users"\ninterface DiscountStrategy {\n    double calculate(double price);\n}\n\nclass DiscountService {\n    private final DiscountStrategy strategy;\n    public DiscountService(DiscountStrategy s) { this.strategy = s; }\n    public double apply(double price) { return strategy.calculate(price); }\n}`,
         },
       ],
-      diagrams: [],
+      diagrams: ['design-decisions-flow'],
       keyTakeaways: [
         'Design is an iterative loop: Understand $\rightarrow$ Propose $\rightarrow$ Validate $\rightarrow$ Refine.',
         'Design Thinking focuses on the developer as the end-user of the code.',
@@ -431,7 +431,7 @@ export const module01: LldModule = {
           code: `// Tightly Coupled: OrderService depends on a concrete EmailSender\nclass OrderService {\n    private final EmailSender sender = new EmailSender(); // Tight coupling\n    public void completeOrder() {\n        sender.sendEmail(\"Order complete!\");\n    }\n}\n\n// Loosely Coupled: OrderService depends on an abstraction\ninterface NotificationProvider {\n    void notify(String msg);\n}\n\nclass OrderService {\n    private final NotificationProvider provider; // Loose coupling\n    public OrderService(NotificationProvider p) { this.provider = p; }\n    public void completeOrder() {\n        provider.notify(\"Order complete!\");\n    }\n}`,
         },
       ],
-      diagrams: [],
+      diagrams: ['blast-radius'],
       keyTakeaways: [
         'Maintainability = Ease of modification.',
         'Loose Coupling = Independence between modules.',

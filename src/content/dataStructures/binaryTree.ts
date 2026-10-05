@@ -8,6 +8,7 @@ export const binaryTreeTopic: Topic = {
   order: 10,
   summary: 'Nodes with at most two children: height, traversals (in/pre/post/level order), and recursive thinking.',
   level: 'beginner',
+  group: 'non-linear',
   prerequisites: ['stack', 'queue-deque'],
   sections: [
     {

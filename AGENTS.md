@@ -27,7 +27,7 @@ Follow these rules in every future task:
 9. After each step: run `npm run build` and fix all errors, then summarize what changed.
 10. Mobile-first responsive. Dark and light theme via CSS variables.
 11. New top-level sections must be isolated modules (own routes, own content folder, own nav entry) so AI can be added later without touching existing code.
-12. "Sheets" is NOT in the navbar. It is reached through a button on the Problems page.
+12. "Sheets" lives in the sidebar under Practice and in the navbar "Data Structures & Algorithms" menu, with a small link on the home page's problems card.
 13. LeetCode problem metadata (title, difficulty) must come from the verified slug whitelist in `scripts/leetcode-slugs.json`, never typed from memory.
 14. Every Topic page also has a "Concept Gallery" (conceptual illustrations built with HTML/CSS/SVG/JS) in addition to step animations.
 15. Fonts are self-hosted via @fontsource packages. No Google Fonts links.

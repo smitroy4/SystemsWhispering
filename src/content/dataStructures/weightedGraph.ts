@@ -8,6 +8,7 @@ export const weightedGraphTopic: Topic = {
   order: 18,
   summary: 'Edges with costs: Dijkstra’s greedy shortest paths, Bellman-Ford for negatives, and MST ideas.',
   level: 'intermediate',
+  group: 'non-linear',
   prerequisites: ['graph-representations', 'heap'],
   sections: [
     {

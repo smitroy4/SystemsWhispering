@@ -18,9 +18,52 @@ import { unionFindTopic } from './unionFind.ts';
 import { graphRepresentationsTopic } from './graphRepresentations.ts';
 import { weightedGraphTopic } from './weightedGraph.ts';
 import { advancedGraphsTopic } from './advancedGraphs.ts';
+import { circularLinkedListTopic } from './circularLinkedList.ts';
+import { circularQueueTopic } from './circularQueue.ts';
+import { skipListTopic } from './skipList.ts';
+import { sparseTableTopic } from './sparseTable.ts';
+import { matrix2dArraysTopic } from './matrix2dArrays.ts';
+import { bitsetTopic } from './bitset.ts';
+import { avlTreeTopic } from './avlTree.ts';
+import { redBlackTreeTopic } from './redBlackTree.ts';
+import { bTreeTopic } from './bTree.ts';
+import { minMaxHeapTopic } from './minMaxHeap.ts';
+import { suffixArrayTopic } from './suffixArray.ts';
+import { lruLfuCacheTopic } from './lruLfuCache.ts';
+import { bloomFilterTopic } from './bloomFilter.ts';
+import { monotonicStructuresTopic } from './monotonicStructures.ts';
+import { sqrtDecompositionTopic } from './sqrtDecomposition.ts';
+import { collectionsFrameworkMapTopic } from './collectionsFrameworkMap.ts';
+import { iterableIteratorTopic } from './iterableIterator.ts';
+import { arrayListTopic } from './arrayList.ts';
+import { linkedListTopic } from './linkedList.ts';
+import { vectorStackLegacyTopic } from './vectorStackLegacy.ts';
+import { arrayDequeTopic } from './arrayDeque.ts';
+import { priorityQueueTopic } from './priorityQueue.ts';
+import { hashMapInternalsTopic } from './hashMapInternals.ts';
+import { linkedHashMapTopic } from './linkedHashMap.ts';
+import { treeMapTopic } from './treeMap.ts';
+import { hashSetClassTopic } from './hashSetClass.ts';
+import { linkedHashSetTopic } from './linkedHashSet.ts';
+import { treeSetTopic } from './treeSet.ts';
+import { enumMapEnumSetTopic } from './enumMapEnumSet.ts';
+import { identityWeakHashMapTopic } from './identityWeakHashMap.ts';
+import { collectionsUtilityTopic } from './collectionsUtility.ts';
+import { arraysUtilityTopic } from './arraysUtility.ts';
+import { immutableCollectionsTopic } from './immutableCollections.ts';
+import { streamsWithCollectionsTopic } from './streamsWithCollections.ts';
+import { failFastFailSafeTopic } from './failFastFailSafe.ts';
+import { concurrentOverviewTopic } from './concurrentOverview.ts';
+import { concurrentHashMapTopic } from './concurrentHashMap.ts';
+import { copyOnWriteTopic } from './copyOnWrite.ts';
+import { concurrentLinkedQueueTopic } from './concurrentLinkedQueue.ts';
+import { blockingQueueTopic } from './blockingQueue.ts';
+import { concurrentSkipListTopic } from './concurrentSkipList.ts';
+import { synchronizedWrappersTopic } from './synchronizedWrappers.ts';
+import { producerConsumerTopic } from './producerConsumer.ts';
 
-/** Data-structure topics. Entries land here in later steps. */
-export const dataStructures: Topic[] = [arrayTopic, dynamicArrayTopic, stringTopic, singlyLinkedListTopic, doublyLinkedListTopic, stackTopic, queueDequeTopic, hashTableTopic, hashSetTopic, binaryTreeTopic, bstTopic, heapTopic, trieTopic, segmentTreeTopic, fenwickTreeTopic, unionFindTopic, graphRepresentationsTopic, weightedGraphTopic, advancedGraphsTopic];
+/** Data-structure topics. Stub entries (status 'draft') land fully in Steps 15b–15e. */
+export const dataStructures: Topic[] = [arrayTopic, dynamicArrayTopic, stringTopic, singlyLinkedListTopic, doublyLinkedListTopic, stackTopic, queueDequeTopic, hashTableTopic, hashSetTopic, binaryTreeTopic, bstTopic, heapTopic, trieTopic, segmentTreeTopic, fenwickTreeTopic, unionFindTopic, graphRepresentationsTopic, weightedGraphTopic, advancedGraphsTopic, circularLinkedListTopic, circularQueueTopic, skipListTopic, sparseTableTopic, matrix2dArraysTopic, bitsetTopic, avlTreeTopic, redBlackTreeTopic, bTreeTopic, minMaxHeapTopic, suffixArrayTopic, lruLfuCacheTopic, bloomFilterTopic, monotonicStructuresTopic, sqrtDecompositionTopic, collectionsFrameworkMapTopic, iterableIteratorTopic, arrayListTopic, linkedListTopic, vectorStackLegacyTopic, arrayDequeTopic, priorityQueueTopic, hashMapInternalsTopic, linkedHashMapTopic, treeMapTopic, hashSetClassTopic, linkedHashSetTopic, treeSetTopic, enumMapEnumSetTopic, identityWeakHashMapTopic, collectionsUtilityTopic, arraysUtilityTopic, immutableCollectionsTopic, streamsWithCollectionsTopic, failFastFailSafeTopic, concurrentOverviewTopic, concurrentHashMapTopic, copyOnWriteTopic, concurrentLinkedQueueTopic, blockingQueueTopic, concurrentSkipListTopic, synchronizedWrappersTopic, producerConsumerTopic];
 
 export function getDataStructure(slug: string): Topic | undefined {
   return dataStructures.find((t) => t.slug === slug);

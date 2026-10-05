@@ -6,6 +6,7 @@ export const s4j30DaysChallenge: Sheet = {
   title: 'S4J 30-Day Challenge',
   description:
     'One focused month from Big-O basics to trees and heaps. Every day pairs about two topics with two or three hand-picked LeetCode problems, ending with mixed mocks and a capstone.',
+  difficulty: 'Beginner',
   days: [
     {
       day: 1,

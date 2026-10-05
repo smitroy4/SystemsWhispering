@@ -8,6 +8,7 @@ export const hashSetTopic: Topic = {
   order: 9,
   summary: 'A HashMap that only remembers keys: O(1) membership tests, automatic dedupe, and set algebra.',
   level: 'beginner',
+  group: 'non-linear',
   prerequisites: ['hash-table'],
   sections: [
     {

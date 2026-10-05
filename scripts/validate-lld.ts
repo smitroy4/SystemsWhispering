@@ -12,7 +12,7 @@ async function validateLld() {
   }
 
   const content = fs.readFileSync(outlinePath, 'utf-8');
-  const lines = content.split('\n');
+  const lines = content.split(/\r?\n/);
   
   let currentModuleTitle = '';
   const missing = [];

@@ -8,6 +8,7 @@ export const bstTopic: Topic = {
   order: 11,
   summary: 'Left < node < right: the ordering invariant that turns a tree into a sorted map with O(log n) operations.',
   level: 'intermediate',
+  group: 'non-linear',
   prerequisites: ['binary-tree'],
   sections: [
     {

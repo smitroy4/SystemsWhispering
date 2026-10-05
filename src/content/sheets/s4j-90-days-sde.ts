@@ -1,14 +1,17 @@
 import type { Sheet } from '../../types/content.ts';
 
 /**
- * Complete mastery: the full curriculum from arrays to advanced graphs and DP.
- * Every 7th day is a revision day (no new topics). About 2 topics + 2-3 problems otherwise.
+ * S4J SDE: ninety days across every topic on this site — data structures,
+ * algorithms, graphs, dynamic programming, and the collections framework —
+ * with a revision day every seventh day, hardening weeks, mocks, and a
+ * graduation capstone.
  */
-export const s4jCompleteMastery: Sheet = {
-  slug: 's4j-complete-mastery',
-  title: 'S4J Complete Mastery',
+export const s4j90DaysSde: Sheet = {
+  slug: 's4j-90-days-sde',
+  title: 'S4J 90-Day SDE',
   description:
-    'Ninety days across every topic on this site — data structures, algorithms, graphs, and dynamic programming — with a revision day every seventh day, hardening weeks, mocks, and a graduation capstone.',
+    'Ninety days to SDE-ready: every topic on this site — data structures, algorithms, graphs, dynamic programming, and Java collections — with weekly revision, hardening weeks, mocks, and a graduation capstone.',
+  difficulty: 'Advanced',
   days: [
     {
       day: 1,
@@ -62,14 +65,14 @@ export const s4jCompleteMastery: Sheet = {
     {
       day: 8,
       title: 'Amortized cost and hashing',
-      topicSlugs: ['amortized-analysis', 'hash-table'],
+      topicSlugs: ['amortized-analysis', 'hashmap-internals'],
       problemIds: ['group-anagrams', 'design-hashmap'],
-      goal: 'Argue doubling and ship a chained map.',
+      goal: 'Argue doubling, ship a chained map, explain bucket mechanics.',
     },
     {
       day: 9,
       title: 'Equality and sets',
-      topicSlugs: ['equals-hashcode-contract', 'hash-set'],
+      topicSlugs: ['equals-hashcode-contract', 'hashset-jcf'],
       problemIds: ['happy-number', 'intersection-of-two-arrays'],
       goal: 'Correct value types plus cycle-by-set detection.',
     },
@@ -132,9 +135,9 @@ export const s4jCompleteMastery: Sheet = {
     {
       day: 18,
       title: 'Priority in practice',
-      topicSlugs: ['heap', 'collections-framework-map'],
+      topicSlugs: ['heap', 'priorityqueue-jcf'],
       problemIds: ['last-stone-weight', 'k-closest-points-to-origin'],
-      goal: 'Heap simulations and the right collection per job.',
+      goal: 'Heap simulations plus PriorityQueue comparator craft.',
     },
     {
       day: 19,
@@ -220,7 +223,6 @@ export const s4jCompleteMastery: Sheet = {
       problemIds: ['cheapest-flights-within-k-stops', 'course-schedule-ii'],
       goal: 'Round-limited relaxations and Kahn with verdict.',
     },
-    // __DAYS31_60__
     {
       day: 31,
       title: 'Cycles and spanning trees',
@@ -329,9 +331,9 @@ export const s4jCompleteMastery: Sheet = {
     {
       day: 46,
       title: 'Stack and queue deep cut',
-      topicSlugs: ['stack', 'queue-deque'],
+      topicSlugs: ['arraydeque-jcf', 'stack'],
       problemIds: ['evaluate-reverse-polish-notation', 'largest-rectangle-in-histogram'],
-      goal: 'Postfix machines and boundary stacks.',
+      goal: 'Postfix machines and boundary stacks on ArrayDeque.',
     },
     {
       day: 47,
@@ -371,7 +373,7 @@ export const s4jCompleteMastery: Sheet = {
     {
       day: 52,
       title: 'Monotonic sprint',
-      topicSlugs: ['monotonic-stack-queue', 'stack'],
+      topicSlugs: ['monotonic-structures', 'stack'],
       problemIds: ['daily-temperatures', 'trapping-rain-water'],
       goal: 'Next-greater scans and valley filling.',
     },
@@ -431,7 +433,6 @@ export const s4jCompleteMastery: Sheet = {
       problemIds: ['house-robber', 'coin-change', 'target-sum'],
       goal: '60-minute trio: states and transitions aloud.',
     },
-    // __DAYS61_90__
     {
       day: 61,
       title: 'Mock: techniques',
@@ -477,9 +478,9 @@ export const s4jCompleteMastery: Sheet = {
     {
       day: 67,
       title: 'System-flavored mediums',
-      topicSlugs: ['collections-framework-map', 'hash-table'],
-      problemIds: ['design-twitter', 'lru-cache'],
-      goal: 'Feeds, caches, and API tradeoff narration.',
+      topicSlugs: ['linkedhashmap-lru', 'hashmap-internals'],
+      problemIds: ['lru-cache', 'design-twitter'],
+      goal: 'LRU eviction plus feed design narration.',
     },
     {
       day: 68,
@@ -560,10 +561,10 @@ export const s4jCompleteMastery: Sheet = {
     },
     {
       day: 79,
-      title: 'Final trees pass',
-      topicSlugs: ['binary-search-tree', 'heap'],
-      problemIds: ['kth-smallest-element-in-a-bst', 'find-median-from-data-stream'],
-      goal: 'Order statistics and streaming medians, timed.',
+      title: 'Final ordered maps',
+      topicSlugs: ['treemap-navigablemap', 'binary-search-tree'],
+      problemIds: ['kth-smallest-element-in-a-bst', 'hand-of-straights'],
+      goal: 'Order statistics and straight-counting maps.',
     },
     {
       day: 80,
@@ -596,9 +597,9 @@ export const s4jCompleteMastery: Sheet = {
     {
       day: 84,
       title: 'Revision: final review',
-      topicSlugs: ['big-o-notation', 'collections-framework-map'],
+      topicSlugs: ['big-o-notation', 'collections-framework'],
       problemIds: ['two-sum', 'valid-parentheses'],
-      goal: 'Complexity recitation and one clean collection design.',
+      goal: 'Complexity recitation and framework-map navigation.',
     },
     {
       day: 85,

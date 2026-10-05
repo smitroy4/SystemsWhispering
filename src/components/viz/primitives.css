@@ -119,6 +119,76 @@
   color: var(--color-text-muted);
 }
 
+/* Framework map: hierarchy boxes, clickable class nodes. */
+.viz-map-edge {
+  stroke: var(--viz-muted-ink);
+  stroke-width: 1.5;
+}
+
+.viz-map-box rect {
+  fill: var(--color-surface);
+  stroke: var(--color-border);
+  stroke-width: 1.5;
+  transition:
+    stroke 300ms ease,
+    fill 300ms ease;
+}
+
+.viz-map-box--iface rect {
+  fill: var(--color-bg-raised);
+  stroke-dasharray: 7 4;
+}
+
+.viz-map-box--legacy rect {
+  stroke-dasharray: 3 3;
+}
+
+a:hover .viz-map-box rect {
+  stroke: var(--color-primary);
+  stroke-width: 2.5;
+}
+
+.viz-map-label {
+  fill: var(--color-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.viz-map-sub {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+}
+
+/* Status strip under a scene: head/tail/size readouts for ring buffers. */
+.viz-statusline {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.viz-statusline strong {
+  color: var(--color-text);
+}
+
+/* Red-black tree node colors (conceptual): real red/black in both themes. */
+.viz-rb-red circle {
+  fill: #e5484d;
+  stroke: #8c1d22;
+  stroke-width: 2.5;
+}
+
+.viz-rb-black circle {
+  fill: #2b2f36;
+  stroke: #101216;
+  stroke-width: 2;
+}
+
+.viz-rb-red .viz-node-value,
+.viz-rb-black .viz-node-value {
+  fill: #ffffff;
+}
+
 /* Legend */
 .viz-legend {
   border: 1px solid var(--color-border);

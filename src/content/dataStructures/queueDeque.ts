@@ -8,6 +8,7 @@ export const queueDequeTopic: Topic = {
   order: 7,
   summary: 'First-in, first-out fairness plus double-ended flexibility: the shape of BFS, task scheduling, and sliding windows.',
   level: 'beginner',
+  group: 'linear',
   prerequisites: ['stack'],
   sections: [
     {

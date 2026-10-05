@@ -1,0 +1,37 @@
+/* PWA / mobile-native refinements.
+   Everything here is scoped to coarse pointers or standalone display
+   mode, so desktop rendering is completely untouched. */
+
+@media (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  label {
+    touch-action: manipulation;
+  }
+
+  /* iOS zooms into inputs under 16px — keep native scale while typing. */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Installed app only: notch/status-bar insets and no rubber-band reload. */
+@media all and (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  html {
+    overscroll-behavior-y: none;
+  }
+}

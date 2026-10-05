@@ -8,6 +8,7 @@ export const trieTopic: Topic = {
   order: 13,
   summary: 'Prefix trees that share beginnings: insert and search a word in O(m), autocomplete with one subtree walk.',
   level: 'intermediate',
+  group: 'non-linear',
   prerequisites: ['string', 'hash-table'],
   sections: [
     {

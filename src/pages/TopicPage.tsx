@@ -122,6 +122,27 @@ export default function TopicPage({ category }: TopicPageProps) {
         ) : null}
       </div>
 
+      {topic.choiceBox ? (
+        <div className="topic-choicebox" aria-label="When to choose this">
+          <div className="topic-choicebox__col topic-choicebox__col--choose">
+            <h2 className="topic-choicebox__title">Choose this when</h2>
+            <ul>
+              {topic.choiceBox.choose.map((item, i) => (
+                <li key={i}>{renderMarkdownLite(item)}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="topic-choicebox__col topic-choicebox__col--avoid">
+            <h2 className="topic-choicebox__title">Avoid when</h2>
+            <ul>
+              {topic.choiceBox.avoid.map((item, i) => (
+                <li key={i}>{renderMarkdownLite(item)}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ) : null}
+
       <section className="topic-section" aria-label="Introduction">
         {topic.sections.map((section, i) => (
           <div key={i}>
@@ -188,6 +209,9 @@ export default function TopicPage({ category }: TopicPageProps) {
 
       <section className="topic-section" aria-label="Practice problems">
         <h2 className="topic-section__title">Practice problems</h2>
+        {topic.practiceNote ? (
+          <p className="topic-practice-note">{topic.practiceNote}</p>
+        ) : null}
         {problems.length > 0 ? (
           <ul className="topic-problems">
             {problems.map((problem) => (

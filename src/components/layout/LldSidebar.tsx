@@ -1,81 +1,83 @@
-import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { lldModules } from '../../content/lld/index.ts';
 import './LldSidebar.css';
 
+function pad(n: number): string {
+  return n < 10 ? `0${n}` : `${n}`;
+}
+
+/**
+ * Premium LLD curriculum sidebar: numbered modules with expandable
+ * topic lists. The module holding the current topic opens automatically.
+ */
 export default function LldSidebar() {
-  // location unused – keep for possible future nav state
-  const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({});
-  const [completion, setCompletion] = useState<Record<string, boolean>>({});
+  const location = useLocation();
+  const params = useParams<{ module?: string }>();
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    const saved = localStorage.getItem('lld-completion');
-    if (saved) setCompletion(JSON.parse(saved));
-  }, []);
+    if (params.module) {
+      setExpanded((prev) =>
+        prev[params.module as string] ? prev : { ...prev, [params.module as string]: true },
+      );
+    }
+  }, [params.module, location.pathname]);
 
   const toggleModule = (slug: string) => {
-    setExpandedModules(prev => ({ ...prev, [slug]: !prev[slug] }));
-  };
-
-  const toggleTopic = (moduleSlug: string, topicSlug: string) => {
-    const newCompletion = { 
-      ...completion, 
-      [`${moduleSlug}:${topicSlug}`]: !completion[`${moduleSlug}:${topicSlug}`] 
-    };
-    setCompletion(newCompletion);
-    localStorage.setItem('lld-completion', JSON.stringify(newCompletion));
-  };
-
-  const isModuleComplete = (moduleSlug: string) => {
-    const module = lldModules.find(m => m.slug === moduleSlug);
-    if (!module) return false;
-    return module.topics.every(t => completion[`${moduleSlug}:${t.slug}`]);
+    setExpanded((prev) => ({ ...prev, [slug]: !prev[slug] }));
   };
 
   return (
-    <aside className="lld-sidebar">
-      <div className="lld-sidebar-header">
-        <h3>LLD Curriculum</h3>
+    <aside className="lld-sidebar" aria-label="LLD curriculum">
+      <div className="lld-sidebar__head">
+        <h2 className="lld-sidebar__title">LLD Curriculum</h2>
+        <span className="lld-sidebar__count" aria-label={`${lldModules.length} modules`}>
+          {lldModules.length}
+        </span>
       </div>
-      <div className="lld-sidebar-scroll">
-        {lldModules.map((module) => (
-          <div key={module.slug} className="lld-module-group">
-            <button 
-              className={`lld-module-toggle ${expandedModules[module.slug] ? 'expanded' : ''}`}
-              onClick={() => toggleModule(module.slug)}
-            >
-              <span className="toggle-icon"></span>
-              <span className="module-title">{module.title}</span>
-              <input 
-                type="checkbox" 
-                checked={isModuleComplete(module.slug)} 
-                readOnly 
-                className="module-completion-check"
-              />
-            </button>
-            
-            {expandedModules[module.slug] && (
-              <ul className="lld-topic-list">
-                {module.topics.map((topic) => (
-                  <li key={topic.slug} className="lld-topic-item">
-                    <NavLink 
-                      to={`/lld/${module.slug}/${topic.slug}`}
-                      className={({ isActive }) => `lld-topic-link ${isActive ? 'active' : ''}`}
-                    >
-                      {topic.title}
-                    </NavLink>
-                    <input 
-                      type="checkbox" 
-                      checked={!!completion[`${module.slug}:${topic.slug}`]} 
-                      onChange={() => toggleTopic(module.slug, topic.slug)}
-                      className="topic-completion-check"
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))}
+      <div className="lld-sidebar__groups">
+        {lldModules.map((module) => {
+          const open = !!expanded[module.slug];
+          return (
+            <div key={module.slug} className="lld-sidebar__group">
+              <button
+                type="button"
+                className={`lld-sidebar__module${open ? ' lld-sidebar__module--open' : ''}`}
+                aria-expanded={open}
+                onClick={() => toggleModule(module.slug)}
+              >
+                <span className="lld-sidebar__order" aria-hidden="true">
+                  {pad(module.order)}
+                </span>
+                <span className="lld-sidebar__name">{module.title}</span>
+                <span className="lld-sidebar__topics" aria-hidden="true">
+                  {module.topics.length}
+                </span>
+                <span className="lld-sidebar__chev" aria-hidden="true" />
+              </button>
+              {open ? (
+                <ol className="lld-sidebar__topics-list">
+                  {module.topics.map((topic) => (
+                    <li key={topic.slug} className="lld-sidebar__topic">
+                      <NavLink
+                        to={`/lld/${module.slug}/${topic.slug}`}
+                        className={({ isActive }) =>
+                          `lld-sidebar__link${isActive ? ' lld-sidebar__link--active' : ''}`
+                        }
+                      >
+                        <span className="lld-sidebar__index" aria-hidden="true">
+                          {pad(topic.order)}
+                        </span>
+                        {topic.title}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ol>
+              ) : null}
+            </div>
+          );
+        })}
       </div>
     </aside>
   );

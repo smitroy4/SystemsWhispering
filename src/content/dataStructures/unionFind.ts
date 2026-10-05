@@ -8,6 +8,7 @@ export const unionFindTopic: Topic = {
   order: 16,
   summary: 'Disjoint Set Union: parent arrays, path compression, and union by rank — connectivity in near-constant time.',
   level: 'intermediate',
+  group: 'non-linear',
   prerequisites: ['array'],
   sections: [
     {

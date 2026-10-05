@@ -8,6 +8,7 @@ export const doublyLinkedListTopic: Topic = {
   order: 5,
   summary: 'Nodes with next and prev links plus a tail pointer: delete any known node in O(1) and walk both directions.',
   level: 'intermediate',
+  group: 'linear',
   prerequisites: ['singly-linked-list'],
   sections: [
     {

@@ -18,7 +18,14 @@ for (const topic of [...dataStructures, ...algorithms, ...concepts]) {
   topicSlugs.add(topic.slug);
 }
 
-const problemIds = new Set(problems.map((p) => p.id));
+const problemIds = new Set<string>();
+for (const problem of problems) {
+  problemIds.add(problem.id);
+  problemIds.add(problem.slug);
+}
+
+const VALID_GROUPS = new Set(['linear', 'non-linear', 'collections', 'concurrent']);
+const VALID_STATUS = new Set(['draft', 'complete']);
 
 let errors = 0;
 let warnings = 0;
@@ -69,10 +76,23 @@ for (const topic of [...dataStructures, ...algorithms, ...concepts]) {
   for (const id of topic.problemIds) {
     if (!problemIds.has(id)) warn(`Topic '${topic.slug}' has unknown problem id '${id}'`);
   }
+  if (topic.group !== undefined && !VALID_GROUPS.has(topic.group)) {
+    fail(`Topic '${topic.slug}' has invalid group '${topic.group}'`);
+  }
+  if (topic.status !== undefined && !VALID_STATUS.has(topic.status)) {
+    fail(`Topic '${topic.slug}' has invalid status '${topic.status}'`);
+  }
+}
+
+// Every data-structure topic must declare its structural group.
+for (const topic of dataStructures) {
+  if (topic.group === undefined) {
+    fail(`Data-structure topic '${topic.slug}' is missing required 'group'`);
+  }
 }
 
 console.log(
-  `Validated ${sheets.length} sheets, ${topicSlugs.size} topics, ${problemIds.size} problems: ${errors} error(s), ${warnings} warning(s).`,
+  `Validated ${sheets.length} sheets, ${topicSlugs.size} topics, ${problems.length} problems: ${errors} error(s), ${warnings} warning(s).`,
 );
 if (errors > 0) {
   process.exit(1);

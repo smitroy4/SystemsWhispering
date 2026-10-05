@@ -8,6 +8,7 @@ export const stringTopic: Topic = {
   order: 3,
   summary: 'Strings are immutable char sequences: every "change" allocates a copy. Learn when that is fine and when StringBuilder saves the day.',
   level: 'beginner',
+  group: 'linear',
   prerequisites: ['array'],
   sections: [
     {

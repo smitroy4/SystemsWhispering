@@ -8,6 +8,7 @@ export const singlyLinkedListTopic: Topic = {
   order: 4,
   summary: 'Chains of node objects linked by references: O(1) inserts at the ends, O(n) everything that needs an index.',
   level: 'beginner',
+  group: 'linear',
   prerequisites: ['array'],
   sections: [
     {

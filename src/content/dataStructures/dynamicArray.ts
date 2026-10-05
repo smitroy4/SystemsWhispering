@@ -9,6 +9,7 @@ export const dynamicArrayTopic: Topic = {
   summary: 'Arrays that grow themselves: how ArrayList doubles its capacity, why appends are amortized O(1), and what resize really costs.',
   section: 'core',
   level: 'beginner',
+  group: 'linear',
   prerequisites: ['array'],
   sections: [
     {

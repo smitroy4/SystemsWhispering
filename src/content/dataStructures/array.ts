@@ -9,6 +9,7 @@ export const arrayTopic: Topic = {
   summary: 'Contiguous blocks of memory that store elements side by side — the foundation of almost every other data structure.',
   section: 'core',
   level: 'beginner',
+  group: 'linear',
   prerequisites: [],
   sections: [
     {
