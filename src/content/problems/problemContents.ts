@@ -163,7 +163,7 @@ export const problemContents: ProblemContent[] = [
       complexity: { time: 'O(n \\cdot k \\log k)', space: 'O(n \\cdot k)' }
     },
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Sorting costs $O(k \\log k)$ per word, but counting letters costs $O(k)$. A 26-slot count vector identifies the anagram class just as well, so encode it as a string key such as `"a1b0c0...t1..."`. The key does not depend on letter order, so anagrams still collide.',
       algorithm: ['1. For each string, build `int[26] count` by incrementing `count[c - \'a\']`.','2. Build a key by appending each count with a separator, for example `"#1#0#0..."`.','3. Group by key with a `HashMap`.','4. Return the map\'s values.'],
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        Map<String, List<String>> map = new HashMap<>();\n        for (String s : strs) {\n            int[] count = new int[26];\n            for (char c : s.toCharArray()) {\n                count[c - 'a']++;\n            }\n            StringBuilder key = new StringBuilder();\n            for (int c : count) {\n                key.append('#').append(c);\n            }\n            map.computeIfAbsent(key.toString(), k -> new ArrayList<>()).add(s);\n        }\n        return new ArrayList<>(map.values());\n    }\n}",
@@ -200,7 +200,7 @@ export const problemContents: ProblemContent[] = [
       complexity: { time: 'O(n + d \\log k)', space: 'O(d + k)' }
     },
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'A value\'s frequency is between 1 and `n`. Create `n+1` buckets, where bucket `f` holds all values with frequency `f`. Walk the buckets from highest frequency downward and collect until you have `k` values. No comparisons are needed.',
       algorithm: ['1. Count frequencies.','2. Create `buckets[0..n]`, each an empty list.','3. For each `(value, f)`, add `value` to `buckets[f]`.','4. Iterate `f` from `n` down to `1`, appending values from each bucket until the result has `k` items.'],
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> freq = new HashMap<>();\n        for (int x : nums) {\n            freq.merge(x, 1, Integer::sum);\n        }\n        int n = nums.length;\n        List<List<Integer>> buckets = new ArrayList<>();\n        for (int i = 0; i <= n; i++) {\n            buckets.add(new ArrayList<>());\n        }\n        for (Map.Entry<Integer, Integer> e : freq.entrySet()) {\n            buckets.get(e.getValue()).add(e.getKey());\n        }\n        int[] result = new int[k];\n        int idx = 0;\n        for (int f = n; f >= 1 && idx < k; f--) {\n            for (int value : buckets.get(f)) {\n                result[idx++] = value;\n                if (idx == k) {\n                    break;\n                }\n            }\n        }\n        return result;\n    }\n}",
@@ -237,7 +237,7 @@ export const problemContents: ProblemContent[] = [
       complexity: { time: 'O(n)', space: 'O(n)' }
     },
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'The output array can hold the prefix products. Then a single right-to-left pass with one running variable multiplies in the suffix product, so the separate suffix array is unnecessary.',
       algorithm: ['1. Pass left to right: `answer[i] = product of nums[0..i-1]`, tracked with a running `left`.','2. Pass right to left with a running `right = 1`: `answer[i] *= right`, then `right *= nums[i]`.'],
       code: "class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        int n = nums.length;\n        int[] answer = new int[n];\n        int left = 1;\n        for (int i = 0; i < n; i++) {\n            answer[i] = left;\n            left *= nums[i];\n        }\n        int right = 1;\n        for (int i = n - 1; i >= 0; i--) {\n            answer[i] *= right;\n            right *= nums[i];\n        }\n        return answer;\n    }\n}",
@@ -318,7 +318,7 @@ export const problemContents: ProblemContent[] = [
       complexity: { time: 'O(n \\log n)', space: 'O(1)' }
     },
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Put all numbers in a set. Start counting only from `x` where `x - 1` is absent, which guarantees each run is walked exactly once. Every element is touched at most twice (once as a candidate start, once inside a run), so the total work is linear.',
       algorithm: ['1. Insert all numbers into `set`.','2. For each `x` in `set`: if `set` contains `x - 1`, skip it.','3. Otherwise, count `len` by checking `x+1`, `x+2`, ... in the set.','4. Track the maximum length.'],
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int longestConsecutive(int[] nums) {\n        Set<Integer> set = new HashSet<>();\n        for (int x : nums) {\n            set.add(x);\n        }\n        int best = 0;\n        for (int x : set) {\n            if (set.contains(x - 1)) continue;\n            int len = 1;\n            while (set.contains(x + len)) {\n                len++;\n            }\n            best = Math.max(best, len);\n        }\n        return best;\n    }\n}",
@@ -348,7 +348,7 @@ export const problemContents: ProblemContent[] = [
       complexity: { time: 'O(T)', space: 'O(T)' }
     },
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Write each string as `length#content`. The decoder reads digits up to `#`, knows exactly how many characters follow, and jumps there. It never inspects the content, so any character, including `#` and digits, is safe.',
       algorithm: ['1. Encode: for each `s`, append `s.length()`, then `#`, then `s`.','2. Decode: keep index `i`. Find the next `#` at `j`. Parse `len = str[i..j)`. Take `str[j+1 .. j+1+len)`. Set `i = j + 1 + len`.','3. Repeat until the end of the string.'],
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public String encode(List<String> strs) {\n        StringBuilder sb = new StringBuilder();\n        for (String s : strs) {\n            sb.append(s.length()).append('#').append(s);\n        }\n        return sb.toString();\n    }\n\n    public List<String> decode(String str) {\n        List<String> result = new ArrayList<>();\n        int i = 0;\n        while (i < str.length()) {\n            int j = str.indexOf('#', i);\n            int len = Integer.parseInt(str.substring(i, j));\n            result.add(str.substring(j + 1, j + 1 + len));\n            i = j + 1 + len;\n        }\n        return result;\n    }\n}",
@@ -360,22 +360,35 @@ export const problemContents: ProblemContent[] = [
     slug: 'valid-palindrome',
     title: 'Valid Palindrome',
     difficulty: 'Easy',
-    description: 'A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers. Given a string `s`, return `true` if it is a palindrome, or `false` otherwise.',
-    examples: [],
-    constraints: undefined,
+    description: 'A phrase is a palindrome if, after converting all uppercase letters to lowercase and removing all non-alphanumeric characters, it reads the same forward and backward. Given a string `s`, return `true` if it is a palindrome, and `false` otherwise.',
+    examples: [
+    {
+      input: 's = "race a car"',
+      output: 'false',
+      explanation: ''
+    }
+  ],
+    constraints: '`1 <= s.length <= 2 * 10^5` - `s` consists only of printable ASCII characters.',
     solutions: [
     {
       label: 'Brute Force',
-      intuition: 'Filter out non-alphanumeric characters, convert to lowercase, and reverse the string to check equality.',
-      algorithm: undefined,
-      code: "class Solution {\n    public boolean isPalindrome(String s) {\n        StringBuilder filtered = new StringBuilder();\n        for (char c : s.toCharArray()) {\n            if (Character.isLetterOrDigit(c)) {\n                filtered.append(Character.toLowerCase(c));\n            }\n        }\n        return filtered.toString().equals(filtered.reverse().toString());\n    }\n}",
+      intuition: 'Clean the string once, reverse it, and compare.',
+      algorithm: ['1. Build `cleaned` by appending `Character.toLowerCase(c)` for each alphanumeric `c`.','2. Compare `cleaned` with its reverse.'],
+      code: "class Solution {\n    public boolean isPalindrome(String s) {\n        StringBuilder sb = new StringBuilder();\n        for (char c : s.toCharArray()) {\n            if (Character.isLetterOrDigit(c)) {\n                sb.append(Character.toLowerCase(c));\n            }\n        }\n        String cleaned = sb.toString();\n        return cleaned.equals(sb.reverse().toString());\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(n)' }
     },
     {
-      label: 'Optimised / Best',
-      intuition: 'Use `left` and `right` pointers meeting in the middle, skipping non-alphanumeric characters without extra memory.',
-      algorithm: undefined,
-      code: "class Solution {\n    public boolean isPalindrome(String s) {\n        int left = 0, right = s.length() - 1;\n        while (left < right) {\n            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {\n                left++;\n            }\n            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {\n                right--;\n            }\n            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {\n                return false;\n            }\n            left++;\n            right--;\n        }\n        return true;\n    }\n}",
+      label: 'Better',
+      intuition: 'Store only the valid characters in a `char[]`, then run two pointers over that array. This separates the filtering step from the comparison step.',
+      algorithm: ['1. Copy alphanumeric characters into a lowercase `char[]`.','2. Use `l = 0`, `r = len - 1`. While `l < r`, if `chars[l] != chars[r]`, return `false`. Otherwise move both inward.','3. Return `true`.'],
+      code: "class Solution {\n    public boolean isPalindrome(String s) {\n        char[] chars = new char[s.length()];\n        int len = 0;\n        for (char c : s.toCharArray()) {\n            if (Character.isLetterOrDigit(c)) {\n                chars[len++] = Character.toLowerCase(c);\n            }\n        }\n        int l = 0, r = len - 1;\n        while (l < r) {\n            if (chars[l] != chars[r]) {\n                return false;\n            }\n            l++;\n            r--;\n        }\n        return true;\n    }\n}",
+      complexity: { time: 'O(n)', space: 'O(n)' }
+    },
+    {
+      label: 'Optimised',
+      intuition: 'Skip non-alphanumeric characters with the pointers themselves. No copy is needed, so extra memory is constant.',
+      algorithm: ['1. `l = 0`, `r = n - 1`.','2. While `l < r`:','- Advance `l` while `s[l]` is not alphanumeric.','- Retreat `r` while `s[r]` is not alphanumeric.','- If `toLowerCase(s[l]) != toLowerCase(s[r])`, return `false`.','- Move both pointers inward.','3. Return `true`.'],
+      code: "class Solution {\n    public boolean isPalindrome(String s) {\n        int l = 0, r = s.length() - 1;\n        while (l < r) {\n            while (l < r && !Character.isLetterOrDigit(s.charAt(l))) l++;\n            while (l < r && !Character.isLetterOrDigit(s.charAt(r))) r--;\n            if (Character.toLowerCase(s.charAt(l)) != Character.toLowerCase(s.charAt(r))) {\n                return false;\n            }\n            l++;\n            r--;\n        }\n        return true;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(1)' }
     }
   ]
@@ -384,22 +397,42 @@ export const problemContents: ProblemContent[] = [
     slug: 'two-sum-ii-input-array-is-sorted',
     title: 'Two Sum II - Input Array Is Sorted',
     difficulty: 'Medium',
-    description: 'Given a 1-indexed array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target` number. Return the indices of the two numbers, `index1` and `index2`, added by one as an integer array `[index1, index2]` of length 2.',
-    examples: [],
-    constraints: undefined,
+    description: 'Given a **1-indexed** array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target`. Return the indices `[index1, index2]` (1-indexed), where `index1 < index2`. The tests are generated such that there is exactly one solution. You may not use the same element twice.',
+    examples: [
+    {
+      input: 'numbers = [2,3,4]',
+      output: '[1,3]',
+      explanation: '2 + 4 = 6'
+    }
+  ],
+    constraints: '`2 <= numbers.length <= 3 * 10^4` - `-1000 <= numbers[i] <= 1000` - `numbers` is sorted in non-decreasing order. - `-1000 <= target <= 1000` - Exactly one solution exists.',
     solutions: [
     {
+      label: 'Brute Force',
+      intuition: 'Check every pair.',
+      algorithm: ['1. For each `i`, for each `j > i`, if `numbers[i] + numbers[j] == target`, return `{i+1, j+1}`.'],
+      code: "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int n = numbers.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (numbers[i] + numbers[j] == target) {\n                    return new int[]{i + 1, j + 1};\n                }\n            }\n        }\n        return new int[]{};\n    }\n}",
+      complexity: { time: 'O(n^2)', space: 'O(1)' }
+    },
+    {
       label: 'Better',
-      intuition: 'For each element `numbers[i]`, binary search for `target - numbers[i]` in the subarray `numbers[i+1...n-1]`.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        for (int i = 0; i < numbers.length; i++) {\n            int complement = target - numbers[i];\n            int low = i + 1, high = numbers.length - 1;\n            while (low <= high) {\n                int mid = low + (high - low) / 2;\n                if (numbers[mid] == complement) return new int[]{i + 1, mid + 1};\n                else if (numbers[mid] < complement) low = mid + 1;\n                else high = mid - 1;\n            }\n        }\n        return new int[]{-1, -1};\n    }\n}",
+      intuition: 'For each `numbers[i]`, the complement is `target - numbers[i]`. Since the array is sorted, binary search finds it in $O(\\log n)$. Search only to the right of `i`, so each pair is considered once.',
+      algorithm: ['1. For each `i`, compute `comp = target - numbers[i]`.','2. Binary search for `comp` in the range `(i, n)`.','3. If found at index `j`, return `{i+1, j+1}`.'],
+      code: "import java.util.Arrays;\n\nclass Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int n = numbers.length;\n        for (int i = 0; i < n; i++) {\n            int comp = target - numbers[i];\n            int j = Arrays.binarySearch(numbers, i + 1, n, comp);\n            if (j >= 0) {\n                return new int[]{i + 1, j + 1};\n            }\n        }\n        return new int[]{};\n    }\n}",
       complexity: { time: 'O(n \\log n)', space: 'O(1)' }
     },
     {
-      label: 'Optimised / Best',
-      intuition: 'Initialize `left = 0`, `right = numbers.length - 1`. If sum is too small, increment `left`; if too large, decrement `right`.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int left = 0, right = numbers.length - 1;\n        while (left < right) {\n            int sum = numbers[left] + numbers[right];\n            if (sum == target) {\n                return new int[]{left + 1, right + 1};\n            } else if (sum < target) {\n                left++;\n            } else {\n                right--;\n            }\n        }\n        return new int[]{-1, -1};\n    }\n}",
+      label: 'Optimised',
+      intuition: 'Ignore the sorted order and use a map of value to index, exactly as in Two Sum. It is linear, but it needs extra memory and does not exploit sortedness.',
+      algorithm: ['1. For each `i`, check whether `target - numbers[i]` is in the map. If so, return `{map.get(comp) + 1, i + 1}`.','2. Otherwise store `numbers[i] -> i`.'],
+      code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        Map<Integer, Integer> seen = new HashMap<>();\n        for (int i = 0; i < numbers.length; i++) {\n            Integer j = seen.get(target - numbers[i]);\n            if (j != null) {\n                return new int[]{j + 1, i + 1};\n            }\n            seen.put(numbers[i], i);\n        }\n        return new int[]{};\n    }\n}",
+      complexity: { time: 'O(n)', space: 'O(n)' }
+    },
+    {
+      label: 'Best',
+      intuition: 'Start at both ends. If the sum is too small, the only way to increase it is to move `l` right, because `r` is already the largest remaining value. If too large, move `r` left. The first match is the answer, and no extra memory is needed.',
+      algorithm: ['1. `l = 0`, `r = n - 1`.','2. While `l < r`:','- `sum = numbers[l] + numbers[r]`.','- If `sum == target`, return `{l+1, r+1}`.','- If `sum < target`, `l++`. Otherwise `r--`.'],
+      code: "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int l = 0, r = numbers.length - 1;\n        while (l < r) {\n            int sum = numbers[l] + numbers[r];\n            if (sum == target) {\n                return new int[]{l + 1, r + 1};\n            } else if (sum < target) {\n                l++;\n            } else {\n                r--;\n            }\n        }\n        return new int[]{};\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(1)' }
     }
   ]
@@ -408,15 +441,35 @@ export const problemContents: ProblemContent[] = [
     slug: '3sum',
     title: '3Sum',
     difficulty: 'Medium',
-    description: 'Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. The solution set must not contain duplicate triplets.',
-    examples: [],
-    constraints: undefined,
+    description: 'Given an integer array `nums`, return all the unique triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. The solution set must not contain duplicate triplets. The order of the triplets and the values within each triplet do not matter.',
+    examples: [
+    {
+      input: 'nums = [0,1,1]',
+      output: '[]',
+      explanation: ''
+    }
+  ],
+    constraints: '`3 <= nums.length <= 3000` - `-10^5 <= nums[i] <= 10^5`',
     solutions: [
     {
+      label: 'Brute Force',
+      intuition: 'Try every index triple, sort each valid triplet to canonical form, and let a set remove duplicates.',
+      algorithm: ['1. For `i < j < k`, if the sum is zero, sort `[nums[i], nums[j], nums[k]]`.','2. Add the sorted list to a `HashSet`.','3. Return the set\'s contents.'],
+      code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        Set<List<Integer>> result = new HashSet<>();\n        int n = nums.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                for (int k = j + 1; k < n; k++) {\n                    if (nums[i] + nums[j] + nums[k] == 0) {\n                        int[] t = {nums[i], nums[j], nums[k]};\n                        Arrays.sort(t);\n                        result.add(List.of(t[0], t[1], t[2]));\n                    }\n                }\n            }\n        }\n        return new ArrayList<>(result);\n    }\n}",
+      complexity: { time: 'O(n^3)', space: 'O(u)' }
+    },
+    {
       label: 'Better',
-      intuition: 'Sort the array. For each index `i`, run two pointers `left = i + 1`, `right = n - 1`. Skip duplicate values for `i`, `left`, and `right`.',
-      algorithm: undefined,
-      code: "import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        List<List<Integer>> res = new ArrayList<>();\n        Arrays.sort(nums);\n        for (int i = 0; i < nums.length - 2; i++) {\n            if (nums[i] > 0) break; // impossible to sum to 0\n            if (i > 0 && nums[i] == nums[i - 1]) continue;\n            int left = i + 1, right = nums.length - 1;\n            while (left < right) {\n                int sum = nums[i] + nums[left] + nums[right];\n                if (sum == 0) {\n                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));\n                    while (left < right && nums[left] == nums[left + 1]) left++;\n                    while (left < right && nums[right] == nums[right - 1]) right--;\n                    left++;\n                    right--;\n                } else if (sum < 0) {\n                    left++;\n                } else {\n                    right--;\n                }\n            }\n        }\n        return res;\n    }\n}",
+      intuition: 'For a fixed `i`, scan `j` from `i+1`. Maintain a set of values seen so far. When `-(nums[i] + nums[j])` is already in the set, a triplet exists. Dedupe the result with a set of sorted triplets.',
+      algorithm: ['1. For each `i`, create an empty `seen` set.','2. For each `j > i`: let `comp = -nums[i] - nums[j]`. If `comp` is in `seen`, add the sorted triplet to `result`.','3. Add `nums[j]` to `seen`.','4. Return the unique triplets.'],
+      code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        Set<List<Integer>> result = new HashSet<>();\n        int n = nums.length;\n        for (int i = 0; i < n; i++) {\n            Set<Integer> seen = new HashSet<>();\n            for (int j = i + 1; j < n; j++) {\n                int comp = -nums[i] - nums[j];\n                if (seen.contains(comp)) {\n                    List<Integer> triplet = new ArrayList<>(List.of(nums[i], nums[j], comp));\n                    Collections.sort(triplet);\n                    result.add(triplet);\n                }\n                seen.add(nums[j]);\n            }\n        }\n        return new ArrayList<>(result);\n    }\n}",
+      complexity: { time: 'O(n^2)', space: 'O(n)' }
+    },
+    {
+      label: 'Optimised',
+      intuition: 'After sorting, for a fixed `i` the remaining problem is 2Sum on a sorted subarray, solvable with two pointers. Duplicates are skipped at three points: the fixed `i`, and both pointers after a match. Since the array is sorted, a positive `nums[i]` means no later triplet can sum to zero, so the loop can stop early.',
+      algorithm: ['1. Sort `nums`.','2. For each `i` from `0` to `n-3`:','- If `nums[i] > 0`, break.','- If `i > 0` and `nums[i] == nums[i-1]`, continue (skip duplicate fixed value).','- Set `l = i+1`, `r = n-1`. While `l < r`:','- `sum = nums[i] + nums[l] + nums[r]`.','- If `sum < 0`, `l++`. If `sum > 0`, `r--`.','- If `sum == 0`, record the triplet, move both pointers inward, and skip equal values on each side.','3. Return the result.'],
+      code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        Arrays.sort(nums);\n        List<List<Integer>> result = new ArrayList<>();\n        int n = nums.length;\n        for (int i = 0; i < n - 2; i++) {\n            if (nums[i] > 0) break;\n            if (i > 0 && nums[i] == nums[i - 1]) continue;\n            int l = i + 1, r = n - 1;\n            while (l < r) {\n                int sum = nums[i] + nums[l] + nums[r];\n                if (sum < 0) {\n                    l++;\n                } else if (sum > 0) {\n                    r--;\n                } else {\n                    result.add(List.of(nums[i], nums[l], nums[r]));\n                    l++;\n                    r--;\n                    while (l < r && nums[l] == nums[l - 1]) l++;\n                    while (l < r && nums[r] == nums[r + 1]) r--;\n                }\n            }\n        }\n        return result;\n    }\n}",
       complexity: { time: 'O(n^2)', space: 'O(1)' }
     }
   ]
@@ -425,22 +478,28 @@ export const problemContents: ProblemContent[] = [
     slug: 'container-with-most-water',
     title: 'Container With Most Water',
     difficulty: 'Medium',
-    description: 'Given `n` non-negative integers `height` where each represents a point at coordinate `(i, height[i])`. Find two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.',
-    examples: [],
-    constraints: undefined,
+    description: 'You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`-th line are `(i, 0)` and `(i, height[i])`. Find two lines that, together with the x-axis, form a container that holds the most water. Return the maximum amount of water a container can store.',
+    examples: [
+    {
+      input: 'height = [1,1]',
+      output: '1',
+      explanation: ''
+    }
+  ],
+    constraints: '`2 <= n <= 10^5` - `0 <= height[i] <= 10^4`',
     solutions: [
     {
       label: 'Brute Force',
-      intuition: 'Calculate area for all possible pairs $(i, j)$ and track the maximum.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int maxArea(int[] height) {\n        int max = 0;\n        for (int i = 0; i < height.length; i++) {\n            for (int j = i + 1; j < height.length; j++) {\n                int area = Math.min(height[i], height[j]) * (j - i);\n                max = Math.max(max, area);\n            }\n        }\n        return max;\n    }\n}",
+      intuition: 'Compute the area for every pair of lines.',
+      algorithm: ['1. For each `i < j`, compute `min(height[i], height[j]) * (j - i)`.','2. Track the maximum.'],
+      code: "class Solution {\n    public int maxArea(int[] height) {\n        int best = 0;\n        for (int i = 0; i < height.length; i++) {\n            for (int j = i + 1; j < height.length; j++) {\n                int area = Math.min(height[i], height[j]) * (j - i);\n                best = Math.max(best, area);\n            }\n        }\n        return best;\n    }\n}",
       complexity: { time: 'O(n^2)', space: 'O(1)' }
     },
     {
-      label: 'Optimised / Best',
-      intuition: 'Place pointers at ends `left = 0`, `right = n - 1`. Area is constrained by the shorter line, so move the pointer pointing to the shorter line inward.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int maxArea(int[] height) {\n        int left = 0, right = height.length - 1;\n        int maxArea = 0;\n        while (left < right) {\n            int h = Math.min(height[left], height[right]);\n            maxArea = Math.max(maxArea, h * (right - left));\n            while (left < right && height[left] <= h) left++;\n            while (left < right && height[right] <= h) right--;\n        }\n        return maxArea;\n    }\n}",
+      label: 'Optimised',
+      intuition: 'A container\'s height is limited by its shorter wall. Moving the taller wall inward keeps the same limiting height but reduces the width, so it can never produce a larger area. Therefore, the shorter wall is the only one worth moving.',
+      algorithm: ['1. `l = 0`, `r = n - 1`, `best = 0`.','2. While `l < r`:','- `best = max(best, min(height[l], height[r]) * (r - l))`.','- If `height[l] < height[r]`, `l++`. Otherwise `r--`.','3. Return `best`.'],
+      code: "class Solution {\n    public int maxArea(int[] height) {\n        int l = 0, r = height.length - 1;\n        int best = 0;\n        while (l < r) {\n            int area = Math.min(height[l], height[r]) * (r - l);\n            best = Math.max(best, area);\n            if (height[l] < height[r]) {\n                l++;\n            } else {\n                r--;\n            }\n        }\n        return best;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(1)' }
     }
   ]
@@ -449,29 +508,35 @@ export const problemContents: ProblemContent[] = [
     slug: 'trapping-rain-water',
     title: 'Trapping Rain Water',
     difficulty: 'Hard',
-    description: 'Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.',
-    examples: [],
-    constraints: undefined,
+    description: 'Given `n` non-negative integers `height` representing an elevation map where the width of each bar is `1`, compute how much water it can trap after raining.',
+    examples: [
+    {
+      input: 'height = [4,2,0,3,2,5]',
+      output: '9',
+      explanation: ''
+    }
+  ],
+    constraints: '`1 <= n <= 2 * 10^4` - `0 <= height[i] <= 10^5`',
     solutions: [
     {
-      label: 'Better',
-      intuition: 'Precompute `leftMax[i]` and `rightMax[i]` in two linear passes.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int trap(int[] height) {\n        int n = height.length;\n        if (n == 0) return 0;\n        int[] leftMax = new int[n];\n        int[] rightMax = new int[n];\n        leftMax[0] = height[0];\n        for (int i = 1; i < n; i++) leftMax[i] = Math.max(leftMax[i - 1], height[i]);\n        rightMax[n - 1] = height[n - 1];\n        for (int i = n - 2; i >= 0; i--) rightMax[i] = Math.max(rightMax[i + 1], height[i]);\n        int trapped = 0;\n        for (int i = 0; i < n; i++) {\n            trapped += Math.min(leftMax[i], rightMax[i]) - height[i];\n        }\n        return trapped;\n    }\n}",
-      complexity: { time: 'O(n)', space: 'O(n)' }
+      label: 'Brute Force',
+      intuition: 'For each index, scan left and right to find the maxima, then add the trapped water.',
+      algorithm: ['1. For each `i`, compute `maxL` as the max over `height[0..i]`.','2. Compute `maxR` as the max over `height[i..n-1]`.','3. Add `min(maxL, maxR) - height[i]`.'],
+      code: "class Solution {\n    public int trap(int[] height) {\n        int n = height.length, total = 0;\n        for (int i = 0; i < n; i++) {\n            int maxL = 0, maxR = 0;\n            for (int j = 0; j <= i; j++) maxL = Math.max(maxL, height[j]);\n            for (int j = i; j < n; j++) maxR = Math.max(maxR, height[j]);\n            total += Math.min(maxL, maxR) - height[i];\n        }\n        return total;\n    }\n}",
+      complexity: { time: 'O(n^2)', space: 'O(1)' }
     },
     {
       label: 'Better',
-      intuition: 'Maintain indices of bars in a stack. When a taller bar is found, pop and calculate trapped water layer by layer.',
-      algorithm: undefined,
-      code: "import java.util.Stack;\n\nclass Solution {\n    public int trap(int[] height) {\n        Stack<Integer> stack = new Stack<>();\n        int trapped = 0;\n        for (int i = 0; i < height.length; i++) {\n            while (!stack.isEmpty() && height[i] > height[stack.peek()]) {\n                int bottom = stack.pop();\n                if (stack.isEmpty()) break;\n                int distance = i - stack.peek() - 1;\n                int boundedHeight = Math.min(height[i], height[stack.peek()]) - height[bottom];\n                trapped += distance * boundedHeight;\n            }\n            stack.push(i);\n        }\n        return trapped;\n    }\n}",
+      intuition: 'Precompute `maxL[i]` and `maxR[i]` in two linear passes. Each index then needs only a constant-time lookup.',
+      algorithm: ['1. `maxL[i] = max(maxL[i-1], height[i])`.','2. `maxR[i] = max(maxR[i+1], height[i])`.','3. Sum `min(maxL[i], maxR[i]) - height[i]` over all `i`.'],
+      code: "class Solution {\n    public int trap(int[] height) {\n        int n = height.length;\n        int[] maxL = new int[n], maxR = new int[n];\n        maxL[0] = height[0];\n        for (int i = 1; i < n; i++) {\n            maxL[i] = Math.max(maxL[i - 1], height[i]);\n        }\n        maxR[n - 1] = height[n - 1];\n        for (int i = n - 2; i >= 0; i--) {\n            maxR[i] = Math.max(maxR[i + 1], height[i]);\n        }\n        int total = 0;\n        for (int i = 0; i < n; i++) {\n            total += Math.min(maxL[i], maxR[i]) - height[i];\n        }\n        return total;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(n)' }
     },
     {
-      label: 'Best',
-      intuition: 'Maintain `leftMax` and `rightMax`. Advance the pointer with the smaller max, adding trapped water on the fly.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int trap(int[] height) {\n        int left = 0, right = height.length - 1;\n        int leftMax = 0, rightMax = 0;\n        int trapped = 0;\n        while (left < right) {\n            if (height[left] < height[right]) {\n                if (height[left] >= leftMax) {\n                    leftMax = height[left];\n                } else {\n                    trapped += leftMax - height[left];\n                }\n                left++;\n            } else {\n                if (height[right] >= rightMax) {\n                    rightMax = height[right];\n                } else {\n                    trapped += rightMax - height[right];\n                }\n                right--;\n            }\n        }\n        return trapped;\n    }\n}",
+      label: 'Optimised',
+      intuition: 'At any point, the side whose current bar is shorter determines the water level. If `height[l] < height[r]`, then `maxLeft` is the binding constraint on the left, because a taller bar exists on the right, so `maxLeft` is safe to use. Process the left side and advance `l`. Otherwise do the same on the right. This achieves the prefix/suffix result without arrays.',
+      algorithm: ['1. `l = 0`, `r = n-1`, `lMax = 0`, `rMax = 0`, `total = 0`.','2. While `l < r`:','- If `height[l] < height[r]`:','- If `height[l] >= lMax`, update `lMax`. Otherwise add `lMax - height[l]`.','- `l++`.','- Else:','- If `height[r] >= rMax`, update `rMax`. Otherwise add `rMax - height[r]`.','- `r--`.','3. Return `total`.'],
+      code: "class Solution {\n    public int trap(int[] height) {\n        int l = 0, r = height.length - 1;\n        int lMax = 0, rMax = 0, total = 0;\n        while (l < r) {\n            if (height[l] < height[r]) {\n                if (height[l] >= lMax) {\n                    lMax = height[l];\n                } else {\n                    total += lMax - height[l];\n                }\n                l++;\n            } else {\n                if (height[r] >= rMax) {\n                    rMax = height[r];\n                } else {\n                    total += rMax - height[r];\n                }\n                r--;\n            }\n        }\n        return total;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(1)' }
     }
   ]
@@ -480,15 +545,35 @@ export const problemContents: ProblemContent[] = [
     slug: 'best-time-to-buy-and-sell-stock',
     title: 'Best Time to Buy and Sell Stock',
     difficulty: 'Easy',
-    description: 'You are given an array `prices` where `prices[i]` is the price of a given stock on the $i^{\\text{th}}$ day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve.',
-    examples: [],
-    constraints: undefined,
+    description: 'You are given an array `prices` where `prices[i]` is the price of a stock on day `i`. You want to maximise profit by choosing a single day to buy and a later day to sell. Return the maximum profit. If no profit is possible, return `0`.',
+    examples: [
+    {
+      input: 'prices = [7,6,4,3,1]',
+      output: '0',
+      explanation: ''
+    }
+  ],
+    constraints: '`1 <= prices.length <= 10^5` - `0 <= prices[i] <= 10^4`',
     solutions: [
     {
-      label: 'Optimised / Best',
-      intuition: 'Keep track of minimum purchase price seen so far. At each day, update `maxProfit = max(maxProfit, price - minPrice)`.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int minPrice = Integer.MAX_VALUE;\n        int maxProfit = 0;\n        for (int price : prices) {\n            if (price < minPrice) {\n                minPrice = price;\n            } else if (price - minPrice > maxProfit) {\n                maxProfit = price - minPrice;\n            }\n        }\n        return maxProfit;\n    }\n}",
+      label: 'Brute Force',
+      intuition: 'Try every pair with buy day before sell day.',
+      algorithm: ['1. For each `i < j`, compute `prices[j] - prices[i]`.','2. Track the maximum, starting from `0`.'],
+      code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int best = 0;\n        for (int i = 0; i < prices.length; i++) {\n            for (int j = i + 1; j < prices.length; j++) {\n                best = Math.max(best, prices[j] - prices[i]);\n            }\n        }\n        return best;\n    }\n}",
+      complexity: { time: 'O(n^2)', space: 'O(1)' }
+    },
+    {
+      label: 'Better',
+      intuition: 'Precompute `minSoFar[i]`, the lowest price up to day `i`. Then the best profit on day `i` is `prices[i] - minSoFar[i-1]`.',
+      algorithm: ['1. Build `minSoFar` in one pass.','2. For each `i`, compute `prices[i] - minSoFar[i-1]`, and track the maximum.'],
+      code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int n = prices.length;\n        int[] minSoFar = new int[n];\n        minSoFar[0] = prices[0];\n        for (int i = 1; i < n; i++) {\n            minSoFar[i] = Math.min(minSoFar[i - 1], prices[i]);\n        }\n        int best = 0;\n        for (int i = 1; i < n; i++) {\n            best = Math.max(best, prices[i] - minSoFar[i - 1]);\n        }\n        return best;\n    }\n}",
+      complexity: { time: 'O(n)', space: 'O(n)' }
+    },
+    {
+      label: 'Optimised',
+      intuition: 'The prefix array is unnecessary. Keep only the minimum price seen so far, and update the best profit as you go.',
+      algorithm: ['1. `minPrice = prices[0]`, `best = 0`.','2. For each price: `best = max(best, price - minPrice)`, then `minPrice = min(minPrice, price)`.','3. Return `best`.'],
+      code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int minPrice = prices[0], best = 0;\n        for (int price : prices) {\n            best = Math.max(best, price - minPrice);\n            minPrice = Math.min(minPrice, price);\n        }\n        return best;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(1)' }
     }
   ]
@@ -498,21 +583,41 @@ export const problemContents: ProblemContent[] = [
     title: 'Longest Substring Without Repeating Characters',
     difficulty: 'Medium',
     description: 'Given a string `s`, find the length of the longest substring without repeating characters.',
-    examples: [],
-    constraints: undefined,
+    examples: [
+    {
+      input: 's = "bbbbb"',
+      output: '1',
+      explanation: ''
+    }
+  ],
+    constraints: '`0 <= s.length <= 5 * 10^4` - `s` consists of English letters, digits, symbols, and spaces (ASCII).',
     solutions: [
     {
-      label: 'Better',
-      intuition: 'Expand `right` pointer. If character already in set, increment `left` and remove characters until duplicate is gone.',
-      algorithm: undefined,
-      code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        Set<Character> set = new HashSet<>();\n        int left = 0, maxLen = 0;\n        for (int right = 0; right < s.length(); right++) {\n            while (set.contains(s.charAt(right))) {\n                set.remove(s.charAt(left));\n                left++;\n            }\n            set.add(s.charAt(right));\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n}",
-      complexity: { time: 'O(2n) = O(n)', space: 'O(\\min(n, m))' }
+      label: 'Brute Force',
+      intuition: 'For each start index, extend the substring until a repeat appears, and record its length.',
+      algorithm: ['1. For each `i`, create an empty set.','2. Extend `j` from `i` while `s[j]` is not already in the set, adding it.','3. The length is `j - i`. Track the maximum.'],
+      code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        int best = 0, n = s.length();\n        for (int i = 0; i < n; i++) {\n            Set<Character> seen = new HashSet<>();\n            int j = i;\n            while (j < n && seen.add(s.charAt(j))) {\n                j++;\n            }\n            best = Math.max(best, j - i);\n        }\n        return best;\n    }\n}",
+      complexity: { time: 'O(n^2)', space: 'O(\\min(n, m))' }
     },
     {
-      label: 'Optimised / Best',
-      intuition: 'Directly jump `left` to `lastSeen[c] + 1` whenever duplicate is found, avoiding step-by-step shrink.',
-      algorithm: undefined,
-      code: "import java.util.Arrays;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        int[] lastIndex = new int[128];\n        Arrays.fill(lastIndex, -1);\n        int maxLen = 0, left = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            if (lastIndex[c] >= left) {\n                left = lastIndex[c] + 1;\n            }\n            lastIndex[c] = right;\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n}",
+      label: 'Better',
+      intuition: 'Maintain a set of characters in the current window. When the incoming character is already present, remove characters from the left until it is not.',
+      algorithm: ['1. `left = 0`, `set` empty.','2. For each `right`:','- While `s[right]` is in `set`, remove `s[left]` and `left++`.','- Add `s[right]`.','- Update the maximum window length `right - left + 1`.'],
+      code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        Set<Character> window = new HashSet<>();\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            while (window.contains(c)) {\n                window.remove(s.charAt(left++));\n            }\n            window.add(c);\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n}",
+      complexity: { time: 'O(n)', space: 'O(\\min(n, m))' }
+    },
+    {
+      label: 'Optimised',
+      intuition: 'Instead of removing characters one by one, record each character\'s last index. When a repeat is found inside the window, jump `left` directly past the previous occurrence. The check `last >= left` matters, because an old occurrence outside the window is no longer relevant.',
+      algorithm: ['1. For each `right`, let `c = s[right]`.','2. If `c` was last seen at index `p` and `p >= left`, set `left = p + 1`.','3. Store `lastSeen[c] = right`.','4. Update the maximum window length.'],
+      code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastSeen = new HashMap<>();\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            Integer p = lastSeen.get(c);\n            if (p != null && p >= left) {\n                left = p + 1;\n            }\n            lastSeen.put(c, right);\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n}",
+      complexity: { time: 'O(n)', space: 'O(\\min(n, m))' }
+    },
+    {
+      label: 'Best',
+      intuition: 'The character set is bounded (ASCII), so a plain array indexed by character code replaces the hash map. Storing `index + 1` lets a zero mean "never seen".',
+      algorithm: ['1. `next[c]` holds one past the last index where `c` appeared (0 if never).','2. For each `right`, set `left = max(left, next[c])`.','3. Set `next[c] = right + 1`.','4. Update the best length.'],
+      code: "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        int[] next = new int[256];\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            left = Math.max(left, next[c]);\n            next[c] = right + 1;\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(1)' }
     }
   ]
@@ -521,15 +626,35 @@ export const problemContents: ProblemContent[] = [
     slug: 'longest-repeating-character-replacement',
     title: 'Longest Repeating Character Replacement',
     difficulty: 'Medium',
-    description: 'You are given a string `s` and an integer `k`. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most `k` times. Return the length of the longest substring containing the same letter you can get after performing the operations.',
-    examples: [],
-    constraints: undefined,
+    description: 'You are given a string `s` consisting of uppercase English letters and an integer `k`. You may choose any character and change it to any other uppercase letter, at most `k` times. Return the length of the longest substring containing the same letter you can get after performing the operations.',
+    examples: [
+    {
+      input: 's = "AABABBA"',
+      output: '4',
+      explanation: ''
+    }
+  ],
+    constraints: '`1 <= s.length <= 10^5` - `s` consists of only uppercase English letters. - `0 <= k <= s.length`',
     solutions: [
     {
-      label: 'Optimised / Best',
-      intuition: 'A window is valid if `(windowLength - maxFreq) <= k`. Expand `right`, update `maxFreq`. If invalid, shift `left` forward by 1.',
-      algorithm: undefined,
-      code: "class Solution {\n    public int characterReplacement(String s, int k) {\n        int[] count = new int[26];\n        int maxCount = 0;\n        int left = 0, maxLength = 0;\n        for (int right = 0; right < s.length(); right++) {\n            count[s.charAt(right) - 'A']++;\n            maxCount = Math.max(maxCount, count[s.charAt(right) - 'A']);\n            while ((right - left + 1) - maxCount > k) {\n                count[s.charAt(left) - 'A']--;\n                left++;\n            }\n            maxLength = Math.max(maxLength, right - left + 1);\n        }\n        return maxLength;\n    }\n}",
+      label: 'Brute Force',
+      intuition: 'For each start, extend the end and track the maximum frequency inside the window incrementally. Record any window that satisfies the condition.',
+      algorithm: ['1. For each `i`, reset `count[26]` and `maxF = 0`.','2. For each `j >= i`, increment `count[s[j]]`, update `maxF`.','3. If `(j - i + 1) - maxF <= k`, update the answer.'],
+      code: "class Solution {\n    public int characterReplacement(String s, int k) {\n        int n = s.length(), best = 0;\n        for (int i = 0; i < n; i++) {\n            int[] count = new int[26];\n            int maxF = 0;\n            for (int j = i; j < n; j++) {\n                count[s.charAt(j) - 'A']++;\n                maxF = Math.max(maxF, count[s.charAt(j) - 'A']);\n                if ((j - i + 1) - maxF <= k) {\n                    best = Math.max(best, j - i + 1);\n                }\n            }\n        }\n        return best;\n    }\n}",
+      complexity: { time: 'O(n^2)', space: 'O(1)' }
+    },
+    {
+      label: 'Better',
+      intuition: 'Use a standard sliding window. Shrink while the window is invalid, recomputing the max frequency over the 26 letters each time. This is correct and simple, at a small constant-factor cost.',
+      algorithm: ['1. For `right` from `0` to `n-1`, add `s[right]` to `count`.','2. While `windowSize - maxFreq(count) > k`, remove `s[left]` and `left++`.','3. Update the best window size.'],
+      code: "class Solution {\n    public int characterReplacement(String s, int k) {\n        int[] count = new int[26];\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            count[s.charAt(right) - 'A']++;\n            while ((right - left + 1) - maxFreq(count) > k) {\n                count[s.charAt(left) - 'A']--;\n                left++;\n            }\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n\n    private int maxFreq(int[] count) {\n        int m = 0;\n        for (int c : count) m = Math.max(m, c);\n        return m;\n    }\n}",
+      complexity: { time: 'O(26 \\cdot n) = O(n)', space: 'O(1)' }
+    },
+    {
+      label: 'Optimised',
+      intuition: 'The answer only grows when a new window exceeds the best length so far. So the window never needs to shrink; it only slides. Keep `maxF` as the largest frequency ever seen in any window. A stale `maxF` can only overstate validity, but a window longer than the best answer requires a genuinely larger `maxF` to appear, and that is exactly what updates it. The window size therefore never decreases in a way that changes the answer.',
+      algorithm: ['1. For each `right`, increment `count[s[right]]`, and update `maxF = max(maxF, count[s[right]])`.','2. If `(right - left + 1) - maxF > k`, decrement `count[s[left]]` and `left++`. The window slides rather than shrinks.','3. Return `s.length() - left` at the end (the final window size).'],
+      code: "class Solution {\n    public int characterReplacement(String s, int k) {\n        int[] count = new int[26];\n        int left = 0, maxF = 0;\n        for (int right = 0; right < s.length(); right++) {\n            count[s.charAt(right) - 'A']++;\n            maxF = Math.max(maxF, count[s.charAt(right) - 'A']);\n            if ((right - left + 1) - maxF > k) {\n                count[s.charAt(left) - 'A']--;\n                left++;\n            }\n        }\n        return s.length() - left;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(1)' }
     }
   ]
@@ -538,23 +663,36 @@ export const problemContents: ProblemContent[] = [
     slug: 'permutation-in-string',
     title: 'Permutation in String',
     difficulty: 'Medium',
-    description: 'Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise. In other words, return `true` if one of `s1`\'s permutations is the substring of `s2`.',
-    examples: [],
-    constraints: undefined,
+    description: 'Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1` as a substring, and `false` otherwise. In other words, return `true` if one of `s1`\'s permutations is a substring of `s2`.',
+    examples: [
+    {
+      input: 's1 = "ab"',
+      output: 'false',
+      explanation: ''
+    }
+  ],
+    constraints: '`1 <= s1.length, s2.length <= 10^4` - `s1` and `s2` consist of lowercase English letters.',
     solutions: [
     {
+      label: 'Brute Force',
+      intuition: 'Sorting is a canonical form for permutations. Sort `s1` once, then sort each window of length `m` in `s2` and compare.',
+      algorithm: ['1. If `m > n`, return `false`.','2. Sort `s1` into `target`.','3. For each start `i` in `s2`, copy `s2[i..i+m)`, sort it, and compare with `target`.'],
+      code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        int m = s1.length(), n = s2.length();\n        if (m > n) return false;\n        char[] target = s1.toCharArray();\n        Arrays.sort(target);\n        for (int i = 0; i + m <= n; i++) {\n            char[] window = s2.substring(i, i + m).toCharArray();\n            Arrays.sort(window);\n            if (Arrays.equals(window, target)) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
+      complexity: { time: 'O(n \\cdot m \\log m)', space: 'O(m)' }
+    },
+    {
       label: 'Better',
-      intuition: 'Sliding window of fixed length `s1.length()`. Compare 26-element array equality at each step.',
-      algorithm: undefined,
-      code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        if (s1.length() > s2.length()) return false;\n        int[] s1Count = new int[26];\n        int[] s2Count = new int[26];\n        for (int i = 0; i < s1.length(); i++) {\n            s1Count[s1.charAt(i) - 'a']++;\n            s2Count[s2.charAt(i) - 'a']++;\n        }\n        if (Arrays.equals(s1Count, s2Count)) return true;\n        for (int i = s1.length(); i < s2.length(); i++) {\n            s2Count[s2.charAt(i) - 'a']++;\n            s2Count[s2.charAt(i - s1.length()) - 'a']--;\n            if (Arrays.equals(s1Count, s2Count)) return true;\n        }\n        return false;\n    }\n}",
+      intuition: 'Replace sorting with letter counts. Maintain the counts of the current window, and compare the 26-slot array with `s1`\'s counts at each step. Each step adds one character and removes one.',
+      algorithm: ['1. Build `need` from `s1`.','2. For each index `i` in `s2`, add `s2[i]` to `have`. If `i >= m`, remove `s2[i-m]`.','3. Once `i >= m - 1`, the window is full. If `have` equals `need`, return `true`.'],
+      code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        int m = s1.length(), n = s2.length();\n        if (m > n) return false;\n        int[] need = new int[26], have = new int[26];\n        for (char c : s1.toCharArray()) need[c - 'a']++;\n        for (int i = 0; i < n; i++) {\n            have[s2.charAt(i) - 'a']++;\n            if (i >= m) {\n                have[s2.charAt(i - m) - 'a']--;\n            }\n            if (i >= m - 1 && Arrays.equals(need, have)) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
       complexity: { time: 'O(26 \\cdot n) = O(n)', space: 'O(1)' }
     },
     {
-      label: 'Optimised / Best',
-      intuition: 'Track the number of matching character frequencies (out of 26). When `matches == 26`, return `true`.',
-      algorithm: undefined,
-      code: "class Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        if (s1.length() > s2.length()) return false;\n        int[] s1Map = new int[26];\n        int[] s2Map = new int[26];\n        for (int i = 0; i < s1.length(); i++) {\n            s1Map[s1.charAt(i) - 'a']++;\n            s2Map[s2.charAt(i) - 'a']++;\n        }\n        int matches = 0;\n        for (int i = 0; i < 26; i++) {\n            if (s1Map[i] == s2Map[i]) matches++;\n        }\n        for (int i = 0; i < s2.length() - s1.length(); i++) {\n            if (matches == 26) return true;\n            int r = s2.charAt(i + s1.length()) - 'a';\n            int l = s2.charAt(i) - 'a';\n            s2Map[r]++;\n            if (s2Map[r] == s1Map[r]) matches++;\n            else if (s2Map[r] == s1Map[r] + 1) matches--;\n            s2Map[l]--;\n            if (s2Map[l] == s1Map[l]) matches++;\n            else if (s2Map[l] == s1Map[l] - 1) matches--;\n        }\n        return matches == 26;\n    }\n}",
-      complexity: { time: 'O(n)', space: 'O(1)' }
+      label: 'Optimised',
+      intuition: 'Rather than comparing all 26 slots on every step, track `diff = have - need` per letter, and a counter `nonZero` of letters where `diff != 0`. The window matches exactly when `nonZero == 0`. Updates touch only one or two slots, so each step is O(1).',
+      algorithm: ['1. For each character of `s1`, decrement `diff`. Count the non-zero entries into `nonZero`.','2. For each index `i` in `s2`:','- Add `s2[i]`: if `diff` was `0` before, `nonZero++`. Increment. If it is now `0`, `nonZero--`.','- If `i >= m`, remove `s2[i-m]` with the mirror logic.','- If `i >= m - 1` and `nonZero == 0`, return `true`.','3. Return `false`.'],
+      code: "class Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        int m = s1.length(), n = s2.length();\n        if (m > n) return false;\n        int[] diff = new int[26];\n        for (char c : s1.toCharArray()) diff[c - 'a']--;\n        int nonZero = 0;\n        for (int d : diff) if (d != 0) nonZero++;\n\n        for (int i = 0; i < n; i++) {\n            int add = s2.charAt(i) - 'a';\n            if (diff[add] == 0) nonZero++;\n            diff[add]++;\n            if (diff[add] == 0) nonZero--;\n\n            if (i >= m) {\n                int rem = s2.charAt(i - m) - 'a';\n                if (diff[rem] == 0) nonZero++;\n                diff[rem]--;\n                if (diff[rem] == 0) nonZero--;\n            }\n            if (i >= m - 1 && nonZero == 0) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
+      complexity: { time: 'O(n + 26) = O(n)', space: 'O(1)' }
     }
   ]
   },
@@ -562,15 +700,35 @@ export const problemContents: ProblemContent[] = [
     slug: 'minimum-window-substring',
     title: 'Minimum Window Substring',
     difficulty: 'Hard',
-    description: 'Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string `""`.',
-    examples: [],
-    constraints: undefined,
+    description: 'Given two strings `s` and `t` of lengths `m` and `n`, return the **minimum window substring** of `s` such that every character in `t` (including duplicates) is included in the window. If no such substring exists, return the empty string `""`. The test cases are generated such that the answer is unique.',
+    examples: [
+    {
+      input: 's = "a"',
+      output: '"a"',
+      explanation: ''
+    }
+  ],
+    constraints: '`1 <= m, n <= 10^5` - `s` and `t` consist of uppercase and lowercase English letters.',
     solutions: [
     {
-      label: 'Optimised / Best',
-      intuition: 'Use frequency map for `t`. Expand `right` to fulfill requirement, then contract `left` while valid to minimize window.',
-      algorithm: undefined,
-      code: "class Solution {\n    public String minWindow(String s, String t) {\n        if (s.length() < t.length()) return \"\";\n        int[] target = new int[128];\n        for (char c : t.toCharArray()) target[c]++;\n        int required = 0;\n        for (int count : target) if (count > 0) required++;\n        int[] window = new int[128];\n        int formed = 0;\n        int left = 0, minLen = Integer.MAX_VALUE, startIdx = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            window[c]++;\n            if (target[c] > 0 && window[c] == target[c]) formed++;\n            while (left <= right && formed == required) {\n                if (right - left + 1 < minLen) {\n                    minLen = right - left + 1;\n                    startIdx = left;\n                }\n                char leftChar = s.charAt(left);\n                window[leftChar]--;\n                if (target[leftChar] > 0 && window[leftChar] < target[leftChar]) formed--;\n                left++;\n            }\n        }\n        return minLen == Integer.MAX_VALUE ? \"\" : s.substring(startIdx, startIdx + minLen);\n    }\n}",
+      label: 'Brute Force',
+      intuition: 'Enumerate every substring and check whether it covers `t`. Coverage is verified by comparing counts against `t`\'s requirements.',
+      algorithm: ['1. Count the required letters from `t`.','2. For each start `i`, extend `j` from `i`, maintaining window counts.','3. Whenever every required count is satisfied, record the window if it is shorter than the best so far.'],
+      code: "class Solution {\n    public String minWindow(String s, String t) {\n        int[] need = new int[128];\n        for (char c : t.toCharArray()) need[c]++;\n        int n = s.length(), bestLen = Integer.MAX_VALUE, bestStart = 0;\n        for (int i = 0; i < n; i++) {\n            int[] win = new int[128];\n            for (int j = i; j < n; j++) {\n                win[s.charAt(j)]++;\n                if (covers(win, need) && j - i + 1 < bestLen) {\n                    bestLen = j - i + 1;\n                    bestStart = i;\n                }\n            }\n        }\n        return bestLen == Integer.MAX_VALUE ? \"\" : s.substring(bestStart, bestStart + bestLen);\n    }\n\n    private boolean covers(int[] win, int[] need) {\n        for (int c = 0; c < 128; c++) {\n            if (win[c] < need[c]) return false;\n        }\n        return true;\n    }\n}",
+      complexity: { time: 'O(n^2 \\cdot 128)', space: 'O(1)' }
+    },
+    {
+      label: 'Better',
+      intuition: 'Maintain a window with a map of counts and a `formed` counter, the number of distinct characters whose window count meets the requirement. The window is valid when `formed == required`. Shrink from the left while valid, recording each valid window.',
+      algorithm: ['1. Build `need` from `t`. Let `required = need.size()`.','2. Expand `right`: add `s[right]` to `win`. If its count now equals `need`, increment `formed`.','3. While `formed == required`: record the window if it is smaller. Remove `s[left]`. If its count drops below `need`, decrement `formed`. Advance `left`.','4. Return the best window, or `""`.'],
+      code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public String minWindow(String s, String t) {\n        Map<Character, Integer> need = new HashMap<>();\n        for (char c : t.toCharArray()) need.merge(c, 1, Integer::sum);\n        int required = need.size(), formed = 0;\n        Map<Character, Integer> win = new HashMap<>();\n        int left = 0, bestLen = Integer.MAX_VALUE, bestStart = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            win.merge(c, 1, Integer::sum);\n            if (need.containsKey(c) && win.get(c).intValue() == need.get(c).intValue()) {\n                formed++;\n            }\n            while (formed == required) {\n                if (right - left + 1 < bestLen) {\n                    bestLen = right - left + 1;\n                    bestStart = left;\n                }\n                char o = s.charAt(left);\n                win.put(o, win.get(o) - 1);\n                if (need.containsKey(o) && win.get(o) < need.get(o)) {\n                    formed--;\n                }\n                left++;\n            }\n        }\n        return bestLen == Integer.MAX_VALUE ? \"\" : s.substring(bestStart, bestStart + bestLen);\n    }\n}",
+      complexity: { time: 'O(m + n)', space: 'O(\\sigma)' }
+    },
+    {
+      label: 'Optimised',
+      intuition: 'Same logic as the map version, with fixed 128-slot arrays in place of hash maps. Arrays are faster and avoid boxing. A character with `need[c] == 0` does not contribute to `formed`, so only required characters are checked.',
+      algorithm: ['1. `need[c]` counts `t`. `required` counts distinct characters with `need > 0`.','2. Slide the window as in the map version, using `win[c]` and comparing against `need[c]`.','3. Return the minimal window.'],
+      code: "class Solution {\n    public String minWindow(String s, String t) {\n        int[] need = new int[128], win = new int[128];\n        int required = 0;\n        for (char c : t.toCharArray()) {\n            if (need[c] == 0) required++;\n            need[c]++;\n        }\n        int formed = 0, left = 0, bestLen = Integer.MAX_VALUE, bestStart = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            win[c]++;\n            if (need[c] > 0 && win[c] == need[c]) formed++;\n            while (formed == required) {\n                if (right - left + 1 < bestLen) {\n                    bestLen = right - left + 1;\n                    bestStart = left;\n                }\n                char o = s.charAt(left);\n                win[o]--;\n                if (need[o] > 0 && win[o] < need[o]) formed--;\n                left++;\n            }\n        }\n        return bestLen == Integer.MAX_VALUE ? \"\" : s.substring(bestStart, bestStart + bestLen);\n    }\n}",
       complexity: { time: 'O(m + n)', space: 'O(1)' }
     }
   ]
@@ -579,22 +737,35 @@ export const problemContents: ProblemContent[] = [
     slug: 'sliding-window-maximum',
     title: 'Sliding Window Maximum',
     difficulty: 'Hard',
-    description: 'You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.',
-    examples: [],
-    constraints: undefined,
+    description: 'You are given an array of integers `nums`. A sliding window of size `k` moves from the very left of the array to the very right, one position at a time. Return an array of the maximum value in each window.',
+    examples: [
+    {
+      input: 'nums = [1]',
+      output: '[1]',
+      explanation: ''
+    }
+  ],
+    constraints: '`1 <= nums.length <= 10^5` - `-10^4 <= nums[i] <= 10^4` - `1 <= k <= nums.length`',
     solutions: [
     {
+      label: 'Brute Force',
+      intuition: 'For each window position, scan all `k` elements for the maximum.',
+      algorithm: ['1. For each start `i` from `0` to `n-k`, compute the max over `nums[i..i+k)`.','2. Store it in the result.'],
+      code: "class Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] result = new int[n - k + 1];\n        for (int i = 0; i + k <= n; i++) {\n            int m = Integer.MIN_VALUE;\n            for (int j = i; j < i + k; j++) {\n                m = Math.max(m, nums[j]);\n            }\n            result[i] = m;\n        }\n        return result;\n    }\n}",
+      complexity: { time: 'O(n \\cdot k)', space: 'O(1)' }
+    },
+    {
       label: 'Better',
-      intuition: 'Store `[val, index]` in a max-heap. Pop stale elements outside the window.',
-      algorithm: undefined,
-      code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] res = new int[n - k + 1];\n        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);\n        for (int i = 0; i < n; i++) {\n            pq.offer(new int[]{nums[i], i});\n            while (pq.peek()[1] <= i - k) pq.poll();\n            if (i >= k - 1) res[i - k + 1] = pq.peek()[0];\n        }\n        return res;\n    }\n}",
+      intuition: 'A max-heap of `(value, index)` gives the current maximum quickly. Elements that have left the window are not removed immediately. They are discarded lazily when they reach the top, because their index is out of range.',
+      algorithm: ['1. For each `i`, push `(nums[i], i)`.','2. While the top\'s index is `<= i - k`, pop it.','3. Once `i >= k - 1`, the top is the maximum of the current window. Record it.'],
+      code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] result = new int[n - k + 1];\n        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> b[0] - a[0]);\n        for (int i = 0; i < n; i++) {\n            maxHeap.offer(new int[]{nums[i], i});\n            while (maxHeap.peek()[1] <= i - k) {\n                maxHeap.poll();\n            }\n            if (i >= k - 1) {\n                result[i - k + 1] = maxHeap.peek()[0];\n            }\n        }\n        return result;\n    }\n}",
       complexity: { time: 'O(n \\log n)', space: 'O(n)' }
     },
     {
-      label: 'Optimised / Best',
-      intuition: 'Store indices in a `Deque`. Maintain strictly decreasing order by removing smaller elements from back before inserting. Front is always maximum.',
-      algorithm: undefined,
-      code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] res = new int[n - k + 1];\n        Deque<Integer> deque = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) {\n            if (!deque.isEmpty() && deque.peekFirst() <= i - k) {\n                deque.pollFirst();\n            }\n            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {\n                deque.pollLast();\n            }\n            deque.offerLast(i);\n            if (i >= k - 1) {\n                res[i - k + 1] = nums[deque.peekFirst()];\n            }\n        }\n        return res;\n    }\n}",
+      label: 'Optimised',
+      intuition: 'Keep a deque of indices whose values are in decreasing order from front to back. Before adding index `i`, drop any indices at the back with smaller values, because `i` is larger and outlasts them. Drop the front index once it leaves the window. The front is always the current maximum. Each index enters and leaves the deque at most once.',
+      algorithm: ['1. For each `i`:','- Remove the front index if it is `<= i - k` (out of the window).','- Remove from the back while `nums[back] <= nums[i]`.','- Push `i` to the back.','2. If `i >= k - 1`, `nums[front]` is the window maximum. Record it.'],
+      code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] result = new int[n - k + 1];\n        Deque<Integer> dq = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) {\n            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {\n                dq.pollFirst();\n            }\n            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {\n                dq.pollLast();\n            }\n            dq.offerLast(i);\n            if (i >= k - 1) {\n                result[i - k + 1] = nums[dq.peekFirst()];\n            }\n        }\n        return result;\n    }\n}",
       complexity: { time: 'O(n)', space: 'O(k)' }
     }
   ]
@@ -608,7 +779,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Using an array as stack avoids the overhead of `java.util.Stack`.',
       algorithm: undefined,
       code: "class Solution {\n    public boolean isValid(String s) {\n        char[] stack = new char[s.length()];\n        int head = 0;\n        for (char c : s.toCharArray()) {\n            if (c == '(') stack[head++] = ')';\n            else if (c == '{') stack[head++] = '}';\n            else if (c == '[') stack[head++] = ']';\n            else {\n                if (head == 0 || stack[--head] != c) return false;\n            }\n        }\n        return head == 0;\n    }\n}",
@@ -649,7 +820,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int evalRPN(String[] tokens) {\n        int[] stack = new int[tokens.length];\n        int top = 0;\n        for (String t : tokens) {\n            switch (t) {\n                case \"+\":\n                    stack[top - 2] += stack[top - 1];\n                    top--;\n                    break;\n                case \"-\":\n                    stack[top - 2] -= stack[top - 1];\n                    top--;\n                    break;\n                case \"*\":\n                    stack[top - 2] *= stack[top - 1];\n                    top--;\n                    break;\n                case \"/\":\n                    stack[top - 2] /= stack[top - 1];\n                    top--;\n                    break;\n                default:\n                    stack[top++] = Integer.parseInt(t);\n                    break;\n            }\n        }\n        return stack[0];\n    }\n}",
@@ -666,7 +837,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Add `\'(\'` if `open < n`; add `\')\'` if `close < open`.',
       algorithm: undefined,
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<String> generateParenthesis(int n) {\n        List<String> res = new ArrayList<>();\n        backtrack(res, new StringBuilder(), 0, 0, n);\n        return res;\n    }\n\n    private void backtrack(List<String> res, StringBuilder sb, int open, int close, int max) {\n        if (sb.length() == max * 2) {\n            res.add(sb.toString());\n            return;\n        }\n        if (open < max) {\n            sb.append('(');\n            backtrack(res, sb, open + 1, close, max);\n            sb.deleteCharAt(sb.length() - 1);\n        }\n        if (close < open) {\n            sb.append(')');\n            backtrack(res, sb, open, close + 1, max);\n            sb.deleteCharAt(sb.length() - 1);\n        }\n    }\n}",
@@ -707,7 +878,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Sort cars by starting position descending. Calculate arrival time $(target - pos) / speed$. If a car behind arrives earlier or at the same time as the fleet ahead, it merges.',
       algorithm: undefined,
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int carFleet(int target, int[] position, int[] speed) {\n        int n = position.length;\n        double[][] cars = new double[n][2];\n        for (int i = 0; i < n; i++) {\n            cars[i][0] = position[i];\n            cars[i][1] = (double)(target - position[i]) / speed[i];\n        }\n        Arrays.sort(cars, (a, b) -> Double.compare(b[0], a[0]));\n        int fleets = 0;\n        double currentFleetTime = 0.0;\n        for (double[] car : cars) {\n            if (car[1] > currentFleetTime) {\n                fleets++;\n                currentFleetTime = car[1];\n            }\n        }\n        return fleets;\n    }\n}",
@@ -724,7 +895,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Maintain indices of bars with increasing heights. When a smaller bar appears, pop until monotonic property is restored, computing the area with the popped bar as the minimum height.',
       algorithm: undefined,
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int largestRectangleArea(int[] heights) {\n        int n = heights.length;\n        Deque<Integer> stack = new ArrayDeque<>();\n        int maxArea = 0;\n        for (int i = 0; i <= n; i++) {\n            int h = (i == n) ? 0 : heights[i];\n            while (!stack.isEmpty() && h < heights[stack.peek()]) {\n                int height = heights[stack.pop()];\n                int width = stack.isEmpty() ? i : i - stack.peek() - 1;\n                maxArea = Math.max(maxArea, height * width);\n            }\n            stack.push(i);\n        }\n        return maxArea;\n    }\n}",
@@ -748,7 +919,7 @@ export const problemContents: ProblemContent[] = [
       complexity: { time: 'O(n)', space: 'O(1)' }
     },
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        int left = 0, right = nums.length - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (nums[mid] == target) return mid;\n            else if (nums[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n}",
@@ -765,7 +936,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Treat matrix as a virtual 1D array of size $m \\times n$. Coordinate mapping: `row = mid / n`, `col = mid % n`.',
       algorithm: undefined,
       code: "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n        int m = matrix.length, n = matrix[0].length;\n        int left = 0, right = m * n - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            int val = matrix[mid / n][mid % n];\n            if (val == target) return true;\n            else if (val < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return false;\n    }\n}",
@@ -782,7 +953,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Lower bound `left = 1`, upper bound `right = max(piles)`. If she can finish in $\\le h$ hours, try a slower speed (`right = mid - 1`).',
       algorithm: undefined,
       code: "class Solution {\n    public int minEatingSpeed(int[] piles, int h) {\n        int left = 1, right = 1;\n        for (int p : piles) right = Math.max(right, p);\n        int ans = right;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            long hours = 0;\n            for (int p : piles) {\n                hours += (p + mid - 1) / mid;\n            }\n            if (hours <= h) {\n                ans = mid;\n                right = mid - 1;\n            } else {\n                left = mid + 1;\n            }\n        }\n        return ans;\n    }\n}",
@@ -799,7 +970,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Compare `nums[mid]` with `nums[right]`. If `nums[mid] > nums[right]`, the min lies strictly in the right half (`left = mid + 1`). Otherwise `right = mid`.',
       algorithm: undefined,
       code: "class Solution {\n    public int findMin(int[] nums) {\n        int left = 0, right = nums.length - 1;\n        while (left < right) {\n            int mid = left + (right - left) / 2;\n            if (nums[mid] > nums[right]) {\n                left = mid + 1;\n            } else {\n                right = mid;\n            }\n        }\n        return nums[left];\n    }\n}",
@@ -816,7 +987,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'At any `mid`, at least one half (left or right) is guaranteed to be normally sorted. Check if `target` falls in the sorted half; if so, search there, else search the other half.',
       algorithm: undefined,
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        int left = 0, right = nums.length - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (nums[mid] == target) return mid;\n            if (nums[left] <= nums[mid]) { // Left half sorted\n                if (target >= nums[left] && target < nums[mid]) {\n                    right = mid - 1;\n                } else {\n                    left = mid + 1;\n                }\n            } else { // Right half sorted\n                if (target > nums[mid] && target <= nums[right]) {\n                    left = mid + 1;\n                } else {\n                    right = mid - 1;\n                }\n            }\n        }\n        return -1;\n    }\n}",
@@ -833,7 +1004,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Since timestamps in `set` are strictly increasing, each key\'s list is sorted by timestamp. Binary search `floor` timestamp in $O(\\log n)$.',
       algorithm: undefined,
       code: "import java.util.*;\n\nclass TimeMap {\n    private static class Entry {\n        int timestamp;\n        String value;\n        Entry(int timestamp, String value) {\n            this.timestamp = timestamp;\n            this.value = value;\n        }\n    }\n\n    private Map<String, List<Entry>> map;\n\n    public TimeMap() {\n        map = new HashMap<>();\n    }\n\n    public void set(String key, String value, int timestamp) {\n        map.computeIfAbsent(key, k -> new ArrayList<>()).add(new Entry(timestamp, value));\n    }\n\n    public String get(String key, int timestamp) {\n        if (!map.containsKey(key)) return \"\";\n        List<Entry> list = map.get(key);\n        int left = 0, right = list.size() - 1;\n        String res = \"\";\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (list.get(mid).timestamp <= timestamp) {\n                res = list.get(mid).value;\n                left = mid + 1;\n            } else {\n                right = mid - 1;\n            }\n        }\n        return res;\n    }\n}",
@@ -850,7 +1021,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Binary search the partition index `i` in smaller array `nums1` and compute `j = (m + n + 1) / 2 - i`. Partition is valid if `nums1[i-1] <= nums2[j]` and `nums2[j-1] <= nums1[i]`.',
       algorithm: undefined,
       code: "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        if (nums1.length > nums2.length) {\n            return findMedianSortedArrays(nums2, nums1);\n        }\n        int m = nums1.length, n = nums2.length;\n        int left = 0, right = m;\n        while (left <= right) {\n            int i = left + (right - left) / 2;\n            int j = (m + n + 1) / 2 - i;\n            int maxLeft1 = (i == 0) ? Integer.MIN_VALUE : nums1[i - 1];\n            int minRight1 = (i == m) ? Integer.MAX_VALUE : nums1[i];\n            int maxLeft2 = (j == 0) ? Integer.MIN_VALUE : nums2[j - 1];\n            int minRight2 = (j == n) ? Integer.MAX_VALUE : nums2[j];\n\n            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {\n                if ((m + n) % 2 == 1) {\n                    return Math.max(maxLeft1, maxLeft2);\n                } else {\n                    return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2.0;\n                }\n            } else if (maxLeft1 > minRight2) {\n                right = i - 1;\n            } else {\n                left = i + 1;\n            }\n        }\n        return 0.0;\n    }\n}",
@@ -908,7 +1079,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public void reorderList(ListNode head) {\n        if (head == null || head.next == null) return;\n        // 1. Find middle\n        ListNode slow = head, fast = head;\n        while (fast.next != null && fast.next.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n        }\n        // 2. Reverse second half\n        ListNode prev = null, curr = slow.next;\n        slow.next = null;\n        while (curr != null) {\n            ListNode next = curr.next;\n            curr.next = prev;\n            prev = curr;\n            curr = next;\n        }\n        // 3. Merge two halves\n        ListNode first = head, second = prev;\n        while (second != null) {\n            ListNode t1 = first.next, t2 = second.next;\n            first.next = second;\n            second.next = t1;\n            first = t1;\n            second = t2;\n        }\n    }\n}",
@@ -925,7 +1096,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        ListNode dummy = new ListNode(0);\n        dummy.next = head;\n        ListNode fast = dummy, slow = dummy;\n        for (int i = 0; i <= n; i++) {\n            fast = fast.next;\n        }\n        while (fast != null) {\n            fast = fast.next;\n            slow = slow.next;\n        }\n        slow.next = slow.next.next;\n        return dummy.next;\n    }\n}",
@@ -949,7 +1120,7 @@ export const problemContents: ProblemContent[] = [
       complexity: { time: 'O(n)', space: 'O(n)' }
     },
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public Node copyRandomList(Node head) {\n        if (head == null) return null;\n        Node curr = head;\n        while (curr != null) {\n            Node copy = new Node(curr.val);\n            copy.next = curr.next;\n            curr.next = copy;\n            curr = copy.next;\n        }\n        curr = head;\n        while (curr != null) {\n            if (curr.random != null) {\n                curr.next.random = curr.random.next;\n            }\n            curr = curr.next.next;\n        }\n        curr = head;\n        Node dummy = new Node(0);\n        Node copyCurr = dummy;\n        while (curr != null) {\n            copyCurr.next = curr.next;\n            curr.next = curr.next.next;\n            copyCurr = copyCurr.next;\n            curr = curr.next;\n        }\n        return dummy.next;\n    }\n}",
@@ -966,7 +1137,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        ListNode dummy = new ListNode(0);\n        ListNode curr = dummy;\n        int carry = 0;\n        while (l1 != null || l2 != null || carry != 0) {\n            int sum = carry;\n            if (l1 != null) {\n                sum += l1.val;\n                l1 = l1.next;\n            }\n            if (l2 != null) {\n                sum += l2.val;\n                l2 = l2.next;\n            }\n            carry = sum / 10;\n            curr.next = new ListNode(sum % 10);\n            curr = curr.next;\n        }\n        return dummy.next;\n    }\n}",
@@ -983,7 +1154,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "public class Solution {\n    public boolean hasCycle(ListNode head) {\n        if (head == null) return false;\n        ListNode slow = head, fast = head;\n        while (fast != null && fast.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n            if (slow == fast) return true;\n        }\n        return false;\n    }\n}",
@@ -1000,7 +1171,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Treat array as linked list where node $i$ points to `nums[i]`.',
       algorithm: undefined,
       code: "class Solution {\n    public int findDuplicate(int[] nums) {\n        int slow = nums[0];\n        int fast = nums[0];\n        do {\n            slow = nums[slow];\n            fast = nums[nums[fast]];\n        } while (slow != fast);\n        fast = nums[0];\n        while (slow != fast) {\n            slow = nums[slow];\n            fast = nums[fast];\n        }\n        return slow;\n    }\n}",
@@ -1017,7 +1188,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass LRUCache {\n    private static class Node {\n        int key, val;\n        Node prev, next;\n        Node(int key, int val) { this.key = key; this.val = val; }\n    }\n\n    private final int capacity;\n    private final Map<Integer, Node> map;\n    private final Node head, tail;\n\n    public LRUCache(int capacity) {\n        this.capacity = capacity;\n        this.map = new HashMap<>();\n        head = new Node(0, 0);\n        tail = new Node(0, 0);\n        head.next = tail;\n        tail.prev = head;\n    }\n\n    private void remove(Node node) {\n        node.prev.next = node.next;\n        node.next.prev = node.prev;\n    }\n\n    private void insertToHead(Node node) {\n        node.next = head.next;\n        node.prev = head;\n        head.next.prev = node;\n        head.next = node;\n    }\n\n    public int get(int key) {\n        if (!map.containsKey(key)) return -1;\n        Node node = map.get(key);\n        remove(node);\n        insertToHead(node);\n        return node.val;\n    }\n\n    public void put(int key, int value) {\n        if (map.containsKey(key)) {\n            Node node = map.get(key);\n            node.val = value;\n            remove(node);\n            insertToHead(node);\n        } else {\n            if (map.size() == capacity) {\n                Node lru = tail.prev;\n                remove(lru);\n                map.remove(lru.key);\n            }\n            Node newNode = new Node(key, value);\n            map.put(key, newNode);\n            insertToHead(newNode);\n        }\n    }\n}",
@@ -1058,7 +1229,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public ListNode reverseKGroup(ListNode head, int k) {\n        ListNode dummy = new ListNode(0);\n        dummy.next = head;\n        ListNode groupPrev = dummy;\n        while (true) {\n            ListNode kth = getKth(groupPrev, k);\n            if (kth == null) break;\n            ListNode groupNext = kth.next;\n            ListNode prev = kth.next, curr = groupPrev.next;\n            while (curr != groupNext) {\n                ListNode tmp = curr.next;\n                curr.next = prev;\n                prev = curr;\n                curr = tmp;\n            }\n            ListNode tmp = groupPrev.next;\n            groupPrev.next = kth;\n            groupPrev = tmp;\n        }\n        return dummy.next;\n    }\n\n    private ListNode getKth(ListNode curr, int k) {\n        while (curr != null && k > 0) {\n            curr = curr.next;\n            k--;\n        }\n        return curr;\n    }\n}",
@@ -1116,7 +1287,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    private int maxDiameter = 0;\n\n    public int diameterOfBinaryTree(TreeNode root) {\n        height(root);\n        return maxDiameter;\n    }\n\n    private int height(TreeNode node) {\n        if (node == null) return 0;\n        int leftH = height(node.left);\n        int rightH = height(node.right);\n        maxDiameter = Math.max(maxDiameter, leftH + rightH);\n        return 1 + Math.max(leftH, rightH);\n    }\n}",
@@ -1133,7 +1304,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public boolean isBalanced(TreeNode root) {\n        return checkHeight(root) != -1;\n    }\n\n    private int checkHeight(TreeNode node) {\n        if (node == null) return 0;\n        int left = checkHeight(node.left);\n        if (left == -1) return -1;\n        int right = checkHeight(node.right);\n        if (right == -1) return -1;\n        if (Math.abs(left - right) > 1) return -1;\n        return 1 + Math.max(left, right);\n    }\n}",
@@ -1184,7 +1355,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        TreeNode curr = root;\n        while (curr != null) {\n            if (p.val > curr.val && q.val > curr.val) {\n                curr = curr.right;\n            } else if (p.val < curr.val && q.val < curr.val) {\n                curr = curr.left;\n            } else {\n                return curr; // Split point\n            }\n        }\n        return null;\n    }\n}",
@@ -1201,7 +1372,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        List<List<Integer>> res = new ArrayList<>();\n        if (root == null) return res;\n        Queue<TreeNode> queue = new LinkedList<>();\n        queue.offer(root);\n        while (!queue.isEmpty()) {\n            int levelSize = queue.size();\n            List<Integer> currentLevel = new ArrayList<>(levelSize);\n            for (int i = 0; i < levelSize; i++) {\n                TreeNode node = queue.poll();\n                currentLevel.add(node.val);\n                if (node.left != null) queue.offer(node.left);\n                if (node.right != null) queue.offer(node.right);\n            }\n            res.add(currentLevel);\n        }\n        return res;\n    }\n}",
@@ -1218,7 +1389,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Traverse root $\\to$ right $\\to$ left. The first node visited at each depth level is the rightmost node.',
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<Integer> rightSideView(TreeNode root) {\n        List<Integer> res = new ArrayList<>();\n        dfs(root, 0, res);\n        return res;\n    }\n\n    private void dfs(TreeNode node, int depth, List<Integer> res) {\n        if (node == null) return;\n        if (depth == res.size()) {\n            res.add(node.val);\n        }\n        dfs(node.right, depth + 1, res);\n        dfs(node.left, depth + 1, res);\n    }\n}",
@@ -1276,7 +1447,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.Stack;\n\nclass Solution {\n    public int kthSmallest(TreeNode root, int k) {\n        Stack<TreeNode> stack = new Stack<>();\n        TreeNode curr = root;\n        while (curr != null || !stack.isEmpty()) {\n            while (curr != null) {\n                stack.push(curr);\n                curr = curr.left;\n            }\n            curr = stack.pop();\n            k--;\n            if (k == 0) return curr.val;\n            curr = curr.right;\n        }\n        return -1;\n    }\n}",
@@ -1293,7 +1464,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Preorder gives root first. Inorder separates left and right subtrees.',
       algorithm: undefined,
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    private int preIdx = 0;\n    private Map<Integer, Integer> inMap = new HashMap<>();\n\n    public TreeNode buildTree(int[] preorder, int[] inorder) {\n        for (int i = 0; i < inorder.length; i++) {\n            inMap.put(inorder[i], i);\n        }\n        return helper(preorder, 0, inorder.length - 1);\n    }\n\n    private TreeNode helper(int[] preorder, int inStart, int inEnd) {\n        if (inStart > inEnd) return null;\n        int rootVal = preorder[preIdx++];\n        TreeNode root = new TreeNode(rootVal);\n        int mid = inMap.get(rootVal);\n        root.left = helper(preorder, inStart, mid - 1);\n        root.right = helper(preorder, mid + 1, inEnd);\n        return root;\n    }\n}",
@@ -1310,7 +1481,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'At each node, compute max gain from left and right children (clamped to 0). Combined path through current node is `node.val + leftGain + rightGain`. Return single-branch gain `node.val + max(leftGain, rightGain)` to parent.',
       algorithm: undefined,
       code: "class Solution {\n    private int maxSum = Integer.MIN_VALUE;\n\n    public int maxPathSum(TreeNode root) {\n        gain(root);\n        return maxSum;\n    }\n\n    private int gain(TreeNode node) {\n        if (node == null) return 0;\n        int leftGain = Math.max(0, gain(node.left));\n        int rightGain = Math.max(0, gain(node.right));\n        maxSum = Math.max(maxSum, node.val + leftGain + rightGain);\n        return node.val + Math.max(leftGain, rightGain);\n    }\n}",
@@ -1327,7 +1498,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\npublic class Codec {\n    // Encodes a tree to a single string.\n    public String serialize(TreeNode root) {\n        StringBuilder sb = new StringBuilder();\n        buildString(root, sb);\n        return sb.toString();\n    }\n\n    private void buildString(TreeNode node, StringBuilder sb) {\n        if (node == null) {\n            sb.append(\"N,\");\n            return;\n        }\n        sb.append(node.val).append(\",\");\n        buildString(node.left, sb);\n        buildString(node.right, sb);\n    }\n\n    // Decodes your encoded data to tree.\n    public TreeNode deserialize(String data) {\n        Queue<String> nodes = new LinkedList<>(Arrays.asList(data.split(\",\")));\n        return buildTree(nodes);\n    }\n\n    private TreeNode buildTree(Queue<String> nodes) {\n        String val = nodes.poll();\n        if (val.equals(\"N\")) return null;\n        TreeNode node = new TreeNode(Integer.parseInt(val));\n        node.left = buildTree(nodes);\n        node.right = buildTree(nodes);\n        return node;\n    }\n}",
@@ -1344,7 +1515,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.PriorityQueue;\n\nclass KthLargest {\n    private final PriorityQueue<Integer> minHeap;\n    private final int k;\n\n    public KthLargest(int k, int[] nums) {\n        this.k = k;\n        this.minHeap = new PriorityQueue<>(k);\n        for (int n : nums) {\n            add(n);\n        }\n    }\n\n    public int add(int val) {\n        if (minHeap.size() < k) {\n            minHeap.offer(val);\n        } else if (val > minHeap.peek()) {\n            minHeap.poll();\n            minHeap.offer(val);\n        }\n        return minHeap.peek();\n    }\n}",
@@ -1361,7 +1532,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int lastStoneWeight(int[] stones) {\n        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);\n        for (int stone : stones) maxHeap.offer(stone);\n        while (maxHeap.size() > 1) {\n            int y = maxHeap.poll();\n            int x = maxHeap.poll();\n            if (y > x) maxHeap.offer(y - x);\n        }\n        return maxHeap.isEmpty() ? 0 : maxHeap.peek();\n    }\n}",
@@ -1419,7 +1590,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'The task with the maximum frequency `maxFreq` forms `(maxFreq - 1)` chunks of size `(n + 1)`. Total slots = $\\max(\\text{tasks.length}, (\\text{maxFreq} - 1) \\times (n + 1) + \\text{countMaxFreq})$.',
       algorithm: undefined,
       code: "class Solution {\n    public int leastInterval(char[] tasks, int n) {\n        int[] count = new int[26];\n        int maxFreq = 0;\n        for (char c : tasks) {\n            count[c - 'A']++;\n            maxFreq = Math.max(maxFreq, count[c - 'A']);\n        }\n        int maxCount = 0;\n        for (int c : count) {\n            if (c == maxFreq) maxCount++;\n        }\n        int emptySlots = (maxFreq - 1) * (n + 1) + maxCount;\n        return Math.max(tasks.length, emptySlots);\n    }\n}",
@@ -1436,7 +1607,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Twitter {\n    private static int timestamp = 0;\n\n    private static class Tweet {\n        int id, time;\n        Tweet next;\n        Tweet(int id, int time) { this.id = id; this.time = time; }\n    }\n\n    private static class User {\n        int id;\n        Set<Integer> followed;\n        Tweet tweetHead;\n        User(int id) {\n            this.id = id;\n            followed = new HashSet<>();\n            follow(id); // Follow self\n        }\n        void follow(int id) { followed.add(id); }\n        void unfollow(int id) { followed.remove(id); }\n        void post(int id) {\n            Tweet t = new Tweet(id, timestamp++);\n            t.next = tweetHead;\n            tweetHead = t;\n        }\n    }\n\n    private Map<Integer, User> userMap = new HashMap<>();\n\n    public Twitter() {}\n\n    public void postTweet(int userId, int tweetId) {\n        userMap.computeIfAbsent(userId, User::new).post(tweetId);\n    }\n\n    public List<Integer> getNewsFeed(int userId) {\n        List<Integer> res = new ArrayList<>();\n        if (!userMap.containsKey(userId)) return res;\n        Set<Integer> users = userMap.get(userId).followed;\n        PriorityQueue<Tweet> pq = new PriorityQueue<>((a, b) -> b.time - a.time);\n        for (int uid : users) {\n            User u = userMap.get(uid);\n            if (u != null && u.tweetHead != null) {\n                pq.offer(u.tweetHead);\n            }\n        }\n        int count = 0;\n        while (!pq.isEmpty() && count < 10) {\n            Tweet t = pq.poll();\n            res.add(t.id);\n            count++;\n            if (t.next != null) pq.offer(t.next);\n        }\n        return res;\n    }\n\n    public void follow(int followerId, int followeeId) {\n        userMap.computeIfAbsent(followerId, User::new);\n        userMap.computeIfAbsent(followeeId, User::new);\n        userMap.get(followerId).follow(followeeId);\n    }\n\n    public void unfollow(int followerId, int followeeId) {\n        if (userMap.containsKey(followerId) && followerId != followeeId) {\n            userMap.get(followerId).unfollow(followeeId);\n        }\n    }\n}",
@@ -1453,7 +1624,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.PriorityQueue;\n\nclass MedianFinder {\n    private PriorityQueue<Integer> small; // Max-heap (stores smaller half)\n    private PriorityQueue<Integer> large; // Min-heap (stores larger half)\n\n    public MedianFinder() {\n        small = new PriorityQueue<>((a, b) -> b - a);\n        large = new PriorityQueue<>();\n    }\n\n    public void addNum(int num) {\n        small.offer(num);\n        large.offer(small.poll());\n        if (large.size() > small.size()) {\n            small.offer(large.poll());\n        }\n    }\n\n    public double findMedian() {\n        if (small.size() > large.size()) {\n            return small.peek();\n        } else {\n            return (small.peek() + large.peek()) / 2.0;\n        }\n    }\n}",
@@ -1494,7 +1665,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n        List<List<Integer>> res = new ArrayList<>();\n        Arrays.sort(candidates);\n        backtrack(candidates, 0, target, new ArrayList<>(), res);\n        return res;\n    }\n\n    private void backtrack(int[] candidates, int start, int remain, List<Integer> curr, List<List<Integer>> res) {\n        if (remain == 0) {\n            res.add(new ArrayList<>(curr));\n            return;\n        }\n        for (int i = start; i < candidates.length; i++) {\n            if (candidates[i] > remain) break; // Pruning\n            curr.add(candidates[i]);\n            backtrack(candidates, i, remain - candidates[i], curr, res); // Reuse index i\n            curr.remove(curr.size() - 1);\n        }\n    }\n}",
@@ -1511,7 +1682,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\n        List<List<Integer>> res = new ArrayList<>();\n        Arrays.sort(candidates);\n        backtrack(candidates, 0, target, new ArrayList<>(), res);\n        return res;\n    }\n\n    private void backtrack(int[] candidates, int start, int remain, List<Integer> curr, List<List<Integer>> res) {\n        if (remain == 0) {\n            res.add(new ArrayList<>(curr));\n            return;\n        }\n        for (int i = start; i < candidates.length; i++) {\n            if (candidates[i] > remain) break;\n            if (i > start && candidates[i] == candidates[i - 1]) continue; // Skip duplicates\n            curr.add(candidates[i]);\n            backtrack(candidates, i + 1, remain - candidates[i], curr, res);\n            curr.remove(curr.size() - 1);\n        }\n    }\n}",
@@ -1552,7 +1723,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> subsetsWithDup(int[] nums) {\n        List<List<Integer>> res = new ArrayList<>();\n        Arrays.sort(nums);\n        backtrack(nums, 0, new ArrayList<>(), res);\n        return res;\n    }\n\n    private void backtrack(int[] nums, int start, List<Integer> curr, List<List<Integer>> res) {\n        res.add(new ArrayList<>(curr));\n        for (int i = start; i < nums.length; i++) {\n            if (i > start && nums[i] == nums[i - 1]) continue;\n            curr.add(nums[i]);\n            backtrack(nums, i + 1, curr, res);\n            curr.remove(curr.size() - 1);\n        }\n    }\n}",
@@ -1569,7 +1740,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public boolean exist(char[][] board, String word) {\n        int m = board.length, n = board[0].length;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (board[r][c] == word.charAt(0) && dfs(board, r, c, word, 0)) {\n                    return true;\n                }\n            }\n        }\n        return false;\n    }\n\n    private boolean dfs(char[][] board, int r, int c, String word, int idx) {\n        if (idx == word.length()) return true;\n        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] != word.charAt(idx)) {\n            return false;\n        }\n        char temp = board[r][c];\n        board[r][c] = '#'; // Mark visited\n        boolean found = dfs(board, r + 1, c, word, idx + 1) ||\n                        dfs(board, r - 1, c, word, idx + 1) ||\n                        dfs(board, r, c + 1, word, idx + 1) ||\n                        dfs(board, r, c - 1, word, idx + 1);\n        board[r][c] = temp; // Backtrack\n        return found;\n    }\n}",
@@ -1603,7 +1774,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    private static final String[] MAPPING = {\n        \"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"\n    };\n\n    public List<String> letterCombinations(String digits) {\n        List<String> res = new ArrayList<>();\n        if (digits == null || digits.isEmpty()) return res;\n        dfs(digits, 0, new StringBuilder(), res);\n        return res;\n    }\n\n    private void dfs(String digits, int idx, StringBuilder sb, List<String> res) {\n        if (idx == digits.length()) {\n            res.add(sb.toString());\n            return;\n        }\n        String letters = MAPPING[digits.charAt(idx) - '0'];\n        for (char c : letters.toCharArray()) {\n            sb.append(c);\n            dfs(digits, idx + 1, sb, res);\n            sb.deleteCharAt(sb.length() - 1);\n        }\n    }\n}",
@@ -1620,7 +1791,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<List<String>> solveNQueens(int n) {\n        List<List<String>> res = new ArrayList<>();\n        char[][] board = new char[n][n];\n        for (char[] row : board) Arrays.fill(row, '.');\n        boolean[] cols = new boolean[n];\n        boolean[] diag1 = new boolean[2 * n]; // r - c + n\n        boolean[] diag2 = new boolean[2 * n]; // r + c\n        backtrack(0, n, board, cols, diag1, diag2, res);\n        return res;\n    }\n\n    private void backtrack(int r, int n, char[][] board, boolean[] cols, boolean[] d1, boolean[] d2, List<List<String>> res) {\n        if (r == n) {\n            List<String> list = new ArrayList<>();\n            for (char[] row : board) list.add(new String(row));\n            res.add(list);\n            return;\n        }\n        for (int c = 0; c < n; c++) {\n            if (cols[c] || d1[r - c + n] || d2[r + c]) continue;\n            board[r][c] = 'Q';\n            cols[c] = d1[r - c + n] = d2[r + c] = true;\n            backtrack(r + 1, n, board, cols, d1, d2, res);\n            board[r][c] = '.';\n            cols[c] = d1[r - c + n] = d2[r + c] = false;\n        }\n    }\n}",
@@ -1637,7 +1808,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Trie {\n    private static class Node {\n        Node[] children = new Node[26];\n        boolean isEnd = false;\n    }\n\n    private final Node root;\n\n    public Trie() {\n        root = new Node();\n    }\n\n    public void insert(String word) {\n        Node curr = root;\n        for (char c : word.toCharArray()) {\n            int idx = c - 'a';\n            if (curr.children[idx] == null) {\n                curr.children[idx] = new Node();\n            }\n            curr = curr.children[idx];\n        }\n        curr.isEnd = true;\n    }\n\n    public boolean search(String word) {\n        Node node = find(word);\n        return node != null && node.isEnd;\n    }\n\n    public boolean startsWith(String prefix) {\n        return find(prefix) != null;\n    }\n\n    private Node find(String s) {\n        Node curr = root;\n        for (char c : s.toCharArray()) {\n            int idx = c - 'a';\n            if (curr.children[idx] == null) return null;\n            curr = curr.children[idx];\n        }\n        return curr;\n    }\n}",
@@ -1654,7 +1825,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class WordDictionary {\n    private static class Node {\n        Node[] children = new Node[26];\n        boolean isEnd = false;\n    }\n\n    private final Node root;\n\n    public WordDictionary() {\n        root = new Node();\n    }\n\n    public void addWord(String word) {\n        Node curr = root;\n        for (char c : word.toCharArray()) {\n            int idx = c - 'a';\n            if (curr.children[idx] == null) curr.children[idx] = new Node();\n            curr = curr.children[idx];\n        }\n        curr.isEnd = true;\n    }\n\n    public boolean search(String word) {\n        return match(word, 0, root);\n    }\n\n    private boolean match(String word, int idx, Node node) {\n        if (node == null) return false;\n        if (idx == word.length()) return node.isEnd;\n        char c = word.charAt(idx);\n        if (c == '.') {\n            for (Node child : node.children) {\n                if (child != null && match(word, idx + 1, child)) return true;\n            }\n            return false;\n        } else {\n            return match(word, idx + 1, node.children[c - 'a']);\n        }\n    }\n}",
@@ -1671,7 +1842,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    private static class TrieNode {\n        TrieNode[] children = new TrieNode[26];\n        String word = null;\n    }\n\n    public List<String> findWords(char[][] board, String[] words) {\n        TrieNode root = new TrieNode();\n        for (String w : words) {\n            TrieNode curr = root;\n            for (char c : w.toCharArray()) {\n                int idx = c - 'a';\n                if (curr.children[idx] == null) curr.children[idx] = new TrieNode();\n                curr = curr.children[idx];\n            }\n            curr.word = w;\n        }\n\n        List<String> res = new ArrayList<>();\n        int m = board.length, n = board[0].length;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                dfs(board, r, c, root, res);\n            }\n        }\n        return res;\n    }\n\n    private void dfs(char[][] board, int r, int c, TrieNode node, List<String> res) {\n        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] == '#') return;\n        char ch = board[r][c];\n        int idx = ch - 'a';\n        if (node.children[idx] == null) return;\n        TrieNode nextNode = node.children[idx];\n        if (nextNode.word != null) {\n            res.add(nextNode.word);\n            nextNode.word = null; // Prevent duplicates\n        }\n\n        board[r][c] = '#';\n        dfs(board, r + 1, c, nextNode, res);\n        dfs(board, r - 1, c, nextNode, res);\n        dfs(board, r, c + 1, nextNode, res);\n        dfs(board, r, c - 1, nextNode, res);\n        board[r][c] = ch;\n    }\n}",
@@ -1688,7 +1859,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int numIslands(char[][] grid) {\n        int m = grid.length, n = grid[0].length;\n        int count = 0;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (grid[r][c] == '1') {\n                    count++;\n                    sink(grid, r, c);\n                }\n            }\n        }\n        return count;\n    }\n\n    private void sink(char[][] grid, int r, int c) {\n        if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] != '1') return;\n        grid[r][c] = '0';\n        sink(grid, r + 1, c);\n        sink(grid, r - 1, c);\n        sink(grid, r, c + 1);\n        sink(grid, r, c - 1);\n    }\n}",
@@ -1705,7 +1876,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        int maxArea = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                if (grid[r][c] == 1) {\n                    maxArea = Math.max(maxArea, area(grid, r, c));\n                }\n            }\n        }\n        return maxArea;\n    }\n\n    private int area(int[][] grid, int r, int c) {\n        if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] != 1) return 0;\n        grid[r][c] = 0;\n        return 1 + area(grid, r + 1, c) + area(grid, r - 1, c) + area(grid, r, c + 1) + area(grid, r, c - 1);\n    }\n}",
@@ -1722,7 +1893,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    private Map<Node, Node> visited = new HashMap<>();\n\n    public Node cloneGraph(Node node) {\n        if (node == null) return null;\n        if (visited.containsKey(node)) return visited.get(node);\n        Node clone = new Node(node.val);\n        visited.put(node, clone);\n        for (Node neighbor : node.neighbors) {\n            clone.neighbors.add(cloneGraph(neighbor));\n        }\n        return clone;\n    }\n}",
@@ -1739,7 +1910,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.LinkedList;\nimport java.util.Queue;\n\nclass Solution {\n    public void wallsAndGates(int[][] rooms) {\n        int m = rooms.length, n = rooms[0].length;\n        Queue<int[]> queue = new LinkedList<>();\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (rooms[r][c] == 0) queue.offer(new int[]{r, c});\n            }\n        }\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        while (!queue.isEmpty()) {\n            int[] cell = queue.poll();\n            int r = cell[0], c = cell[1];\n            for (int[] d : dirs) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr >= 0 && nr < m && nc >= 0 && nc < n && rooms[nr][nc] == Integer.MAX_VALUE) {\n                    rooms[nr][nc] = rooms[r][c] + 1;\n                    queue.offer(new int[]{nr, nc});\n                }\n            }\n        }\n    }\n}",
@@ -1756,7 +1927,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.LinkedList;\nimport java.util.Queue;\n\nclass Solution {\n    public int orangesRotting(int[][] grid) {\n        int m = grid.length, n = grid[0].length;\n        Queue<int[]> queue = new LinkedList<>();\n        int fresh = 0;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (grid[r][c] == 2) queue.offer(new int[]{r, c});\n                else if (grid[r][c] == 1) fresh++;\n            }\n        }\n        if (fresh == 0) return 0;\n        int minutes = 0;\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        while (!queue.isEmpty() && fresh > 0) {\n            int size = queue.size();\n            for (int i = 0; i < size; i++) {\n                int[] curr = queue.poll();\n                for (int[] d : dirs) {\n                    int nr = curr[0] + d[0], nc = curr[1] + d[1];\n                    if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {\n                        grid[nr][nc] = 2;\n                        fresh--;\n                        queue.offer(new int[]{nr, nc});\n                    }\n                }\n            }\n            minutes++;\n        }\n        return fresh == 0 ? minutes : -1;\n    }\n}",
@@ -1773,7 +1944,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> pacificAtlantic(int[][] heights) {\n        List<List<Integer>> res = new ArrayList<>();\n        int m = heights.length, n = heights[0].length;\n        boolean[][] pac = new boolean[m][n];\n        boolean[][] atl = new boolean[m][n];\n        for (int i = 0; i < m; i++) {\n            dfs(heights, i, 0, pac, heights[i][0]);\n            dfs(heights, i, n - 1, atl, heights[i][n - 1]);\n        }\n        for (int j = 0; j < n; j++) {\n            dfs(heights, 0, j, pac, heights[0][j]);\n            dfs(heights, m - 1, j, atl, heights[m - 1][j]);\n        }\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (pac[r][c] && atl[r][c]) {\n                    res.add(Arrays.asList(r, c));\n                }\n            }\n        }\n        return res;\n    }\n\n    private void dfs(int[][] h, int r, int c, boolean[][] visited, int prevH) {\n        if (r < 0 || r >= h.length || c < 0 || c >= h[0].length || visited[r][c] || h[r][c] < prevH) return;\n        visited[r][c] = true;\n        dfs(h, r + 1, c, visited, h[r][c]);\n        dfs(h, r - 1, c, visited, h[r][c]);\n        dfs(h, r, c + 1, visited, h[r][c]);\n        dfs(h, r, c - 1, visited, h[r][c]);\n    }\n}",
@@ -1790,7 +1961,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public void solve(char[][] board) {\n        int m = board.length, n = board[0].length;\n        for (int i = 0; i < m; i++) {\n            if (board[i][0] == 'O') dfs(board, i, 0);\n            if (board[i][n - 1] == 'O') dfs(board, i, n - 1);\n        }\n        for (int j = 0; j < n; j++) {\n            if (board[0][j] == 'O') dfs(board, 0, j);\n            if (board[m - 1][j] == 'O') dfs(board, m - 1, j);\n        }\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (board[r][c] == 'O') board[r][c] = 'X';\n                else if (board[r][c] == 'E') board[r][c] = 'O';\n            }\n        }\n    }\n\n    private void dfs(char[][] board, int r, int c) {\n        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] != 'O') return;\n        board[r][c] = 'E'; // Mark escaped\n        dfs(board, r + 1, c);\n        dfs(board, r - 1, c);\n        dfs(board, r, c + 1);\n        dfs(board, r, c - 1);\n    }\n}",
@@ -1807,7 +1978,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int countComponents(int n, int[][] edges) {\n        int[] parent = new int[n];\n        for (int i = 0; i < n; i++) parent[i] = i;\n        int components = n;\n        for (int[] edge : edges) {\n            int r1 = find(parent, edge[0]);\n            int r2 = find(parent, edge[1]);\n            if (r1 != r2) {\n                parent[r1] = r2;\n                components--;\n            }\n        }\n        return components;\n    }\n\n    private int find(int[] parent, int i) {\n        if (parent[i] == i) return i;\n        return parent[i] = find(parent, parent[i]);\n    }\n}",
@@ -1824,7 +1995,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public boolean validTree(int n, int[][] edges) {\n        if (edges.length != n - 1) return false;\n        int[] parent = new int[n];\n        for (int i = 0; i < n; i++) parent[i] = i;\n        for (int[] e : edges) {\n            int p1 = find(parent, e[0]);\n            int p2 = find(parent, e[1]);\n            if (p1 == p2) return false; // Cycle detected\n            parent[p1] = p2;\n        }\n        return true;\n    }\n\n    private int find(int[] parent, int i) {\n        if (parent[i] == i) return i;\n        return parent[i] = find(parent, parent[i]);\n    }\n}",
@@ -1858,7 +2029,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n        int[] inDegree = new int[numCourses];\n        for (int[] p : prerequisites) {\n            adj.get(p[1]).add(p[0]);\n            inDegree[p[0]]++;\n        }\n        Queue<Integer> queue = new LinkedList<>();\n        for (int i = 0; i < numCourses; i++) {\n            if (inDegree[i] == 0) queue.offer(i);\n        }\n        int processed = 0;\n        while (!queue.isEmpty()) {\n            int curr = queue.poll();\n            processed++;\n            for (int next : adj.get(curr)) {\n                if (--inDegree[next] == 0) queue.offer(next);\n            }\n        }\n        return processed == numCourses;\n    }\n}",
@@ -1875,7 +2046,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n        int[] inDegree = new int[numCourses];\n        for (int[] p : prerequisites) {\n            adj.get(p[1]).add(p[0]);\n            inDegree[p[0]]++;\n        }\n        Queue<Integer> queue = new LinkedList<>();\n        for (int i = 0; i < numCourses; i++) {\n            if (inDegree[i] == 0) queue.offer(i);\n        }\n        int[] order = new int[numCourses];\n        int idx = 0;\n        while (!queue.isEmpty()) {\n            int curr = queue.poll();\n            order[idx++] = curr;\n            for (int next : adj.get(curr)) {\n                if (--inDegree[next] == 0) queue.offer(next);\n            }\n        }\n        return idx == numCourses ? order : new int[0];\n    }\n}",
@@ -1892,7 +2063,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int[] findRedundantConnection(int[][] edges) {\n        int n = edges.length;\n        int[] parent = new int[n + 1];\n        for (int i = 1; i <= n; i++) parent[i] = i;\n        for (int[] edge : edges) {\n            int p1 = find(parent, edge[0]);\n            int p2 = find(parent, edge[1]);\n            if (p1 == p2) return edge; // Redundant edge closing a cycle\n            parent[p1] = p2;\n        }\n        return new int[0];\n    }\n\n    private int find(int[] parent, int i) {\n        if (parent[i] == i) return i;\n        return parent[i] = find(parent, parent[i]);\n    }\n}",
@@ -1909,7 +2080,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int climbStairs(int n) {\n        if (n <= 2) return n;\n        int prev2 = 1, prev1 = 2;\n        for (int i = 3; i <= n; i++) {\n            int curr = prev1 + prev2;\n            prev2 = prev1;\n            prev1 = curr;\n        }\n        return prev1;\n    }\n}",
@@ -1926,7 +2097,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int minCostClimbingStairs(int[] cost) {\n        int downOne = 0, downTwo = 0;\n        for (int i = 2; i <= cost.length; i++) {\n            int curr = Math.min(downOne + cost[i - 1], downTwo + cost[i - 2]);\n            downTwo = downOne;\n            downOne = curr;\n        }\n        return downOne;\n    }\n}",
@@ -1943,7 +2114,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int rob(int[] nums) {\n        int rob1 = 0, rob2 = 0;\n        for (int num : nums) {\n            int newRob = Math.max(rob1 + num, rob2);\n            rob1 = rob2;\n            rob2 = newRob;\n        }\n        return rob2;\n    }\n}",
@@ -1960,7 +2131,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Compare stealing from houses $0$ to $n-2$ vs houses $1$ to $n-1$.',
       algorithm: undefined,
       code: "class Solution {\n    public int rob(int[] nums) {\n        if (nums.length == 1) return nums[0];\n        return Math.max(robSimple(nums, 0, nums.length - 2), robSimple(nums, 1, nums.length - 1));\n    }\n\n    private int robSimple(int[] nums, int start, int end) {\n        int rob1 = 0, rob2 = 0;\n        for (int i = start; i <= end; i++) {\n            int newRob = Math.max(rob1 + nums[i], rob2);\n            rob1 = rob2;\n            rob2 = newRob;\n        }\n        return rob2;\n    }\n}",
@@ -1977,7 +2148,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public String longestPalindrome(String s) {\n        if (s == null || s.length() < 1) return \"\";\n        int start = 0, end = 0;\n        for (int i = 0; i < s.length(); i++) {\n            int len1 = expand(s, i, i);     // Odd length\n            int len2 = expand(s, i, i + 1); // Even length\n            int len = Math.max(len1, len2);\n            if (len > end - start) {\n                start = i - (len - 1) / 2;\n                end = i + len / 2;\n            }\n        }\n        return s.substring(start, end + 1);\n    }\n\n    private int expand(String s, int left, int right) {\n        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {\n            left--;\n            right++;\n        }\n        return right - left - 1;\n    }\n}",
@@ -1994,7 +2165,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int countSubstrings(String s) {\n        int count = 0;\n        for (int i = 0; i < s.length(); i++) {\n            count += expand(s, i, i);     // Odd\n            count += expand(s, i, i + 1); // Even\n        }\n        return count;\n    }\n\n    private int expand(String s, int l, int r) {\n        int res = 0;\n        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {\n            res++;\n            l--;\n            r++;\n        }\n        return res;\n    }\n}",
@@ -2011,7 +2182,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int numDecodings(String s) {\n        if (s == null || s.length() == 0 || s.charAt(0) == '0') return 0;\n        int n = s.length();\n        int prev2 = 1, prev1 = 1;\n        for (int i = 1; i < n; i++) {\n            int curr = 0;\n            int singleDigit = s.charAt(i) - '0';\n            int twoDigits = Integer.parseInt(s.substring(i - 1, i + 1));\n            if (singleDigit != 0) curr += prev1;\n            if (twoDigits >= 10 && twoDigits <= 26) curr += prev2;\n            prev2 = prev1;\n            prev1 = curr;\n        }\n        return prev1;\n    }\n}",
@@ -2028,7 +2199,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int coinChange(int[] coins, int amount) {\n        int[] dp = new int[amount + 1];\n        Arrays.fill(dp, amount + 1);\n        dp[0] = 0;\n        for (int a = 1; a <= amount; a++) {\n            for (int c : coins) {\n                if (a - c >= 0) {\n                    dp[a] = Math.min(dp[a], 1 + dp[a - c]);\n                }\n            }\n        }\n        return dp[amount] > amount ? -1 : dp[amount];\n    }\n}",
@@ -2045,7 +2216,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Negative numbers can turn minimum product into maximum.',
       algorithm: undefined,
       code: "class Solution {\n    public int maxProduct(int[] nums) {\n        int max = nums[0];\n        int curMin = 1, curMax = 1;\n        for (int n : nums) {\n            int temp = curMax * n;\n            curMax = Math.max(n, Math.max(curMax * n, curMin * n));\n            curMin = Math.min(n, Math.min(temp, curMin * n));\n            max = Math.max(max, curMax);\n        }\n        return max;\n    }\n}",
@@ -2062,7 +2233,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        Set<String> dict = new HashSet<>(wordDict);\n        boolean[] dp = new boolean[s.length() + 1];\n        dp[0] = true;\n        for (int i = 1; i <= s.length(); i++) {\n            for (int j = 0; j < i; j++) {\n                if (dp[j] && dict.contains(s.substring(j, i))) {\n                    dp[i] = true;\n                    break;\n                }\n            }\n        }\n        return dp[s.length()];\n    }\n}",
@@ -2103,7 +2274,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Find if there is a subset summing to `sum / 2`.',
       algorithm: undefined,
       code: "class Solution {\n    public boolean canPartition(int[] nums) {\n        int sum = 0;\n        for (int n : nums) sum += n;\n        if (sum % 2 != 0) return false;\n        int target = sum / 2;\n        boolean[] dp = new boolean[target + 1];\n        dp[0] = true;\n        for (int n : nums) {\n            for (int i = target; i >= n; i--) {\n                dp[i] = dp[i] || dp[i - n];\n            }\n        }\n        return dp[target];\n    }\n}",
@@ -2120,7 +2291,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int uniquePaths(int m, int n) {\n        int[] row = new int[n];\n        Arrays.fill(row, 1);\n        for (int r = 1; r < m; r++) {\n            for (int c = 1; c < n; c++) {\n                row[c] += row[c - 1];\n            }\n        }\n        return row[n - 1];\n    }\n}",
@@ -2137,7 +2308,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int longestCommonSubsequence(String text1, String text2) {\n        int m = text1.length(), n = text2.length();\n        int[] prev = new int[n + 1];\n        int[] curr = new int[n + 1];\n        for (int i = 1; i <= m; i++) {\n            for (int j = 1; j <= n; j++) {\n                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {\n                    curr[j] = 1 + prev[j - 1];\n                } else {\n                    curr[j] = Math.max(prev[j], curr[j - 1]);\n                }\n            }\n            int[] temp = prev;\n            prev = curr;\n            curr = temp;\n        }\n        return prev[n];\n    }\n}",
@@ -2154,7 +2325,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int sold = 0, held = Integer.MIN_VALUE, reset = 0;\n        for (int price : prices) {\n            int prevSold = sold;\n            sold = held + price;\n            held = Math.max(held, reset - price);\n            reset = Math.max(reset, prevSold);\n        }\n        return Math.max(sold, reset);\n    }\n}",
@@ -2171,7 +2342,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Iterating coins outer loop ensures distinct combinations without permutations.',
       algorithm: undefined,
       code: "class Solution {\n    public int change(int amount, int[] coins) {\n        int[] dp = new int[amount + 1];\n        dp[0] = 1;\n        for (int coin : coins) {\n            for (int i = coin; i <= amount; i++) {\n                dp[i] += dp[i - coin];\n            }\n        }\n        return dp[amount];\n    }\n}",
@@ -2188,7 +2359,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Let $P$ be positive set and $N$ be negative set. $P - N = \\text{target} \\implies 2P = \\text{target} + \\text{totalSum}$.',
       algorithm: undefined,
       code: "class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        int sum = 0;\n        for (int n : nums) sum += n;\n        if (Math.abs(target) > sum || (sum + target) % 2 != 0) return 0;\n        int subsetSum = (sum + target) / 2;\n        int[] dp = new int[subsetSum + 1];\n        dp[0] = 1;\n        for (int n : nums) {\n            for (int i = subsetSum; i >= n; i--) {\n                dp[i] += dp[i - n];\n            }\n        }\n        return dp[subsetSum];\n    }\n}",
@@ -2205,7 +2376,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        if (s1.length() + s2.length() != s3.length()) return false;\n        boolean[] dp = new boolean[s2.length() + 1];\n        dp[0] = true;\n        for (int j = 1; j <= s2.length(); j++) {\n            dp[j] = dp[j - 1] && s2.charAt(j - 1) == s3.charAt(j - 1);\n        }\n        for (int i = 1; i <= s1.length(); i++) {\n            dp[0] = dp[0] && s1.charAt(i - 1) == s3.charAt(i - 1);\n            for (int j = 1; j <= s2.length(); j++) {\n                char c = s3.charAt(i + j - 1);\n                dp[j] = (dp[j] && s1.charAt(i - 1) == c) || (dp[j - 1] && s2.charAt(j - 1) == c);\n            }\n        }\n        return dp[s2.length()];\n    }\n}",
@@ -2222,7 +2393,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Since path is strictly increasing, cycles are impossible; the grid forms a DAG.',
       algorithm: undefined,
       code: "class Solution {\n    private int[][] memo;\n    private int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int longestIncreasingPath(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        memo = new int[m][n];\n        int maxLen = 0;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                maxLen = Math.max(maxLen, dfs(matrix, r, c));\n            }\n        }\n        return maxLen;\n    }\n\n    private int dfs(int[][] matrix, int r, int c) {\n        if (memo[r][c] != 0) return memo[r][c];\n        int max = 1;\n        for (int[] d : dirs) {\n            int nr = r + d[0], nc = c + d[1];\n            if (nr >= 0 && nr < matrix.length && nc >= 0 && nc < matrix[0].length && matrix[nr][nc] > matrix[r][c]) {\n                max = Math.max(max, 1 + dfs(matrix, nr, nc));\n            }\n        }\n        return memo[r][c] = max;\n    }\n}",
@@ -2239,7 +2410,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int numDistinct(String s, String t) {\n        int m = s.length(), n = t.length();\n        int[] dp = new int[n + 1];\n        dp[0] = 1;\n        for (int i = 1; i <= m; i++) {\n            for (int j = n; j >= 1; j--) {\n                if (s.charAt(i - 1) == t.charAt(j - 1)) {\n                    dp[j] += dp[j - 1];\n                }\n            }\n        }\n        return dp[n];\n    }\n}",
@@ -2256,7 +2427,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int minDistance(String word1, String word2) {\n        int m = word1.length(), n = word2.length();\n        int[] dp = new int[n + 1];\n        for (int j = 0; j <= n; j++) dp[j] = j;\n        for (int i = 1; i <= m; i++) {\n            int prev = dp[0];\n            dp[0] = i;\n            for (int j = 1; j <= n; j++) {\n                int temp = dp[j];\n                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {\n                    dp[j] = prev;\n                } else {\n                    dp[j] = 1 + Math.min(prev, Math.min(dp[j], dp[j - 1]));\n                }\n                prev = temp;\n            }\n        }\n        return dp[n];\n    }\n}",
@@ -2273,7 +2444,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Think in reverse: which balloon is burst LAST in range $(i, j)$?',
       algorithm: undefined,
       code: "class Solution {\n    public int maxCoins(int[] nums) {\n        int n = nums.length;\n        int[] arr = new int[n + 2];\n        arr[0] = 1;\n        arr[n + 1] = 1;\n        System.arraycopy(nums, 0, arr, 1, n);\n        int[][] dp = new int[n + 2][n + 2];\n        for (int len = 1; len <= n; len++) {\n            for (int left = 1; left <= n - len + 1; left++) {\n                int right = left + len - 1;\n                for (int k = left; k <= right; k++) {\n                    int coins = arr[left - 1] * arr[k] * arr[right + 1] + dp[left][k - 1] + dp[k + 1][right];\n                    dp[left][right] = Math.max(dp[left][right], coins);\n                }\n            }\n        }\n        return dp[1][n];\n    }\n}",
@@ -2290,7 +2461,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public boolean isMatch(String s, String p) {\n        int m = s.length(), n = p.length();\n        boolean[][] dp = new boolean[m + 1][n + 1];\n        dp[0][0] = true;\n        for (int j = 2; j <= n; j += 2) {\n            if (p.charAt(j - 1) == '*') {\n                dp[0][j] = dp[0][j - 2];\n            }\n        }\n        for (int i = 1; i <= m; i++) {\n            for (int j = 1; j <= n; j++) {\n                char sc = s.charAt(i - 1), pc = p.charAt(j - 1);\n                if (pc == '.' || pc == sc) {\n                    dp[i][j] = dp[i - 1][j - 1];\n                } else if (pc == '*') {\n                    dp[i][j] = dp[i][j - 2]; // 0 occurrences\n                    char prevChar = p.charAt(j - 2);\n                    if (prevChar == '.' || prevChar == sc) {\n                        dp[i][j] = dp[i][j] || dp[i - 1][j];\n                    }\n                }\n            }\n        }\n        return dp[m][n];\n    }\n}",
@@ -2307,7 +2478,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'If running sum drops below zero, reset running sum to 0.',
       algorithm: undefined,
       code: "class Solution {\n    public int maxSubArray(int[] nums) {\n        int max = nums[0];\n        int sum = 0;\n        for (int n : nums) {\n            sum += n;\n            max = Math.max(max, sum);\n            if (sum < 0) sum = 0;\n        }\n        return max;\n    }\n}",
@@ -2324,7 +2495,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public boolean canJump(int[] nums) {\n        int maxReach = 0;\n        for (int i = 0; i < nums.length; i++) {\n            if (i > maxReach) return false;\n            maxReach = Math.max(maxReach, i + nums[i]);\n            if (maxReach >= nums.length - 1) return true;\n        }\n        return true;\n    }\n}",
@@ -2341,7 +2512,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Track the current window boundary `curEnd` and the furthest reachable index `farthest`. When `i == curEnd`, increment jumps and set `curEnd = farthest`.',
       algorithm: undefined,
       code: "class Solution {\n    public int jump(int[] nums) {\n        int jumps = 0, curEnd = 0, farthest = 0;\n        for (int i = 0; i < nums.length - 1; i++) {\n            farthest = Math.max(farthest, i + nums[i]);\n            if (i == curEnd) {\n                jumps++;\n                curEnd = farthest;\n                if (curEnd >= nums.length - 1) break;\n            }\n        }\n        return jumps;\n    }\n}",
@@ -2358,7 +2529,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'If total gas < total cost, return -1. Otherwise, whenever tank < 0, candidate starting index must be `i + 1`.',
       algorithm: undefined,
       code: "class Solution {\n    public int canCompleteCircuit(int[] gas, int[] cost) {\n        int totalTank = 0, currTank = 0, start = 0;\n        for (int i = 0; i < gas.length; i++) {\n            int net = gas[i] - cost[i];\n            totalTank += net;\n            currTank += net;\n            if (currTank < 0) {\n                start = i + 1;\n                currTank = 0;\n            }\n        }\n        return totalTank >= 0 ? start : -1;\n    }\n}",
@@ -2375,7 +2546,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public boolean isNStraightHand(int[] hand, int groupSize) {\n        if (hand.length % groupSize != 0) return false;\n        Map<Integer, Integer> count = new HashMap<>();\n        for (int card : hand) count.put(card, count.getOrDefault(card, 0) + 1);\n        Arrays.sort(hand);\n        for (int card : hand) {\n            if (count.get(card) > 0) {\n                for (int i = 0; i < groupSize; i++) {\n                    int next = card + i;\n                    if (count.getOrDefault(next, 0) <= 0) return false;\n                    count.put(next, count.get(next) - 1);\n                }\n            }\n        }\n        return true;\n    }\n}",
@@ -2392,7 +2563,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Ignore triplets that have any component strictly greater than target. Collect match flags for positions 0, 1, 2.',
       algorithm: undefined,
       code: "class Solution {\n    public boolean mergeTriplets(int[][] triplets, int[] target) {\n        boolean match0 = false, match1 = false, match2 = false;\n        for (int[] t : triplets) {\n            if (t[0] <= target[0] && t[1] <= target[1] && t[2] <= target[2]) {\n                if (t[0] == target[0]) match0 = true;\n                if (t[1] == target[1]) match1 = true;\n                if (t[2] == target[2]) match2 = true;\n                if (match0 && match1 && match2) return true;\n            }\n        }\n        return match0 && match1 && match2;\n    }\n}",
@@ -2409,7 +2580,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<Integer> partitionLabels(String s) {\n        int[] last = new int[26];\n        for (int i = 0; i < s.length(); i++) {\n            last[s.charAt(i) - 'a'] = i;\n        }\n        List<Integer> res = new ArrayList<>();\n        int start = 0, end = 0;\n        for (int i = 0; i < s.length(); i++) {\n            end = Math.max(end, last[s.charAt(i) - 'a']);\n            if (i == end) {\n                res.add(end - start + 1);\n                start = i + 1;\n            }\n        }\n        return res;\n    }\n}",
@@ -2426,7 +2597,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Treat `\'*\'` as `(`, `)`, or empty. Maintain possible range of open parentheses count.',
       algorithm: undefined,
       code: "class Solution {\n    public boolean checkValidString(String s) {\n        int cMin = 0, cMax = 0;\n        for (char c : s.toCharArray()) {\n            if (c == '(') {\n                cMin++;\n                cMax++;\n            } else if (c == ')') {\n                cMin--;\n                cMax--;\n            } else { // '*'\n                cMin--;\n                cMax++;\n            }\n            if (cMax < 0) return false;\n            cMin = Math.max(0, cMin);\n        }\n        return cMin == 0;\n    }\n}",
@@ -2443,7 +2614,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public int[][] insert(int[][] intervals, int[] newInterval) {\n        List<int[]> res = new ArrayList<>();\n        int i = 0, n = intervals.length;\n        // 1. Add all intervals before newInterval\n        while (i < n && intervals[i][1] < newInterval[0]) {\n            res.add(intervals[i++]);\n        }\n        // 2. Merge overlapping intervals\n        while (i < n && intervals[i][0] <= newInterval[1]) {\n            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);\n            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);\n            i++;\n        }\n        res.add(newInterval);\n        // 3. Add remaining intervals\n        while (i < n) {\n            res.add(intervals[i++]);\n        }\n        return res.toArray(new int[res.size()][]);\n    }\n}",
@@ -2460,7 +2631,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public int[][] merge(int[][] intervals) {\n        if (intervals.length <= 1) return intervals;\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        List<int[]> res = new ArrayList<>();\n        int[] curr = intervals[0];\n        res.add(curr);\n        for (int[] next : intervals) {\n            if (next[0] <= curr[1]) {\n                curr[1] = Math.max(curr[1], next[1]);\n            } else {\n                curr = next;\n                res.add(curr);\n            }\n        }\n        return res.toArray(new int[res.size()][]);\n    }\n}",
@@ -2477,7 +2648,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int eraseOverlapIntervals(int[][] intervals) {\n        if (intervals.length == 0) return 0;\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1]));\n        int count = 0;\n        int prevEnd = intervals[0][1];\n        for (int i = 1; i < intervals.length; i++) {\n            if (intervals[i][0] < prevEnd) {\n                count++;\n            } else {\n                prevEnd = intervals[i][1];\n            }\n        }\n        return count;\n    }\n}",
@@ -2494,7 +2665,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean canAttendMeetings(int[][] intervals) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        for (int i = 1; i < intervals.length; i++) {\n            if (intervals[i][0] < intervals[i - 1][1]) {\n                return false;\n            }\n        }\n        return true;\n    }\n}",
@@ -2528,7 +2699,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Sort intervals and queries. Use min-heap ordered by interval size. Remove intervals that end before current query.',
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public int[] minInterval(int[][] intervals, int[] queries) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        int qLen = queries.length;\n        int[][] sortedQ = new int[qLen][2];\n        for (int i = 0; i < qLen; i++) {\n            sortedQ[i][0] = queries[i];\n            sortedQ[i][1] = i;\n        }\n        Arrays.sort(sortedQ, (a, b) -> Integer.compare(a[0], b[0]));\n\n        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));\n        int[] res = new int[qLen];\n        int i = 0;\n        for (int[] q : sortedQ) {\n            int qVal = q[0], qIdx = q[1];\n            while (i < intervals.length && intervals[i][0] <= qVal) {\n                int left = intervals[i][0], right = intervals[i][1];\n                minHeap.offer(new int[]{right - left + 1, right});\n                i++;\n            }\n            while (!minHeap.isEmpty() && minHeap.peek()[1] < qVal) {\n                minHeap.poll();\n            }\n            res[qIdx] = minHeap.isEmpty() ? -1 : minHeap.peek()[0];\n        }\n        return res;\n    }\n}",
@@ -2545,7 +2716,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Rotate $90^\\circ$ clockwise is equivalent to transposing the matrix along main diagonal, then reversing each row horizontally.',
       algorithm: undefined,
       code: "class Solution {\n    public void rotate(int[][] matrix) {\n        int n = matrix.length;\n        // 1. Transpose\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                int temp = matrix[i][j];\n                matrix[i][j] = matrix[j][i];\n                matrix[j][i] = temp;\n            }\n        }\n        // 2. Reverse each row\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n / 2; j++) {\n                int temp = matrix[i][j];\n                matrix[i][j] = matrix[i][n - 1 - j];\n                matrix[i][n - 1 - j] = temp;\n            }\n        }\n    }\n}",
@@ -2562,7 +2733,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<Integer> spiralOrder(int[][] matrix) {\n        List<Integer> res = new ArrayList<>();\n        if (matrix == null || matrix.length == 0) return res;\n        int top = 0, bottom = matrix.length - 1;\n        int left = 0, right = matrix[0].length - 1;\n\n        while (top <= bottom && left <= right) {\n            for (int c = left; c <= right; c++) res.add(matrix[top][c]);\n            top++;\n            for (int r = top; r <= bottom; r++) res.add(matrix[r][right]);\n            right--;\n            if (top <= bottom) {\n                for (int c = right; c >= left; c--) res.add(matrix[bottom][c]);\n                bottom--;\n            }\n            if (left <= right) {\n                for (int r = bottom; r >= top; r--) res.add(matrix[r][left]);\n                left++;\n            }\n        }\n        return res;\n    }\n}",
@@ -2579,7 +2750,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Use `matrix[0][0...n-1]` and `matrix[0...m-1][0]` as marker arrays, plus one boolean flag `rowZero`.',
       algorithm: undefined,
       code: "class Solution {\n    public void setZeroes(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        boolean rowZero = false;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (matrix[r][c] == 0) {\n                    matrix[0][c] = 0;\n                    if (r > 0) matrix[r][0] = 0;\n                    else rowZero = true;\n                }\n            }\n        }\n        for (int r = 1; r < m; r++) {\n            for (int c = 1; c < n; c++) {\n                if (matrix[0][c] == 0 || matrix[r][0] == 0) {\n                    matrix[r][c] = 0;\n                }\n            }\n        }\n        if (matrix[0][0] == 0) {\n            for (int r = 0; r < m; r++) matrix[r][0] = 0;\n        }\n        if (rowZero) {\n            for (int c = 0; c < n; c++) matrix[0][c] = 0;\n        }\n    }\n}",
@@ -2596,7 +2767,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public boolean isHappy(int n) {\n        int slow = n, fast = sumOfSquares(n);\n        while (fast != 1 && slow != fast) {\n            slow = sumOfSquares(slow);\n            fast = sumOfSquares(sumOfSquares(fast));\n        }\n        return fast == 1;\n    }\n\n    private int sumOfSquares(int n) {\n        int sum = 0;\n        while (n > 0) {\n            int digit = n % 10;\n            sum += digit * digit;\n            n /= 10;\n        }\n        return sum;\n    }\n}",
@@ -2613,7 +2784,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int[] plusOne(int[] digits) {\n        for (int i = digits.length - 1; i >= 0; i--) {\n            if (digits[i] < 9) {\n                digits[i]++;\n                return digits;\n            }\n            digits[i] = 0;\n        }\n        int[] res = new int[digits.length + 1];\n        res[0] = 1;\n        return res;\n    }\n}",
@@ -2630,7 +2801,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public double myPow(double x, int n) {\n        long N = n;\n        if (N < 0) {\n            x = 1 / x;\n            N = -N;\n        }\n        double ans = 1.0;\n        double currentProd = x;\n        for (long i = N; i > 0; i /= 2) {\n            if (i % 2 == 1) {\n                ans *= currentProd;\n            }\n            currentProd *= currentProd;\n        }\n        return ans;\n    }\n}",
@@ -2647,7 +2818,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Indices $i$ and $j$ place their product at index $i + j$ and $i + j + 1$.',
       algorithm: undefined,
       code: "class Solution {\n    public String multiply(String num1, String num2) {\n        if (num1.equals(\"0\") || num2.equals(\"0\")) return \"0\";\n        int m = num1.length(), n = num2.length();\n        int[] pos = new int[m + n];\n        for (int i = m - 1; i >= 0; i--) {\n            for (int j = n - 1; j >= 0; j--) {\n                int mul = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');\n                int p1 = i + j, p2 = i + j + 1;\n                int sum = mul + pos[p2];\n                pos[p1] += sum / 10;\n                pos[p2] = sum % 10;\n            }\n        }\n        StringBuilder sb = new StringBuilder();\n        for (int p : pos) {\n            if (!(sb.length() == 0 && p == 0)) sb.append(p);\n        }\n        return sb.length() == 0 ? \"0\" : sb.toString();\n    }\n}",
@@ -2664,7 +2835,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass DetectSquares {\n    private int[][] counts = new int[1001][1001];\n    private List<int[]> points = new ArrayList<>();\n\n    public DetectSquares() {}\n\n    public void add(int[] point) {\n        counts[point[0]][point[1]]++;\n        points.add(point);\n    }\n\n    public int count(int[] point) {\n        int x1 = point[0], y1 = point[1];\n        int totalSquares = 0;\n        for (int[] p : points) {\n            int x3 = p[0], y3 = p[1];\n            if (Math.abs(x1 - x3) == 0 || Math.abs(x1 - x3) != Math.abs(y1 - y3)) {\n                continue; // Not a valid non-zero diagonal\n            }\n            totalSquares += counts[x1][y3] * counts[x3][y1];\n        }\n        return totalSquares;\n    }\n}",
@@ -2681,7 +2852,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int singleNumber(int[] nums) {\n        int res = 0;\n        for (int n : nums) res ^= n;\n        return res;\n    }\n}",
@@ -2698,7 +2869,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Clears lowest set bit in each iteration.',
       algorithm: undefined,
       code: "class Solution {\n    public int hammingWeight(int n) {\n        int count = 0;\n        while (n != 0) {\n            n &= (n - 1);\n            count++;\n        }\n        return count;\n    }\n}",
@@ -2715,7 +2886,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int[] countBits(int n) {\n        int[] dp = new int[n + 1];\n        for (int i = 1; i <= n; i++) {\n            dp[i] = dp[i >> 1] + (i & 1);\n        }\n        return dp;\n    }\n}",
@@ -2732,7 +2903,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "public class Solution {\n    public int reverseBits(int n) {\n        int res = 0;\n        for (int i = 0; i < 32; i++) {\n            res = (res << 1) | (n & 1);\n            n >>>= 1;\n        }\n        return res;\n    }\n}",
@@ -2773,7 +2944,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int getSum(int a, int b) {\n        while (b != 0) {\n            int carry = (a & b) << 1;\n            a = a ^ b;\n            b = carry;\n        }\n        return a;\n    }\n}",
@@ -2790,7 +2961,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int reverse(int x) {\n        int rev = 0;\n        while (x != 0) {\n            int pop = x % 10;\n            x /= 10;\n            if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) return 0;\n            if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) return 0;\n            rev = rev * 10 + pop;\n        }\n        return rev;\n    }\n}",
@@ -2807,7 +2978,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public List<String> findItinerary(List<List<String>> tickets) {\n        Map<String, PriorityQueue<String>> adj = new HashMap<>();\n        for (List<String> t : tickets) {\n            adj.computeIfAbsent(t.get(0), k -> new PriorityQueue<>()).offer(t.get(1));\n        }\n        LinkedList<String> route = new LinkedList<>();\n        dfs(\"JFK\", adj, route);\n        return route;\n    }\n\n    private void dfs(String airport, Map<String, PriorityQueue<String>> adj, LinkedList<String> route) {\n        PriorityQueue<String> pq = adj.get(airport);\n        while (pq != null && !pq.isEmpty()) {\n            dfs(pq.poll(), adj, route);\n        }\n        route.addFirst(airport);\n    }\n}",
@@ -2824,7 +2995,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Maintain minimum distance to visited tree in an array $O(V^2)$ (faster than PQ for dense complete graph).',
       algorithm: undefined,
       code: "class Solution {\n    public int minCostConnectPoints(int[][] points) {\n        int n = points.length;\n        int[] minDist = new int[n];\n        for (int i = 1; i < n; i++) minDist[i] = Integer.MAX_VALUE;\n        boolean[] visited = new boolean[n];\n        int totalCost = 0;\n\n        for (int step = 0; step < n; step++) {\n            int u = -1;\n            for (int i = 0; i < n; i++) {\n                if (!visited[i] && (u == -1 || minDist[i] < minDist[u])) {\n                    u = i;\n                }\n            }\n            visited[u] = true;\n            totalCost += minDist[u];\n            for (int v = 0; v < n; v++) {\n                if (!visited[v]) {\n                    int dist = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);\n                    minDist[v] = Math.min(minDist[v], dist);\n                }\n            }\n        }\n        return totalCost;\n    }\n}",
@@ -2841,7 +3012,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        Map<Integer, List<int[]>> adj = new HashMap<>();\n        for (int[] t : times) {\n            adj.computeIfAbsent(t[0], x -> new ArrayList<>()).add(new int[]{t[1], t[2]});\n        }\n        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);\n        pq.offer(new int[]{k, 0});\n        Map<Integer, Integer> dist = new HashMap<>();\n\n        while (!pq.isEmpty()) {\n            int[] curr = pq.poll();\n            int u = curr[0], d = curr[1];\n            if (dist.containsKey(u)) continue;\n            dist.put(u, d);\n            if (adj.containsKey(u)) {\n                for (int[] edge : adj.get(u)) {\n                    int v = edge[0], weight = edge[1];\n                    if (!dist.containsKey(v)) {\n                        pq.offer(new int[]{v, d + weight});\n                    }\n                }\n            }\n        }\n        if (dist.size() != n) return -1;\n        int maxDist = 0;\n        for (int d : dist.values()) maxDist = Math.max(maxDist, d);\n        return maxDist;\n    }\n}",
@@ -2858,7 +3029,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int swimInWater(int[][] grid) {\n        int n = grid.length;\n        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);\n        boolean[][] visited = new boolean[n][n];\n        pq.offer(new int[]{0, 0, grid[0][0]});\n        visited[0][0] = true;\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n        while (!pq.isEmpty()) {\n            int[] curr = pq.poll();\n            int r = curr[0], c = curr[1], maxWater = curr[2];\n            if (r == n - 1 && c == n - 1) return maxWater;\n            for (int[] d : dirs) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr >= 0 && nr < n && nc >= 0 && nc < n && !visited[nr][nc]) {\n                    visited[nr][nc] = true;\n                    pq.offer(new int[]{nr, nc, Math.max(maxWater, grid[nr][nc])});\n                }\n            }\n        }\n        return -1;\n    }\n}",
@@ -2875,7 +3046,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.*;\n\nclass Solution {\n    public String foreignDictionary(String[] words) {\n        Map<Character, Set<Character>> adj = new HashMap<>();\n        Map<Character, Integer> inDegree = new HashMap<>();\n        for (String w : words) {\n            for (char c : w.toCharArray()) inDegree.put(c, 0);\n        }\n\n        for (int i = 0; i < words.length - 1; i++) {\n            String w1 = words[i], w2 = words[i + 1];\n            if (w1.length() > w2.length() && w1.startsWith(w2)) return \"\"; // Invalid prefix order\n            for (int j = 0; j < Math.min(w1.length(), w2.length()); j++) {\n                char c1 = w1.charAt(j), c2 = w2.charAt(j);\n                if (c1 != c2) {\n                    adj.computeIfAbsent(c1, k -> new HashSet<>());\n                    if (adj.get(c1).add(c2)) {\n                        inDegree.put(c2, inDegree.get(c2) + 1);\n                    }\n                    break;\n                }\n            }\n        }\n\n        Queue<Character> queue = new LinkedList<>();\n        for (char c : inDegree.keySet()) {\n            if (inDegree.get(c) == 0) queue.offer(c);\n        }\n\n        StringBuilder sb = new StringBuilder();\n        while (!queue.isEmpty()) {\n            char curr = queue.poll();\n            sb.append(curr);\n            if (adj.containsKey(curr)) {\n                for (char next : adj.get(curr)) {\n                    inDegree.put(next, inDegree.get(next) - 1);\n                    if (inDegree.get(next) == 0) queue.offer(next);\n                }\n            }\n        }\n\n        return sb.length() == inDegree.size() ? sb.toString() : \"\";\n    }\n}",
@@ -2892,7 +3063,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        int[] prices = new int[n];\n        Arrays.fill(prices, Integer.MAX_VALUE);\n        prices[src] = 0;\n\n        for (int i = 0; i <= k; i++) {\n            int[] tmpPrices = Arrays.copyOf(prices, n);\n            for (int[] flight : flights) {\n                int s = flight[0], d = flight[1], p = flight[2];\n                if (prices[s] == Integer.MAX_VALUE) continue;\n                if (prices[s] + p < tmpPrices[d]) {\n                    tmpPrices[d] = prices[s] + p;\n                }\n            }\n            prices = tmpPrices;\n        }\n        return prices[dst] == Integer.MAX_VALUE ? -1 : prices[dst];\n    }\n}",
@@ -2909,7 +3080,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public void moveZeroes(int[] nums) {\n        int insertPos = 0;\n        for (int i = 0; i < nums.length; i++) {\n            if (nums[i] != 0) {\n                if (i != insertPos) {\n                    nums[insertPos] = nums[i];\n                    nums[i] = 0;\n                }\n                insertPos++;\n            }\n        }\n    }\n}",
@@ -2926,7 +3097,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int removeDuplicates(int[] nums) {\n        if (nums.length == 0) return 0;\n        int insertIdx = 1;\n        for (int i = 1; i < nums.length; i++) {\n            if (nums[i] != nums[i - 1]) {\n                nums[insertIdx++] = nums[i];\n            }\n        }\n        return insertIdx;\n    }\n}",
@@ -2943,7 +3114,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class Solution {\n    public int majorityElement(int[] nums) {\n        int candidate = nums[0];\n        int count = 0;\n        for (int num : nums) {\n            if (count == 0) {\n                candidate = num;\n            }\n            count += (num == candidate) ? 1 : -1;\n        }\n        return candidate;\n    }\n}",
@@ -3001,7 +3172,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.concurrent.Semaphore;\nimport java.util.function.IntConsumer;\n\nclass ZeroEvenOdd {\n    private int n;\n    private Semaphore zeroSem = new Semaphore(1);\n    private Semaphore oddSem = new Semaphore(0);\n    private Semaphore evenSem = new Semaphore(0);\n\n    public ZeroEvenOdd(int n) {\n        this.n = n;\n    }\n\n    public void zero(IntConsumer printNumber) throws InterruptedException {\n        for (int i = 1; i <= n; i++) {\n            zeroSem.acquire();\n            printNumber.accept(0);\n            if (i % 2 == 1) {\n                oddSem.release();\n            } else {\n                evenSem.release();\n            }\n        }\n    }\n\n    public void even(IntConsumer printNumber) throws InterruptedException {\n        for (int i = 2; i <= n; i += 2) {\n            evenSem.acquire();\n            printNumber.accept(i);\n            zeroSem.release();\n        }\n    }\n\n    public void odd(IntConsumer printNumber) throws InterruptedException {\n        for (int i = 1; i <= n; i += 2) {\n            oddSem.acquire();\n            printNumber.accept(i);\n            zeroSem.release();\n        }\n    }\n}",
@@ -3018,7 +3189,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.concurrent.CyclicBarrier;\nimport java.util.concurrent.Semaphore;\n\nclass H2O {\n    private Semaphore hSem = new Semaphore(2);\n    private Semaphore oSem = new Semaphore(1);\n    private CyclicBarrier barrier = new CyclicBarrier(3);\n\n    public H2O() {}\n\n    public void hydrogen(Runnable releaseHydrogen) throws InterruptedException {\n        hSem.acquire();\n        try {\n            barrier.await();\n        } catch (Exception e) {}\n        releaseHydrogen.run();\n        hSem.release();\n    }\n\n    public void oxygen(Runnable releaseOxygen) throws InterruptedException {\n        oSem.acquire();\n        try {\n            barrier.await();\n        } catch (Exception e) {}\n        releaseOxygen.run();\n        oSem.release();\n    }\n}",
@@ -3035,7 +3206,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.concurrent.locks.Condition;\nimport java.util.concurrent.locks.ReentrantLock;\nimport java.util.function.IntConsumer;\n\nclass FizzBuzz {\n    private int n;\n    private int curr = 1;\n    private ReentrantLock lock = new ReentrantLock();\n    private Condition cond = lock.newCondition();\n\n    public FizzBuzz(int n) {\n        this.n = n;\n    }\n\n    public void fizz(Runnable printFizz) throws InterruptedException {\n        while (true) {\n            lock.lock();\n            try {\n                while (curr <= n && !(curr % 3 == 0 && curr % 5 != 0)) {\n                    cond.await();\n                }\n                if (curr > n) return;\n                printFizz.run();\n                curr++;\n                cond.signalAll();\n            } finally {\n                lock.unlock();\n            }\n        }\n    }\n\n    public void buzz(Runnable printBuzz) throws InterruptedException {\n        while (true) {\n            lock.lock();\n            try {\n                while (curr <= n && !(curr % 5 == 0 && curr % 3 != 0)) {\n                    cond.await();\n                }\n                if (curr > n) return;\n                printBuzz.run();\n                curr++;\n                cond.signalAll();\n            } finally {\n                lock.unlock();\n            }\n        }\n    }\n\n    public void fizzbuzz(Runnable printFizzBuzz) throws InterruptedException {\n        while (true) {\n            lock.lock();\n            try {\n                while (curr <= n && !(curr % 15 == 0)) {\n                    cond.await();\n                }\n                if (curr > n) return;\n                printFizzBuzz.run();\n                curr++;\n                cond.signalAll();\n            } finally {\n                lock.unlock();\n            }\n        }\n    }\n\n    public void number(IntConsumer printNumber) throws InterruptedException {\n        while (true) {\n            lock.lock();\n            try {\n                while (curr <= n && (curr % 3 == 0 || curr % 5 == 0)) {\n                    cond.await();\n                }\n                if (curr > n) return;\n                printNumber.accept(curr);\n                curr++;\n                cond.signalAll();\n            } finally {\n                lock.unlock();\n            }\n        }\n    }\n}",
@@ -3069,7 +3240,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "import java.util.concurrent.locks.Condition;\nimport java.util.concurrent.locks.ReentrantLock;\n\nclass BoundedBlockingQueue {\n    private int[] elements;\n    private int head = 0, tail = 0, size = 0, capacity;\n    private ReentrantLock lock = new ReentrantLock();\n    private Condition notFull = lock.newCondition();\n    private Condition notEmpty = lock.newCondition();\n\n    public BoundedBlockingQueue(int capacity) {\n        this.capacity = capacity;\n        this.elements = new int[capacity];\n    }\n\n    public void enqueue(int element) throws InterruptedException {\n        lock.lock();\n        try {\n            while (size == capacity) {\n                notFull.await();\n            }\n            elements[tail] = element;\n            tail = (tail + 1) % capacity;\n            size++;\n            notEmpty.signal();\n        } finally {\n            lock.unlock();\n        }\n    }\n\n    public int dequeue() throws InterruptedException {\n        lock.lock();\n        try {\n            while (size == 0) {\n                notEmpty.await();\n            }\n            int val = elements[head];\n            head = (head + 1) % capacity;\n            size--;\n            notFull.signal();\n            return val;\n        } finally {\n            lock.unlock();\n        }\n    }\n\n    public int size() {\n        lock.lock();\n        try {\n            return size;\n        } finally {\n            lock.unlock();\n        }\n    }\n}",
@@ -3086,7 +3257,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class TrafficLight {\n    private int currentGreenRoad = 1; // 1 for Road A, 2 for Road B\n\n    public TrafficLight() {}\n\n    public synchronized void carArrived(\n        int carId,           // ID of the car\n        int roadId,          // ID of the road the car travels on. Can be 1 (road A) or 2 (road B)\n        int direction,       // Direction of the car\n        Runnable turnGreen,  // Use turnGreen.run() to turn light to green on current road\n        Runnable crossCar    // Use crossCar.run() to make car cross the intersection\n    ) {\n        if (currentGreenRoad != roadId) {\n            turnGreen.run();\n            currentGreenRoad = roadId;\n        }\n        crossCar.run();\n    }\n}",
@@ -3103,7 +3274,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: 'Maintain `keyToVal`, `keyToCount`, `countToLRU`, and `minFreq`.',
       algorithm: undefined,
       code: "import java.util.*;\n\nclass LFUCache {\n    private static class Node {\n        int key, val, count;\n        Node prev, next;\n        Node(int key, int val) {\n            this.key = key;\n            this.val = val;\n            this.count = 1;\n        }\n    }\n\n    private static class DLList {\n        Node head, tail;\n        int size = 0;\n        DLList() {\n            head = new Node(0, 0);\n            tail = new Node(0, 0);\n            head.next = tail;\n            tail.prev = head;\n        }\n        void add(Node node) {\n            node.next = head.next;\n            node.prev = head;\n            head.next.prev = node;\n            head.next = node;\n            size++;\n        }\n        void remove(Node node) {\n            node.prev.next = node.next;\n            node.next.prev = node.prev;\n            size--;\n        }\n        Node removeLast() {\n            if (size > 0) {\n                Node node = tail.prev;\n                remove(node);\n                return node;\n            }\n            return null;\n        }\n    }\n\n    private final int capacity;\n    private int minFreq = 0;\n    private final Map<Integer, Node> nodeMap = new HashMap<>();\n    private final Map<Integer, DLList> countMap = new HashMap<>();\n\n    public LFUCache(int capacity) {\n        this.capacity = capacity;\n    }\n\n    public int get(int key) {\n        Node node = nodeMap.get(key);\n        if (node == null) return -1;\n        update(node);\n        return node.val;\n    }\n\n    public void put(int key, int value) {\n        if (capacity == 0) return;\n        if (nodeMap.containsKey(key)) {\n            Node node = nodeMap.get(key);\n            node.val = value;\n            update(node);\n        } else {\n            if (nodeMap.size() == capacity) {\n                DLList minList = countMap.get(minFreq);\n                Node removed = minList.removeLast();\n                nodeMap.remove(removed.key);\n            }\n            Node newNode = new Node(key, value);\n            nodeMap.put(key, newNode);\n            minFreq = 1;\n            countMap.computeIfAbsent(1, k -> new DLList()).add(newNode);\n        }\n    }\n\n    private void update(Node node) {\n        DLList oldList = countMap.get(node.count);\n        oldList.remove(node);\n        if (node.count == minFreq && oldList.size == 0) {\n            minFreq++;\n        }\n        node.count++;\n        countMap.computeIfAbsent(node.count, k -> new DLList()).add(node);\n    }\n}",
@@ -3120,7 +3291,7 @@ export const problemContents: ProblemContent[] = [
     constraints: undefined,
     solutions: [
     {
-      label: 'Optimised / Best',
+      label: 'Optimised',
       intuition: undefined,
       algorithm: undefined,
       code: "class HitCounter {\n    private int[] times;\n    private int[] hits;\n\n    public HitCounter() {\n        times = new int[300];\n        hits = new int[300];\n    }\n\n    public void hit(int timestamp) {\n        int idx = timestamp % 300;\n        if (times[idx] != timestamp) {\n            times[idx] = timestamp;\n            hits[idx] = 1;\n        } else {\n            hits[idx]++;\n        }\n    }\n\n    public int getHits(int timestamp) {\n        int total = 0;\n        for (int i = 0; i < 300; i++) {\n            if (timestamp - times[i] < 300) {\n                total += hits[i];\n            }\n        }\n        return total;\n    }\n}",

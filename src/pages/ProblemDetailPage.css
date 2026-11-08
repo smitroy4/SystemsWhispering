@@ -208,3 +208,41 @@
     width: 100%;
   }
 }
+
+/* Sticky LeetCode button (below sidebar, transparent circle, logo only) */
+.pd-leetcode-sticky {
+  position: fixed;
+  top: calc(var(--navbar-height) + var(--space-6));
+  right: var(--space-4);
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: none;
+  cursor: pointer;
+}
+
+.pd-leetcode-sticky img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .pd-leetcode-sticky {
+    top: calc(var(--navbar-height) + var(--space-4));
+    right: var(--space-3);
+    width: 40px;
+    height: 40px;
+  }
+  .pd-leetcode-sticky img {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -8,6 +8,9 @@ import { problemContents } from '../content/problems/problemContents.ts';
 import type { ProblemDifficulty } from '../types/content.ts';
 import './ProblemDetailPage.css';
 
+const LEETCODE_LOGO_URL =
+  'https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-color-tal-revivo.png';
+
 function difficultyTone(difficulty: ProblemDifficulty): 'success' | 'warning' | 'danger' {
   if (difficulty === 'Easy') return 'success';
   if (difficulty === 'Medium') return 'warning';
@@ -136,6 +139,17 @@ export default function ProblemDetailPage() {
         </p>
         <Tabs tabs={solutionTabs(content.solutions)} defaultTab={content.solutions[0]?.label} />
       </section>
+
+      {/* Sticky LeetCode button (below sidebar, transparent circle, logo only) */}
+      <a
+        href={problem.leetcodeUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="pd-leetcode-sticky"
+        aria-label={`Solve ${content.title} on LeetCode`}
+      >
+        <img src={LEETCODE_LOGO_URL} alt="LeetCode" width="24" height="24" />
+      </a>
     </PageShell>
   );
 }

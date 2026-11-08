@@ -28,29 +28,29 @@ export const module04: JavaModule = {
           title: 'Why exception handling exists',
           body: `Every non-trivial program has a happy path and a long list of ways that path can break. A user types letters into an age field, a file that existed at startup has been deleted, a socket times out, a database rejects a duplicate key. None of these are programming errors in the narrow sense, yet all of them must be anticipated.
 
-Without a language-level mechanism, error handling would be expressed as return codes and boolean flags threaded through every method signature. Each call site would need to check a status value, and the real logic would drown in \`if (result != OK)\` noise. Java separates the normal flow from the failure flow instead: a method either returns a value or throws an object that describes what went wrong. Callers may handle that object, translate it, or let it travel further up the call stack.
+Without a language-level mechanism, error handling would be expressed as return codes and boolean flags threaded through every method signature. Each call site would need to check a status value, and the real logic would drown in \\\`if (result != OK)\\\` noise. Java separates the normal flow from the failure flow instead: a method either returns a value or throws an object that describes what went wrong. Callers may handle that object, translate it, or let it travel further up the call stack.
 
-Java splits throwable conditions into two families, both rooted at \`Throwable\`:
+Java splits throwable conditions into two families, both rooted at \\\`Throwable\\\`:
 
 | Family | Meaning | Typical examples |
 | --- | --- | --- |
-| \`Exception\` | An abnormal but usually recoverable condition caused by the program or its environment | \`IOException`, `NullPointerException` |
-| `Error` | A serious JVM or platform failure that application code is not expected to repair | `OutOfMemoryError`, `StackOverflowError` |
+| \\\`Exception\\\` | An abnormal but usually recoverable condition caused by the program or its environment | \\\`IOException\`, \`NullPointerException\` |
+| \`Error\` | A serious JVM or platform failure that application code is not expected to repair | \`OutOfMemoryError\`, \`StackOverflowError\` |
 
 Exceptions are part of a method's contract, so they belong in its documentation and its signature. Errors mean the process is in a state where continuing is unsafe, which is why you rarely catch them.`,
         },
         {
           id: 'throwing-and-stack-propagation',
           title: 'Throwing, unwinding and stack propagation',
-          body: `When an illegal operation occurs, the JVM constructs an exception object that records the message and a snapshot of the current call stack, then throws it. A \`throw\` statement in your own code does exactly the same thing: \`throw new IllegalArgumentException("age must be >= 0")\`. From that instant, normal sequential execution in the current method stops.
+          body: `When an illegal operation occurs, the JVM constructs an exception object that records the message and a snapshot of the current call stack, then throws it. A \\\`throw\\\` statement in your own code does exactly the same thing: \\\`throw new IllegalArgumentException("age must be >= 0")\\\`. From that instant, normal sequential execution in the current method stops.
 
-The JVM then unwinds the stack. Each frame it leaves is discarded, along with that frame's local variables, and any \`finally\` block belonging to a frame runs during unwinding. The search continues outward until a frame contains a \`catch\` clause whose type matches the thrown object (a match means "is an instance of", so a handler for \`Exception\` accepts an \`IOException\`). The first matching handler wins; the frames below it are gone forever.
+The JVM then unwinds the stack. Each frame it leaves is discarded, along with that frame's local variables, and any \\\`finally\\\` block belonging to a frame runs during unwinding. The search continues outward until a frame contains a \\\`catch\\\` clause whose type matches the thrown object (a match means "is an instance of", so a handler for \\\`Exception\\\` accepts an \\\`IOException\\\`). The first matching handler wins; the frames below it are gone forever.
 
 | Frame | Handler present? | Outcome |
 | --- | --- | --- |
-| \`repository.find()\` | no | frame discarded, exception rethrown outward |
-| \`service.load()\` | \`catch (SQLException)\` | no match for \`IOException`, discarded |
-| `main()` | `catch (Exception)` | match, execution resumes inside the catch block |
+| \\\`repository.find()\\\` | no | frame discarded, exception rethrown outward |
+| \\\`service.load()\\\` | \\\`catch (SQLException)\\\` | no match for \\\`IOException\`, discarded |
+| \`main()\` | \`catch (Exception)\` | match, execution resumes inside the catch block |
 | none | — | default handler prints the stack trace and ends the thread |
 
 This is why exceptions are cheap to propagate but expensive to create: filling in the stack trace walks the stack once at construction time. Throwing inside a tight loop is a design smell, not just a performance one.`,
@@ -60,71 +60,71 @@ This is why exceptions are cheap to propagate but expensive to create: filling i
           title: 'The default handler and reading stack traces',
           body: `If no frame handles the exception, the thread's uncaught exception handler takes over. For an ordinary thread that is the thread group, which delegates to the default handler and prints something like:
 
-\`Exception in thread "main" java.lang.ArithmeticException: / by zero\` followed by \`at com.example.Demo.divide(Demo.java:12)\` and the rest of the frames.
+\\\`Exception in thread "main" java.lang.ArithmeticException: / by zero\\\` followed by \\\`at com.example.Demo.divide(Demo.java:12)\\\` and the rest of the frames.
 
-Read that output bottom-up for context and top-down for cause. The first line names the thread, the exact runtime class of the throwable and its message. The first \`at\` line is where the exception was created, not where it was necessarily detected, because the trace is captured at construction. Frames below show the callers, and \`... 12 more\` means the remainder was elided because it repeats a suffix of a \`Caused by\` trace.
+Read that output bottom-up for context and top-down for cause. The first line names the thread, the exact runtime class of the throwable and its message. The first \\\`at\\\` line is where the exception was created, not where it was necessarily detected, because the trace is captured at construction. Frames below show the callers, and \\\`... 12 more\\\` means the remainder was elided because it repeats a suffix of a \\\`Caused by\\\` trace.
 
-Two more details matter in practice. \`Caused by:\` sections reveal the exception chain, so the deepest cause is usually the true root. And since Java 15, helpful NullPointerException messages name the exact expression that was null, for example \`Cannot invoke "String.length()" because "name" is null`, which often removes the need to reproduce the bug.
+Two more details matter in practice. \\\`Caused by:\\\` sections reveal the exception chain, so the deepest cause is usually the true root. And since Java 15, helpful NullPointerException messages name the exact expression that was null, for example \\\`Cannot invoke "String.length()" because "name" is null\`, which often removes the need to reproduce the bug.
 
-In production, configure a logging framework to record the full trace with the thread name and request context. Printing to `System.err` bypasses your log pipeline and loses the correlation ID that makes an incident debuggable.`,
+In production, configure a logging framework to record the full trace with the thread name and request context. Printing to \`System.err\` bypasses your log pipeline and loses the correlation ID that makes an incident debuggable.`,
         },
         {
           id: 'try-catch-finally-execution-order',
           title: 'try/catch/finally and the exact execution order',
-          body: `The \`try\` block marks code that may fail, \`catch\` clauses intercept matching throwables, and \`finally\` runs no matter how control leaves the block. The subtle part is "how control leaves", because \`return`, `break`, `continue` and exceptions all count.
+          body: `The \\\`try\\\` block marks code that may fail, \\\`catch\\\` clauses intercept matching throwables, and \\\`finally\\\` runs no matter how control leaves the block. The subtle part is "how control leaves", because \\\`return\`, \`break\`, \`continue\` and exceptions all count.
 
 | Scenario | Order of execution |
 | --- | --- |
-| No exception | `try` body, then `finally` |
-| Exception caught | `try` up to the failure, matching `catch`, then `finally` |
-| Exception not caught | `try` up to the failure, then `finally`, then propagation |
-| `return` inside `try` | `try` computes the value, `finally` runs, then the method returns |
-| `return` inside `finally` | that return wins, discarding the pending return or exception |
+| No exception | \`try\` body, then \`finally\` |
+| Exception caught | \`try\` up to the failure, matching \`catch\`, then \`finally\` |
+| Exception not caught | \`try\` up to the failure, then \`finally\`, then propagation |
+| \`return\` inside \`try\` | \`try\` computes the value, \`finally\` runs, then the method returns |
+| \`return\` inside \`finally\` | that return wins, discarding the pending return or exception |
 
-The last row is the trap. A `return` in `finally` silently swallows exceptions, breaks `try-with-resources` semantics and hides bugs from every caller. The same is true of a `finally` block that throws: the new exception replaces the original one, which is why cleanup code should be defensive.
+The last row is the trap. A \`return\` in \`finally\` silently swallows exceptions, breaks \`try-with-resources\` semantics and hides bugs from every caller. The same is true of a \`finally\` block that throws: the new exception replaces the original one, which is why cleanup code should be defensive.
 
-Three more facts worth memorising. A `return` in `try` evaluates its expression before `finally` runs, so mutating a local in `finally` does not change the already-computed value. `System.exit` terminates the JVM without running `finally`. And a `catch` block that itself throws still triggers the `finally` block on the way out.`,
+Three more facts worth memorising. A \`return\` in \`try\` evaluates its expression before \`finally\` runs, so mutating a local in \`finally\` does not change the already-computed value. \`System.exit\` terminates the JVM without running \`finally\`. And a \`catch\` block that itself throws still triggers the \`finally\` block on the way out.`,
         },
         {
           id: 'multi-catch-and-rethrow',
           title: 'Multi-catch and precise rethrow',
-          body: `When several unrelated exceptions deserve the same recovery logic, Java 7's multi-catch avoids copy-pasted blocks: \`catch (IOException | SQLException e)\`. The alternatives must be disjoint types; writing two types where one is a subclass of the other is a compile error because the second is unreachable. The parameter \`e\` is implicitly final, so you cannot reassign it, and its static type is the least upper bound of the alternatives — often \`Exception`, which limits which methods you can call on it.
+          body: `When several unrelated exceptions deserve the same recovery logic, Java 7's multi-catch avoids copy-pasted blocks: \\\`catch (IOException | SQLException e)\\\`. The alternatives must be disjoint types; writing two types where one is a subclass of the other is a compile error because the second is unreachable. The parameter \\\`e\\\` is implicitly final, so you cannot reassign it, and its static type is the least upper bound of the alternatives — often \\\`Exception\`, which limits which methods you can call on it.
 
-Multi-catch also improves rethrow analysis. Consider a method that catches `Exception`, inspects it, and rethrows. Before Java 7 the compiler widened the declared type to `throws Exception`, forcing every caller to handle everything. Since Java 7 the compiler performs precise rethrow analysis: if the try block can only throw `IOException` and `SQLException`, a rethrown `e` is analysed as those types, and the method may declare exactly `throws IOException, SQLException`.
+Multi-catch also improves rethrow analysis. Consider a method that catches \`Exception\`, inspects it, and rethrows. Before Java 7 the compiler widened the declared type to \`throws Exception\`, forcing every caller to handle everything. Since Java 7 the compiler performs precise rethrow analysis: if the try block can only throw \`IOException\` and \`SQLException\`, a rethrown \`e\` is analysed as those types, and the method may declare exactly \`throws IOException, SQLException\`.
 
 Use multi-catch when the handling is genuinely identical, such as logging and mapping to a single error response. If two exceptions need different messages or different recovery steps, keep separate blocks — merging them usually produces a vague handler that treats a missing file the same as a corrupt one, which is exactly the kind of imprecision that makes incidents hard to diagnose.`,
         },
         {
           id: 'try-with-resources-and-close-order',
           title: 'try-with-resources and close order',
-          body: `Anything that holds an OS handle — files, sockets, JDBC connections, locks implemented as resources — must be released deterministically. The classic \`try/finally\` pattern works but is verbose and easy to get wrong when there are several resources. \`try-with-resources\` declares resources in the header and guarantees that each \`close()\` runs before control leaves the block.
+          body: `Anything that holds an OS handle — files, sockets, JDBC connections, locks implemented as resources — must be released deterministically. The classic \\\`try/finally\\\` pattern works but is verbose and easy to get wrong when there are several resources. \\\`try-with-resources\\\` declares resources in the header and guarantees that each \\\`close()\\\` runs before control leaves the block.
 
-\`try (var in = Files.newInputStream(src); var out = Files.newOutputStream(dst))\` requires each resource to implement \`AutoCloseable`, whose single method is `void close() throws Exception`. `Closeable` is the narrower `java.io` variant that throws only `IOException`.
+\\\`try (var in = Files.newInputStream(src); var out = Files.newOutputStream(dst))\\\` requires each resource to implement \\\`AutoCloseable\`, whose single method is \`void close() throws Exception\`. \`Closeable\` is the narrower \`java.io\` variant that throws only \`IOException\`.
 
 The rules that matter:
 
 - Resources are closed in the **reverse order of declaration**, so the last opened is the first closed.
-- Each resource is closed even if the try body throws, and even if an earlier `close()` throws.
-- If the body throws and a `close()` also throws, the body's exception stays primary and the close exception is attached as suppressed.
-- Since Java 9 you may name an existing effectively final variable: `try (in)`.
+- Each resource is closed even if the try body throws, and even if an earlier \`close()\` throws.
+- If the body throws and a \`close()\` also throws, the body's exception stays primary and the close exception is attached as suppressed.
+- Since Java 9 you may name an existing effectively final variable: \`try (in)\`.
 - Resources declared in the header are implicitly final and scoped to the block.
 
-Never call `close()` manually inside the block as well. Double closing is at best redundant and at worst throws, and any exception it raises can mask the real failure you were trying to diagnose.`,
+Never call \`close()\` manually inside the block as well. Double closing is at best redundant and at worst throws, and any exception it raises can mask the real failure you were trying to diagnose.`,
         },
         {
           id: 'suppressed-exceptions-and-debugging',
           title: 'Suppressed exceptions and debugging discipline',
-          body: `Older cleanup code had a well-known flaw: if the body threw \`IllegalArgumentException\` and the \`finally\` block's \`close()\` threw \`IOException`, the original failure vanished. Java 7 solved this with suppressed exceptions. When `try-with-resources` closes resources after a primary failure, any exception from `close()` is attached to the primary throwable via `addSuppressed` rather than replacing it.
+          body: `Older cleanup code had a well-known flaw: if the body threw \\\`IllegalArgumentException\\\` and the \\\`finally\\\` block's \\\`close()\\\` threw \\\`IOException\`, the original failure vanished. Java 7 solved this with suppressed exceptions. When \`try-with-resources\` closes resources after a primary failure, any exception from \`close()\` is attached to the primary throwable via \`addSuppressed\` rather than replacing it.
 
-You can read them with `e.getSuppressed()`, and log frameworks print them under a `Suppressed:` heading. The primary exception remains what `catch` sees, which is the right default: the work failed, and cleanup also failed.
+You can read them with \`e.getSuppressed()\`, and log frameworks print them under a \`Suppressed:\` heading. The primary exception remains what \`catch\` sees, which is the right default: the work failed, and cleanup also failed.
 
-You can use the same mechanism manually when translating exceptions without losing a secondary failure: catch the cleanup exception, call `primary.addSuppressed(cleanup)`, then rethrow `primary`. Guard against self-suppression, because `addSuppressed(e)` with the same object throws `IllegalArgumentException`.
+You can use the same mechanism manually when translating exceptions without losing a secondary failure: catch the cleanup exception, call \`primary.addSuppressed(cleanup)\`, then rethrow \`primary\`. Guard against self-suppression, because \`addSuppressed(e)\` with the same object throws \`IllegalArgumentException\`.
 
 Debugging discipline follows from all of this:
 
 - Log **or** rethrow, never both at the same level, or one failure produces five identical stack traces.
-- Always pass the original exception as the cause when wrapping; `new ServiceException(msg, e)` preserves the chain.
-- Never write `catch (Exception e) { }`. An empty handler converts a crash into silent corruption.
+- Always pass the original exception as the cause when wrapping; \`new ServiceException(msg, e)\` preserves the chain.
+- Never write \`catch (Exception e) { }\`. An empty handler converts a crash into silent corruption.
 - Include the values that explain the failure — the path, the id, the size — not just "operation failed".
 - Prefer specific catch types so a new failure mode is not accidentally swallowed by an over-broad handler.`,
         },
@@ -303,103 +303,103 @@ public class MultiCatchDemo {
         {
           id: 'throwable-hierarchy',
           title: 'The Throwable hierarchy',
-          body: `Everything that can be thrown descends from \`java.lang.Throwable`, an ordinary class with two direct subclasses: `Error` and `Exception`. `Throwable` supplies the behaviour every failure object needs: `getMessage()`, `getCause()`, `getStackTrace()`, `printStackTrace()`, `addSuppressed()` and `fillInStackTrace()`.
+          body: `Everything that can be thrown descends from \\\`java.lang.Throwable\`, an ordinary class with two direct subclasses: \`Error\` and \`Exception\`. \`Throwable\` supplies the behaviour every failure object needs: \`getMessage()\`, \`getCause()\`, \`getStackTrace()\`, \`printStackTrace()\`, \`addSuppressed()\` and \`fillInStackTrace()\`.
 
-Under `Exception` sits `RuntimeException`, and this single branch is what separates checked from unchecked. Everything else under `Exception` is checked: `IOException` (with `FileNotFoundException`, `NoSuchFileException`, `EOFException`), `SQLException`, `ClassNotFoundException`, `InterruptedException`, `ParseException`. Under `RuntimeException` are the programming-error family: `NullPointerException`, `IllegalArgumentException`, `IllegalStateException`, `IndexOutOfBoundsException`, `ClassCastException`, `UnsupportedOperationException`, `ConcurrentModificationException`, `ArithmeticException`.
+Under \`Exception\` sits \`RuntimeException\`, and this single branch is what separates checked from unchecked. Everything else under \`Exception\` is checked: \`IOException\` (with \`FileNotFoundException\`, \`NoSuchFileException\`, \`EOFException\`), \`SQLException\`, \`ClassNotFoundException\`, \`InterruptedException\`, \`ParseException\`. Under \`RuntimeException\` are the programming-error family: \`NullPointerException\`, \`IllegalArgumentException\`, \`IllegalStateException\`, \`IndexOutOfBoundsException\`, \`ClassCastException\`, \`UnsupportedOperationException\`, \`ConcurrentModificationException\`, \`ArithmeticException\`.
 
-Under `Error`: `OutOfMemoryError`, `StackOverflowError`, `NoClassDefFoundError`, `ExceptionInInitializerError`, `AssertionError`.
+Under \`Error\`: \`OutOfMemoryError\`, \`StackOverflowError\`, \`NoClassDefFoundError\`, \`ExceptionInInitializerError\`, \`AssertionError\`.
 
 | Depth | Class | Meaning |
 | --- | --- | --- |
-| root | `Throwable` | anything throwable |
-| 1 | `Error` | JVM-level failure, do not catch |
-| 1 | `Exception` | application-level failure |
-| 2 | `RuntimeException` | unchecked, usually a bug |
-| 3 | `IOException` etc. | checked, usually environmental |
+| root | \`Throwable\` | anything throwable |
+| 1 | \`Error\` | JVM-level failure, do not catch |
+| 1 | \`Exception\` | application-level failure |
+| 2 | \`RuntimeException\` | unchecked, usually a bug |
+| 3 | \`IOException\` etc. | checked, usually environmental |
 
-Interviewers often ask where `InterruptedException` sits: it is checked, and catching it obliges you to restore the interrupt flag with `Thread.currentThread().interrupt()` rather than swallowing it.`,
+Interviewers often ask where \`InterruptedException\` sits: it is checked, and catching it obliges you to restore the interrupt flag with \`Thread.currentThread().interrupt()\` rather than swallowing it.`,
         },
         {
           id: 'checked-unchecked-and-error',
           title: 'Checked, unchecked and Error: when to use which',
-          body: `The compiler rule is simple: a checked exception must be either handled by a enclosing \`catch\` or declared in the method's \`throws\` clause. Unchecked exceptions and errors are exempt. This is not a runtime property — bytecode carries no such flag; it is purely a compile-time contract enforced by \`javac\`.
+          body: `The compiler rule is simple: a checked exception must be either handled by a enclosing \\\`catch\\\` or declared in the method's \\\`throws\\\` clause. Unchecked exceptions and errors are exempt. This is not a runtime property — bytecode carries no such flag; it is purely a compile-time contract enforced by \\\`javac\\\`.
 
 The design question is what the exception communicates. A checked exception says "this can fail for reasons outside your control, and you must make a decision". A missing file, a dropped connection, a failed transaction: the caller can retry, fall back or report. An unchecked exception says "you broke the contract" — a null where an object was required, an index outside the array, an argument failing a precondition. Recovery by catching it is usually wrong; the fix belongs in the code.
 
 | Aspect | Checked | Unchecked | Error |
 | --- | --- | --- | --- |
-| Base type | \`Exception\` minus \`RuntimeException\` | \`RuntimeException\` | \`Error\` |
+| Base type | \\\`Exception\\\` minus \\\`RuntimeException\\\` | \\\`RuntimeException\\\` | \\\`Error\\\` |
 | Compiler enforces handling | yes | no | no |
 | Typical cause | environment, I/O, network | programming bug | JVM exhaustion |
 | Reasonable recovery | retry, fallback, user prompt | fix the code | restart the process |
-| Examples | \`IOException`, `SQLException` | `NPE`, `IllegalArgumentException` | `OutOfMemoryError` |
+| Examples | \\\`IOException\`, \`SQLException\` | \`NPE\`, \`IllegalArgumentException\` | \`OutOfMemoryError\` |
 
-Modern practice, visible in the JDK and in most libraries, leans towards fewer checked exceptions: they push noise into signatures, encourage `throws Exception`, and break lambdas. Use checked exceptions at genuine I/O boundaries and unchecked ones for API misuse.`,
+Modern practice, visible in the JDK and in most libraries, leans towards fewer checked exceptions: they push noise into signatures, encourage \`throws Exception\`, and break lambdas. Use checked exceptions at genuine I/O boundaries and unchecked ones for API misuse.`,
         },
         {
           id: 'catch-ordering-and-unreachable-blocks',
           title: 'Catch ordering and unreachable blocks',
-          body: `Java checks \`catch\` clauses in source order and picks the first whose type matches. Because matching is an \`instanceof\` test, a broad clause placed before a narrow one makes the narrow clause impossible to reach, and \`javac\` rejects it with "exception X has already been caught".
+          body: `Java checks \\\`catch\\\` clauses in source order and picks the first whose type matches. Because matching is an \\\`instanceof\\\` test, a broad clause placed before a narrow one makes the narrow clause impossible to reach, and \\\`javac\\\` rejects it with "exception X has already been caught".
 
-The rule is therefore: **most specific first, most general last**. Catch \`FileNotFoundException`, then `IOException`, then — rarely — `Exception`. A related compile-time rule applies to checked exceptions that the try body can never throw: `catch (FileNotFoundException e)` around code that only throws `NoSuchFileException` is an error, because `FileNotFoundException` is not a supertype of anything thrown. Unchecked exceptions are exempt from that check, which is why `catch (NullPointerException e)` always compiles.
+The rule is therefore: **most specific first, most general last**. Catch \\\`FileNotFoundException\`, then \`IOException\`, then — rarely — \`Exception\`. A related compile-time rule applies to checked exceptions that the try body can never throw: \`catch (FileNotFoundException e)\` around code that only throws \`NoSuchFileException\` is an error, because \`FileNotFoundException\` is not a supertype of anything thrown. Unchecked exceptions are exempt from that check, which is why \`catch (NullPointerException e)\` always compiles.
 
 Multi-catch does not change the ordering rule; the merged clause must still precede any supertype of its alternatives. And a subclass cannot appear both inside a multi-catch and in a later separate clause.
 
-In practice, order your handlers by recovery strategy rather than by taxonomy. Transient failures (timeouts) get a retry, permanent ones (validation) get a client error response, and unknown ones should surface rather than be flattened into a generic failure. Catching `Exception` at the outermost boundary — one place, with logging and a stable error response — is reasonable; doing it in every method is not.`,
+In practice, order your handlers by recovery strategy rather than by taxonomy. Transient failures (timeouts) get a retry, permanent ones (validation) get a client error response, and unknown ones should surface rather than be flattened into a generic failure. Catching \`Exception\` at the outermost boundary — one place, with logging and a stable error response — is reasonable; doing it in every method is not.`,
         },
         {
           id: 'throw-vs-throws',
           title: 'throw vs throws',
-          body: `The two keywords look alike and do different jobs. \`throw\` is a statement inside a method body; it takes a single throwable object and transfers control immediately. \`throws\` is part of a method or constructor declaration; it lists the checked exception types that may escape, delegating the decision to callers.
+          body: `The two keywords look alike and do different jobs. \\\`throw\\\` is a statement inside a method body; it takes a single throwable object and transfers control immediately. \\\`throws\\\` is part of a method or constructor declaration; it lists the checked exception types that may escape, delegating the decision to callers.
 
-\`throw new IllegalArgumentException("quantity must be positive");\` can appear anywhere, including inside a lambda. \`public void save(Order order) throws IOException\` appears exactly once, in the signature, and documents part of the contract. Declaring unchecked exceptions in \`throws\` is legal but adds no compiler enforcement; it is useful only as documentation, and many style guides discourage it.
+\\\`throw new IllegalArgumentException("quantity must be positive");\\\` can appear anywhere, including inside a lambda. \\\`public void save(Order order) throws IOException\\\` appears exactly once, in the signature, and documents part of the contract. Declaring unchecked exceptions in \\\`throws\\\` is legal but adds no compiler enforcement; it is useful only as documentation, and many style guides discourage it.
 
-Three details interviewers like. First, \`throw\` requires a \`Throwable\` instance, so \`throw\` cannot take a \`Class\` or a string. Second, you can rethrow an existing object: \`throw e;\` preserves the original stack trace, whereas \`throw new RuntimeException(e)\` starts a new trace and nests the old one as the cause. Third, a method that declares \`throws IOException\` may still throw nothing; the declaration is a permission, not an obligation.
+Three details interviewers like. First, \\\`throw\\\` requires a \\\`Throwable\\\` instance, so \\\`throw\\\` cannot take a \\\`Class\\\` or a string. Second, you can rethrow an existing object: \\\`throw e;\\\` preserves the original stack trace, whereas \\\`throw new RuntimeException(e)\\\` starts a new trace and nests the old one as the cause. Third, a method that declares \\\`throws IOException\\\` may still throw nothing; the declaration is a permission, not an obligation.
 
 Overriding methods may narrow the declared type (throw fewer or more specific checked exceptions) but never widen it. That rule keeps polymorphism safe: code written against the parent type cannot be surprised by a new checked failure.`,
         },
         {
           id: 'designing-custom-exceptions',
           title: 'Designing custom exceptions',
-          body: `A custom exception exists to give callers something they can act on: a distinct type to catch, and fields that carry the context a generic message cannot. Extend \`RuntimeException\` when the failure is a contract violation or a configuration error; extend \`Exception\` when callers are expected to handle it deliberately.
+          body: `A custom exception exists to give callers something they can act on: a distinct type to catch, and fields that carry the context a generic message cannot. Extend \\\`RuntimeException\\\` when the failure is a contract violation or a configuration error; extend \\\`Exception\\\` when callers are expected to handle it deliberately.
 
 A well-designed exception class is small and immutable:
 
 - A constructor taking only a message.
 - A constructor taking a message and a cause.
 - A constructor taking only a cause, for wrapping.
-- Optional extra fields, \`final`, with accessor methods named after the field.
-- `serialVersionUID` if the class may ever be serialised.
+- Optional extra fields, \\\`final\`, with accessor methods named after the field.
+- \`serialVersionUID\` if the class may ever be serialised.
 - No business logic, no formatting beyond the message.
 
-Name the class after the condition, not the thrower: `InsufficientFundsException`, not `BankServiceException`. Keep the message specific and safe: include identifiers and limits, never passwords, tokens or full payloads, because messages end up in logs and error responses.
+Name the class after the condition, not the thrower: \`InsufficientFundsException\`, not \`BankServiceException\`. Keep the message specific and safe: include identifiers and limits, never passwords, tokens or full payloads, because messages end up in logs and error responses.
 
-Avoid a deep hierarchy of near-duplicate types; two or three per bounded context is usually enough, plus one base type so callers can catch the family. And always document the exception with `@throws` in the Javadoc of the method that raises it, so the contract is visible without reading the implementation.`,
+Avoid a deep hierarchy of near-duplicate types; two or three per bounded context is usually enough, plus one base type so callers can catch the family. And always document the exception with \`@throws\` in the Javadoc of the method that raises it, so the contract is visible without reading the implementation.`,
         },
         {
           id: 'exception-chaining-and-cause',
           title: 'Exception chaining and the cause',
-          body: `Layered applications translate failures: a \`SQLException\` from the driver becomes an \`OrderRepositoryException`, which becomes a `CheckoutFailedException`. Translation is good — it stops implementation details leaking into the API — but only if the original failure is preserved. That is what the cause is for.
+          body: `Layered applications translate failures: a \\\`SQLException\\\` from the driver becomes an \\\`OrderRepositoryException\`, which becomes a \`CheckoutFailedException\`. Translation is good — it stops implementation details leaking into the API — but only if the original failure is preserved. That is what the cause is for.
 
-`throw new CheckoutFailedException("could not reserve stock for order " + id, e);` keeps the whole chain, and the printed trace shows `Caused by: java.sql.SQLException: ...` underneath. Without the second argument the trace stops at your wrapper, and the actual root cause is gone.
+\`throw new CheckoutFailedException("could not reserve stock for order " + id, e);\` keeps the whole chain, and the printed trace shows \`Caused by: java.sql.SQLException: ...\` underneath. Without the second argument the trace stops at your wrapper, and the actual root cause is gone.
 
-Four rules keep chains healthy. Never wrap and drop: if you cannot pass the cause through a constructor, call `initCause(e)` once. Never wrap an exception in itself or in a cycle, which makes `printStackTrace` loop. Translate once, at the boundary of the layer that owns the abstraction, not in every method. And when logging, log the outermost exception with its cause, not each layer separately.
+Four rules keep chains healthy. Never wrap and drop: if you cannot pass the cause through a constructor, call \`initCause(e)\` once. Never wrap an exception in itself or in a cycle, which makes \`printStackTrace\` loop. Translate once, at the boundary of the layer that owns the abstraction, not in every method. And when logging, log the outermost exception with its cause, not each layer separately.
 
-Resist the urge to flatten everything into `RuntimeException` at the boundary. A caller that can distinguish "invalid input" from "database down" will produce a far better response, and the distinction costs only a class and a constructor.`,
+Resist the urge to flatten everything into \`RuntimeException\` at the boundary. A caller that can distinguish "invalid input" from "database down" will produce a far better response, and the distinction costs only a class and a constructor.`,
         },
         {
           id: 'exception-best-practices',
           title: 'Exception handling best practices',
           body: `Good exception handling is mostly about deciding where responsibility lives. The following rules cover nearly every review comment you will encounter.
 
-- **Fail fast at the boundary.** Validate arguments at the top of a public method with \`Objects.requireNonNull\` and explicit range checks. \`IllegalArgumentException\` thrown early is cheaper than a \`NullPointerException\` ten frames later.
+- **Fail fast at the boundary.** Validate arguments at the top of a public method with \\\`Objects.requireNonNull\\\` and explicit range checks. \\\`IllegalArgumentException\\\` thrown early is cheaper than a \\\`NullPointerException\\\` ten frames later.
 - **Catch only what you can handle.** If the handler cannot retry, compensate or translate, let the exception travel.
 - **Never swallow.** An empty catch block, or one that only logs and continues, hides corruption.
-- **Do not use exceptions for control flow.** A \`for\` loop that throws to break out is slower and harder to read than a condition.
-- **Preserve the cause** whenever you wrap, and never lose the interrupt status of \`InterruptedException\`.
-- **Do not catch \`Throwable\`** in ordinary code; it includes \`OutOfMemoryError\` and \`ThreadDeath\`.
-- **Clean up in \`finally\` or, better, with try-with-resources.**
-- **Document checked exceptions** with \`@throws`, and keep the set small.
+- **Do not use exceptions for control flow.** A \\\`for\\\` loop that throws to break out is slower and harder to read than a condition.
+- **Preserve the cause** whenever you wrap, and never lose the interrupt status of \\\`InterruptedException\\\`.
+- **Do not catch \\\`Throwable\\\`** in ordinary code; it includes \\\`OutOfMemoryError\\\` and \\\`ThreadDeath\\\`.
+- **Clean up in \\\`finally\\\` or, better, with try-with-resources.**
+- **Document checked exceptions** with \\\`@throws\`, and keep the set small.
 - **Log once**, at the layer that decides the outcome, with context and the full trace.
 
 A useful test: for every catch block, ask what the program does differently because of it. If the answer is "nothing", the block should not exist.`,
@@ -622,35 +622,35 @@ public class ExceptionChainingDemo {
 
 | Area | Scope | Holds | Failure mode |
 | --- | --- | --- | --- |
-| Heap | shared | every object and array | \`OutOfMemoryError: Java heap space\` |
-| Method area / Metaspace | shared | class metadata, constant pools, method code | \`OutOfMemoryError: Metaspace\` |
+| Heap | shared | every object and array | \\\`OutOfMemoryError: Java heap space\\\` |
+| Method area / Metaspace | shared | class metadata, constant pools, method code | \\\`OutOfMemoryError: Metaspace\\\` |
 | Run-time constant pool | shared, part of method area | literals, symbolic references | Metaspace exhaustion |
-| Java stack | per thread | frames: locals, operand stack, return info | \`StackOverflowError\` |
+| Java stack | per thread | frames: locals, operand stack, return info | \\\`StackOverflowError\\\` |
 | Native method stack | per thread | frames for native (JNI) calls | native thread creation failure |
 | PC register | per thread | address of the current instruction | not applicable |
-| Direct / native memory | process | NIO buffers, JNI allocations, thread stacks | \`OutOfMemoryError: Direct buffer memory\` |
+| Direct / native memory | process | NIO buffers, JNI allocations, thread stacks | \\\`OutOfMemoryError: Direct buffer memory\\\` |
 
 The heap is where your objects live; the stack is where execution lives; Metaspace is where the shape of your classes lives. HotSpot implements the method area as Metaspace, allocated in native memory since Java 8, and typically merges native frames onto the same per-thread stack rather than reserving a separate area.
 
-Two practical consequences follow. A thread is expensive because it reserves stack space, so thousands of threads can exhaust native memory long before the heap is full. And "memory" in a container includes heap, Metaspace, code cache, direct buffers and thread stacks, which is why \`-Xmx\` alone does not bound a process.`,
+Two practical consequences follow. A thread is expensive because it reserves stack space, so thousands of threads can exhaust native memory long before the heap is full. And "memory" in a container includes heap, Metaspace, code cache, direct buffers and thread stacks, which is why \\\`-Xmx\\\` alone does not bound a process.`,
         },
         {
           id: 'pc-register-and-native-method-stack',
           title: 'PC register and the native method stack',
           body: `Each thread has its own program counter, a small register holding the address of the bytecode instruction currently being executed. When a thread is switched out and later resumed, the PC is what allows it to continue at the right instruction. If the thread is executing a native method, the PC is undefined, because the JVM is no longer interpreting bytecode.
 
-The native method stack holds frames for methods written in other languages and invoked through JNI. Its size and layout are implementation-defined; on HotSpot, native frames share the thread's stack with Java frames, so the \`-Xss\` setting bounds both. Deep recursion in Java and deep native call chains therefore compete for the same resource, and a JNI library with a large stack appetite can cause a crash rather than a clean Java exception.
+The native method stack holds frames for methods written in other languages and invoked through JNI. Its size and layout are implementation-defined; on HotSpot, native frames share the thread's stack with Java frames, so the \\\`-Xss\\\` setting bounds both. Deep recursion in Java and deep native call chains therefore compete for the same resource, and a JNI library with a large stack appetite can cause a crash rather than a clean Java exception.
 
-Thread creation itself consumes memory. Each \`new Thread()\` reserves a stack (1 MB by default on 64-bit HotSpot, tunable with \`-Xss\`), plus OS bookkeeping. Creating tens of thousands of platform threads can fail with \`OutOfMemoryError: unable to create native thread\` even when the heap is almost empty. Virtual threads, finalised in Java 21, exist partly to fix this: they are mounted on a small pool of carrier threads, so their stacks grow on the heap as needed instead of reserving a megabyte each.`,
+Thread creation itself consumes memory. Each \\\`new Thread()\\\` reserves a stack (1 MB by default on 64-bit HotSpot, tunable with \\\`-Xss\\\`), plus OS bookkeeping. Creating tens of thousands of platform threads can fail with \\\`OutOfMemoryError: unable to create native thread\\\` even when the heap is almost empty. Virtual threads, finalised in Java 21, exist partly to fix this: they are mounted on a small pool of carrier threads, so their stacks grow on the heap as needed instead of reserving a megabyte each.`,
         },
         {
           id: 'stack-frames-locals-and-operand-stack',
           title: 'Stack frames: locals, operand stack, return address',
           body: `Every method invocation pushes a frame onto the calling thread's stack. A frame is created with a size computed at class-load time and contains three logical parts.
 
-The **local variable array** holds parameters and local variables in fixed slots. A \`long\` or \`double\` occupies two slots; references occupy one. Slot 0 is \`this\` for instance methods, which is why a static method has one fewer parameter slot than its instance twin.
+The **local variable array** holds parameters and local variables in fixed slots. A \\\`long\\\` or \\\`double\\\` occupies two slots; references occupy one. Slot 0 is \\\`this\\\` for instance methods, which is why a static method has one fewer parameter slot than its instance twin.
 
-The **operand stack** is the workspace for bytecode evaluation. \`iload_1`, `iload_2`, `iadd`, `istore_3` push, combine and pop values. This is a stack machine, not a register machine, which keeps bytecode compact and easy to verify.
+The **operand stack** is the workspace for bytecode evaluation. \\\`iload_1\`, \`iload_2\`, \`iadd\`, \`istore_3\` push, combine and pop values. This is a stack machine, not a register machine, which keeps bytecode compact and easy to verify.
 
 **Frame data** holds the return address and the reference to the current class's run-time constant pool, used to resolve symbolic references at first execution and to restore the caller's frame on return.
 
@@ -661,7 +661,7 @@ Two optimisations matter in practice. Escape analysis can prove an object never 
         {
           id: 'heap-objects-and-allocation',
           title: 'The heap and object layout',
-          body: `The heap is the shared area where every object and array lives. It is created at JVM start, sized between \`-Xms\` (initial) and \`-Xmx\` (maximum), and managed by the garbage collector. Allocation is extremely cheap: a thread bumps a pointer inside its thread-local allocation buffer (TLAB), a private slice of Eden, and only synchronises when the buffer is exhausted.
+          body: `The heap is the shared area where every object and array lives. It is created at JVM start, sized between \\\`-Xms\\\` (initial) and \\\`-Xmx\\\` (maximum), and managed by the garbage collector. Allocation is extremely cheap: a thread bumps a pointer inside its thread-local allocation buffer (TLAB), a private slice of Eden, and only synchronises when the buffer is exhausted.
 
 A HotSpot object in memory has three parts, padded to a multiple of 8 bytes:
 
@@ -671,48 +671,48 @@ A HotSpot object in memory has three parts, padded to a multiple of 8 bytes:
 
 Compressed oops let references stay 4 bytes for heaps below roughly 32 GB, which is why "keep the heap under 32 GB" is a common sizing heuristic — crossing that boundary inflates every reference and can cost more memory than the extra heap provides.
 
-Heap sizing is a trade-off. A large heap delays collection but lengthens each pause; a small heap collects often with short pauses. \`-Xms\` equal to \`-Xmx\` is standard for servers: it avoids repeated resizing and makes pause behaviour predictable.`,
+Heap sizing is a trade-off. A large heap delays collection but lengthens each pause; a small heap collects often with short pauses. \\\`-Xms\\\` equal to \\\`-Xmx\\\` is standard for servers: it avoids repeated resizing and makes pause behaviour predictable.`,
         },
         {
           id: 'method-area-metaspace-and-string-pool',
           title: 'Method area, Metaspace and the string pool',
-          body: `The method area stores per-class structures: the run-time constant pool, field and method descriptors, bytecode, access flags, and the class's static state. Before Java 8 HotSpot implemented it as PermGen inside the heap, with a fixed maximum that produced the infamous \`OutOfMemoryError: PermGen space\` when an application loaded many classes.
+          body: `The method area stores per-class structures: the run-time constant pool, field and method descriptors, bytecode, access flags, and the class's static state. Before Java 8 HotSpot implemented it as PermGen inside the heap, with a fixed maximum that produced the infamous \\\`OutOfMemoryError: PermGen space\\\` when an application loaded many classes.
 
-Java 8 replaced PermGen with **Metaspace**, allocated in native memory and bounded by \`-XX:MaxMetaspaceSize\` (unbounded by default). Class metadata can now grow until the machine runs out of memory, which trades one failure mode for another: a classloader leak becomes a slow native-memory climb rather than a fast, obvious PermGen error. Always set a maximum in production.
+Java 8 replaced PermGen with **Metaspace**, allocated in native memory and bounded by \\\`-XX:MaxMetaspaceSize\\\` (unbounded by default). Class metadata can now grow until the machine runs out of memory, which trades one failure mode for another: a classloader leak becomes a slow native-memory climb rather than a fast, obvious PermGen error. Always set a maximum in production.
 
 Metaspace is reclaimed only when the classloader that defined the classes becomes unreachable, which is why application server redeploys and dynamically generated classes (proxies, script engines, lambdas in some frameworks) are classic leak sources.
 
-The **string pool** is different. Interned strings — literals and the result of \`String.intern()\` — live in the heap (since Java 7) and are ordinary objects, so they are collected normally when unreachable. \`new String("x")\` creates a separate object; only \`intern()\` or a literal refers to the pooled instance. Interning is useful for deduplicating many repeated values, but interning unbounded user input is a leak.`,
+The **string pool** is different. Interned strings — literals and the result of \\\`String.intern()\\\` — live in the heap (since Java 7) and are ordinary objects, so they are collected normally when unreachable. \\\`new String("x")\\\` creates a separate object; only \\\`intern()\\\` or a literal refers to the pooled instance. Interning is useful for deduplicating many repeated values, but interning unbounded user input is a leak.`,
         },
         {
           id: 'direct-memory-and-off-heap',
           title: 'Direct memory and off-heap allocation',
-          body: `Not all memory an application uses is heap. \`ByteBuffer.allocateDirect(n)\` reserves a buffer in native memory outside the Java heap. The JVM can pass its address straight to the operating system, so file and socket I/O avoids copying bytes between heap and native buffers. That is why NIO channels, Netty and most high-performance I/O libraries use direct buffers for their working memory.
+          body: `Not all memory an application uses is heap. \\\`ByteBuffer.allocateDirect(n)\\\` reserves a buffer in native memory outside the Java heap. The JVM can pass its address straight to the operating system, so file and socket I/O avoids copying bytes between heap and native buffers. That is why NIO channels, Netty and most high-performance I/O libraries use direct buffers for their working memory.
 
-The cost is that the JVM does not see this memory during heap sizing. Direct buffers are bounded by \`-XX:MaxDirectMemorySize`, which defaults to the maximum heap size, and exceeding it produces `OutOfMemoryError: Direct buffer memory`. A container memory limit counts them, so a process with `-Xmx2g` and 2 GB of direct buffers can be killed by the OS while the heap looks healthy.
+The cost is that the JVM does not see this memory during heap sizing. Direct buffers are bounded by \\\`-XX:MaxDirectMemorySize\`, which defaults to the maximum heap size, and exceeding it produces \`OutOfMemoryError: Direct buffer memory\`. A container memory limit counts them, so a process with \`-Xmx2g\` and 2 GB of direct buffers can be killed by the OS while the heap looks healthy.
 
-Direct buffers are freed when the `ByteBuffer` becomes unreachable: a `Cleaner` registered at allocation time releases the native block during garbage collection. Because the heap thinks the buffer is tiny (just an object header and an address), it does not create memory pressure, so the GC may run late. Long-lived direct buffers therefore need explicit lifecycle management.
+Direct buffers are freed when the \`ByteBuffer\` becomes unreachable: a \`Cleaner\` registered at allocation time releases the native block during garbage collection. Because the heap thinks the buffer is tiny (just an object header and an address), it does not create memory pressure, so the GC may run late. Long-lived direct buffers therefore need explicit lifecycle management.
 
 Similar off-heap areas include memory-mapped files, JNI allocations, and the JIT code cache, each with its own limit and diagnostics.`,
         },
         {
           id: 'stack-overflow-vs-out-of-memory',
           title: 'StackOverflowError vs OutOfMemoryError',
-          body: `Both are \`Error\`s, both terminate work, but they mean opposite things and need opposite fixes.
+          body: `Both are \\\`Error\\\`s, both terminate work, but they mean opposite things and need opposite fixes.
 
-\`StackOverflowError\` means a thread's stack ran out of space, almost always because of unbounded or excessively deep recursion. The heap is irrelevant. Diagnose by reading the top frames of the trace: a repeating pattern of the same method is the signature. Fixes are to convert the recursion to iteration, add a depth guard, or increase \`-Xss\` (which increases memory per thread and lowers the maximum thread count).
+\\\`StackOverflowError\\\` means a thread's stack ran out of space, almost always because of unbounded or excessively deep recursion. The heap is irrelevant. Diagnose by reading the top frames of the trace: a repeating pattern of the same method is the signature. Fixes are to convert the recursion to iteration, add a depth guard, or increase \\\`-Xss\\\` (which increases memory per thread and lowers the maximum thread count).
 
-\`OutOfMemoryError: Java heap space\` means the collector could not free enough room for an allocation after a full collection. Either the live set genuinely exceeds \`-Xmx\` — a leak, or a batch job that needs a bigger heap — or a single allocation is huge. Related messages point elsewhere:
+\\\`OutOfMemoryError: Java heap space\\\` means the collector could not free enough room for an allocation after a full collection. Either the live set genuinely exceeds \\\`-Xmx\\\` — a leak, or a batch job that needs a bigger heap — or a single allocation is huge. Related messages point elsewhere:
 
 | Message | Meaning |
 | --- | --- |
-| \`Java heap space\` | live objects exceed the heap |
-| \`GC overhead limit exceeded\` | the collector spends most of its time reclaiming almost nothing |
-| \`Metaspace\` | too many classes, usually a classloader leak |
-| \`Direct buffer memory\` | NIO buffers exceed the direct limit |
-| \`unable to create native thread\` | thread stacks or OS limits exhausted |
+| \\\`Java heap space\\\` | live objects exceed the heap |
+| \\\`GC overhead limit exceeded\\\` | the collector spends most of its time reclaiming almost nothing |
+| \\\`Metaspace\\\` | too many classes, usually a classloader leak |
+| \\\`Direct buffer memory\\\` | NIO buffers exceed the direct limit |
+| \\\`unable to create native thread\\\` | thread stacks or OS limits exhausted |
 
-The standard move for any heap OOM is \`-XX:+HeapDumpOnOutOfMemoryError\` plus \`-XX:HeapDumpPath`, then analyse dominator trees in a tool such as Eclipse MAT to find what retains the memory.`,
+The standard move for any heap OOM is \\\`-XX:+HeapDumpOnOutOfMemoryError\\\` plus \\\`-XX:HeapDumpPath\`, then analyse dominator trees in a tool such as Eclipse MAT to find what retains the memory.`,
         },
       ],
       javaCode: [
@@ -875,20 +875,20 @@ public class DirectMemoryDemo {
           title: 'Heap layout: young and old generations',
           body: `The heap is partitioned because of the **weak generational hypothesis**: most objects die young, and the few that survive tend to live a long time. Collecting a small young region frequently is far cheaper than scanning the whole heap, and it matches how allocation actually behaves in request-scoped code.
 
-In the classic layout the young generation is one third of the heap by default (\`-XX:NewRatio=2\`) and is split into **Eden** and two equal **survivor** spaces, \`S0\` and \`S1\` (\`-XX:SurvivorRatio=8\` means Eden is eight times one survivor). All new objects — except very large ones — are allocated in Eden. The old generation, also called tenured, holds objects that have survived several collections.
+In the classic layout the young generation is one third of the heap by default (\\\`-XX:NewRatio=2\\\`) and is split into **Eden** and two equal **survivor** spaces, \\\`S0\\\` and \\\`S1\\\` (\\\`-XX:SurvivorRatio=8\\\` means Eden is eight times one survivor). All new objects — except very large ones — are allocated in Eden. The old generation, also called tenured, holds objects that have survived several collections.
 
 HotSpot's G1 collector, the default since Java 9, abandons contiguous generations in favour of a grid of equal regions, each dynamically labelled Eden, Survivor, Old or Humongous. The generational idea survives, but regions let G1 collect the most garbage-heavy areas first, which is the "garbage first" in its name. ZGC and Shenandoah also use regions, with different concurrent algorithms.
 
-Sizing consequences: a young generation that is too small causes frequent minor collections and premature promotion; one that is too large lengthens each young pause. \`-Xmn\` sets the young size directly, while \`-XX:NewRatio\` sets the ratio and leaves the JVM room to adapt.`,
+Sizing consequences: a young generation that is too small causes frequent minor collections and premature promotion; one that is too large lengthens each young pause. \\\`-Xmn\\\` sets the young size directly, while \\\`-XX:NewRatio\\\` sets the ratio and leaves the JVM room to adapt.`,
         },
         {
           id: 'allocation-aging-and-promotion',
           title: 'Allocation, aging and promotion',
           body: `Allocation in Eden is a pointer bump inside a TLAB. When Eden fills, a minor collection traces live objects from the roots, copies them into the active survivor space, and clears Eden wholesale. The copy is cheap relative to the region size because most objects are already dead and cost nothing.
 
-Each surviving object's age, stored in the mark word, increments by one per young collection. When the age reaches the tenuring threshold (\`-XX:MaxTenuringThreshold`, 15 by default in G1), the object is promoted to the old generation. Survivors ping-pong between `S0` and `S1`: the source survivor is emptied, the destination becomes the new "from" space next cycle.
+Each surviving object's age, stored in the mark word, increments by one per young collection. When the age reaches the tenuring threshold (\\\`-XX:MaxTenuringThreshold\`, 15 by default in G1), the object is promoted to the old generation. Survivors ping-pong between \`S0\` and \`S1\`: the source survivor is emptied, the destination becomes the new "from" space next cycle.
 
-Two dynamic behaviours override the fixed threshold. If survivors fill beyond a target occupancy (`-XX:TargetSurvivorRatio`, default 50 percent), the JVM lowers the effective threshold and promotes early to avoid overflow. And a `Full GC` can promote everything at once.
+Two dynamic behaviours override the fixed threshold. If survivors fill beyond a target occupancy (\`-XX:TargetSurvivorRatio\`, default 50 percent), the JVM lowers the effective threshold and promotes early to avoid overflow. And a \`Full GC\` can promote everything at once.
 
 Very large objects are special. In G1, an object larger than half a region is **humongous** and is allocated directly in a run of contiguous regions, bypassing Eden. Allocating many short-lived humongous objects — a common accident with multi-megabyte arrays — creates expensive region churn, which is why streaming parsers and chunked buffers beat "read it all into a byte array".`,
         },
@@ -901,7 +901,7 @@ A **minor** (young) collection runs when Eden fills. It stops the application br
 
 A **major** collection concerns the old generation. In collectors that support concurrency it is not a single event but a cycle: initial mark (stop-the-world, short), concurrent marking, remark (short stop), concurrent cleanup, and then evacuation of selected old regions. G1 calls the evacuation phase a **mixed** collection because it collects both young regions and old regions with the most garbage.
 
-A **full** collection compacts the entire heap, including young and old, and may also unload classes and clear soft references. It is the fallback when the collector cannot keep up: promotion failure, humongous allocation failure, metaspace pressure or an explicit \`System.gc()\`. Full collections are long and should be rare; a heap that needs them regularly is either undersized or leaking.
+A **full** collection compacts the entire heap, including young and old, and may also unload classes and clear soft references. It is the fallback when the collector cannot keep up: promotion failure, humongous allocation failure, metaspace pressure or an explicit \\\`System.gc()\\\`. Full collections are long and should be rare; a heap that needs them regularly is either undersized or leaking.
 
 | Collection | Scope | Frequency | Typical cost |
 | --- | --- | --- | --- |
@@ -928,7 +928,7 @@ The roots are:
 
 HotSpot uses **tri-colour marking**: white for unvisited, grey for discovered but not yet scanned, black for scanned. Concurrent collectors must handle mutations while marking. G1 and Shenandoah use snapshot-at-the-beginning (SATB) write barriers, recording overwritten references so nothing reachable at the start of the cycle is missed. Cards and remembered sets track old-to-young references so a young collection does not need to scan the whole old generation.
 
-Understanding roots explains most "leaks": an object is not leaked because nobody uses it, but because something rooted still points at it — a static map, a live thread's local, a listener list, a \`ThreadLocal\`. Remove the root and the memory returns.`,
+Understanding roots explains most "leaks": an object is not leaked because nobody uses it, but because something rooted still points at it — a static map, a live thread's local, a listener list, a \\\`ThreadLocal\\\`. Remove the root and the memory returns.`,
         },
         {
           id: 'reference-types-and-referencequeue',
@@ -937,14 +937,14 @@ Understanding roots explains most "leaks": an object is not leaked because nobod
 
 | Reference | Collected when | Typical use |
 | --- | --- | --- |
-| Strong (\`new`, plain field) | never, while reachable | ordinary object graphs |
-| Soft (`SoftReference`) | when the JVM needs memory | memory-sensitive caches |
-| Weak (`WeakReference`) | at the next collection that observes it | canonicalising maps, `WeakHashMap` keys, listener registries |
-| Phantom (`PhantomReference`) | after finalisation, before memory release | post-mortem cleanup, `Cleaner` |
+| Strong (\\\`new\`, plain field) | never, while reachable | ordinary object graphs |
+| Soft (\`SoftReference\`) | when the JVM needs memory | memory-sensitive caches |
+| Weak (\`WeakReference\`) | at the next collection that observes it | canonicalising maps, \`WeakHashMap\` keys, listener registries |
+| Phantom (\`PhantomReference\`) | after finalisation, before memory release | post-mortem cleanup, \`Cleaner\` |
 
-A `Reference` object can be registered with a `ReferenceQueue`. When the referent becomes reachable only through that reference, the collector clears it (making `get()` return null) and enqueues the `Reference` itself. A cleanup thread polls the queue and releases the associated native resource. This is exactly how direct `ByteBuffer`s and `Cleaner`-based resources are freed, and it is the supported replacement for `finalize()`, which is deprecated for removal.
+A \`Reference\` object can be registered with a \`ReferenceQueue\`. When the referent becomes reachable only through that reference, the collector clears it (making \`get()\` return null) and enqueues the \`Reference\` itself. A cleanup thread polls the queue and releases the associated native resource. This is exactly how direct \`ByteBuffer\`s and \`Cleaner\`-based resources are freed, and it is the supported replacement for \`finalize()\`, which is deprecated for removal.
 
-Two practical warnings. `WeakHashMap` is only weak about its **keys**; a value that strongly references its own key keeps the entry alive forever. And soft references are a poor cache policy under memory pressure: the JVM may clear all of them at once, producing a sudden cache miss storm rather than graceful eviction. A bounded cache with an explicit eviction policy is usually better.`,
+Two practical warnings. \`WeakHashMap\` is only weak about its **keys**; a value that strongly references its own key keeps the entry alive forever. And soft references are a poor cache policy under memory pressure: the JVM may clear all of them at once, producing a sudden cache miss storm rather than graceful eviction. A bounded cache with an explicit eviction policy is usually better.`,
         },
         {
           id: 'collectors-and-stop-the-world',
@@ -960,9 +960,9 @@ Two practical warnings. `WeakHashMap` is only weak about its **keys**; a value t
 | Shenandoah | Brooks/forwarding pointers, concurrent compaction | large heaps, low pause, OpenJDK builds |
 | Epsilon | allocates and never collects | benchmarks and short-lived jobs |
 
-G1 is the default since Java 9 and aims at \`-XX:MaxGCPauseMillis\` (200 ms by default), choosing how many regions to evacuate per cycle to meet that target. ZGC, production since Java 15 and generational since Java 21, keeps pause times in the sub-millisecond range even on terabyte heaps by doing marking and relocation concurrently; the price is higher CPU and memory overhead. CMS was removed in Java 14.
+G1 is the default since Java 9 and aims at \\\`-XX:MaxGCPauseMillis\\\` (200 ms by default), choosing how many regions to evacuate per cycle to meet that target. ZGC, production since Java 15 and generational since Java 21, keeps pause times in the sub-millisecond range even on terabyte heaps by doing marking and relocation concurrently; the price is higher CPU and memory overhead. CMS was removed in Java 14.
 
-Pause behaviour is workload-dependent, so the only reliable method is measurement: enable unified logging with \`-Xlog:gc*:file=gc.log:time,uptime,level,tags`, then look at pause distribution rather than averages. A 99th-percentile pause of two seconds will hurt far more than an extra 5 percent of CPU.`,
+Pause behaviour is workload-dependent, so the only reliable method is measurement: enable unified logging with \\\`-Xlog:gc*:file=gc.log:time,uptime,level,tags\`, then look at pause distribution rather than averages. A 99th-percentile pause of two seconds will hurt far more than an extra 5 percent of CPU.`,
         },
         {
           id: 'leaks-tuning-and-diagnostics',
@@ -971,23 +971,23 @@ Pause behaviour is workload-dependent, so the only reliable method is measuremen
 
 - **Static collections** that grow without bound — an in-memory registry, a metrics map keyed by request id.
 - **Unbounded caches** with strong keys, which are leaks by design until something evicts.
-- **\`ThreadLocal\`** values on pooled threads that are never \`remove()\`d.
+- **\\\`ThreadLocal\\\`** values on pooled threads that are never \\\`remove()\\\`d.
 - **Listeners and callbacks** registered but never deregistered, keeping whole object graphs alive.
-- **Classloader leaks** in containers, where a redeployed application's classes cannot be unloaded because a thread, JDBC driver or \`ThreadLocal\` still references them.
+- **Classloader leaks** in containers, where a redeployed application's classes cannot be unloaded because a thread, JDBC driver or \\\`ThreadLocal\\\` still references them.
 - **Unclosed resources** whose native memory or buffers outlive their usefulness.
 
-Diagnosis follows a fixed order. Confirm the leak from GC logs: a live set after full collections that climbs monotonically. Take a heap dump with \`jcmd <pid> GC.heap_dump\` or automatically via \`-XX:+HeapDumpOnOutOfMemoryError\`. Compare two dumps in Eclipse MAT and look at the dominator tree for the largest retained sizes, then trace the path to a GC root.
+Diagnosis follows a fixed order. Confirm the leak from GC logs: a live set after full collections that climbs monotonically. Take a heap dump with \\\`jcmd <pid> GC.heap_dump\\\` or automatically via \\\`-XX:+HeapDumpOnOutOfMemoryError\\\`. Compare two dumps in Eclipse MAT and look at the dominator tree for the largest retained sizes, then trace the path to a GC root.
 
 Tuning flags worth knowing, roughly in order of usefulness:
 
 | Flag | Effect |
 | --- | --- |
-| \`-Xms`, `-Xmx` | initial and maximum heap; set equal on servers |
-| `-Xlog:gc*` | unified GC logging, the primary diagnostic |
-| `-XX:+HeapDumpOnOutOfMemoryError` | dump the heap when it fails |
-| `-XX:MaxGCPauseMillis` | G1 pause target, a hint not a guarantee |
-| `-Xmn` / `-XX:NewRatio` | young generation sizing |
-| `-XX:MaxMetaspaceSize` | cap class metadata in native memory |
+| \\\`-Xms\`, \`-Xmx\` | initial and maximum heap; set equal on servers |
+| \`-Xlog:gc*\` | unified GC logging, the primary diagnostic |
+| \`-XX:+HeapDumpOnOutOfMemoryError\` | dump the heap when it fails |
+| \`-XX:MaxGCPauseMillis\` | G1 pause target, a hint not a guarantee |
+| \`-Xmn\` / \`-XX:NewRatio\` | young generation sizing |
+| \`-XX:MaxMetaspaceSize\` | cap class metadata in native memory |
 
 Tune from evidence: fix the leak first, size the heap second, choose a collector third, and adjust ratios last. Most "GC tuning" is really allocation reduction.`,
         },

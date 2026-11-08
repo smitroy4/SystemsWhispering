@@ -1619,56 +1619,122 @@ class Solution {
 ### 2.1 Valid Palindrome
 - **Difficulty**: Easy
 - **LeetCode**: [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
-- **NeetCode**: [Valid Palindrome](https://neetcode.io/problems/is-palindrome)
-- **Data Structures**: String, Two Pointers
-- **Patterns**: Left-Right Pointers
+- **NeetCode**: [Is Palindrome](https://neetcode.io/problems/is-palindrome)
+- **Data Structures**: String
+- **Patterns**: Opposite-Ends Two Pointers, Filtering
 
 #### Problem Description
-A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers. Given a string `s`, return `true` if it is a palindrome, or `false` otherwise.
+A phrase is a palindrome if, after converting all uppercase letters to lowercase and removing all non-alphanumeric characters, it reads the same forward and backward. Given a string `s`, return `true` if it is a palindrome, and `false` otherwise.
 
-#### Inputs & Outputs
-- **Input**: `s = "A man, a plan, a canal: Panama"` -> **Output**: `true`
-- **Input**: `s = "race a car"` -> **Output**: `false`
-- **Constraints**: `1 <= s.length <= 2 * 10^5`, printable ASCII characters.
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `s = "A man, a plan, a canal: Panama"`
+- **Output**: `true`
+- **Explanation**: After cleaning, the string is `"amanaplanacanalpanama"`, which is a palindrome.
 
-##### Approach 1: Brute Force (Filter and Reverse)
-Filter out non-alphanumeric characters, convert to lowercase, and reverse the string to check equality.
+**Example 2**
+- **Input**: `s = "race a car"`
+- **Output**: `false`
+- **Explanation**: After cleaning, the string is `"raceacar"`, which reads differently backward.
+
+#### Constraints
+- `1 <= s.length <= 2 * 10^5`
+- `s` consists only of printable ASCII characters.
+
+#### Intuition
+A palindrome is symmetric around its centre. Compare the outermost pair of characters, then move inward. The only complication is skipping characters that are not letters or digits, which can be done on the fly.
+
+---
+
+##### Approach 1: Brute Force (Build Cleaned String, Compare with Reverse)
+
+**Intuition**: Clean the string once, reverse it, and compare.
+
+**Algorithm**:
+1. Build `cleaned` by appending `Character.toLowerCase(c)` for each alphanumeric `c`.
+2. Compare `cleaned` with its reverse.
+
 ```java
 class Solution {
     public boolean isPalindrome(String s) {
-        StringBuilder filtered = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) {
             if (Character.isLetterOrDigit(c)) {
-                filtered.append(Character.toLowerCase(c));
+                sb.append(Character.toLowerCase(c));
             }
         }
-        return filtered.toString().equals(filtered.reverse().toString());
+        String cleaned = sb.toString();
+        return cleaned.equals(sb.reverse().toString());
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for the cleaned string and its reverse
+
+---
+
+##### Approach 2: Better (Filtered Array, Two Pointers)
+
+**Intuition**: Store only the valid characters in a `char[]`, then run two pointers over that array. This separates the filtering step from the comparison step.
+
+**Algorithm**:
+1. Copy alphanumeric characters into a lowercase `char[]`.
+2. Use `l = 0`, `r = len - 1`. While `l < r`, if `chars[l] != chars[r]`, return `false`. Otherwise move both inward.
+3. Return `true`.
+
+```java
+class Solution {
+    public boolean isPalindrome(String s) {
+        char[] chars = new char[s.length()];
+        int len = 0;
+        for (char c : s.toCharArray()) {
+            if (Character.isLetterOrDigit(c)) {
+                chars[len++] = Character.toLowerCase(c);
+            }
+        }
+        int l = 0, r = len - 1;
+        while (l < r) {
+            if (chars[l] != chars[r]) {
+                return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
 
-##### Approach 2: Optimised / Best (Two Pointers In-Place)
-Use `left` and `right` pointers meeting in the middle, skipping non-alphanumeric characters without extra memory.
+---
+
+##### Approach 3: Optimised / Best (In-Place Two Pointers, Skip Non-Alphanumerics)
+
+**Intuition**: Skip non-alphanumeric characters with the pointers themselves. No copy is needed, so extra memory is constant.
+
+**Algorithm**:
+1. `l = 0`, `r = n - 1`.
+2. While `l < r`:
+   - Advance `l` while `s[l]` is not alphanumeric.
+   - Retreat `r` while `s[r]` is not alphanumeric.
+   - If `toLowerCase(s[l]) != toLowerCase(s[r])`, return `false`.
+   - Move both pointers inward.
+3. Return `true`.
+
 ```java
 class Solution {
     public boolean isPalindrome(String s) {
-        int left = 0, right = s.length() - 1;
-        while (left < right) {
-            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
-                left++;
-            }
-            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
-                right--;
-            }
-            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+        int l = 0, r = s.length() - 1;
+        while (l < r) {
+            while (l < r && !Character.isLetterOrDigit(s.charAt(l))) l++;
+            while (l < r && !Character.isLetterOrDigit(s.charAt(r))) r--;
+            if (Character.toLowerCase(s.charAt(l)) != Character.toLowerCase(s.charAt(r))) {
                 return false;
             }
-            left++;
-            right--;
+            l++;
+            r--;
         }
         return true;
     }
@@ -1683,62 +1749,153 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 - **NeetCode**: [Two Integer Sum II](https://neetcode.io/problems/two-integer-sum-ii)
-- **Data Structures**: Array, Two Pointers
-- **Patterns**: Two Pointers on Sorted Array
+- **Data Structures**: Array
+- **Patterns**: Opposite-Ends Two Pointers, Binary Search, Hash Map
 
 #### Problem Description
-Given a 1-indexed array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target` number. Return the indices of the two numbers, `index1` and `index2`, added by one as an integer array `[index1, index2]` of length 2.
+Given a **1-indexed** array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target`. Return the indices `[index1, index2]` (1-indexed), where `index1 < index2`.
 
-#### Inputs & Outputs
-- **Input**: `numbers = [2,7,11,15]`, `target = 9` -> **Output**: `[1,2]`
-- **Constraints**: `2 <= numbers.length <= 3 * 10^4`, `-1000 <= numbers[i] <= 1000`, sorted.
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
 
-#### Solutions
+#### Examples
+
+**Example 1**
+- **Input**: `numbers = [2,7,11,15]`, `target = 9`
+- **Output**: `[1,2]`
+- **Explanation**: `2 + 7 = 9`, located at 1-indexed positions 1 and 2.
+
+**Example 2**
+- **Input**: `numbers = [2,3,4]`, `target = 6`
+- **Output**: `[1,3]`
+- **Explanation**: `2 + 4 = 6`.
+
+#### Constraints
+- `2 <= numbers.length <= 3 * 10^4`
+- `-1000 <= numbers[i] <= 1000`
+- `numbers` is sorted in non-decreasing order.
+- `-1000 <= target <= 1000`
+- Exactly one solution exists.
+
+#### Intuition
+Sorting is a gift. If the sum is too small, the left value must increase, so move the left pointer. If too large, move the right pointer. Each step eliminates an entire row or column of candidate pairs. Sortedness also enables binary search for each complement, and a hash map works too, though it ignores the sorted property.
+
+---
 
 ##### Approach 1: Brute Force (Nested Loops)
-Test every pair with nested loops.
-- **Time Complexity**: $O(n^2)$
-- **Space Complexity**: $O(1)$
 
-##### Approach 2: Better (Binary Search)
-For each element `numbers[i]`, binary search for `target - numbers[i]` in the subarray `numbers[i+1...n-1]`.
+**Intuition**: Check every pair.
+
+**Algorithm**:
+1. For each `i`, for each `j > i`, if `numbers[i] + numbers[j] == target`, return `{i+1, j+1}`.
+
 ```java
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        for (int i = 0; i < numbers.length; i++) {
-            int complement = target - numbers[i];
-            int low = i + 1, high = numbers.length - 1;
-            while (low <= high) {
-                int mid = low + (high - low) / 2;
-                if (numbers[mid] == complement) return new int[]{i + 1, mid + 1};
-                else if (numbers[mid] < complement) low = mid + 1;
-                else high = mid - 1;
+        int n = numbers.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (numbers[i] + numbers[j] == target) {
+                    return new int[]{i + 1, j + 1};
+                }
             }
         }
-        return new int[]{-1, -1};
+        return new int[]{};
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Binary Search for Each Complement)
+
+**Intuition**: For each `numbers[i]`, the complement is `target - numbers[i]`. Since the array is sorted, binary search finds it in $O(\log n)$. Search only to the right of `i`, so each pair is considered once.
+
+**Algorithm**:
+1. For each `i`, compute `comp = target - numbers[i]`.
+2. Binary search for `comp` in the range `(i, n)`.
+3. If found at index `j`, return `{i+1, j+1}`.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int n = numbers.length;
+        for (int i = 0; i < n; i++) {
+            int comp = target - numbers[i];
+            int j = Arrays.binarySearch(numbers, i + 1, n, comp);
+            if (j >= 0) {
+                return new int[]{i + 1, j + 1};
+            }
+        }
+        return new int[]{};
     }
 }
 ```
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(1)$
 
-##### Approach 3: Optimised / Best (Two Pointers)
-Initialize `left = 0`, `right = numbers.length - 1`. If sum is too small, increment `left`; if too large, decrement `right`.
+---
+
+##### Approach 3: Optimised (Hash Map)
+
+**Intuition**: Ignore the sorted order and use a map of value to index, exactly as in Two Sum. It is linear, but it needs extra memory and does not exploit sortedness.
+
+**Algorithm**:
+1. For each `i`, check whether `target - numbers[i]` is in the map. If so, return `{map.get(comp) + 1, i + 1}`.
+2. Otherwise store `numbers[i] -> i`.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        Map<Integer, Integer> seen = new HashMap<>();
+        for (int i = 0; i < numbers.length; i++) {
+            Integer j = seen.get(target - numbers[i]);
+            if (j != null) {
+                return new int[]{j + 1, i + 1};
+            }
+            seen.put(numbers[i], i);
+        }
+        return new int[]{};
+    }
+}
+```
+- **Time Complexity**: $O(n)$ average
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 4: Best (Opposite-Ends Two Pointers)
+
+**Intuition**: Start at both ends. If the sum is too small, the only way to increase it is to move `l` right, because `r` is already the largest remaining value. If too large, move `r` left. The first match is the answer, and no extra memory is needed.
+
+**Algorithm**:
+1. `l = 0`, `r = n - 1`.
+2. While `l < r`:
+   - `sum = numbers[l] + numbers[r]`.
+   - If `sum == target`, return `{l+1, r+1}`.
+   - If `sum < target`, `l++`. Otherwise `r--`.
+
 ```java
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        int left = 0, right = numbers.length - 1;
-        while (left < right) {
-            int sum = numbers[left] + numbers[right];
+        int l = 0, r = numbers.length - 1;
+        while (l < r) {
+            int sum = numbers[l] + numbers[r];
             if (sum == target) {
-                return new int[]{left + 1, right + 1};
+                return new int[]{l + 1, r + 1};
             } else if (sum < target) {
-                left++;
+                l++;
             } else {
-                right--;
+                r--;
             }
         }
-        return new int[]{-1, -1};
+        return new int[]{};
     }
 }
 ```
@@ -1751,57 +1908,167 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [15. 3Sum](https://leetcode.com/problems/3sum/)
 - **NeetCode**: [3Sum](https://neetcode.io/problems/three-integer-sum)
-- **Data Structures**: Array, Two Pointers
-- **Patterns**: Sort + Two Pointers
+- **Data Structures**: Array, Hash Set
+- **Patterns**: Sort + Fix One + Two Pointers, Duplicate Skipping
 
 #### Problem Description
-Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. The solution set must not contain duplicate triplets.
+Given an integer array `nums`, return all the unique triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
 
-#### Inputs & Outputs
-- **Input**: `nums = [-1,0,1,2,-1,-4]` -> **Output**: `[[-1,-1,2],[-1,0,1]]`
-- **Constraints**: `3 <= nums.length <= 3000`, `-10^5 <= nums[i] <= 10^5`
+The solution set must not contain duplicate triplets. The order of the triplets and the values within each triplet do not matter.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Brute Force (Three Nested Loops + Set)
-Iterate through all triples $i < j < k$, sort each valid triple and store in a `Set<List<Integer>>`.
-- **Time Complexity**: $O(n^3)$
-- **Space Complexity**: $O(n)$
+**Example 1**
+- **Input**: `nums = [-1,0,1,2,-1,-4]`
+- **Output**: `[[-1,-1,2],[-1,0,1]]`
+- **Explanation**: `(-1) + (-1) + 2 = 0` and `(-1) + 0 + 1 = 0`.
 
-##### Approach 2: Better (Sort + Two Pointers with Deduplication)
-Sort the array. For each index `i`, run two pointers `left = i + 1`, `right = n - 1`. Skip duplicate values for `i`, `left`, and `right`.
+**Example 2**
+- **Input**: `nums = [0,1,1]`
+- **Output**: `[]`
+- **Explanation**: No triplet sums to zero.
+
+#### Constraints
+- `3 <= nums.length <= 3000`
+- `-10^5 <= nums[i] <= 10^5`
+
+#### Intuition
+Reduce 3Sum to a 2Sum problem. Fix one element `a`, then find pairs that sum to `-a`. Deduplication is the hard part. Sorting makes equal values adjacent, so duplicates can be skipped directly, instead of being filtered out afterwards with a set.
+
+---
+
+##### Approach 1: Brute Force (Three Nested Loops + Set of Sorted Triplets)
+
+**Intuition**: Try every index triple, sort each valid triplet to canonical form, and let a set remove duplicates.
+
+**Algorithm**:
+1. For `i < j < k`, if the sum is zero, sort `[nums[i], nums[j], nums[k]]`.
+2. Add the sorted list to a `HashSet`.
+3. Return the set's contents.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums);
-        for (int i = 0; i < nums.length - 2; i++) {
-            if (nums[i] > 0) break; // impossible to sum to 0
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-            int left = i + 1, right = nums.length - 1;
-            while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-                if (sum == 0) {
-                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    while (left < right && nums[left] == nums[left + 1]) left++;
-                    while (left < right && nums[right] == nums[right - 1]) right--;
-                    left++;
-                    right--;
-                } else if (sum < 0) {
-                    left++;
-                } else {
-                    right--;
+        Set<List<Integer>> result = new HashSet<>();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    if (nums[i] + nums[j] + nums[k] == 0) {
+                        int[] t = {nums[i], nums[j], nums[k]};
+                        Arrays.sort(t);
+                        result.add(List.of(t[0], t[1], t[2]));
+                    }
                 }
             }
         }
-        return res;
+        return new ArrayList<>(result);
     }
 }
 ```
-- **Time Complexity**: $O(n^2)$
-- **Space Complexity**: $O(1)$ auxiliary (ignoring output)
+- **Time Complexity**: $O(n^3)$
+- **Space Complexity**: $O(u)$ for the $u$ unique triplets stored in the set
+
+---
+
+##### Approach 2: Better (Fix One, Hash Set for the Other Two)
+
+**Intuition**: For a fixed `i`, scan `j` from `i+1`. Maintain a set of values seen so far. When `-(nums[i] + nums[j])` is already in the set, a triplet exists. Dedupe the result with a set of sorted triplets.
+
+**Algorithm**:
+1. For each `i`, create an empty `seen` set.
+2. For each `j > i`: let `comp = -nums[i] - nums[j]`. If `comp` is in `seen`, add the sorted triplet to `result`.
+3. Add `nums[j]` to `seen`.
+4. Return the unique triplets.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> result = new HashSet<>();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            Set<Integer> seen = new HashSet<>();
+            for (int j = i + 1; j < n; j++) {
+                int comp = -nums[i] - nums[j];
+                if (seen.contains(comp)) {
+                    List<Integer> triplet = new ArrayList<>(List.of(nums[i], nums[j], comp));
+                    Collections.sort(triplet);
+                    result.add(triplet);
+                }
+                seen.add(nums[j]);
+            }
+        }
+        return new ArrayList<>(result);
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ average for the scans, plus set operations
+- **Space Complexity**: $O(n)$ for `seen`, plus $O(u)$ for the results
+
+---
+
+##### Approach 3: Optimised / Best (Sort, Fix One, Two Pointers with Skipping)
+
+**Intuition**: After sorting, for a fixed `i` the remaining problem is 2Sum on a sorted subarray, solvable with two pointers. Duplicates are skipped at three points: the fixed `i`, and both pointers after a match. Since the array is sorted, a positive `nums[i]` means no later triplet can sum to zero, so the loop can stop early.
+
+**Algorithm**:
+1. Sort `nums`.
+2. For each `i` from `0` to `n-3`:
+   - If `nums[i] > 0`, break.
+   - If `i > 0` and `nums[i] == nums[i-1]`, continue (skip duplicate fixed value).
+   - Set `l = i+1`, `r = n-1`. While `l < r`:
+     - `sum = nums[i] + nums[l] + nums[r]`.
+     - If `sum < 0`, `l++`. If `sum > 0`, `r--`.
+     - If `sum == 0`, record the triplet, move both pointers inward, and skip equal values on each side.
+3. Return the result.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        int n = nums.length;
+        for (int i = 0; i < n - 2; i++) {
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int l = i + 1, r = n - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum < 0) {
+                    l++;
+                } else if (sum > 0) {
+                    r--;
+                } else {
+                    result.add(List.of(nums[i], nums[l], nums[r]));
+                    l++;
+                    r--;
+                    while (l < r && nums[l] == nums[l - 1]) l++;
+                    while (l < r && nums[r] == nums[r + 1]) r--;
+                }
+            }
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ (sort is $O(n \log n)$, dominated by the nested scan)
+- **Space Complexity**: $O(1)$ extra, excluding the output and sort stack
 
 ---
 
@@ -1809,51 +2076,88 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 - **NeetCode**: [Max Water Container](https://neetcode.io/problems/max-water-container)
-- **Data Structures**: Array, Two Pointers
-- **Patterns**: Shrinking Two Pointers
+- **Data Structures**: Array
+- **Patterns**: Opposite-Ends Two Pointers, Greedy Elimination
 
 #### Problem Description
-Given `n` non-negative integers `height` where each represents a point at coordinate `(i, height[i])`. Find two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.
+You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`-th line are `(i, 0)` and `(i, height[i])`.
 
-#### Inputs & Outputs
-- **Input**: `height = [1,8,6,2,5,4,8,3,7]` -> **Output**: `49`
-- **Constraints**: `n == height.length`, `2 <= n <= 10^5`, `0 <= height[i] <= 10^4`
+Find two lines that, together with the x-axis, form a container that holds the most water. Return the maximum amount of water a container can store.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Brute Force (All Pairs)
-Calculate area for all possible pairs $(i, j)$ and track the maximum.
+**Example 1**
+- **Input**: `height = [1,8,6,2,5,4,8,3,7]`
+- **Output**: `49`
+- **Explanation**: The lines at indices 1 and 8 (heights 8 and 7) span a width of 7, giving `7 * 7 = 49`.
+
+**Example 2**
+- **Input**: `height = [1,1]`
+- **Output**: `1`
+- **Explanation**: The width is 1 and the height is 1.
+
+#### Constraints
+- `2 <= n <= 10^5`
+- `0 <= height[i] <= 10^4`
+
+#### Intuition
+The area is `min(height[l], height[r]) * (r - l)`. Start with the widest container. Reducing the width can only help if the shorter wall is replaced by a taller one. So always move the pointer at the shorter wall, since moving the taller wall can never raise the minimum.
+
+---
+
+##### Approach 1: Brute Force (Check All Pairs)
+
+**Intuition**: Compute the area for every pair of lines.
+
+**Algorithm**:
+1. For each `i < j`, compute `min(height[i], height[j]) * (j - i)`.
+2. Track the maximum.
+
 ```java
 class Solution {
     public int maxArea(int[] height) {
-        int max = 0;
+        int best = 0;
         for (int i = 0; i < height.length; i++) {
             for (int j = i + 1; j < height.length; j++) {
                 int area = Math.min(height[i], height[j]) * (j - i);
-                max = Math.max(max, area);
+                best = Math.max(best, area);
             }
         }
-        return max;
+        return best;
     }
 }
 ```
 - **Time Complexity**: $O(n^2)$
 - **Space Complexity**: $O(1)$
 
-##### Approach 2: Optimised / Best (Two Pointers Greedy)
-Place pointers at ends `left = 0`, `right = n - 1`. Area is constrained by the shorter line, so move the pointer pointing to the shorter line inward.
+---
+
+##### Approach 2: Optimised / Best (Two Pointers, Move the Shorter Wall)
+
+**Intuition**: A container's height is limited by its shorter wall. Moving the taller wall inward keeps the same limiting height but reduces the width, so it can never produce a larger area. Therefore, the shorter wall is the only one worth moving.
+
+**Algorithm**:
+1. `l = 0`, `r = n - 1`, `best = 0`.
+2. While `l < r`:
+   - `best = max(best, min(height[l], height[r]) * (r - l))`.
+   - If `height[l] < height[r]`, `l++`. Otherwise `r--`.
+3. Return `best`.
+
 ```java
 class Solution {
     public int maxArea(int[] height) {
-        int left = 0, right = height.length - 1;
-        int maxArea = 0;
-        while (left < right) {
-            int h = Math.min(height[left], height[right]);
-            maxArea = Math.max(maxArea, h * (right - left));
-            while (left < right && height[left] <= h) left++;
-            while (left < right && height[right] <= h) right--;
+        int l = 0, r = height.length - 1;
+        int best = 0;
+        while (l < r) {
+            int area = Math.min(height[l], height[r]) * (r - l);
+            best = Math.max(best, area);
+            if (height[l] < height[r]) {
+                l++;
+            } else {
+                r--;
+            }
         }
-        return maxArea;
+        return best;
     }
 }
 ```
@@ -1866,99 +2170,134 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 - **NeetCode**: [Trapping Rain Water](https://neetcode.io/problems/trapping-rain-water)
-- **Data Structures**: Array, Two Pointers, Stack
-- **Patterns**: Two Pointers / Monotonic Stack / Prefix-Suffix
+- **Data Structures**: Array, Stack
+- **Patterns**: Prefix/Suffix Maximum, Two Pointers with Running Max
 
 #### Problem Description
-Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+Given `n` non-negative integers `height` representing an elevation map where the width of each bar is `1`, compute how much water it can trap after raining.
 
-#### Inputs & Outputs
-- **Input**: `height = [0,1,0,2,1,0,1,3,2,1,2,1]` -> **Output**: `6`
-- **Constraints**: `n == height.length`, `1 <= n <= 2 * 10^4`, `0 <= height[i] <= 10^5`
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `height = [0,1,0,2,1,0,1,3,2,1,2,1]`
+- **Output**: `6`
+- **Explanation**: The map traps 6 units of rain water between the bars.
 
-##### Approach 1: Brute Force
-For each bar, find `max_left` and `max_right`. Water trapped above bar $i$ is $\max(0, \min(\text{max\_left}, \text{max\_right}) - \text{height}[i])$.
+**Example 2**
+- **Input**: `height = [4,2,0,3,2,5]`
+- **Output**: `9`
+- **Explanation**: Water sits above index 1 (2 units), index 2 (4 units), index 3 (1 unit), and index 4 (2 units).
+
+#### Constraints
+- `1 <= n <= 2 * 10^4`
+- `0 <= height[i] <= 10^5`
+
+#### Intuition
+The water above index `i` is `min(maxLeft[i], maxRight[i]) - height[i]`, where `maxLeft` and `maxRight` are the tallest bars on each side, including `i`. Precompute those maxima directly, then reduce the memory needed by tracking only the running maxima from both ends.
+
+---
+
+##### Approach 1: Brute Force (Scan Both Sides for Each Index)
+
+**Intuition**: For each index, scan left and right to find the maxima, then add the trapped water.
+
+**Algorithm**:
+1. For each `i`, compute `maxL` as the max over `height[0..i]`.
+2. Compute `maxR` as the max over `height[i..n-1]`.
+3. Add `min(maxL, maxR) - height[i]`.
+
+```java
+class Solution {
+    public int trap(int[] height) {
+        int n = height.length, total = 0;
+        for (int i = 0; i < n; i++) {
+            int maxL = 0, maxR = 0;
+            for (int j = 0; j <= i; j++) maxL = Math.max(maxL, height[j]);
+            for (int j = i; j < n; j++) maxR = Math.max(maxR, height[j]);
+            total += Math.min(maxL, maxR) - height[i];
+        }
+        return total;
+    }
+}
+```
 - **Time Complexity**: $O(n^2)$
 - **Space Complexity**: $O(1)$
 
-##### Approach 2: Better (Dynamic Programming / Prefix-Suffix Max Arrays)
-Precompute `leftMax[i]` and `rightMax[i]` in two linear passes.
+---
+
+##### Approach 2: Better (Prefix and Suffix Maximum Arrays)
+
+**Intuition**: Precompute `maxL[i]` and `maxR[i]` in two linear passes. Each index then needs only a constant-time lookup.
+
+**Algorithm**:
+1. `maxL[i] = max(maxL[i-1], height[i])`.
+2. `maxR[i] = max(maxR[i+1], height[i])`.
+3. Sum `min(maxL[i], maxR[i]) - height[i]` over all `i`.
+
 ```java
 class Solution {
     public int trap(int[] height) {
         int n = height.length;
-        if (n == 0) return 0;
-        int[] leftMax = new int[n];
-        int[] rightMax = new int[n];
-        leftMax[0] = height[0];
-        for (int i = 1; i < n; i++) leftMax[i] = Math.max(leftMax[i - 1], height[i]);
-        rightMax[n - 1] = height[n - 1];
-        for (int i = n - 2; i >= 0; i--) rightMax[i] = Math.max(rightMax[i + 1], height[i]);
-        int trapped = 0;
+        int[] maxL = new int[n], maxR = new int[n];
+        maxL[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            maxL[i] = Math.max(maxL[i - 1], height[i]);
+        }
+        maxR[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            maxR[i] = Math.max(maxR[i + 1], height[i]);
+        }
+        int total = 0;
         for (int i = 0; i < n; i++) {
-            trapped += Math.min(leftMax[i], rightMax[i]) - height[i];
+            total += Math.min(maxL[i], maxR[i]) - height[i];
         }
-        return trapped;
+        return total;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
 
-##### Approach 3: Better (Monotonic Decreasing Stack)
-Maintain indices of bars in a stack. When a taller bar is found, pop and calculate trapped water layer by layer.
-```java
-import java.util.Stack;
+---
 
-class Solution {
-    public int trap(int[] height) {
-        Stack<Integer> stack = new Stack<>();
-        int trapped = 0;
-        for (int i = 0; i < height.length; i++) {
-            while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
-                int bottom = stack.pop();
-                if (stack.isEmpty()) break;
-                int distance = i - stack.peek() - 1;
-                int boundedHeight = Math.min(height[i], height[stack.peek()]) - height[bottom];
-                trapped += distance * boundedHeight;
-            }
-            stack.push(i);
-        }
-        return trapped;
-    }
-}
-```
-- **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(n)$
+##### Approach 3: Optimised / Best (Two Pointers with Running Maxima)
 
-##### Approach 4: Best (Two Pointers with Left & Right Max)
-Maintain `leftMax` and `rightMax`. Advance the pointer with the smaller max, adding trapped water on the fly.
+**Intuition**: At any point, the side whose current bar is shorter determines the water level. If `height[l] < height[r]`, then `maxLeft` is the binding constraint on the left, because a taller bar exists on the right, so `maxLeft` is safe to use. Process the left side and advance `l`. Otherwise do the same on the right. This achieves the prefix/suffix result without arrays.
+
+**Algorithm**:
+1. `l = 0`, `r = n-1`, `lMax = 0`, `rMax = 0`, `total = 0`.
+2. While `l < r`:
+   - If `height[l] < height[r]`:
+     - If `height[l] >= lMax`, update `lMax`. Otherwise add `lMax - height[l]`.
+     - `l++`.
+   - Else:
+     - If `height[r] >= rMax`, update `rMax`. Otherwise add `rMax - height[r]`.
+     - `r--`.
+3. Return `total`.
+
 ```java
 class Solution {
     public int trap(int[] height) {
-        int left = 0, right = height.length - 1;
-        int leftMax = 0, rightMax = 0;
-        int trapped = 0;
-        while (left < right) {
-            if (height[left] < height[right]) {
-                if (height[left] >= leftMax) {
-                    leftMax = height[left];
+        int l = 0, r = height.length - 1;
+        int lMax = 0, rMax = 0, total = 0;
+        while (l < r) {
+            if (height[l] < height[r]) {
+                if (height[l] >= lMax) {
+                    lMax = height[l];
                 } else {
-                    trapped += leftMax - height[left];
+                    total += lMax - height[l];
                 }
-                left++;
+                l++;
             } else {
-                if (height[right] >= rightMax) {
-                    rightMax = height[right];
+                if (height[r] >= rMax) {
+                    rMax = height[r];
                 } else {
-                    trapped += rightMax - height[right];
+                    total += rMax - height[r];
                 }
-                right--;
+                r--;
             }
         }
-        return trapped;
+        return total;
     }
 }
 ```
@@ -1974,37 +2313,106 @@ class Solution {
 - **LeetCode**: [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 - **NeetCode**: [Buy and Sell Crypto](https://neetcode.io/problems/buy-and-sell-crypto)
 - **Data Structures**: Array
-- **Patterns**: One-Pass Minimum Tracking
+- **Patterns**: Running Minimum, Single-Pass Sliding Window
 
 #### Problem Description
-You are given an array `prices` where `prices[i]` is the price of a given stock on the $i^{\text{th}}$ day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve.
+You are given an array `prices` where `prices[i]` is the price of a stock on day `i`. You want to maximise profit by choosing a single day to buy and a later day to sell. Return the maximum profit. If no profit is possible, return `0`.
 
-#### Inputs & Outputs
-- **Input**: `prices = [7,1,5,3,6,4]` -> **Output**: `5` (Buy on day 2 at 1, sell on day 5 at 6)
-- **Constraints**: `1 <= prices.length <= 10^5`, `0 <= prices[i] <= 10^4`
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `prices = [7,1,5,3,6,4]`
+- **Output**: `5`
+- **Explanation**: Buy on day 2 (price 1) and sell on day 5 (price 6). Profit is `6 - 1 = 5`.
 
-##### Approach 1: Brute Force (All Pairs)
-Test all buy days $i$ and sell days $j > i$.
-- **Time Complexity**: $O(n^2)$
-- **Space Complexity**: $O(1)$
+**Example 2**
+- **Input**: `prices = [7,6,4,3,1]`
+- **Output**: `0`
+- **Explanation**: Prices only fall, so no transaction is profitable.
 
-##### Approach 2: Optimised / Best (One Pass Running Min)
-Keep track of minimum purchase price seen so far. At each day, update `maxProfit = max(maxProfit, price - minPrice)`.
+#### Constraints
+- `1 <= prices.length <= 10^5`
+- `0 <= prices[i] <= 10^4`
+
+#### Intuition
+For each sell day, the best buy day is the cheapest price before it. Track the minimum price seen so far, and at each day compute the profit from selling today.
+
+---
+
+##### Approach 1: Brute Force (Check Every Buy-Sell Pair)
+
+**Intuition**: Try every pair with buy day before sell day.
+
+**Algorithm**:
+1. For each `i < j`, compute `prices[j] - prices[i]`.
+2. Track the maximum, starting from `0`.
+
 ```java
 class Solution {
     public int maxProfit(int[] prices) {
-        int minPrice = Integer.MAX_VALUE;
-        int maxProfit = 0;
-        for (int price : prices) {
-            if (price < minPrice) {
-                minPrice = price;
-            } else if (price - minPrice > maxProfit) {
-                maxProfit = price - minPrice;
+        int best = 0;
+        for (int i = 0; i < prices.length; i++) {
+            for (int j = i + 1; j < prices.length; j++) {
+                best = Math.max(best, prices[j] - prices[i]);
             }
         }
-        return maxProfit;
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Prefix Minimum Array)
+
+**Intuition**: Precompute `minSoFar[i]`, the lowest price up to day `i`. Then the best profit on day `i` is `prices[i] - minSoFar[i-1]`.
+
+**Algorithm**:
+1. Build `minSoFar` in one pass.
+2. For each `i`, compute `prices[i] - minSoFar[i-1]`, and track the maximum.
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[] minSoFar = new int[n];
+        minSoFar[0] = prices[0];
+        for (int i = 1; i < n; i++) {
+            minSoFar[i] = Math.min(minSoFar[i - 1], prices[i]);
+        }
+        int best = 0;
+        for (int i = 1; i < n; i++) {
+            best = Math.max(best, prices[i] - minSoFar[i - 1]);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Single Pass, Running Minimum)
+
+**Intuition**: The prefix array is unnecessary. Keep only the minimum price seen so far, and update the best profit as you go.
+
+**Algorithm**:
+1. `minPrice = prices[0]`, `best = 0`.
+2. For each price: `best = max(best, price - minPrice)`, then `minPrice = min(minPrice, price)`.
+3. Return `best`.
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = prices[0], best = 0;
+        for (int price : prices) {
+            best = Math.max(best, price - minPrice);
+            minPrice = Math.min(minPrice, price);
+        }
+        return best;
     }
 }
 ```
@@ -2017,155 +2425,394 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 - **NeetCode**: [Longest Substring Without Duplicates](https://neetcode.io/problems/longest-substring-without-duplicates)
-- **Data Structures**: String, Hash Table
-- **Patterns**: Dynamic Sliding Window
+- **Data Structures**: String, Hash Set, Hash Map
+- **Patterns**: Variable-Size Sliding Window, Last-Seen Index Jump
 
 #### Problem Description
 Given a string `s`, find the length of the longest substring without repeating characters.
 
-#### Inputs & Outputs
-- **Input**: `s = "abcabcbb"` -> **Output**: `3` (`"abc"`)
-- **Input**: `s = "bbbbb"` -> **Output**: `1` (`"b"`)
-- **Constraints**: `0 <= s.length <= 5 * 10^4`, English letters, digits, symbols and spaces.
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `s = "abcabcbb"`
+- **Output**: `3`
+- **Explanation**: The answer is `"abc"`, with length 3.
 
-##### Approach 1: Brute Force (Check All Substrings)
-Generate all substrings $O(n^2)$ and check for unique characters using a Set $O(n)$.
-- **Time Complexity**: $O(n^3)$
-- **Space Complexity**: $O(\min(n, m))$
+**Example 2**
+- **Input**: `s = "bbbbb"`
+- **Output**: `1`
+- **Explanation**: The answer is `"b"`, with length 1.
 
-##### Approach 2: Better (Sliding Window with Set)
-Expand `right` pointer. If character already in set, increment `left` and remove characters until duplicate is gone.
+#### Constraints
+- `0 <= s.length <= 5 * 10^4`
+- `s` consists of English letters, digits, symbols, and spaces (ASCII).
+
+#### Intuition
+Maintain a window `[left, right]` with no repeats. When `right` adds a duplicate, shrink from the left until the duplicate is gone. The window only grows or slides, so each index is visited a bounded number of times.
+
+---
+
+##### Approach 1: Brute Force (Expand from Every Start)
+
+**Intuition**: For each start index, extend the substring until a repeat appears, and record its length.
+
+**Algorithm**:
+1. For each `i`, create an empty set.
+2. Extend `j` from `i` while `s[j]` is not already in the set, adding it.
+3. The length is `j - i`. Track the maximum.
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
 
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        Set<Character> set = new HashSet<>();
-        int left = 0, maxLen = 0;
-        for (int right = 0; right < s.length(); right++) {
-            while (set.contains(s.charAt(right))) {
-                set.remove(s.charAt(left));
-                left++;
+        int best = 0, n = s.length();
+        for (int i = 0; i < n; i++) {
+            Set<Character> seen = new HashSet<>();
+            int j = i;
+            while (j < n && seen.add(s.charAt(j))) {
+                j++;
             }
-            set.add(s.charAt(right));
-            maxLen = Math.max(maxLen, right - left + 1);
+            best = Math.max(best, j - i);
         }
-        return maxLen;
+        return best;
     }
 }
 ```
-- **Time Complexity**: $O(2n) = O(n)$
-- **Space Complexity**: $O(\min(n, m))$
+- **Time Complexity**: $O(n^2)$ average, bounded by the alphabet size
+- **Space Complexity**: $O(\min(n, m))$, where $m$ is the alphabet size
 
-##### Approach 3: Optimised / Best (Sliding Window with Last Seen Index Map / Array)
-Directly jump `left` to `lastSeen[c] + 1` whenever duplicate is found, avoiding step-by-step shrink.
+---
+
+##### Approach 2: Better (Sliding Window with Hash Set)
+
+**Intuition**: Maintain a set of characters in the current window. When the incoming character is already present, remove characters from the left until it is not.
+
+**Algorithm**:
+1. `left = 0`, `set` empty.
+2. For each `right`:
+   - While `s[right]` is in `set`, remove `s[left]` and `left++`.
+   - Add `s[right]`.
+   - Update the maximum window length `right - left + 1`.
+
 ```java
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int[] lastIndex = new int[128];
-        Arrays.fill(lastIndex, -1);
-        int maxLen = 0, left = 0;
+        Set<Character> window = new HashSet<>();
+        int left = 0, best = 0;
         for (int right = 0; right < s.length(); right++) {
             char c = s.charAt(right);
-            if (lastIndex[c] >= left) {
-                left = lastIndex[c] + 1;
+            while (window.contains(c)) {
+                window.remove(s.charAt(left++));
             }
-            lastIndex[c] = right;
-            maxLen = Math.max(maxLen, right - left + 1);
+            window.add(c);
+            best = Math.max(best, right - left + 1);
         }
-        return maxLen;
+        return best;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$ (128 ASCII array)
+- **Space Complexity**: $O(\min(n, m))$
+
+---
+
+##### Approach 3: Optimised (Hash Map of Last-Seen Index, Jump Left)
+
+**Intuition**: Instead of removing characters one by one, record each character's last index. When a repeat is found inside the window, jump `left` directly past the previous occurrence. The check `last >= left` matters, because an old occurrence outside the window is no longer relevant.
+
+**Algorithm**:
+1. For each `right`, let `c = s[right]`.
+2. If `c` was last seen at index `p` and `p >= left`, set `left = p + 1`.
+3. Store `lastSeen[c] = right`.
+4. Update the maximum window length.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> lastSeen = new HashMap<>();
+        int left = 0, best = 0;
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            Integer p = lastSeen.get(c);
+            if (p != null && p >= left) {
+                left = p + 1;
+            }
+            lastSeen.put(c, right);
+            best = Math.max(best, right - left + 1);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(\min(n, m))$
+
+---
+
+##### Approach 4: Best (Fixed-Size Array of Last-Seen Positions)
+
+**Intuition**: The character set is bounded (ASCII), so a plain array indexed by character code replaces the hash map. Storing `index + 1` lets a zero mean "never seen".
+
+**Algorithm**:
+1. `next[c]` holds one past the last index where `c` appeared (0 if never).
+2. For each `right`, set `left = max(left, next[c])`.
+3. Set `next[c] = right + 1`.
+4. Update the best length.
+
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int[] next = new int[256];
+        int left = 0, best = 0;
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            left = Math.max(left, next[c]);
+            next[c] = right + 1;
+            best = Math.max(best, right - left + 1);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(1)$ (fixed 256-slot array)
 
 ---
 
 ### 3.3 Longest Repeating Character Replacement
 - **Difficulty**: Medium
 - **LeetCode**: [424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
-- **NeetCode**: \[suspicious link removed\]
-- **Data Structures**: String, Hash Table
-- **Patterns**: Sliding Window with Max Frequency
+- **NeetCode**: [Longest Repeating Substring with Replacement](https://neetcode.io/problems/longest-repeating-substring-with-replacement)
+- **Data Structures**: String, Array
+- **Patterns**: Sliding Window, Frequency Count
 
 #### Problem Description
-You are given a string `s` and an integer `k`. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most `k` times. Return the length of the longest substring containing the same letter you can get after performing the operations.
+You are given a string `s` consisting of uppercase English letters and an integer `k`. You may choose any character and change it to any other uppercase letter, at most `k` times.
 
-#### Inputs & Outputs
-- **Input**: `s = "ABAB"`, `k = 2` -> **Output**: `4`
-- **Input**: `s = "AABABBA"`, `k = 1` -> **Output**: `4`
-- **Constraints**: `1 <= s.length <= 10^5`, uppercase English letters, `0 <= k <= s.length`.
+Return the length of the longest substring containing the same letter you can get after performing the operations.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Optimised / Best (Sliding Window with Max Frequency Tracking)
-A window is valid if `(windowLength - maxFreq) <= k`. Expand `right`, update `maxFreq`. If invalid, shift `left` forward by 1.
+**Example 1**
+- **Input**: `s = "ABAB"`, `k = 2`
+- **Output**: `4`
+- **Explanation**: Replace the two `A`s with `B`s (or the two `B`s with `A`s) to get four identical letters.
+
+**Example 2**
+- **Input**: `s = "AABABBA"`, `k = 1`
+- **Output**: `4`
+- **Explanation**: Change the `A` at index 3 to `B` to get `"AABBBBA"`. The substring `"BBBB"` has length 4.
+
+#### Constraints
+- `1 <= s.length <= 10^5`
+- `s` consists of only uppercase English letters.
+- `0 <= k <= s.length`
+
+#### Intuition
+A window is valid if the number of characters that are not the most frequent letter in it is at most `k`. That is, `windowLength - maxFrequency <= k`. Grow the window to the right, and shrink it from the left only when the condition breaks.
+
+---
+
+##### Approach 1: Brute Force (Check Every Substring)
+
+**Intuition**: For each start, extend the end and track the maximum frequency inside the window incrementally. Record any window that satisfies the condition.
+
+**Algorithm**:
+1. For each `i`, reset `count[26]` and `maxF = 0`.
+2. For each `j >= i`, increment `count[s[j]]`, update `maxF`.
+3. If `(j - i + 1) - maxF <= k`, update the answer.
+
+```java
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int n = s.length(), best = 0;
+        for (int i = 0; i < n; i++) {
+            int[] count = new int[26];
+            int maxF = 0;
+            for (int j = i; j < n; j++) {
+                count[s.charAt(j) - 'A']++;
+                maxF = Math.max(maxF, count[s.charAt(j) - 'A']);
+                if ((j - i + 1) - maxF <= k) {
+                    best = Math.max(best, j - i + 1);
+                }
+            }
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$ (26-slot array)
+
+---
+
+##### Approach 2: Better (Sliding Window, Recompute Max Frequency)
+
+**Intuition**: Use a standard sliding window. Shrink while the window is invalid, recomputing the max frequency over the 26 letters each time. This is correct and simple, at a small constant-factor cost.
+
+**Algorithm**:
+1. For `right` from `0` to `n-1`, add `s[right]` to `count`.
+2. While `windowSize - maxFreq(count) > k`, remove `s[left]` and `left++`.
+3. Update the best window size.
+
 ```java
 class Solution {
     public int characterReplacement(String s, int k) {
         int[] count = new int[26];
-        int maxCount = 0;
-        int left = 0, maxLength = 0;
+        int left = 0, best = 0;
         for (int right = 0; right < s.length(); right++) {
             count[s.charAt(right) - 'A']++;
-            maxCount = Math.max(maxCount, count[s.charAt(right) - 'A']);
-            while ((right - left + 1) - maxCount > k) {
+            while ((right - left + 1) - maxFreq(count) > k) {
                 count[s.charAt(left) - 'A']--;
                 left++;
             }
-            maxLength = Math.max(maxLength, right - left + 1);
+            best = Math.max(best, right - left + 1);
         }
-        return maxLength;
+        return best;
+    }
+
+    private int maxFreq(int[] count) {
+        int m = 0;
+        for (int c : count) m = Math.max(m, c);
+        return m;
+    }
+}
+```
+- **Time Complexity**: $O(26 \cdot n) = O(n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised / Best (Non-Shrinking Window with Historical Max Frequency)
+
+**Intuition**: The answer only grows when a new window exceeds the best length so far. So the window never needs to shrink; it only slides. Keep `maxF` as the largest frequency ever seen in any window. A stale `maxF` can only overstate validity, but a window longer than the best answer requires a genuinely larger `maxF` to appear, and that is exactly what updates it. The window size therefore never decreases in a way that changes the answer.
+
+**Algorithm**:
+1. For each `right`, increment `count[s[right]]`, and update `maxF = max(maxF, count[s[right]])`.
+2. If `(right - left + 1) - maxF > k`, decrement `count[s[left]]` and `left++`. The window slides rather than shrinks.
+3. Return `s.length() - left` at the end (the final window size).
+
+```java
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int[] count = new int[26];
+        int left = 0, maxF = 0;
+        for (int right = 0; right < s.length(); right++) {
+            count[s.charAt(right) - 'A']++;
+            maxF = Math.max(maxF, count[s.charAt(right) - 'A']);
+            if ((right - left + 1) - maxF > k) {
+                count[s.charAt(left) - 'A']--;
+                left++;
+            }
+        }
+        return s.length() - left;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$ (26 integers)
+- **Space Complexity**: $O(1)$
 
 ---
 
 ### 3.4 Permutation in String
 - **Difficulty**: Medium
 - **LeetCode**: [567. Permutation in String](https://leetcode.com/problems/permutation-in-string/)
-- **NeetCode**: [Permutation in String](https://neetcode.io/problems/permutation-string)
-- **Data Structures**: String, Sliding Window
-- **Patterns**: Fixed-Size Sliding Window Frequency Match
+- **NeetCode**: [Permutation String](https://neetcode.io/problems/permutation-string)
+- **Data Structures**: String, Array
+- **Patterns**: Fixed-Size Sliding Window, Frequency Matching
 
 #### Problem Description
-Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise. In other words, return `true` if one of `s1`'s permutations is the substring of `s2`.
+Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1` as a substring, and `false` otherwise. In other words, return `true` if one of `s1`'s permutations is a substring of `s2`.
 
-#### Inputs & Outputs
-- **Input**: `s1 = "ab"`, `s2 = "eidbaooo"` -> **Output**: `true`
-- **Input**: `s1 = "ab"`, `s2 = "eidboaoo"` -> **Output**: `false`
-- **Constraints**: `1 <= s1.length, s2.length <= 10^4`, lowercase English letters.
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `s1 = "ab"`, `s2 = "eidbaooo"`
+- **Output**: `true`
+- **Explanation**: `s2` contains `"ba"`, a permutation of `"ab"`.
 
-##### Approach 1: Better (Fixed-Length Window with Frequency Array Comparison)
-Sliding window of fixed length `s1.length()`. Compare 26-element array equality at each step.
+**Example 2**
+- **Input**: `s1 = "ab"`, `s2 = "eidboaoo"`
+- **Output**: `false`
+- **Explanation**: No substring of `s2` of length 2 is a permutation of `"ab"`.
+
+#### Constraints
+- `1 <= s1.length, s2.length <= 10^4`
+- `s1` and `s2` consist of lowercase English letters.
+
+#### Intuition
+A permutation has the same length and the same letter counts. So scan `s2` with a window of length `m = s1.length()`, and check whether the window's letter counts match `s1`'s. The window has fixed size, so each step removes one character and adds one.
+
+---
+
+##### Approach 1: Brute Force (Sort Every Window)
+
+**Intuition**: Sorting is a canonical form for permutations. Sort `s1` once, then sort each window of length `m` in `s2` and compare.
+
+**Algorithm**:
+1. If `m > n`, return `false`.
+2. Sort `s1` into `target`.
+3. For each start `i` in `s2`, copy `s2[i..i+m)`, sort it, and compare with `target`.
+
 ```java
 import java.util.Arrays;
 
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        if (s1.length() > s2.length()) return false;
-        int[] s1Count = new int[26];
-        int[] s2Count = new int[26];
-        for (int i = 0; i < s1.length(); i++) {
-            s1Count[s1.charAt(i) - 'a']++;
-            s2Count[s2.charAt(i) - 'a']++;
+        int m = s1.length(), n = s2.length();
+        if (m > n) return false;
+        char[] target = s1.toCharArray();
+        Arrays.sort(target);
+        for (int i = 0; i + m <= n; i++) {
+            char[] window = s2.substring(i, i + m).toCharArray();
+            Arrays.sort(window);
+            if (Arrays.equals(window, target)) {
+                return true;
+            }
         }
-        if (Arrays.equals(s1Count, s2Count)) return true;
-        for (int i = s1.length(); i < s2.length(); i++) {
-            s2Count[s2.charAt(i) - 'a']++;
-            s2Count[s2.charAt(i - s1.length()) - 'a']--;
-            if (Arrays.equals(s1Count, s2Count)) return true;
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot m \log m)$
+- **Space Complexity**: $O(m)$
+
+---
+
+##### Approach 2: Better (Sliding Count Array, Compare All 26 Letters)
+
+**Intuition**: Replace sorting with letter counts. Maintain the counts of the current window, and compare the 26-slot array with `s1`'s counts at each step. Each step adds one character and removes one.
+
+**Algorithm**:
+1. Build `need` from `s1`.
+2. For each index `i` in `s2`, add `s2[i]` to `have`. If `i >= m`, remove `s2[i-m]`.
+3. Once `i >= m - 1`, the window is full. If `have` equals `need`, return `true`.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int m = s1.length(), n = s2.length();
+        if (m > n) return false;
+        int[] need = new int[26], have = new int[26];
+        for (char c : s1.toCharArray()) need[c - 'a']++;
+        for (int i = 0; i < n; i++) {
+            have[s2.charAt(i) - 'a']++;
+            if (i >= m) {
+                have[s2.charAt(i - m) - 'a']--;
+            }
+            if (i >= m - 1 && Arrays.equals(need, have)) {
+                return true;
+            }
         }
         return false;
     }
@@ -2174,38 +2821,51 @@ class Solution {
 - **Time Complexity**: $O(26 \cdot n) = O(n)$
 - **Space Complexity**: $O(1)$
 
-##### Approach 2: Optimised / Best (Matches Counter $O(1)$ Per Shift)
-Track the number of matching character frequencies (out of 26). When `matches == 26`, return `true`.
+---
+
+##### Approach 3: Optimised / Best (Diff Array with Non-Zero Counter)
+
+**Intuition**: Rather than comparing all 26 slots on every step, track `diff = have - need` per letter, and a counter `nonZero` of letters where `diff != 0`. The window matches exactly when `nonZero == 0`. Updates touch only one or two slots, so each step is O(1).
+
+**Algorithm**:
+1. For each character of `s1`, decrement `diff`. Count the non-zero entries into `nonZero`.
+2. For each index `i` in `s2`:
+   - Add `s2[i]`: if `diff` was `0` before, `nonZero++`. Increment. If it is now `0`, `nonZero--`.
+   - If `i >= m`, remove `s2[i-m]` with the mirror logic.
+   - If `i >= m - 1` and `nonZero == 0`, return `true`.
+3. Return `false`.
+
 ```java
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        if (s1.length() > s2.length()) return false;
-        int[] s1Map = new int[26];
-        int[] s2Map = new int[26];
-        for (int i = 0; i < s1.length(); i++) {
-            s1Map[s1.charAt(i) - 'a']++;
-            s2Map[s2.charAt(i) - 'a']++;
+        int m = s1.length(), n = s2.length();
+        if (m > n) return false;
+        int[] diff = new int[26];
+        for (char c : s1.toCharArray()) diff[c - 'a']--;
+        int nonZero = 0;
+        for (int d : diff) if (d != 0) nonZero++;
+
+        for (int i = 0; i < n; i++) {
+            int add = s2.charAt(i) - 'a';
+            if (diff[add] == 0) nonZero++;
+            diff[add]++;
+            if (diff[add] == 0) nonZero--;
+
+            if (i >= m) {
+                int rem = s2.charAt(i - m) - 'a';
+                if (diff[rem] == 0) nonZero++;
+                diff[rem]--;
+                if (diff[rem] == 0) nonZero--;
+            }
+            if (i >= m - 1 && nonZero == 0) {
+                return true;
+            }
         }
-        int matches = 0;
-        for (int i = 0; i < 26; i++) {
-            if (s1Map[i] == s2Map[i]) matches++;
-        }
-        for (int i = 0; i < s2.length() - s1.length(); i++) {
-            if (matches == 26) return true;
-            int r = s2.charAt(i + s1.length()) - 'a';
-            int l = s2.charAt(i) - 'a';
-            s2Map[r]++;
-            if (s2Map[r] == s1Map[r]) matches++;
-            else if (s2Map[r] == s1Map[r] + 1) matches--;
-            s2Map[l]--;
-            if (s2Map[l] == s1Map[l]) matches++;
-            else if (s2Map[l] == s1Map[l] - 1) matches--;
-        }
-        return matches == 26;
+        return false;
     }
 }
 ```
-- **Time Complexity**: $O(n)$
+- **Time Complexity**: $O(n + 26) = O(n)$
 - **Space Complexity**: $O(1)$
 
 ---
@@ -2213,53 +2873,167 @@ class Solution {
 ### 3.5 Minimum Window Substring
 - **Difficulty**: Hard
 - **LeetCode**: [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
-- **NeetCode**: [Minimum Window Substring](https://neetcode.io/problems/minimum-window-with-characters)
-- **Data Structures**: String, Hash Table
-- **Patterns**: Sliding Window with Formed Counter
+- **NeetCode**: [Minimum Window with Characters](https://neetcode.io/problems/minimum-window-with-characters)
+- **Data Structures**: String, Hash Map, Array
+- **Patterns**: Variable-Size Sliding Window, Required-vs-Formed Counter
 
 #### Problem Description
-Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string `""`.
+Given two strings `s` and `t` of lengths `m` and `n`, return the **minimum window substring** of `s` such that every character in `t` (including duplicates) is included in the window. If no such substring exists, return the empty string `""`.
 
-#### Inputs & Outputs
-- **Input**: `s = "ADOBECODEBANC"`, `t = "ABC"` -> **Output**: `"BANC"`
-- **Constraints**: `m == s.length`, `n == t.length`, `1 <= m, n <= 10^5`.
+The test cases are generated such that the answer is unique.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Optimised / Best (Sliding Window with Formed Counter)
-Use frequency map for `t`. Expand `right` to fulfill requirement, then contract `left` while valid to minimize window.
+**Example 1**
+- **Input**: `s = "ADOBECODEBANC"`, `t = "ABC"`
+- **Output**: `"BANC"`
+- **Explanation**: `"BANC"` is the smallest substring containing `A`, `B`, and `C`.
+
+**Example 2**
+- **Input**: `s = "a"`, `t = "a"`
+- **Output**: `"a"`
+- **Explanation**: The entire string is the only candidate.
+
+#### Constraints
+- `1 <= m, n <= 10^5`
+- `s` and `t` consist of uppercase and lowercase English letters.
+
+#### Intuition
+Expand the right edge until the window covers `t`. Then shrink from the left as far as coverage holds, recording each valid window. Coverage is tracked by counting how many distinct characters have met their required count, so the validity check is O(1) instead of a full comparison.
+
+---
+
+##### Approach 1: Brute Force (Check Every Substring)
+
+**Intuition**: Enumerate every substring and check whether it covers `t`. Coverage is verified by comparing counts against `t`'s requirements.
+
+**Algorithm**:
+1. Count the required letters from `t`.
+2. For each start `i`, extend `j` from `i`, maintaining window counts.
+3. Whenever every required count is satisfied, record the window if it is shorter than the best so far.
+
 ```java
 class Solution {
     public String minWindow(String s, String t) {
-        if (s.length() < t.length()) return "";
-        int[] target = new int[128];
-        for (char c : t.toCharArray()) target[c]++;
-        int required = 0;
-        for (int count : target) if (count > 0) required++;
-        int[] window = new int[128];
-        int formed = 0;
-        int left = 0, minLen = Integer.MAX_VALUE, startIdx = 0;
+        int[] need = new int[128];
+        for (char c : t.toCharArray()) need[c]++;
+        int n = s.length(), bestLen = Integer.MAX_VALUE, bestStart = 0;
+        for (int i = 0; i < n; i++) {
+            int[] win = new int[128];
+            for (int j = i; j < n; j++) {
+                win[s.charAt(j)]++;
+                if (covers(win, need) && j - i + 1 < bestLen) {
+                    bestLen = j - i + 1;
+                    bestStart = i;
+                }
+            }
+        }
+        return bestLen == Integer.MAX_VALUE ? "" : s.substring(bestStart, bestStart + bestLen);
+    }
+
+    private boolean covers(int[] win, int[] need) {
+        for (int c = 0; c < 128; c++) {
+            if (win[c] < need[c]) return false;
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n^2 \cdot 128)$
+- **Space Complexity**: $O(1)$ (fixed 128-slot arrays)
+
+---
+
+##### Approach 2: Better (Sliding Window with HashMap and Formed Counter)
+
+**Intuition**: Maintain a window with a map of counts and a `formed` counter, the number of distinct characters whose window count meets the requirement. The window is valid when `formed == required`. Shrink from the left while valid, recording each valid window.
+
+**Algorithm**:
+1. Build `need` from `t`. Let `required = need.size()`.
+2. Expand `right`: add `s[right]` to `win`. If its count now equals `need`, increment `formed`.
+3. While `formed == required`: record the window if it is smaller. Remove `s[left]`. If its count drops below `need`, decrement `formed`. Advance `left`.
+4. Return the best window, or `""`.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public String minWindow(String s, String t) {
+        Map<Character, Integer> need = new HashMap<>();
+        for (char c : t.toCharArray()) need.merge(c, 1, Integer::sum);
+        int required = need.size(), formed = 0;
+        Map<Character, Integer> win = new HashMap<>();
+        int left = 0, bestLen = Integer.MAX_VALUE, bestStart = 0;
+
         for (int right = 0; right < s.length(); right++) {
             char c = s.charAt(right);
-            window[c]++;
-            if (target[c] > 0 && window[c] == target[c]) formed++;
-            while (left <= right && formed == required) {
-                if (right - left + 1 < minLen) {
-                    minLen = right - left + 1;
-                    startIdx = left;
+            win.merge(c, 1, Integer::sum);
+            if (need.containsKey(c) && win.get(c).intValue() == need.get(c).intValue()) {
+                formed++;
+            }
+            while (formed == required) {
+                if (right - left + 1 < bestLen) {
+                    bestLen = right - left + 1;
+                    bestStart = left;
                 }
-                char leftChar = s.charAt(left);
-                window[leftChar]--;
-                if (target[leftChar] > 0 && window[leftChar] < target[leftChar]) formed--;
+                char o = s.charAt(left);
+                win.put(o, win.get(o) - 1);
+                if (need.containsKey(o) && win.get(o) < need.get(o)) {
+                    formed--;
+                }
                 left++;
             }
         }
-        return minLen == Integer.MAX_VALUE ? "" : s.substring(startIdx, startIdx + minLen);
+        return bestLen == Integer.MAX_VALUE ? "" : s.substring(bestStart, bestStart + bestLen);
     }
 }
 ```
 - **Time Complexity**: $O(m + n)$
-- **Space Complexity**: $O(1)$ (128 ASCII array)
+- **Space Complexity**: $O(\sigma)$, where $\sigma$ is the number of distinct characters
+
+---
+
+##### Approach 3: Optimised / Best (Array Counts with Formed Counter)
+
+**Intuition**: Same logic as the map version, with fixed 128-slot arrays in place of hash maps. Arrays are faster and avoid boxing. A character with `need[c] == 0` does not contribute to `formed`, so only required characters are checked.
+
+**Algorithm**:
+1. `need[c]` counts `t`. `required` counts distinct characters with `need > 0`.
+2. Slide the window as in the map version, using `win[c]` and comparing against `need[c]`.
+3. Return the minimal window.
+
+```java
+class Solution {
+    public String minWindow(String s, String t) {
+        int[] need = new int[128], win = new int[128];
+        int required = 0;
+        for (char c : t.toCharArray()) {
+            if (need[c] == 0) required++;
+            need[c]++;
+        }
+        int formed = 0, left = 0, bestLen = Integer.MAX_VALUE, bestStart = 0;
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            win[c]++;
+            if (need[c] > 0 && win[c] == need[c]) formed++;
+            while (formed == required) {
+                if (right - left + 1 < bestLen) {
+                    bestLen = right - left + 1;
+                    bestStart = left;
+                }
+                char o = s.charAt(left);
+                win[o]--;
+                if (need[o] > 0 && win[o] < need[o]) formed--;
+                left++;
+            }
+        }
+        return bestLen == Integer.MAX_VALUE ? "" : s.substring(bestStart, bestStart + bestLen);
+    }
+}
+```
+- **Time Complexity**: $O(m + n)$
+- **Space Complexity**: $O(1)$ (fixed 128-slot arrays)
 
 ---
 
@@ -2267,47 +3041,109 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [239. Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
 - **NeetCode**: [Sliding Window Maximum](https://neetcode.io/problems/sliding-window-maximum)
-- **Data Structures**: Array, Monotonic Deque
-- **Patterns**: Monotonic Decreasing Deque
+- **Data Structures**: Array, Deque, Heap
+- **Patterns**: Monotonic Deque, Lazy-Deletion Heap
 
 #### Problem Description
-You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
+You are given an array of integers `nums`. A sliding window of size `k` moves from the very left of the array to the very right, one position at a time. Return an array of the maximum value in each window.
 
-#### Inputs & Outputs
-- **Input**: `nums = [1,3,-1,-3,5,3,6,7]`, `k = 3` -> **Output**: `[3,3,5,5,6,7]`
-- **Constraints**: `1 <= nums.length <= 10^5`, `-10^4 <= nums[i] <= 10^4`, `1 <= k <= nums.length`.
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `nums = [1,3,-1,-3,5,3,6,7]`, `k = 3`
+- **Output**: `[3,3,5,5,6,7]`
+- **Explanation**: Windows are `[1,3,-1]`, `[3,-1,-3]`, `[-1,-3,5]`, `[-3,5,3]`, `[5,3,6]`, and `[3,6,7]`.
 
-##### Approach 1: Brute Force
-Scan all $k$ elements in each of the $n - k + 1$ windows.
+**Example 2**
+- **Input**: `nums = [1]`, `k = 1`
+- **Output**: `[1]`
+- **Explanation**: The single window contains only `1`.
+
+#### Constraints
+- `1 <= nums.length <= 10^5`
+- `-10^4 <= nums[i] <= 10^4`
+- `1 <= k <= nums.length`
+
+#### Intuition
+A window's maximum is the largest value in it. Recomputing that for each window is wasteful, since consecutive windows share most of their elements. The key observation: if a newer element is larger than an older one, the older one can never be a maximum again, because the newer one stays in the window longer. So maintain a deque of indices with decreasing values. The front is always the current maximum.
+
+---
+
+##### Approach 1: Brute Force (Scan Each Window)
+
+**Intuition**: For each window position, scan all `k` elements for the maximum.
+
+**Algorithm**:
+1. For each start `i` from `0` to `n-k`, compute the max over `nums[i..i+k)`.
+2. Store it in the result.
+
+```java
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        int[] result = new int[n - k + 1];
+        for (int i = 0; i + k <= n; i++) {
+            int m = Integer.MIN_VALUE;
+            for (int j = i; j < i + k; j++) {
+                m = Math.max(m, nums[j]);
+            }
+            result[i] = m;
+        }
+        return result;
+    }
+}
+```
 - **Time Complexity**: $O(n \cdot k)$
-- **Space Complexity**: $O(1)$
+- **Space Complexity**: $O(1)$ extra (excluding output)
 
-##### Approach 2: Better (Max Heap / PriorityQueue)
-Store `[val, index]` in a max-heap. Pop stale elements outside the window.
+---
+
+##### Approach 2: Better (Max-Heap with Lazy Deletion)
+
+**Intuition**: A max-heap of `(value, index)` gives the current maximum quickly. Elements that have left the window are not removed immediately. They are discarded lazily when they reach the top, because their index is out of range.
+
+**Algorithm**:
+1. For each `i`, push `(nums[i], i)`.
+2. While the top's index is `<= i - k`, pop it.
+3. Once `i >= k - 1`, the top is the maximum of the current window. Record it.
+
 ```java
 import java.util.PriorityQueue;
 
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
-        int[] res = new int[n - k + 1];
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
+        int[] result = new int[n - k + 1];
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> b[0] - a[0]);
         for (int i = 0; i < n; i++) {
-            pq.offer(new int[]{nums[i], i});
-            while (pq.peek()[1] <= i - k) pq.poll();
-            if (i >= k - 1) res[i - k + 1] = pq.peek()[0];
+            maxHeap.offer(new int[]{nums[i], i});
+            while (maxHeap.peek()[1] <= i - k) {
+                maxHeap.poll();
+            }
+            if (i >= k - 1) {
+                result[i - k + 1] = maxHeap.peek()[0];
+            }
         }
-        return res;
+        return result;
     }
 }
 ```
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(n)$
 
+---
+
 ##### Approach 3: Optimised / Best (Monotonic Decreasing Deque)
-Store indices in a `Deque`. Maintain strictly decreasing order by removing smaller elements from back before inserting. Front is always maximum.
+
+**Intuition**: Keep a deque of indices whose values are in decreasing order from front to back. Before adding index `i`, drop any indices at the back with smaller values, because `i` is larger and outlasts them. Drop the front index once it leaves the window. The front is always the current maximum. Each index enters and leaves the deque at most once.
+
+**Algorithm**:
+1. For each `i`:
+   - Remove the front index if it is `<= i - k` (out of the window).
+   - Remove from the back while `nums[back] <= nums[i]`.
+   - Push `i` to the back.
+2. If `i >= k - 1`, `nums[front]` is the window maximum. Record it.
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -2315,26 +3151,26 @@ import java.util.Deque;
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
-        int[] res = new int[n - k + 1];
-        Deque<Integer> deque = new ArrayDeque<>();
+        int[] result = new int[n - k + 1];
+        Deque<Integer> dq = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
-            if (!deque.isEmpty() && deque.peekFirst() <= i - k) {
-                deque.pollFirst();
+            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+                dq.pollFirst();
             }
-            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
-                deque.pollLast();
+            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {
+                dq.pollLast();
             }
-            deque.offerLast(i);
+            dq.offerLast(i);
             if (i >= k - 1) {
-                res[i - k + 1] = nums[deque.peekFirst()];
+                result[i - k + 1] = nums[dq.peekFirst()];
             }
         }
-        return res;
+        return result;
     }
 }
 ```
-- **Time Complexity**: $O(n)$ (each element added and removed at most once)
-- **Space Complexity**: $O(k)$
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(k)$ for the deque
 
 ---
 
@@ -2343,36 +3179,127 @@ class Solution {
 ### 4.1 Valid Parentheses
 - **Difficulty**: Easy
 - **LeetCode**: [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
-- **NeetCode**: [Validate Parentheses](https://neetcode.io/problems/validate-parentheses)
-- **Data Structures**: Stack, String
-- **Patterns**: LIFO Matching
+- **NeetCode**: [Valid Parentheses](https://neetcode.io/problems/validate-parentheses)
+- **Data Structures**: String, Stack
+- **Patterns**: Matching Pairs with a Stack
 
 #### Problem Description
-Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid. Open brackets must be closed by the same type of brackets in the correct order.
+Given a string `s` containing only the characters `'('`, `')'`, `'{'`, `'}'`, `'['`, and `']'`, determine whether it is valid. A string is valid if:
+1. Every open bracket is closed by a bracket of the same type.
+2. Open brackets are closed in the correct order.
+3. Every close bracket has a corresponding open bracket of the same type.
 
-#### Inputs & Outputs
-- **Input**: `s = "()[]{}"` -> **Output**: `true`
-- **Input**: `s = "(]"` -> **Output**: `false`
-- **Constraints**: `1 <= s.length <= 10^4`
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `s = "()[]{}"`
+- **Output**: `true`
+- **Explanation**: Each pair is matched and in order.
 
-##### Approach 1: Optimised / Best (Array as Stack)
-Using an array as stack avoids the overhead of `java.util.Stack`.
+**Example 2**
+- **Input**: `s = "([)]"`
+- **Output**: `false`
+- **Explanation**: `[` is opened inside `(` but `)` closes first, so the nesting is broken.
+
+#### Constraints
+- `1 <= s.length <= 10^4`
+- `s` consists only of `()[]{}`.
+
+#### Intuition
+Brackets nest like a call stack. The most recently opened bracket must be the first one closed. So push opening brackets, and on each closing bracket check that the top of the stack is its partner. Any leftover openers at the end mean the string is invalid.
+
+---
+
+##### Approach 1: Brute Force (Repeated String Replacement)
+
+**Intuition**: Any adjacent matching pair can be deleted without changing validity. Keep deleting pairs until no more are found. A valid string reduces to empty.
+
+**Algorithm**:
+1. While the string contains `()`, `[]`, or `{}`, remove all occurrences.
+2. Return whether the result is empty.
+
+```java
+class Solution {
+    public boolean isValid(String s) {
+        while (true) {
+            String t = s.replace("()", "").replace("[]", "").replace("{}", "");
+            if (t.equals(s)) break;
+            s = t;
+        }
+        return s.isEmpty();
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ in the worst case, with repeated passes
+- **Space Complexity**: $O(n)$ for the intermediate strings
+
+---
+
+##### Approach 2: Better (Deque with Map of Matching Brackets)
+
+**Intuition**: Push openers. On a closer, pop and check whether the popped opener matches it, using a lookup table. This is the standard stack solution, written with a `Deque` and a map.
+
+**Algorithm**:
+1. Map each closer to its opener.
+2. For each character: if it is a closer, pop (fail if the stack is empty or the top doesn't match). Otherwise push.
+3. Return `true` only if the stack is empty at the end.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Map;
+
+class Solution {
+    public boolean isValid(String s) {
+        Map<Character, Character> match = Map.of(')', '(', ']', '[', '}', '{');
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char c : s.toCharArray()) {
+            if (match.containsKey(c)) {
+                if (stack.isEmpty() || stack.pop() != match.get(c)) {
+                    return false;
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Char Array Stack)
+
+**Intuition**: The stack never holds more than `n` items, so a fixed `char[]` with an index pointer avoids boxing `Character` objects and the map lookups. The matching check becomes a direct character comparison.
+
+**Algorithm**:
+1. `stack = new char[n]`, `top = -1`.
+2. For each `c`:
+   - If `c` is an opener, `stack[++top] = c`.
+   - Otherwise, if `top < 0` or the expected opener (`(`, `[`, or `{` for `)`, `]`, `}`) is not `stack[top]`, return `false`. Else `top--`.
+3. Return `top == -1`.
+
 ```java
 class Solution {
     public boolean isValid(String s) {
         char[] stack = new char[s.length()];
-        int head = 0;
-        for (char c : s.toCharArray()) {
-            if (c == '(') stack[head++] = ')';
-            else if (c == '{') stack[head++] = '}';
-            else if (c == '[') stack[head++] = ']';
-            else {
-                if (head == 0 || stack[--head] != c) return false;
+        int top = -1;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(' || c == '[' || c == '{') {
+                stack[++top] = c;
+            } else {
+                char expected = c == ')' ? '(' : c == ']' ? '[' : '{';
+                if (top < 0 || stack[top] != expected) {
+                    return false;
+                }
+                top--;
             }
         }
-        return head == 0;
+        return top == -1;
     }
 }
 ```
@@ -2384,25 +3311,91 @@ class Solution {
 ### 4.2 Min Stack
 - **Difficulty**: Medium
 - **LeetCode**: [155. Min Stack](https://leetcode.com/problems/min-stack/)
-- **NeetCode**: [Minimum Stack](https://neetcode.io/problems/minimum-stack)
-- **Data Structures**: Stack
-- **Patterns**: Auxiliary Stack / Encoded Differences
+- **NeetCode**: [Min Stack](https://neetcode.io/problems/minimum-stack)
+- **Data Structures**: Stack, Array
+- **Patterns**: Auxiliary Minimum Tracking
 
 #### Problem Description
-Design a stack that supports `push`, `pop`, `top`, and retrieving the minimum element in constant time $O(1)$.
+Design a stack that supports `push`, `pop`, `top`, and retrieving the minimum element, all in constant time.
 
-#### Solutions
+Implement the `MinStack` class:
+- `MinStack()` initialises the stack.
+- `void push(int val)` pushes `val` onto the stack.
+- `void pop()` removes the element on the top.
+- `int top()` gets the top element.
+- `int getMin()` retrieves the minimum element in the stack.
 
-##### Approach 1: Two Stacks
-Maintain a main data stack and a min stack storing current minimum.
+#### Examples
+
+**Example 1**
+- **Input**: `push(-2), push(0), push(-3), getMin(), pop(), top(), getMin()`
+- **Output**: `-3, 0, -2`
+- **Explanation**: After the pushes, the minimum is `-3`. After popping `-3`, the top is `0` and the minimum is `-2`.
+
+**Example 2**
+- **Input**: `push(5), push(5), getMin(), pop(), getMin()`
+- **Output**: `5, 5`
+- **Explanation**: Duplicates must be tracked correctly, so popping one `5` still leaves a minimum of `5`.
+
+#### Constraints
+- `-2^31 <= val <= 2^31 - 1`
+- `pop`, `top`, and `getMin` are called only on non-empty stacks.
+- At most `3 * 10^4` calls total.
+
+#### Intuition
+`getMin` needs to survive pops. Storing the minimum with each element solves this, since each element then knows the minimum of everything at or below it. Once it is pushed, that record is never wrong until it is popped.
+
+---
+
+##### Approach 1: Brute Force (Scan for Minimum)
+
+**Intuition**: Store values only. For `getMin`, scan the whole stack.
+
+**Algorithm**:
+1. `push` and `pop` and `top` use a standard stack.
+2. `getMin` iterates over all elements and returns the smallest.
+
 ```java
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 class MinStack {
-    private Stack<Integer> stack = new Stack<>();
-    private Stack<Integer> minStack = new Stack<>();
+    private final Deque<Integer> stack = new ArrayDeque<>();
 
-    public MinStack() {}
+    public void push(int val) { stack.push(val); }
+    public void pop() { stack.pop(); }
+    public int top() { return stack.peek(); }
+
+    public int getMin() {
+        int min = Integer.MAX_VALUE;
+        for (int v : stack) {
+            min = Math.min(min, v);
+        }
+        return min;
+    }
+}
+```
+- **Time Complexity**: `getMin` is $O(n)$; other operations are $O(1)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Two Stacks)
+
+**Intuition**: Keep a second stack of minimums. When a value is pushed that is `<=` the current minimum, push it onto the min stack too. On `pop`, pop the min stack if the removed value equals its top. Using `<=` (not `<`) is what keeps duplicates correct.
+
+**Algorithm**:
+1. `push(v)`: push to `stack`. If `minStack` is empty or `v <= minStack.peek()`, push to `minStack`.
+2. `pop()`: `v = stack.pop()`. If `v == minStack.peek()`, pop `minStack`.
+3. `getMin()`: return `minStack.peek()`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class MinStack {
+    private final Deque<Integer> stack = new ArrayDeque<>();
+    private final Deque<Integer> minStack = new ArrayDeque<>();
 
     public void push(int val) {
         stack.push(val);
@@ -2412,61 +3405,49 @@ class MinStack {
     }
 
     public void pop() {
-        if (stack.peek().equals(minStack.peek())) {
+        int v = stack.pop();
+        if (v == minStack.peek()) {
             minStack.pop();
         }
-        stack.pop();
     }
 
-    public int top() {
-        return stack.peek();
-    }
-
-    public int getMin() {
-        return minStack.peek();
-    }
+    public int top() { return stack.peek(); }
+    public int getMin() { return minStack.peek(); }
 }
 ```
-- **Time Complexity**: $O(1)$ for all operations
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: $O(1)$ for every operation
+- **Space Complexity**: $O(n)$ in the worst case
 
-##### Approach 2: Best (Single Stack with Node Pair or Difference Encoding)
-Store value and current minimum together in custom nodes.
+---
+
+##### Approach 3: Optimised / Best (Single Stack of (value, min) Pairs)
+
+**Intuition**: Store each value alongside the minimum of the stack at the time it was pushed. The pair is self-contained, so pops need no synchronisation with a second stack. The minimum of the stack is always the minimum stored at the top.
+
+**Algorithm**:
+1. `push(v)`: `m = stack.isEmpty() ? v : min(v, stack.peek()[1])`. Push `{v, m}`.
+2. `pop()`: remove the top pair.
+3. `top()`: `stack.peek()[0]`.
+4. `getMin()`: `stack.peek()[1]`.
+
 ```java
-class MinStack {
-    private static class Node {
-        int val;
-        int min;
-        Node next;
-        Node(int val, int min, Node next) {
-            this.val = val;
-            this.min = min;
-            this.next = next;
-        }
-    }
-    private Node head;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-    public MinStack() {}
+class MinStack {
+    private final Deque<int[]> stack = new ArrayDeque<>();
 
     public void push(int val) {
-        if (head == null) head = new Node(val, val, null);
-        else head = new Node(val, Math.min(val, head.min), head);
+        int m = stack.isEmpty() ? val : Math.min(val, stack.peek()[1]);
+        stack.push(new int[]{val, m});
     }
 
-    public void pop() {
-        head = head.next;
-    }
-
-    public int top() {
-        return head.val;
-    }
-
-    public int getMin() {
-        return head.min;
-    }
+    public void pop() { stack.pop(); }
+    public int top() { return stack.peek()[0]; }
+    public int getMin() { return stack.peek()[1]; }
 }
 ```
-- **Time Complexity**: $O(1)$ for all operations
+- **Time Complexity**: $O(1)$ for every operation
 - **Space Complexity**: $O(n)$
 
 ---
@@ -2475,48 +3456,158 @@ class MinStack {
 - **Difficulty**: Medium
 - **LeetCode**: [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
 - **NeetCode**: [Evaluate Reverse Polish Notation](https://neetcode.io/problems/evaluate-reverse-polish-notation)
-- **Data Structures**: Stack, Array
-- **Patterns**: Postfix Evaluation
+- **Data Structures**: Array, Stack
+- **Patterns**: Operand Stack, Postfix Evaluation
 
 #### Problem Description
-Evaluate the value of an arithmetic expression in Reverse Polish Notation (Postfix). Valid operators are `+`, `-`, `*`, and `/`. Each operand may be an integer or another expression. Division truncates toward zero.
+You are given an array of strings `tokens` that represents a valid arithmetic expression in Reverse Polish Notation. Evaluate the expression and return an integer. Operators are `+`, `-`, `*`, and `/`. Division between two integers truncates toward zero.
 
-#### Inputs & Outputs
-- **Input**: `tokens = ["2","1","+","3","*"]` -> **Output**: `9`
-- **Constraints**: `1 <= tokens.length <= 10^4`
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `tokens = ["2","1","+","3","*"]`
+- **Output**: `9`
+- **Explanation**: `((2 + 1) * 3) = 9`.
 
-##### Approach 1: Optimised / Best (Array-based Stack)
+**Example 2**
+- **Input**: `tokens = ["4","13","5","/","+"]`
+- **Output**: `6`
+- **Explanation**: `4 + (13 / 5) = 4 + 2 = 6`.
+
+#### Constraints
+- `1 <= tokens.length <= 10^4`
+- Each token is an integer or one of `+`, `-`, `*`, `/`.
+- The expression is valid, and no division by zero occurs.
+- All intermediate results fit in a 32-bit integer.
+
+#### Intuition
+In postfix notation, an operator applies to the two most recently completed operands. A stack holds pending operands. An operator pops two values, applies itself, and pushes the result.
+
+Subtle point: the right operand is popped first, so `a - b` is `left - right`, where `left` was pushed earlier.
+
+---
+
+##### Approach 1: Brute Force (Recursion from the End)
+
+**Intuition**: Read the expression from right to left. The last token is an operator, and its operands are the expressions that end at the preceding tokens. Recursion reads each subexpression off the back of the array.
+
+**Algorithm**:
+1. `eval()` takes the token at the current index and moves the index left.
+2. If the token is a number, return it.
+3. Otherwise, `right = eval()`, then `left = eval()`, and return `left op right`.
+
+```java
+class Solution {
+    private int pos;
+    private String[] tokens;
+
+    public int evalRPN(String[] tokens) {
+        this.tokens = tokens;
+        this.pos = tokens.length - 1;
+        return eval();
+    }
+
+    private int eval() {
+        String tok = tokens[pos--];
+        if (!isOperator(tok)) {
+            return Integer.parseInt(tok);
+        }
+        int right = eval();
+        int left = eval();
+        return apply(left, tok, right);
+    }
+
+    private boolean isOperator(String tok) {
+        return tok.length() == 1 && "+-*/".indexOf(tok.charAt(0)) >= 0;
+    }
+
+    private int apply(int a, String op, int b) {
+        switch (op) {
+            case "+": return a + b;
+            case "-": return a - b;
+            case "*": return a * b;
+            default:  return a / b;
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for the recursion depth in the worst case
+
+---
+
+##### Approach 2: Better (Deque Stack with String Switch)
+
+**Intuition**: Standard stack evaluation. Numbers are pushed. Operators pop two values and push the result.
+
+**Algorithm**:
+1. For each token: if it is a number, push its integer value.
+2. If it is an operator, pop `b` then `a`, compute `a op b`, and push the result.
+3. Return the single remaining value.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String tok : tokens) {
+            switch (tok) {
+                case "+" -> stack.push(stack.pop() + stack.pop());
+                case "-" -> {
+                    int b = stack.pop(), a = stack.pop();
+                    stack.push(a - b);
+                }
+                case "*" -> stack.push(stack.pop() * stack.pop());
+                case "/" -> {
+                    int b = stack.pop(), a = stack.pop();
+                    stack.push(a / b);
+                }
+                default -> stack.push(Integer.parseInt(tok));
+            }
+        }
+        return stack.pop();
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Int Array Stack)
+
+**Intuition**: The same algorithm with a primitive `int[]` stack. This removes boxing and the per-element cost of `Deque`, which matters on large inputs.
+
+**Algorithm**:
+1. `st = new int[n]`, `top = -1`.
+2. For each token: if it is `+`, `-`, `*`, or `/`, compute `st[top-1] op st[top]` and decrement `top`. Otherwise push the number.
+3. Return `st[0]`.
+
 ```java
 class Solution {
     public int evalRPN(String[] tokens) {
-        int[] stack = new int[tokens.length];
-        int top = 0;
-        for (String t : tokens) {
-            switch (t) {
-                case "+":
-                    stack[top - 2] += stack[top - 1];
-                    top--;
-                    break;
-                case "-":
-                    stack[top - 2] -= stack[top - 1];
-                    top--;
-                    break;
-                case "*":
-                    stack[top - 2] *= stack[top - 1];
-                    top--;
-                    break;
-                case "/":
-                    stack[top - 2] /= stack[top - 1];
-                    top--;
-                    break;
-                default:
-                    stack[top++] = Integer.parseInt(t);
-                    break;
+        int[] st = new int[tokens.length];
+        int top = -1;
+        for (String tok : tokens) {
+            if (tok.length() == 1) {
+                char c = tok.charAt(0);
+                if (c == '+' || c == '-' || c == '*' || c == '/') {
+                    int b = st[top--];
+                    int a = st[top];
+                    st[top] = switch (c) {
+                        case '+' -> a + b;
+                        case '-' -> a - b;
+                        case '*' -> a * b;
+                        default -> a / b;
+                    };
+                    continue;
+                }
             }
+            st[++top] = Integer.parseInt(tok);
         }
-        return stack[0];
+        return st[0];
     }
 }
 ```
@@ -2530,50 +3621,157 @@ class Solution {
 - **LeetCode**: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
 - **NeetCode**: [Generate Parentheses](https://neetcode.io/problems/generate-parentheses)
 - **Data Structures**: String, Backtracking
-- **Patterns**: Valid Prefix Pruning
+- **Patterns**: Constrained Backtracking, Open/Close Counters
 
 #### Problem Description
-Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses. Return the answer in any order.
 
-#### Inputs & Outputs
-- **Input**: `n = 3` -> **Output**: `["((()))","(()())","(())()","()(())","()()()"]`
-- **Constraints**: `1 <= n <= 8`
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `n = 3`
+- **Output**: `["((()))","(()())","(())()","()(())","()()()"]`
+- **Explanation**: These are the five valid arrangements of three pairs.
 
-##### Approach 1: Optimised / Best (Backtracking with Open/Close Counts)
-Add `'('` if `open < n`; add `')'` if `close < open`.
+**Example 2**
+- **Input**: `n = 1`
+- **Output**: `["()"]`
+- **Explanation**: The only valid arrangement.
+
+#### Constraints
+- `1 <= n <= 8`
+
+#### Intuition
+Build the string left to right and only make choices that keep it extendable. You may add `(` while the number of opens is below `n`. You may add `)` only while it would not exceed the number of opens. These two rules make every generated string valid, so no filtering is needed.
+
+---
+
+##### Approach 1: Brute Force (Generate All Strings, Then Validate)
+
+**Intuition**: There are $2^{2n}$ strings of length $2n$ over `(` and `)`. Enumerate them all and keep those with a non-negative running balance that ends at zero.
+
+**Algorithm**:
+1. For each bitmask `mask` in `[0, 2^(2n))`, bit `i` set means `(`, otherwise `)`.
+2. Walk the string with a balance counter. If it ever goes negative, reject. At the end, keep it only if the balance is zero.
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
     public List<String> generateParenthesis(int n) {
-        List<String> res = new ArrayList<>();
-        backtrack(res, new StringBuilder(), 0, 0, n);
-        return res;
+        List<String> result = new ArrayList<>();
+        int len = 2 * n;
+        for (int mask = 0; mask < (1 << len); mask++) {
+            StringBuilder sb = new StringBuilder();
+            int balance = 0;
+            boolean valid = true;
+            for (int i = 0; i < len; i++) {
+                char c = ((mask >> i) & 1) == 1 ? '(' : ')';
+                sb.append(c);
+                balance += c == '(' ? 1 : -1;
+                if (balance < 0) {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid && balance == 0) {
+                result.add(sb.toString());
+            }
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(4^n \cdot n)$
+- **Space Complexity**: $O(n)$ for the working string, plus the output
+
+---
+
+##### Approach 2: Better (Backtracking with StringBuilder)
+
+**Intuition**: Only explore valid prefixes. Track how many `(` and `)` have been used. Add `(` if fewer than `n` are used. Add `)` if it would not exceed the number of `(`. Backtrack by removing the last character.
+
+**Algorithm**:
+1. `backtrack(sb, open, close)`.
+2. If `sb.length() == 2n`, record the string.
+3. If `open < n`, append `(` and recurse, then remove it.
+4. If `close < open`, append `)` and recurse, then remove it.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        backtrack(new StringBuilder(), 0, 0, n, result);
+        return result;
     }
 
-    private void backtrack(List<String> res, StringBuilder sb, int open, int close, int max) {
-        if (sb.length() == max * 2) {
-            res.add(sb.toString());
+    private void backtrack(StringBuilder sb, int open, int close, int n, List<String> result) {
+        if (sb.length() == 2 * n) {
+            result.add(sb.toString());
             return;
         }
-        if (open < max) {
+        if (open < n) {
             sb.append('(');
-            backtrack(res, sb, open + 1, close, max);
+            backtrack(sb, open + 1, close, n, result);
             sb.deleteCharAt(sb.length() - 1);
         }
         if (close < open) {
             sb.append(')');
-            backtrack(res, sb, open, close + 1, max);
+            backtrack(sb, open, close + 1, n, result);
             sb.deleteCharAt(sb.length() - 1);
         }
     }
 }
 ```
-- **Time Complexity**: $O(\frac{4^n}{\sqrt{n}})$ ($n^{\text{th}}$ Catalan number)
-- **Space Complexity**: $O(n)$ recursion stack
+- **Time Complexity**: $O(4^n / \sqrt{n})$, the Catalan bound, times the cost of copying each string
+- **Space Complexity**: $O(n)$ for recursion depth, plus the output
+
+---
+
+##### Approach 3: Optimised / Best (Backtracking with char Array, No Undo)
+
+**Intuition**: Write into a pre-sized `char[]` at position `pos`. Each recursive call overwrites the slot it owns, so no undo step is needed, and the final copy happens only for complete strings.
+
+**Algorithm**:
+1. `buf = new char[2n]`.
+2. `dfs(pos, open, close)`:
+   - If `pos == 2n`, add `new String(buf)`.
+   - If `open < n`: `buf[pos] = '('`, recurse with `open + 1`.
+   - If `close < open`: `buf[pos] = ')'`, recurse with `close + 1`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        dfs(new char[2 * n], 0, 0, 0, n, result);
+        return result;
+    }
+
+    private void dfs(char[] buf, int pos, int open, int close, int n, List<String> result) {
+        if (pos == buf.length) {
+            result.add(new String(buf));
+            return;
+        }
+        if (open < n) {
+            buf[pos] = '(';
+            dfs(buf, pos + 1, open + 1, close, n, result);
+        }
+        if (close < open) {
+            buf[pos] = ')';
+            dfs(buf, pos + 1, open, close + 1, n, result);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(4^n / \sqrt{n})$ (Catalan bound), with $O(n)$ per output string
+- **Space Complexity**: $O(n)$ recursion depth, plus the output
 
 ---
 
@@ -2581,66 +3779,137 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
 - **NeetCode**: [Daily Temperatures](https://neetcode.io/problems/daily-temperatures)
-- **Data Structures**: Array, Monotonic Stack
-- **Patterns**: Monotonic Decreasing Stack
+- **Data Structures**: Array, Stack
+- **Patterns**: Monotonic Decreasing Stack, Next Greater Element
 
 #### Problem Description
-Given an array of integers `temperatures` represents the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the $i^{\text{th}}$ day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.
+Given an array of integers `temperatures` representing daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after day `i` to get a warmer temperature. If there is no future day for which this is possible, set `answer[i] = 0`.
 
-#### Inputs & Outputs
-- **Input**: `temperatures = [73,74,75,71,69,72,76,73]` -> **Output**: `[1,1,4,2,1,1,0,0]`
-- **Constraints**: `1 <= temperatures.length <= 10^5`, `30 <= temperatures[i] <= 100`
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `temperatures = [73,74,75,71,69,72,76,73]`
+- **Output**: `[1,1,4,2,1,1,0,0]`
+- **Explanation**: From day 0 (73), the next warmer day is day 1 (74). From day 2 (75), day 6 (76) is four days later.
 
-##### Approach 1: Monotonic Decreasing Stack
-Push indices onto stack. When current temperature is higher than top, pop and compute day difference.
+**Example 2**
+- **Input**: `temperatures = [30,40,50,60]`
+- **Output**: `[1,1,1,0]`
+- **Explanation**: Each day is followed immediately by a warmer one, except the last.
+
+#### Constraints
+- `1 <= temperatures.length <= 10^5`
+- `30 <= temperatures[i] <= 100`
+
+#### Intuition
+This is a "next greater element" problem. For each day, you need the nearest later day with a higher temperature. Keep a stack of days still waiting for a warmer day, with temperatures in decreasing order. When a warmer day arrives, it resolves every waiting day colder than it, and each day is pushed and popped once.
+
+---
+
+##### Approach 1: Brute Force (Scan Forward from Each Day)
+
+**Intuition**: For each day, look forward until a warmer one appears.
+
+**Algorithm**:
+1. For each `i`, scan `j = i+1, ...`.
+2. The first `j` with `temperatures[j] > temperatures[i]` gives `answer[i] = j - i`.
+3. If none is found, `answer[i]` stays `0`.
+
 ```java
-import java.util.Stack;
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int n = temperatures.length;
+        int[] answer = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (temperatures[j] > temperatures[i]) {
+                    answer[i] = j - i;
+                    break;
+                }
+            }
+        }
+        return answer;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case, for example a strictly decreasing array
+- **Space Complexity**: $O(1)$ extra (excluding output)
+
+---
+
+##### Approach 2: Optimised (Next-Occurrence Table over 101 Temperatures)
+
+**Intuition**: Temperatures are bounded at 100. Scan from right to left, keeping `nextIdx[t]`, the nearest index to the right with temperature exactly `t`. For day `i`, the answer is the minimum `nextIdx[t] - i` over all `t` warmer than `temperatures[i]`. That is at most 70 comparisons per day, a constant.
+
+**Algorithm**:
+1. `nextIdx = new int[101]`, filled with `-1`.
+2. For `i` from `n-1` down to `0`:
+   - For each `t` in `(temperatures[i], 100]` with `nextIdx[t] != -1`, track the smallest index.
+   - If found, `answer[i] = minIdx - i`.
+   - Set `nextIdx[temperatures[i]] = i`.
+
+```java
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int n = temperatures.length;
+        int[] answer = new int[n];
+        int[] nextIdx = new int[101];
+        java.util.Arrays.fill(nextIdx, -1);
+        for (int i = n - 1; i >= 0; i--) {
+            int t0 = temperatures[i];
+            int best = Integer.MAX_VALUE;
+            for (int t = t0 + 1; t <= 100; t++) {
+                if (nextIdx[t] != -1) {
+                    best = Math.min(best, nextIdx[t]);
+                }
+            }
+            if (best != Integer.MAX_VALUE) {
+                answer[i] = best - i;
+            }
+            nextIdx[t0] = i;
+        }
+        return answer;
+    }
+}
+```
+- **Time Complexity**: $O(100 \cdot n) = O(n)$
+- **Space Complexity**: $O(1)$ (101-slot table)
+
+---
+
+##### Approach 3: Best (Monotonic Decreasing Stack of Indices)
+
+**Intuition**: Maintain a stack of indices whose temperatures are in decreasing order, all still waiting for a warmer day. When day `i` is warmer than the top, pop that index and set its answer to `i - index`. Repeat, since `i` may resolve several days. Then push `i`. Every index is pushed and popped once.
+
+**Algorithm**:
+1. For each `i`:
+   - While the stack is not empty and `temperatures[stack.peek()] < temperatures[i]`:
+     - Pop `j`, set `answer[j] = i - j`.
+   - Push `i`.
+2. Indices left on the stack keep `answer = 0`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
         int n = temperatures.length;
-        int[] res = new int[n];
-        Stack<Integer> stack = new Stack<>();
+        int[] answer = new int[n];
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
-            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
-                int prevDay = stack.pop();
-                res[prevDay] = i - prevDay;
+            while (!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]) {
+                int j = stack.pop();
+                answer[j] = i - j;
             }
             stack.push(i);
         }
-        return res;
+        return answer;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
-
-##### Approach 2: Best (Array-based Monotonic Stack / Backward Traversal)
-Traverse backwards jumping through existing answers to reach $O(1)$ extra space beyond result.
-```java
-class Solution {
-    public int[] dailyTemperatures(int[] temperatures) {
-        int n = temperatures.length;
-        int[] res = new int[n];
-        for (int i = n - 2; i >= 0; i--) {
-            int j = i + 1;
-            while (j < n && temperatures[j] <= temperatures[i]) {
-                if (res[j] == 0) {
-                    j = n; // no warmer day exists
-                } else {
-                    j += res[j];
-                }
-            }
-            if (j < n) res[i] = j - i;
-        }
-        return res;
-    }
-}
-```
-- **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$ auxiliary
 
 ---
 
@@ -2648,46 +3917,153 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [853. Car Fleet](https://leetcode.com/problems/car-fleet/)
 - **NeetCode**: [Car Fleet](https://neetcode.io/problems/car-fleet)
-- **Data Structures**: Array, Stack
-- **Patterns**: Position Sorting + Monotonic Arrival Time
+- **Data Structures**: Array, Stack, Sorting
+- **Patterns**: Sort by Position, Arrival-Time Monotonic Stack
 
 #### Problem Description
-There are `n` cars going to the same destination along a one-lane road. The destination is `target` miles away. You are given two integer arrays `position` and `speed`. A car can never pass another car ahead of it, but it can catch up to it and drive bumper to bumper at the same speed. The distance between them is ignored. Return the number of car fleets that will arrive at the destination.
+There are `n` cars travelling to a destination `target` miles away on a single-lane road. You are given two integer arrays: `position` (the starting mile of each car) and `speed` (the speed of each car in miles per hour).
 
-#### Inputs & Outputs
-- **Input**: `target = 12`, `position = [10,8,0,5,3]`, `speed = [2,4,1,1,3]` -> **Output**: `3`
-- **Constraints**: `n == position.length == speed.length`, `1 <= n <= 10^5`, `0 < target <= 10^6`
+A car cannot pass another car ahead of it. If it catches up to a car, it slows down to that car's speed and travels together with it as a **car fleet**. A fleet is a single car or a group of cars that arrive at the destination at the same time.
 
-#### Solutions
+Return the number of car fleets that arrive at the destination.
 
-##### Approach 1: Optimised / Best (Sort by Position Descending + Time Tracking)
-Sort cars by starting position descending. Calculate arrival time $(target - pos) / speed$. If a car behind arrives earlier or at the same time as the fleet ahead, it merges.
+#### Examples
+
+**Example 1**
+- **Input**: `target = 12`, `position = [10,8,0,5,3]`, `speed = [2,4,1,1,3]`
+- **Output**: `3`
+- **Explanation**: The car at 10 and the car at 8 meet and form a fleet at 12. The car at 5 and the car at 3 also meet and form a fleet. The car at 0 is slower and forms its own fleet.
+
+**Example 2**
+- **Input**: `target = 10`, `position = [3]`, `speed = [3]`
+- **Output**: `1`
+- **Explanation**: One car is one fleet.
+
+#### Constraints
+- `n == position.length == speed.length`
+- `1 <= n <= 10^5`
+- `0 < target <= 10^6`
+- `0 <= position[i] < target`, and all positions are unique.
+- `0 < speed[i] <= 10^6`
+
+#### Intuition
+Each car has an arrival time if unobstructed: `(target - position) / speed`. Process cars from the one closest to the destination backward. A car forms a new fleet only if its arrival time is strictly greater than the arrival time of the fleet ahead. If it is less than or equal, it catches up and merges, so its effective arrival time stays the same.
+
+---
+
+##### Approach 1: Brute Force (Check All Cars Ahead)
+
+**Intuition**: A car is the head of its own fleet if and only if its arrival time exceeds the arrival time of every car ahead of it. A car that is ahead, even if not adjacent, bounds the time of the cars behind it.
+
+**Algorithm**:
+1. Compute `time[i] = (target - position[i]) / speed[i]`.
+2. For each car `i`, check every car `j` with `position[j] > position[i]`. If any has `time[j] >= time[i]`, car `i` merges, so skip it.
+3. Count the cars that do not merge.
+
+```java
+class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        int n = position.length;
+        double[] time = new double[n];
+        for (int i = 0; i < n; i++) {
+            time[i] = (double) (target - position[i]) / speed[i];
+        }
+        int fleets = 0;
+        for (int i = 0; i < n; i++) {
+            boolean head = true;
+            for (int j = 0; j < n; j++) {
+                if (position[j] > position[i] && time[j] >= time[i]) {
+                    head = false;
+                    break;
+                }
+            }
+            if (head) fleets++;
+        }
+        return fleets;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n)$ for the time array
+
+---
+
+##### Approach 2: Better (Sort, then Monotonic Stack of Fleet Times)
+
+**Intuition**: Sort cars by position descending, so each car is processed after the cars ahead of it. Keep a stack of arrival times of the current fleet heads. A new car is a new fleet if its time exceeds the top of the stack. Otherwise it merges into the top fleet.
+
+**Algorithm**:
+1. Sort the cars by position, descending.
+2. For each car with time `t`: if the stack is empty or `t > stack.peek()`, push `t`.
+3. Return the stack size.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+
+class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        int n = position.length;
+        int[][] cars = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            cars[i][0] = position[i];
+            cars[i][1] = speed[i];
+        }
+        Arrays.sort(cars, (a, b) -> b[0] - a[0]);
+        Deque<Double> stack = new ArrayDeque<>();
+        for (int[] car : cars) {
+            double t = (double) (target - car[0]) / car[1];
+            if (stack.isEmpty() || t > stack.peek()) {
+                stack.push(t);
+            }
+        }
+        return stack.size();
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$ for the sort
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Sort, Single Running Fleet Time)
+
+**Intuition**: The stack is only ever read at its top, which is the arrival time of the most recent fleet head. A single variable holding that value is enough. Whenever a car arrives later than it, a new fleet starts and the variable updates.
+
+**Algorithm**:
+1. Sort by position, descending.
+2. `lastTime = -1`, `fleets = 0`.
+3. For each car with time `t`: if `t > lastTime`, `fleets++` and `lastTime = t`.
+4. Return `fleets`.
+
 ```java
 import java.util.Arrays;
 
 class Solution {
     public int carFleet(int target, int[] position, int[] speed) {
         int n = position.length;
-        double[][] cars = new double[n][2];
+        int[][] cars = new int[n][2];
         for (int i = 0; i < n; i++) {
             cars[i][0] = position[i];
-            cars[i][1] = (double)(target - position[i]) / speed[i];
+            cars[i][1] = speed[i];
         }
-        Arrays.sort(cars, (a, b) -> Double.compare(b[0], a[0]));
+        Arrays.sort(cars, (a, b) -> b[0] - a[0]);
+        double lastTime = -1;
         int fleets = 0;
-        double currentFleetTime = 0.0;
-        for (double[] car : cars) {
-            if (car[1] > currentFleetTime) {
+        for (int[] car : cars) {
+            double t = (double) (target - car[0]) / car[1];
+            if (t > lastTime) {
                 fleets++;
-                currentFleetTime = car[1];
+                lastTime = t;
             }
         }
         return fleets;
     }
 }
 ```
-- **Time Complexity**: $O(n \log n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: $O(n \log n)$, dominated by the sort
+- **Space Complexity**: $O(n)$ for the sorted copy
 
 ---
 
@@ -2695,25 +4071,71 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 - **NeetCode**: [Largest Rectangle in Histogram](https://neetcode.io/problems/largest-rectangle-in-histogram)
-- **Data Structures**: Array, Monotonic Stack
-- **Patterns**: Monotonic Increasing Stack
+- **Data Structures**: Array, Stack
+- **Patterns**: Monotonic Increasing Stack, Nearest Smaller Element
 
 #### Problem Description
-Given an array of integers `heights` representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+Given an array of integers `heights` representing the histogram's bar heights, where each bar has width `1`, return the area of the largest rectangle in the histogram.
 
-#### Inputs & Outputs
-- **Input**: `heights = [2,1,5,6,2,3]` -> **Output**: `10` (bars at index 2 and 3 with height 5)
-- **Constraints**: `1 <= heights.length <= 10^5`, `0 <= heights[i] <= 10^4`
+#### Examples
 
-#### Solutions
+**Example 1**
+- **Input**: `heights = [2,1,5,6,2,3]`
+- **Output**: `10`
+- **Explanation**: The rectangle formed by heights `5` and `6` (width 2) has area `10`.
 
-##### Approach 1: Brute Force
-For every pair $(i, j)$, find the minimum height between $i$ and $j$ and compute width $\times$ min-height.
-- **Time Complexity**: $O(n^2)$
+**Example 2**
+- **Input**: `heights = [2,4]`
+- **Output**: `4`
+- **Explanation**: The rectangle using bar `4` alone has area `4`.
+
+#### Constraints
+- `1 <= heights.length <= 10^5`
+- `0 <= heights[i] <= 10^4`
+
+#### Intuition
+For each bar `i`, the largest rectangle that uses bar `i` at its full height extends left and right until it hits a strictly shorter bar. The area is `heights[i] * (right - left - 1)`. The problem is finding those two boundaries quickly for every bar. A monotonic stack finds the nearest shorter bar on each side in a single pass.
+
+---
+
+##### Approach 1: Brute Force (Expand from Each Bar)
+
+**Intuition**: For each bar, expand left and right while neighbours are at least as tall, and record the area.
+
+**Algorithm**:
+1. For each `i`, set `l = i`, `r = i`.
+2. While `l > 0` and `heights[l-1] >= heights[i]`, decrement `l`.
+3. While `r < n-1` and `heights[r+1] >= heights[i]`, increment `r`.
+4. Area is `heights[i] * (r - l + 1)`. Track the maximum.
+
+```java
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length, best = 0;
+        for (int i = 0; i < n; i++) {
+            int l = i, r = i;
+            while (l > 0 && heights[l - 1] >= heights[i]) l--;
+            while (r < n - 1 && heights[r + 1] >= heights[i]) r++;
+            best = Math.max(best, heights[i] * (r - l + 1));
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case, for example an increasing array
 - **Space Complexity**: $O(1)$
 
-##### Approach 2: Optimised / Best (Monotonic Increasing Stack)
-Maintain indices of bars with increasing heights. When a smaller bar appears, pop until monotonic property is restored, computing the area with the popped bar as the minimum height.
+---
+
+##### Approach 2: Better (Precompute Nearest Smaller Boundaries)
+
+**Intuition**: Compute `left[i]`, the index of the nearest bar to the left that is strictly shorter, and `right[i]`, the nearest to the right. Two stack passes do this. Then each bar's area is a constant-time calculation.
+
+**Algorithm**:
+1. Left pass: maintain an increasing stack. For each `i`, pop while `heights[top] >= heights[i]`. `left[i]` is the new top, or `-1`. Push `i`.
+2. Right pass: symmetric, from right to left. `right[i]` is the new top, or `n` if empty.
+3. Area for bar `i` is `heights[i] * (right[i] - left[i] - 1)`.
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -2721,18 +4143,24 @@ import java.util.Deque;
 class Solution {
     public int largestRectangleArea(int[] heights) {
         int n = heights.length;
-        Deque<Integer> stack = new ArrayDeque<>();
-        int maxArea = 0;
-        for (int i = 0; i <= n; i++) {
-            int h = (i == n) ? 0 : heights[i];
-            while (!stack.isEmpty() && h < heights[stack.peek()]) {
-                int height = heights[stack.pop()];
-                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
-                maxArea = Math.max(maxArea, height * width);
-            }
-            stack.push(i);
+        int[] left = new int[n], right = new int[n];
+        Deque<Integer> st = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && heights[st.peek()] >= heights[i]) st.pop();
+            left[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
         }
-        return maxArea;
+        st.clear();
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && heights[st.peek()] >= heights[i]) st.pop();
+            right[i] = st.isEmpty() ? n : st.peek();
+            st.push(i);
+        }
+        int best = 0;
+        for (int i = 0; i < n; i++) {
+            best = Math.max(best, heights[i] * (right[i] - left[i] - 1));
+        }
+        return best;
     }
 }
 ```
@@ -2741,6 +4169,43 @@ class Solution {
 
 ---
 
+##### Approach 3: Optimised / Best (Single Monotonic Stack Pass)
+
+**Intuition**: The right boundary of a bar is found exactly when a shorter bar arrives, and that is when the bar is popped. So the area can be computed at pop time, using the index now on top of the stack as the left boundary. A sentinel height `0` at the end flushes the stack.
+
+**Algorithm**:
+1. For `i` from `0` to `n` inclusive, let `cur = (i == n) ? 0 : heights[i]`.
+2. While the stack is not empty and `heights[top] >= cur`:
+   - Pop `top`, and let `h = heights[top]`.
+   - Left boundary: the new top, or `-1` if empty.
+   - Area is `h * (i - left - 1)`.
+3. Push `i`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length, best = 0;
+        Deque<Integer> st = new ArrayDeque<>();
+        for (int i = 0; i <= n; i++) {
+            int cur = (i == n) ? 0 : heights[i];
+            while (!st.isEmpty() && heights[st.peek()] >= cur) {
+                int h = heights[st.pop()];
+                int left = st.isEmpty() ? -1 : st.peek();
+                best = Math.max(best, h * (i - left - 1));
+            }
+            st.push(i);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
 
 ## 5. Binary Search
 
@@ -2749,18 +4214,43 @@ class Solution {
 - **LeetCode**: [704. Binary Search](https://leetcode.com/problems/binary-search/)
 - **NeetCode**: [Binary Search](https://neetcode.io/problems/binary-search)
 - **Data Structures**: Array
-- **Patterns**: Classic Binary Search
+- **Patterns**: Halving the Search Space
 
 #### Problem Description
-Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`.
+Given an array of integers `nums` sorted in ascending order and an integer `target`, write a function to search for `target` in `nums`. If `target` exists, return its index. Otherwise, return `-1`.
 
-#### Inputs & Outputs
-- **Input**: `nums = [-1,0,3,5,9,12]`, `target = 9` -> **Output**: `4`
-- **Constraints**: `1 <= nums.length <= 10^4`, unique integers, sorted ascending.
+You must write an algorithm with $O(\log n)$ runtime complexity.
 
-#### Solutions
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [-1,0,3,5,9,12]`, `target = 9`
+- **Output**: `4`
+- **Explanation**: `9` exists at index 4.
+
+**Example 2**
+- **Input**: `nums = [-1,0,3,5,9,12]`, `target = 2`
+- **Output**: `-1`
+- **Explanation**: `2` does not exist in the array.
+
+#### Constraints
+- `1 <= nums.length <= 10^4`
+- `-10^4 < nums[i], target < 10^4`
+- All integers in `nums` are unique and sorted in ascending order.
+
+#### Intuition
+Sorted order means that comparing `target` with the middle element tells you which half could contain it. Each comparison discards half the remaining range.
+
+---
 
 ##### Approach 1: Brute Force (Linear Scan)
+
+**Intuition**: Check each element until a match is found. This ignores the sorted order.
+
+**Algorithm**:
+1. For each index `i`, return `i` if `nums[i] == target`.
+2. Otherwise return `-1`.
+
 ```java
 class Solution {
     public int search(int[] nums, int target) {
@@ -2774,16 +4264,59 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
-##### Approach 2: Optimised / Best (Iterative Binary Search)
+---
+
+##### Approach 2: Better (Recursive Binary Search)
+
+**Intuition**: Express the halving directly. Compare with the middle element and recurse into the half that can contain `target`.
+
+**Algorithm**:
+1. `search(lo, hi)`: if `lo > hi`, return `-1`.
+2. `mid = lo + (hi - lo) / 2`.
+3. If `nums[mid] == target`, return `mid`. If `nums[mid] < target`, recurse on `[mid+1, hi]`. Otherwise recurse on `[lo, mid-1]`.
+
 ```java
 class Solution {
     public int search(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) return mid;
-            else if (nums[mid] < target) left = mid + 1;
-            else right = mid - 1;
+        return search(nums, target, 0, nums.length - 1);
+    }
+
+    private int search(int[] nums, int target, int lo, int hi) {
+        if (lo > hi) return -1;
+        int mid = lo + (hi - lo) / 2;
+        if (nums[mid] == target) return mid;
+        if (nums[mid] < target) return search(nums, target, mid + 1, hi);
+        return search(nums, target, lo, mid - 1);
+    }
+}
+```
+- **Time Complexity**: $O(\log n)$
+- **Space Complexity**: $O(\log n)$ for recursion depth
+
+---
+
+##### Approach 3: Optimised / Best (Iterative Binary Search)
+
+**Intuition**: The same halving, written as a loop. This avoids recursion overhead. `lo + (hi - lo) / 2` avoids integer overflow that `(lo + hi) / 2` can cause on large indices.
+
+**Algorithm**:
+1. `lo = 0`, `hi = n - 1`.
+2. While `lo <= hi`: compute `mid`. Return `mid` on a match. Move `lo` or `hi` past `mid`.
+3. Return `-1`.
+
+```java
+class Solution {
+    public int search(int[] nums, int target) {
+        int lo = 0, hi = nums.length - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
         }
         return -1;
     }
@@ -2799,38 +4332,120 @@ class Solution {
 - **LeetCode**: [74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
 - **NeetCode**: [Search 2D Matrix](https://neetcode.io/problems/search-2d-matrix)
 - **Data Structures**: Array, Matrix
-- **Patterns**: Virtual 1D Flattening
+- **Patterns**: Binary Search on a Flattened Index
 
 #### Problem Description
-You are given an `m x n` integer matrix `matrix` with the properties:
-1. Integers in each row are sorted from left to right.
-2. The first integer of each row is greater than the last integer of the previous row.
-Given an integer `target`, return `true` if `target` is in `matrix` or `false` otherwise.
+You are given an `m x n` integer matrix `matrix` with the following properties:
+- Each row is sorted in non-decreasing order.
+- The first integer of each row is greater than the last integer of the previous row.
 
-#### Inputs & Outputs
-- **Input**: `matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]`, `target = 3` -> **Output**: `true`
-- **Constraints**: `m == matrix.length`, `n == matrix[i].length`, `1 <= m, n <= 100`
+Given an integer `target`, return `true` if `target` is in `matrix`, and `false` otherwise. You must write a solution in $O(\log(m \cdot n))$ time.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Two-Step Binary Search (Row then Column)
-Binary search the first column to locate the row, then binary search that row.
-- **Time Complexity**: $O(\log m + \log n)$
+**Example 1**
+- **Input**: `matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]`, `target = 3`
+- **Output**: `true`
+- **Explanation**: `3` is in the first row.
+
+**Example 2**
+- **Input**: `matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]`, `target = 13`
+- **Output**: `false`
+- **Explanation**: `13` falls between `11` and `16`, so it is not in the matrix.
+
+#### Constraints
+- `1 <= m, n <= 100`
+- `-10^4 <= matrix[i][j], target <= 10^4`
+
+#### Intuition
+The matrix properties mean it is effectively one sorted array of length `m*n`, laid out in rows. So one binary search over indices `0..m*n-1` works, mapping each index back to `(index / n, index % n)`.
+
+---
+
+##### Approach 1: Brute Force (Scan Every Cell)
+
+**Intuition**: Check each cell.
+
+**Algorithm**:
+1. For each row and column, return `true` on a match.
+2. Otherwise return `false`.
+
+```java
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        for (int[] row : matrix) {
+            for (int v : row) {
+                if (v == target) return true;
+            }
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(m \cdot n)$
 - **Space Complexity**: $O(1)$
 
-##### Approach 2: Optimised / Best (Virtual 1D Array Binary Search)
-Treat matrix as a virtual 1D array of size $m \times n$. Coordinate mapping: `row = mid / n`, `col = mid % n`.
+---
+
+##### Approach 2: Better (Two Binary Searches: Row, then Column)
+
+**Intuition**: First find the one row that could contain `target`, by binary searching on the first and last element of each row. Then binary search within that row.
+
+**Algorithm**:
+1. Binary search over rows to find the last row whose first element is `<= target`.
+2. Binary search within that row for `target`.
+
 ```java
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length, n = matrix[0].length;
-        int left = 0, right = m * n - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
+        int top = 0, bottom = m - 1;
+        while (top <= bottom) {
+            int mid = top + (bottom - top) / 2;
+            if (matrix[mid][0] <= target && target <= matrix[mid][n - 1]) {
+                int lo = 0, hi = n - 1;
+                while (lo <= hi) {
+                    int c = lo + (hi - lo) / 2;
+                    if (matrix[mid][c] == target) return true;
+                    if (matrix[mid][c] < target) lo = c + 1;
+                    else hi = c - 1;
+                }
+                return false;
+            } else if (target < matrix[mid][0]) {
+                bottom = mid - 1;
+            } else {
+                top = mid + 1;
+            }
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(\log m + \log n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised / Best (Single Binary Search on Flattened Index)
+
+**Intuition**: Treat the matrix as a sorted array of length `m*n`. A flattened index `k` maps to `matrix[k / n][k % n]`. One binary search covers both dimensions.
+
+**Algorithm**:
+1. `lo = 0`, `hi = m*n - 1`.
+2. `mid = lo + (hi - lo) / 2`, and `val = matrix[mid / n][mid % n]`.
+3. Compare `val` with `target` and halve the range as usual.
+
+```java
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length, n = matrix[0].length;
+        int lo = 0, hi = m * n - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
             int val = matrix[mid / n][mid % n];
             if (val == target) return true;
-            else if (val < target) left = mid + 1;
-            else right = mid - 1;
+            if (val < target) lo = mid + 1;
+            else hi = mid - 1;
         }
         return false;
     }
@@ -2844,41 +4459,98 @@ class Solution {
 ### 5.3 Koko Eating Bananas
 - **Difficulty**: Medium
 - **LeetCode**: [875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
-- **NeetCode**: [Eating Bananas](https://neetcode.io/problems/eating-bananas)
+- **NeetCode**: [Koko Eating Bananas](https://neetcode.io/problems/eating-bananas)
 - **Data Structures**: Array
-- **Patterns**: Binary Search on Solution Space
+- **Patterns**: Binary Search on the Answer
 
 #### Problem Description
-Koko loves to eat bananas. There are `n` piles of bananas, the $i^{\text{th}}$ pile has `piles[i]` bananas. The guards will come back in `h` hours. Koko can decide her bananas-per-hour eating speed of `k`. Each hour, she chooses some pile and eats `k` bananas from that pile. Return the minimum integer `k` such that she can eat all bananas within `h` hours.
+Koko has `n` piles of bananas. The `i`-th pile has `piles[i]` bananas. The guards will return in `h` hours. Koko eats at a constant speed `k` bananas per hour. Each hour she chooses a pile, eats `k` bananas from it. If the pile has fewer than `k` bananas, she eats them all and does not eat more that hour.
 
-#### Inputs & Outputs
-- **Input**: `piles = [3,6,7,11]`, `h = 8` -> **Output**: `4`
-- **Constraints**: `1 <= piles.length <= 10^4`, `piles.length <= h <= 10^9`, `1 <= piles[i] <= 10^9`
+Return the minimum integer speed `k` such that Koko can eat all the bananas within `h` hours.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Optimised / Best (Binary Search on Eating Speed)
-Lower bound `left = 1`, upper bound `right = max(piles)`. If she can finish in $\le h$ hours, try a slower speed (`right = mid - 1`).
+**Example 1**
+- **Input**: `piles = [3,6,7,11]`, `h = 8`
+- **Output**: `4`
+- **Explanation**: At speed 4, the piles take `1 + 2 + 2 + 3 = 8` hours.
+
+**Example 2**
+- **Input**: `piles = [30,11,23,4,20]`, `h = 5`
+- **Output**: `30`
+- **Explanation**: Each pile must be finished in one hour, so `k` must be at least the largest pile.
+
+#### Constraints
+- `1 <= piles.length <= 10^4`
+- `piles.length <= h <= 10^9`
+- `1 <= piles[i] <= 10^9`
+
+#### Intuition
+Feasibility is monotone. If speed `k` finishes in time, every speed greater than `k` also does. So the answer is the smallest feasible `k`, which is a classic "first true" search. The speed lies in `[1, max(piles)]`. For a given `k`, hours needed is `sum(ceil(piles[i] / k))`, computed in linear time.
+
+---
+
+##### Approach 1: Brute Force (Try Every Speed)
+
+**Intuition**: Try each speed from `1` upward, and return the first one that is feasible.
+
+**Algorithm**:
+1. For `k` from `1` to `max(piles)`:
+   - Compute `hours = sum(ceil(piles[i] / k))`.
+   - If `hours <= h`, return `k`.
+
 ```java
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int left = 1, right = 1;
-        for (int p : piles) right = Math.max(right, p);
-        int ans = right;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
+        int maxPile = 0;
+        for (int p : piles) maxPile = Math.max(maxPile, p);
+        for (int k = 1; k <= maxPile; k++) {
             long hours = 0;
             for (int p : piles) {
-                hours += (p + mid - 1) / mid;
+                hours += (p + k - 1) / k;
             }
-            if (hours <= h) {
-                ans = mid;
-                right = mid - 1;
+            if (hours <= h) return k;
+        }
+        return maxPile;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot \max(\text{piles}))$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Optimised / Best (Binary Search on the Answer)
+
+**Intuition**: Feasibility is monotone in `k`, so binary search for the smallest feasible value. Each probe costs $O(n)$. Since the range is at most $10^9$, that is about 30 probes. `hours` is accumulated in a `long` because the sum can exceed the `int` range.
+
+**Algorithm**:
+1. `lo = 1`, `hi = max(piles)`.
+2. While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `hoursFor(mid) <= h`, set `hi = mid`. Otherwise set `lo = mid + 1`.
+3. Return `lo`.
+
+```java
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int lo = 1, hi = 0;
+        for (int p : piles) hi = Math.max(hi, p);
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (hoursFor(piles, mid) <= h) {
+                hi = mid;
             } else {
-                left = mid + 1;
+                lo = mid + 1;
             }
         }
-        return ans;
+        return lo;
+    }
+
+    private long hoursFor(int[] piles, int k) {
+        long hours = 0;
+        for (int p : piles) {
+            hours += (p + k - 1) / k;
+        }
+        return hours;
     }
 }
 ```
@@ -2892,32 +4564,117 @@ class Solution {
 - **LeetCode**: [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
 - **NeetCode**: [Find Minimum in Rotated Sorted Array](https://neetcode.io/problems/find-minimum-in-rotated-sorted-array)
 - **Data Structures**: Array
-- **Patterns**: Rotated Binary Search / Inflection Point
+- **Patterns**: Binary Search on Rotated Array
 
 #### Problem Description
-Suppose an array of length `n` sorted in ascending order is rotated between 1 and `n` times. Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. Algorithm must run in $O(\log n)$ time.
+Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. Given the sorted rotated array `nums` of **unique** elements, return the minimum element.
 
-#### Inputs & Outputs
-- **Input**: `nums = [3,4,5,1,2]` -> **Output**: `1`
-- **Constraints**: `1 <= nums.length <= 5000`, `-5000 <= nums[i] <= 5000`, unique elements.
+You must write an algorithm that runs in $O(\log n)$ time.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Optimised / Best (Binary Search with Right Comparison)
-Compare `nums[mid]` with `nums[right]`. If `nums[mid] > nums[right]`, the min lies strictly in the right half (`left = mid + 1`). Otherwise `right = mid`.
+**Example 1**
+- **Input**: `nums = [3,4,5,1,2]`
+- **Output**: `1`
+- **Explanation**: The original array was `[1,2,3,4,5]`, rotated three times.
+
+**Example 2**
+- **Input**: `nums = [4,5,6,7,0,1,2]`
+- **Output**: `0`
+- **Explanation**: The minimum `0` is at index 4.
+
+#### Constraints
+- `1 <= n <= 5000`
+- `-5000 <= nums[i] <= 5000`
+- All integers are unique.
+- `nums` is sorted and rotated between `1` and `n` times.
+
+#### Intuition
+The array consists of two ascending runs, and the minimum is the first element of the second run, which is the pivot. Compare `nums[mid]` with `nums[hi]`. If `nums[mid] > nums[hi]`, the pivot lies strictly to the right of `mid`. Otherwise the pivot is at `mid` or to its left.
+
+---
+
+##### Approach 1: Brute Force (Linear Scan)
+
+**Intuition**: The minimum is the smallest value. Scan for it.
+
+**Algorithm**:
+1. Track the smallest value seen.
+2. Return it.
+
 ```java
 class Solution {
     public int findMin(int[] nums) {
-        int left = 0, right = nums.length - 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] > nums[right]) {
-                left = mid + 1;
+        int min = nums[0];
+        for (int v : nums) {
+            min = Math.min(min, v);
+        }
+        return min;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Optimised (Binary Search with Early Exit on Sorted Range)
+
+**Intuition**: If `nums[lo] <= nums[hi]`, the current range is not rotated, so its first element is the minimum. Return immediately. Otherwise, binary search for the pivot.
+
+**Algorithm**:
+1. `lo = 0`, `hi = n - 1`.
+2. While `lo < hi`:
+   - If `nums[lo] < nums[hi]`, return `nums[lo]`.
+   - `mid = lo + (hi - lo) / 2`. If `nums[mid] > nums[hi]`, `lo = mid + 1`. Otherwise `hi = mid`.
+3. Return `nums[lo]`.
+
+```java
+class Solution {
+    public int findMin(int[] nums) {
+        int lo = 0, hi = nums.length - 1;
+        while (lo < hi) {
+            if (nums[lo] < nums[hi]) {
+                return nums[lo];
+            }
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] > nums[hi]) {
+                lo = mid + 1;
             } else {
-                right = mid;
+                hi = mid;
             }
         }
-        return nums[left];
+        return nums[lo];
+    }
+}
+```
+- **Time Complexity**: $O(\log n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Best (Binary Search Comparing Mid with Right Bound)
+
+**Intuition**: The standard form. It always keeps the candidate pivot inside `[lo, hi]` and never needs the early exit. Since the elements are unique, `nums[mid] > nums[hi]` means the minimum is strictly right of `mid`, and `nums[mid] <= nums[hi]` means `mid` could be the minimum, so `hi = mid` keeps it.
+
+**Algorithm**:
+1. `lo = 0`, `hi = n - 1`.
+2. While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `nums[mid] > nums[hi]`, `lo = mid + 1`; else `hi = mid`.
+3. Return `nums[lo]`.
+
+```java
+class Solution {
+    public int findMin(int[] nums) {
+        int lo = 0, hi = nums.length - 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] > nums[hi]) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        return nums[lo];
     }
 }
 ```
@@ -2929,39 +4686,141 @@ class Solution {
 ### 5.5 Search in Rotated Sorted Array
 - **Difficulty**: Medium
 - **LeetCode**: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
-- **NeetCode**: [Find Target in Rotated Sorted Array](https://neetcode.io/problems/find-target-in-rotated-sorted-array)
+- **NeetCode**: [Search in Rotated Sorted Array](https://neetcode.io/problems/find-target-in-rotated-sorted-array)
 - **Data Structures**: Array
-- **Patterns**: Binary Search with Sorted Half Identification
+- **Patterns**: Binary Search, Identify Sorted Half
 
 #### Problem Description
-Given the array `nums` after the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`. Algorithm must run in $O(\log n)$ time.
+An integer array `nums` sorted in ascending order (with distinct values) has been rotated at some pivot index `k`. Given the array after rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not.
 
-#### Inputs & Outputs
-- **Input**: `nums = [4,5,6,7,0,1,2]`, `target = 0` -> **Output**: `4`
-- **Input**: `nums = [4,5,6,7,0,1,2]`, `target = 3` -> **Output**: `-1`
+You must write an algorithm with $O(\log n)$ runtime complexity.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Optimised / Best (Sorted Half Elimination)
-At any `mid`, at least one half (left or right) is guaranteed to be normally sorted. Check if `target` falls in the sorted half; if so, search there, else search the other half.
+**Example 1**
+- **Input**: `nums = [4,5,6,7,0,1,2]`, `target = 0`
+- **Output**: `4`
+- **Explanation**: `0` is at index 4.
+
+**Example 2**
+- **Input**: `nums = [4,5,6,7,0,1,2]`, `target = 3`
+- **Output**: `-1`
+- **Explanation**: `3` is not in the array.
+
+#### Constraints
+- `1 <= nums.length <= 5000`
+- `-10^4 <= nums[i], target <= 10^4`
+- All values in `nums` are unique.
+- `nums` is sorted ascending and possibly rotated.
+
+#### Intuition
+At any midpoint, at least one of the two halves is sorted. Identify which half is sorted by comparing endpoints. If `target` lies within the sorted half's range, search there. Otherwise search the other half. This keeps the halving property.
+
+---
+
+##### Approach 1: Brute Force (Linear Scan)
+
+**Intuition**: Ignore the rotation and scan.
+
+**Algorithm**:
+1. Return the index where `nums[i] == target`.
+2. Return `-1` if none.
+
 ```java
 class Solution {
     public int search(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) return i;
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Find Pivot, Then Standard Binary Search)
+
+**Intuition**: Two stages. First find the index of the minimum, which is the rotation pivot. The array is then two sorted runs, `[0, p-1]` and `[p, n-1]`. The target's range decides which run to binary search.
+
+**Algorithm**:
+1. Find pivot `p` = index of the minimum (binary search from Problem 5.4).
+2. Determine the search range: if `target >= nums[0]`, the range is `[0, p-1]`. Otherwise, it is `[p, n-1]`. If `p == 0`, use the whole array.
+3. Standard binary search in that range.
+
+```java
+class Solution {
+    public int search(int[] nums, int target) {
+        int n = nums.length;
+        int lo = 0, hi = n - 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] > nums[hi]) lo = mid + 1;
+            else hi = mid;
+        }
+        int p = lo;
+
+        if (p != 0) {
+            if (target >= nums[0]) {
+                lo = 0;
+                hi = p - 1;
+            } else {
+                lo = p;
+                hi = n - 1;
+            }
+        } else {
+            lo = 0;
+            hi = n - 1;
+        }
+
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
             if (nums[mid] == target) return mid;
-            if (nums[left] <= nums[mid]) { // Left half sorted
-                if (target >= nums[left] && target < nums[mid]) {
-                    right = mid - 1;
+            if (nums[mid] < target) lo = mid + 1;
+            else hi = mid - 1;
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(\log n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised / Best (Single Binary Search with Sorted-Half Test)
+
+**Intuition**: One pass suffices. At each `mid`, determine which side is sorted, using `nums[lo] <= nums[mid]`. If the left side is sorted and `target` lies in `[nums[lo], nums[mid])`, keep the left. Otherwise keep the right. If the right side is sorted, apply the mirror test with `(nums[mid], nums[hi]]`.
+
+**Algorithm**:
+1. `lo = 0`, `hi = n - 1`. While `lo <= hi`:
+   - If `nums[mid] == target`, return `mid`.
+   - If `nums[lo] <= nums[mid]` (left sorted):
+     - If `nums[lo] <= target < nums[mid]`, `hi = mid - 1`. Else `lo = mid + 1`.
+   - Else (right sorted):
+     - If `nums[mid] < target <= nums[hi]`, `lo = mid + 1`. Else `hi = mid - 1`.
+2. Return `-1`.
+
+```java
+class Solution {
+    public int search(int[] nums, int target) {
+        int lo = 0, hi = nums.length - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] == target) return mid;
+            if (nums[lo] <= nums[mid]) {
+                if (nums[lo] <= target && target < nums[mid]) {
+                    hi = mid - 1;
                 } else {
-                    left = mid + 1;
+                    lo = mid + 1;
                 }
-            } else { // Right half sorted
-                if (target > nums[mid] && target <= nums[right]) {
-                    left = mid + 1;
+            } else {
+                if (nums[mid] < target && target <= nums[hi]) {
+                    lo = mid + 1;
                 } else {
-                    right = mid - 1;
+                    hi = mid - 1;
                 }
             }
         }
@@ -2978,61 +4837,157 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [981. Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/)
 - **NeetCode**: [Time Based Key-Value Store](https://neetcode.io/problems/time-based-key-value-store)
-- **Data Structures**: Hash Table, Binary Search, ArrayList
-- **Patterns**: Hash Table + Binary Search on Timestamps
+- **Data Structures**: Hash Map, Array, Ordered Map
+- **Patterns**: Versioned Store, Floor Lookup
 
 #### Problem Description
-Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key's value at a certain timestamp.
-- `set(String key, String value, int timestamp)`: Stores key with value at timestamp.
-- `get(String key, int timestamp)`: Returns value with largest `timestamp_prev <= timestamp`. If no such timestamp, returns `""`.
+Design a time-based key-value data structure that can store multiple values for the same key at different timestamps, and retrieve the key's value at a certain timestamp.
 
-#### Solutions
+Implement the `TimeMap` class:
+- `TimeMap()` initialises the object.
+- `void set(String key, String value, int timestamp)` stores `key` with `value` at `timestamp`. Timestamps for a given key are strictly increasing.
+- `String get(String key, int timestamp)` returns the value of the **most recent** timestamp `prev <= timestamp`. If there is none, return `""`.
 
-##### Approach 1: Optimised / Best (HashMap + ArrayList + Binary Search)
-Since timestamps in `set` are strictly increasing, each key's list is sorted by timestamp. Binary search `floor` timestamp in $O(\log n)$.
+#### Examples
+
+**Example 1**
+- **Input**: `set("foo","bar",1)`, `get("foo",1)`, `get("foo",3)`, `set("foo","bar2",4)`, `get("foo",4)`, `get("foo",5)`
+- **Output**: `"bar"`, `"bar"`, `"bar2"`, `"bar2"`
+- **Explanation**: At timestamp 3, the latest value at or before 3 is `"bar"` (set at 1). At timestamp 4, `"bar2"` is set.
+
+**Example 2**
+- **Input**: `set("love","high",10)`, `set("love","low",20)`, `get("love",5)`, `get("love",10)`, `get("love",15)`, `get("love",20)`, `get("love",25)`
+- **Output**: `""`, `"high"`, `"high"`, `"low"`, `"low"`
+- **Explanation**: Before timestamp 10 there is no value. From 10 to 19 the value is `"high"`. From 20 onward it is `"low"`.
+
+#### Constraints
+- `1 <= key.length, value.length <= 100`
+- `1 <= timestamp <= 10^7`
+- Timestamps in `set` are strictly increasing for each key.
+- At most `2 * 10^5` calls in total.
+
+#### Intuition
+Each key holds a timeline of `(timestamp, value)` pairs in increasing order of timestamp, since `set` calls arrive in order. `get` is therefore a "floor" query: find the last entry whose timestamp is at most the target. That is a binary search over a sorted list.
+
+---
+
+##### Approach 1: Brute Force (Linear Scan from the End)
+
+**Intuition**: Store each key's history in a list. For `get`, walk from the newest entry backward until one has a timestamp at most the query.
+
+**Algorithm**:
+1. `set` appends `(timestamp, value)` to the key's list.
+2. `get` iterates from the last entry to the first, returning the first with `ts <= timestamp`. Otherwise return `""`.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class TimeMap {
-    private static class Entry {
-        int timestamp;
-        String value;
-        Entry(int timestamp, String value) {
-            this.timestamp = timestamp;
-            this.value = value;
-        }
-    }
-
-    private Map<String, List<Entry>> map;
-
-    public TimeMap() {
-        map = new HashMap<>();
-    }
+    private record Pair(int ts, String val) {}
+    private final Map<String, List<Pair>> store = new HashMap<>();
 
     public void set(String key, String value, int timestamp) {
-        map.computeIfAbsent(key, k -> new ArrayList<>()).add(new Entry(timestamp, value));
+        store.computeIfAbsent(key, k -> new ArrayList<>()).add(new Pair(timestamp, value));
     }
 
     public String get(String key, int timestamp) {
-        if (!map.containsKey(key)) return "";
-        List<Entry> list = map.get(key);
-        int left = 0, right = list.size() - 1;
-        String res = "";
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (list.get(mid).timestamp <= timestamp) {
-                res = list.get(mid).value;
-                left = mid + 1;
-            } else {
-                right = mid - 1;
+        List<Pair> list = store.get(key);
+        if (list == null) return "";
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (list.get(i).ts() <= timestamp) {
+                return list.get(i).val();
             }
         }
-        return res;
+        return "";
     }
 }
 ```
-- **Time Complexity**: `set`: $O(1)$, `get`: $O(\log n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: `set` is $O(1)$ amortised; `get` is $O(k)$, where $k$ is the number of entries for that key
+- **Space Complexity**: $O(N)$ total stored entries
+
+---
+
+##### Approach 2: Better (TreeMap with floorEntry)
+
+**Intuition**: A `TreeMap` keeps timestamps sorted, and `floorEntry(ts)` returns the greatest key `<= ts` directly. This is the natural ordered-map solution.
+
+**Algorithm**:
+1. `set` puts `timestamp -> value` into the key's `TreeMap`.
+2. `get` calls `floorEntry(timestamp)` and returns its value, or `""` if null.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+class TimeMap {
+    private final Map<String, TreeMap<Integer, String>> store = new HashMap<>();
+
+    public void set(String key, String value, int timestamp) {
+        store.computeIfAbsent(key, k -> new TreeMap<>()).put(timestamp, value);
+    }
+
+    public String get(String key, int timestamp) {
+        TreeMap<Integer, String> tm = store.get(key);
+        if (tm == null) return "";
+        Map.Entry<Integer, String> e = tm.floorEntry(timestamp);
+        return e == null ? "" : e.getValue();
+    }
+}
+```
+- **Time Complexity**: $O(\log N)$ per `set` and `get`
+- **Space Complexity**: $O(N)$
+
+---
+
+##### Approach 3: Optimised / Best (Parallel Sorted Lists with Manual Binary Search)
+
+**Intuition**: Timestamps are appended in increasing order, so each key's timestamp list is already sorted, and a plain `ArrayList` suffices. Use binary search for the last index with `ts <= timestamp`. This avoids the tree-node overhead of `TreeMap` and is cache-friendlier.
+
+**Algorithm**:
+1. Each key maps to two parallel lists: `times` and `values`.
+2. `set` appends to both.
+3. `get`: binary search for the largest index `m` with `times[m] <= timestamp`. Track the best candidate found so far. Return `values[m]` or `""`.
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class TimeMap {
+    private final Map<String, List<Integer>> times = new HashMap<>();
+    private final Map<String, List<String>> values = new HashMap<>();
+
+    public void set(String key, String value, int timestamp) {
+        times.computeIfAbsent(key, k -> new ArrayList<>()).add(timestamp);
+        values.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
+    }
+
+    public String get(String key, int timestamp) {
+        List<Integer> ts = times.get(key);
+        if (ts == null) return "";
+        List<String> vs = values.get(key);
+        int lo = 0, hi = ts.size() - 1;
+        String ans = "";
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (ts.get(mid) <= timestamp) {
+                ans = vs.get(mid);
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        return ans;
+    }
+}
+```
+- **Time Complexity**: $O(\log N)$ per `get`, $O(1)$ amortised per `set`
+- **Space Complexity**: $O(N)$
 
 ---
 
@@ -3040,59 +4995,148 @@ class TimeMap {
 - **Difficulty**: Hard
 - **LeetCode**: [4. Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)
 - **NeetCode**: [Median of Two Sorted Arrays](https://neetcode.io/problems/median-of-two-sorted-arrays)
-- **Data Structures**: Array, Binary Search
-- **Patterns**: Partition Binary Search
+- **Data Structures**: Array
+- **Patterns**: Binary Search on Partition
 
 #### Problem Description
-Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays. The overall run time complexity should be $O(\log(m+n))$.
+Given two sorted arrays `nums1` and `nums2` of sizes `m` and `n`, return the median of the two combined sorted arrays.
 
-#### Inputs & Outputs
-- **Input**: `nums1 = [1,3]`, `nums2 = [2]` -> **Output**: `2.0`
-- **Input**: `nums1 = [1,2]`, `nums2 = [3,4]` -> **Output**: `2.5`
-- **Constraints**: `0 <= m, n <= 1000`, `1 <= m + n <= 2000`
+The overall run time complexity should be $O(\log(m+n))$.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Brute Force (Merge Arrays)
-Merge two arrays into a single sorted array of size $m + n$ and take middle element(s).
-- **Time Complexity**: $O(m + n)$
-- **Space Complexity**: $O(m + n)$
+**Example 1**
+- **Input**: `nums1 = [1,3]`, `nums2 = [2]`
+- **Output**: `2.0`
+- **Explanation**: The merged array is `[1,2,3]`, and the median is `2`.
 
-##### Approach 2: Optimised / Best (Binary Search on Smaller Array Partition)
-Binary search the partition index `i` in smaller array `nums1` and compute `j = (m + n + 1) / 2 - i`. Partition is valid if `nums1[i-1] <= nums2[j]` and `nums2[j-1] <= nums1[i]`.
+**Example 2**
+- **Input**: `nums1 = [1,2]`, `nums2 = [3,4]`
+- **Output**: `2.5`
+- **Explanation**: The merged array is `[1,2,3,4]`, and the median is `(2 + 3) / 2 = 2.5`.
+
+#### Constraints
+- `0 <= m, n <= 1000`
+- `1 <= m + n <= 2000`
+- `-10^6 <= nums1[i], nums2[i] <= 10^6`
+
+#### Intuition
+The median splits the combined sorted sequence into two halves of (nearly) equal size, where every element on the left is `<=` every element on the right. Instead of merging, find a split point in each array such that the left parts together hold half the elements and the boundary condition holds. Binary searching over the split point of the smaller array gives $O(\log \min(m, n))$.
+
+---
+
+##### Approach 1: Brute Force (Merge and Take the Middle)
+
+**Intuition**: Merge the two sorted arrays fully, then read off the middle.
+
+**Algorithm**:
+1. Merge `nums1` and `nums2` into `merged` (standard two-pointer merge).
+2. If the length is odd, return the middle element. Otherwise return the average of the two middle elements.
+
 ```java
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if (nums1.length > nums2.length) {
-            return findMedianSortedArrays(nums2, nums1);
-        }
         int m = nums1.length, n = nums2.length;
-        int left = 0, right = m;
-        while (left <= right) {
-            int i = left + (right - left) / 2;
-            int j = (m + n + 1) / 2 - i;
-            int maxLeft1 = (i == 0) ? Integer.MIN_VALUE : nums1[i - 1];
-            int minRight1 = (i == m) ? Integer.MAX_VALUE : nums1[i];
-            int maxLeft2 = (j == 0) ? Integer.MIN_VALUE : nums2[j - 1];
-            int minRight2 = (j == n) ? Integer.MAX_VALUE : nums2[j];
+        int[] merged = new int[m + n];
+        int i = 0, j = 0, k = 0;
+        while (i < m && j < n) {
+            merged[k++] = nums1[i] <= nums2[j] ? nums1[i++] : nums2[j++];
+        }
+        while (i < m) merged[k++] = nums1[i++];
+        while (j < n) merged[k++] = nums2[j++];
+        int total = m + n;
+        if (total % 2 == 1) {
+            return merged[total / 2];
+        }
+        return (merged[total / 2 - 1] + merged[total / 2]) / 2.0;
+    }
+}
+```
+- **Time Complexity**: $O(m + n)$
+- **Space Complexity**: $O(m + n)$
 
-            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
-                if ((m + n) % 2 == 1) {
-                    return Math.max(maxLeft1, maxLeft2);
-                } else {
-                    return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2.0;
-                }
-            } else if (maxLeft1 > minRight2) {
-                right = i - 1;
+---
+
+##### Approach 2: Better (Two-Pointer Walk to the Middle, No Extra Array)
+
+**Intuition**: The median only needs the elements at positions `total/2` and `total/2 - 1`. Walk the merge process just far enough to reach those positions, keeping the previous and current values. No merged array is stored.
+
+**Algorithm**:
+1. Walk `k` from `0` to `total/2`, each step taking the smaller head of the two arrays.
+2. Keep `prev` (the element before the current one) and `curr`.
+3. If `total` is odd, return `curr`. Otherwise return `(prev + curr) / 2.0`.
+
+```java
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length, total = m + n;
+        int i = 0, j = 0, prev = 0, curr = 0;
+        for (int k = 0; k <= total / 2; k++) {
+            prev = curr;
+            if (i < m && (j >= n || nums1[i] <= nums2[j])) {
+                curr = nums1[i++];
             } else {
-                left = i + 1;
+                curr = nums2[j++];
+            }
+        }
+        if (total % 2 == 1) return curr;
+        return (prev + curr) / 2.0;
+    }
+}
+```
+- **Time Complexity**: $O(m + n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised / Best (Binary Search on Partition)
+
+**Intuition**: Partition `A` (the smaller array) at index `i` and `B` at index `j = half - i`, where `half` is the size of the left half. The partition is valid when every left element is at most every right element, which means `A[i-1] <= B[j]` and `B[j-1] <= A[i]`. Binary search on `i` in `A`. If `A[i-1] > B[j]`, the cut in `A` is too far right. If `B[j-1] > A[i]`, it is too far left. Sentinels `±infinity` handle empty sides.
+
+**Algorithm**:
+1. Ensure `m <= n` by swapping if needed.
+2. `half = (m + n + 1) / 2`. Binary search `i` in `[0, m]`:
+   - `j = half - i`.
+   - `aLeft = i == 0 ? -inf : A[i-1]`, `aRight = i == m ? +inf : A[i]`.
+   - `bLeft = j == 0 ? -inf : B[j-1]`, `bRight = j == n ? +inf : B[j]`.
+   - If `aLeft <= bRight` and `bLeft <= aRight`: this is the partition. Return the median from the boundary values.
+   - If `aLeft > bRight`, `hi = i - 1`. Otherwise `lo = i + 1`.
+3. For odd total, return `max(aLeft, bLeft)`. For even total, return `(max(aLeft, bLeft) + min(aRight, bRight)) / 2.0`.
+
+```java
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int[] A = nums1, B = nums2;
+        if (A.length > B.length) {
+            int[] tmp = A; A = B; B = tmp;
+        }
+        int m = A.length, n = B.length;
+        int half = (m + n + 1) / 2;
+        int lo = 0, hi = m;
+        while (lo <= hi) {
+            int i = lo + (hi - lo) / 2;
+            int j = half - i;
+            double aLeft = i == 0 ? Double.NEGATIVE_INFINITY : A[i - 1];
+            double aRight = i == m ? Double.POSITIVE_INFINITY : A[i];
+            double bLeft = j == 0 ? Double.NEGATIVE_INFINITY : B[j - 1];
+            double bRight = j == n ? Double.POSITIVE_INFINITY : B[j];
+
+            if (aLeft <= bRight && bLeft <= aRight) {
+                if ((m + n) % 2 == 1) {
+                    return Math.max(aLeft, bLeft);
+                }
+                return (Math.max(aLeft, bLeft) + Math.min(aRight, bRight)) / 2.0;
+            } else if (aLeft > bRight) {
+                hi = i - 1;
+            } else {
+                lo = i + 1;
             }
         }
         return 0.0;
     }
 }
 ```
-- **Time Complexity**: $O(\log(\min(m, n)))$
+- **Time Complexity**: $O(\log \min(m, n))$
 - **Space Complexity**: $O(1)$
 
 ---
