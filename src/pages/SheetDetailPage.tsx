@@ -1,5 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
-import { PageShell } from '../components/layout/index.ts';
+import { Link, useParams } from 'react-router-dom';import { PageShell } from '../components/layout/index.ts';
 import { getSheet } from '../content/sheets/index.ts';
 import { findTopicBySlug, getProblem } from '../utils/content.ts';
 import { useSheetProgress } from '../utils/sheetProgress.ts';
@@ -137,8 +136,14 @@ export default function SheetDetailPage() {
                       if (!problem) return <li key={id}>{id}</li>;
                       return (
                         <li key={id}>
-                          <a href={problem.leetcodeUrl} target="_blank" rel="noreferrer">
-                            {problem.title} ↗
+                          <Link to={`/problems/${problem.slug}`}>{problem.title}</Link>{' '}
+                          <a
+                            href={problem.leetcodeUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="sheet-day__leet"
+                          >
+                            ↗
                           </a>
                         </li>
                       );

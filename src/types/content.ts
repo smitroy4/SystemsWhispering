@@ -124,3 +124,36 @@ export interface VizStep {
 export function leetCodeUrl(slug: string): string {
   return `https://leetcode.com/problems/${slug}/`;
 }
+
+/** One worked solution shown inside a solution tab. */
+export interface ProblemSolution {
+  /** Tab label, e.g. 'Brute Force', 'Optimised', 'Better', 'Best'. */
+  label: string;
+  /** Short plain-language intuition for the approach. */
+  intuition?: string;
+  /** Step-by-step algorithm description, one line per step. */
+  algorithm?: string[];
+  /** Idiomatic Java solution. */
+  code: string;
+  /** Complexity summary displayed under the code block. */
+  complexity: { time: string; space: string };
+}
+
+/** One input/output example from the problem statement. */
+export interface ProblemExample {
+  input: string;
+  output: string;
+  explanation?: string;
+}
+
+/** Full problem-page content for a single LeetCode problem. */
+export interface ProblemContent {
+  slug: string;
+  title: string;
+  difficulty: ProblemDifficulty;
+  /** Problem statement in markdown-lite (rendered by renderMarkdownLite). */
+  description: string;
+  examples: ProblemExample[];
+  constraints?: string;
+  solutions: ProblemSolution[];
+}

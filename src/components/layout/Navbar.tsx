@@ -64,6 +64,7 @@ const NAV_MENUS: NavMenu[] = [
   {
     label: 'The Backend Craft',
     items: [
+      { label: 'Java: The Backbone', to: '/java' },
       { label: 'Spring: Systems Bloom' },
       { label: 'Cloud-native Architecture' },
       { label: 'The Persistence Layer' },

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { PageShell } from '../components/layout/index.ts';
 import { Badge } from '../components/ui/index.ts';
 import type { ProblemDifficulty } from '../types/content.ts';
@@ -221,7 +221,9 @@ export default function ProblemsPage() {
                   />
                 </label>
                 <div className="problem-row__main">
-                  <span className="problem-row__title">{problem.title}</span>
+                  <Link to={`/problems/${problem.slug}`} className="problem-row__title">
+                    {problem.title}
+                  </Link>
                   <span className="problem-row__tags">
                     {problem.dataStructures.map((ds) => (
                       <span key={ds} className="problem-row__tag">

@@ -8,12 +8,15 @@ import {
   DataStructuresPage,
   DevVizPage,
   HomePage,
+  JavaPage,
+  JavaTopicPage,
   LldPage,
   LldTopicPage,
   NotFoundPage,
   ProblemsPage,
   SheetDetailPage,
   SheetsPage,
+  ProblemDetailPage,
 } from '../pages/index.ts';
 
 export default function AppRoutes() {
@@ -29,9 +32,12 @@ export default function AppRoutes() {
       <Route path="/problems" element={<ProblemsPage />} />
       <Route path="/sheets" element={<SheetsPage />} />
       <Route path="/sheets/:slug" element={<SheetDetailPage />} />
+      <Route path="/problems/:slug" element={<ProblemDetailPage />} />
       <Route path="/lld" element={<LldPage />} />
       <Route path="/lld/:module/:topic" element={<LldTopicPage />} />
       <Route path="/dev/viz" element={<DevVizPage />} />
+      <Route path="/java" element={<JavaPage />} />
+      <Route path="/java/:module/:topic" element={<JavaTopicPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
