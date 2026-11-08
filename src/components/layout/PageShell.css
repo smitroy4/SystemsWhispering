@@ -26,6 +26,7 @@
     grid-template-columns: 1fr 18rem;
     gap: var(--space-8);
     align-items: start;
+    position: relative;
   }
 
   .page-shell__title {

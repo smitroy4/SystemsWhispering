@@ -106,3 +106,64 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.roadmap {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+.roadmap__goal {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.roadmap__meta {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.roadmap__label {
+  font-weight: 600;
+}
+
+.roadmap__sub {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.roadmap__topics {
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.roadmap__topic {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.roadmap__topic-title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.roadmap__topic-desc {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.roadmap__project {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}

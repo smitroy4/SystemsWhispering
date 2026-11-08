@@ -1,4 +1,4 @@
-import { Footer, Navbar } from '../components/layout/index.ts';
+import { Footer, Navbar, GoToTopButton } from '../components/layout/index.ts';
 import { useTheme } from '../utils/theme.ts';
 import AppRoutes from './routes.tsx';
 import { useLocation } from 'react-router-dom';
@@ -26,6 +26,7 @@ export default function App() {
           <AppRoutes />
         </div>
       </main>
+      <GoToTopButton />
       <Footer />
     </>
   );

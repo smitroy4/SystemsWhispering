@@ -211,38 +211,70 @@
 
 /* Sticky LeetCode button (below sidebar, transparent circle, logo only) */
 .pd-leetcode-sticky {
-  position: fixed;
-  top: calc(var(--navbar-height) + var(--space-6));
-  right: var(--space-4);
-  z-index: 1000;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: transparent;
+  width: 72px;
+  height: 72px;
+  background: var(--color-bg);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-full);
   text-decoration: none;
-  transition: none;
+  transition: transform 200ms ease, border-color 200ms ease;
   cursor: pointer;
+  /* Subtle continuous float so users notice the button */
+  animation: leetcode-float 3s ease-in-out infinite;
+}
+
+/* Dark mode background */
+[data-theme="dark"] .pd-leetcode-sticky {
+  background: #FAF8F4;
+}
+
+.pd-leetcode-sticky:hover {
+  animation-play-state: paused;
+  transform: scale(1.12);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-sm);
 }
 
 .pd-leetcode-sticky img {
-  width: 24px;
-  height: 24px;
+  width: 38px;
+  height: 38px;
   flex-shrink: 0;
+}
+
+@media (min-width: 64rem) {
+  /* Position the button below the right sidebar — fixed so it stays visible
+     as you scroll, sitting in the sidebar column area at bottom-right. */
+  .pd-leetcode-sticky {
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    margin: 0;
+  }
 }
 
 @media (max-width: 640px) {
   .pd-leetcode-sticky {
-    top: calc(var(--navbar-height) + var(--space-4));
-    right: var(--space-3);
-    width: 40px;
-    height: 40px;
+    display: inline-flex;
+    margin: var(--space-4) auto;
+    width: 56px;
+    height: 56px;
   }
   .pd-leetcode-sticky img {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Gentle continuous float animation */
+@keyframes leetcode-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

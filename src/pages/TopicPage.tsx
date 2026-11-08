@@ -220,7 +220,7 @@ export default function TopicPage({ category }: TopicPageProps) {
                   href={problem.leetcodeUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="topic-problems__link"
+                  className="topic-problems__link leet-link"
                 >
                   {problem.title}
                 </a>

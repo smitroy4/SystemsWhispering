@@ -60,6 +60,28 @@
   stroke-width: 2;
 }
 
+/* Good / bad / neutral tones used by the Java illustrations (JTone). */
+.viz-tone-good rect,
+.viz-tone-good circle {
+  fill: color-mix(in srgb, var(--color-success) 15%, transparent);
+  stroke: var(--color-success);
+  stroke-width: 2.5;
+}
+
+.viz-tone-bad rect,
+.viz-tone-bad circle {
+  fill: color-mix(in srgb, var(--color-danger) 15%, transparent);
+  stroke: var(--color-danger);
+  stroke-width: 2.5;
+}
+
+.viz-tone-neutral rect,
+.viz-tone-neutral circle {
+  fill: var(--viz-default-fill);
+  stroke: var(--viz-muted-ink);
+  stroke-width: 2;
+}
+
 .viz-cell-value,
 .viz-node-value,
 .viz-bar-value {

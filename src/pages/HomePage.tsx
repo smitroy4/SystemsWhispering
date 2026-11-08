@@ -5,6 +5,7 @@ import { Card } from '../components/ui/index.ts';
 import { getAllTopics } from '../utils/content.ts';
 import { problems } from '../content/problems/index.ts';
 import { lldModules } from '../content/lld/index.ts';
+import { roadmap } from '../content/roadmap.ts';
 import { usePageMeta } from '../utils/pageMeta.ts';
 import './HomePage.css';
 
@@ -75,7 +76,6 @@ export default function HomePage() {
     problems: problems.length,
     lld: lldModules.length,
   };
-  const path = getAllTopics('data-structures');
 
   return (
     <PageShell
@@ -137,14 +137,27 @@ export default function HomePage() {
         </Card>
       </div>
 
-      <h2 className="home-section-title">Learning path</h2>
-      <ol className="learning-path" aria-label="Suggested learning order">
-        {path.map((topic) => (
-          <li key={topic.slug} className="learning-path__step">
-            <Link to={`/data-structures/${topic.slug}`}>{topic.title}</Link>
-          </li>
+      <h2 className="home-section-title">Roadmap</h2>
+      <div className="roadmap">
+        {roadmap.map((phase) => (
+          <Card key={phase.id} title={`${phase.order}. ${phase.title}`}>
+            <p className="roadmap__goal">{phase.goal}</p>
+            <p className="roadmap__meta">
+              <span className="roadmap__label">Duration:</span>{' '}
+              {phase.duration}
+            </p>
+            <h3 className="roadmap__sub">Topics</h3>
+            <ul className="roadmap__topics">
+              {phase.topics.map((topic) => (
+                <li key={topic.title} className="roadmap__topic">
+                  <span className="roadmap__topic-title">{topic.title}</span>
+                  <span className="roadmap__topic-desc">— {topic.description}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
         ))}
-      </ol>
+      </div>
     </PageShell>
   );
 }

@@ -5143,41 +5143,96 @@ class Solution {
 
 ## 6. Linked List
 
+All problems in this section use the standard LeetCode `ListNode` definition, shown once here:
+
+```java
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+```
+
 ### 6.1 Reverse Linked List
 - **Difficulty**: Easy
 - **LeetCode**: [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
 - **NeetCode**: [Reverse a Linked List](https://neetcode.io/problems/reverse-a-linked-list)
 - **Data Structures**: Linked List
-- **Patterns**: Iterative Pointer Inversion / Recursion
+- **Patterns**: Pointer Reversal, Three-Pointer Iteration
 
 #### Problem Description
-Given the `head` of a singly linked list, reverse the list, and return the reversed list.
+Given the head of a singly linked list, reverse the list and return the new head.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Iterative Pointer Reversal
+**Example 1**
+- **Input**: `head = [1,2,3,4,5]`
+- **Output**: `[5,4,3,2,1]`
+- **Explanation**: Every `next` pointer is flipped.
+
+**Example 2**
+- **Input**: `head = [1,2]`
+- **Output**: `[2,1]`
+- **Explanation**: A two-node list is reversed by swapping the pointers.
+
+#### Constraints
+- The number of nodes is in the range `[0, 5000]`.
+- `-5000 <= Node.val <= 5000`
+
+#### Intuition
+Reversing means every node's `next` must point to its predecessor. Walk the list once, and at each node, redirect `next` backward before moving forward. Save the original `next` first so the traversal does not break.
+
+---
+
+##### Approach 1: Brute Force (Copy Values to Array, Rebuild)
+
+**Intuition**: Read all values into an array, then write them back in reverse order into the existing nodes.
+
+**Algorithm**:
+1. Collect values into an array.
+2. Walk the list again, assigning values from the end of the array.
+
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
     public ListNode reverseList(ListNode head) {
-        ListNode prev = null, curr = head;
-        while (curr != null) {
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
+        List<Integer> vals = new ArrayList<>();
+        for (ListNode c = head; c != null; c = c.next) {
+            vals.add(c.val);
         }
-        return prev;
+        int i = vals.size() - 1;
+        for (ListNode c = head; c != null; c = c.next) {
+            c.val = vals.get(i--);
+        }
+        return head;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$
+- **Space Complexity**: $O(n)$ for the value list
 
-##### Approach 2: Recursive
+---
+
+##### Approach 2: Better (Recursion)
+
+**Intuition**: Reverse the rest of the list recursively. Then make the next node point back to the current node, and cut the current node's forward pointer.
+
+**Algorithm**:
+1. If `head` or `head.next` is `null`, return `head`.
+2. `newHead = reverseList(head.next)`.
+3. `head.next.next = head`, then `head.next = null`.
+4. Return `newHead`.
+
 ```java
 class Solution {
     public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null) return head;
+        if (head == null || head.next == null) {
+            return head;
+        }
         ListNode newHead = reverseList(head.next);
         head.next.next = head;
         head.next = null;
@@ -5186,7 +5241,38 @@ class Solution {
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(n)$ call stack
+- **Space Complexity**: $O(n)$ for the recursion stack
+
+---
+
+##### Approach 3: Optimised / Best (Iterative Three-Pointer)
+
+**Intuition**: Keep `prev` (already reversed part) and `cur` (next node to process). Each step saves `cur.next`, points `cur` backward at `prev`, and advances both pointers. No recursion is used.
+
+**Algorithm**:
+1. `prev = null`, `cur = head`.
+2. While `cur != null`:
+   - `next = cur.next`.
+   - `cur.next = prev`.
+   - `prev = cur`, `cur = next`.
+3. Return `prev`.
+
+```java
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null, cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(1)$
 
 ---
 
@@ -5195,33 +5281,126 @@ class Solution {
 - **LeetCode**: [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
 - **NeetCode**: [Merge Two Sorted Linked Lists](https://neetcode.io/problems/merge-two-sorted-linked-lists)
 - **Data Structures**: Linked List
-- **Patterns**: Dummy Head + Two Pointers
+- **Patterns**: Two-Pointer Merge, Dummy Head
 
-#### Solutions
+#### Problem Description
+You are given the heads of two sorted linked lists, `list1` and `list2`. Merge the two lists into one sorted list by splicing together the nodes of the first two lists. Return the head of the merged list.
 
-##### Approach 1: Iterative with Dummy Node
+#### Examples
+
+**Example 1**
+- **Input**: `list1 = [1,2,4]`, `list2 = [1,3,4]`
+- **Output**: `[1,1,2,3,4,4]`
+- **Explanation**: Both lists are merged in ascending order.
+
+**Example 2**
+- **Input**: `list1 = []`, `list2 = []`
+- **Output**: `[]`
+- **Explanation**: Merging two empty lists gives an empty list.
+
+#### Constraints
+- The number of nodes in both lists is in the range `[0, 50]`.
+- `-100 <= Node.val <= 100`
+- Both lists are sorted in non-decreasing order.
+
+#### Intuition
+Both inputs are already sorted, so the smallest unprocessed node is always the head of one of the two lists. Repeatedly take the smaller head. Once one list is exhausted, the other is already sorted and can be attached directly.
+
+---
+
+##### Approach 1: Brute Force (Collect, Sort, Rebuild)
+
+**Intuition**: Ignore the sortedness. Collect all values, sort them, and build a new list.
+
+**Algorithm**:
+1. Collect the values from both lists.
+2. Sort them.
+3. Build a new list from the sorted values.
+
 ```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy;
-        while (list1 != null && list2 != null) {
-            if (list1.val <= list2.val) {
-                curr.next = list1;
-                list1 = list1.next;
-            } else {
-                curr.next = list2;
-                list2 = list2.next;
-            }
-            curr = curr.next;
+        List<Integer> vals = new ArrayList<>();
+        for (ListNode c = list1; c != null; c = c.next) vals.add(c.val);
+        for (ListNode c = list2; c != null; c = c.next) vals.add(c.val);
+        Collections.sort(vals);
+        ListNode dummy = new ListNode(), tail = dummy;
+        for (int v : vals) {
+            tail.next = new ListNode(v);
+            tail = tail.next;
         }
-        curr.next = (list1 != null) ? list1 : list2;
         return dummy.next;
     }
 }
 ```
-- **Time Complexity**: $O(n + m)$
-- **Space Complexity**: $O(1)$
+- **Time Complexity**: $O((m+n)\log(m+n))$
+- **Space Complexity**: $O(m+n)$
+
+---
+
+##### Approach 2: Better (Recursive Merge)
+
+**Intuition**: The smaller head becomes the head of the result, and the rest is the merge of its successor with the other list.
+
+**Algorithm**:
+1. If one list is `null`, return the other.
+2. If `list1.val <= list2.val`: `list1.next = merge(list1.next, list2)`, return `list1`.
+3. Otherwise: `list2.next = merge(list1, list2.next)`, return `list2`.
+
+```java
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null) return list2;
+        if (list2 == null) return list1;
+        if (list1.val <= list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
+        }
+        list2.next = mergeTwoLists(list1, list2.next);
+        return list2;
+    }
+}
+```
+- **Time Complexity**: $O(m+n)$
+- **Space Complexity**: $O(m+n)$ for the recursion stack
+
+---
+
+##### Approach 3: Optimised / Best (Iterative with Dummy Head)
+
+**Intuition**: Use a dummy node as a fixed starting point so the first node needs no special case. Append whichever head is smaller to `tail`, then advance. Attach the leftover list at the end.
+
+**Algorithm**:
+1. `dummy`, `tail = dummy`.
+2. While both lists are non-null, append the smaller head to `tail` and advance that list. Advance `tail`.
+3. Attach the non-empty remainder: `tail.next = (list1 != null) ? list1 : list2`.
+4. Return `dummy.next`.
+
+```java
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(), tail = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                tail.next = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                list2 = list2.next;
+            }
+            tail = tail.next;
+        }
+        tail.next = (list1 != null) ? list1 : list2;
+        return dummy.next;
+    }
+}
+```
+- **Time Complexity**: $O(m+n)$
+- **Space Complexity**: $O(1)$ extra
 
 ---
 
@@ -5229,36 +5408,131 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [143. Reorder List](https://leetcode.com/problems/reorder-list/)
 - **NeetCode**: [Reorder Linked List](https://neetcode.io/problems/reorder-linked-list)
-- **Data Structures**: Linked List
-- **Patterns**: Fast/Slow Pointers + Reverse Half + Merge
+- **Data Structures**: Linked List, Array, Stack
+- **Patterns**: Find Middle, Reverse Second Half, Interleave Merge
 
 #### Problem Description
-You are given the head of a singly linked-list: $L_0 \to L_1 \to \dots \to L_{n-1} \to L_n$. Reorder to: $L_0 \to L_n \to L_1 \to L_{n-1} \to L_2 \dots$
+You are given the head of a singly linked list `L0 -> L1 -> ... -> Ln-1 -> Ln`. Reorder it in place to `L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2 -> ...`. You may not modify the node values, only the `next` pointers.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Optimised / Best (Find Mid + Reverse Second Half + Interweave)
+**Example 1**
+- **Input**: `head = [1,2,3,4]`
+- **Output**: `[1,4,2,3]`
+- **Explanation**: Alternate from the front and the back.
+
+**Example 2**
+- **Input**: `head = [1,2,3,4,5]`
+- **Output**: `[1,5,2,4,3]`
+- **Explanation**: The middle node `3` ends at the tail.
+
+#### Constraints
+- The number of nodes is in the range `[1, 5 * 10^4]`.
+- `1 <= Node.val <= 1000`
+
+#### Intuition
+The result interleaves the first half in order with the second half in reverse. Two steps therefore suffice: get the second half in reverse order, then alternate nodes from the two halves. A stack or array provides the reverse order directly. Reversing the second half in place removes the extra memory.
+
+---
+
+##### Approach 1: Brute Force (Store All Nodes in an Array)
+
+**Intuition**: With random access to nodes, index from both ends and rewire.
+
+**Algorithm**:
+1. Store every node in `nodes[]`.
+2. With `i = 0` and `j = n-1`, set `nodes[i].next = nodes[j]`, then `nodes[j].next = nodes[i+1]`, moving the pointers inward until they meet.
+3. Set the last node's `next` to `null`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public void reorderList(ListNode head) {
+        List<ListNode> nodes = new ArrayList<>();
+        for (ListNode c = head; c != null; c = c.next) nodes.add(c);
+        int i = 0, j = nodes.size() - 1;
+        while (i < j) {
+            nodes.get(i).next = nodes.get(j);
+            i++;
+            if (i == j) break;
+            nodes.get(j).next = nodes.get(i);
+            j--;
+        }
+        nodes.get(i).next = null;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Stack for the Second Half)
+
+**Intuition**: Pop from a stack to get the second half in reverse order. Split the list at the middle, push the second half onto a stack, then alternately attach the front node and the popped node.
+
+**Algorithm**:
+1. Find the middle node. Cut the list there, so the first half ends at `mid`.
+2. Push every node of the second half onto a stack. The top is the tail.
+3. Walk the first half. Each step, pop from the stack and interleave.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public void reorderList(ListNode head) {
+        int n = 0;
+        for (ListNode c = head; c != null; c = c.next) n++;
+        int mid = (n + 1) / 2;
+
+        ListNode cur = head;
+        for (int i = 0; i < mid - 1; i++) cur = cur.next;
+        ListNode second = cur.next;
+        cur.next = null;
+
+        Deque<ListNode> stack = new ArrayDeque<>();
+        for (ListNode c = second; c != null; c = c.next) stack.push(c);
+
+        cur = head;
+        while (!stack.isEmpty()) {
+            ListNode next = cur.next;
+            ListNode top = stack.pop();
+            cur.next = top;
+            top.next = next;
+            cur = next;
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for the stack
+
+---
+
+##### Approach 3: Optimised / Best (Find Middle, Reverse Second Half, Merge)
+
+**Intuition**: Three well-known steps, all in place. A slow/fast pointer finds the middle. Reversing the second half gives the nodes in tail-to-middle order. Then merge the two halves by alternating, which is exactly the required output order.
+
+**Algorithm**:
+1. Find the middle with `slow` and `fast`. `slow` ends at the last node of the first half.
+2. `second = reverse(slow.next)`, and set `slow.next = null`.
+3. Merge: alternately take a node from the first half and from `second`.
+
 ```java
 class Solution {
     public void reorderList(ListNode head) {
-        if (head == null || head.next == null) return;
-        // 1. Find middle
         ListNode slow = head, fast = head;
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        // 2. Reverse second half
-        ListNode prev = null, curr = slow.next;
+        ListNode second = reverse(slow.next);
         slow.next = null;
-        while (curr != null) {
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        // 3. Merge two halves
-        ListNode first = head, second = prev;
+
+        ListNode first = head;
         while (second != null) {
             ListNode t1 = first.next, t2 = second.next;
             first.next = second;
@@ -5266,6 +5540,17 @@ class Solution {
             first = t1;
             second = t2;
         }
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null, cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
     }
 }
 ```
@@ -5279,30 +5564,117 @@ class Solution {
 - **LeetCode**: [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 - **NeetCode**: [Remove Node From End of Linked List](https://neetcode.io/problems/remove-node-from-end-of-linked-list)
 - **Data Structures**: Linked List
-- **Patterns**: Two Pointers with N Gap
+- **Patterns**: Dummy Head, Fast/Slow Gap
 
-#### Solutions
+#### Problem Description
+Given the head of a linked list, remove the `n`-th node from the end of the list and return its head.
 
-##### Approach 1: Optimised / Best (Dummy Head + Fast/Slow with Gap $N$)
+#### Examples
+
+**Example 1**
+- **Input**: `head = [1,2,3,4,5]`, `n = 2`
+- **Output**: `[1,2,3,5]`
+- **Explanation**: The 2nd node from the end is `4`.
+
+**Example 2**
+- **Input**: `head = [1]`, `n = 1`
+- **Output**: `[]`
+- **Explanation**: Removing the only node gives an empty list.
+
+#### Constraints
+- The number of nodes is `sz`, with `1 <= sz <= 30`.
+- `0 <= Node.val <= 100`
+- `1 <= n <= sz`
+
+#### Intuition
+Removing a node requires its predecessor. The predecessor of the `n`-th node from the end is the `(L - n)`-th node from the start, where `L` is the length. A dummy node in front of the head makes removing the first node uniform with the rest.
+
+---
+
+##### Approach 1: Brute Force (Store All Nodes in a List)
+
+**Intuition**: With the nodes stored in a list, the predecessor is at a known index, and unlinking it is direct.
+
+**Algorithm**:
+1. Put a dummy node in front of the head, and store all nodes including the dummy in a list.
+2. The predecessor of the target is at index `size - n - 1`.
+3. Relink `prev.next = prev.next.next`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        List<ListNode> nodes = new ArrayList<>();
+        for (ListNode c = dummy; c != null; c = c.next) nodes.add(c);
+        ListNode prev = nodes.get(nodes.size() - n - 1);
+        prev.next = prev.next.next;
+        return dummy.next;
+    }
+}
+```
+- **Time Complexity**: $O(L)$
+- **Space Complexity**: $O(L)$
+
+---
+
+##### Approach 2: Better (Two Passes: Count, Then Remove)
+
+**Intuition**: One pass counts the length `L`. The second pass walks to the predecessor at position `L - n` and removes the node after it.
+
+**Algorithm**:
+1. Count the length `L`.
+2. Walk `L - n` steps from the dummy.
+3. Remove the next node.
+
 ```java
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode fast = dummy, slow = dummy;
+        int L = 0;
+        for (ListNode c = head; c != null; c = c.next) L++;
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = dummy;
+        for (int i = 0; i < L - n; i++) cur = cur.next;
+        cur.next = cur.next.next;
+        return dummy.next;
+    }
+}
+```
+- **Time Complexity**: $O(L)$, two passes
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised / Best (One Pass with Gap of n)
+
+**Intuition**: Keep two pointers with a gap of `n` between them. Advance `fast` by `n+1` steps from the dummy first. Then advance both until `fast` is `null`. At that point `slow` is the predecessor of the target. The `+1` ensures `slow` stops one node before the target, not on it.
+
+**Algorithm**:
+1. `dummy`, `slow = fast = dummy`.
+2. Move `fast` forward `n + 1` times.
+3. While `fast != null`, move both `slow` and `fast`.
+4. `slow.next = slow.next.next`.
+
+```java
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode slow = dummy, fast = dummy;
         for (int i = 0; i <= n; i++) {
             fast = fast.next;
         }
         while (fast != null) {
-            fast = fast.next;
             slow = slow.next;
+            fast = fast.next;
         }
         slow.next = slow.next.next;
         return dummy.next;
     }
 }
 ```
-- **Time Complexity**: $O(n)$
+- **Time Complexity**: $O(L)$, one pass
 - **Space Complexity**: $O(1)$
 
 ---
@@ -5311,12 +5683,91 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/)
 - **NeetCode**: [Copy Linked List with Random Pointer](https://neetcode.io/problems/copy-linked-list-with-random-pointer)
-- **Data Structures**: Linked List, Hash Table
-- **Patterns**: Interweaving Nodes or HashMap
+- **Data Structures**: Linked List, Hash Map
+- **Patterns**: Deep Copy, Original-to-Copy Mapping, Node Interweaving
 
-#### Solutions
+#### Problem Description
+A linked list of length `n` is given where each node has an additional `random` pointer that may point to any node in the list, or `null`. Construct a **deep copy** of the list. The copy must consist of `n` new nodes with the same `val`, `next`, and `random` structure as the original. None of the new nodes may point to nodes in the original list.
 
-##### Approach 1: Better (HashMap Mapping Original to Copy)
+Node definition used:
+```java
+class Node {
+    int val;
+    Node next;
+    Node random;
+    Node(int val) { this.val = val; }
+}
+```
+
+#### Examples
+
+**Example 1**
+- **Input**: `head = [[7,null],[13,0],[11,4],[10,2],[1,0]]` (each pair is `[val, random index]`)
+- **Output**: `[[7,null],[13,0],[11,4],[10,2],[1,0]]`
+- **Explanation**: A structurally identical, fully independent copy.
+
+**Example 2**
+- **Input**: `head = [[1,1],[2,1]]`
+- **Output**: `[[1,1],[2,1]]`
+- **Explanation**: Both nodes point their `random` at the second node.
+
+#### Constraints
+- `0 <= n <= 1000`
+- `-10^4 <= Node.val <= 10^4`
+- `random` is `null` or points to a node in the list.
+
+#### Intuition
+Copying `next` is easy in one pass. Copying `random` requires knowing the copy of the target node, which may appear later in the list. The problem is mapping originals to copies. A hash map does this directly. Interweaving copies into the list gives the same mapping without extra memory.
+
+---
+
+##### Approach 1: Brute Force (Search for the Random Target Each Time)
+
+**Intuition**: Build the copy chain with `next` only. For each node with a `random` pointer, find the target's index by walking from the head, then walk the copy to that index.
+
+**Algorithm**:
+1. Build a copy chain following `next`.
+2. For each original node `o` with `random != null`, count how many steps from the head reach `o.random`.
+3. Walk the copy chain the same number of steps and set `copy.random`.
+
+```java
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+        Node dummy = new Node(0), tail = dummy;
+        for (Node c = head; c != null; c = c.next) {
+            tail.next = new Node(c.val);
+            tail = tail.next;
+        }
+        Node o = head, cp = dummy.next;
+        while (o != null) {
+            if (o.random != null) {
+                int idx = 0;
+                for (Node t = head; t != o.random; t = t.next) idx++;
+                Node r = dummy.next;
+                for (int i = 0; i < idx; i++) r = r.next;
+                cp.random = r;
+            }
+            o = o.next;
+            cp = cp.next;
+        }
+        return dummy.next;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$ extra (excluding output)
+
+---
+
+##### Approach 2: Better (Hash Map from Original to Copy)
+
+**Intuition**: Pass 1 creates a copy for every original node and records the mapping. Pass 2 sets each copy's `next` and `random` by looking up the mapped nodes. Each lookup is $O(1)$.
+
+**Algorithm**:
+1. For each original `c`, `map.put(c, new Node(c.val))`.
+2. For each original `c`, `copy = map.get(c)`. Set `copy.next = map.get(c.next)` and `copy.random = map.get(c.random)`. `get(null)` returns `null`.
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -5325,97 +5776,198 @@ class Solution {
     public Node copyRandomList(Node head) {
         if (head == null) return null;
         Map<Node, Node> map = new HashMap<>();
-        Node curr = head;
-        while (curr != null) {
-            map.put(curr, new Node(curr.val));
-            curr = curr.next;
+        for (Node c = head; c != null; c = c.next) {
+            map.put(c, new Node(c.val));
         }
-        curr = head;
-        while (curr != null) {
-            map.get(curr).next = map.get(curr.next);
-            map.get(curr).random = map.get(curr.random);
-            curr = curr.next;
+        for (Node c = head; c != null; c = c.next) {
+            Node copy = map.get(c);
+            copy.next = map.get(c.next);
+            copy.random = map.get(c.random);
         }
         return map.get(head);
     }
 }
 ```
-- **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: $O(n)$ average
+- **Space Complexity**: $O(n)$ for the map
 
-##### Approach 2: Optimised / Best (In-Place Node Interweaving $O(1)$ Extra Space)
+---
+
+##### Approach 3: Optimised / Best (Interweave Copies, Then Split)
+
+**Intuition**: Insert each copy directly after its original, so `original.next` is its copy. Then `original.random.next` is the copy of `original.random`, with no map. Finally split the interleaved list into the two lists.
+
+**Algorithm**:
+1. For each original `c`, insert `copy` between `c` and `c.next`.
+2. For each original `c` with `random != null`, set `c.next.random = c.random.next`.
+3. Walk the interleaved list, detaching the copies and restoring the originals' `next` pointers.
+
 ```java
 class Solution {
     public Node copyRandomList(Node head) {
         if (head == null) return null;
-        Node curr = head;
-        while (curr != null) {
-            Node copy = new Node(curr.val);
-            copy.next = curr.next;
-            curr.next = copy;
-            curr = copy.next;
+
+        for (Node c = head; c != null; ) {
+            Node copy = new Node(c.val);
+            copy.next = c.next;
+            c.next = copy;
+            c = copy.next;
         }
-        curr = head;
-        while (curr != null) {
-            if (curr.random != null) {
-                curr.next.random = curr.random.next;
+
+        for (Node c = head; c != null; c = c.next.next) {
+            if (c.random != null) {
+                c.next.random = c.random.next;
             }
-            curr = curr.next.next;
         }
-        curr = head;
-        Node dummy = new Node(0);
-        Node copyCurr = dummy;
-        while (curr != null) {
-            copyCurr.next = curr.next;
-            curr.next = curr.next.next;
-            copyCurr = copyCurr.next;
-            curr = curr.next;
+
+        Node dummy = new Node(0), tail = dummy;
+        Node c = head;
+        while (c != null) {
+            Node copy = c.next;
+            tail.next = copy;
+            tail = copy;
+            c.next = copy.next;
+            c = c.next;
         }
         return dummy.next;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$
+- **Space Complexity**: $O(1)$ extra (excluding output)
 
 ---
 
 ### 6.6 Add Two Numbers
 - **Difficulty**: Medium
 - **LeetCode**: [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)
-- **NeetCode**: [Add Two Numbers](https://neetcode.io/problems/add-two-numbers)
-- **Data Structures**: Linked List
-- **Patterns**: Elementary Math with Carry
+- **NeetCode**: [Add Two Numbers](https://neetcode.io/problems/add-two-numbers-linked-list)
+- **Data Structures**: Linked List, Math
+- **Patterns**: Digit-by-Digit Addition with Carry
 
-#### Solutions
+#### Problem Description
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in **reverse order**, and each node contains a single digit. Add the two numbers and return the sum as a linked list in the same reverse-order format.
 
-##### Approach 1: Optimised / Best (Single Pass Simulation)
+#### Examples
+
+**Example 1**
+- **Input**: `l1 = [2,4,3]`, `l2 = [5,6,4]`
+- **Output**: `[7,0,8]`
+- **Explanation**: `342 + 465 = 807`, stored as `[7,0,8]`.
+
+**Example 2**
+- **Input**: `l1 = [9,9,9,9,9,9,9]`, `l2 = [9,9,9,9]`
+- **Output**: `[8,9,9,9,0,0,0,1]`
+- **Explanation**: `9999999 + 9999 = 10009998`, stored in reverse.
+
+#### Constraints
+- The number of nodes in each list is in the range `[1, 100]`.
+- `0 <= Node.val <= 9`
+- No leading zeros, except the number `0` itself.
+
+#### Intuition
+Digits are stored least-significant first, so the lists can be added in the same order as grade-school addition: sum the digits in each position, add the carry from the previous position, keep the last digit, and carry the rest. Don't forget the final carry.
+
+---
+
+##### Approach 1: Brute Force (Convert to BigInteger, Add, Convert Back)
+
+**Intuition**: Rebuild each number from its digits, add them with arbitrary-precision arithmetic, and split the result back into digits.
+
+**Algorithm**:
+1. For each list, collect digits in reverse, then build a `BigInteger`.
+2. Add the two values.
+3. Write the decimal string of the sum into a new list, starting from its least significant digit.
+
+```java
+import java.math.BigInteger;
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        BigInteger a = toNumber(l1), b = toNumber(l2);
+        String s = a.add(b).toString();
+        ListNode dummy = new ListNode(), tail = dummy;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            tail.next = new ListNode(s.charAt(i) - '0');
+            tail = tail.next;
+        }
+        return dummy.next;
+    }
+
+    private BigInteger toNumber(ListNode head) {
+        StringBuilder sb = new StringBuilder();
+        for (ListNode c = head; c != null; c = c.next) {
+            sb.append(c.val);
+        }
+        return new BigInteger(sb.reverse().toString());
+    }
+}
+```
+- **Time Complexity**: $O(m+n)$ for the conversions, plus the big-integer arithmetic
+- **Space Complexity**: $O(m+n)$
+
+---
+
+##### Approach 2: Better (Recursion with Carry)
+
+**Intuition**: Add the current digits with the carry, create a node for the last digit, and recurse on the rest of both lists with the new carry. The base case is both lists exhausted with no carry left.
+
+**Algorithm**:
+1. `add(a, b, carry)`: if `a`, `b` are both `null` and `carry == 0`, return `null`.
+2. `sum = carry + (a?.val) + (b?.val)`, treating missing nodes as `0`.
+3. Return a node with `sum % 10`, whose `next` is `add(a.next, b.next, sum / 10)`.
+
 ```java
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy;
+        return add(l1, l2, 0);
+    }
+
+    private ListNode add(ListNode a, ListNode b, int carry) {
+        if (a == null && b == null && carry == 0) return null;
+        int sum = carry + (a != null ? a.val : 0) + (b != null ? b.val : 0);
+        ListNode node = new ListNode(sum % 10);
+        node.next = add(a != null ? a.next : null, b != null ? b.next : null, sum / 10);
+        return node;
+    }
+}
+```
+- **Time Complexity**: $O(\max(m, n))$
+- **Space Complexity**: $O(\max(m, n))$ for the recursion stack
+
+---
+
+##### Approach 3: Optimised / Best (Iterative with Dummy Head and Carry)
+
+**Intuition**: The same digit-by-digit addition, written as a loop. A dummy head simplifies the first node, and the loop continues while either list has digits or a carry remains.
+
+**Algorithm**:
+1. `dummy`, `tail = dummy`, `carry = 0`.
+2. While `l1 != null || l2 != null || carry != 0`:
+   - `sum = carry + (l1 val or 0) + (l2 val or 0)`.
+   - Append `sum % 10`, set `carry = sum / 10`.
+   - Advance `l1` and `l2` if non-null.
+3. Return `dummy.next`.
+
+```java
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(), tail = dummy;
         int carry = 0;
         while (l1 != null || l2 != null || carry != 0) {
             int sum = carry;
-            if (l1 != null) {
-                sum += l1.val;
-                l1 = l1.next;
-            }
-            if (l2 != null) {
-                sum += l2.val;
-                l2 = l2.next;
-            }
+            if (l1 != null) { sum += l1.val; l1 = l1.next; }
+            if (l2 != null) { sum += l2.val; l2 = l2.next; }
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
             carry = sum / 10;
-            curr.next = new ListNode(sum % 10);
-            curr = curr.next;
         }
         return dummy.next;
     }
 }
 ```
 - **Time Complexity**: $O(\max(m, n))$
-- **Space Complexity**: $O(1)$ auxiliary
+- **Space Complexity**: $O(1)$ extra (excluding output)
 
 ---
 
@@ -5423,16 +5975,73 @@ class Solution {
 - **Difficulty**: Easy
 - **LeetCode**: [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 - **NeetCode**: [Linked List Cycle Detection](https://neetcode.io/problems/linked-list-cycle-detection)
-- **Data Structures**: Linked List
+- **Data Structures**: Linked List, Hash Set
 - **Patterns**: Floyd's Tortoise and Hare
 
-#### Solutions
+#### Problem Description
+Given `head`, the head of a linked list, return `true` if there is a cycle in the list, and `false` otherwise. A cycle exists if some node can be reached again by continuously following `next` pointers. Internally, `pos` is the index of the node that the tail's `next` points to, or `-1` if there is no cycle. `pos` is not passed to your function.
 
-##### Approach 1: Optimised / Best (Floyd's Cycle Finding)
+#### Examples
+
+**Example 1**
+- **Input**: `head = [3,2,0,-4]`, `pos = 1`
+- **Output**: `true`
+- **Explanation**: The tail connects back to the node at index 1.
+
+**Example 2**
+- **Input**: `head = [1]`, `pos = -1`
+- **Output**: `false`
+- **Explanation**: A single node with no cycle.
+
+#### Constraints
+- The number of nodes is in the range `[0, 10^4]`.
+- `-10^5 <= Node.val <= 10^5`
+- `pos` is `-1` or a valid index.
+
+#### Intuition
+If there is no cycle, a traversal ends at `null`. If there is a cycle, a traversal never ends. Detection needs a way to recognise a node already seen. Either remember every visited node, or use two pointers moving at different speeds: in a cycle, the faster one must eventually meet the slower one.
+
+---
+
+##### Approach 1: Brute Force (Hash Set of Visited Nodes)
+
+**Intuition**: Record each node as it is visited. If a node is seen again, a cycle exists.
+
+**Algorithm**:
+1. For each node, if it is already in the set, return `true`. Otherwise add it.
+2. When the traversal reaches `null`, return `false`.
+
 ```java
-public class Solution {
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
     public boolean hasCycle(ListNode head) {
-        if (head == null) return false;
+        Set<ListNode> seen = new HashSet<>();
+        for (ListNode c = head; c != null; c = c.next) {
+            if (!seen.add(c)) return true;
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Optimised / Best (Floyd's Cycle Detection)
+
+**Intuition**: Move `slow` one step and `fast` two steps each iteration. Outside a cycle, `fast` reaches `null`. Inside a cycle, `fast` gains one node on `slow` per iteration, so they must meet.
+
+**Algorithm**:
+1. `slow = fast = head`.
+2. While `fast != null && fast.next != null`: move `slow` one step, `fast` two steps. If they are equal, return `true`.
+3. Return `false`.
+
+```java
+class Solution {
+    public boolean hasCycle(ListNode head) {
         ListNode slow = head, fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
@@ -5451,24 +6060,142 @@ public class Solution {
 ### 6.8 Find the Duplicate Number
 - **Difficulty**: Medium
 - **LeetCode**: [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
-- **NeetCode**: [Find Duplicate Integer](https://neetcode.io/problems/find-duplicate-integer)
-- **Data Structures**: Array (Treated as Implicit Linked List)
-- **Patterns**: Floyd's Cycle Detection on Array
+- **NeetCode**: [Find the Duplicate Number](https://neetcode.io/problems/find-duplicate-integer)
+- **Data Structures**: Array
+- **Patterns**: Floyd's Cycle Detection on Array Indices, Pigeonhole Binary Search
 
-#### Solutions
+#### Problem Description
+Given an array `nums` containing `n + 1` integers where each integer is in the range `[1, n]` inclusive, there is exactly one repeated number. Return this repeated number.
 
-##### Approach 1: Optimised / Best (Floyd's Algorithm on Indices)
-Treat array as linked list where node $i$ points to `nums[i]`.
+You must solve it **without modifying** the array and using only **constant extra space**.
+
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,3,4,2,2]`
+- **Output**: `2`
+- **Explanation**: `2` appears twice.
+
+**Example 2**
+- **Input**: `nums = [3,1,3,4,2]`
+- **Output**: `3`
+- **Explanation**: `3` appears twice.
+
+#### Constraints
+- `1 <= n <= 10^5`
+- `nums.length == n + 1`
+- `1 <= nums[i] <= n`
+- Exactly one integer appears more than once; others appear once.
+
+#### Intuition
+The pigeonhole principle drives this problem. With `n+1` values in `[1, n]`, at least one value repeats. Two intuitions lead to the best answer. Counting values up to a midpoint identifies which half contains the duplicate. Treating the array as a linked list where `i -> nums[i]` gives a guaranteed cycle whose entry point is the duplicate.
+
+---
+
+##### Approach 1: Brute Force (Nested Loops)
+
+**Intuition**: Compare every pair.
+
+**Algorithm**:
+1. For each `i`, for each `j > i`, if `nums[i] == nums[j]`, return `nums[i]`.
+
 ```java
 class Solution {
     public int findDuplicate(int[] nums) {
-        int slow = nums[0];
-        int fast = nums[0];
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] == nums[j]) return nums[i];
+            }
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (HashSet)
+
+**Intuition**: Record seen values. The first value seen twice is the duplicate.
+
+**Algorithm**:
+1. For each value, if `seen.add(value)` fails, return it.
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        Set<Integer> seen = new HashSet<>();
+        for (int x : nums) {
+            if (!seen.add(x)) return x;
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Binary Search on Value Range with Counting)
+
+**Intuition**: Binary search over the value range `[1, n]`. For a midpoint `mid`, count how many numbers are `<= mid`. If the range `[1, mid]` holds more than `mid` numbers, by pigeonhole the duplicate lies within `[1, mid]`. Otherwise it lies in `(mid, n]`. Constant extra space, no modification.
+
+**Algorithm**:
+1. `lo = 1`, `hi = n`.
+2. While `lo < hi`: `mid = lo + (hi - lo) / 2`. Let `count = #{x : x <= mid}`.
+3. If `count > mid`, `hi = mid`. Otherwise `lo = mid + 1`.
+4. Return `lo`.
+
+```java
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int lo = 1, hi = nums.length - 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            int count = 0;
+            for (int x : nums) {
+                if (x <= mid) count++;
+            }
+            if (count > mid) {
+                hi = mid;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return lo;
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 4: Best (Floyd's Cycle Detection on Index Pointers)
+
+**Intuition**: Treat each index as a node, with `i -> nums[i]` as its next pointer. Values lie in `[1, n]` and there are `n+1` indices, so the walk starting at index `0` must enter a cycle. The duplicate is the entry point of that cycle, because two indices map to it. Floyd's algorithm finds the entry point in two phases: first detect the meeting point, then restart one pointer from the head and advance both one step at a time until they meet.
+
+**Algorithm**:
+1. Phase 1: `slow = fast = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[nums[fast]]` until they are equal.
+2. Phase 2: `slow = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[fast]` until they are equal.
+3. Return `slow`.
+
+```java
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int slow = nums[0], fast = nums[0];
         do {
             slow = nums[slow];
             fast = nums[nums[fast]];
         } while (slow != fast);
-        fast = nums[0];
+
+        slow = nums[0];
         while (slow != fast) {
             slow = nums[slow];
             fast = nums[fast];
@@ -5486,12 +6213,147 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
 - **NeetCode**: [LRU Cache](https://neetcode.io/problems/lru-cache)
-- **Data Structures**: Hash Table, Doubly Linked List
-- **Patterns**: Hash Table + Doubly Linked List
+- **Data Structures**: Hash Map, Doubly Linked List
+- **Patterns**: Recency Ordering, Sentinel Nodes
 
-#### Solutions
+#### Problem Description
+Design a data structure that follows the constraints of a **Least Recently Used (LRU) cache**.
 
-##### Approach 1: Optimised / Best (HashMap + Doubly Linked List)
+Implement the `LRUCache` class:
+- `LRUCache(int capacity)` initialises the cache with a positive capacity.
+- `int get(int key)` returns the value of `key` if it exists, otherwise `-1`. A successful `get` makes the key most recently used.
+- `void put(int key, int value)` updates or inserts the value. If the cache exceeds `capacity`, evict the least recently used key.
+
+Both `get` and `put` must run in $O(1)$ average time.
+
+#### Examples
+
+**Example 1**
+- **Input**: capacity `2`. `put(1,1)`, `put(2,2)`, `get(1)`, `put(3,3)`, `get(2)`, `put(4,4)`, `get(1)`, `get(3)`, `get(4)`
+- **Output**: `1, -1, -1, 3, 4`
+- **Explanation**: After `get(1)`, key `2` is least recently used, so `put(3,3)` evicts it. Later, `put(4,4)` evicts key `1`.
+
+**Example 2**
+- **Input**: capacity `1`. `put(2,1)`, `get(2)`, `put(3,2)`, `get(2)`, `get(3)`
+- **Output**: `1, -1, 2`
+- **Explanation**: Capacity 1 keeps only the most recent key.
+
+#### Constraints
+- `1 <= capacity <= 3000`
+- `0 <= key <= 10^4`
+- `0 <= value <= 10^5`
+- At most `2 * 10^5` calls to `get` and `put`.
+
+#### Intuition
+Two requirements: fast lookup by key, and fast reordering by recency. A hash map gives the first. For the second, a doubly linked list keeps items in recency order, with the most recent at one end and the least recent at the other. Moving a node is $O(1)$ when you already hold a reference to it, which the map provides.
+
+---
+
+##### Approach 1: Brute Force (List Ordering with Linear Removal)
+
+**Intuition**: Keep the keys in a list ordered from least to most recent. Every `get` or `put` removes the key by linear search and appends it again.
+
+**Algorithm**:
+1. `values` maps keys to values. `order` lists keys, least recent first.
+2. `get`: if the key is absent, return `-1`. Otherwise move the key to the end of `order`.
+3. `put`: if the key exists, update it and move it to the end. Otherwise, if full, evict `order.get(0)` from both structures, then add.
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class LRUCache {
+    private final int capacity;
+    private final Map<Integer, Integer> values = new HashMap<>();
+    private final List<Integer> order = new ArrayList<>();
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+        if (!values.containsKey(key)) return -1;
+        touch(key);
+        return values.get(key);
+    }
+
+    public void put(int key, int value) {
+        if (values.containsKey(key)) {
+            values.put(key, value);
+            touch(key);
+            return;
+        }
+        if (values.size() == capacity) {
+            int evict = order.remove(0);
+            values.remove(evict);
+        }
+        values.put(key, value);
+        order.add(key);
+    }
+
+    private void touch(int key) {
+        order.remove(Integer.valueOf(key));
+        order.add(key);
+    }
+}
+```
+- **Time Complexity**: $O(capacity)$ per operation
+- **Space Complexity**: $O(capacity)$
+
+---
+
+##### Approach 2: Better (LinkedHashMap in Access Order)
+
+**Intuition**: Java's `LinkedHashMap` maintains insertion or access order internally. With `accessOrder = true`, every `get` moves the entry to the end. Overriding `removeEldestEntry` evicts the least recently used entry automatically.
+
+**Algorithm**:
+1. Extend `LinkedHashMap<Integer, Integer>` with access ordering enabled.
+2. `get` returns the value or `-1`.
+3. `put` inserts or updates, and `removeEldestEntry` returns `true` when `size() > capacity`.
+
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+class LRUCache extends LinkedHashMap<Integer, Integer> {
+    private final int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true);
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+        return super.getOrDefault(key, -1);
+    }
+
+    public void put(int key, int value) {
+        super.put(key, value);
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+        return size() > capacity;
+    }
+}
+```
+- **Time Complexity**: $O(1)$ average per operation
+- **Space Complexity**: $O(capacity)$
+
+---
+
+##### Approach 3: Optimised / Best (HashMap + Custom Doubly Linked List with Sentinels)
+
+**Intuition**: Implement what `LinkedHashMap` does explicitly. The map stores key to node. The list runs from `head` (least recent, after the sentinel) to `tail` (most recent, before the sentinel). Two sentinel nodes remove all edge cases at the ends. Moving a node is four pointer updates.
+
+**Algorithm**:
+1. `remove(node)`: unlink from its neighbours.
+2. `addToTail(node)`: insert before the tail sentinel.
+3. `get(key)`: if present, `remove` then `addToTail`, and return the value.
+4. `put(key, value)`: if present, update the value, then move to tail. Otherwise, if full, remove `head.next` (evict) and its map entry. Then create, insert, and map the new node.
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -5504,16 +6366,39 @@ class LRUCache {
     }
 
     private final int capacity;
-    private final Map<Integer, Node> map;
-    private final Node head, tail;
+    private final Map<Integer, Node> map = new HashMap<>();
+    private final Node head = new Node(0, 0), tail = new Node(0, 0);
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        this.map = new HashMap<>();
-        head = new Node(0, 0);
-        tail = new Node(0, 0);
         head.next = tail;
         tail.prev = head;
+    }
+
+    public int get(int key) {
+        Node node = map.get(key);
+        if (node == null) return -1;
+        remove(node);
+        addToTail(node);
+        return node.val;
+    }
+
+    public void put(int key, int value) {
+        Node node = map.get(key);
+        if (node != null) {
+            node.val = value;
+            remove(node);
+            addToTail(node);
+            return;
+        }
+        if (map.size() == capacity) {
+            Node lru = head.next;
+            remove(lru);
+            map.remove(lru.key);
+        }
+        Node fresh = new Node(key, value);
+        map.put(key, fresh);
+        addToTail(fresh);
     }
 
     private void remove(Node node) {
@@ -5521,42 +6406,16 @@ class LRUCache {
         node.next.prev = node.prev;
     }
 
-    private void insertToHead(Node node) {
-        node.next = head.next;
-        node.prev = head;
-        head.next.prev = node;
-        head.next = node;
-    }
-
-    public int get(int key) {
-        if (!map.containsKey(key)) return -1;
-        Node node = map.get(key);
-        remove(node);
-        insertToHead(node);
-        return node.val;
-    }
-
-    public void put(int key, int value) {
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
-            node.val = value;
-            remove(node);
-            insertToHead(node);
-        } else {
-            if (map.size() == capacity) {
-                Node lru = tail.prev;
-                remove(lru);
-                map.remove(lru.key);
-            }
-            Node newNode = new Node(key, value);
-            map.put(key, newNode);
-            insertToHead(newNode);
-        }
+    private void addToTail(Node node) {
+        node.prev = tail.prev;
+        node.next = tail;
+        tail.prev.next = node;
+        tail.prev = node;
     }
 }
 ```
-- **Time Complexity**: $O(1)$ for both `get` and `put`
-- **Space Complexity**: $O(\text{capacity})$
+- **Time Complexity**: $O(1)$ for every operation
+- **Space Complexity**: $O(capacity)$
 
 ---
 
@@ -5564,111 +6423,334 @@ class LRUCache {
 - **Difficulty**: Hard
 - **LeetCode**: [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
 - **NeetCode**: [Merge K Sorted Linked Lists](https://neetcode.io/problems/merge-k-sorted-linked-lists)
-- **Data Structures**: Linked List, Heap, Divide & Conquer
-- **Patterns**: Min-Heap or Divide & Conquer
+- **Data Structures**: Linked List, Heap
+- **Patterns**: Min-Heap of Heads, Divide and Conquer
 
-#### Solutions
+#### Problem Description
+You are given an array of `k` linked lists, `lists`, where each list is sorted in ascending order. Merge all the linked lists into one sorted linked list and return it.
 
-##### Approach 1: Min-Heap
+#### Examples
+
+**Example 1**
+- **Input**: `lists = [[1,4,5],[1,3,4],[2,6]]`
+- **Output**: `[1,1,2,3,4,4,5,6]`
+- **Explanation**: Merging all three sorted lists gives one sorted list.
+
+**Example 2**
+- **Input**: `lists = []`
+- **Output**: `[]`
+- **Explanation**: No lists to merge.
+
+#### Constraints
+- `k == lists.length`
+- `0 <= k <= 10^4`
+- `0 <= lists[i].length <= 500`
+- `-10^4 <= lists[i][j] <= 10^4`
+- `lists[i]` is sorted in ascending order.
+- The sum of all `lists[i].length` does not exceed `10^4`.
+
+#### Intuition
+Merging two sorted lists is a linear operation. Merging `k` lists is the same problem repeated. The key question is how to pick the next smallest node among `k` candidates efficiently. A min-heap holding one head per list answers that in $O(\log k)$. Divide and conquer achieves the same total cost by merging lists in pairs, halving the count each round.
+
+---
+
+##### Approach 1: Brute Force (Collect Values, Sort, Rebuild)
+
+**Intuition**: Ignore the existing structure. Gather all values, sort them, and build one list.
+
+**Algorithm**:
+1. Collect every value from every list.
+2. Sort the values.
+3. Build a new list.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        List<Integer> vals = new ArrayList<>();
+        for (ListNode head : lists) {
+            for (ListNode c = head; c != null; c = c.next) vals.add(c.val);
+        }
+        Collections.sort(vals);
+        ListNode dummy = new ListNode(), tail = dummy;
+        for (int v : vals) {
+            tail.next = new ListNode(v);
+            tail = tail.next;
+        }
+        return dummy.next;
+    }
+}
+```
+- **Time Complexity**: $O(N \log N)$, where $N$ is the total number of nodes
+- **Space Complexity**: $O(N)$
+
+---
+
+##### Approach 2: Better (Sequential Two-List Merge)
+
+**Intuition**: Merge the first two lists, then merge the result with the third, and so on. Each merge is linear, but the accumulated list keeps growing, so early nodes are re-walked repeatedly.
+
+**Algorithm**:
+1. `result = null`.
+2. For each list, `result = mergeTwo(result, list)`.
+3. Return `result`.
+
+```java
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode result = null;
+        for (ListNode list : lists) {
+            result = mergeTwo(result, list);
+        }
+        return result;
+    }
+
+    private ListNode mergeTwo(ListNode a, ListNode b) {
+        ListNode dummy = new ListNode(), tail = dummy;
+        while (a != null && b != null) {
+            if (a.val <= b.val) {
+                tail.next = a;
+                a = a.next;
+            } else {
+                tail.next = b;
+                b = b.next;
+            }
+            tail = tail.next;
+        }
+        tail.next = (a != null) ? a : b;
+        return dummy.next;
+    }
+}
+```
+- **Time Complexity**: $O(k \cdot N)$ in the worst case
+- **Space Complexity**: $O(1)$ extra for the merge
+
+---
+
+##### Approach 3: Optimised (Min-Heap of List Heads)
+
+**Intuition**: Keep one candidate per list in a min-heap, ordered by value. Pop the smallest, append it, and push the next node from the same list. The heap never holds more than `k` nodes, so each operation costs $O(\log k)$.
+
+**Algorithm**:
+1. Push each non-null list head into a min-heap.
+2. While the heap is not empty: pop the smallest node, append it to the result, and push `node.next` if it is non-null.
+3. Return the result.
+
 ```java
 import java.util.PriorityQueue;
 
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) return null;
-        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
-        for (ListNode node : lists) {
-            if (node != null) pq.offer(node);
+        PriorityQueue<ListNode> heap = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
+        for (ListNode head : lists) {
+            if (head != null) heap.offer(head);
         }
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy;
-        while (!pq.isEmpty()) {
-            ListNode minNode = pq.poll();
-            curr.next = minNode;
-            curr = curr.next;
-            if (minNode.next != null) pq.offer(minNode.next);
+        ListNode dummy = new ListNode(), tail = dummy;
+        while (!heap.isEmpty()) {
+            ListNode node = heap.poll();
+            tail.next = node;
+            tail = node;
+            if (node.next != null) heap.offer(node.next);
         }
         return dummy.next;
     }
 }
 ```
 - **Time Complexity**: $O(N \log k)$
-- **Space Complexity**: $O(k)$
+- **Space Complexity**: $O(k)$ for the heap
 
-##### Approach 2: Best (Divide and Conquer Merge Sort)
-Merge pairs iteratively in-place.
+---
+
+##### Approach 4: Best (Divide and Conquer Pairwise Merge)
+
+**Intuition**: Repeatedly merge pairs of lists. Each round halves the number of lists, and each round touches every node once, so there are $\log k$ rounds costing $O(N)$ each. No heap is needed, and the extra memory is only recursion depth.
+
+**Algorithm**:
+1. `solve(lists, lo, hi)`: if `lo > hi`, return `null`. If `lo == hi`, return `lists[lo]`.
+2. `mid = (lo + hi) / 2`.
+3. Return `mergeTwo(solve(lo, mid), solve(mid+1, hi))`.
+
 ```java
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) return null;
-        int interval = 1;
-        while (interval < lists.length) {
-            for (int i = 0; i + interval < lists.length; i += interval * 2) {
-                lists[i] = mergeTwo(lists[i], lists[i + interval]);
-            }
-            interval *= 2;
-        }
-        return lists[0];
+        if (lists.length == 0) return null;
+        return solve(lists, 0, lists.length - 1);
     }
 
-    private ListNode mergeTwo(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy;
-        while (l1 != null && l2 != null) {
-            if (l1.val <= l2.val) { curr.next = l1; l1 = l1.next; }
-            else { curr.next = l2; l2 = l2.next; }
-            curr = curr.next;
+    private ListNode solve(ListNode[] lists, int lo, int hi) {
+        if (lo == hi) return lists[lo];
+        int mid = lo + (hi - lo) / 2;
+        return mergeTwo(solve(lists, lo, mid), solve(lists, mid + 1, hi));
+    }
+
+    private ListNode mergeTwo(ListNode a, ListNode b) {
+        ListNode dummy = new ListNode(), tail = dummy;
+        while (a != null && b != null) {
+            if (a.val <= b.val) {
+                tail.next = a;
+                a = a.next;
+            } else {
+                tail.next = b;
+                b = b.next;
+            }
+            tail = tail.next;
         }
-        curr.next = (l1 != null) ? l1 : l2;
+        tail.next = (a != null) ? a : b;
         return dummy.next;
     }
 }
 ```
 - **Time Complexity**: $O(N \log k)$
-- **Space Complexity**: $O(1)$
+- **Space Complexity**: $O(\log k)$ for the recursion stack
 
 ---
 
 ### 6.11 Reverse Nodes in k-Group
 - **Difficulty**: Hard
 - **LeetCode**: [25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
-- **NeetCode**: [Reverse Nodes in K-Group](https://neetcode.io/problems/reverse-nodes-in-k-group)
+- **NeetCode**: [Reverse Nodes in K Group](https://neetcode.io/problems/reverse-nodes-in-k-group)
 - **Data Structures**: Linked List
-- **Patterns**: In-Place Sublist Reversal
+- **Patterns**: Group Boundary Detection, In-Place Segment Reversal
 
-#### Solutions
+#### Problem Description
+Given the head of a linked list, reverse the nodes of the list `k` at a time, and return the modified list.
 
-##### Approach 1: Optimised / Best (Iterative In-Place Reversal)
+`k` is a positive integer less than or equal to the length of the list. If the number of nodes is not a multiple of `k`, the nodes left at the end remain in their original order.
+
+You may not alter the values in the list's nodes, only the `next` pointers.
+
+#### Examples
+
+**Example 1**
+- **Input**: `head = [1,2,3,4,5]`, `k = 2`
+- **Output**: `[2,1,4,3,5]`
+- **Explanation**: Groups `[1,2]` and `[3,4]` are reversed. `5` has no full group, so it stays.
+
+**Example 2**
+- **Input**: `head = [1,2,3,4,5]`, `k = 3`
+- **Output**: `[3,2,1,4,5]`
+- **Explanation**: Only the first group of three is reversed.
+
+#### Constraints
+- The number of nodes is `n`, with `1 <= k <= n <= 5000`.
+- `0 <= Node.val <= 1000`
+
+#### Intuition
+Process the list in blocks of `k`. Before reversing a block, verify that it contains `k` nodes. If it does not, leave it unchanged and stop. Each full block is reversed in place using the same pointer reversal from 6.1, and then its tail is connected to the reversed result of the next block.
+
+---
+
+##### Approach 1: Brute Force (Extract Values, Reverse Blocks, Rewrite)
+
+**Intuition**: Store the values in an array, reverse each complete block of `k` in that array, then write the values back into the nodes.
+
+**Algorithm**:
+1. Collect all values.
+2. For `start` from `0` in steps of `k`, if `start + k <= n`, reverse `vals[start..start+k)`.
+3. Write the array back into the nodes.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        List<Integer> vals = new ArrayList<>();
+        for (ListNode c = head; c != null; c = c.next) vals.add(c.val);
+        for (int start = 0; start + k <= vals.size(); start += k) {
+            Collections.reverse(vals.subList(start, start + k));
+        }
+        int i = 0;
+        for (ListNode c = head; c != null; c = c.next) {
+            c.val = vals.get(i++);
+        }
+        return head;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Recursion over Groups)
+
+**Intuition**: Check whether `k` nodes exist starting at `head`. If not, return `head` unchanged. Otherwise reverse the first `k` nodes, with their tail pointing to the result of recursively processing the rest.
+
+**Algorithm**:
+1. Count `k` nodes starting at `head`. If fewer than `k` exist, return `head`.
+2. `rest = reverseKGroup(cur, k)`, where `cur` is the node after the group.
+3. Reverse the group: for each of the `k` nodes, set `next` to the previous one. Start with `prev = rest`.
+4. Return the new group head.
+
 ```java
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
+        ListNode cur = head;
+        for (int i = 0; i < k; i++) {
+            if (cur == null) return head;
+            cur = cur.next;
+        }
+        ListNode prev = reverseKGroup(cur, k);
+        ListNode c = head;
+        for (int i = 0; i < k; i++) {
+            ListNode next = c.next;
+            c.next = prev;
+            prev = c;
+            c = next;
+        }
+        return prev;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n / k)$ for the recursion depth
+
+---
+
+##### Approach 3: Optimised / Best (Iterative with Dummy and Group Check)
+
+**Intuition**: Keep a pointer `groupPrev` to the node before the current group. For each group, find the `k`-th node. If it does not exist, stop. Otherwise reverse the group between `groupPrev.next` and the `k`-th node, reconnect, and advance `groupPrev` to the old first node, which is now the tail of the reversed group.
+
+**Algorithm**:
+1. `dummy.next = head`, `groupPrev = dummy`.
+2. Loop:
+   - `kth = groupPrev` advanced `k` times. If `kth == null`, stop.
+   - `groupNext = kth.next`.
+   - Reverse the nodes from `first = groupPrev.next` up to `kth`, with `prev` starting at `groupNext`.
+   - `groupPrev.next = kth` (the new head). `groupPrev = first` (the new tail).
+3. Return `dummy.next`.
+
+```java
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dummy = new ListNode(0, head);
         ListNode groupPrev = dummy;
+
         while (true) {
-            ListNode kth = getKth(groupPrev, k);
-            if (kth == null) break;
-            ListNode groupNext = kth.next;
-            ListNode prev = kth.next, curr = groupPrev.next;
-            while (curr != groupNext) {
-                ListNode tmp = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = tmp;
+            ListNode kth = groupPrev;
+            for (int i = 0; i < k && kth != null; i++) {
+                kth = kth.next;
             }
-            ListNode tmp = groupPrev.next;
+            if (kth == null) break;
+
+            ListNode groupNext = kth.next;
+            ListNode first = groupPrev.next;
+            ListNode prev = groupNext, cur = first;
+            while (cur != groupNext) {
+                ListNode next = cur.next;
+                cur.next = prev;
+                prev = cur;
+                cur = next;
+            }
             groupPrev.next = kth;
-            groupPrev = tmp;
+            groupPrev = first;
         }
         return dummy.next;
-    }
-
-    private ListNode getKth(ListNode curr, int k) {
-        while (curr != null && k > 0) {
-            curr = curr.next;
-            k--;
-        }
-        return curr;
     }
 }
 ```
@@ -5677,19 +6759,100 @@ class Solution {
 
 ---
 
-
 ## 7. Trees
+
+All problems in this section use the standard LeetCode `TreeNode` definition, shown once here:
+
+```java
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+```
 
 ### 7.1 Invert Binary Tree
 - **Difficulty**: Easy
 - **LeetCode**: [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
-- **NeetCode**: [Invert a Binary Tree](https://neetcode.io/problems/invert-a-binary-tree)
+- **NeetCode**: [Invert Binary Tree](https://neetcode.io/problems/invert-a-binary-tree)
 - **Data Structures**: Binary Tree
-- **Patterns**: DFS / BFS Subtree Swapping
+- **Patterns**: Recursive Swap, Level-Order Traversal
 
-#### Solutions
+#### Problem Description
+Given the `root` of a binary tree, invert the tree, and return its root. Inverting swaps the left and right child of every node.
 
-##### Approach 1: Recursive DFS
+#### Examples
+
+**Example 1**
+- **Input**: `root = [4,2,7,1,3,6,9]`
+- **Output**: `[4,7,2,9,6,3,1]`
+- **Explanation**: Every node's children are swapped, mirroring the tree.
+
+**Example 2**
+- **Input**: `root = [2,1,3]`
+- **Output**: `[2,3,1]`
+- **Explanation**: The two leaves swap positions.
+
+#### Constraints
+- The number of nodes is in the range `[0, 100]`.
+- `-100 <= Node.val <= 100`
+
+#### Intuition
+Inverting a tree means inverting each subtree and then swapping its two children. Every node needs exactly one swap, so any traversal that visits every node works. Recursion and iteration both handle it.
+
+---
+
+##### Approach 1: Brute Force (Level-Order BFS with Swap)
+
+**Intuition**: Visit nodes level by level with a queue. At each node, swap its children, then enqueue the non-null children.
+
+**Algorithm**:
+1. If `root` is `null`, return `null`.
+2. Enqueue `root`. While the queue is not empty: dequeue `n`, swap `n.left` and `n.right`, and enqueue any non-null child.
+3. Return `root`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode n = queue.poll();
+            TreeNode tmp = n.left;
+            n.left = n.right;
+            n.right = tmp;
+            if (n.left != null) queue.offer(n.left);
+            if (n.right != null) queue.offer(n.right);
+        }
+        return root;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(w)$, where $w$ is the maximum width of the tree
+
+---
+
+##### Approach 2: Better (Recursive Post-Order Swap)
+
+**Intuition**: Invert both subtrees recursively first, then swap the results. The recursion handles every node exactly once.
+
+**Algorithm**:
+1. If `root` is `null`, return `null`.
+2. `left = invertTree(root.left)`, `right = invertTree(root.right)`.
+3. Set `root.left = right`, `root.right = left`. Return `root`.
+
 ```java
 class Solution {
     public TreeNode invertTree(TreeNode root) {
@@ -5703,45 +6866,120 @@ class Solution {
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(h)$ where $h$ is tree height
+- **Space Complexity**: $O(h)$ for the recursion stack
 
-##### Approach 2: Iterative BFS
+---
+
+##### Approach 3: Optimised / Best (Iterative DFS with Explicit Stack)
+
+**Intuition**: The same swap-at-every-node idea, driven by an explicit stack instead of recursion. This avoids stack overflow on deep, skewed trees.
+
+**Algorithm**:
+1. Push `root` onto a stack.
+2. While the stack is not empty: pop `n`, swap its children, and push any non-null child.
+3. Return `root`.
+
 ```java
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if (root == null) return null;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            TreeNode curr = queue.poll();
-            TreeNode temp = curr.left;
-            curr.left = curr.right;
-            curr.right = temp;
-            if (curr.left != null) queue.offer(curr.left);
-            if (curr.right != null) queue.offer(curr.right);
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode n = stack.pop();
+            TreeNode tmp = n.left;
+            n.left = n.right;
+            n.right = tmp;
+            if (n.left != null) stack.push(n.left);
+            if (n.right != null) stack.push(n.right);
         }
         return root;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(w)$ where $w$ is maximum width
+- **Space Complexity**: $O(h)$
 
 ---
 
 ### 7.2 Maximum Depth of Binary Tree
 - **Difficulty**: Easy
 - **LeetCode**: [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
-- **NeetCode**: [Depth of Binary Tree](https://neetcode.io/problems/depth-of-binary-tree)
+- **NeetCode**: [Maximum Depth of Binary Tree](https://neetcode.io/problems/depth-of-binary-tree)
 - **Data Structures**: Binary Tree
-- **Patterns**: DFS Height Calculation
+- **Patterns**: Height Recursion, Level Counting
 
-#### Solutions
+#### Problem Description
+Given the `root` of a binary tree, return its maximum depth. The maximum depth is the number of nodes along the longest path from the root down to the farthest leaf.
 
-##### Approach 1: Recursive DFS
+#### Examples
+
+**Example 1**
+- **Input**: `root = [3,9,20,null,null,15,7]`
+- **Output**: `3`
+- **Explanation**: The path `3 -> 20 -> 15` has three nodes.
+
+**Example 2**
+- **Input**: `root = [1,null,2]`
+- **Output**: `2`
+- **Explanation**: The path `1 -> 2` has two nodes.
+
+#### Constraints
+- The number of nodes is in the range `[0, 10^4]`.
+- `-100 <= Node.val <= 100`
+
+#### Intuition
+The depth of a tree is one more than the greater of its subtree depths. That gives a direct recursive definition. Alternatively, depth equals the number of BFS levels.
+
+---
+
+##### Approach 1: Brute Force (Level-Order BFS, Count Levels)
+
+**Intuition**: Each BFS level adds one to the depth. Process one level at a time and count the levels.
+
+**Algorithm**:
+1. If `root` is `null`, return `0`.
+2. Enqueue `root`. While the queue is not empty: process every node currently in the queue, enqueuing their children, then increment `depth`.
+3. Return `depth`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        int depth = 0;
+        while (!queue.isEmpty()) {
+            for (int size = queue.size(); size > 0; size--) {
+                TreeNode n = queue.poll();
+                if (n.left != null) queue.offer(n.left);
+                if (n.right != null) queue.offer(n.right);
+            }
+            depth++;
+        }
+        return depth;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(w)$
+
+---
+
+##### Approach 2: Better (Recursive Height)
+
+**Intuition**: A node's depth is `1 + max(depth(left), depth(right))`, with `0` for `null`. Recursion computes this directly.
+
+**Algorithm**:
+1. If `root` is `null`, return `0`.
+2. Return `1 + max(maxDepth(left), maxDepth(right))`.
+
 ```java
 class Solution {
     public int maxDepth(TreeNode root) {
@@ -5755,31 +6993,133 @@ class Solution {
 
 ---
 
+##### Approach 3: Optimised / Best (Iterative DFS, Track Depth per Node)
+
+**Intuition**: Walk the tree with a stack of `(node, depth)` pairs, and record the largest depth seen. This has the same complexity as recursion but avoids deep call stacks.
+
+**Algorithm**:
+1. Push `(root, 1)`.
+2. Pop `(n, d)`, update `best = max(best, d)`, and push each non-null child with `d + 1`.
+3. Return `best`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        Deque<TreeNode> nodes = new ArrayDeque<>();
+        Deque<Integer> depths = new ArrayDeque<>();
+        nodes.push(root);
+        depths.push(1);
+        int best = 0;
+        while (!nodes.isEmpty()) {
+            TreeNode n = nodes.pop();
+            int d = depths.pop();
+            best = Math.max(best, d);
+            if (n.left != null) { nodes.push(n.left); depths.push(d + 1); }
+            if (n.right != null) { nodes.push(n.right); depths.push(d + 1); }
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(h)$
+
+---
+
 ### 7.3 Diameter of Binary Tree
 - **Difficulty**: Easy
 - **LeetCode**: [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
-- **NeetCode**: [Binary Tree Diameter](https://neetcode.io/problems/binary-tree-diameter)
+- **NeetCode**: [Diameter of Binary Tree](https://neetcode.io/problems/binary-tree-diameter)
 - **Data Structures**: Binary Tree
-- **Patterns**: Bottom-Up Post-Order DFS
+- **Patterns**: Height with Global Maximum
 
-#### Solutions
+#### Problem Description
+Given the `root` of a binary tree, return the length of its diameter. The diameter is the length of the longest path between any two nodes. The path may or may not pass through the root. The length is the number of **edges** on the path.
 
-##### Approach 1: Optimised / Best (Post-Order DFS with Global Max)
+#### Examples
+
+**Example 1**
+- **Input**: `root = [1,2,3,4,5]`
+- **Output**: `3`
+- **Explanation**: The path `4 -> 2 -> 1 -> 3` (or `5 -> 2 -> 1 -> 3`) has three edges.
+
+**Example 2**
+- **Input**: `root = [1,2]`
+- **Output**: `1`
+- **Explanation**: One edge connects the two nodes.
+
+#### Constraints
+- The number of nodes is in the range `[1, 10^4]`.
+- `-100 <= Node.val <= 100`
+
+#### Intuition
+The longest path through a node `v` uses its two deepest subtrees, so its length is `height(left) + height(right)`. The diameter is the maximum of this value over all nodes. Heights can be computed bottom-up while the maximum is updated.
+
+---
+
+##### Approach 1: Brute Force (Recompute Heights for Every Node)
+
+**Intuition**: For each node, compute the height of its left and right subtrees from scratch, and take the maximum of their sum over all nodes.
+
+**Algorithm**:
+1. For each node `v`, compute `h(v.left) + h(v.right)` using a fresh height function.
+2. Return the maximum.
+
 ```java
 class Solution {
-    private int maxDiameter = 0;
-
     public int diameterOfBinaryTree(TreeNode root) {
-        height(root);
-        return maxDiameter;
+        return dfs(root, 0);
+    }
+
+    private int dfs(TreeNode node, int best) {
+        if (node == null) return best;
+        int through = height(node.left) + height(node.right);
+        best = Math.max(best, through);
+        best = Math.max(best, dfs(node.left, 0));
+        best = Math.max(best, dfs(node.right, 0));
+        return best;
     }
 
     private int height(TreeNode node) {
         if (node == null) return 0;
-        int leftH = height(node.left);
-        int rightH = height(node.right);
-        maxDiameter = Math.max(maxDiameter, leftH + rightH);
-        return 1 + Math.max(leftH, rightH);
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case, for a skewed tree
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 2: Optimised / Best (Single DFS with Global Maximum)
+
+**Intuition**: Compute each node's height bottom-up, and at each node record `left + right` as a candidate diameter. Heights are reused, so every node is visited once.
+
+**Algorithm**:
+1. `height(node)`: return `0` for `null`. Otherwise compute `l` and `r` for the children.
+2. Update `diameter = max(diameter, l + r)`.
+3. Return `1 + max(l, r)`.
+4. Call `height(root)` and return `diameter`.
+
+```java
+class Solution {
+    private int diameter = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        height(root);
+        return diameter;
+    }
+
+    private int height(TreeNode node) {
+        if (node == null) return 0;
+        int l = height(node.left);
+        int r = height(node.right);
+        diameter = Math.max(diameter, l + r);
+        return 1 + Math.max(l, r);
     }
 }
 ```
@@ -5793,25 +7133,84 @@ class Solution {
 - **LeetCode**: [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
 - **NeetCode**: [Balanced Binary Tree](https://neetcode.io/problems/balanced-binary-tree)
 - **Data Structures**: Binary Tree
-- **Patterns**: Bottom-Up DFS with -1 Sentinel
+- **Patterns**: Height Check, Bottom-Up Sentinel
 
-#### Solutions
+#### Problem Description
+Given a binary tree, determine if it is **height-balanced**. A height-balanced tree is one in which, for every node, the depths of its left and right subtrees differ by no more than `1`.
 
-##### Approach 1: Optimised / Best (Bottom-Up Early Exit)
+#### Examples
+
+**Example 1**
+- **Input**: `root = [3,9,20,null,null,15,7]`
+- **Output**: `true`
+- **Explanation**: Every node's subtrees differ in height by at most 1.
+
+**Example 2**
+- **Input**: `root = [1,2,2,3,3,null,null,4,4]`
+- **Output**: `false`
+- **Explanation**: Node `2` on the left has a subtree of height 3, and its sibling has height 1.
+
+#### Constraints
+- The number of nodes is in the range `[0, 5000]`.
+- `-10^4 <= Node.val <= 10^4`
+
+#### Intuition
+Balance is a property of every node, so checking it requires comparing subtree heights at every node. The naive way recomputes heights top-down. The efficient way computes heights bottom-up and reports imbalance immediately by returning a sentinel value.
+
+---
+
+##### Approach 1: Brute Force (Top-Down Height at Every Node)
+
+**Intuition**: At each node, compute both subtree heights from scratch, check the difference, then recurse into the children.
+
+**Algorithm**:
+1. If `root` is `null`, return `true`.
+2. If `|height(left) - height(right)| > 1`, return `false`.
+3. Return `isBalanced(left) && isBalanced(right)`.
+
 ```java
 class Solution {
     public boolean isBalanced(TreeNode root) {
-        return checkHeight(root) != -1;
+        if (root == null) return true;
+        if (Math.abs(height(root.left) - height(root.right)) > 1) return false;
+        return isBalanced(root.left) && isBalanced(root.right);
     }
 
-    private int checkHeight(TreeNode node) {
+    private int height(TreeNode node) {
         if (node == null) return 0;
-        int left = checkHeight(node.left);
-        if (left == -1) return -1;
-        int right = checkHeight(node.right);
-        if (right == -1) return -1;
-        if (Math.abs(left - right) > 1) return -1;
-        return 1 + Math.max(left, right);
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 2: Optimised / Best (Bottom-Up with -1 Sentinel)
+
+**Intuition**: Return the height from `height()`, or `-1` when the subtree is unbalanced. Once any child returns `-1`, the answer is already determined, so propagate `-1` upward. Each node is visited once.
+
+**Algorithm**:
+1. `check(node)`: return `0` for `null`.
+2. `l = check(left)`, `r = check(right)`. If either is `-1`, or `|l - r| > 1`, return `-1`.
+3. Otherwise return `1 + max(l, r)`.
+4. The tree is balanced if `check(root) != -1`.
+
+```java
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return check(root) != -1;
+    }
+
+    private int check(TreeNode node) {
+        if (node == null) return 0;
+        int l = check(node.left);
+        if (l == -1) return -1;
+        int r = check(node.right);
+        if (r == -1) return -1;
+        if (Math.abs(l - r) > 1) return -1;
+        return 1 + Math.max(l, r);
     }
 }
 ```
@@ -5825,22 +7224,124 @@ class Solution {
 - **LeetCode**: [100. Same Tree](https://leetcode.com/problems/same-tree/)
 - **NeetCode**: [Same Binary Tree](https://neetcode.io/problems/same-binary-tree)
 - **Data Structures**: Binary Tree
-- **Patterns**: Simultaneous DFS
+- **Patterns**: Parallel Traversal, Structural Comparison
 
-#### Solutions
+#### Problem Description
+Given the roots of two binary trees `p` and `q`, return `true` if they are structurally identical and the nodes have the same values, and `false` otherwise.
 
-##### Approach 1: Recursive DFS
+#### Examples
+
+**Example 1**
+- **Input**: `p = [1,2,3]`, `q = [1,2,3]`
+- **Output**: `true`
+- **Explanation**: Identical structure and values.
+
+**Example 2**
+- **Input**: `p = [1,2]`, `q = [1,null,2]`
+- **Output**: `false`
+- **Explanation**: The child `2` is on different sides.
+
+#### Constraints
+- The number of nodes in each tree is in the range `[0, 100]`.
+- `-10^4 <= Node.val <= 10^4`
+
+#### Intuition
+Two trees match exactly when their roots match and their left subtrees match and their right subtrees match. Walk both trees in lockstep, comparing positions as you go. Any difference, including a null on one side only, means not the same.
+
+---
+
+##### Approach 1: Brute Force (Serialize Both, Compare Strings)
+
+**Intuition**: Serialize each tree in preorder, writing `#` for every null child. Two trees are identical exactly when their serializations are equal, since the null markers encode the structure.
+
+**Algorithm**:
+1. Serialize `p` and `q` in preorder with `#` for null, separated by `,`.
+2. Return `equals` on the two strings.
+
+```java
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        return serialize(p).equals(serialize(q));
+    }
+
+    private String serialize(TreeNode node) {
+        StringBuilder sb = new StringBuilder();
+        build(node, sb);
+        return sb.toString();
+    }
+
+    private void build(TreeNode node, StringBuilder sb) {
+        if (node == null) {
+            sb.append("#,");
+            return;
+        }
+        sb.append(node.val).append(',');
+        build(node.left, sb);
+        build(node.right, sb);
+    }
+}
+```
+- **Time Complexity**: $O(m + n)$
+- **Space Complexity**: $O(m + n)$ for the strings
+
+---
+
+##### Approach 2: Better (Recursive Comparison)
+
+**Intuition**: Compare the current nodes. If both are null, they match. If only one is null, or the values differ, they do not. Otherwise compare the children.
+
+**Algorithm**:
+1. If `p` and `q` are both `null`, return `true`.
+2. If exactly one is `null`, or `p.val != q.val`, return `false`.
+3. Return `isSameTree(p.left, q.left) && isSameTree(p.right, q.right)`.
+
 ```java
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null) return true;
-        if (p == null || q == null || p.val != q.val) return false;
+        if (p == null || q == null) return false;
+        if (p.val != q.val) return false;
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 }
 ```
-- **Time Complexity**: $O(n)$
+- **Time Complexity**: $O(\min(m, n))$
 - **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 3: Optimised / Best (Iterative Paired BFS)
+
+**Intuition**: Keep a queue of node pairs, one from each tree at the same position. Process pairs level by level. This avoids recursion and makes the parallel nature explicit.
+
+**Algorithm**:
+1. Enqueue `{p, q}`.
+2. Dequeue a pair. If both are `null`, continue. If exactly one is `null`, or the values differ, return `false`.
+3. Enqueue `{p.left, q.left}` and `{p.right, q.right}`.
+4. If the queue empties, return `true`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        Deque<TreeNode[]> queue = new ArrayDeque<>();
+        queue.offer(new TreeNode[]{p, q});
+        while (!queue.isEmpty()) {
+            TreeNode[] pair = queue.poll();
+            TreeNode a = pair[0], b = pair[1];
+            if (a == null && b == null) continue;
+            if (a == null || b == null || a.val != b.val) return false;
+            queue.offer(new TreeNode[]{a.left, b.left});
+            queue.offer(new TreeNode[]{a.right, b.right});
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(\min(m, n))$
+- **Space Complexity**: $O(w)$
 
 ---
 
@@ -5848,12 +7349,42 @@ class Solution {
 - **Difficulty**: Easy
 - **LeetCode**: [572. Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)
 - **NeetCode**: [Subtree of a Binary Tree](https://neetcode.io/problems/subtree-of-a-binary-tree)
-- **Data Structures**: Binary Tree
-- **Patterns**: Tree Matching / Tree Serialization
+- **Data Structures**: Binary Tree, String
+- **Patterns**: Tree Matching, Serialization with KMP
 
-#### Solutions
+#### Problem Description
+Given the roots of two binary trees `root` and `subRoot`, return `true` if there is a subtree of `root` with the same structure and node values as `subRoot`, and `false` otherwise. A subtree of a tree consists of a node in the tree and all of that node's descendants.
 
-##### Approach 1: Recursive Tree Matching
+#### Examples
+
+**Example 1**
+- **Input**: `root = [3,4,5,1,2]`, `subRoot = [4,1,2]`
+- **Output**: `true`
+- **Explanation**: The node `4` and its descendants form the subtree.
+
+**Example 2**
+- **Input**: `root = [3,4,5,1,2,null,null,null,null,0]`, `subRoot = [4,1,2]`
+- **Output**: `false`
+- **Explanation**: The subtree at `4` has an extra child `0` under `2`, so it does not match.
+
+#### Constraints
+- The number of nodes in `root` is in the range `[1, 2000]`.
+- The number of nodes in `subRoot` is in the range `[1, 1000]`.
+- `-10^4 <= root.val, subRoot.val <= 10^4`
+
+#### Intuition
+At each node of `root`, test whether the subtree rooted there equals `subRoot`, which is the "Same Tree" check from 7.5. That is correct but can be slow. Serializing both trees turns the problem into substring search: `subRoot`'s serialization must appear inside `root`'s. Using a linear-time pattern matcher such as KMP on tokens makes this $O(m + n)$.
+
+---
+
+##### Approach 1: Brute Force (Same-Tree Check at Each Node)
+
+**Intuition**: For every node of `root`, run the same-tree comparison against `subRoot`.
+
+**Algorithm**:
+1. For each node `v` in `root`, if `isSame(v, subRoot)`, return `true`.
+2. Return `false`.
+
 ```java
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
@@ -5862,15 +7393,106 @@ class Solution {
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
 
-    private boolean isSame(TreeNode s, TreeNode t) {
-        if (s == null && t == null) return true;
-        if (s == null || t == null || s.val != t.val) return false;
-        return isSame(s.left, t.left) && isSame(s.right, t.right);
+    private boolean isSame(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null || p.val != q.val) return false;
+        return isSame(p.left, q.left) && isSame(p.right, q.right);
     }
 }
 ```
-- **Time Complexity**: $O(n \cdot m)$
+- **Time Complexity**: $O(m \cdot n)$
 - **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 2: Better (Serialize and Use String.contains)
+
+**Intuition**: Serialize both trees with each token wrapped in brackets, such as `[3][4][#]`. Brackets mark token boundaries, so a substring match of `subRoot`'s serialization inside `root`'s is a genuine subtree match. The string search itself is simple but can be quadratic in the worst case.
+
+**Algorithm**:
+1. Serialize `root` and `subRoot` in preorder, wrapping each token in `[` and `]`, with `#` for null.
+2. Return `rootStr.contains(subStr)`.
+
+```java
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        return serialize(root).contains(serialize(subRoot));
+    }
+
+    private String serialize(TreeNode node) {
+        StringBuilder sb = new StringBuilder();
+        build(node, sb);
+        return sb.toString();
+    }
+
+    private void build(TreeNode node, StringBuilder sb) {
+        if (node == null) {
+            sb.append("[#]");
+            return;
+        }
+        sb.append('[').append(node.val).append(']');
+        build(node.left, sb);
+        build(node.right, sb);
+    }
+}
+```
+- **Time Complexity**: $O(m + n)$ to serialize, and $O(m \cdot n)$ in the worst case for `contains`
+- **Space Complexity**: $O(m + n)$
+
+---
+
+##### Approach 3: Optimised / Best (Token Lists with KMP)
+
+**Intuition**: Represent each serialization as a list of tokens. Matching is then a sequence search over tokens, where each token is compared with `equals`, so there is no string-boundary ambiguity. KMP's prefix table lets the search never backtrack in `root`, which gives linear time.
+
+**Algorithm**:
+1. Serialize both trees into token lists in preorder, with `#` for null.
+2. Build the KMP prefix table (`lps`) for the pattern (`subRoot`'s tokens).
+3. Scan the text (`root`'s tokens). On a mismatch, fall back using `lps`. When the full pattern matches, return `true`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        List<String> text = new ArrayList<>();
+        List<String> pattern = new ArrayList<>();
+        serialize(root, text);
+        serialize(subRoot, pattern);
+        return kmpContains(text, pattern);
+    }
+
+    private void serialize(TreeNode node, List<String> out) {
+        if (node == null) {
+            out.add("#");
+            return;
+        }
+        out.add("^" + node.val);
+        serialize(node.left, out);
+        serialize(node.right, out);
+    }
+
+    private boolean kmpContains(List<String> text, List<String> pat) {
+        int m = pat.size();
+        int[] lps = new int[m];
+        for (int i = 1, len = 0; i < m; i++) {
+            while (len > 0 && !pat.get(i).equals(pat.get(len))) len = lps[len - 1];
+            if (pat.get(i).equals(pat.get(len))) len++;
+            lps[i] = len;
+        }
+        int j = 0;
+        for (String t : text) {
+            while (j > 0 && !t.equals(pat.get(j))) j = lps[j - 1];
+            if (t.equals(pat.get(j))) j++;
+            if (j == m) return true;
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(m + n)$
+- **Space Complexity**: $O(m + n)$
 
 ---
 
@@ -5878,30 +7500,129 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
 - **NeetCode**: [Lowest Common Ancestor in Binary Search Tree](https://neetcode.io/problems/lowest-common-ancestor-in-binary-search-tree)
-- **Data Structures**: BST
-- **Patterns**: BST Value Range Split
+- **Data Structures**: Binary Search Tree
+- **Patterns**: BST Property Navigation, Path Comparison
 
-#### Solutions
+#### Problem Description
+Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes `p` and `q`. The LCA is the lowest node that has both `p` and `q` as descendants, where a node may be a descendant of itself.
 
-##### Approach 1: Optimised / Best (Iterative Range Split)
+#### Examples
+
+**Example 1**
+- **Input**: `root = [6,2,8,0,4,7,9,null,null,3,5]`, `p = 2`, `q = 8`
+- **Output**: `6`
+- **Explanation**: `2` and `8` are on opposite sides of `6`.
+
+**Example 2**
+- **Input**: `root = [6,2,8,0,4,7,9,null,null,3,5]`, `p = 2`, `q = 4`
+- **Output**: `2`
+- **Explanation**: `2` is an ancestor of `4`, so `2` is the LCA.
+
+#### Constraints
+- The number of nodes is in the range `[2, 10^5]`.
+- `-10^9 <= Node.val <= 10^9`
+- All `Node.val` are unique.
+- `p != q`, and both exist in the BST.
+
+#### Intuition
+In a BST, the values determine direction. If both `p` and `q` are smaller than the current node, the LCA is in the left subtree. If both are larger, it is in the right subtree. Otherwise the current node splits them, so it is the LCA. This uses the BST property and needs no path bookkeeping.
+
+---
+
+##### Approach 1: Brute Force (Root-to-Node Paths, Compare)
+
+**Intuition**: Find the path from the root to `p`, and the path from the root to `q`. The LCA is the last node the two paths share.
+
+**Algorithm**:
+1. `path(root, target)` collects nodes from root to `target` using DFS with backtracking.
+2. Build `pathP` and `pathQ`.
+3. Walk both lists in step. The last matching node is the LCA.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        List<TreeNode> pathP = new ArrayList<>(), pathQ = new ArrayList<>();
+        findPath(root, p, pathP);
+        findPath(root, q, pathQ);
+        TreeNode lca = null;
+        for (int i = 0; i < Math.min(pathP.size(), pathQ.size()); i++) {
+            if (pathP.get(i) != pathQ.get(i)) break;
+            lca = pathP.get(i);
+        }
+        return lca;
+    }
+
+    private boolean findPath(TreeNode node, TreeNode target, List<TreeNode> path) {
+        if (node == null) return false;
+        path.add(node);
+        if (node == target) return true;
+        if (findPath(node.left, target, path) || findPath(node.right, target, path)) return true;
+        path.remove(path.size() - 1);
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(h)$ for each path
+
+---
+
+##### Approach 2: Better (Generic Recursive LCA)
+
+**Intuition**: The general binary tree LCA works for any tree, and it ignores the BST property. Return `p` or `q` when found. If both subtrees return non-null, the current node is the LCA. Otherwise pass up whichever side found something. This is correct but explores more of the tree than necessary.
+
+**Algorithm**:
+1. If `root` is `null`, or `root == p`, or `root == q`, return `root`.
+2. `l = lca(left)`, `r = lca(right)`.
+3. If both are non-null, return `root`. Otherwise return whichever is non-null.
+
 ```java
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        TreeNode curr = root;
-        while (curr != null) {
-            if (p.val > curr.val && q.val > curr.val) {
-                curr = curr.right;
-            } else if (p.val < curr.val && q.val < curr.val) {
-                curr = curr.left;
+        if (root == null || root == p || root == q) return root;
+        TreeNode l = lowestCommonAncestor(root.left, p, q);
+        TreeNode r = lowestCommonAncestor(root.right, p, q);
+        if (l != null && r != null) return root;
+        return l != null ? l : r;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 3: Optimised / Best (Iterative BST Navigation)
+
+**Intuition**: Use the BST ordering to decide direction at each step, so only one path is followed and no recursion is needed. The walk stops at the first node that lies between `p` and `q`, or equals one of them.
+
+**Algorithm**:
+1. While `root` is not `null`:
+   - If both `p.val` and `q.val` are less than `root.val`, move to `root.left`.
+   - Else if both are greater, move to `root.right`.
+   - Else return `root`.
+
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode cur = root;
+        while (cur != null) {
+            if (p.val < cur.val && q.val < cur.val) {
+                cur = cur.left;
+            } else if (p.val > cur.val && q.val > cur.val) {
+                cur = cur.right;
             } else {
-                return curr; // Split point
+                return cur;
             }
         }
         return null;
     }
 }
 ```
-- **Time Complexity**: $O(h)$
+- **Time Complexity**: $O(h)$, where $h$ is the height of the BST
 - **Space Complexity**: $O(1)$
 
 ---
@@ -5911,32 +7632,259 @@ class Solution {
 - **LeetCode**: [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 - **NeetCode**: [Level Order Traversal of Binary Tree](https://neetcode.io/problems/level-order-traversal-of-binary-tree)
 - **Data Structures**: Binary Tree, Queue
-- **Patterns**: BFS with Level Size
+- **Patterns**: BFS by Level, Depth-Indexed DFS
 
-#### Solutions
+#### Problem Description
+Given the `root` of a binary tree, return the level order traversal of its nodes' values. That is, traverse from left to right, one level at a time.
 
-##### Approach 1: Optimised / Best (Queue BFS Level-by-Level)
+#### Examples
+
+**Example 1**
+- **Input**: `root = [3,9,20,null,null,15,7]`
+- **Output**: `[[3],[9,20],[15,7]]`
+- **Explanation**: Level 0 is `3`, level 1 is `9` and `20`, level 2 is `15` and `7`.
+
+**Example 2**
+- **Input**: `root = [1]`
+- **Output**: `[[1]]`
+- **Explanation**: A single node is one level.
+
+#### Constraints
+- The number of nodes is in the range `[0, 2000]`.
+- `-1000 <= Node.val <= 1000`
+
+#### Intuition
+Levels are naturally a breadth-first concept. A queue processes nodes in level order if each level is drained completely before the next begins. Alternatively, a DFS can place each node into a list indexed by its depth.
+
+---
+
+##### Approach 1: Brute Force (Per-Level DFS Collection)
+
+**Intuition**: For each level `d` from `0` to the height minus one, run a DFS that collects only the nodes at depth `d`. Simple, but each level re-walks the tree.
+
+**Algorithm**:
+1. Compute the height `h`.
+2. For `d` from `0` to `h-1`, collect values at depth `d` with a DFS that recurses into children with `d-1`.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        if (root == null) return res;
-        Queue<TreeNode> queue = new LinkedList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        int h = height(root);
+        for (int d = 0; d < h; d++) {
+            List<Integer> level = new ArrayList<>();
+            collect(root, d, level);
+            result.add(level);
+        }
+        return result;
+    }
+
+    private void collect(TreeNode node, int depth, List<Integer> level) {
+        if (node == null) return;
+        if (depth == 0) {
+            level.add(node.val);
+            return;
+        }
+        collect(node.left, depth - 1, level);
+        collect(node.right, depth - 1, level);
+    }
+
+    private int height(TreeNode node) {
+        if (node == null) return 0;
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot h)$
+- **Space Complexity**: $O(h)$ for recursion, plus output
+
+---
+
+##### Approach 2: Better (BFS with Level Size)
+
+**Intuition**: A queue drains one level at a time. Read the current queue size as the number of nodes in the level, process exactly that many, and enqueue their children for the next level.
+
+**Algorithm**:
+1. Enqueue `root` if non-null.
+2. While the queue is not empty: let `size = queue.size()`. Process `size` nodes, collecting values and enqueuing children.
+3. Add the level to the result.
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+        Queue<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            List<Integer> currentLevel = new ArrayList<>(levelSize);
-            for (int i = 0; i < levelSize; i++) {
-                TreeNode node = queue.poll();
-                currentLevel.add(node.val);
-                if (node.left != null) queue.offer(node.left);
-                if (node.right != null) queue.offer(node.right);
+            List<Integer> level = new ArrayList<>();
+            for (int size = queue.size(); size > 0; size--) {
+                TreeNode n = queue.poll();
+                level.add(n.val);
+                if (n.left != null) queue.offer(n.left);
+                if (n.right != null) queue.offer(n.right);
             }
-            res.add(currentLevel);
+            result.add(level);
         }
-        return res;
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(w)$ for the queue, plus output
+
+---
+
+##### Approach 3: Optimised / Best (Recursive DFS by Depth Index)
+
+**Intuition**: Pass the depth down the recursion. When a depth is reached for the first time, create its list. Then append each node's value to the list at its depth. Nodes are visited once, in pre-order, and each level's list fills left to right, which is exactly level order.
+
+**Algorithm**:
+1. `dfs(node, depth)`: if `null`, return.
+2. If `result.size() == depth`, append a new list.
+3. `result.get(depth).add(node.val)`.
+4. Recurse on left and right with `depth + 1`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(root, 0, result);
+        return result;
+    }
+
+    private void dfs(TreeNode node, int depth, List<List<Integer>> result) {
+        if (node == null) return;
+        if (result.size() == depth) {
+            result.add(new ArrayList<>());
+        }
+        result.get(depth).add(node.val);
+        dfs(node.left, depth + 1, result);
+        dfs(node.right, depth + 1, result);
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(h)$ for recursion, plus output
+
+---
+
+### 7.9 Binary Tree Right Side View
+- **Difficulty**: Medium
+- **LeetCode**: [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)
+- **NeetCode**: [Binary Tree Right Side View](https://neetcode.io/problems/binary-tree-right-side-view)
+- **Data Structures**: Binary Tree, Queue
+- **Patterns**: Last Node per Level, Right-First DFS
+
+#### Problem Description
+Given the `root` of a binary tree, imagine yourself standing on the right side of it. Return the values of the nodes you can see ordered from top to bottom.
+
+#### Examples
+
+**Example 1**
+- **Input**: `root = [1,2,3,null,5,null,4]`
+- **Output**: `[1,3,4]`
+- **Explanation**: Visible nodes are `1`, `3`, and `4`. Node `2` and node `5` are hidden behind their right-side neighbours.
+
+**Example 2**
+- **Input**: `root = [1,null,3]`
+- **Output**: `[1,3]`
+- **Explanation**: Each level has one node.
+
+#### Constraints
+- The number of nodes is in the range `[0, 100]`.
+- `-100 <= Node.val <= 100`
+
+#### Intuition
+The visible node on each level is the rightmost node of that level. Any traversal that processes levels and keeps the last node per level gives the answer. A right-first DFS achieves this with the first node reached at each depth.
+
+---
+
+##### Approach 1: Brute Force (Full Level Order, Take Last)
+
+**Intuition**: Compute the full level order traversal, then take the last element of each level.
+
+**Algorithm**:
+1. Build all levels with BFS.
+2. Return the last element of each level.
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        List<List<Integer>> levels = new ArrayList<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<Integer> level = new ArrayList<>();
+            for (int size = queue.size(); size > 0; size--) {
+                TreeNode n = queue.poll();
+                level.add(n.val);
+                if (n.left != null) queue.offer(n.left);
+                if (n.right != null) queue.offer(n.right);
+            }
+            levels.add(level);
+        }
+        for (List<Integer> level : levels) {
+            result.add(level.get(level.size() - 1));
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for all levels
+
+---
+
+##### Approach 2: Better (BFS, Keep Only the Last Node of Each Level)
+
+**Intuition**: The brute force stores every level. Keep only the last node of the level being processed, since that is the only value needed.
+
+**Algorithm**:
+1. Run BFS by level.
+2. For each level, record the last node dequeued in that level.
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode last = null;
+            for (int size = queue.size(); size > 0; size--) {
+                TreeNode n = queue.poll();
+                last = n;
+                if (n.left != null) queue.offer(n.left);
+                if (n.right != null) queue.offer(n.right);
+            }
+            result.add(last.val);
+        }
+        return result;
     }
 }
 ```
@@ -5945,39 +7893,38 @@ class Solution {
 
 ---
 
-### 7.9 Binary Tree Right Side View
-- **Difficulty**: Medium
-- **LeetCode**: [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)
-- **NeetCode**: [Binary Tree Right Side View](https://neetcode.io/problems/binary-tree-right-side-view)
-- **Data Structures**: Binary Tree
-- **Patterns**: DFS (Root-Right-Left) or BFS Level Last Node
+##### Approach 3: Optimised / Best (Right-First DFS with Depth Check)
 
-#### Solutions
+**Intuition**: Visit the right child before the left. The first node reached at each depth is the rightmost node at that depth, because the right subtree is always explored first. Record a node only if its depth has not been recorded yet. No queue is needed.
 
-##### Approach 1: Optimised / Best (Reverse Preorder DFS)
-Traverse root $\to$ right $\to$ left. The first node visited at each depth level is the rightmost node.
+**Algorithm**:
+1. `dfs(node, depth)`: if `null`, return.
+2. If `result.size() == depth`, add `node.val`.
+3. Recurse on `right`, then on `left`, with `depth + 1`.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        dfs(root, 0, res);
-        return res;
+        List<Integer> result = new ArrayList<>();
+        dfs(root, 0, result);
+        return result;
     }
 
-    private void dfs(TreeNode node, int depth, List<Integer> res) {
+    private void dfs(TreeNode node, int depth, List<Integer> result) {
         if (node == null) return;
-        if (depth == res.size()) {
-            res.add(node.val);
+        if (result.size() == depth) {
+            result.add(node.val);
         }
-        dfs(node.right, depth + 1, res);
-        dfs(node.left, depth + 1, res);
+        dfs(node.right, depth + 1, result);
+        dfs(node.left, depth + 1, result);
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(h)$
+- **Space Complexity**: $O(h)$ for recursion, plus output
 
 ---
 
@@ -5986,25 +7933,126 @@ class Solution {
 - **LeetCode**: [1448. Count Good Nodes in Binary Tree](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)
 - **NeetCode**: [Count Good Nodes in Binary Tree](https://neetcode.io/problems/count-good-nodes-in-binary-tree)
 - **Data Structures**: Binary Tree
-- **Patterns**: DFS with Running Path Maximum
+- **Patterns**: Path Maximum, Top-Down State Propagation
 
-#### Solutions
+#### Problem Description
+Given a binary tree `root`, a node `X` is **good** if, on the path from the root to `X`, no node has a value greater than `X`. Return the number of good nodes in the tree.
 
-##### Approach 1: Preorder DFS Tracking Path Max
+#### Examples
+
+**Example 1**
+- **Input**: `root = [3,1,4,3,null,1,5]`
+- **Output**: `4`
+- **Explanation**: Nodes `3` (root), `4`, `5`, and the left-most `3` are good.
+
+**Example 2**
+- **Input**: `root = [3,3,null,4,2]`
+- **Output**: `3`
+- **Explanation**: The good nodes are the root `3`, its left child `3`, and the `4` below it. The `2` is not good, because the path above it contains a `3`, which is larger.
+
+#### Constraints
+- The number of nodes is in the range `[1, 10^5]`.
+- `-10^4 <= Node.val <= 10^4`
+
+#### Intuition
+A node is good if its value is at least the maximum on its root path. That maximum is a property of the path, not of the node, so pass it down during traversal. Each node's status is determined in $O(1)$ from the running maximum.
+
+---
+
+##### Approach 1: Brute Force (Scan the Full Path for Each Node)
+
+**Intuition**: For each node, rebuild its root path and check its value against the path's maximum.
+
+**Algorithm**:
+1. DFS while keeping an explicit list of the current root path.
+2. At each node, compare its value with the maximum of the list (including itself). If it is at least the maximum, count it.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int goodNodes(TreeNode root) {
+        return dfs(root, new ArrayList<>());
+    }
+
+    private int dfs(TreeNode node, List<Integer> path) {
+        if (node == null) return 0;
+        path.add(node.val);
+        int max = Integer.MIN_VALUE;
+        for (int v : path) max = Math.max(max, v);
+        int count = (node.val >= max) ? 1 : 0;
+        count += dfs(node.left, path);
+        count += dfs(node.right, path);
+        path.remove(path.size() - 1);
+        return count;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot h)$
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 2: Better (Recursion Carrying the Path Maximum)
+
+**Intuition**: Carry the maximum of the path so far as a parameter. A node is counted if its value is at least that maximum, and the maximum passed down is updated with the node's value. This removes the per-node path scan.
+
+**Algorithm**:
+1. `dfs(node, maxSoFar)`: if `null`, return `0`.
+2. `good = node.val >= maxSoFar ? 1 : 0`.
+3. `newMax = max(maxSoFar, node.val)`.
+4. Return `good + dfs(left, newMax) + dfs(right, newMax)`.
+
 ```java
 class Solution {
     public int goodNodes(TreeNode root) {
-        return dfs(root, root.val);
+        return dfs(root, Integer.MIN_VALUE);
     }
 
     private int dfs(TreeNode node, int maxSoFar) {
         if (node == null) return 0;
+        int good = node.val >= maxSoFar ? 1 : 0;
+        int newMax = Math.max(maxSoFar, node.val);
+        return good + dfs(node.left, newMax) + dfs(node.right, newMax);
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 3: Optimised / Best (Iterative DFS with (Node, Max) Stack)
+
+**Intuition**: The same propagation, driven by an explicit stack of `(node, maxSoFar)` pairs. This avoids deep recursion on skewed trees.
+
+**Algorithm**:
+1. Push `(root, MIN_VALUE)`.
+2. Pop `(n, m)`. If `n.val >= m`, increment the count. Push each non-null child with `max(m, n.val)`.
+3. Return the count.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public int goodNodes(TreeNode root) {
+        if (root == null) return 0;
+        Deque<TreeNode> nodes = new ArrayDeque<>();
+        Deque<Integer> maxes = new ArrayDeque<>();
+        nodes.push(root);
+        maxes.push(Integer.MIN_VALUE);
         int count = 0;
-        if (node.val >= maxSoFar) {
-            count = 1;
-            maxSoFar = node.val;
+        while (!nodes.isEmpty()) {
+            TreeNode n = nodes.pop();
+            int m = maxes.pop();
+            if (n.val >= m) count++;
+            int newMax = Math.max(m, n.val);
+            if (n.left != null) { nodes.push(n.left); maxes.push(newMax); }
+            if (n.right != null) { nodes.push(n.right); maxes.push(newMax); }
         }
-        return count + dfs(node.left, maxSoFar) + dfs(node.right, maxSoFar);
+        return count;
     }
 }
 ```
@@ -6016,43 +8064,125 @@ class Solution {
 ### 7.11 Validate Binary Search Tree
 - **Difficulty**: Medium
 - **LeetCode**: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
-- **NeetCode**: [Valid Binary Search Tree](https://neetcode.io/problems/valid-binary-search-tree)
-- **Data Structures**: BST
-- **Patterns**: Range Constraints DFS or In-Order Monotonicity
+- **NeetCode**: [Validate Binary Search Tree](https://neetcode.io/problems/valid-binary-search-tree)
+- **Data Structures**: Binary Search Tree
+- **Patterns**: Range Bounds, In-Order Monotonicity
 
-#### Solutions
+#### Problem Description
+Given the `root` of a binary tree, determine if it is a valid binary search tree. A valid BST satisfies:
+- The left subtree of a node contains only nodes with keys less than the node's key.
+- The right subtree contains only nodes with keys greater than the node's key.
+- Both subtrees are themselves BSTs.
 
-##### Approach 1: Recursive Range Constraints
+#### Examples
+
+**Example 1**
+- **Input**: `root = [2,1,3]`
+- **Output**: `true`
+- **Explanation**: `1 < 2 < 3`.
+
+**Example 2**
+- **Input**: `root = [5,1,4,null,null,3,6]`
+- **Output**: `false`
+- **Explanation**: The root is `5`, but its right child `4` has a left child `3`, and `3 < 5`. The value `3` is in the right subtree of `5`, which violates the BST property.
+
+#### Constraints
+- The number of nodes is in the range `[1, 10^4]`.
+- `-2^31 <= Node.val <= 2^31 - 1`
+
+#### Intuition
+Checking only each node against its immediate children is not enough, since a grandchild can violate an ancestor's constraint. Each node must lie within an interval determined by all its ancestors. Passing the interval down the recursion enforces this exactly. An equivalent view: the in-order traversal of a valid BST is strictly increasing.
+
+---
+
+##### Approach 1: Brute Force (Verify Each Subtree Fully)
+
+**Intuition**: For each node, check that every value in its left subtree is less than it and every value in its right subtree is greater than it, then recurse to every node.
+
+**Algorithm**:
+1. `allLess(node, bound)`: true if every value in the subtree is `< bound`.
+2. `allGreater(node, bound)`: true if every value is `> bound`.
+3. `isBST(node)`: if `null`, true. Otherwise check `allLess(left, node.val)` and `allGreater(right, node.val)`, and recurse on both children.
+
 ```java
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        return validate(root, null, null);
+        if (root == null) return true;
+        if (!allLess(root.left, root.val) || !allGreater(root.right, root.val)) return false;
+        return isValidBST(root.left) && isValidBST(root.right);
     }
 
-    private boolean validate(TreeNode node, Integer min, Integer max) {
+    private boolean allLess(TreeNode node, long bound) {
         if (node == null) return true;
-        if ((min != null && node.val <= min) || (max != null && node.val >= max)) {
-            return false;
+        return node.val < bound && allLess(node.left, bound) && allLess(node.right, bound);
+    }
+
+    private boolean allGreater(TreeNode node, long bound) {
+        if (node == null) return true;
+        return node.val > bound && allGreater(node.left, bound) && allGreater(node.right, bound);
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 2: Better (In-Order Traversal Must Be Strictly Increasing)
+
+**Intuition**: In a valid BST, the in-order traversal gives values in strictly increasing order. Collect the in-order sequence, then check that each value exceeds the one before it.
+
+**Algorithm**:
+1. Perform in-order traversal, appending each value to a list.
+2. Return `true` if the list is strictly increasing.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        List<Integer> vals = new ArrayList<>();
+        inorder(root, vals);
+        for (int i = 1; i < vals.size(); i++) {
+            if (vals.get(i) <= vals.get(i - 1)) return false;
         }
-        return validate(node.left, min, node.val) && validate(node.right, node.val, max);
+        return true;
+    }
+
+    private void inorder(TreeNode node, List<Integer> vals) {
+        if (node == null) return;
+        inorder(node.left, vals);
+        vals.add(node.val);
+        inorder(node.right, vals);
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(h)$
+- **Space Complexity**: $O(n)$
 
-##### Approach 2: Best (In-Order Traversal with Previous Value)
-In-order traversal of a valid BST must produce strictly increasing values.
+---
+
+##### Approach 3: Optimised / Best (Range Bounds Passed Down)
+
+**Intuition**: Each node has an open interval `(lo, hi)` derived from its ancestors. The root's interval is unbounded. Going left tightens `hi` to the current value, and going right tightens `lo`. A node is valid if its value lies strictly within its interval. Use `long` bounds so that `Integer.MIN_VALUE` and `Integer.MAX_VALUE` node values are handled correctly.
+
+**Algorithm**:
+1. `validate(node, lo, hi)`: if `null`, true.
+2. If `node.val <= lo` or `node.val >= hi`, return `false`.
+3. Return `validate(left, lo, node.val) && validate(right, node.val, hi)`.
+4. Call with `Long.MIN_VALUE` and `Long.MAX_VALUE`.
+
 ```java
 class Solution {
-    private Integer prev = null;
-
     public boolean isValidBST(TreeNode root) {
-        if (root == null) return true;
-        if (!isValidBST(root.left)) return false;
-        if (prev != null && root.val <= prev) return false;
-        prev = root.val;
-        return isValidBST(root.right);
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private boolean validate(TreeNode node, long lo, long hi) {
+        if (node == null) return true;
+        if (node.val <= lo || node.val >= hi) return false;
+        return validate(node.left, lo, node.val) && validate(node.right, node.val, hi);
     }
 }
 ```
@@ -6065,28 +8195,128 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
 - **NeetCode**: [Kth Smallest Integer in BST](https://neetcode.io/problems/kth-smallest-integer-in-bst)
-- **Data Structures**: BST
-- **Patterns**: Iterative In-Order Traversal
+- **Data Structures**: Binary Search Tree, Stack
+- **Patterns**: In-Order Traversal, Early Termination
 
-#### Solutions
+#### Problem Description
+Given the `root` of a binary search tree, and an integer `k`, return the `k`-th smallest value (1-indexed) of all the node values in the tree.
 
-##### Approach 1: Optimised / Best (Iterative In-Order Traversal)
+#### Examples
+
+**Example 1**
+- **Input**: `root = [3,1,4,null,2]`, `k = 1`
+- **Output**: `1`
+- **Explanation**: The smallest value in the tree.
+
+**Example 2**
+- **Input**: `root = [5,3,6,2,4,null,null,1]`, `k = 3`
+- **Output**: `3`
+- **Explanation**: In sorted order the values are `1, 2, 3, 4, 5, 6`, so the third is `3`.
+
+#### Constraints
+- The number of nodes is `n`, with `1 <= k <= n <= 10^4`.
+- `0 <= Node.val <= 10^4`
+
+#### Intuition
+An in-order traversal of a BST yields values in sorted order. So the `k`-th smallest is the `k`-th node visited in-order. The traversal can stop as soon as that node is reached, so no further work is needed.
+
+---
+
+##### Approach 1: Brute Force (Full In-Order Traversal into a List)
+
+**Intuition**: Collect all values in in-order, then index into the list.
+
+**Algorithm**:
+1. In-order traverse, appending values to a list.
+2. Return `list.get(k - 1)`.
+
 ```java
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = root;
-        while (curr != null || !stack.isEmpty()) {
-            while (curr != null) {
-                stack.push(curr);
-                curr = curr.left;
+        List<Integer> vals = new ArrayList<>();
+        inorder(root, vals);
+        return vals.get(k - 1);
+    }
+
+    private void inorder(TreeNode node, List<Integer> vals) {
+        if (node == null) return;
+        inorder(node.left, vals);
+        vals.add(node.val);
+        inorder(node.right, vals);
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Recursive In-Order with Counter and Early Exit)
+
+**Intuition**: Do the same in-order traversal, but count nodes as they are visited. When the counter reaches `k`, record the value and stop descending.
+
+**Algorithm**:
+1. `inorder(node)`: if `null` or already found, return.
+2. Recurse left.
+3. Increment `count`. If it equals `k`, record `node.val` and return.
+4. Recurse right.
+
+```java
+class Solution {
+    private int count = 0;
+    private int answer = -1;
+
+    public int kthSmallest(TreeNode root, int k) {
+        inorder(root, k);
+        return answer;
+    }
+
+    private void inorder(TreeNode node, int k) {
+        if (node == null || answer != -1) return;
+        inorder(node.left, k);
+        if (++count == k) {
+            answer = node.val;
+            return;
+        }
+        inorder(node.right, k);
+    }
+}
+```
+- **Time Complexity**: $O(h + k)$
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 3: Optimised / Best (Iterative In-Order with Stack)
+
+**Intuition**: Simulate the in-order traversal with an explicit stack. Push the left spine, pop a node, and count it. When the count reaches `k`, return the value. This is the same early exit without recursion.
+
+**Algorithm**:
+1. `cur = root`. While `cur != null` or the stack is not empty:
+   - Push `cur` and all its left descendants.
+   - Pop a node. Increment `count`. If `count == k`, return its value.
+   - Set `cur` to the popped node's right child.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode cur = root;
+        int count = 0;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
             }
-            curr = stack.pop();
-            k--;
-            if (k == 0) return curr.val;
-            curr = curr.right;
+            cur = stack.pop();
+            if (++count == k) return cur.val;
+            cur = cur.right;
         }
         return -1;
     }
@@ -6100,42 +8330,141 @@ class Solution {
 ### 7.13 Construct Binary Tree from Preorder and Inorder Traversal
 - **Difficulty**: Medium
 - **LeetCode**: [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
-- **NeetCode**: [Binary Tree from Preorder and Inorder Traversal](https://neetcode.io/problems/binary-tree-from-preorder-and-inorder-traversal)
-- **Data Structures**: Binary Tree, Hash Table
-- **Patterns**: Divide & Conquer with Inorder Index Map
+- **NeetCode**: [Construct Binary Tree from Preorder and Inorder Traversal](https://neetcode.io/problems/construct-binary-tree-from-preorder-and-inorder-traversal)
+- **Data Structures**: Binary Tree, Array, Hash Map
+- **Patterns**: Divide and Conquer, Root Splits In-Order
 
-#### Solutions
+#### Problem Description
+Given two integer arrays `preorder` and `inorder`, where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.
 
-##### Approach 1: Optimised / Best (HashMap Inorder Indexing)
-Preorder gives root first. Inorder separates left and right subtrees.
+#### Examples
+
+**Example 1**
+- **Input**: `preorder = [3,9,20,15,7]`, `inorder = [9,3,15,20,7]`
+- **Output**: `[3,9,20,null,null,15,7]`
+- **Explanation**: `3` is the root. In the inorder list, `9` is left of `3` (left subtree) and `15, 20, 7` are right of it.
+
+**Example 2**
+- **Input**: `preorder = [-1]`, `inorder = [-1]`
+- **Output**: `[-1]`
+- **Explanation**: A single node.
+
+#### Constraints
+- `1 <= preorder.length <= 3000`
+- `inorder.length == preorder.length`
+- `-3000 <= preorder[i], inorder[i] <= 3000`
+- `preorder` and `inorder` consist of unique values and are valid traversals of the same tree.
+
+#### Intuition
+The first value in preorder is always the root. Its position in inorder splits the tree: everything to its left is the left subtree, everything to its right is the right subtree. Both traversals are then split into the same two parts, and the same logic applies recursively. The only costly step is finding the root's position in inorder, and that can be made $O(1)$.
+
+---
+
+##### Approach 1: Brute Force (Copy Subarrays, Linear Search for Root)
+
+**Intuition**: Apply the divide-and-conquer split literally. Copy the left and right parts into new arrays, and find the root's position in inorder with a linear scan.
+
+**Algorithm**:
+1. If `preorder` is empty, return `null`.
+2. `root = preorder[0]`. Find `m`, its index in `inorder`, by linear search.
+3. Build the left subtree from `preorder[1..m]` and `inorder[0..m)`, and the right subtree from `preorder[m+1..]` and `inorder[m+1..]`, copying each subarray.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder.length == 0) return null;
+        TreeNode root = new TreeNode(preorder[0]);
+        int m = 0;
+        while (inorder[m] != preorder[0]) m++;
+        root.left = buildTree(
+            Arrays.copyOfRange(preorder, 1, m + 1),
+            Arrays.copyOfRange(inorder, 0, m));
+        root.right = buildTree(
+            Arrays.copyOfRange(preorder, m + 1, preorder.length),
+            Arrays.copyOfRange(inorder, m + 1, inorder.length));
+        return root;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ for linear searches and copying
+- **Space Complexity**: $O(n^2)$ in total for the copies across recursion levels
+
+---
+
+##### Approach 2: Better (Index Ranges with Linear Search)
+
+**Intuition**: Avoid copying by passing index ranges into the original arrays. The root search stays linear, but the copying cost disappears.
+
+**Algorithm**:
+1. `build(ps, pe, is, ie)`: preorder range `[ps, pe]`, inorder range `[is, ie]`.
+2. If `ps > pe`, return `null`.
+3. `root = preorder[ps]`. Find `m` in `[is, ie]` by linear search. `leftSize = m - is`.
+4. Left: `build(ps+1, ps+leftSize, is, m-1)`. Right: `build(ps+leftSize+1, pe, m+1, ie)`.
+
+```java
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+    }
+
+    private TreeNode build(int[] pre, int ps, int pe, int[] in, int is, int ie) {
+        if (ps > pe) return null;
+        TreeNode root = new TreeNode(pre[ps]);
+        int m = is;
+        while (in[m] != pre[ps]) m++;
+        int leftSize = m - is;
+        root.left = build(pre, ps + 1, ps + leftSize, in, is, m - 1);
+        root.right = build(pre, ps + leftSize + 1, pe, in, m + 1, ie);
+        return root;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case for linear searches
+- **Space Complexity**: $O(h)$ for recursion
+
+---
+
+##### Approach 3: Optimised / Best (Index Ranges with Hash Map)
+
+**Intuition**: The only expensive step is finding the root's position in inorder. Precompute a map from value to inorder index, so every root lookup is $O(1)$. Each node is created once, and the total work is linear.
+
+**Algorithm**:
+1. Build `idx: value -> index in inorder`.
+2. `build(is, ie)` uses a shared pointer `preIdx` into `preorder`. The root is `preorder[preIdx++]`.
+3. `m = idx.get(root)`. Build the left subtree on `[is, m-1]` and the right on `[m+1, ie]`.
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
 
 class Solution {
     private int preIdx = 0;
-    private Map<Integer, Integer> inMap = new HashMap<>();
+    private int[] preorder;
+    private Map<Integer, Integer> idx = new HashMap<>();
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
+        this.preorder = preorder;
         for (int i = 0; i < inorder.length; i++) {
-            inMap.put(inorder[i], i);
+            idx.put(inorder[i], i);
         }
-        return helper(preorder, 0, inorder.length - 1);
+        return build(0, inorder.length - 1);
     }
 
-    private TreeNode helper(int[] preorder, int inStart, int inEnd) {
-        if (inStart > inEnd) return null;
+    private TreeNode build(int is, int ie) {
+        if (is > ie) return null;
         int rootVal = preorder[preIdx++];
         TreeNode root = new TreeNode(rootVal);
-        int mid = inMap.get(rootVal);
-        root.left = helper(preorder, inStart, mid - 1);
-        root.right = helper(preorder, mid + 1, inEnd);
+        int m = idx.get(rootVal);
+        root.left = build(is, m - 1);
+        root.right = build(m + 1, ie);
         return root;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for the map and recursion
 
 ---
 
@@ -6144,27 +8473,95 @@ class Solution {
 - **LeetCode**: [124. Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 - **NeetCode**: [Binary Tree Maximum Path Sum](https://neetcode.io/problems/binary-tree-maximum-path-sum)
 - **Data Structures**: Binary Tree
-- **Patterns**: Post-Order DFS with Split Path Maximum
+- **Patterns**: Post-Order Gain, Clamp Negative Contributions, Global Maximum
 
-#### Solutions
+#### Problem Description
+A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge. A node may appear at most once in the sequence, and the path does not need to pass through the root. The path sum is the sum of its node values.
 
-##### Approach 1: Optimised / Best (Post-Order Gain Computation)
-At each node, compute max gain from left and right children (clamped to 0). Combined path through current node is `node.val + leftGain + rightGain`. Return single-branch gain `node.val + max(leftGain, rightGain)` to parent.
+Given the `root` of a binary tree, return the maximum path sum of any non-empty path.
+
+#### Examples
+
+**Example 1**
+- **Input**: `root = [1,2,3]`
+- **Output**: `6`
+- **Explanation**: The path `2 -> 1 -> 3` has sum `6`.
+
+**Example 2**
+- **Input**: `root = [-10,9,20,null,null,15,7]`
+- **Output**: `42`
+- **Explanation**: The path `15 -> 20 -> 7` has sum `42`. Node `-10` is excluded, since including it lowers the sum.
+
+#### Constraints
+- The number of nodes is in the range `[1, 3 * 10^4]`.
+- `-1000 <= Node.val <= 1000`
+
+#### Intuition
+Every path has a highest node, its apex, where it turns. At the apex, the path uses at most two downward branches. A branch with a negative sum is never worth taking, so clamp each branch's contribution at zero. The maximum path through a node is `node.val + max(0, leftGain) + max(0, rightGain)`. A post-order DFS can compute each node's best downward gain and update a global maximum with the apex value.
+
+---
+
+##### Approach 1: Brute Force (Recompute Downward Gain for Each Apex)
+
+**Intuition**: For each node as the apex, compute the best downward gains of its children from scratch, without caching, and combine them.
+
+**Algorithm**:
+1. `down(x)`: return `0` for `null`. Otherwise return `x.val + max(0, down(left), down(right))`.
+2. For each node `v`, candidate = `v.val + max(0, down(v.left)) + max(0, down(v.right))`.
+3. Return the maximum candidate.
+
 ```java
 class Solution {
-    private int maxSum = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        if (root == null) return Integer.MIN_VALUE;
+        int best = Integer.MIN_VALUE;
+        best = Math.max(best, candidate(root));
+        best = Math.max(best, maxPathSum(root.left));
+        best = Math.max(best, maxPathSum(root.right));
+        return best;
+    }
+
+    private int candidate(TreeNode v) {
+        return v.val + Math.max(0, down(v.left)) + Math.max(0, down(v.right));
+    }
+
+    private int down(TreeNode x) {
+        if (x == null) return 0;
+        return x.val + Math.max(0, Math.max(down(x.left), down(x.right)));
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case, for a skewed tree
+- **Space Complexity**: $O(h)$
+
+---
+
+##### Approach 2: Optimised / Best (Single Post-Order DFS with Global Maximum)
+
+**Intuition**: Compute each node's best downward gain once, bottom-up. At each node, the path using both branches is a candidate for the global answer. Only the single-branch gain is returned to the parent, since a path cannot fork above its apex.
+
+**Algorithm**:
+1. `gain(node)`: return `0` for `null`.
+2. `l = max(0, gain(left))`, `r = max(0, gain(right))`.
+3. Update `best = max(best, node.val + l + r)`.
+4. Return `node.val + max(l, r)`.
+5. Initialise `best` to `Integer.MIN_VALUE`, and return it after `gain(root)`.
+
+```java
+class Solution {
+    private int best = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
         gain(root);
-        return maxSum;
+        return best;
     }
 
     private int gain(TreeNode node) {
         if (node == null) return 0;
-        int leftGain = Math.max(0, gain(node.left));
-        int rightGain = Math.max(0, gain(node.right));
-        maxSum = Math.max(maxSum, node.val + leftGain + rightGain);
-        return node.val + Math.max(leftGain, rightGain);
+        int l = Math.max(0, gain(node.left));
+        int r = Math.max(0, gain(node.right));
+        best = Math.max(best, node.val + l + r);
+        return node.val + Math.max(l, r);
     }
 }
 ```
@@ -6178,50 +8575,147 @@ class Solution {
 - **LeetCode**: [297. Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
 - **NeetCode**: [Serialize and Deserialize Binary Tree](https://neetcode.io/problems/serialize-and-deserialize-binary-tree)
 - **Data Structures**: Binary Tree, String, Queue
-- **Patterns**: Preorder DFS or Level-Order BFS with Null Markers
+- **Patterns**: Null-Marker Encoding, Level-Order vs. Pre-Order Encoding
 
-#### Solutions
+#### Problem Description
+Design an algorithm to serialize a binary tree to a string, and deserialize that string back to the original tree structure. There are no restrictions on the format, as long as the round trip reconstructs the same tree.
 
-##### Approach 1: Optimised / Best (Preorder DFS with Delimiters)
+Implement:
+- `String serialize(TreeNode root)`
+- `TreeNode deserialize(String data)`
+
+#### Examples
+
+**Example 1**
+- **Input**: `root = [1,2,3,null,null,4,5]`
+- **Output**: `deserialize(serialize(root))` returns a tree equal to `[1,2,3,null,null,4,5]`
+- **Explanation**: Any encoding that round-trips correctly is acceptable.
+
+**Example 2**
+- **Input**: `root = []`
+- **Output**: `deserialize(serialize(root))` returns `null`
+- **Explanation**: The empty tree round-trips to an empty tree.
+
+#### Constraints
+- The number of nodes is in the range `[0, 10^4]`.
+- `-1000 <= Node.val <= 1000`
+
+#### Intuition
+Serialization must record both values and structure. A null marker is the key: without it, a sequence of values alone cannot tell where a subtree ends. Once each null is written, the sequence is unambiguous, and it can be read back by mirroring the traversal. Two natural traversals work. Level order with null markers is what BFS produces. Pre-order with null markers lets recursion reconstruct the tree directly.
+
+---
+
+##### Approach 1: Brute Force (Level Order with Null Markers)
+
+**Intuition**: Write nodes in BFS order, and write `#` for each missing child. To decode, read tokens in the same order with a queue, attaching each child slot to the next node in line.
+
+**Algorithm**:
+1. Serialize: BFS. For each dequeued node, append its value. If it has no left child, append `#`, otherwise enqueue it. Do the same for the right child. Join tokens with `,`.
+2. Deserialize: split on `,`. Create the root from the first token. Enqueue it. For each dequeued node, read the next token for its left child and then for its right child. Create a node for any non-`#` token and enqueue it.
+
 ```java
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
-public class Codec {
-    // Encodes a tree to a single string.
+class Codec {
+    public String serialize(TreeNode root) {
+        if (root == null) return "#";
+        List<String> tokens = new ArrayList<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        tokens.add(String.valueOf(root.val));
+        while (!queue.isEmpty()) {
+            TreeNode n = queue.poll();
+            for (TreeNode child : new TreeNode[]{n.left, n.right}) {
+                if (child == null) {
+                    tokens.add("#");
+                } else {
+                    tokens.add(String.valueOf(child.val));
+                    queue.offer(child);
+                }
+            }
+        }
+        return String.join(",", tokens);
+    }
+
+    public TreeNode deserialize(String data) {
+        String[] t = data.split(",");
+        if (t[0].equals("#")) return null;
+        TreeNode root = new TreeNode(Integer.parseInt(t[0]));
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        int i = 1;
+        while (!queue.isEmpty()) {
+            TreeNode n = queue.poll();
+            if (!t[i].equals("#")) {
+                n.left = new TreeNode(Integer.parseInt(t[i]));
+                queue.offer(n.left);
+            }
+            i++;
+            if (!t[i].equals("#")) {
+                n.right = new TreeNode(Integer.parseInt(t[i]));
+                queue.offer(n.right);
+            }
+            i++;
+        }
+        return root;
+    }
+}
+```
+- **Time Complexity**: $O(n)$ for both operations
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Optimised / Best (Pre-Order with Null Markers, Token Deque)
+
+**Intuition**: Pre-order serialization writes each node before its subtrees, with `#` for null. To decode, read tokens from the front. The current token is the next node in pre-order, so decode it, then recursively decode its left subtree and then its right subtree. The recursion consumes tokens in exactly the order they were written, so no index bookkeeping is needed beyond the shared queue.
+
+**Algorithm**:
+1. Serialize: `build(node)`. If `null`, append `#`. Otherwise append the value, then build left, then build right.
+2. Deserialize: put the tokens in a deque. `decode()`: poll a token. If it is `#`, return `null`. Otherwise create the node, set `left = decode()`, then `right = decode()`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+
+class Codec {
     public String serialize(TreeNode root) {
         StringBuilder sb = new StringBuilder();
-        buildString(root, sb);
+        build(root, sb);
         return sb.toString();
     }
 
-    private void buildString(TreeNode node, StringBuilder sb) {
+    private void build(TreeNode node, StringBuilder sb) {
         if (node == null) {
-            sb.append("N,");
+            sb.append("#,");
             return;
         }
-        sb.append(node.val).append(",");
-        buildString(node.left, sb);
-        buildString(node.right, sb);
+        sb.append(node.val).append(',');
+        build(node.left, sb);
+        build(node.right, sb);
     }
 
-    // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        Queue<String> nodes = new LinkedList<>(Arrays.asList(data.split(",")));
-        return buildTree(nodes);
+        Deque<String> tokens = new ArrayDeque<>(Arrays.asList(data.split(",")));
+        return decode(tokens);
     }
 
-    private TreeNode buildTree(Queue<String> nodes) {
-        String val = nodes.poll();
-        if (val.equals("N")) return null;
-        TreeNode node = new TreeNode(Integer.parseInt(val));
-        node.left = buildTree(nodes);
-        node.right = buildTree(nodes);
+    private TreeNode decode(Deque<String> tokens) {
+        String t = tokens.poll();
+        if (t.equals("#")) return null;
+        TreeNode node = new TreeNode(Integer.parseInt(t));
+        node.left = decode(tokens);
+        node.right = decode(tokens);
         return node;
     }
 }
 ```
-- **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: $O(n)$ for both operations
+- **Space Complexity**: $O(n)$ for the token list and recursion
 
 ---
 
@@ -6231,39 +8725,147 @@ public class Codec {
 - **Difficulty**: Easy
 - **LeetCode**: [703. Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
 - **NeetCode**: [Kth Largest Integer in a Stream](https://neetcode.io/problems/kth-largest-integer-in-a-stream)
-- **Data Structures**: Min-Heap
-- **Patterns**: Fixed-Size Min-Heap ($k$)
+- **Data Structures**: Heap, Array
+- **Patterns**: Fixed-Size Min-Heap
 
-#### Solutions
+#### Problem Description
+Design a class that finds the `k`-th largest element in a stream of numbers. The class is initialised with `k` and an initial array `nums`.
 
-##### Approach 1: Optimised / Best (Min-Heap of Size $k$)
+Implement the `KthLargest` class:
+- `KthLargest(int k, int[] nums)` initialises the object.
+- `int add(int val)` appends `val` to the stream and returns the `k`-th largest element in the stream so far.
+
+#### Examples
+
+**Example 1**
+- **Input**: `k = 3`, `nums = [4,5,8,2]`, then `add(3), add(5), add(10), add(9), add(4)`
+- **Output**: `4, 5, 5, 8, 8`
+- **Explanation**: After each add, the third largest value is returned. For example, after `add(10)` the stream is `[2,3,4,5,8,10]` and the third largest is `5`.
+
+**Example 2**
+- **Input**: `k = 1`, `nums = []`, then `add(-3), add(-2)`
+- **Output**: `-3, -2`
+- **Explanation**: With `k = 1`, the answer is always the maximum so far.
+
+#### Constraints
+- `1 <= k <= 10^4`
+- `0 <= nums.length <= 10^4`
+- `-10^4 <= nums[i], val <= 10^4`
+- At least `k` elements exist in the stream when `add` is called.
+- At most `10^4` calls to `add`.
+
+#### Intuition
+The `k`-th largest value is the root of a min-heap that keeps only the `k` largest values seen so far. Anything smaller than the heap's minimum can never affect the answer, so it can be discarded. Keeping the heap at size `k` makes each `add` $O(\log k)$.
+
+---
+
+##### Approach 1: Brute Force (Sort Every Query)
+
+**Intuition**: Store everything. On each query, sort the full list and read the `k`-th largest.
+
+**Algorithm**:
+1. The constructor stores all values.
+2. `add` appends the value, sorts ascending, and returns `all.get(size - k)`.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class KthLargest {
+    private final int k;
+    private final List<Integer> all = new ArrayList<>();
+
+    public KthLargest(int k, int[] nums) {
+        this.k = k;
+        for (int x : nums) all.add(x);
+    }
+
+    public int add(int val) {
+        all.add(val);
+        Collections.sort(all);
+        return all.get(all.size() - k);
+    }
+}
+```
+- **Time Complexity**: `add` is $O(n \log n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Sorted List with Binary-Search Insertion)
+
+**Intuition**: Keep the list sorted at all times. Insertion via binary search finds the position in $O(\log n)$, and shifting elements costs $O(n)$. After insertion, the `k`-th largest is read directly from the end.
+
+**Algorithm**:
+1. Sort the initial values.
+2. `add(val)`: find the insertion point with `Collections.binarySearch`, insert, and return `sorted.get(size - k)`.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class KthLargest {
+    private final int k;
+    private final List<Integer> sorted = new ArrayList<>();
+
+    public KthLargest(int k, int[] nums) {
+        this.k = k;
+        for (int x : nums) sorted.add(x);
+        Collections.sort(sorted);
+    }
+
+    public int add(int val) {
+        int pos = Collections.binarySearch(sorted, val);
+        if (pos < 0) pos = -pos - 1;
+        sorted.add(pos, val);
+        return sorted.get(sorted.size() - k);
+    }
+}
+```
+- **Time Complexity**: `add` is $O(n)$ because of shifting
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Min-Heap of Size K)
+
+**Intuition**: Only the `k` largest values matter. Keep a min-heap of exactly `k` elements. Its root is the `k`-th largest. A new value larger than the root replaces the root. A smaller value is ignored.
+
+**Algorithm**:
+1. `push(val)`: if the heap has fewer than `k` items, offer `val`. Otherwise, if `val > peek()`, poll and offer `val`.
+2. Construct by pushing every initial value.
+3. `add(val)`: push, and return `heap.peek()`.
+
 ```java
 import java.util.PriorityQueue;
 
 class KthLargest {
-    private final PriorityQueue<Integer> minHeap;
     private final int k;
+    private final PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
     public KthLargest(int k, int[] nums) {
         this.k = k;
-        this.minHeap = new PriorityQueue<>(k);
-        for (int n : nums) {
-            add(n);
-        }
+        for (int x : nums) push(x);
     }
 
     public int add(int val) {
+        push(val);
+        return minHeap.peek();
+    }
+
+    private void push(int val) {
         if (minHeap.size() < k) {
             minHeap.offer(val);
         } else if (val > minHeap.peek()) {
             minHeap.poll();
             minHeap.offer(val);
         }
-        return minHeap.peek();
     }
 }
 ```
-- **Time Complexity**: Constructor $O(n \log k)$, `add` $O(\log k)$
+- **Time Complexity**: `add` is $O(\log k)$
 - **Space Complexity**: $O(k)$
 
 ---
@@ -6272,23 +8874,88 @@ class KthLargest {
 - **Difficulty**: Easy
 - **LeetCode**: [1046. Last Stone Weight](https://leetcode.com/problems/last-stone-weight/)
 - **NeetCode**: [Last Stone Weight](https://neetcode.io/problems/last-stone-weight)
-- **Data Structures**: Max-Heap
-- **Patterns**: Greedy Simulation with Max-Heap
+- **Data Structures**: Array, Heap
+- **Patterns**: Repeated Extraction of Maximum
 
-#### Solutions
+#### Problem Description
+You are given an array of integers `stones`, where `stones[i]` is the weight of the `i`-th stone. Each turn, pick the two heaviest stones and smash them together. If they have equal weight, both are destroyed. If not, the lighter one is destroyed and the heavier one's weight becomes the difference.
 
-##### Approach 1: Optimised / Best (Max-Heap Simulation)
+At the end, return the weight of the last remaining stone, or `0` if none remain.
+
+#### Examples
+
+**Example 1**
+- **Input**: `stones = [2,7,4,1,8,1]`
+- **Output**: `1`
+- **Explanation**: Smash `8` and `7` to get `1`, leaving `[2,4,1,1,1]`. Smash `4` and `2` to get `2`, leaving `[1,1,1,2]`. Smash `2` and `1` to get `1`, leaving `[1,1,1]`. Smash two of the `1`s to get `0`, leaving `[0,1]`, so one stone of weight `1` remains.
+
+**Example 2**
+- **Input**: `stones = [1]`
+- **Output**: `1`
+- **Explanation**: One stone remains untouched.
+
+#### Constraints
+- `1 <= stones.length <= 30`
+- `1 <= stones[i] <= 1000`
+
+#### Intuition
+Each turn needs the two largest values, and the result goes back into the pool. That is repeated maximum extraction with insertion, which is exactly what a max-heap is for. The constraints are small, so even a sort-per-turn solution would be fast enough.
+
+---
+
+##### Approach 1: Brute Force (Sort Each Turn)
+
+**Intuition**: Sort the list every turn, take the last two elements, smash them, and put the difference back if it is non-zero.
+
+**Algorithm**:
+1. While the list has more than one stone: sort it, remove the last two, and add `|a - b|` if non-zero.
+2. Return the remaining stone, or `0`.
+
 ```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        List<Integer> list = new ArrayList<>();
+        for (int s : stones) list.add(s);
+        while (list.size() > 1) {
+            Collections.sort(list);
+            int y = list.remove(list.size() - 1);
+            int x = list.remove(list.size() - 1);
+            if (y != x) list.add(y - x);
+        }
+        return list.isEmpty() ? 0 : list.get(0);
+    }
+}
+```
+- **Time Complexity**: $O(n^2 \log n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Optimised / Best (Max-Heap)
+
+**Intuition**: A max-heap yields the two heaviest stones in $O(\log n)$ each. The surviving difference is pushed back, so each smash costs logarithmic time instead of a full sort.
+
+**Algorithm**:
+1. Offer every stone into a max-heap.
+2. While the heap has at least two elements: poll `y` and `x`. If `y != x`, offer `y - x`.
+3. Return the heap's peek, or `0` if empty.
+
+```java
+import java.util.Collections;
 import java.util.PriorityQueue;
 
 class Solution {
     public int lastStoneWeight(int[] stones) {
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
-        for (int stone : stones) maxHeap.offer(stone);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        for (int s : stones) maxHeap.offer(s);
         while (maxHeap.size() > 1) {
             int y = maxHeap.poll();
             int x = maxHeap.poll();
-            if (y > x) maxHeap.offer(y - x);
+            if (y != x) maxHeap.offer(y - x);
         }
         return maxHeap.isEmpty() ? 0 : maxHeap.peek();
     }
@@ -6303,27 +8970,86 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
 - **NeetCode**: [K Closest Points to Origin](https://neetcode.io/problems/k-closest-points-to-origin)
-- **Data Structures**: Max-Heap / QuickSelect
-- **Patterns**: Max-Heap of Size $k$ / QuickSelect
+- **Data Structures**: Array, Heap, Sorting
+- **Patterns**: Sort by Key, Bounded Max-Heap, Quickselect
 
-#### Solutions
+#### Problem Description
+Given an array of `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane, and an integer `k`, return the `k` closest points to the origin `(0, 0)`. The distance is the Euclidean distance. The answer may be returned in any order, and it is guaranteed to be unique up to ordering.
 
-##### Approach 1: Max-Heap of Size $k$
+#### Examples
+
+**Example 1**
+- **Input**: `points = [[1,3],[-2,2]]`, `k = 1`
+- **Output**: `[[-2,2]]`
+- **Explanation**: The distance of `(1,3)` is `sqrt(10)`, and the distance of `(-2,2)` is `sqrt(8)`.
+
+**Example 2**
+- **Input**: `points = [[3,3],[5,-1],[-2,4]]`, `k = 2`
+- **Output**: `[[3,3],[-2,4]]`
+- **Explanation**: The two smallest squared distances are `18` and `20`.
+
+#### Constraints
+- `1 <= k <= points.length <= 10^4`
+- `-10^4 <= xi, yi <= 10^4`
+
+#### Intuition
+Comparing Euclidean distances is the same as comparing squared distances, so avoid the square root. Once points are keyed by `x^2 + y^2`, the problem becomes "find the `k` smallest keys". Three standard tools answer that: sort everything, keep a bounded max-heap of the `k` best, or use quickselect to partition around the `k`-th smallest without fully sorting.
+
+---
+
+##### Approach 1: Brute Force (Sort by Distance)
+
+**Intuition**: Sort all points by squared distance and take the first `k`.
+
+**Algorithm**:
+1. Sort `points` with a comparator on `x^2 + y^2`.
+2. Return the first `k` points.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        Arrays.sort(points, (a, b) -> Long.compare(dist(a), dist(b)));
+        return Arrays.copyOf(points, k);
+    }
+
+    private long dist(int[] p) {
+        return (long) p[0] * p[0] + (long) p[1] * p[1];
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(\log n)$ for sorting, plus output
+
+---
+
+##### Approach 2: Better (Max-Heap of Size K)
+
+**Intuition**: Keep the `k` closest points seen so far in a max-heap keyed by distance. The root is the farthest of the `k`. A new point closer than the root replaces it. The heap never exceeds `k` entries.
+
+**Algorithm**:
+1. For each point, offer it into a max-heap ordered by distance.
+2. If the heap size exceeds `k`, poll the farthest.
+3. Return the heap's contents.
+
 ```java
 import java.util.PriorityQueue;
 
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
-        PriorityQueue<int[]> maxHeap = new PriorityQueue<>(
-            (a, b) -> (b[0] * b[0] + b[1] * b[1]) - (a[0] * a[0] + a[1] * a[1])
-        );
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> Long.compare(dist(b), dist(a)));
         for (int[] p : points) {
             maxHeap.offer(p);
             if (maxHeap.size() > k) maxHeap.poll();
         }
-        int[][] res = new int[k][2];
-        for (int i = 0; i < k; i++) res[i] = maxHeap.poll();
-        return res;
+        int[][] result = new int[k][];
+        for (int i = 0; i < k; i++) result[i] = maxHeap.poll();
+        return result;
+    }
+
+    private long dist(int[] p) {
+        return (long) p[0] * p[0] + (long) p[1] * p[1];
     }
 }
 ```
@@ -6332,24 +9058,134 @@ class Solution {
 
 ---
 
+##### Approach 3: Optimised / Best (Quickselect)
+
+**Intuition**: Quickselect partitions the array around a pivot in $O(n)$ expected time, and then recurses into only one side. After the process, the first `k` positions hold the `k` closest points, in any order. Random pivots keep the expected time linear.
+
+**Algorithm**:
+1. `select(lo, hi)`: pick a random pivot in `[lo, hi]`, swap it to `hi`, and partition by distance (Lomuto).
+2. If the pivot's final index `p` equals `k`, stop. If `p < k`, search `[p+1, hi]`. Otherwise search `[lo, p-1]`.
+3. Return the first `k` points.
+
+```java
+import java.util.Arrays;
+import java.util.Random;
+
+class Solution {
+    private final Random rnd = new Random();
+
+    public int[][] kClosest(int[][] points, int k) {
+        select(points, 0, points.length - 1, k);
+        return Arrays.copyOf(points, k);
+    }
+
+    private void select(int[][] pts, int lo, int hi, int k) {
+        while (lo < hi) {
+            int r = lo + rnd.nextInt(hi - lo + 1);
+            swap(pts, r, hi);
+            int pivot = dist(pts[hi]);
+            int i = lo;
+            for (int j = lo; j < hi; j++) {
+                if (dist(pts[j]) < pivot) {
+                    swap(pts, i, j);
+                    i++;
+                }
+            }
+            swap(pts, i, hi);
+            if (i == k) return;
+            if (i < k) lo = i + 1;
+            else hi = i - 1;
+        }
+    }
+
+    private long dist(int[] p) {
+        return (long) p[0] * p[0] + (long) p[1] * p[1];
+    }
+
+    private void swap(int[][] a, int i, int j) {
+        int[] t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+}
+```
+- **Time Complexity**: $O(n)$ expected, $O(n^2)$ worst case
+- **Space Complexity**: $O(1)$ extra, excluding output
+
+---
+
 ### 8.4 Kth Largest Element in an Array
 - **Difficulty**: Medium
 - **LeetCode**: [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
-- **NeetCode**: [Kth Largest Element in an Array](https://neetcode.io/problems/kth-largest-element-in-an-array)
-- **Data Structures**: Heap, Array
-- **Patterns**: Min-Heap or QuickSelect
+- **NeetCode**: [Kth Largest Integer](https://neetcode.io/problems/kth-largest-integer)
+- **Data Structures**: Array, Heap
+- **Patterns**: Sort, Min-Heap of Size K, Quickselect
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums` and an integer `k`, return the `k`-th largest element in the array. The `k`-th largest element is the `k`-th element in the sorted order, not the `k`-th distinct element.
 
-##### Approach 1: Min-Heap of Size $k$
+Solve it without sorting the full array if possible.
+
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [3,2,1,5,6,4]`, `k = 2`
+- **Output**: `5`
+- **Explanation**: In descending order the values are `6, 5, 4, 3, 2, 1`, so the second largest is `5`.
+
+**Example 2**
+- **Input**: `nums = [3,2,3,1,2,4,5,5,6]`, `k = 4`
+- **Output**: `4`
+- **Explanation**: In descending order the values are `6, 5, 5, 4, ...`, so the fourth is `4`.
+
+#### Constraints
+- `1 <= k <= nums.length <= 10^5`
+- `-10^4 <= nums[i] <= 10^4`
+
+#### Intuition
+The answer is the element at index `n - k` in ascending order. Sorting finds it in $O(n \log n)$. A min-heap of the `k` largest finds it in $O(n \log k)$. Quickselect finds it in $O(n)$ expected by partitioning around pivots and recursing into one side only.
+
+---
+
+##### Approach 1: Brute Force (Sort)
+
+**Intuition**: Sort ascending and read index `n - k`.
+
+**Algorithm**:
+1. Sort `nums`.
+2. Return `nums[n - k]`.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length - k];
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(\log n)$ for sorting
+
+---
+
+##### Approach 2: Better (Min-Heap of Size K)
+
+**Intuition**: Keep the `k` largest values in a min-heap. Its root is the `k`-th largest once all values are processed.
+
+**Algorithm**:
+1. For each value, offer it to a min-heap. If the size exceeds `k`, poll the smallest.
+2. Return the heap's peek.
+
 ```java
 import java.util.PriorityQueue;
 
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
-        for (int n : nums) {
-            minHeap.offer(n);
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int x : nums) {
+            minHeap.offer(x);
             if (minHeap.size() > k) minHeap.poll();
         }
         return minHeap.peek();
@@ -6359,80 +9195,205 @@ class Solution {
 - **Time Complexity**: $O(n \log k)$
 - **Space Complexity**: $O(k)$
 
-##### Approach 2: Best (QuickSelect / Hoare's Selection Algorithm)
+---
+
+##### Approach 3: Optimised / Best (Quickselect)
+
+**Intuition**: Partition around a random pivot so that all smaller values are on the left and all larger on the right. If the pivot lands at the target index `n - k`, it is the answer. Otherwise recurse into only the side containing the target.
+
+**Algorithm**:
+1. `target = n - k`. `lo = 0`, `hi = n - 1`.
+2. Loop: choose a random pivot in `[lo, hi]`, swap it to `hi`, and partition (Lomuto). Let `p` be its final index.
+3. If `p == target`, return `nums[p]`. If `p < target`, `lo = p + 1`. Otherwise `hi = p - 1`.
+
 ```java
 import java.util.Random;
 
 class Solution {
+    private final Random rnd = new Random();
+
     public int findKthLargest(int[] nums, int k) {
-        int targetIdx = nums.length - k;
-        return quickSelect(nums, 0, nums.length - 1, targetIdx);
+        int target = nums.length - k;
+        int lo = 0, hi = nums.length - 1;
+        while (true) {
+            int r = lo + rnd.nextInt(hi - lo + 1);
+            swap(nums, r, hi);
+            int p = partition(nums, lo, hi);
+            if (p == target) return nums[p];
+            if (p < target) lo = p + 1;
+            else hi = p - 1;
+        }
     }
 
-    private int quickSelect(int[] nums, int left, int right, int k) {
-        if (left == right) return nums[left];
-        int pivotIndex = left + new Random().nextInt(right - left + 1);
-        pivotIndex = partition(nums, left, right, pivotIndex);
-        if (pivotIndex == k) return nums[k];
-        else if (pivotIndex < k) return quickSelect(nums, pivotIndex + 1, right, k);
-        else return quickSelect(nums, left, pivotIndex - 1, k);
-    }
-
-    private int partition(int[] nums, int left, int right, int pivotIndex) {
-        int pivot = nums[pivotIndex];
-        swap(nums, pivotIndex, right);
-        int storeIdx = left;
-        for (int i = left; i < right; i++) {
-            if (nums[i] < pivot) {
-                swap(nums, storeIdx, i);
-                storeIdx++;
+    private int partition(int[] a, int lo, int hi) {
+        int pivot = a[hi], i = lo;
+        for (int j = lo; j < hi; j++) {
+            if (a[j] < pivot) {
+                swap(a, i, j);
+                i++;
             }
         }
-        swap(nums, storeIdx, right);
-        return storeIdx;
+        swap(a, i, hi);
+        return i;
     }
 
-    private void swap(int[] nums, int i, int j) {
-        int tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp;
+    private void swap(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
     }
 }
 ```
-- **Time Complexity**: Average $O(n)$, Worst $O(n^2)$
-- **Space Complexity**: $O(1)$ auxiliary
+- **Time Complexity**: $O(n)$ expected, $O(n^2)$ worst case
+- **Space Complexity**: $O(1)$
 
 ---
 
 ### 8.5 Task Scheduler
 - **Difficulty**: Medium
 - **LeetCode**: [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/)
-- **NeetCode**: [Task Scheduler](https://neetcode.io/problems/task-scheduling)
-- **Data Structures**: Array, Greedy
-- **Patterns**: Max Frequency Math / Priority Queue Simulation
+- **NeetCode**: [Task Scheduling](https://neetcode.io/problems/task-scheduling)
+- **Data Structures**: Array, Heap, Queue, Hash Map
+- **Patterns**: Greedy Frequency Scheduling, Cooldown Queue, Closed-Form Formula
 
-#### Solutions
+#### Problem Description
+You are given an array of CPU `tasks`, each represented by a letter from `A` to `Z`, and a cooldown integer `n`. Each cycle, the CPU can complete one task, or stay idle. Identical tasks must be separated by at least `n` cycles.
 
-##### Approach 1: Optimised / Best (Greedy Math Formula)
-The task with the maximum frequency `maxFreq` forms `(maxFreq - 1)` chunks of size `(n + 1)`. Total slots = $\max(\text{tasks.length}, (\text{maxFreq} - 1) \times (n + 1) + \text{countMaxFreq})$.
+Return the minimum number of cycles needed to finish all tasks.
+
+#### Examples
+
+**Example 1**
+- **Input**: `tasks = ["A","A","A","B","B","B"]`, `n = 2`
+- **Output**: `8`
+- **Explanation**: `A -> B -> idle -> A -> B -> idle -> A -> B`.
+
+**Example 2**
+- **Input**: `tasks = ["A","A","A","B","B","B"]`, `n = 0`
+- **Output**: `6`
+- **Explanation**: No cooldown, so tasks run back to back.
+
+#### Constraints
+- `1 <= tasks.length <= 10^4`
+- `tasks[i]` is an uppercase English letter.
+- `0 <= n <= 100`
+
+#### Intuition
+The most frequent task dictates the schedule. If task `A` appears `f` times, it creates `f - 1` gaps, each of length `n`. Other tasks fill those gaps. The final frame may contain several tasks tied for the highest frequency. So the minimum length is `(f - 1) * (n + 1) + (number of tasks tied at f)`, unless there are enough distinct tasks that no idle time is needed, in which case the answer is simply the number of tasks.
+
+---
+
+##### Approach 1: Brute Force (Simulate, Scanning Counts Each Cycle)
+
+**Intuition**: Simulate cycle by cycle. Each cycle, choose the task with the highest remaining count among those whose cooldown has expired. If none is available, the cycle is idle.
+
+**Algorithm**:
+1. `cnt[26]` holds remaining counts, `readyAt[26]` holds the cycle when each task becomes available.
+2. For `time = 0, 1, ...` until all tasks are done:
+   - Pick the available task with the highest count.
+   - If found, decrement its count, set `readyAt = time + n + 1`, and mark one task done.
+   - Advance `time`.
+3. Return `time`.
+
 ```java
 class Solution {
     public int leastInterval(char[] tasks, int n) {
-        int[] count = new int[26];
-        int maxFreq = 0;
-        for (char c : tasks) {
-            count[c - 'A']++;
-            maxFreq = Math.max(maxFreq, count[c - 'A']);
+        int[] cnt = new int[26], readyAt = new int[26];
+        for (char t : tasks) cnt[t - 'A']++;
+        int remaining = tasks.length, time = 0;
+        while (remaining > 0) {
+            int best = -1;
+            for (int c = 0; c < 26; c++) {
+                if (cnt[c] > 0 && readyAt[c] <= time && (best == -1 || cnt[c] > cnt[best])) {
+                    best = c;
+                }
+            }
+            if (best != -1) {
+                cnt[best]--;
+                readyAt[best] = time + n + 1;
+                remaining--;
+            }
+            time++;
         }
-        int maxCount = 0;
-        for (int c : count) {
-            if (c == maxFreq) maxCount++;
-        }
-        int emptySlots = (maxFreq - 1) * (n + 1) + maxCount;
-        return Math.max(tasks.length, emptySlots);
+        return time;
     }
 }
 ```
-- **Time Complexity**: $O(\text{tasks.length})$
-- **Space Complexity**: $O(1)$ (26 integers)
+- **Time Complexity**: $O(T \cdot 26)$, where $T$ is the output length
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Max-Heap with Cooldown Queue)
+
+**Intuition**: Use a max-heap of remaining counts, so the most frequent available task is always at the top. When a task runs, its count moves into a cooldown queue with the time it becomes available again. Each cycle, move the queue head back into the heap if its time has arrived.
+
+**Algorithm**:
+1. Put all counts into a max-heap. `time = 0`.
+2. While the heap or the cooldown queue is non-empty:
+   - `time++`.
+   - If the heap is non-empty, pop the top count, decrement it, and if it is still positive, add `{count, time + n}` to the queue.
+   - If the queue head's ready time equals `time`, push its count back into the heap.
+3. Return `time`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.PriorityQueue;
+
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] cnt = new int[26];
+        for (char t : tasks) cnt[t - 'A']++;
+        PriorityQueue<Integer> heap = new PriorityQueue<>(Collections.reverseOrder());
+        for (int c : cnt) if (c > 0) heap.offer(c);
+        Deque<int[]> cooldown = new ArrayDeque<>();
+        int time = 0;
+        while (!heap.isEmpty() || !cooldown.isEmpty()) {
+            time++;
+            if (!heap.isEmpty()) {
+                int c = heap.poll() - 1;
+                if (c > 0) cooldown.offer(new int[]{c, time + n});
+            }
+            if (!cooldown.isEmpty() && cooldown.peek()[1] == time) {
+                heap.offer(cooldown.poll()[0]);
+            }
+        }
+        return time;
+    }
+}
+```
+- **Time Complexity**: $O(T \log 26)$, which is $O(T)$
+- **Space Complexity**: $O(1)$ (fixed alphabet)
+
+---
+
+##### Approach 3: Optimised / Best (Closed-Form Formula)
+
+**Intuition**: Let `maxF` be the highest frequency, and `m` the number of tasks that have that frequency. The most frequent tasks form `maxF` rows with `m` tasks in the last row. The first `maxF - 1` rows each have `n + 1` slots, so the total is `(maxF - 1) * (n + 1) + m`. If the other tasks are so numerous that every slot is filled, no idle time exists, and the answer is the number of tasks.
+
+**Algorithm**:
+1. Count frequencies. Let `maxF` be the maximum, and `m` the number of letters with that count.
+2. `idle = (maxF - 1) * (n + 1) + m`.
+3. Return `max(tasks.length, idle)`.
+
+```java
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] freq = new int[26];
+        for (char t : tasks) freq[t - 'A']++;
+        int maxF = 0;
+        for (int f : freq) maxF = Math.max(maxF, f);
+        int m = 0;
+        for (int f : freq) if (f == maxF) m++;
+        int idle = (maxF - 1) * (n + 1) + m;
+        return Math.max(tasks.length, idle);
+    }
+}
+```
+- **Time Complexity**: $O(T)$ to count, $O(1)$ for the formula
+- **Space Complexity**: $O(1)$
 
 ---
 
@@ -6440,86 +9401,221 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [355. Design Twitter](https://leetcode.com/problems/design-twitter/)
 - **NeetCode**: [Design Twitter Feed](https://neetcode.io/problems/design-twitter-feed)
-- **Data Structures**: Hash Table, Min/Max-Heap, Linked List
-- **Patterns**: K-Way Merge with PriorityQueue
+- **Data Structures**: Hash Map, Hash Set, List, Heap
+- **Patterns**: Timestamped Posts, K-Way Merge
 
-#### Solutions
+#### Problem Description
+Design a simplified version of Twitter with the following operations:
+- `postTweet(userId, tweetId)` composes a new tweet.
+- `getNewsFeed(userId)` retrieves the 10 most recent tweet IDs in the user's news feed. Each item must be from the user or from someone they follow. Tweets must be ordered from most recent to least recent.
+- `follow(followerId, followeeId)` makes the follower follow the followee.
+- `unfollow(followerId, followeeId)` makes the follower unfollow the followee.
 
-##### Approach 1: Optimised / Best (User Graph + K-Way Merge Heap)
+A user follows themselves implicitly, so their own tweets appear in their feed.
+
+#### Examples
+
+**Example 1**
+- **Input**: `postTweet(1,5)`, `getNewsFeed(1)`, `follow(1,2)`, `postTweet(2,6)`, `getNewsFeed(1)`, `unfollow(1,2)`, `getNewsFeed(1)`
+- **Output**: `[5]`, `[6,5]`, `[5]`
+- **Explanation**: User 1 sees their own tweet. After following user 2, the newer tweet `6` appears first. After unfollowing, only user 1's tweets remain.
+
+#### Constraints
+- `1 <= userId, followerId, followeeId <= 500`
+- `0 <= tweetId <= 10^4`
+- At most `3 * 10^4` calls in total.
+- All tweet IDs are unique.
+
+#### Intuition
+Each tweet needs a global timestamp so that ordering across users is possible. Each user's tweets form a list in posting order. The feed is the 10 most recent tweets across the user and their followees, which is a merge of several sorted lists. A max-heap over the list tails performs that merge and stops after ten pops.
+
+---
+
+##### Approach 1: Brute Force (Global List, Filter and Sort)
+
+**Intuition**: Store every tweet in one global list with its author and timestamp. For a feed, filter the list by the relevant authors, sort by time descending, and take 10.
+
+**Algorithm**:
+1. `postTweet` appends `(author, tweetId, time)`.
+2. `getNewsFeed(u)`: build the set `{u} ∪ follows(u)`. Filter the global list by author membership, sort by time descending, and return the first 10 IDs.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 class Twitter {
-    private static int timestamp = 0;
-
-    private static class Tweet {
-        int id, time;
-        Tweet next;
-        Tweet(int id, int time) { this.id = id; this.time = time; }
-    }
-
-    private static class User {
-        int id;
-        Set<Integer> followed;
-        Tweet tweetHead;
-        User(int id) {
-            this.id = id;
-            followed = new HashSet<>();
-            follow(id); // Follow self
-        }
-        void follow(int id) { followed.add(id); }
-        void unfollow(int id) { followed.remove(id); }
-        void post(int id) {
-            Tweet t = new Tweet(id, timestamp++);
-            t.next = tweetHead;
-            tweetHead = t;
-        }
-    }
-
-    private Map<Integer, User> userMap = new HashMap<>();
-
-    public Twitter() {}
+    private record Tweet(int author, int id, int time) {}
+    private int clock = 0;
+    private final List<Tweet> all = new ArrayList<>();
+    private final Map<Integer, Set<Integer>> follows = new HashMap<>();
 
     public void postTweet(int userId, int tweetId) {
-        userMap.computeIfAbsent(userId, User::new).post(tweetId);
+        all.add(new Tweet(userId, tweetId, clock++));
     }
 
     public List<Integer> getNewsFeed(int userId) {
-        List<Integer> res = new ArrayList<>();
-        if (!userMap.containsKey(userId)) return res;
-        Set<Integer> users = userMap.get(userId).followed;
-        PriorityQueue<Tweet> pq = new PriorityQueue<>((a, b) -> b.time - a.time);
-        for (int uid : users) {
-            User u = userMap.get(uid);
-            if (u != null && u.tweetHead != null) {
-                pq.offer(u.tweetHead);
-            }
+        Set<Integer> users = new HashSet<>(follows.getOrDefault(userId, Set.of()));
+        users.add(userId);
+        List<Tweet> feed = new ArrayList<>();
+        for (Tweet t : all) {
+            if (users.contains(t.author())) feed.add(t);
         }
-        int count = 0;
-        while (!pq.isEmpty() && count < 10) {
-            Tweet t = pq.poll();
-            res.add(t.id);
-            count++;
-            if (t.next != null) pq.offer(t.next);
+        feed.sort((a, b) -> Integer.compare(b.time(), a.time()));
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < Math.min(10, feed.size()); i++) {
+            result.add(feed.get(i).id());
         }
-        return res;
+        return result;
     }
 
     public void follow(int followerId, int followeeId) {
-        userMap.computeIfAbsent(followerId, User::new);
-        userMap.computeIfAbsent(followeeId, User::new);
-        userMap.get(followerId).follow(followeeId);
+        if (followerId != followeeId) {
+            follows.computeIfAbsent(followerId, k -> new HashSet<>()).add(followeeId);
+        }
     }
 
     public void unfollow(int followerId, int followeeId) {
-        if (userMap.containsKey(followerId) && followerId != followeeId) {
-            userMap.get(followerId).unfollow(followeeId);
-        }
+        Set<Integer> s = follows.get(followerId);
+        if (s != null) s.remove(followeeId);
     }
 }
 ```
-- **Time Complexity**: `postTweet`, `follow`, `unfollow`: $O(1)$; `getNewsFeed`: $O(F \log F + 10 \log F)$ where $F$ is followed users
-- **Space Complexity**: $O(U + T)$
+- **Time Complexity**: `getNewsFeed` is $O(T \log T)$, where $T$ is the total number of tweets
+- **Space Complexity**: $O(T)$
+
+---
+
+##### Approach 2: Better (Per-User Lists, Merge Then Sort)
+
+**Intuition**: Store tweets per user, so a feed only touches relevant lists. Concatenate the lists for the user and their followees, sort by time, and take 10. This is much cheaper than scanning all tweets, but still sorts more than necessary.
+
+**Algorithm**:
+1. `tweets: userId -> List<Tweet>` in posting order.
+2. `getNewsFeed(u)`: collect every tweet from each relevant user's list, sort by time descending, and return the first 10.
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+class Twitter {
+    private record Tweet(int id, int time) {}
+    private int clock = 0;
+    private final Map<Integer, List<Tweet>> tweets = new HashMap<>();
+    private final Map<Integer, Set<Integer>> follows = new HashMap<>();
+
+    public void postTweet(int userId, int tweetId) {
+        tweets.computeIfAbsent(userId, k -> new ArrayList<>()).add(new Tweet(tweetId, clock++));
+    }
+
+    public List<Integer> getNewsFeed(int userId) {
+        Set<Integer> users = new HashSet<>(follows.getOrDefault(userId, Set.of()));
+        users.add(userId);
+        List<Tweet> feed = new ArrayList<>();
+        for (int u : users) {
+            feed.addAll(tweets.getOrDefault(u, List.of()));
+        }
+        feed.sort((a, b) -> Integer.compare(b.time(), a.time()));
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < Math.min(10, feed.size()); i++) {
+            result.add(feed.get(i).id());
+        }
+        return result;
+    }
+
+    public void follow(int followerId, int followeeId) {
+        if (followerId != followeeId) {
+            follows.computeIfAbsent(followerId, k -> new HashSet<>()).add(followeeId);
+        }
+    }
+
+    public void unfollow(int followerId, int followeeId) {
+        Set<Integer> s = follows.get(followerId);
+        if (s != null) s.remove(followeeId);
+    }
+}
+```
+- **Time Complexity**: `getNewsFeed` is $O(F \cdot T_u \log(F \cdot T_u))$, where $F$ is the number of relevant users
+- **Space Complexity**: $O(T)$
+
+---
+
+##### Approach 3: Optimised / Best (K-Way Merge with Max-Heap)
+
+**Intuition**: Each user's list is sorted by time. The feed is a merge of those lists, and only the top 10 items are needed. Put the most recent tweet of each relevant user into a max-heap by time. Pop the largest, and push the previous tweet from that same user. Ten pops produce the feed, and each pop costs $O(\log F)$.
+
+**Algorithm**:
+1. Let `users` be the user and their followees.
+2. For each user with tweets, push `(time, user, index)` for their last tweet.
+3. Repeat up to 10 times: pop the largest time, record its tweet ID, and if the index is greater than 0, push the previous tweet of that user.
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+class Twitter {
+    private record Tweet(int id, int time) {}
+    private int clock = 0;
+    private final Map<Integer, List<Tweet>> tweets = new HashMap<>();
+    private final Map<Integer, Set<Integer>> follows = new HashMap<>();
+
+    public void postTweet(int userId, int tweetId) {
+        tweets.computeIfAbsent(userId, k -> new ArrayList<>()).add(new Tweet(tweetId, clock++));
+    }
+
+    public List<Integer> getNewsFeed(int userId) {
+        Set<Integer> users = new HashSet<>(follows.getOrDefault(userId, Set.of()));
+        users.add(userId);
+
+        // Entry: {time, userId, index into that user's tweet list}
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));
+        for (int u : users) {
+            List<Tweet> list = tweets.get(u);
+            if (list != null && !list.isEmpty()) {
+                int last = list.size() - 1;
+                heap.offer(new int[]{list.get(last).time(), u, last});
+            }
+        }
+
+        List<Integer> result = new ArrayList<>();
+        while (!heap.isEmpty() && result.size() < 10) {
+            int[] top = heap.poll();
+            int u = top[1], idx = top[2];
+            result.add(tweets.get(u).get(idx).id());
+            if (idx > 0) {
+                int prev = idx - 1;
+                heap.offer(new int[]{tweets.get(u).get(prev).time(), u, prev});
+            }
+        }
+        return result;
+    }
+
+    public void follow(int followerId, int followeeId) {
+        if (followerId != followeeId) {
+            follows.computeIfAbsent(followerId, k -> new HashSet<>()).add(followeeId);
+        }
+    }
+
+    public void unfollow(int followerId, int followeeId) {
+        Set<Integer> s = follows.get(followerId);
+        if (s != null) s.remove(followeeId);
+    }
+}
+```
+- **Time Complexity**: `getNewsFeed` is $O(F + 10 \log F)$
+- **Space Complexity**: $O(F)$ for the heap
 
 ---
 
@@ -6527,105 +9623,269 @@ class Twitter {
 - **Difficulty**: Hard
 - **LeetCode**: [295. Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
 - **NeetCode**: [Find Median in a Data Stream](https://neetcode.io/problems/find-median-in-a-data-stream)
-- **Data Structures**: Two Heaps (Max-Heap & Min-Heap)
-- **Patterns**: Two Heaps Balance
+- **Data Structures**: Heap, Array
+- **Patterns**: Two Heaps (Max-Heap for Lower Half, Min-Heap for Upper Half)
 
-#### Solutions
+#### Problem Description
+The median is the middle value of an ordered list. If the list has an even length, it is the average of the two middle values.
 
-##### Approach 1: Optimised / Best (Max-Heap for Left Half & Min-Heap for Right Half)
+Implement the `MedianFinder` class:
+- `MedianFinder()` initialises the object.
+- `void addNum(int num)` adds an integer to the data structure.
+- `double findMedian()` returns the median of all elements so far.
+
+#### Examples
+
+**Example 1**
+- **Input**: `addNum(1), addNum(2), findMedian(), addNum(3), findMedian()`
+- **Output**: `1.5, 2.0`
+- **Explanation**: After `{1, 2}` the median is `1.5`. After `{1, 2, 3}` it is `2`.
+
+#### Constraints
+- `-10^5 <= num <= 10^5`
+- At least one element exists before `findMedian` is called.
+- At most `5 * 10^4` calls to `addNum` and `findMedian`.
+
+#### Intuition
+Split the stream into two halves: the lower half and the upper half. The median lies at the boundary between them. The largest value of the lower half and the smallest value of the upper half are exactly the candidates. A max-heap for the lower half and a min-heap for the upper half give both in $O(1)$, and keeping their sizes balanced makes the median readable from the heap tops.
+
+---
+
+##### Approach 1: Brute Force (Sort on Every Query)
+
+**Intuition**: Store every value. For a median query, sort the list and read the middle.
+
+**Algorithm**:
+1. `addNum` appends to a list.
+2. `findMedian` sorts a copy of the list and returns the middle, or the average of the two middle values.
+
 ```java
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 class MedianFinder {
-    private PriorityQueue<Integer> small; // Max-heap (stores smaller half)
-    private PriorityQueue<Integer> large; // Min-heap (stores larger half)
-
-    public MedianFinder() {
-        small = new PriorityQueue<>((a, b) -> b - a);
-        large = new PriorityQueue<>();
-    }
+    private final List<Integer> nums = new ArrayList<>();
 
     public void addNum(int num) {
-        small.offer(num);
-        large.offer(small.poll());
-        if (large.size() > small.size()) {
-            small.offer(large.poll());
-        }
+        nums.add(num);
     }
 
     public double findMedian() {
-        if (small.size() > large.size()) {
-            return small.peek();
-        } else {
-            return (small.peek() + large.peek()) / 2.0;
-        }
+        List<Integer> copy = new ArrayList<>(nums);
+        Collections.sort(copy);
+        int n = copy.size();
+        if (n % 2 == 1) return copy.get(n / 2);
+        return (copy.get(n / 2 - 1) + copy.get(n / 2)) / 2.0;
     }
 }
 ```
-- **Time Complexity**: `addNum`: $O(\log n)$, `findMedian`: $O(1)$
+- **Time Complexity**: `addNum` is $O(1)$, `findMedian` is $O(n \log n)$
 - **Space Complexity**: $O(n)$
 
 ---
 
+##### Approach 2: Better (Sorted List with Binary-Search Insertion)
+
+**Intuition**: Keep the list sorted on insertion. Finding the position costs $O(\log n)$ and shifting costs $O(n)$. Then every median query is $O(1)$.
+
+**Algorithm**:
+1. `addNum`: binary search for the insertion index, then insert.
+2. `findMedian`: read the middle element, or average the two middle elements.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class MedianFinder {
+    private final List<Integer> sorted = new ArrayList<>();
+
+    public void addNum(int num) {
+        int pos = Collections.binarySearch(sorted, num);
+        if (pos < 0) pos = -pos - 1;
+        sorted.add(pos, num);
+    }
+
+    public double findMedian() {
+        int n = sorted.size();
+        if (n % 2 == 1) return sorted.get(n / 2);
+        return (sorted.get(n / 2 - 1) + sorted.get(n / 2)) / 2.0;
+    }
+}
+```
+- **Time Complexity**: `addNum` is $O(n)$ because of shifting, `findMedian` is $O(1)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Two Heaps)
+
+**Intuition**: Keep a max-heap `lo` holding the smaller half and a min-heap `hi` holding the larger half. Maintain the invariant that `lo` has the same size as `hi` or one more element, and that every value in `lo` is at most every value in `hi`. Then the median is `lo.peek()` when `lo` is larger, or the average of both tops when sizes are equal.
+
+**Algorithm**:
+1. `addNum(x)`: push `x` into `lo`. Move `lo`'s maximum into `hi`. If `hi` is larger than `lo`, move `hi`'s minimum back to `lo`.
+2. `findMedian()`: if `lo` has more elements, return `lo.peek()`. Otherwise return `(lo.peek() + hi.peek()) / 2.0`.
+
+```java
+import java.util.Collections;
+import java.util.PriorityQueue;
+
+class MedianFinder {
+    private final PriorityQueue<Integer> lo = new PriorityQueue<>(Collections.reverseOrder());
+    private final PriorityQueue<Integer> hi = new PriorityQueue<>();
+
+    public void addNum(int num) {
+        lo.offer(num);
+        hi.offer(lo.poll());
+        if (hi.size() > lo.size()) {
+            lo.offer(hi.poll());
+        }
+    }
+
+    public double findMedian() {
+        if (lo.size() > hi.size()) return lo.peek();
+        return (lo.peek() + hi.peek()) / 2.0;
+    }
+}
+```
+- **Time Complexity**: `addNum` is $O(\log n)$, `findMedian` is $O(1)$
+- **Space Complexity**: $O(n)$
+
+---
 
 ## 9. Backtracking
+
+Backtracking builds candidates one decision at a time, abandons a partial candidate as soon as it cannot lead to a valid answer, and undoes the last decision before trying the next. Every solution below follows that shape. The approaches differ mainly in how much of the search space they explore before pruning.
 
 ### 9.1 Subsets
 - **Difficulty**: Medium
 - **LeetCode**: [78. Subsets](https://leetcode.com/problems/subsets/)
 - **NeetCode**: [Subsets](https://neetcode.io/problems/subsets)
-- **Data Structures**: Array, Backtracking
-- **Patterns**: Pick / Don't Pick Recursion or Cascading
+- **Data Structures**: Array
+- **Patterns**: Include or Exclude, Power Set Generation
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums` of unique elements, return all possible subsets (the power set). The solution must not contain duplicate subsets. Return the solution in any order.
 
-##### Approach 1: Backtracking (Pick or Don't Pick)
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,2,3]`
+- **Output**: `[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]`
+- **Explanation**: Eight subsets, one for each combination of including or excluding each element.
+
+**Example 2**
+- **Input**: `nums = [0]`
+- **Output**: `[[],[0]]`
+- **Explanation**: The empty set and the single element.
+
+#### Constraints
+- `1 <= nums.length <= 10`
+- `-10 <= nums[i] <= 10`
+- All elements are unique.
+
+#### Intuition
+Each element is either in a subset or not. That yields exactly $2^n$ subsets, and any way of making those choices gives a distinct subset. The recursion tree is a full binary tree of depth `n`, and every node is a valid subset.
+
+---
+
+##### Approach 1: Brute Force (Enumerate Bitmasks)
+
+**Intuition**: Each integer from `0` to `2^n - 1` encodes a subset: bit `i` set means `nums[i]` is included.
+
+**Algorithm**:
+1. For each `mask` in `[0, 2^n)`, build a list of `nums[i]` where bit `i` of `mask` is set.
+2. Add the list to the result.
+
 ```java
-import java.util.*;
-
-class Solution {
-    public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        backtrack(nums, 0, new ArrayList<>(), res);
-        return res;
-    }
-
-    private void backtrack(int[] nums, int start, List<Integer> curr, List<List<Integer>> res) {
-        res.add(new ArrayList<>(curr));
-        for (int i = start; i < nums.length; i++) {
-            curr.add(nums[i]);
-            backtrack(nums, i + 1, curr, res);
-            curr.remove(curr.size() - 1);
-        }
-    }
-}
-```
-- **Time Complexity**: $O(n \cdot 2^n)$
-- **Space Complexity**: $O(n)$ recursion depth
-
-##### Approach 2: Bit Manipulation
-Each subset corresponds to an integer from $0$ to $2^n - 1$.
-```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         int n = nums.length;
-        int total = 1 << n;
-        List<List<Integer>> res = new ArrayList<>(total);
-        for (int mask = 0; mask < total; mask++) {
-            List<Integer> sub = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        for (int mask = 0; mask < (1 << n); mask++) {
+            List<Integer> subset = new ArrayList<>();
             for (int i = 0; i < n; i++) {
-                if ((mask & (1 << i)) != 0) sub.add(nums[i]);
+                if (((mask >> i) & 1) == 1) subset.add(nums[i]);
             }
-            res.add(sub);
+            result.add(subset);
         }
-        return res;
+        return result;
     }
 }
 ```
 - **Time Complexity**: $O(n \cdot 2^n)$
-- **Space Complexity**: $O(1)$ auxiliary
+- **Space Complexity**: $O(n \cdot 2^n)$ for the output
+
+---
+
+##### Approach 2: Better (Iterative Doubling)
+
+**Intuition**: Start with the empty subset. For each new element, every existing subset yields a new one with that element appended. The count doubles with each element.
+
+**Algorithm**:
+1. `result = [[]]`.
+2. For each `x` in `nums`: for every subset currently in `result`, copy it, append `x`, and add the copy.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+        for (int x : nums) {
+            int size = result.size();
+            for (int i = 0; i < size; i++) {
+                List<Integer> copy = new ArrayList<>(result.get(i));
+                copy.add(x);
+                result.add(copy);
+            }
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot 2^n)$
+- **Space Complexity**: $O(n \cdot 2^n)$ for the output
+
+---
+
+##### Approach 3: Optimised / Best (Backtracking with Start Index)
+
+**Intuition**: Record the current path as a subset at every node of the recursion. To avoid permutations of the same set, only extend the path with elements at or after the current index. Each subset is generated exactly once.
+
+**Algorithm**:
+1. `dfs(start, path)`: add a copy of `path` to the result.
+2. For `i` from `start` to `n-1`: append `nums[i]`, recurse with `i + 1`, then remove the last element.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(nums, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(int[] nums, int start, List<Integer> path, List<List<Integer>> result) {
+        result.add(new ArrayList<>(path));
+        for (int i = start; i < nums.length; i++) {
+            path.add(nums[i]);
+            dfs(nums, i + 1, path, result);
+            path.remove(path.size() - 1);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot 2^n)$
+- **Space Complexity**: $O(n)$ for recursion, plus output
 
 ---
 
@@ -6633,39 +9893,154 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
 - **NeetCode**: [Combination Target Sum](https://neetcode.io/problems/combination-target-sum)
-- **Data Structures**: Array, Backtracking
-- **Patterns**: Backtracking with Unlimited Element Reuse
+- **Data Structures**: Array
+- **Patterns**: Backtracking with Reuse, Sorted Pruning
 
-#### Solutions
+#### Problem Description
+Given an array of distinct integers `candidates` and a target integer `target`, return a list of all unique combinations of `candidates` where the chosen numbers sum to `target`. The same number may be chosen an unlimited number of times. Two combinations are unique if the frequency of at least one number differs.
 
-##### Approach 1: Optimised / Best (Backtracking with Pruning)
+#### Examples
+
+**Example 1**
+- **Input**: `candidates = [2,3,6,7]`, `target = 7`
+- **Output**: `[[2,2,3],[7]]`
+- **Explanation**: `2 + 2 + 3 = 7` and `7 = 7`.
+
+**Example 2**
+- **Input**: `candidates = [2,3,5]`, `target = 8`
+- **Output**: `[[2,2,2,2],[2,3,3],[3,5]]`
+- **Explanation**: Three distinct combinations reach 8.
+
+#### Constraints
+- `1 <= candidates.length <= 30`
+- `2 <= candidates[i] <= 40`
+- All candidates are distinct.
+- `1 <= target <= 40`
+
+#### Intuition
+At each step, choose a candidate that fits in the remaining sum, then recurse with the reduced target. To avoid duplicates like `[2,3,2]` and `[2,2,3]`, only allow candidates at or after the current index. Reuse is allowed, so the same index stays available. Sorting the candidates lets the search stop as soon as a candidate exceeds the remaining sum.
+
+---
+
+##### Approach 1: Brute Force (Generate All Sequences, Deduplicate)
+
+**Intuition**: Generate every ordered sequence whose sum does not exceed the target, keep those summing to exactly the target, and deduplicate by sorting each sequence and inserting it into a set.
+
+**Algorithm**:
+1. `gen(path, sum)`: if `sum == target`, store the sorted copy of `path` in a set. If `sum > target`, return.
+2. For each candidate, append, recurse with `sum + candidate`, then remove.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(candidates);
-        backtrack(candidates, 0, target, new ArrayList<>(), res);
-        return res;
+        Set<List<Integer>> found = new HashSet<>();
+        gen(candidates, target, 0, new ArrayList<>(), found);
+        return new ArrayList<>(found);
     }
 
-    private void backtrack(int[] candidates, int start, int remain, List<Integer> curr, List<List<Integer>> res) {
-        if (remain == 0) {
-            res.add(new ArrayList<>(curr));
+    private void gen(int[] c, int target, int sum, List<Integer> path, Set<List<Integer>> found) {
+        if (sum == target) {
+            List<Integer> key = new ArrayList<>(path);
+            Collections.sort(key);
+            found.add(key);
             return;
         }
-        for (int i = start; i < candidates.length; i++) {
-            if (candidates[i] > remain) break; // Pruning
-            curr.add(candidates[i]);
-            backtrack(candidates, i, remain - candidates[i], curr, res); // Reuse index i
-            curr.remove(curr.size() - 1);
+        if (sum > target) return;
+        for (int x : c) {
+            path.add(x);
+            gen(c, target, sum + x, path, found);
+            path.remove(path.size() - 1);
         }
     }
 }
 ```
-- **Time Complexity**: $O(2^{\text{target} / \min})$
-- **Space Complexity**: $O(\text{target} / \min)$
+- **Time Complexity**: Exponential, bounded by the number of sequences with sum at most `target`
+- **Space Complexity**: Exponential for the set of results
+
+---
+
+##### Approach 2: Better (Backtracking with Start Index)
+
+**Intuition**: Restricting each choice to indices at or after the current one removes the permutation duplicates, so no deduplication is needed. Recursion stops when the remaining sum is zero, and prunes when it becomes negative.
+
+**Algorithm**:
+1. `dfs(start, remaining)`: if `remaining == 0`, record a copy of the path.
+2. For `i` from `start` to `n-1`, if `candidates[i] <= remaining`, append it, recurse with `(i, remaining - candidates[i])`, then remove it.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(candidates, 0, target, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(int[] c, int start, int remaining, List<Integer> path, List<List<Integer>> result) {
+        if (remaining == 0) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = start; i < c.length; i++) {
+            if (c[i] <= remaining) {
+                path.add(c[i]);
+                dfs(c, i, remaining - c[i], path, result);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case, bounded by the number of valid combinations
+- **Space Complexity**: $O(\text{target})$ for recursion depth, plus output
+
+---
+
+##### Approach 3: Optimised / Best (Sorted Candidates with Early Break)
+
+**Intuition**: Sort the candidates. Once a candidate exceeds the remaining sum, every later candidate does too, so the loop can `break` instead of `continue`. This prunes a whole suffix of the search at once.
+
+**Algorithm**:
+1. Sort `candidates`.
+2. `dfs(start, remaining)`: if `remaining == 0`, record a copy. For `i` from `start`, if `candidates[i] > remaining`, `break`. Otherwise append, recurse with `(i, remaining - candidates[i])`, and remove.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(candidates, 0, target, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(int[] c, int start, int remaining, List<Integer> path, List<List<Integer>> result) {
+        if (remaining == 0) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = start; i < c.length; i++) {
+            if (c[i] > remaining) break;
+            path.add(c[i]);
+            dfs(c, i, remaining - c[i], path, result);
+            path.remove(path.size() - 1);
+        }
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case, with pruning that cuts whole branches
+- **Space Complexity**: $O(\text{target})$ for recursion depth, plus output
 
 ---
 
@@ -6673,40 +10048,163 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii/)
 - **NeetCode**: [Combination Target Sum II](https://neetcode.io/problems/combination-target-sum-ii)
-- **Data Structures**: Array, Backtracking
-- **Patterns**: Sort + Skip Duplicate Siblings
+- **Data Structures**: Array
+- **Patterns**: Backtracking, Duplicate Skipping at the Same Depth
 
-#### Solutions
+#### Problem Description
+Given a collection of candidate numbers `candidates` (which may contain duplicates) and a target number `target`, return all unique combinations where the candidate numbers sum to `target`. Each number may be used at most once in a combination.
 
-##### Approach 1: Optimised / Best (Sort + Skip Adjacent Duplicates)
+The solution set must not contain duplicate combinations.
+
+#### Examples
+
+**Example 1**
+- **Input**: `candidates = [10,1,2,7,6,1,5]`, `target = 8`
+- **Output**: `[[1,1,6],[1,2,5],[1,7],[2,6]]`
+- **Explanation**: Each candidate is used at most once. The two `1`s can each be used once, and each distinct combination appears only once in the output.
+
+**Example 2**
+- **Input**: `candidates = [2,5,2,1,2]`, `target = 5`
+- **Output**: `[[1,2,2],[5]]`
+- **Explanation**: Two unique combinations.
+
+#### Constraints
+- `1 <= candidates.length <= 100`
+- `1 <= candidates[i] <= 50`
+- `1 <= target <= 30`
+
+#### Intuition
+This is Combination Sum with two changes: each element is used once, and duplicates in the input must not produce duplicate output. Use a start index that moves forward after each choice. To avoid duplicate combinations, skip a value if it equals the previous candidate at the same recursion depth, since choosing an identical value there would only repeat an existing branch.
+
+---
+
+##### Approach 1: Brute Force (Include/Exclude Every Element, Deduplicate)
+
+**Intuition**: Each element is included or excluded, giving all subsets. Keep the subsets summing to the target, and deduplicate by sorting and inserting into a set. This is exponential in `n`, so it only suits small inputs.
+
+**Algorithm**:
+1. `gen(i, path, sum)`: if `sum == target`, store the sorted copy of `path`. If `i == n` or `sum > target`, return.
+2. Recurse with `path` excluding `c[i]`, then including it.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(candidates);
-        backtrack(candidates, 0, target, new ArrayList<>(), res);
-        return res;
+        Set<List<Integer>> found = new HashSet<>();
+        gen(candidates, target, 0, 0, new ArrayList<>(), found);
+        return new ArrayList<>(found);
     }
 
-    private void backtrack(int[] candidates, int start, int remain, List<Integer> curr, List<List<Integer>> res) {
-        if (remain == 0) {
-            res.add(new ArrayList<>(curr));
+    private void gen(int[] c, int target, int i, int sum, List<Integer> path, Set<List<Integer>> found) {
+        if (sum == target) {
+            List<Integer> key = new ArrayList<>(path);
+            Collections.sort(key);
+            found.add(key);
             return;
         }
-        for (int i = start; i < candidates.length; i++) {
-            if (candidates[i] > remain) break;
-            if (i > start && candidates[i] == candidates[i - 1]) continue; // Skip duplicates
-            curr.add(candidates[i]);
-            backtrack(candidates, i + 1, remain - candidates[i], curr, res);
-            curr.remove(curr.size() - 1);
+        if (i == c.length || sum > target) return;
+        gen(c, target, i + 1, sum, path, found);
+        path.add(c[i]);
+        gen(c, target, i + 1, sum + c[i], path, found);
+        path.remove(path.size() - 1);
+    }
+}
+```
+- **Time Complexity**: $O(2^n \cdot n)$
+- **Space Complexity**: $O(2^n)$ worst case for the set
+
+---
+
+##### Approach 2: Better (Backtracking with Start Index, Set Deduplication)
+
+**Intuition**: Use a start index that advances after each choice, so each element is used at most once. Duplicate combinations can still arise from equal values, so store results in a set to remove them.
+
+**Algorithm**:
+1. `dfs(start, remaining)`: if `remaining == 0`, add a sorted copy of `path` to the set.
+2. For `i` from `start`, if `c[i] <= remaining`, append, recurse with `(i + 1, remaining - c[i])`, and remove.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Set<List<Integer>> found = new HashSet<>();
+        dfs(candidates, 0, target, new ArrayList<>(), found);
+        return new ArrayList<>(found);
+    }
+
+    private void dfs(int[] c, int start, int remaining, List<Integer> path, Set<List<Integer>> found) {
+        if (remaining == 0) {
+            List<Integer> key = new ArrayList<>(path);
+            Collections.sort(key);
+            found.add(key);
+            return;
+        }
+        for (int i = start; i < c.length; i++) {
+            if (c[i] > remaining) continue;
+            path.add(c[i]);
+            dfs(c, i + 1, remaining - c[i], path, found);
+            path.remove(path.size() - 1);
         }
     }
 }
 ```
-- **Time Complexity**: $O(2^n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: Exponential in the worst case, with set overhead
+- **Space Complexity**: $O(\text{target})$ recursion, plus the set
+
+---
+
+##### Approach 3: Optimised / Best (Sort, Skip Duplicates at Same Depth, Early Break)
+
+**Intuition**: Sort the candidates so equal values are adjacent. Within one loop, if `c[i]` equals `c[i-1]` and `i > start`, skip it. The earlier copy already explored every combination that would start with that value at this depth. Sorting also allows an early break once a candidate exceeds the remaining sum. No set is needed, because duplicates are never generated.
+
+**Algorithm**:
+1. Sort `candidates`.
+2. `dfs(start, remaining)`: if `remaining == 0`, record a copy of the path.
+3. For `i` from `start`:
+   - If `c[i] > remaining`, `break`.
+   - If `i > start` and `c[i] == c[i-1]`, `continue`.
+   - Append `c[i]`, recurse with `i + 1`, and remove.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(candidates, 0, target, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(int[] c, int start, int remaining, List<Integer> path, List<List<Integer>> result) {
+        if (remaining == 0) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = start; i < c.length; i++) {
+            if (c[i] > remaining) break;
+            if (i > start && c[i] == c[i - 1]) continue;
+            path.add(c[i]);
+            dfs(c, i + 1, remaining - c[i], path, result);
+            path.remove(path.size() - 1);
+        }
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case, with pruning
+- **Space Complexity**: $O(\text{target})$ recursion, plus output
 
 ---
 
@@ -6714,74 +10212,157 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [46. Permutations](https://leetcode.com/problems/permutations/)
 - **NeetCode**: [Permutations](https://neetcode.io/problems/permutations)
-- **Data Structures**: Array, Backtracking
-- **Patterns**: Visited Array or In-Place Swapping
+- **Data Structures**: Array
+- **Patterns**: Choose-and-Mark, In-Place Swap Backtracking
 
-#### Solutions
+#### Problem Description
+Given an array `nums` of distinct integers, return all the possible permutations. You may return the answer in any order.
 
-##### Approach 1: Backtracking with Visited Boolean Array
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,2,3]`
+- **Output**: `[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]`
+- **Explanation**: All `3! = 6` orderings.
+
+**Example 2**
+- **Input**: `nums = [0,1]`
+- **Output**: `[[0,1],[1,0]]`
+- **Explanation**: Two orderings.
+
+#### Constraints
+- `1 <= nums.length <= 6`
+- `-10 <= nums[i] <= 10`
+- All integers are unique.
+
+#### Intuition
+A permutation picks one unused element for each position in turn. The search tree has `n` levels, and at level `k` there are `n - k` choices. Ensuring that each element is used exactly once is the core of the solution.
+
+---
+
+##### Approach 1: Brute Force (Generate All Sequences, Filter Distinct)
+
+**Intuition**: Generate every sequence of length `n` drawn from `nums`, including repeats, then keep the ones with all distinct values.
+
+**Algorithm**:
+1. `gen(path)`: when `path` has length `n`, check that all values are distinct, and if so, record a copy.
+2. Otherwise, try each element and recurse.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        boolean[] used = new boolean[nums.length];
-        backtrack(nums, used, new ArrayList<>(), res);
-        return res;
+        List<List<Integer>> result = new ArrayList<>();
+        gen(nums, new ArrayList<>(), result);
+        return result;
     }
 
-    private void backtrack(int[] nums, boolean[] used, List<Integer> curr, List<List<Integer>> res) {
-        if (curr.size() == nums.length) {
-            res.add(new ArrayList<>(curr));
+    private void gen(int[] nums, List<Integer> path, List<List<Integer>> result) {
+        if (path.size() == nums.length) {
+            if (new HashSet<>(path).size() == nums.length) {
+                result.add(new ArrayList<>(path));
+            }
+            return;
+        }
+        for (int x : nums) {
+            path.add(x);
+            gen(nums, path, result);
+            path.remove(path.size() - 1);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n^n \cdot n)$
+- **Space Complexity**: $O(n)$ for recursion, plus output
+
+---
+
+##### Approach 2: Better (Backtracking with a Used Array)
+
+**Intuition**: Track which elements are already in the current path with a boolean array. Only unused elements are considered at each position, so every branch leads to a valid permutation.
+
+**Algorithm**:
+1. `dfs(path)`: if the path is full, record a copy.
+2. For each index `i` not marked used: mark it, append `nums[i]`, recurse, then unmark and remove.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(nums, new boolean[nums.length], new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(int[] nums, boolean[] used, List<Integer> path, List<List<Integer>> result) {
+        if (path.size() == nums.length) {
+            result.add(new ArrayList<>(path));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
             if (used[i]) continue;
             used[i] = true;
-            curr.add(nums[i]);
-            backtrack(nums, used, curr, res);
-            curr.remove(curr.size() - 1);
+            path.add(nums[i]);
+            dfs(nums, used, path, result);
+            path.remove(path.size() - 1);
             used[i] = false;
         }
     }
 }
 ```
 - **Time Complexity**: $O(n \cdot n!)$
-- **Space Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for recursion, plus output
 
-##### Approach 2: Best (In-Place Swapping)
+---
+
+##### Approach 3: Optimised / Best (In-Place Swap Backtracking)
+
+**Intuition**: Permute the array in place. At position `first`, try swapping each element from `first` onward into that position, recurse on the next position, then swap back. The prefix `[0, first)` is fixed, and the suffix holds the remaining elements, so no used array or path list is needed.
+
+**Algorithm**:
+1. `dfs(first)`: if `first == n`, record a copy of `nums`.
+2. For `i` from `first` to `n-1`: swap `nums[first]` and `nums[i]`, recurse with `first + 1`, then swap back.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        backtrack(nums, 0, res);
-        return res;
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(nums, 0, result);
+        return result;
     }
 
-    private void backtrack(int[] nums, int start, List<List<Integer>> res) {
-        if (start == nums.length) {
-            List<Integer> list = new ArrayList<>();
-            for (int n : nums) list.add(n);
-            res.add(list);
+    private void dfs(int[] nums, int first, List<List<Integer>> result) {
+        if (first == nums.length) {
+            List<Integer> perm = new ArrayList<>();
+            for (int x : nums) perm.add(x);
+            result.add(perm);
             return;
         }
-        for (int i = start; i < nums.length; i++) {
-            swap(nums, start, i);
-            backtrack(nums, start + 1, res);
-            swap(nums, start, i);
+        for (int i = first; i < nums.length; i++) {
+            swap(nums, first, i);
+            dfs(nums, first + 1, result);
+            swap(nums, first, i);
         }
     }
 
-    private void swap(int[] nums, int i, int j) {
-        int t = nums[i]; nums[i] = nums[j]; nums[j] = t;
+    private void swap(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
     }
 }
 ```
 - **Time Complexity**: $O(n \cdot n!)$
-- **Space Complexity**: $O(n)$ recursion stack
+- **Space Complexity**: $O(n)$ for recursion, plus output
 
 ---
 
@@ -6789,81 +10370,307 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [90. Subsets II](https://leetcode.com/problems/subsets-ii/)
 - **NeetCode**: [Subsets II](https://neetcode.io/problems/subsets-ii)
-- **Data Structures**: Array, Backtracking
-- **Patterns**: Sort + Skip Duplicate Siblings
+- **Data Structures**: Array
+- **Patterns**: Sort, Skip Duplicates at the Same Depth
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums` that may contain duplicates, return all possible subsets (the power set). The solution must not contain duplicate subsets. Return the solution in any order.
 
-##### Approach 1: Optimised / Best (Sort + Skip Adjacent Duplicates)
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,2,2]`
+- **Output**: `[[],[1],[1,2],[1,2,2],[2],[2,2]]`
+- **Explanation**: Six unique subsets. The two `2`s do not produce repeated subsets.
+
+**Example 2**
+- **Input**: `nums = [0]`
+- **Output**: `[[],[0]]`
+- **Explanation**: Two subsets.
+
+#### Constraints
+- `1 <= nums.length <= 10`
+- `-10 <= nums[i] <= 10`
+
+#### Intuition
+Subsets II is Subsets with duplicates. Sorting puts equal values next to each other. At a given recursion depth, choosing a value equal to a previous candidate would generate a subset already produced. So skip repeated values within the same loop, but still allow the same value to be chosen deeper in the recursion.
+
+---
+
+##### Approach 1: Brute Force (Bitmask, Sort, Deduplicate with a Set)
+
+**Intuition**: Enumerate all $2^n$ subsets, sort each, and deduplicate with a set.
+
+**Algorithm**:
+1. For each mask, build the subset, sort it, and insert it into a set.
+2. Return the set's contents.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums);
-        backtrack(nums, 0, new ArrayList<>(), res);
-        return res;
+        int n = nums.length;
+        Set<List<Integer>> found = new HashSet<>();
+        for (int mask = 0; mask < (1 << n); mask++) {
+            List<Integer> subset = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                if (((mask >> i) & 1) == 1) subset.add(nums[i]);
+            }
+            subset.sort(null);
+            found.add(subset);
+        }
+        return new ArrayList<>(found);
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot 2^n \cdot \log n)$
+- **Space Complexity**: $O(n \cdot 2^n)$
+
+---
+
+##### Approach 2: Better (Backtracking with Set Deduplication)
+
+**Intuition**: Run the standard subset backtracking, which can generate the same subset via different indices when values repeat. Store results in a set to remove those duplicates.
+
+**Algorithm**:
+1. `dfs(start, path)`: add a sorted copy of `path` to the set.
+2. For `i` from `start`, append `nums[i]`, recurse with `i + 1`, and remove.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Set<List<Integer>> found = new HashSet<>();
+        dfs(nums, 0, new ArrayList<>(), found);
+        return new ArrayList<>(found);
     }
 
-    private void backtrack(int[] nums, int start, List<Integer> curr, List<List<Integer>> res) {
-        res.add(new ArrayList<>(curr));
+    private void dfs(int[] nums, int start, List<Integer> path, Set<List<Integer>> found) {
+        List<Integer> key = new ArrayList<>(path);
+        key.sort(null);
+        found.add(key);
+        for (int i = start; i < nums.length; i++) {
+            path.add(nums[i]);
+            dfs(nums, i + 1, path, found);
+            path.remove(path.size() - 1);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot 2^n \cdot \log n)$ with set overhead
+- **Space Complexity**: $O(n \cdot 2^n)$
+
+---
+
+##### Approach 3: Optimised / Best (Sort, Skip Duplicates at Same Depth)
+
+**Intuition**: Sort first. In the loop at each depth, skip `nums[i]` when `i > start` and `nums[i] == nums[i-1]`. The earlier sibling already produced every subset that begins with this value at this depth. No set is needed, and each subset is generated exactly once.
+
+**Algorithm**:
+1. Sort `nums`.
+2. `dfs(start, path)`: record a copy of `path`.
+3. For `i` from `start`: if `i > start` and `nums[i] == nums[i-1]`, `continue`. Otherwise append, recurse with `i + 1`, and remove.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(nums, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(int[] nums, int start, List<Integer> path, List<List<Integer>> result) {
+        result.add(new ArrayList<>(path));
         for (int i = start; i < nums.length; i++) {
             if (i > start && nums[i] == nums[i - 1]) continue;
-            curr.add(nums[i]);
-            backtrack(nums, i + 1, curr, res);
-            curr.remove(curr.size() - 1);
+            path.add(nums[i]);
+            dfs(nums, i + 1, path, result);
+            path.remove(path.size() - 1);
         }
     }
 }
 ```
 - **Time Complexity**: $O(n \cdot 2^n)$
-- **Space Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for recursion, plus output
 
 ---
 
 ### 9.6 Word Search
 - **Difficulty**: Medium
 - **LeetCode**: [79. Word Search](https://leetcode.com/problems/word-search/)
-- **NeetCode**: [Search for Word](https://neetcode.io/problems/search-for-word)
-- **Data Structures**: Matrix, Backtracking
-- **Patterns**: In-Place Visited DFS Grid Search
+- **NeetCode**: [Search Word in Grid](https://neetcode.io/problems/search-for-word)
+- **Data Structures**: Matrix, String
+- **Patterns**: Grid DFS, Visited Marking, Undo on Backtrack
 
-#### Solutions
+#### Problem Description
+Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid. The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighbouring. The same cell may not be used more than once.
 
-##### Approach 1: Optimised / Best (DFS with Character Masking)
+#### Examples
+
+**Example 1**
+- **Input**: `board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]`, `word = "ABCCED"`
+- **Output**: `true`
+- **Explanation**: The path `A(0,0) -> B(0,1) -> C(0,2) -> C(1,2) -> E(2,2) -> D(2,1)` spells the word.
+
+**Example 2**
+- **Input**: Same board, `word = "ABCB"`
+- **Output**: `false`
+- **Explanation**: The second `B` would require reusing the first `B`.
+
+#### Constraints
+- `1 <= m, n <= 6`
+- `1 <= word.length <= 15`
+- `board` and `word` consist of uppercase and lowercase English letters.
+
+#### Intuition
+Start a DFS from every cell that matches the first letter. At each step, move to a neighbour that matches the next letter and has not been used on the current path. Before exploring a neighbour, mark the current cell as used, and unmark it when the branch fails. The visited state is exactly the current path, so marking must be undone on backtrack.
+
+---
+
+##### Approach 1: Brute Force (Copy Visited Set at Each Step)
+
+**Intuition**: Track the cells on the current path in a `HashSet` of coordinates. Each recursive call receives a fresh copy of the set, so no undo step is needed. Simple, but it copies state on every move.
+
+**Algorithm**:
+1. For every start cell, call `dfs(r, c, 0, new HashSet<>())`.
+2. `dfs`: if `idx == len`, return `true`. If out of bounds, mismatched, or visited, return `false`.
+3. Otherwise copy the visited set, add the cell, and recurse into the four neighbours with `idx + 1`.
+
 ```java
+import java.util.HashSet;
+import java.util.Set;
+
 class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
     public boolean exist(char[][] board, String word) {
-        int m = board.length, n = board[0].length;
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                if (board[r][c] == word.charAt(0) && dfs(board, r, c, word, 0)) {
-                    return true;
-                }
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (dfs(board, r, c, word, 0, new HashSet<>())) return true;
             }
         }
         return false;
     }
 
-    private boolean dfs(char[][] board, int r, int c, String word, int idx) {
+    private boolean dfs(char[][] b, int r, int c, String word, int idx, Set<String> visited) {
         if (idx == word.length()) return true;
-        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] != word.charAt(idx)) {
-            return false;
+        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;
+        String key = r + "," + c;
+        if (visited.contains(key) || b[r][c] != word.charAt(idx)) return false;
+        Set<String> next = new HashSet<>(visited);
+        next.add(key);
+        for (int[] d : DIRS) {
+            if (dfs(b, r + d[0], c + d[1], word, idx + 1, next)) return true;
         }
-        char temp = board[r][c];
-        board[r][c] = '#'; // Mark visited
-        boolean found = dfs(board, r + 1, c, word, idx + 1) ||
-                        dfs(board, r - 1, c, word, idx + 1) ||
-                        dfs(board, r, c + 1, word, idx + 1) ||
-                        dfs(board, r, c - 1, word, idx + 1);
-        board[r][c] = temp; // Backtrack
-        return found;
+        return false;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n \cdot 3^L)$ where $L$ is word length
-- **Space Complexity**: $O(L)$ recursion stack
+- **Time Complexity**: $O(m \cdot n \cdot 4^L)$ with set copying overhead, where $L$ is the word length
+- **Space Complexity**: $O(L^2)$ for copies along the path
+
+---
+
+##### Approach 2: Better (Boolean Visited Grid with Undo)
+
+**Intuition**: Replace the set with a boolean grid. Mark the cell before exploring, and unmark it after. Each cell is marked once per path, and the grid is restored exactly on return.
+
+**Algorithm**:
+1. For every start cell, run `dfs`.
+2. `dfs`: check bounds, match, and not visited. If `idx` is the last character, return `true`.
+3. Mark, explore the four neighbours, then unmark.
+
+```java
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public boolean exist(char[][] board, String word) {
+        boolean[][] visited = new boolean[board.length][board[0].length];
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (dfs(board, visited, r, c, word, 0)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(char[][] b, boolean[][] vis, int r, int c, String word, int idx) {
+        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;
+        if (vis[r][c] || b[r][c] != word.charAt(idx)) return false;
+        if (idx == word.length() - 1) return true;
+        vis[r][c] = true;
+        for (int[] d : DIRS) {
+            if (dfs(b, vis, r + d[0], c + d[1], word, idx + 1)) {
+                vis[r][c] = false;
+                return true;
+            }
+        }
+        vis[r][c] = false;
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(m \cdot n \cdot 4^L)$
+- **Space Complexity**: $O(m \cdot n + L)$
+
+---
+
+##### Approach 3: Optimised / Best (In-Place Marking)
+
+**Intuition**: The board is ours to modify temporarily. Overwrite a visited cell with a sentinel character such as `#` while exploring, then restore it on return. This removes the separate visited array, so each cell check is a single comparison.
+
+**Algorithm**:
+1. For every start cell, run `dfs`.
+2. `dfs`: return `false` if out of bounds or the cell does not match. If `idx` is the last character, return `true`.
+3. Save `ch = board[r][c]`, set `board[r][c] = '#'`, explore the four neighbours, and restore `board[r][c] = ch`.
+
+```java
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public boolean exist(char[][] board, String word) {
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (dfs(board, r, c, word, 0)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(char[][] b, int r, int c, String word, int idx) {
+        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;
+        if (b[r][c] != word.charAt(idx)) return false;
+        if (idx == word.length() - 1) return true;
+        char saved = b[r][c];
+        b[r][c] = '#';
+        for (int[] d : DIRS) {
+            if (dfs(b, r + d[0], c + d[1], word, idx + 1)) {
+                b[r][c] = saved;
+                return true;
+            }
+        }
+        b[r][c] = saved;
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(m \cdot n \cdot 4^L)$, with small constants
+- **Space Complexity**: $O(L)$ for recursion
 
 ---
 
@@ -6871,37 +10678,118 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
 - **NeetCode**: [Palindrome Partitioning](https://neetcode.io/problems/palindrome-partitioning)
-- **Data Structures**: String, Backtracking
-- **Patterns**: Backtracking + Palindrome Verification (or DP Cache)
+- **Data Structures**: String, Array
+- **Patterns**: Backtracking over Cut Points, Palindrome Precomputation
 
-#### Solutions
+#### Problem Description
+Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitionings of `s`.
 
-##### Approach 1: Backtracking with Two-Pointer Palindrome Check
+#### Examples
+
+**Example 1**
+- **Input**: `s = "aab"`
+- **Output**: `[["a","a","b"],["aa","b"]]`
+- **Explanation**: Two valid partitionings.
+
+**Example 2**
+- **Input**: `s = "a"`
+- **Output**: `[["a"]]`
+- **Explanation**: A single palindrome.
+
+#### Constraints
+- `1 <= s.length <= 16`
+- `s` contains only lowercase English letters.
+
+#### Intuition
+A partition is a choice of cut points. Each piece between cuts must be a palindrome, so backtracking can build the partition left to right, extending a palindromic prefix each time. Checking whether a substring is a palindrome repeatedly is wasteful, so precomputing all palindromic substrings in one table turns each check into a constant-time lookup.
+
+---
+
+##### Approach 1: Brute Force (Enumerate All Cut Sets, Check Each)
+
+**Intuition**: With `n - 1` gaps between characters, there are $2^{n-1}$ ways to place cuts. For each cut set, split the string and check that every piece is a palindrome.
+
+**Algorithm**:
+1. For each bitmask over the `n - 1` gaps, bit `i` set means a cut after index `i`.
+2. Split accordingly, and keep the partition if every piece is a palindrome.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<List<String>> partition(String s) {
-        List<List<String>> res = new ArrayList<>();
-        backtrack(s, 0, new ArrayList<>(), res);
-        return res;
+        int n = s.length();
+        List<List<String>> result = new ArrayList<>();
+        for (int mask = 0; mask < (1 << (n - 1)); mask++) {
+            List<String> parts = new ArrayList<>();
+            int start = 0;
+            boolean valid = true;
+            for (int i = 0; i < n; i++) {
+                boolean cutHere = (i == n - 1) || ((mask >> i) & 1) == 1;
+                if (cutHere) {
+                    String piece = s.substring(start, i + 1);
+                    if (!isPal(piece)) {
+                        valid = false;
+                        break;
+                    }
+                    parts.add(piece);
+                    start = i + 1;
+                }
+            }
+            if (valid) result.add(parts);
+        }
+        return result;
     }
 
-    private void backtrack(String s, int start, List<String> curr, List<List<String>> res) {
+    private boolean isPal(String t) {
+        int l = 0, r = t.length() - 1;
+        while (l < r) {
+            if (t.charAt(l++) != t.charAt(r--)) return false;
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(2^n \cdot n^2)$
+- **Space Complexity**: $O(n)$ per partition, plus output
+
+---
+
+##### Approach 2: Better (Backtracking with Two-Pointer Palindrome Check)
+
+**Intuition**: Build partitions recursively. From a starting index, try every end index such that `s[start..end]` is a palindrome, recording that piece and recursing from `end + 1`. Palindrome checks are done on demand.
+
+**Algorithm**:
+1. `dfs(start)`: if `start == n`, record a copy of the current parts.
+2. For `end` from `start` to `n-1`: if `s[start..end]` is a palindrome, append it, recurse with `end + 1`, and remove.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        dfs(s, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(String s, int start, List<String> parts, List<List<String>> result) {
         if (start == s.length()) {
-            res.add(new ArrayList<>(curr));
+            result.add(new ArrayList<>(parts));
             return;
         }
         for (int end = start; end < s.length(); end++) {
-            if (isPalindrome(s, start, end)) {
-                curr.add(s.substring(start, end + 1));
-                backtrack(s, end + 1, curr, res);
-                curr.remove(curr.size() - 1);
+            if (isPal(s, start, end)) {
+                parts.add(s.substring(start, end + 1));
+                dfs(s, end + 1, parts, result);
+                parts.remove(parts.size() - 1);
             }
         }
     }
 
-    private boolean isPalindrome(String s, int l, int r) {
+    private boolean isPal(String s, int l, int r) {
         while (l < r) {
             if (s.charAt(l++) != s.charAt(r--)) return false;
         }
@@ -6909,52 +10797,207 @@ class Solution {
     }
 }
 ```
-- **Time Complexity**: $O(n \cdot 2^n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: $O(n \cdot 2^n)$ palindrome checks along the search, each $O(n)$
+- **Space Complexity**: $O(n)$ recursion, plus output
+
+---
+
+##### Approach 3: Optimised / Best (Precomputed Palindrome Table)
+
+**Intuition**: A substring `s[i..j]` is a palindrome when `s[i] == s[j]` and `s[i+1..j-1]` is a palindrome. Fill a table `isPal[i][j]` in increasing order of length. Backtracking then checks each piece in $O(1)$.
+
+**Algorithm**:
+1. For `j` from `0` to `n-1`, and `i` from `0` to `j`: `isPal[i][j] = s[i] == s[j] && (j - i < 2 || isPal[i+1][j-1])`.
+2. `dfs(start)`: as in Approach 2, but test `isPal[start][end]` instead of recomputing.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private boolean[][] isPal;
+
+    public List<List<String>> partition(String s) {
+        int n = s.length();
+        isPal = new boolean[n][n];
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i <= j; i++) {
+                isPal[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 2 || isPal[i + 1][j - 1]);
+            }
+        }
+        List<List<String>> result = new ArrayList<>();
+        dfs(s, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(String s, int start, List<String> parts, List<List<String>> result) {
+        if (start == s.length()) {
+            result.add(new ArrayList<>(parts));
+            return;
+        }
+        for (int end = start; end < s.length(); end++) {
+            if (isPal[start][end]) {
+                parts.add(s.substring(start, end + 1));
+                dfs(s, end + 1, parts, result);
+                parts.remove(parts.size() - 1);
+            }
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ preprocessing, plus the output-bounded search
+- **Space Complexity**: $O(n^2)$ for the table
 
 ---
 
 ### 9.8 Letter Combinations of a Phone Number
 - **Difficulty**: Medium
 - **LeetCode**: [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
-- **NeetCode**: [Combinations of a Phone Number](https://neetcode.io/problems/combinations-of-a-phone-number)
-- **Data Structures**: String, Backtracking
-- **Patterns**: Backtracking / Iterative Expansion
+- **NeetCode**: [Letter Combinations of a Phone Number](https://neetcode.io/problems/letter-combinations-of-phone-number)
+- **Data Structures**: String, Array
+- **Patterns**: Cartesian Product, Iterative Expansion, Backtracking
 
-#### Solutions
+#### Problem Description
+Given a string `digits` containing digits from `2` to `9`, return all possible letter combinations that the number could represent, using the standard telephone keypad mapping. Return the answer in any order. If `digits` is empty, return an empty list.
 
-##### Approach 1: Optimised / Best (DFS Backtracking with Digit Mapping)
+The mapping is `2: abc`, `3: def`, `4: ghi`, `5: jkl`, `6: mno`, `7: pqrs`, `8: tuv`, `9: wxyz`.
+
+#### Examples
+
+**Example 1**
+- **Input**: `digits = "23"`
+- **Output**: `["ad","ae","af","bd","be","bf","cd","ce","cf"]`
+- **Explanation**: `2` maps to `abc` and `3` maps to `def`. Every pairing is a combination.
+
+**Example 2**
+- **Input**: `digits = ""`
+- **Output**: `[]`
+- **Explanation**: No digits, so no combinations.
+
+#### Constraints
+- `0 <= digits.length <= 4`
+- `digits[i]` is in the range `['2', '9']`.
+
+#### Intuition
+The answer is the Cartesian product of the letter sets for each digit. The product size is at most $4^4 = 256$, which is small. Three ways to enumerate it: treat the index as a mixed-radix number, grow a list one digit at a time, or recurse and build a string as you go.
+
+---
+
+##### Approach 1: Brute Force (Mixed-Radix Index Decoding)
+
+**Intuition**: Each combination corresponds to an index from `0` to `total - 1`, where `total` is the product of the letter counts. Decode the index by taking remainders and divisions, one digit at a time, from the last digit to the first.
+
+**Algorithm**:
+1. If `digits` is empty, return an empty list.
+2. Compute `total`, the product of letter counts.
+3. For each `idx` in `[0, total)`, decode one letter per digit from the end, using `letters.charAt(idx % len)` and then `idx /= len`.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
-    private static final String[] MAPPING = {
-        "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
-    };
+    private static final String[] MAP = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
     public List<String> letterCombinations(String digits) {
-        List<String> res = new ArrayList<>();
-        if (digits == null || digits.isEmpty()) return res;
-        dfs(digits, 0, new StringBuilder(), res);
-        return res;
+        List<String> result = new ArrayList<>();
+        int n = digits.length();
+        if (n == 0) return result;
+        int total = 1;
+        for (char d : digits.toCharArray()) total *= MAP[d - '0'].length();
+        for (int idx = 0; idx < total; idx++) {
+            char[] buf = new char[n];
+            int x = idx;
+            for (int pos = n - 1; pos >= 0; pos--) {
+                String letters = MAP[digits.charAt(pos) - '0'];
+                buf[pos] = letters.charAt(x % letters.length());
+                x /= letters.length();
+            }
+            result.add(new String(buf));
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot 4^n)$
+- **Space Complexity**: $O(n \cdot 4^n)$ for the output
+
+---
+
+##### Approach 2: Better (Iterative Expansion, One Digit at a Time)
+
+**Intuition**: Start with `[""]`. For each digit, replace every partial combination with one extended copy per letter of that digit. After the last digit, the list is complete.
+
+**Algorithm**:
+1. `result = [""]`.
+2. For each digit `d` (if the digit has letters): build `next` by appending each letter to each element of `result`. Replace `result` with `next`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private static final String[] MAP = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        if (digits.isEmpty()) return result;
+        result.add("");
+        for (char d : digits.toCharArray()) {
+            List<String> next = new ArrayList<>();
+            for (String prefix : result) {
+                for (char ch : MAP[d - '0'].toCharArray()) {
+                    next.add(prefix + ch);
+                }
+            }
+            result = next;
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot 4^n)$
+- **Space Complexity**: $O(n \cdot 4^n)$ for intermediate lists
+
+---
+
+##### Approach 3: Optimised / Best (Backtracking with StringBuilder)
+
+**Intuition**: Recurse through the digits. At each level, try every letter for the current digit, append it, recurse to the next digit, and remove it. A single `StringBuilder` is reused, so no intermediate lists are built.
+
+**Algorithm**:
+1. `dfs(i, sb)`: if `i == n`, record `sb.toString()`.
+2. Otherwise, for each letter of `digits[i]`: append, recurse with `i + 1`, and delete the last character.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private static final String[] MAP = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        if (digits.isEmpty()) return result;
+        dfs(digits, 0, new StringBuilder(), result);
+        return result;
     }
 
-    private void dfs(String digits, int idx, StringBuilder sb, List<String> res) {
-        if (idx == digits.length()) {
-            res.add(sb.toString());
+    private void dfs(String digits, int i, StringBuilder sb, List<String> result) {
+        if (i == digits.length()) {
+            result.add(sb.toString());
             return;
         }
-        String letters = MAPPING[digits.charAt(idx) - '0'];
-        for (char c : letters.toCharArray()) {
-            sb.append(c);
-            dfs(digits, idx + 1, sb, res);
+        for (char ch : MAP[digits.charAt(i) - '0'].toCharArray()) {
+            sb.append(ch);
+            dfs(digits, i + 1, sb, result);
             sb.deleteCharAt(sb.length() - 1);
         }
     }
 }
 ```
-- **Time Complexity**: $O(4^n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: $O(n \cdot 4^n)$
+- **Space Complexity**: $O(n)$ recursion, plus output
 
 ---
 
@@ -6962,47 +11005,211 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [51. N-Queens](https://leetcode.com/problems/n-queens/)
 - **NeetCode**: [N-Queens](https://neetcode.io/problems/n-queens)
-- **Data Structures**: Array, Backtracking
-- **Patterns**: Row-by-Row DFS with Column & Diagonal Sets
+- **Data Structures**: Array, Hash Set
+- **Patterns**: Row-by-Row Backtracking, Constraint Tracking with Columns and Diagonals
 
-#### Solutions
+#### Problem Description
+The `n`-queens puzzle is the problem of placing `n` queens on an `n x n` chessboard so that no two queens attack each other. Given an integer `n`, return all distinct solutions to the `n`-queens puzzle. Each solution is a board layout where `'Q'` marks a queen and `'.'` marks an empty square.
 
-##### Approach 1: Optimised / Best (Sets / Bitmasks for Column & Diagonals)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 4`
+- **Output**: `[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]`
+- **Explanation**: Two distinct placements.
+
+**Example 2**
+- **Input**: `n = 1`
+- **Output**: `[["Q"]]`
+- **Explanation**: One queen on one square.
+
+#### Constraints
+- `1 <= n <= 9`
+
+#### Intuition
+Place one queen per row, so the row constraint is automatic. A column may hold at most one queen, and two queens share a diagonal when `row - col` or `row + col` is equal. Place queens row by row, and for each row, try each column that does not conflict with earlier placements. Tracking columns and diagonals in constant-time structures makes each check cheap.
+
+---
+
+##### Approach 1: Brute Force (Permutations of Columns, Check Diagonals at the End)
+
+**Intuition**: A valid solution must use each column exactly once, because one queen per row and one per column are both required. So enumerate all $n!$ column permutations, and reject those where any two queens share a diagonal.
+
+**Algorithm**:
+1. Generate permutations `perm` where `perm[r]` is the column of the queen in row `r`.
+2. For each permutation, check every pair of rows `(i, j)` for `|i - j| == |perm[i] - perm[j]|`. If none conflict, build the board.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> res = new ArrayList<>();
-        char[][] board = new char[n][n];
-        for (char[] row : board) Arrays.fill(row, '.');
-        boolean[] cols = new boolean[n];
-        boolean[] diag1 = new boolean[2 * n]; // r - c + n
-        boolean[] diag2 = new boolean[2 * n]; // r + c
-        backtrack(0, n, board, cols, diag1, diag2, res);
-        return res;
+        List<List<String>> result = new ArrayList<>();
+        int[] perm = new int[n];
+        boolean[] usedCol = new boolean[n];
+        gen(0, n, perm, usedCol, result);
+        return result;
     }
 
-    private void backtrack(int r, int n, char[][] board, boolean[] cols, boolean[] d1, boolean[] d2, List<List<String>> res) {
-        if (r == n) {
-            List<String> list = new ArrayList<>();
-            for (char[] row : board) list.add(new String(row));
-            res.add(list);
+    private void gen(int row, int n, int[] perm, boolean[] usedCol, List<List<String>> result) {
+        if (row == n) {
+            if (valid(perm, n)) result.add(build(perm, n));
             return;
         }
         for (int c = 0; c < n; c++) {
-            if (cols[c] || d1[r - c + n] || d2[r + c]) continue;
-            board[r][c] = 'Q';
-            cols[c] = d1[r - c + n] = d2[r + c] = true;
-            backtrack(r + 1, n, board, cols, d1, d2, res);
-            board[r][c] = '.';
-            cols[c] = d1[r - c + n] = d2[r + c] = false;
+            if (usedCol[c]) continue;
+            usedCol[c] = true;
+            perm[row] = c;
+            gen(row + 1, n, perm, usedCol, result);
+            usedCol[c] = false;
+        }
+    }
+
+    private boolean valid(int[] perm, int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (Math.abs(i - j) == Math.abs(perm[i] - perm[j])) return false;
+            }
+        }
+        return true;
+    }
+
+    private List<String> build(int[] perm, int n) {
+        List<String> board = new ArrayList<>();
+        for (int r = 0; r < n; r++) {
+            char[] row = new char[n];
+            java.util.Arrays.fill(row, '.');
+            row[perm[r]] = 'Q';
+            board.add(new String(row));
+        }
+        return board;
+    }
+}
+```
+- **Time Complexity**: $O(n! \cdot n^2)$
+- **Space Complexity**: $O(n)$ for recursion and the working arrays
+
+---
+
+##### Approach 2: Better (Row Backtracking with Scan-Based Safety Check)
+
+**Intuition**: Place queens row by row on a character board. Before placing a queen at `(r, c)`, scan the column above and both upward diagonals for an existing queen. Prune early instead of waiting for a full permutation.
+
+**Algorithm**:
+1. `solve(r)`: if `r == n`, record the board.
+2. For each column `c`, if `isSafe(r, c)`, place `'Q'`, recurse with `r + 1`, and reset to `'.'`.
+3. `isSafe` scans upward in column `c`, and the up-left and up-right diagonals.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    private char[][] board;
+    private List<List<String>> result;
+
+    public List<List<String>> solveNQueens(int n) {
+        board = new char[n][n];
+        for (char[] row : board) Arrays.fill(row, '.');
+        result = new ArrayList<>();
+        solve(0);
+        return result;
+    }
+
+    private void solve(int r) {
+        int n = board.length;
+        if (r == n) {
+            List<String> snapshot = new ArrayList<>();
+            for (char[] row : board) snapshot.add(new String(row));
+            result.add(snapshot);
+            return;
+        }
+        for (int c = 0; c < n; c++) {
+            if (isSafe(r, c)) {
+                board[r][c] = 'Q';
+                solve(r + 1);
+                board[r][c] = '.';
+            }
+        }
+    }
+
+    private boolean isSafe(int r, int c) {
+        for (int i = 0; i < r; i++) {
+            if (board[i][c] == 'Q') return false;
+        }
+        for (int i = r - 1, j = c - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 'Q') return false;
+        }
+        for (int i = r - 1, j = c + 1; i >= 0 && j < board.length; i--, j++) {
+            if (board[i][j] == 'Q') return false;
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n!)$ worst case, with $O(n)$ per safety check
+- **Space Complexity**: $O(n^2)$ for the board
+
+---
+
+##### Approach 3: Optimised / Best (Boolean Arrays for Columns and Diagonals)
+
+**Intuition**: Keep three boolean arrays: `cols[c]`, `diag1[r + c]` for anti-diagonals, and `diag2[r - c + n - 1]` for diagonals. A square is safe when all three are free, which takes $O(1)$. Marking and unmarking are constant time, so the search does no scanning.
+
+**Algorithm**:
+1. `solve(r)`: if `r == n`, build the board from the `queenCol` array and record it.
+2. For each column `c`, if `!cols[c] && !d1[r+c] && !d2[r-c+n-1]`:
+   - Set `queenCol[r] = c`, mark all three arrays.
+   - Recurse with `r + 1`, then unmark.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    private int n;
+    private boolean[] cols, d1, d2;
+    private int[] queenCol;
+    private List<List<String>> result;
+
+    public List<List<String>> solveNQueens(int n) {
+        this.n = n;
+        cols = new boolean[n];
+        d1 = new boolean[2 * n];
+        d2 = new boolean[2 * n];
+        queenCol = new int[n];
+        result = new ArrayList<>();
+        solve(0);
+        return result;
+    }
+
+    private void solve(int r) {
+        if (r == n) {
+            List<String> board = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                char[] row = new char[n];
+                Arrays.fill(row, '.');
+                row[queenCol[i]] = 'Q';
+                board.add(new String(row));
+            }
+            result.add(board);
+            return;
+        }
+        for (int c = 0; c < n; c++) {
+            if (cols[c] || d1[r + c] || d2[r - c + n - 1]) continue;
+            cols[c] = d1[r + c] = d2[r - c + n - 1] = true;
+            queenCol[r] = c;
+            solve(r + 1);
+            cols[c] = d1[r + c] = d2[r - c + n - 1] = false;
         }
     }
 }
 ```
-- **Time Complexity**: $O(n!)$
-- **Space Complexity**: $O(n^2)$
+- **Time Complexity**: $O(n!)$ worst case, with $O(1)$ per safety check
+- **Space Complexity**: $O(n)$ for the arrays and recursion, plus output
 
 ---
 
@@ -7012,35 +11219,134 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [208. Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
 - **NeetCode**: [Implement Prefix Tree](https://neetcode.io/problems/implement-prefix-tree)
-- **Data Structures**: Trie
-- **Patterns**: 26-Array Trie Node
+- **Data Structures**: Trie, Hash Set, Array
+- **Patterns**: Character-by-Character Tree Walk
 
-#### Solutions
+#### Problem Description
+Implement a Trie (prefix tree) with these operations:
+- `Trie()` initialises the object.
+- `void insert(String word)` inserts `word` into the trie.
+- `boolean search(String word)` returns `true` if `word` was inserted, and `false` otherwise.
+- `boolean startsWith(String prefix)` returns `true` if some inserted word starts with `prefix`.
 
-##### Approach 1: Optimised / Best (Array of TrieNodes)
+#### Examples
+
+**Example 1**
+- **Input**: `insert("apple")`, `search("apple")`, `search("app")`, `startsWith("app")`, `insert("app")`, `search("app")`
+- **Output**: `null, true, false, true, null, true`
+- **Explanation**: `"app"` is only a prefix until it is inserted itself.
+
+#### Constraints
+- `1 <= word.length, prefix.length <= 2000`
+- `word` and `prefix` consist of lowercase English letters.
+- At most `3 * 10^4` calls in total.
+
+#### Intuition
+A trie stores strings by sharing common prefixes. Each node represents a prefix, and an end-of-word flag marks inserted words. `search` and `startsWith` walk the characters one at a time, so each costs time proportional to the query length, independent of how many words are stored.
+
+---
+
+##### Approach 1: Brute Force (List of Words, Linear Scan)
+
+**Intuition**: Store the words in a list. `search` checks equality, and `startsWith` scans every word for the prefix.
+
+**Algorithm**:
+1. `insert` appends the word.
+2. `search` checks whether the list contains the word.
+3. `startsWith` returns `true` if any word starts with the prefix.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Trie {
+    private final List<String> words = new ArrayList<>();
+
+    public void insert(String word) {
+        words.add(word);
+    }
+
+    public boolean search(String word) {
+        return words.contains(word);
+    }
+
+    public boolean startsWith(String prefix) {
+        for (String w : words) {
+            if (w.startsWith(prefix)) return true;
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: `insert` is $O(1)$, `search` and `startsWith` are $O(N \cdot L)$
+- **Space Complexity**: $O(N \cdot L)$
+
+---
+
+##### Approach 2: Better (Hash Sets of Words and Prefixes)
+
+**Intuition**: Precompute every prefix at insertion time and store it in a set. Then `startsWith` is one lookup. The cost is memory, because each word of length `L` adds `L` prefix strings.
+
+**Algorithm**:
+1. `insert(word)`: add `word` to `words`, and every prefix `word[0..i]` to `prefixes`.
+2. `search(word)`: return `words.contains(word)`.
+3. `startsWith(prefix)`: return `prefixes.contains(prefix)`.
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+class Trie {
+    private final Set<String> words = new HashSet<>();
+    private final Set<String> prefixes = new HashSet<>();
+
+    public void insert(String word) {
+        words.add(word);
+        for (int i = 1; i <= word.length(); i++) {
+            prefixes.add(word.substring(0, i));
+        }
+    }
+
+    public boolean search(String word) {
+        return words.contains(word);
+    }
+
+    public boolean startsWith(String prefix) {
+        return prefixes.contains(prefix);
+    }
+}
+```
+- **Time Complexity**: `insert` is $O(L^2)$ for substring building, `search` and `startsWith` are $O(L)$ for hashing
+- **Space Complexity**: $O(N \cdot L^2)$ in the worst case for stored prefix strings
+
+---
+
+##### Approach 3: Optimised / Best (Trie Nodes with 26-Child Arrays)
+
+**Intuition**: Build the actual tree. Each node has up to 26 children, indexed by letter, and a flag marking the end of a word. Insertion and lookup each walk the characters once, sharing storage across common prefixes.
+
+**Algorithm**:
+1. `insert`: from the root, for each character, create the child if missing and descend. Set `isEnd` at the last node.
+2. `search`: descend; return `isEnd` of the final node, or `false` if a child is missing.
+3. `startsWith`: descend; return `true` if the path exists.
+
 ```java
 class Trie {
     private static class Node {
         Node[] children = new Node[26];
-        boolean isEnd = false;
+        boolean isEnd;
     }
 
-    private final Node root;
-
-    public Trie() {
-        root = new Node();
-    }
+    private final Node root = new Node();
 
     public void insert(String word) {
-        Node curr = root;
-        for (char c : word.toCharArray()) {
-            int idx = c - 'a';
-            if (curr.children[idx] == null) {
-                curr.children[idx] = new Node();
-            }
-            curr = curr.children[idx];
+        Node cur = root;
+        for (char ch : word.toCharArray()) {
+            int i = ch - 'a';
+            if (cur.children[i] == null) cur.children[i] = new Node();
+            cur = cur.children[i];
         }
-        curr.isEnd = true;
+        cur.isEnd = true;
     }
 
     public boolean search(String word) {
@@ -7053,163 +11359,551 @@ class Trie {
     }
 
     private Node find(String s) {
-        Node curr = root;
-        for (char c : s.toCharArray()) {
-            int idx = c - 'a';
-            if (curr.children[idx] == null) return null;
-            curr = curr.children[idx];
+        Node cur = root;
+        for (char ch : s.toCharArray()) {
+            cur = cur.children[ch - 'a'];
+            if (cur == null) return null;
         }
-        return curr;
+        return cur;
     }
 }
 ```
-- **Time Complexity**: `insert`, `search`, `startsWith`: $O(L)$ where $L$ is word length
-- **Space Complexity**: $O(26 \cdot \Sigma L)$
+- **Time Complexity**: $O(L)$ per operation
+- **Space Complexity**: $O(N \cdot L \cdot 26)$ worst case for child arrays
 
 ---
 
 ### 10.2 Design Add and Search Words Data Structure
 - **Difficulty**: Medium
 - **LeetCode**: [211. Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
-- **NeetCode**: [Design Word Search Data Structure](https://neetcode.io/problems/design-word-search-data-structure)
-- **Data Structures**: Trie
-- **Patterns**: Trie + DFS Wildcard Branching
+- **NeetCode**: [Design Add and Search Words](https://neetcode.io/problems/design-add-and-search-words-data-structure)
+- **Data Structures**: Trie, Array, Hash Map
+- **Patterns**: Wildcard Search with Branching DFS
 
-#### Solutions
+#### Problem Description
+Design a data structure that supports adding words and searching for words, where `.` in the search string matches any single letter.
 
-##### Approach 1: Optimised / Best (Trie + DFS for Wildcards)
+Implement the `WordDictionary` class:
+- `WordDictionary()` initialises the object.
+- `void addWord(String word)` adds `word` to the data structure.
+- `boolean search(String word)` returns `true` if there is any added word that matches `word`, where `.` matches any letter.
+
+#### Examples
+
+**Example 1**
+- **Input**: `addWord("bad")`, `addWord("dad")`, `addWord("mad")`, `search("pad")`, `search("bad")`, `search(".ad")`, `search("b..")`
+- **Output**: `false, true, true, true`
+- **Explanation**: `pad` matches nothing. `.ad` matches `bad`, `dad`, and `mad`. `b..` matches `bad`.
+
+#### Constraints
+- `1 <= word.length <= 25`
+- `word` in `addWord` consists of lowercase English letters.
+- `word` in `search` consists of `'.'` or lowercase English letters.
+- At most `10^4` calls to `addWord` and `search`.
+
+#### Intuition
+Exact-match search is the trie problem from 10.1. The only difference is the `.`, which can match any letter. A trie handles that naturally: at a `.`, explore every child. Without a trie, the search can instead compare each stored word against the pattern.
+
+---
+
+##### Approach 1: Brute Force (List of Words, Compare Every Word)
+
+**Intuition**: Store words in a list. For each query, test every word for equal length and character-by-character match, treating `.` as a wildcard.
+
+**Algorithm**:
+1. `addWord` appends.
+2. `search` iterates through words, skipping those with a different length, and returns `true` on the first match.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class WordDictionary {
+    private final List<String> words = new ArrayList<>();
+
+    public void addWord(String word) {
+        words.add(word);
+    }
+
+    public boolean search(String pattern) {
+        for (String w : words) {
+            if (w.length() == pattern.length() && matches(w, pattern)) return true;
+        }
+        return false;
+    }
+
+    private boolean matches(String w, String p) {
+        for (int i = 0; i < p.length(); i++) {
+            if (p.charAt(i) != '.' && p.charAt(i) != w.charAt(i)) return false;
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: `search` is $O(N \cdot L)$
+- **Space Complexity**: $O(N \cdot L)$
+
+---
+
+##### Approach 2: Better (Buckets by Word Length)
+
+**Intuition**: A search pattern of length `L` can only match words of length `L`. Group words by length, so queries scan only the relevant bucket. The matching logic is unchanged.
+
+**Algorithm**:
+1. `addWord` puts the word in `buckets[length]`.
+2. `search` scans only `buckets[pattern.length()]`, comparing characters with the `.` wildcard.
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class WordDictionary {
+    private final Map<Integer, List<String>> buckets = new HashMap<>();
+
+    public void addWord(String word) {
+        buckets.computeIfAbsent(word.length(), k -> new ArrayList<>()).add(word);
+    }
+
+    public boolean search(String pattern) {
+        for (String w : buckets.getOrDefault(pattern.length(), List.of())) {
+            if (matches(w, pattern)) return true;
+        }
+        return false;
+    }
+
+    private boolean matches(String w, String p) {
+        for (int i = 0; i < p.length(); i++) {
+            if (p.charAt(i) != '.' && p.charAt(i) != w.charAt(i)) return false;
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: `search` is $O(N_L \cdot L)$, where $N_L$ is the number of words of length $L$
+- **Space Complexity**: $O(N \cdot L)$
+
+---
+
+##### Approach 3: Optimised / Best (Trie with DFS on Wildcards)
+
+**Intuition**: Store words in a trie. For a normal letter, follow one child. For a `.`, try every existing child and succeed if any branch matches the rest of the pattern. Branches that do not exist are pruned immediately.
+
+**Algorithm**:
+1. `addWord`: insert into the trie, marking `isEnd` at the last node.
+2. `search(word, idx, node)`: if `idx` is past the end, return `node.isEnd`. If the character is a letter, descend into that child if it exists. If it is `.`, return `true` if any non-null child matches from `idx + 1`.
+
 ```java
 class WordDictionary {
     private static class Node {
         Node[] children = new Node[26];
-        boolean isEnd = false;
+        boolean isEnd;
     }
 
-    private final Node root;
-
-    public WordDictionary() {
-        root = new Node();
-    }
+    private final Node root = new Node();
 
     public void addWord(String word) {
-        Node curr = root;
-        for (char c : word.toCharArray()) {
-            int idx = c - 'a';
-            if (curr.children[idx] == null) curr.children[idx] = new Node();
-            curr = curr.children[idx];
+        Node cur = root;
+        for (char ch : word.toCharArray()) {
+            int i = ch - 'a';
+            if (cur.children[i] == null) cur.children[i] = new Node();
+            cur = cur.children[i];
         }
-        curr.isEnd = true;
+        cur.isEnd = true;
     }
 
     public boolean search(String word) {
-        return match(word, 0, root);
+        return dfs(root, word, 0);
     }
 
-    private boolean match(String word, int idx, Node node) {
-        if (node == null) return false;
+    private boolean dfs(Node node, String word, int idx) {
         if (idx == word.length()) return node.isEnd;
-        char c = word.charAt(idx);
-        if (c == '.') {
+        char ch = word.charAt(idx);
+        if (ch == '.') {
             for (Node child : node.children) {
-                if (child != null && match(word, idx + 1, child)) return true;
+                if (child != null && dfs(child, word, idx + 1)) return true;
             }
             return false;
-        } else {
-            return match(word, idx + 1, node.children[c - 'a']);
         }
+        Node next = node.children[ch - 'a'];
+        return next != null && dfs(next, word, idx + 1);
     }
 }
 ```
-- **Time Complexity**: `addWord`: $O(L)$; `search`: $O(L)$ for exact, $O(26^L)$ worst wildcard
-- **Space Complexity**: $O(26 \cdot \Sigma L)$
+- **Time Complexity**: $O(L)$ for letter-only patterns, and $O(26^d \cdot L)$ worst case with $d$ dots
+- **Space Complexity**: $O(N \cdot L \cdot 26)$ worst case
 
 ---
 
 ### 10.3 Word Search II
 - **Difficulty**: Hard
 - **LeetCode**: [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
-- **NeetCode**: [Word Search II](https://neetcode.io/problems/word-search-ii)
-- **Data Structures**: Trie, Backtracking, Matrix
-- **Patterns**: Multi-String Trie Backtracking with Pruning
+- **NeetCode**: [Search Words in Grid](https://neetcode.io/problems/search-for-word-ii)
+- **Data Structures**: Matrix, Trie, String
+- **Patterns**: Trie-Guided Grid DFS, Found-Word Deduplication, Dead-Branch Pruning
 
-#### Solutions
+#### Problem Description
+Given an `m x n` board of characters and a list of strings `words`, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighbouring. The same cell may not be used more than once in a word.
 
-##### Approach 1: Optimised / Best (Trie Guided Matrix DFS + Node Pruning)
+#### Examples
+
+**Example 1**
+- **Input**: `board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]`, `words = ["oath","pea","eat","rain"]`
+- **Output**: `["eat","oath"]`
+- **Explanation**: `oath` and `eat` can be traced on the board. `pea` and `rain` cannot.
+
+**Example 2**
+- **Input**: `board = [["a","b"],["c","d"]]`, `words = ["abcb"]`
+- **Output**: `[]`
+- **Explanation**: The second `b` would require reusing a cell.
+
+#### Constraints
+- `m == board.length`, `n == board[i].length`
+- `1 <= m, n <= 12`
+- `board` consists of lowercase English letters.
+- `1 <= words.length <= 3 * 10^4`
+- `1 <= words[i].length <= 10`
+- All strings in `words` are unique.
+
+#### Intuition
+Running Word Search (9.6) once per word repeats almost the same grid exploration many times. Instead, put all words into a trie and run one DFS per grid cell. The trie tells the DFS which prefixes are worth extending, so a branch dies the moment no word starts with the current path.
+
+---
+
+##### Approach 1: Brute Force (Word Search for Each Word)
+
+**Intuition**: For each word, run the standard Word Search DFS from every cell, and keep the word if it is found.
+
+**Algorithm**:
+1. For each word, try every start cell with DFS (marking cells in place and restoring them).
+2. If a start yields the full word, add it to the result and move on.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
-    private static class TrieNode {
-        TrieNode[] children = new TrieNode[26];
-        String word = null;
-    }
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
 
     public List<String> findWords(char[][] board, String[] words) {
-        TrieNode root = new TrieNode();
+        List<String> result = new ArrayList<>();
         for (String w : words) {
-            TrieNode curr = root;
-            for (char c : w.toCharArray()) {
-                int idx = c - 'a';
-                if (curr.children[idx] == null) curr.children[idx] = new TrieNode();
-                curr = curr.children[idx];
-            }
-            curr.word = w;
+            if (exist(board, w)) result.add(w);
         }
-
-        List<String> res = new ArrayList<>();
-        int m = board.length, n = board[0].length;
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                dfs(board, r, c, root, res);
-            }
-        }
-        return res;
+        return result;
     }
 
-    private void dfs(char[][] board, int r, int c, TrieNode node, List<String> res) {
-        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] == '#') return;
-        char ch = board[r][c];
-        int idx = ch - 'a';
-        if (node.children[idx] == null) return;
-        TrieNode nextNode = node.children[idx];
-        if (nextNode.word != null) {
-            res.add(nextNode.word);
-            nextNode.word = null; // Prevent duplicates
+    private boolean exist(char[][] board, String word) {
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (dfs(board, r, c, word, 0)) return true;
+            }
         }
+        return false;
+    }
 
-        board[r][c] = '#';
-        dfs(board, r + 1, c, nextNode, res);
-        dfs(board, r - 1, c, nextNode, res);
-        dfs(board, r, c + 1, nextNode, res);
-        dfs(board, r, c - 1, nextNode, res);
-        board[r][c] = ch;
+    private boolean dfs(char[][] b, int r, int c, String word, int idx) {
+        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;
+        if (b[r][c] != word.charAt(idx)) return false;
+        if (idx == word.length() - 1) return true;
+        char saved = b[r][c];
+        b[r][c] = '#';
+        for (int[] d : DIRS) {
+            if (dfs(b, r + d[0], c + d[1], word, idx + 1)) {
+                b[r][c] = saved;
+                return true;
+            }
+        }
+        b[r][c] = saved;
+        return false;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n \cdot 4^{L})$
-- **Space Complexity**: $O(\Sigma L)$
+- **Time Complexity**: $O(W \cdot m \cdot n \cdot 4^L)$, where $W$ is the number of words
+- **Space Complexity**: $O(L)$ for recursion
+
+---
+
+##### Approach 2: Better (Trie Built from Words, Grid DFS Without Pruning)
+
+**Intuition**: One trie holds every word. From each cell, the DFS walks the trie in step with the grid. It only extends into neighbours that have a matching trie child, and it records a word when it reaches a node marked as a word end. Each word is recorded once by clearing its marker after it is found.
+
+**Algorithm**:
+1. Insert each word into a trie. Store the full word at its end node.
+2. For each cell, call `dfs(r, c, root)`.
+3. `dfs`: look up `board[r][c]` among the children of the current node. If absent, return. If that child holds a word, add it to the result and clear it. Mark the cell, recurse into the four neighbours with the child node, and restore the cell.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private static class Node {
+        Node[] children = new Node[26];
+        String word;
+    }
+
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public List<String> findWords(char[][] board, String[] words) {
+        Node root = new Node();
+        for (String w : words) {
+            Node cur = root;
+            for (char ch : w.toCharArray()) {
+                int i = ch - 'a';
+                if (cur.children[i] == null) cur.children[i] = new Node();
+                cur = cur.children[i];
+            }
+            cur.word = w;
+        }
+        List<String> result = new ArrayList<>();
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                dfs(board, r, c, root, result);
+            }
+        }
+        return result;
+    }
+
+    private void dfs(char[][] b, int r, int c, Node parent, List<String> result) {
+        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return;
+        char ch = b[r][c];
+        if (ch == '#') return;
+        Node next = parent.children[ch - 'a'];
+        if (next == null) return;
+        if (next.word != null) {
+            result.add(next.word);
+            next.word = null;
+        }
+        b[r][c] = '#';
+        for (int[] d : DIRS) {
+            dfs(b, r + d[0], c + d[1], next, result);
+        }
+        b[r][c] = ch;
+    }
+}
+```
+- **Time Complexity**: $O(m \cdot n \cdot 4^L)$ worst case, with the trie limiting real exploration
+- **Space Complexity**: $O(W \cdot L \cdot 26)$ for the trie
+
+---
+
+##### Approach 3: Optimised / Best (Trie with Pruning of Exhausted Branches)
+
+**Intuition**: Once every word below a trie node is found, that node is dead weight, and the DFS would keep visiting it. After returning from a child, remove the child from the trie if it has no children and no pending word. This shrinks the trie as the search runs, so later cells explore less. Clearing the word marker still prevents duplicates.
+
+**Algorithm**:
+1. Build the trie as in Approach 2.
+2. In `dfs`, after exploring the neighbours, restore the cell. If `next` has no children and `next.word == null`, set `parent.children[ch - 'a'] = null`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private static class Node {
+        Node[] children = new Node[26];
+        String word;
+    }
+
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public List<String> findWords(char[][] board, String[] words) {
+        Node root = new Node();
+        for (String w : words) {
+            Node cur = root;
+            for (char ch : w.toCharArray()) {
+                int i = ch - 'a';
+                if (cur.children[i] == null) cur.children[i] = new Node();
+                cur = cur.children[i];
+            }
+            cur.word = w;
+        }
+        List<String> result = new ArrayList<>();
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                dfs(board, r, c, root, result);
+            }
+        }
+        return result;
+    }
+
+    private void dfs(char[][] b, int r, int c, Node parent, List<String> result) {
+        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return;
+        char ch = b[r][c];
+        if (ch == '#') return;
+        Node next = parent.children[ch - 'a'];
+        if (next == null) return;
+        if (next.word != null) {
+            result.add(next.word);
+            next.word = null;
+        }
+        b[r][c] = '#';
+        for (int[] d : DIRS) {
+            dfs(b, r + d[0], c + d[1], next, result);
+        }
+        b[r][c] = ch;
+        if (isEmpty(next)) {
+            parent.children[ch - 'a'] = null;
+        }
+    }
+
+    private boolean isEmpty(Node n) {
+        if (n.word != null) return false;
+        for (Node child : n.children) {
+            if (child != null) return false;
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(m \cdot n \cdot 4^L)$ worst case, usually far less because pruning removes exhausted branches
+- **Space Complexity**: $O(W \cdot L \cdot 26)$ for the trie
 
 ---
 
 ## 11. Graphs
 
+Several graph problems in this section use the standard LeetCode `Node` definition for cloning, shown once here:
+
+```java
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node() { neighbors = new ArrayList<>(); }
+    public Node(int val) { this.val = val; neighbors = new ArrayList<>(); }
+    public Node(int val, ArrayList<Node> neighbors) { this.val = val; this.neighbors = neighbors; }
+}
+```
+
 ### 11.1 Number of Islands
 - **Difficulty**: Medium
 - **LeetCode**: [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
-- **NeetCode**: [Count Connected Components](https://neetcode.io/problems/count-number-of-islands)
-- **Data Structures**: Matrix, Graph
-- **Patterns**: Grid DFS / BFS Flood Fill
+- **NeetCode**: [Islands Count](https://neetcode.io/problems/count-number-of-islands)
+- **Data Structures**: Grid, Graph, Queue, Stack
+- **Patterns**: Flood Fill, Connected Components on a Grid
 
-#### Solutions
+#### Problem Description
+Given an `m x n` 2D binary grid `grid` where `'1'` represents land and `'0'` represents water, return the number of islands. An island is surrounded by water and is formed by connecting adjacent land cells horizontally or vertically.
 
-##### Approach 1: Optimised / Best (DFS Grid Sink)
+#### Examples
+
+**Example 1**
+- **Input**: `grid = [["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]`
+- **Output**: `1`
+- **Explanation**: All land cells are connected.
+
+**Example 2**
+- **Input**: `grid = [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]`
+- **Output**: `3`
+- **Explanation**: Three separate groups of land.
+
+#### Constraints
+- `1 <= m, n <= 300`
+- `grid[i][j]` is `'0'` or `'1'`.
+
+#### Intuition
+Each island is a connected component of land cells. Scan the grid, and every time an unvisited land cell appears, count a new island and flood-fill its component so none of its cells are counted again.
+
+---
+
+##### Approach 1: Brute Force (Flood Fill with a Set of Visited Coordinates)
+
+**Intuition**: Track visited cells as strings in a `HashSet`. Each flood fill adds to the set, so later scans skip those cells.
+
+**Algorithm**:
+1. For each cell that is `'1'` and not in `seen`, increment the count and flood-fill from it, adding every reached cell to `seen`.
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public int numIslands(char[][] grid) {
+        Set<String> seen = new HashSet<>();
+        int count = 0;
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == '1' && !seen.contains(r + "," + c)) {
+                    count++;
+                    fill(grid, r, c, seen);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void fill(char[][] g, int r, int c, Set<String> seen) {
+        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return;
+        String key = r + "," + c;
+        if (g[r][c] != '1' || seen.contains(key)) return;
+        seen.add(key);
+        fill(g, r + 1, c, seen);
+        fill(g, r - 1, c, seen);
+        fill(g, r, c + 1, seen);
+        fill(g, r, c - 1, seen);
+    }
+}
+```
+- **Time Complexity**: $O(mn)$ with string-key overhead
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 2: Better (Boolean Visited Grid)
+
+**Intuition**: A boolean matrix records visited cells without string keys, which is faster and uses less memory than a set.
+
+**Algorithm**:
+1. For each land cell not visited, increment the count and run DFS.
+2. DFS marks cells visited and recurses into the four neighbours that are unvisited land.
+
 ```java
 class Solution {
     public int numIslands(char[][] grid) {
-        int m = grid.length, n = grid[0].length;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
         int count = 0;
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == '1' && !visited[r][c]) {
+                    count++;
+                    dfs(grid, visited, r, c);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void dfs(char[][] g, boolean[][] vis, int r, int c) {
+        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return;
+        if (g[r][c] != '1' || vis[r][c]) return;
+        vis[r][c] = true;
+        dfs(g, vis, r + 1, c);
+        dfs(g, vis, r - 1, c);
+        dfs(g, vis, r, c + 1);
+        dfs(g, vis, r, c - 1);
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$ for the visited grid and recursion
+
+---
+
+##### Approach 3: Optimised / Best (Sink Visited Land In Place)
+
+**Intuition**: Once a land cell is part of a counted island, change it to water. Then the grid itself records visited cells, and no extra structure is needed.
+
+**Algorithm**:
+1. For each `'1'` cell, increment the count and sink the island: set the cell to `'0'` and recurse into land neighbours.
+
+```java
+class Solution {
+    public int numIslands(char[][] grid) {
+        int count = 0;
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
                 if (grid[r][c] == '1') {
                     count++;
                     sink(grid, r, c);
@@ -7219,18 +11913,18 @@ class Solution {
         return count;
     }
 
-    private void sink(char[][] grid, int r, int c) {
-        if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] != '1') return;
-        grid[r][c] = '0';
-        sink(grid, r + 1, c);
-        sink(grid, r - 1, c);
-        sink(grid, r, c + 1);
-        sink(grid, r, c - 1);
+    private void sink(char[][] g, int r, int c) {
+        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length || g[r][c] != '1') return;
+        g[r][c] = '0';
+        sink(g, r + 1, c);
+        sink(g, r - 1, c);
+        sink(g, r, c + 1);
+        sink(g, r, c - 1);
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$ call stack
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$ worst case for recursion
 
 ---
 
@@ -7238,35 +11932,141 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [695. Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
 - **NeetCode**: [Max Area of Island](https://neetcode.io/problems/max-area-of-island)
-- **Data Structures**: Matrix, Graph
-- **Patterns**: DFS Area Accumulation
+- **Data Structures**: Grid, Graph
+- **Patterns**: Flood Fill with Area Accumulation
 
-#### Solutions
+#### Problem Description
+You are given an `m x n` binary matrix `grid`. An island is a group of `1`s connected 4-directionally. You may assume all four edges of the grid are surrounded by water. Return the maximum area of an island in `grid`. If there is no island, return `0`.
 
-##### Approach 1: Optimised / Best (DFS Recursive Area Counter)
+#### Examples
+
+**Example 1**
+- **Input**: `grid = [[1,1,0,0],[1,0,0,1],[0,0,1,1]]`
+- **Output**: `3`
+- **Explanation**: Two islands of area `3` each.
+
+**Example 2**
+- **Input**: `grid = [[0,0,0,0,0,0,0,0]]`
+- **Output**: `0`
+- **Explanation**: No land.
+
+#### Constraints
+- `m == grid.length`, `n == grid[i].length`
+- `1 <= m, n <= 50`
+- `grid[i][j]` is `0` or `1`.
+
+#### Intuition
+Island Count with a twist: instead of counting components, measure each one. The flood fill returns the number of cells it visits, so the maximum over all fills is the answer.
+
+---
+
+##### Approach 1: Brute Force (Set-Based Flood Fill)
+
+**Intuition**: Track visited coordinates in a set. Each flood fill returns its area, and the answer is the largest area seen.
+
+**Algorithm**:
+1. For each unvisited `1`, compute `area = fill(r, c)`.
+2. Return the maximum area.
+
 ```java
+import java.util.HashSet;
+import java.util.Set;
+
 class Solution {
     public int maxAreaOfIsland(int[][] grid) {
-        int maxArea = 0;
+        Set<String> seen = new HashSet<>();
+        int best = 0;
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
-                if (grid[r][c] == 1) {
-                    maxArea = Math.max(maxArea, area(grid, r, c));
+                if (grid[r][c] == 1 && !seen.contains(r + "," + c)) {
+                    best = Math.max(best, fill(grid, r, c, seen));
                 }
             }
         }
-        return maxArea;
+        return best;
     }
 
-    private int area(int[][] grid, int r, int c) {
-        if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] != 1) return 0;
-        grid[r][c] = 0;
-        return 1 + area(grid, r + 1, c) + area(grid, r - 1, c) + area(grid, r, c + 1) + area(grid, r, c - 1);
+    private int fill(int[][] g, int r, int c, Set<String> seen) {
+        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return 0;
+        String key = r + "," + c;
+        if (g[r][c] != 1 || seen.contains(key)) return 0;
+        seen.add(key);
+        return 1 + fill(g, r + 1, c, seen) + fill(g, r - 1, c, seen)
+                 + fill(g, r, c + 1, seen) + fill(g, r, c - 1, seen);
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$ with string-key overhead
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 2: Better (Boolean Visited Grid)
+
+**Intuition**: Replace the set with a boolean grid, and return the area from DFS.
+
+**Algorithm**:
+1. For each unvisited `1`, DFS returns the number of cells in its component.
+2. Track the maximum.
+
+```java
+class Solution {
+    public int maxAreaOfIsland(int[][] grid) {
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int best = 0;
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == 1 && !visited[r][c]) {
+                    best = Math.max(best, dfs(grid, visited, r, c));
+                }
+            }
+        }
+        return best;
+    }
+
+    private int dfs(int[][] g, boolean[][] vis, int r, int c) {
+        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return 0;
+        if (g[r][c] != 1 || vis[r][c]) return 0;
+        vis[r][c] = true;
+        return 1 + dfs(g, vis, r + 1, c) + dfs(g, vis, r - 1, c)
+                 + dfs(g, vis, r, c + 1) + dfs(g, vis, r, c - 1);
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 3: Optimised / Best (In-Place Sinking with Area Return)
+
+**Intuition**: Sink each visited land cell to water, so the grid records visited cells. The DFS returns the area directly, with no extra memory beyond the recursion stack.
+
+**Algorithm**:
+1. For each `1`, compute the area by sinking the island and summing the returned counts.
+2. Return the maximum.
+
+```java
+class Solution {
+    public int maxAreaOfIsland(int[][] grid) {
+        int best = 0;
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                best = Math.max(best, sink(grid, r, c));
+            }
+        }
+        return best;
+    }
+
+    private int sink(int[][] g, int r, int c) {
+        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length || g[r][c] != 1) return 0;
+        g[r][c] = 0;
+        return 1 + sink(g, r + 1, c) + sink(g, r - 1, c) + sink(g, r, c + 1) + sink(g, r, c - 1);
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$ worst case for recursion
 
 ---
 
@@ -7274,27 +12074,145 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 - **NeetCode**: [Clone Graph](https://neetcode.io/problems/clone-graph)
-- **Data Structures**: Graph, Hash Table
-- **Patterns**: DFS / BFS with Visited Node Map
+- **Data Structures**: Graph, Hash Map, Queue
+- **Patterns**: Traversal with Original-to-Clone Mapping
 
-#### Solutions
+#### Problem Description
+Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains an integer `val` and a list of its neighbours.
 
-##### Approach 1: Optimised / Best (DFS with HashMap)
+The graph is given as an adjacency list, and each node's `val` equals its 1-indexed position in the list.
+
+#### Examples
+
+**Example 1**
+- **Input**: `adjList = [[2,4],[1,3],[2,4],[1,3]]`
+- **Output**: `[[2,4],[1,3],[2,4],[1,3]]`
+- **Explanation**: A clone with the same structure and new node objects.
+
+**Example 2**
+- **Input**: `adjList = []`
+- **Output**: `[]`
+- **Explanation**: The graph is empty.
+
+#### Constraints
+- The number of nodes is in the range `[0, 100]`.
+- `1 <= Node.val <= 100`
+- `Node.val` is unique for each node.
+- No repeated edges and no self-loops.
+
+#### Intuition
+The clone must have the same structure but none of the original node objects. Every original needs exactly one clone, and every edge must connect clones. Keep a map from originals to clones. When a node is visited for the first time, create its clone and record it. Then wire its neighbours, creating any missing clones on the way.
+
+---
+
+##### Approach 1: Brute Force (Collect Nodes, Linear Lookup)
+
+**Intuition**: Collect every original node in a list. Create a clone per node, in the same order. To wire the edges, find each neighbour's index in the list by linear search.
+
+**Algorithm**:
+1. DFS to collect all original nodes into `nodes`.
+2. Create `clones[i] = new Node(nodes[i].val)`.
+3. For each `i`, for each neighbour `nb`, find `j` with `nodes[j] == nb` by linear search, and add `clones[j]` to `clones[i].neighbors`.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
-    private Map<Node, Node> visited = new HashMap<>();
+    public Node cloneGraph(Node node) {
+        if (node == null) return null;
+        List<Node> nodes = new ArrayList<>();
+        collect(node, nodes);
+        List<Node> clones = new ArrayList<>();
+        for (Node n : nodes) clones.add(new Node(n.val));
+        for (int i = 0; i < nodes.size(); i++) {
+            for (Node nb : nodes.get(i).neighbors) {
+                int j = 0;
+                while (nodes.get(j) != nb) j++;
+                clones.get(i).neighbors.add(clones.get(j));
+            }
+        }
+        return clones.get(0);
+    }
+
+    private void collect(Node n, List<Node> nodes) {
+        if (nodes.contains(n)) return;
+        nodes.add(n);
+        for (Node nb : n.neighbors) collect(nb, nodes);
+    }
+}
+```
+- **Time Complexity**: $O(V^2 + E \cdot V)$
+- **Space Complexity**: $O(V)$
+
+---
+
+##### Approach 2: Better (Recursive DFS with Hash Map)
+
+**Intuition**: The clone of a node is created the first time it is reached, and recorded in a map. Recursion then clones each neighbour, reusing the map entry if it exists. Each node and edge is handled once.
+
+**Algorithm**:
+1. `clone(n)`: if `n` is in the map, return its clone. Otherwise create `copy`, store it, and for each neighbour add `clone(nb)` to `copy.neighbors`.
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    private final Map<Node, Node> map = new HashMap<>();
 
     public Node cloneGraph(Node node) {
         if (node == null) return null;
-        if (visited.containsKey(node)) return visited.get(node);
-        Node clone = new Node(node.val);
-        visited.put(node, clone);
-        for (Node neighbor : node.neighbors) {
-            clone.neighbors.add(cloneGraph(neighbor));
+        if (map.containsKey(node)) return map.get(node);
+        Node copy = new Node(node.val, new ArrayList<>());
+        map.put(node, copy);
+        for (Node nb : node.neighbors) {
+            copy.neighbors.add(cloneGraph(nb));
         }
-        return clone;
+        return copy;
+    }
+}
+```
+- **Time Complexity**: $O(V + E)$
+- **Space Complexity**: $O(V)$ for the map and recursion
+
+---
+
+##### Approach 3: Optimised / Best (Iterative BFS with Hash Map)
+
+**Intuition**: The same mapping, driven by a queue instead of recursion. Clone each node when it is first discovered, and wire its neighbours as the queue drains. This avoids deep recursion on large graphs.
+
+**Algorithm**:
+1. Create the clone of `node`, map it, and enqueue the original.
+2. While the queue is non-empty: dequeue `n`. For each neighbour `nb`, if it has no clone, create one, map it, and enqueue `nb`. Add `map.get(nb)` to `map.get(n).neighbors`.
+3. Return `map.get(node)`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+
+class Solution {
+    public Node cloneGraph(Node node) {
+        if (node == null) return null;
+        Map<Node, Node> map = new HashMap<>();
+        Queue<Node> queue = new ArrayDeque<>();
+        map.put(node, new Node(node.val, new ArrayList<>()));
+        queue.offer(node);
+        while (!queue.isEmpty()) {
+            Node n = queue.poll();
+            for (Node nb : n.neighbors) {
+                if (!map.containsKey(nb)) {
+                    map.put(nb, new Node(nb.val, new ArrayList<>()));
+                    queue.offer(nb);
+                }
+                map.get(n).neighbors.add(map.get(nb));
+            }
+        }
+        return map.get(node);
     }
 }
 ```
@@ -7305,44 +12223,166 @@ class Solution {
 
 ### 11.4 Walls and Gates
 - **Difficulty**: Medium
-- **LeetCode**: [286. Walls and Gates](https://leetcode.com/problems/walls-and-gates/)
+- **LeetCode**: [286. Walls and Gates (Premium)](https://leetcode.com/problems/walls-and-gates/)
 - **NeetCode**: [Islands and Treasure](https://neetcode.io/problems/islands-and-treasure)
-- **Data Structures**: Matrix, Queue
-- **Patterns**: Multi-Source BFS
+- **Data Structures**: Grid, Queue
+- **Patterns**: Multi-Source BFS, Shortest Distance on a Grid
 
-#### Solutions
+#### Problem Description
+You are given an `m x n` grid where each cell is one of:
+- `-1` for a wall,
+- `0` for a gate,
+- `INF` (`2147483647`) for an empty room.
 
-##### Approach 1: Optimised / Best (Multi-Source BFS from Gates)
+Fill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, leave the room as `INF`.
+
+#### Examples
+
+**Example 1**
+- **Input**: `[[INF,-1,0,INF],[INF,INF,INF,-1],[INF,-1,INF,-1],[0,-1,INF,INF]]`
+- **Output**: `[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]`
+- **Explanation**: Each room holds the Manhattan distance to the nearest reachable gate, around walls.
+
+**Example 2**
+- **Input**: `[[-1]]`
+- **Output**: `[[-1]]`
+- **Explanation**: Only a wall.
+
+#### Constraints
+- `m == rooms.length`, `n == rooms[i].length`
+- `1 <= m, n <= 250`
+- `rooms[i][j]` is `-1`, `0`, or `2147483647`.
+
+#### Intuition
+The distance from a room to its nearest gate is a shortest-path distance in an unweighted grid, so BFS gives it. Starting a separate BFS from every room is wasteful. Starting one BFS from all gates simultaneously finds every room's nearest gate in a single pass.
+
+---
+
+##### Approach 1: Brute Force (BFS from Each Empty Room)
+
+**Intuition**: For every empty room, run BFS until the first gate is reached, and record that distance.
+
+**Algorithm**:
+1. For each room equal to `INF`, BFS outward through non-wall cells.
+2. The first gate found gives the distance. Store it.
+
 ```java
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 class Solution {
+    private static final int INF = 2147483647;
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
     public void wallsAndGates(int[][] rooms) {
-        int m = rooms.length, n = rooms[0].length;
-        Queue<int[]> queue = new LinkedList<>();
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                if (rooms[r][c] == 0) queue.offer(new int[]{r, c});
+        for (int r = 0; r < rooms.length; r++) {
+            for (int c = 0; c < rooms[0].length; c++) {
+                if (rooms[r][c] == INF) {
+                    rooms[r][c] = nearestGate(rooms, r, c);
+                }
             }
         }
-        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
-        while (!queue.isEmpty()) {
-            int[] cell = queue.poll();
-            int r = cell[0], c = cell[1];
-            for (int[] d : dirs) {
-                int nr = r + d[0], nc = c + d[1];
-                if (nr >= 0 && nr < m && nc >= 0 && nc < n && rooms[nr][nc] == Integer.MAX_VALUE) {
-                    rooms[nr][nc] = rooms[r][c] + 1;
-                    queue.offer(new int[]{nr, nc});
-                }
+    }
+
+    private int nearestGate(int[][] rooms, int sr, int sc) {
+        int m = rooms.length, n = rooms[0].length;
+        boolean[][] seen = new boolean[m][n];
+        Queue<int[]> q = new ArrayDeque<>();
+        q.offer(new int[]{sr, sc, 0});
+        seen[sr][sc] = true;
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            if (rooms[cur[0]][cur[1]] == 0) return cur[2];
+            for (int[] d : DIRS) {
+                int nr = cur[0] + d[0], nc = cur[1] + d[1];
+                if (nr < 0 || nc < 0 || nr >= m || nc >= n) continue;
+                if (seen[nr][nc] || rooms[nr][nc] == -1) continue;
+                seen[nr][nc] = true;
+                q.offer(new int[]{nr, nc, cur[2] + 1});
+            }
+        }
+        return INF;
+    }
+}
+```
+- **Time Complexity**: $O((mn)^2)$ worst case
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 2: Better (DFS from Each Gate, Relax Distances)
+
+**Intuition**: Run DFS from each gate with distance 0. At each cell, if the current distance is smaller than the stored value, update it and continue. Revisits happen only when a shorter path is found, so the search stays correct, though it is not optimal in revisits.
+
+**Algorithm**:
+1. For each gate, call `dfs(r, c, 0)`.
+2. `dfs(r, c, d)`: return if out of bounds, or if `rooms[r][c] < d` (wall or a shorter path already known). Otherwise set `rooms[r][c] = d` and recurse with `d + 1`.
+
+```java
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public void wallsAndGates(int[][] rooms) {
+        for (int r = 0; r < rooms.length; r++) {
+            for (int c = 0; c < rooms[0].length; c++) {
+                if (rooms[r][c] == 0) dfs(rooms, r, c, 0);
+            }
+        }
+    }
+
+    private void dfs(int[][] rooms, int r, int c, int d) {
+        if (r < 0 || c < 0 || r >= rooms.length || c >= rooms[0].length) return;
+        if (rooms[r][c] < d) return;
+        rooms[r][c] = d;
+        for (int[] dir : DIRS) {
+            dfs(rooms, r + dir[0], c + dir[1], d + 1);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(G \cdot mn)$ worst case, where $G$ is the number of gates
+- **Space Complexity**: $O(mn)$ for recursion
+
+---
+
+##### Approach 3: Optimised / Best (Multi-Source BFS from All Gates)
+
+**Intuition**: Push every gate into the queue at once, at distance 0. BFS then expands all gates in parallel, one layer per step. The first time a room is reached is its shortest distance to any gate, so each room is visited exactly once.
+
+**Algorithm**:
+1. Enqueue every gate.
+2. Dequeue `(r, c)`. For each neighbour that is an empty room (`INF`), set it to `rooms[r][c] + 1` and enqueue it.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    private static final int INF = 2147483647;
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public void wallsAndGates(int[][] rooms) {
+        Queue<int[]> q = new ArrayDeque<>();
+        for (int r = 0; r < rooms.length; r++) {
+            for (int c = 0; c < rooms[0].length; c++) {
+                if (rooms[r][c] == 0) q.offer(new int[]{r, c});
+            }
+        }
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            for (int[] d : DIRS) {
+                int nr = cur[0] + d[0], nc = cur[1] + d[1];
+                if (nr < 0 || nc < 0 || nr >= rooms.length || nc >= rooms[0].length) continue;
+                if (rooms[nr][nc] != INF) continue;
+                rooms[nr][nc] = rooms[cur[0]][cur[1]] + 1;
+                q.offer(new int[]{nr, nc});
             }
         }
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$ for the queue
 
 ---
 
@@ -7350,51 +12390,138 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
 - **NeetCode**: [Rotting Fruit](https://neetcode.io/problems/rotting-fruit)
-- **Data Structures**: Matrix, Queue
-- **Patterns**: Multi-Source BFS with Time Rounds
+- **Data Structures**: Grid, Queue
+- **Patterns**: Multi-Source BFS, Level-by-Level Simulation
 
-#### Solutions
+#### Problem Description
+You are given an `m x n` grid where each cell is:
+- `0`: an empty cell,
+- `1`: a fresh orange,
+- `2`: a rotten orange.
 
-##### Approach 1: Optimised / Best (Multi-Source BFS with Fresh Count)
+Every minute, any fresh orange adjacent (4-directionally) to a rotten orange becomes rotten. Return the minimum number of minutes until no fresh orange remains. If it is impossible, return `-1`.
+
+#### Examples
+
+**Example 1**
+- **Input**: `grid = [[2,1,1],[1,1,0],[0,1,1]]`
+- **Output**: `4`
+- **Explanation**: The rot spreads outward one layer per minute.
+
+**Example 2**
+- **Input**: `grid = [[2,1,1],[0,1,1],[1,0,1]]`
+- **Output**: `-1`
+- **Explanation**: The bottom-left orange is isolated from every rotten orange.
+
+#### Constraints
+- `m == grid.length`, `n == grid[i].length`
+- `1 <= m, n <= 10`
+- `grid[i][j]` is `0`, `1`, or `2`.
+
+#### Intuition
+Rot spreads in layers: every orange in layer `k` rots at minute `k`. That is exactly the BFS level structure from all rotten oranges at once. Run BFS, count the layers, and check whether any fresh orange was never reached.
+
+---
+
+##### Approach 1: Brute Force (Simulate Minute by Minute)
+
+**Intuition**: Each minute, build a new grid in which every fresh orange next to a rotten one becomes rotten. Repeat until nothing changes. The number of productive minutes is the answer.
+
+**Algorithm**:
+1. Loop: copy the grid, rot every fresh orange adjacent to a rotten one (reading from the old grid), and track whether anything changed.
+2. If nothing changed, stop. Count the minutes that changed something.
+3. If any fresh orange remains, return `-1`.
+
 ```java
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int m = grid.length, n = grid[0].length;
-        Queue<int[]> queue = new LinkedList<>();
-        int fresh = 0;
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                if (grid[r][c] == 2) queue.offer(new int[]{r, c});
-                else if (grid[r][c] == 1) fresh++;
-            }
-        }
-        if (fresh == 0) return 0;
-        int minutes = 0;
-        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
-        while (!queue.isEmpty() && fresh > 0) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                int[] curr = queue.poll();
-                for (int[] d : dirs) {
-                    int nr = curr[0] + d[0], nc = curr[1] + d[1];
-                    if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {
-                        grid[nr][nc] = 2;
-                        fresh--;
-                        queue.offer(new int[]{nr, nc});
+        int m = grid.length, n = grid[0].length, minutes = 0;
+        int[][] g = new int[m][];
+        for (int r = 0; r < m; r++) g[r] = grid[r].clone();
+        while (true) {
+            int[][] next = new int[m][];
+            for (int r = 0; r < m; r++) next[r] = g[r].clone();
+            boolean changed = false;
+            for (int r = 0; r < m; r++) {
+                for (int c = 0; c < n; c++) {
+                    if (g[r][c] == 1 && hasRottenNeighbour(g, r, c)) {
+                        next[r][c] = 2;
+                        changed = true;
                     }
                 }
             }
+            if (!changed) break;
+            g = next;
             minutes++;
+        }
+        for (int[] row : g) {
+            for (int v : row) {
+                if (v == 1) return -1;
+            }
+        }
+        return minutes;
+    }
+
+    private boolean hasRottenNeighbour(int[][] g, int r, int c) {
+        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+        for (int[] d : dirs) {
+            int nr = r + d[0], nc = c + d[1];
+            if (nr >= 0 && nc >= 0 && nr < g.length && nc < g[0].length && g[nr][nc] == 2) return true;
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O((mn)^2)$ in the worst case
+- **Space Complexity**: $O(mn)$ for copies
+
+---
+
+##### Approach 2: Optimised / Best (Multi-Source BFS by Level)
+
+**Intuition**: Start with all rotten oranges in the queue. Process one layer at a time, and each completed layer is one minute. Track the count of fresh oranges, decrementing as they rot. If any remain at the end, they were unreachable.
+
+**Algorithm**:
+1. Enqueue every rotten orange, and count the fresh ones.
+2. While the queue is non-empty and fresh oranges remain: process the current layer, rotting adjacent fresh oranges and enqueuing them. Increment `minutes`.
+3. Return `minutes` if `fresh == 0`, else `-1`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public int orangesRotting(int[][] grid) {
+        int m = grid.length, n = grid[0].length, fresh = 0, minutes = 0;
+        Queue<int[]> q = new ArrayDeque<>();
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == 2) q.offer(new int[]{r, c});
+                else if (grid[r][c] == 1) fresh++;
+            }
+        }
+        while (!q.isEmpty() && fresh > 0) {
+            minutes++;
+            for (int size = q.size(); size > 0; size--) {
+                int[] cur = q.poll();
+                for (int[] d : DIRS) {
+                    int nr = cur[0] + d[0], nc = cur[1] + d[1];
+                    if (nr < 0 || nc < 0 || nr >= m || nc >= n) continue;
+                    if (grid[nr][nc] != 1) continue;
+                    grid[nr][nc] = 2;
+                    fresh--;
+                    q.offer(new int[]{nr, nc});
+                }
+            }
         }
         return fresh == 0 ? minutes : -1;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$ for the queue
 
 ---
 
@@ -7402,51 +12529,133 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [417. Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
 - **NeetCode**: [Pacific Atlantic Water Flow](https://neetcode.io/problems/pacific-atlantic-water-flow)
-- **Data Structures**: Matrix, Graph
-- **Patterns**: Reverse DFS from Ocean Borders
+- **Data Structures**: Grid, Queue, Stack
+- **Patterns**: Reverse Flow from Oceans, Boundary-Seeded Traversal
 
-#### Solutions
+#### Problem Description
+There is an `m x n` rectangular island with heights `heights`. The Pacific Ocean touches the top and left edges, and the Atlantic Ocean touches the bottom and right edges. Water flows from a cell to a neighbour (4-directionally) whose height is less than or equal to the cell's height. Return all grid coordinates from which water can flow to both oceans.
 
-##### Approach 1: Optimised / Best (Reverse Reachability DFS)
+#### Examples
+
+**Example 1**
+- **Input**: `heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]`
+- **Output**: `[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]`
+- **Explanation**: These cells can drain to both oceans.
+
+**Example 2**
+- **Input**: `heights = [[1]]`
+- **Output**: `[[0,0]]`
+- **Explanation**: A single cell touches both oceans.
+
+#### Constraints
+- `m == heights.length`, `n == heights[r].length`
+- `1 <= m, n <= 200`
+- `0 <= heights[r][c] <= 10^5`
+
+#### Intuition
+Simulating water from every cell is expensive. Reverse the direction: water flows downhill, so trace uphill from each ocean. A cell that the Pacific can reach by climbing (non-decreasing heights) can drain to the Pacific, and likewise for the Atlantic. The answer is the intersection of the two reachable sets.
+
+---
+
+##### Approach 1: Brute Force (Per-Cell Downhill Search)
+
+**Intuition**: For each cell, run a DFS along non-increasing moves and check whether it reaches both oceans.
+
+**Algorithm**:
+1. For each cell, DFS to the Pacific boundary (top or left) and to the Atlantic boundary (bottom or right) following moves to neighbours with height `<=` current.
+2. Include the cell if both are reachable.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
-        List<List<Integer>> res = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
         int m = heights.length, n = heights[0].length;
-        boolean[][] pac = new boolean[m][n];
-        boolean[][] atl = new boolean[m][n];
-        for (int i = 0; i < m; i++) {
-            dfs(heights, i, 0, pac, heights[i][0]);
-            dfs(heights, i, n - 1, atl, heights[i][n - 1]);
-        }
-        for (int j = 0; j < n; j++) {
-            dfs(heights, 0, j, pac, heights[0][j]);
-            dfs(heights, m - 1, j, atl, heights[m - 1][j]);
-        }
         for (int r = 0; r < m; r++) {
             for (int c = 0; c < n; c++) {
-                if (pac[r][c] && atl[r][c]) {
-                    res.add(Arrays.asList(r, c));
-                }
+                boolean[][] seen = new boolean[m][n];
+                boolean pac = reaches(heights, r, c, seen, true);
+                seen = new boolean[m][n];
+                boolean atl = reaches(heights, r, c, seen, false);
+                if (pac && atl) result.add(List.of(r, c));
             }
         }
-        return res;
+        return result;
     }
 
-    private void dfs(int[][] h, int r, int c, boolean[][] visited, int prevH) {
-        if (r < 0 || r >= h.length || c < 0 || c >= h[0].length || visited[r][c] || h[r][c] < prevH) return;
-        visited[r][c] = true;
-        dfs(h, r + 1, c, visited, h[r][c]);
-        dfs(h, r - 1, c, visited, h[r][c]);
-        dfs(h, r, c + 1, visited, h[r][c]);
-        dfs(h, r, c - 1, visited, h[r][c]);
+    private boolean reaches(int[][] h, int r, int c, boolean[][] seen, boolean pacific) {
+        int m = h.length, n = h[0].length;
+        if (pacific && (r == 0 || c == 0)) return true;
+        if (!pacific && (r == m - 1 || c == n - 1)) return true;
+        seen[r][c] = true;
+        for (int[] d : DIRS) {
+            int nr = r + d[0], nc = c + d[1];
+            if (nr < 0 || nc < 0 || nr >= m || nc >= n || seen[nr][nc]) continue;
+            if (h[nr][nc] <= h[r][c] && reaches(h, nr, nc, seen, pacific)) return true;
+        }
+        return false;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O((mn)^2)$ worst case
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 2: Optimised / Best (Two Uphill Traversals from the Oceans)
+
+**Intuition**: Seed a DFS from every Pacific-border cell, moving only to neighbours with height `>=` the current one (the reverse of water flow). Do the same from Atlantic-border cells. Each traversal marks every cell that can reach its ocean. Two linear passes replace the per-cell searches.
+
+**Algorithm**:
+1. `pac` and `atl` are boolean grids.
+2. For each top and left cell, `dfs(pac, r, c)`. For each bottom and right cell, `dfs(atl, r, c)`.
+3. `dfs(reach, r, c)`: mark the cell. For each unmarked neighbour with height `>=` current, recurse.
+4. Collect cells where both are `true`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        int m = heights.length, n = heights[0].length;
+        boolean[][] pac = new boolean[m][n], atl = new boolean[m][n];
+        for (int r = 0; r < m; r++) {
+            dfs(heights, pac, r, 0);
+            dfs(heights, atl, r, n - 1);
+        }
+        for (int c = 0; c < n; c++) {
+            dfs(heights, pac, 0, c);
+            dfs(heights, atl, m - 1, c);
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (pac[r][c] && atl[r][c]) result.add(List.of(r, c));
+            }
+        }
+        return result;
+    }
+
+    private void dfs(int[][] h, boolean[][] reach, int r, int c) {
+        if (reach[r][c]) return;
+        reach[r][c] = true;
+        for (int[] d : DIRS) {
+            int nr = r + d[0], nc = c + d[1];
+            if (nr < 0 || nc < 0 || nr >= h.length || nc >= h[0].length) continue;
+            if (h[nr][nc] >= h[r][c]) dfs(h, reach, nr, nc);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
 
 ---
 
@@ -7454,118 +12663,445 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
 - **NeetCode**: [Surrounded Regions](https://neetcode.io/problems/surrounded-regions)
-- **Data Structures**: Matrix, Graph
-- **Patterns**: Boundary DFS Traversal + Flipping
+- **Data Structures**: Grid, Graph
+- **Patterns**: Boundary-Connected Flood Fill, Safe Marking
 
-#### Solutions
+#### Problem Description
+Given an `m x n` board containing `'X'` and `'O'`, capture all regions surrounded by `'X'`. A region is captured by flipping all `'O'`s in it to `'X'`. An `'O'` is not surrounded if it is connected, through `'O'`s, to a border cell.
 
-##### Approach 1: Optimised / Best (Mark Border-Connected 'O's then Flip)
+#### Examples
+
+**Example 1**
+- **Input**: `board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]`
+- **Output**: `[["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]`
+- **Explanation**: The `O`s in the middle are enclosed. The `O` on the bottom row touches the border, so it stays.
+
+**Example 2**
+- **Input**: `board = [["X"]]`
+- **Output**: `[["X"]]`
+- **Explanation**: Nothing to capture.
+
+#### Constraints
+- `m == board.length`, `n == board[i].length`
+- `1 <= m, n <= 200`
+- `board[i][j]` is `'X'` or `'O'`.
+
+#### Intuition
+An `O` region is captured unless it touches the border. Equivalently, the regions that must be kept are exactly those connected to a border `O`. So it is easier to find the protected regions than the captured ones. Start from border `O`s, mark everything reachable, then flip the unmarked `O`s to `X`.
+
+---
+
+##### Approach 1: Brute Force (Collect Each Region, Check Border)
+
+**Intuition**: For each unvisited `O`, collect its entire region with a flood fill. If any cell in the region is on the border, leave it. Otherwise flip the whole region.
+
+**Algorithm**:
+1. For each unvisited `O`, flood fill, recording the cells and whether any touches the border.
+2. If the region does not touch the border, set all its cells to `X`.
+
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
     public void solve(char[][] board) {
         int m = board.length, n = board[0].length;
-        for (int i = 0; i < m; i++) {
-            if (board[i][0] == 'O') dfs(board, i, 0);
-            if (board[i][n - 1] == 'O') dfs(board, i, n - 1);
-        }
-        for (int j = 0; j < n; j++) {
-            if (board[0][j] == 'O') dfs(board, 0, j);
-            if (board[m - 1][j] == 'O') dfs(board, m - 1, j);
-        }
+        boolean[][] visited = new boolean[m][n];
         for (int r = 0; r < m; r++) {
             for (int c = 0; c < n; c++) {
-                if (board[r][c] == 'O') board[r][c] = 'X';
-                else if (board[r][c] == 'E') board[r][c] = 'O';
+                if (board[r][c] == 'O' && !visited[r][c]) {
+                    List<int[]> region = new ArrayList<>();
+                    boolean touchesBorder = collect(board, visited, r, c, region);
+                    if (!touchesBorder) {
+                        for (int[] cell : region) board[cell[0]][cell[1]] = 'X';
+                    }
+                }
             }
         }
     }
 
-    private void dfs(char[][] board, int r, int c) {
-        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] != 'O') return;
-        board[r][c] = 'E'; // Mark escaped
-        dfs(board, r + 1, c);
-        dfs(board, r - 1, c);
-        dfs(board, r, c + 1);
-        dfs(board, r, c - 1);
+    private boolean collect(char[][] b, boolean[][] vis, int r, int c, List<int[]> region) {
+        int m = b.length, n = b[0].length;
+        if (r < 0 || c < 0 || r >= m || c >= n) return false;
+        if (b[r][c] != 'O' || vis[r][c]) return false;
+        vis[r][c] = true;
+        region.add(new int[]{r, c});
+        boolean border = (r == 0 || c == 0 || r == m - 1 || c == n - 1);
+        for (int[] d : DIRS) {
+            border |= collect(b, vis, r + d[0], c + d[1], region);
+        }
+        return border;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 2: Optimised / Best (Mark Border-Connected O's as Safe, Then Flip)
+
+**Intuition**: Flood fill from every border `O`, marking reached cells as `S` (safe). Afterwards, every remaining `O` is enclosed, so flip it to `X`. Then restore `S` to `O`. Only two linear passes are needed, and no region list is built.
+
+**Algorithm**:
+1. For each border cell that is `O`, DFS and set reached `O`s to `S`.
+2. Scan the board: `O` becomes `X`, and `S` becomes `O`.
+
+```java
+class Solution {
+    public void solve(char[][] board) {
+        int m = board.length, n = board[0].length;
+        for (int r = 0; r < m; r++) {
+            mark(board, r, 0);
+            mark(board, r, n - 1);
+        }
+        for (int c = 0; c < n; c++) {
+            mark(board, 0, c);
+            mark(board, m - 1, c);
+        }
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (board[r][c] == 'O') board[r][c] = 'X';
+                else if (board[r][c] == 'S') board[r][c] = 'O';
+            }
+        }
+    }
+
+    private void mark(char[][] b, int r, int c) {
+        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return;
+        if (b[r][c] != 'O') return;
+        b[r][c] = 'S';
+        mark(b, r + 1, c);
+        mark(b, r - 1, c);
+        mark(b, r, c + 1);
+        mark(b, r, c - 1);
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$ worst case for recursion
 
 ---
 
 ### 11.8 Number of Connected Components in an Undirected Graph
 - **Difficulty**: Medium
-- **LeetCode**: [323. Number of Connected Components](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)
-- **NeetCode**: [Count Connected Components](https://neetcode.io/problems/count-connected-components)
-- **Data Structures**: Graph, Disjoint Set Union
-- **Patterns**: DSU / Union-Find
+- **LeetCode**: [323. Number of Connected Components in an Undirected Graph (Premium)](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)
+- **NeetCode**: [Number of Connected Components in an Undirected Graph](https://neetcode.io/problems/count-connected-components)
+- **Data Structures**: Graph, Array
+- **Patterns**: DFS over Components, Disjoint Set Union
 
-#### Solutions
+#### Problem Description
+You have a graph of `n` nodes labelled from `0` to `n - 1`. You are given an integer `n` and an array `edges` where `edges[i] = [ai, bi]` indicates an undirected edge between `ai` and `bi`. Return the number of connected components in the graph.
 
-##### Approach 1: Optimised / Best (Disjoint Set Union with Path Compression)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 5`, `edges = [[0,1],[1,2],[3,4]]`
+- **Output**: `2`
+- **Explanation**: Components `{0,1,2}` and `{3,4}`.
+
+**Example 2**
+- **Input**: `n = 5`, `edges = [[0,1],[1,2],[2,3],[3,4]]`
+- **Output**: `1`
+- **Explanation**: Everything is connected.
+
+#### Constraints
+- `1 <= n <= 2000`
+- `1 <= edges.length <= 5000`
+- `edges[i].length == 2`, `0 <= ai, bi < n`, `ai != bi`
+- No repeated edges.
+
+#### Intuition
+Each connected component is counted once. Either traverse each unvisited node's component, or merge nodes into groups as edges are read, and count the groups that remain. The second view is the disjoint set union (DSU) structure, which is the most efficient.
+
+---
+
+##### Approach 1: Brute Force (Adjacency Matrix, DFS)
+
+**Intuition**: Store the graph as an `n x n` boolean matrix. For each unvisited node, count a component and DFS across matrix entries.
+
+**Algorithm**:
+1. Set `adj[a][b] = adj[b][a] = true` for each edge.
+2. For each unvisited node, increment the count and DFS over every `j` with `adj[i][j]`.
+
 ```java
 class Solution {
     public int countComponents(int n, int[][] edges) {
-        int[] parent = new int[n];
-        for (int i = 0; i < n; i++) parent[i] = i;
+        boolean[][] adj = new boolean[n][n];
+        for (int[] e : edges) {
+            adj[e[0]][e[1]] = true;
+            adj[e[1]][e[0]] = true;
+        }
+        boolean[] visited = new boolean[n];
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                count++;
+                dfs(adj, visited, i);
+            }
+        }
+        return count;
+    }
+
+    private void dfs(boolean[][] adj, boolean[] visited, int u) {
+        visited[u] = true;
+        for (int v = 0; v < adj.length; v++) {
+            if (adj[u][v] && !visited[v]) dfs(adj, visited, v);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n^2)$ for the matrix
+
+---
+
+##### Approach 2: Better (Adjacency List, DFS)
+
+**Intuition**: Store only actual edges. A DFS from each unvisited node visits its neighbours directly, so the work is proportional to nodes plus edges.
+
+**Algorithm**:
+1. Build `adj` as a list of neighbour lists.
+2. For each unvisited node, increment the count and DFS through its list.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int countComponents(int n, int[][] edges) {
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+        for (int[] e : edges) {
+            adj.get(e[0]).add(e[1]);
+            adj.get(e[1]).add(e[0]);
+        }
+        boolean[] visited = new boolean[n];
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                count++;
+                dfs(adj, visited, i);
+            }
+        }
+        return count;
+    }
+
+    private void dfs(List<List<Integer>> adj, boolean[] visited, int u) {
+        visited[u] = true;
+        for (int v : adj.get(u)) {
+            if (!visited[v]) dfs(adj, visited, v);
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n + E)$
+- **Space Complexity**: $O(n + E)$
+
+---
+
+##### Approach 3: Optimised / Best (Disjoint Set Union)
+
+**Intuition**: Every node starts as its own component. Each edge that joins two different components merges them and reduces the count by one. Path compression and union by size keep the structure nearly constant-time per operation.
+
+**Algorithm**:
+1. `parent[i] = i`, `components = n`.
+2. For each edge `(a, b)`: if `find(a) != find(b)`, union them and decrement `components`.
+3. Return `components`.
+
+```java
+class Solution {
+    private int[] parent, size;
+
+    public int countComponents(int n, int[][] edges) {
+        parent = new int[n];
+        size = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
         int components = n;
-        for (int[] edge : edges) {
-            int r1 = find(parent, edge[0]);
-            int r2 = find(parent, edge[1]);
-            if (r1 != r2) {
-                parent[r1] = r2;
+        for (int[] e : edges) {
+            int a = find(e[0]), b = find(e[1]);
+            if (a != b) {
+                if (size[a] < size[b]) { int t = a; a = b; b = t; }
+                parent[b] = a;
+                size[a] += size[b];
                 components--;
             }
         }
         return components;
     }
 
-    private int find(int[] parent, int i) {
-        if (parent[i] == i) return i;
-        return parent[i] = find(parent, parent[i]);
+    private int find(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
     }
 }
 ```
-- **Time Complexity**: $O(E \cdot \alpha(V))$
-- **Space Complexity**: $O(V)$
+- **Time Complexity**: $O(E \cdot \alpha(n))$, where $\alpha$ is the inverse Ackermann function
+- **Space Complexity**: $O(n)$
 
 ---
 
 ### 11.9 Graph Valid Tree
 - **Difficulty**: Medium
-- **LeetCode**: [261. Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/)
+- **LeetCode**: [261. Graph Valid Tree (Premium)](https://leetcode.com/problems/graph-valid-tree/)
 - **NeetCode**: [Valid Tree](https://neetcode.io/problems/valid-tree)
-- **Data Structures**: Graph, DSU
-- **Patterns**: Tree Properties: $E == V - 1$ and No Cycles
+- **Data Structures**: Graph, Array
+- **Patterns**: Edge Count and Connectivity, Cycle Detection
 
-#### Solutions
+#### Problem Description
+Given `n` nodes labelled from `0` to `n - 1` and a list of undirected `edges`, determine whether these edges form a valid tree.
 
-##### Approach 1: Optimised / Best (Union-Find Cycle Detection)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 5`, `edges = [[0,1],[0,2],[0,3],[1,4]]`
+- **Output**: `true`
+- **Explanation**: Connected, with no cycles.
+
+**Example 2**
+- **Input**: `n = 5`, `edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]`
+- **Output**: `false`
+- **Explanation**: The edges `1-2`, `2-3`, `1-3` form a cycle.
+
+#### Constraints
+- `1 <= n <= 2000`
+- `0 <= edges.length <= 5000`
+- `edges[i].length == 2`, `0 <= ai, bi < n`, `ai != bi`
+- No self-loops or repeated edges.
+
+#### Intuition
+A tree on `n` nodes has exactly `n - 1` edges, is connected, and has no cycles. Any two of these conditions together imply the third for a finite graph, so checking the count and either connectivity or acyclicity is enough. DSU detects a cycle directly: an edge joining two nodes already in the same set closes a cycle.
+
+---
+
+##### Approach 1: Brute Force (Adjacency Matrix, Edge Count, Connectivity)
+
+**Intuition**: With exactly `n - 1` edges, the graph is a tree if and only if it is connected. Check connectivity with a DFS over an adjacency matrix.
+
+**Algorithm**:
+1. If `edges.length != n - 1`, return `false`.
+2. Build the matrix. DFS from node `0`, and return whether all `n` nodes were visited.
+
 ```java
 class Solution {
     public boolean validTree(int n, int[][] edges) {
         if (edges.length != n - 1) return false;
-        int[] parent = new int[n];
-        for (int i = 0; i < n; i++) parent[i] = i;
+        boolean[][] adj = new boolean[n][n];
         for (int[] e : edges) {
-            int p1 = find(parent, e[0]);
-            int p2 = find(parent, e[1]);
-            if (p1 == p2) return false; // Cycle detected
-            parent[p1] = p2;
+            adj[e[0]][e[1]] = true;
+            adj[e[1]][e[0]] = true;
+        }
+        boolean[] visited = new boolean[n];
+        dfs(adj, visited, 0);
+        for (boolean v : visited) {
+            if (!v) return false;
         }
         return true;
     }
 
-    private int find(int[] parent, int i) {
-        if (parent[i] == i) return i;
-        return parent[i] = find(parent, parent[i]);
+    private void dfs(boolean[][] adj, boolean[] visited, int u) {
+        visited[u] = true;
+        for (int v = 0; v < adj.length; v++) {
+            if (adj[u][v] && !visited[v]) dfs(adj, visited, v);
+        }
     }
 }
 ```
-- **Time Complexity**: $O(V \cdot \alpha(V))$
-- **Space Complexity**: $O(V)$
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 2: Better (Adjacency List DFS with Parent Tracking)
+
+**Intuition**: Run DFS from node `0`, carrying the parent. In an undirected graph, reaching an already-visited node that is not the parent means a cycle. If no cycle appears and every node is visited, the graph is a tree.
+
+**Algorithm**:
+1. If `edges.length != n - 1`, return `false`.
+2. `dfs(u, parent)`: mark `u` visited. For each neighbour `v` other than `parent`: if `v` is visited, return `false`. Otherwise recurse, and propagate `false`.
+3. Return `true` if the DFS succeeds and all nodes are visited.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public boolean validTree(int n, int[][] edges) {
+        if (edges.length != n - 1) return false;
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+        for (int[] e : edges) {
+            adj.get(e[0]).add(e[1]);
+            adj.get(e[1]).add(e[0]);
+        }
+        boolean[] visited = new boolean[n];
+        if (!dfs(adj, visited, 0, -1)) return false;
+        for (boolean v : visited) {
+            if (!v) return false;
+        }
+        return true;
+    }
+
+    private boolean dfs(List<List<Integer>> adj, boolean[] visited, int u, int parent) {
+        visited[u] = true;
+        for (int v : adj.get(u)) {
+            if (v == parent) continue;
+            if (visited[v]) return false;
+            if (!dfs(adj, visited, v, u)) return false;
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n + E)$
+- **Space Complexity**: $O(n + E)$
+
+---
+
+##### Approach 3: Optimised / Best (Disjoint Set Union Cycle Check)
+
+**Intuition**: Process the edges with DSU. If an edge connects two nodes already in the same set, it creates a cycle, so the graph is not a tree. If no cycle appears among `n - 1` edges, the graph must be a single connected component, which is a tree.
+
+**Algorithm**:
+1. If `edges.length != n - 1`, return `false`.
+2. For each edge `(a, b)`: if `find(a) == find(b)`, return `false`. Otherwise union them.
+3. Return `true`.
+
+```java
+class Solution {
+    private int[] parent;
+
+    public boolean validTree(int n, int[][] edges) {
+        if (edges.length != n - 1) return false;
+        parent = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+        for (int[] e : edges) {
+            int a = find(e[0]), b = find(e[1]);
+            if (a == b) return false;
+            parent[a] = b;
+        }
+        return true;
+    }
+
+    private int find(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+}
+```
+- **Time Complexity**: $O(E \cdot \alpha(n))$
+- **Space Complexity**: $O(n)$
 
 ---
 
@@ -7573,37 +13109,137 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [127. Word Ladder](https://leetcode.com/problems/word-ladder/)
 - **NeetCode**: [Word Ladder](https://neetcode.io/problems/word-ladder)
-- **Data Structures**: Queue, Hash Set
-- **Patterns**: Bidirectional BFS / Shortest Path in Unweighted Graph
+- **Data Structures**: String, Hash Set, Hash Map, Queue
+- **Patterns**: BFS on Implicit Graph, Wildcard Bucketing, Bidirectional BFS
 
-#### Solutions
+#### Problem Description
+A transformation sequence from `beginWord` to `endWord` using a dictionary `wordList` is a sequence of words where:
+- Every adjacent pair differs by exactly one letter.
+- Every intermediate word is in `wordList`.
+- `beginWord` need not be in `wordList`.
 
-##### Approach 1: BFS with Word Mutation
+Return the number of words in the shortest such sequence, or `0` if none exists.
+
+#### Examples
+
+**Example 1**
+- **Input**: `beginWord = "hit"`, `endWord = "cog"`, `wordList = ["hot","dot","dog","lot","log","cog"]`
+- **Output**: `5`
+- **Explanation**: `hit -> hot -> dot -> dog -> cog`.
+
+**Example 2**
+- **Input**: `beginWord = "hit"`, `endWord = "cog"`, `wordList = ["hot","dot","dog","lot","log"]`
+- **Output**: `0`
+- **Explanation**: `endWord` is not in the word list.
+
+#### Constraints
+- `1 <= beginWord.length <= 10`
+- `endWord.length == beginWord.length`
+- `1 <= wordList.length <= 5000`
+- All words have the same length and consist of lowercase English letters.
+- `beginWord != endWord`, and all words in `wordList` are unique.
+
+#### Intuition
+Words are nodes, and an edge joins two words that differ in one letter. The shortest transformation is a shortest path, so BFS applies. The brute force problem is finding neighbours efficiently. Replacing one letter with `*` creates a wildcard key, and words sharing a key are neighbours. Bidirectional BFS, growing from both ends, explores far fewer words when the search space is wide.
+
+---
+
+##### Approach 1: Brute Force (Compare Every Pair of Words)
+
+**Intuition**: To find the neighbours of a word, compare it against every word in the dictionary and keep those differing in exactly one position. BFS does this for each dequeued word.
+
+**Algorithm**:
+1. If `endWord` is not in the list, return `0`.
+2. BFS from `beginWord`. For each dequeued word, enqueue every unvisited dictionary word that differs in exactly one letter.
+3. Return the level when `endWord` is dequeued.
+
 ```java
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> wordSet = new HashSet<>(wordList);
-        if (!wordSet.contains(endWord)) return 0;
-        Queue<String> queue = new LinkedList<>();
-        queue.offer(beginWord);
+        Set<String> words = new HashSet<>(wordList);
+        if (!words.contains(endWord)) return 0;
+        Queue<String> q = new ArrayDeque<>();
+        Set<String> seen = new HashSet<>();
+        q.offer(beginWord);
+        seen.add(beginWord);
         int level = 1;
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                char[] curr = queue.poll().toCharArray();
-                for (int j = 0; j < curr.length; j++) {
-                    char orig = curr[j];
-                    for (char c = 'a'; c <= 'z'; c++) {
-                        curr[j] = c;
-                        String next = new String(curr);
-                        if (next.equals(endWord)) return level + 1;
-                        if (wordSet.remove(next)) {
-                            queue.offer(next);
-                        }
+        while (!q.isEmpty()) {
+            for (int size = q.size(); size > 0; size--) {
+                String cur = q.poll();
+                if (cur.equals(endWord)) return level;
+                for (String w : words) {
+                    if (!seen.contains(w) && oneDiff(cur, w)) {
+                        seen.add(w);
+                        q.offer(w);
                     }
-                    curr[j] = orig;
+                }
+            }
+            level++;
+        }
+        return 0;
+    }
+
+    private boolean oneDiff(String a, String b) {
+        int diff = 0;
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) != b.charAt(i) && ++diff > 1) return false;
+        }
+        return diff == 1;
+    }
+}
+```
+- **Time Complexity**: $O(N^2 \cdot L)$, where $N$ is the number of words
+- **Space Complexity**: $O(N \cdot L)$
+
+---
+
+##### Approach 2: Better (Wildcard Buckets, BFS)
+
+**Intuition**: Precompute, for every wildcard pattern such as `h*t`, the list of words that match it. Two words are neighbours exactly when they share a pattern, so each dequeued word looks up its `L` patterns directly.
+
+**Algorithm**:
+1. For each word in `wordList` and each position `i`, add the word to the bucket for `word[0..i) + '*' + word(i..]`.
+2. BFS: for each dequeued word, for each position, look up the bucket. Enqueue unvisited words. Return when `endWord` is reached.
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Map<String, List<String>> buckets = new HashMap<>();
+        for (String w : wordList) {
+            for (int i = 0; i < w.length(); i++) {
+                String key = w.substring(0, i) + "*" + w.substring(i + 1);
+                buckets.computeIfAbsent(key, k -> new ArrayList<>()).add(w);
+            }
+        }
+        Queue<String> q = new ArrayDeque<>();
+        Set<String> seen = new HashSet<>();
+        q.offer(beginWord);
+        seen.add(beginWord);
+        int level = 1;
+        while (!q.isEmpty()) {
+            for (int size = q.size(); size > 0; size--) {
+                String cur = q.poll();
+                if (cur.equals(endWord)) return level;
+                for (int i = 0; i < cur.length(); i++) {
+                    String key = cur.substring(0, i) + "*" + cur.substring(i + 1);
+                    for (String nb : buckets.getOrDefault(key, List.of())) {
+                        if (seen.add(nb)) q.offer(nb);
+                    }
                 }
             }
             level++;
@@ -7612,8 +13248,69 @@ class Solution {
     }
 }
 ```
-- **Time Complexity**: $O(M^2 \cdot N)$ where $M$ is word length, $N$ is word count
-- **Space Complexity**: $O(M \cdot N)$
+- **Time Complexity**: $O(N \cdot L^2)$ for building keys and BFS
+- **Space Complexity**: $O(N \cdot L^2)$ for the buckets
+
+---
+
+##### Approach 3: Optimised / Best (Bidirectional BFS with Wildcard Buckets)
+
+**Intuition**: BFS from both ends simultaneously, and always expand the smaller frontier. The search stops as soon as the two frontiers touch. In wide graphs this reduces the explored nodes dramatically, since the two frontiers grow more slowly than one large one.
+
+**Algorithm**:
+1. Build the wildcard buckets as in Approach 2.
+2. `beginSet = {beginWord}`, `endSet = {endWord}`, `visited` holds both, `level = 1`.
+3. While both sets are non-empty: swap so `beginSet` is the smaller. Expand each word in `beginSet` through its buckets. If a neighbour is in `endSet`, return `level + 1`. Otherwise add unvisited neighbours to a new frontier, which replaces `beginSet`. Increment `level`.
+4. Return `0`.
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> words = new HashSet<>(wordList);
+        if (!words.contains(endWord)) return 0;
+        Map<String, List<String>> buckets = new HashMap<>();
+        for (String w : wordList) {
+            for (int i = 0; i < w.length(); i++) {
+                String key = w.substring(0, i) + "*" + w.substring(i + 1);
+                buckets.computeIfAbsent(key, k -> new ArrayList<>()).add(w);
+            }
+        }
+        Set<String> beginSet = new HashSet<>(Set.of(beginWord));
+        Set<String> endSet = new HashSet<>(Set.of(endWord));
+        Set<String> visited = new HashSet<>(Set.of(beginWord, endWord));
+        int level = 1;
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+            if (beginSet.size() > endSet.size()) {
+                Set<String> tmp = beginSet;
+                beginSet = endSet;
+                endSet = tmp;
+            }
+            Set<String> next = new HashSet<>();
+            for (String cur : beginSet) {
+                for (int i = 0; i < cur.length(); i++) {
+                    String key = cur.substring(0, i) + "*" + cur.substring(i + 1);
+                    for (String nb : buckets.getOrDefault(key, List.of())) {
+                        if (endSet.contains(nb)) return level + 1;
+                        if (visited.add(nb)) next.add(nb);
+                    }
+                }
+            }
+            beginSet = next;
+            level++;
+        }
+        return 0;
+    }
+}
+```
+- **Time Complexity**: $O(N \cdot L^2)$, usually far less than one-directional BFS in practice
+- **Space Complexity**: $O(N \cdot L^2)$
 
 ---
 
@@ -7621,42 +13318,155 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
 - **NeetCode**: [Course Schedule](https://neetcode.io/problems/course-schedule)
-- **Data Structures**: Graph
-- **Patterns**: Kahn's Algorithm (BFS) / DFS Cycle Detection
+- **Data Structures**: Graph, Array, Queue
+- **Patterns**: Cycle Detection in Directed Graphs, Topological Sort
 
-#### Solutions
+#### Problem Description
+There are `numCourses` courses labelled `0` to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [ai, bi]` means course `bi` must be taken before course `ai`. Return `true` if you can finish all courses, and `false` otherwise.
 
-##### Approach 1: Optimised / Best (Kahn's Algorithm - In-degree BFS)
+#### Examples
+
+**Example 1**
+- **Input**: `numCourses = 2`, `prerequisites = [[1,0]]`
+- **Output**: `true`
+- **Explanation**: Take course `0`, then course `1`.
+
+**Example 2**
+- **Input**: `numCourses = 2`, `prerequisites = [[1,0],[0,1]]`
+- **Output**: `false`
+- **Explanation**: Each course requires the other, a cycle.
+
+#### Constraints
+- `1 <= numCourses <= 2000`
+- `0 <= prerequisites.length <= 5000`
+- `prerequisites[i].length == 2`
+- `0 <= ai, bi < numCourses`
+- `prerequisites[i]` values are unique.
+
+#### Intuition
+The question is whether the directed graph (edge `b -> a`) has a cycle. A cycle means some course depends, directly or indirectly, on itself. Equivalently, the courses can be ordered topologically exactly when there is no cycle.
+
+---
+
+##### Approach 1: Brute Force (Adjacency Matrix, DFS Cycle Check)
+
+**Intuition**: Store edges in a matrix. Run DFS over the matrix. A node that is currently on the recursion stack and is reached again closes a cycle.
+
+**Algorithm**:
+1. `adj[b][a] = true` for each prerequisite `[a, b]`.
+2. `state`: 0 unvisited, 1 on stack, 2 done. DFS: if a neighbour is on stack, return a cycle. Otherwise recurse into unvisited neighbours. Mark done on exit.
+
 ```java
-import java.util.*;
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        boolean[][] adj = new boolean[numCourses][numCourses];
+        for (int[] p : prerequisites) adj[p[1]][p[0]] = true;
+        int[] state = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            if (state[i] == 0 && hasCycle(adj, state, i)) return false;
+        }
+        return true;
+    }
+
+    private boolean hasCycle(boolean[][] adj, int[] state, int u) {
+        state[u] = 1;
+        for (int v = 0; v < adj.length; v++) {
+            if (!adj[u][v]) continue;
+            if (state[v] == 1) return true;
+            if (state[v] == 0 && hasCycle(adj, state, v)) return true;
+        }
+        state[u] = 2;
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 2: Better (Adjacency List, Three-Colour DFS)
+
+**Intuition**: The same three-colour DFS, with an adjacency list so only real edges are visited. Colour 1 (on the current path) reached again means a back edge, which is a cycle.
+
+**Algorithm**:
+1. Build `adj` lists with edges `b -> a`.
+2. DFS with colours as above, visiting only actual neighbours.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         List<List<Integer>> adj = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
-        int[] inDegree = new int[numCourses];
+        for (int[] p : prerequisites) adj.get(p[1]).add(p[0]);
+        int[] state = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            if (state[i] == 0 && hasCycle(adj, state, i)) return false;
+        }
+        return true;
+    }
+
+    private boolean hasCycle(List<List<Integer>> adj, int[] state, int u) {
+        state[u] = 1;
+        for (int v : adj.get(u)) {
+            if (state[v] == 1) return true;
+            if (state[v] == 0 && hasCycle(adj, state, v)) return true;
+        }
+        state[u] = 2;
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n + E)$
+- **Space Complexity**: $O(n + E)$
+
+---
+
+##### Approach 3: Optimised / Best (Kahn's Algorithm, Indegree BFS)
+
+**Intuition**: Repeatedly remove courses with no remaining prerequisites. These are the nodes with indegree zero. If every course can be removed, the graph is acyclic. If some remain, each of them waits on another, so a cycle must exist. This algorithm is iterative and needs no recursion.
+
+**Algorithm**:
+1. Compute `indegree[a]` for each course, and build the adjacency list.
+2. Enqueue every course with indegree zero. Dequeue `u`, count it, and decrement the indegree of each dependent. Enqueue those that reach zero.
+3. Return `processed == numCourses`.
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
+        int[] indegree = new int[numCourses];
         for (int[] p : prerequisites) {
             adj.get(p[1]).add(p[0]);
-            inDegree[p[0]]++;
+            indegree[p[0]]++;
         }
-        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> q = new ArrayDeque<>();
         for (int i = 0; i < numCourses; i++) {
-            if (inDegree[i] == 0) queue.offer(i);
+            if (indegree[i] == 0) q.offer(i);
         }
         int processed = 0;
-        while (!queue.isEmpty()) {
-            int curr = queue.poll();
+        while (!q.isEmpty()) {
+            int u = q.poll();
             processed++;
-            for (int next : adj.get(curr)) {
-                if (--inDegree[next] == 0) queue.offer(next);
+            for (int v : adj.get(u)) {
+                if (--indegree[v] == 0) q.offer(v);
             }
         }
         return processed == numCourses;
     }
 }
 ```
-- **Time Complexity**: $O(V + E)$
-- **Space Complexity**: $O(V + E)$
+- **Time Complexity**: $O(n + E)$
+- **Space Complexity**: $O(n + E)$
 
 ---
 
@@ -7664,43 +13474,185 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
 - **NeetCode**: [Course Schedule II](https://neetcode.io/problems/course-schedule-ii)
-- **Data Structures**: Graph
-- **Patterns**: Topological Sort (Kahn's Algorithm)
+- **Data Structures**: Graph, Array, Queue, Stack
+- **Patterns**: Topological Ordering, Cycle Detection
 
-#### Solutions
+#### Problem Description
+There are `numCourses` courses labelled `0` to `numCourses - 1`. `prerequisites[i] = [ai, bi]` means course `bi` must be taken before course `ai`. Return an ordering of courses you can take to finish all courses. If it is impossible, return an empty array. If there are multiple valid orderings, return any one of them.
 
-##### Approach 1: Optimised / Best (Kahn's Topological Sort)
+#### Examples
+
+**Example 1**
+- **Input**: `numCourses = 2`, `prerequisites = [[1,0]]`
+- **Output**: `[0,1]`
+- **Explanation**: Take course `0` first.
+
+**Example 2**
+- **Input**: `numCourses = 4`, `prerequisites = [[1,0],[2,0],[3,1],[3,2]]`
+- **Output**: `[0,1,2,3]`
+- **Explanation**: Courses `1` and `2` both need `0`. Course `3` needs both `1` and `2`. Any ordering that respects these is valid.
+
+**Example 3**
+- **Input**: `numCourses = 1`, `prerequisites = []`
+- **Output**: `[0]`
+
+#### Constraints
+- `1 <= numCourses <= 2000`
+- `0 <= prerequisites.length <= numCourses * (numCourses - 1)`
+- `prerequisites[i].length == 2`
+- `0 <= ai, bi < numCourses`
+- `ai != bi`, and all pairs are distinct.
+
+#### Intuition
+A valid order is a topological order of the prerequisite graph, and one exists exactly when the graph is acyclic. The three standard ways to produce one: repeatedly pick courses whose prerequisites are done (brute force), take DFS finishing order and reverse it, or run Kahn's algorithm.
+
+---
+
+##### Approach 1: Brute Force (Repeated Scanning for Ready Courses)
+
+**Intuition**: In each pass, scan all unfinished courses and take every course whose prerequisites are all finished. If a full pass takes nothing, the remaining courses are blocked by a cycle.
+
+**Algorithm**:
+1. Build `prereqs[c]`, the list of prerequisites of each course.
+2. While some course is unfinished: scan every unfinished course. If all its prerequisites are finished, record it and mark it finished. If a pass records nothing, return `[]`.
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> prereqs = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) prereqs.add(new ArrayList<>());
+        for (int[] p : prerequisites) prereqs.get(p[0]).add(p[1]);
+
+        boolean[] done = new boolean[numCourses];
+        int[] order = new int[numCourses];
+        int count = 0;
+        while (count < numCourses) {
+            boolean progress = false;
+            for (int c = 0; c < numCourses; c++) {
+                if (done[c]) continue;
+                boolean ready = true;
+                for (int p : prereqs.get(c)) {
+                    if (!done[p]) {
+                        ready = false;
+                        break;
+                    }
+                }
+                if (ready) {
+                    done[c] = true;
+                    order[count++] = c;
+                    progress = true;
+                }
+            }
+            if (!progress) return new int[0];
+        }
+        return order;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot (n + E))$ in the worst case
+- **Space Complexity**: $O(n + E)$
+
+---
+
+##### Approach 2: Better (DFS Post-Order, Reversed)
+
+**Intuition**: In a DAG, a node finishes only after all of its dependencies finish. The DFS finishing order is therefore the reverse of a topological order when edges point from prerequisite to course. Detect cycles with three colours, and return empty on a back edge.
+
+**Algorithm**:
+1. Build the adjacency list `adj[b]` containing `a` for each prerequisite `[a, b]`.
+2. DFS from each unvisited node. When a node finishes, append it to `order`. A node on the current stack reached again means a cycle.
+3. Reverse `order` and return it.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private List<List<Integer>> adj;
+    private int[] state;
+    private int[] order;
+    private int idx;
+    private boolean cycle;
+
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        adj = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
+        for (int[] p : prerequisites) adj.get(p[1]).add(p[0]);
+        state = new int[numCourses];
+        order = new int[numCourses];
+        idx = numCourses - 1;
+        for (int i = 0; i < numCourses && !cycle; i++) {
+            if (state[i] == 0) dfs(i);
+        }
+        return cycle ? new int[0] : order;
+    }
+
+    private void dfs(int u) {
+        state[u] = 1;
+        for (int v : adj.get(u)) {
+            if (cycle) return;
+            if (state[v] == 1) {
+                cycle = true;
+                return;
+            }
+            if (state[v] == 0) dfs(v);
+        }
+        state[u] = 2;
+        order[idx--] = u;
+    }
+}
+```
+- **Time Complexity**: $O(n + E)$
+- **Space Complexity**: $O(n + E)$
+
+---
+
+##### Approach 3: Optimised / Best (Kahn's Algorithm)
+
+**Intuition**: Start from courses with no prerequisites. Each time a course is taken, decrement the indegree of its dependents, and enqueue any that reach zero. The order in which they are dequeued is a valid topological order. If fewer than `n` courses are dequeued, a cycle blocks the rest.
+
+**Algorithm**:
+1. Build `adj` and `indegree`.
+2. Enqueue all zero-indegree courses. Dequeue `u`, append it to `order`, and decrement its dependents.
+3. Return `order` if its length is `n`, else an empty array.
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         List<List<Integer>> adj = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
-        int[] inDegree = new int[numCourses];
+        int[] indegree = new int[numCourses];
         for (int[] p : prerequisites) {
             adj.get(p[1]).add(p[0]);
-            inDegree[p[0]]++;
+            indegree[p[0]]++;
         }
-        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> q = new ArrayDeque<>();
         for (int i = 0; i < numCourses; i++) {
-            if (inDegree[i] == 0) queue.offer(i);
+            if (indegree[i] == 0) q.offer(i);
         }
         int[] order = new int[numCourses];
-        int idx = 0;
-        while (!queue.isEmpty()) {
-            int curr = queue.poll();
-            order[idx++] = curr;
-            for (int next : adj.get(curr)) {
-                if (--inDegree[next] == 0) queue.offer(next);
+        int count = 0;
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            order[count++] = u;
+            for (int v : adj.get(u)) {
+                if (--indegree[v] == 0) q.offer(v);
             }
         }
-        return idx == numCourses ? order : new int[0];
+        return count == numCourses ? order : new int[0];
     }
 }
 ```
-- **Time Complexity**: $O(V + E)$
-- **Space Complexity**: $O(V + E)$
+- **Time Complexity**: $O(n + E)$
+- **Space Complexity**: $O(n + E)$
 
 ---
 
@@ -7708,62 +13660,269 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [684. Redundant Connection](https://leetcode.com/problems/redundant-connection/)
 - **NeetCode**: [Redundant Connection](https://neetcode.io/problems/redundant-connection)
-- **Data Structures**: Graph, Disjoint Set Union
-- **Patterns**: Union-Find Cycle Edge
+- **Data Structures**: Graph, Array, Disjoint Set Union
+- **Patterns**: Cycle Detection in Undirected Graphs, Last Edge That Closes a Cycle
 
-#### Solutions
+#### Problem Description
+A tree of `n` nodes labelled `1` to `n` was built with one extra edge added. The graph is given as `edges` of length `n`, where `edges[i] = [ai, bi]` is an edge between `ai` and `bi`. Return the edge that can be removed so that the resulting graph is a tree of `n` nodes. If multiple answers exist, return the one that occurs last in the input array.
 
-##### Approach 1: Optimised / Best (Union-Find)
+#### Examples
+
+**Example 1**
+- **Input**: `edges = [[1,2],[1,3],[2,3]]`
+- **Output**: `[2,3]`
+- **Explanation**: Edges `1-2`, `1-3`, and `2-3` form a triangle. Removing `[2,3]` leaves a tree.
+
+**Example 2**
+- **Input**: `edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]`
+- **Output**: `[1,4]`
+- **Explanation**: The cycle `1-2-3-4-1` contains `[1,4]`, the last cycle edge in the input.
+
+#### Constraints
+- `n == edges.length`
+- `3 <= n <= 1000`
+- `edges[i].length == 2`
+- `1 <= ai < bi <= edges.length`
+- `ai != bi`, and there are no repeated edges.
+- The graph is connected and has exactly one cycle.
+
+#### Intuition
+The graph has exactly one cycle, and any edge on that cycle is removable. The answer must be the last such edge in the input. Processing edges in order, the first edge whose endpoints are already connected by earlier edges is the one that closes the cycle. That edge is also the last one in the input among cycle edges, because any later cycle-closing edge would only be found after it.
+
+---
+
+##### Approach 1: Brute Force (Remove Each Edge from the End, Test Connectivity)
+
+**Intuition**: Removing a cycle edge leaves the graph connected. Removing a bridge (a non-cycle edge) disconnects it. Try edges from last to first and return the first whose removal leaves the graph connected.
+
+**Algorithm**:
+1. For `i` from `n-1` down to `0`:
+   - Build the adjacency list from all edges except `i`.
+   - DFS from node `1`. If all `n` nodes are reached, return `edges[i]`.
+
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
     public int[] findRedundantConnection(int[][] edges) {
         int n = edges.length;
-        int[] parent = new int[n + 1];
-        for (int i = 1; i <= n; i++) parent[i] = i;
-        for (int[] edge : edges) {
-            int p1 = find(parent, edge[0]);
-            int p2 = find(parent, edge[1]);
-            if (p1 == p2) return edge; // Redundant edge closing a cycle
-            parent[p1] = p2;
+        for (int skip = n - 1; skip >= 0; skip--) {
+            List<List<Integer>> adj = new ArrayList<>();
+            for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+            for (int i = 0; i < n; i++) {
+                if (i == skip) continue;
+                adj.get(edges[i][0]).add(edges[i][1]);
+                adj.get(edges[i][1]).add(edges[i][0]);
+            }
+            boolean[] visited = new boolean[n + 1];
+            dfs(adj, visited, 1);
+            boolean connected = true;
+            for (int i = 1; i <= n; i++) {
+                if (!visited[i]) {
+                    connected = false;
+                    break;
+                }
+            }
+            if (connected) return edges[skip];
         }
         return new int[0];
     }
 
-    private int find(int[] parent, int i) {
-        if (parent[i] == i) return i;
-        return parent[i] = find(parent, parent[i]);
+    private void dfs(List<List<Integer>> adj, boolean[] visited, int u) {
+        visited[u] = true;
+        for (int v : adj.get(u)) {
+            if (!visited[v]) dfs(adj, visited, v);
+        }
     }
 }
 ```
-- **Time Complexity**: $O(V \cdot \alpha(V))$
-- **Space Complexity**: $O(V)$
+- **Time Complexity**: $O(n \cdot (n + E))$
+- **Space Complexity**: $O(n + E)$
 
 ---
 
+##### Approach 2: Better (Incremental Graph with Path Check)
+
+**Intuition**: Add edges one at a time. Before adding edge `(u, v)`, check whether `u` can already reach `v` through earlier edges. If it can, the new edge closes a cycle, and it is the answer. Otherwise add it to the graph.
+
+**Algorithm**:
+1. Maintain an adjacency list of accepted edges.
+2. For each edge `(u, v)`: DFS from `u` with a fresh visited array. If `v` is reached, return `[u, v]`. Otherwise add the edge.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int[] findRedundantConnection(int[][] edges) {
+        int n = edges.length;
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+        for (int[] e : edges) {
+            if (reachable(adj, new boolean[n + 1], e[0], e[1])) return e;
+            adj.get(e[0]).add(e[1]);
+            adj.get(e[1]).add(e[0]);
+        }
+        return new int[0];
+    }
+
+    private boolean reachable(List<List<Integer>> adj, boolean[] visited, int u, int target) {
+        if (u == target) return true;
+        visited[u] = true;
+        for (int v : adj.get(u)) {
+            if (!visited[v] && reachable(adj, visited, v, target)) return true;
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot (n + E))$ in the worst case
+- **Space Complexity**: $O(n + E)$
+
+---
+
+##### Approach 3: Optimised / Best (Disjoint Set Union)
+
+**Intuition**: DSU answers "are these two nodes already connected?" in near-constant time. The first edge whose endpoints share a set closes the cycle, and this is the answer because edges are processed in input order.
+
+**Algorithm**:
+1. Initialise `parent[i] = i` for `i` in `1..n`.
+2. For each edge `(u, v)`: if `find(u) == find(v)`, return `[u, v]`. Otherwise union them.
+
+```java
+class Solution {
+    private int[] parent;
+
+    public int[] findRedundantConnection(int[][] edges) {
+        int n = edges.length;
+        parent = new int[n + 1];
+        for (int i = 0; i <= n; i++) parent[i] = i;
+        for (int[] e : edges) {
+            int a = find(e[0]), b = find(e[1]);
+            if (a == b) return e;
+            parent[a] = b;
+        }
+        return new int[0];
+    }
+
+    private int find(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot \alpha(n))$
+- **Space Complexity**: $O(n)$
+
+---
 
 ## 12. 1-D Dynamic Programming
+
+Dynamic programming solves a problem by combining solutions to smaller subproblems. For each problem below, three approaches are shown in the same order: a plain recursive formulation (Brute Force), the same recursion with results cached (Better), and a bottom-up version that keeps only the values it needs (Optimised / Best).
 
 ### 12.1 Climbing Stairs
 - **Difficulty**: Easy
 - **LeetCode**: [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
 - **NeetCode**: [Climbing Stairs](https://neetcode.io/problems/climbing-stairs)
-- **Data Structures**: Array, DP
-- **Patterns**: Fibonacci Transition ($dp[i] = dp[i-1] + dp[i-2]$)
+- **Data Structures**: Array
+- **Patterns**: Fibonacci-Style Recurrence, Rolling Variables
 
-#### Solutions
+#### Problem Description
+You are climbing a staircase that takes `n` steps to reach the top. Each time you can climb either `1` or `2` steps. Return the number of distinct ways to climb to the top.
 
-##### Approach 1: Optimised / Best (Space-Optimized DP / Fibonacci)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 2`
+- **Output**: `2`
+- **Explanation**: `1+1` or `2`.
+
+**Example 2**
+- **Input**: `n = 3`
+- **Output**: `3`
+- **Explanation**: `1+1+1`, `1+2`, or `2+1`.
+
+#### Constraints
+- `1 <= n <= 45`
+
+#### Intuition
+The last move onto step `n` is either a 1-step from `n-1` or a 2-step from `n-2`. So `ways(n) = ways(n-1) + ways(n-2)`, the Fibonacci recurrence, with `ways(1) = 1` and `ways(2) = 2`.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Apply the recurrence directly. Many subproblems repeat, so this grows exponentially.
+
+**Algorithm**:
+1. If `n <= 2`, return `n`.
+2. Otherwise return `climb(n-1) + climb(n-2)`.
+
 ```java
 class Solution {
     public int climbStairs(int n) {
         if (n <= 2) return n;
-        int prev2 = 1, prev1 = 2;
+        return climbStairs(n - 1) + climbStairs(n - 2);
+    }
+}
+```
+- **Time Complexity**: $O(\phi^n)$, exponential
+- **Space Complexity**: $O(n)$ for recursion depth
+
+---
+
+##### Approach 2: Better (Memoization)
+
+**Intuition**: Store each computed value in an array, so every subproblem is solved once.
+
+**Algorithm**:
+1. Allocate `memo[n+1]`.
+2. Return `solve(n)`, which checks `memo` before recursing.
+
+```java
+class Solution {
+    public int climbStairs(int n) {
+        int[] memo = new int[n + 1];
+        return solve(n, memo);
+    }
+
+    private int solve(int n, int[] memo) {
+        if (n <= 2) return n;
+        if (memo[n] != 0) return memo[n];
+        memo[n] = solve(n - 1, memo) + solve(n - 2, memo);
+        return memo[n];
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Rolling Two Variables)
+
+**Intuition**: Each value depends only on the previous two. Keep just those two values and roll them forward.
+
+**Algorithm**:
+1. If `n <= 2`, return `n`.
+2. `a = 1`, `b = 2`. For `i` from `3` to `n`: `c = a + b`, `a = b`, `b = c`.
+3. Return `b`.
+
+```java
+class Solution {
+    public int climbStairs(int n) {
+        if (n <= 2) return n;
+        int a = 1, b = 2;
         for (int i = 3; i <= n; i++) {
-            int curr = prev1 + prev2;
-            prev2 = prev1;
-            prev1 = curr;
+            int c = a + b;
+            a = b;
+            b = c;
         }
-        return prev1;
+        return b;
     }
 }
 ```
@@ -7776,22 +13935,109 @@ class Solution {
 - **Difficulty**: Easy
 - **LeetCode**: [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)
 - **NeetCode**: [Min Cost Climbing Stairs](https://neetcode.io/problems/min-cost-climbing-stairs)
-- **Data Structures**: Array, DP
-- **Patterns**: Running Min DP
+- **Data Structures**: Array
+- **Patterns**: Minimum Cost Recurrence, Rolling Variables
 
-#### Solutions
+#### Problem Description
+You are given an integer array `cost`, where `cost[i]` is the cost of step `i`. Once you pay the cost of a step, you can climb one or two steps from it. You may start at index `0` or index `1`. Return the minimum cost to reach the top, which is just past the last step.
 
-##### Approach 1: Optimised / Best (Space Optimized DP)
+#### Examples
+
+**Example 1**
+- **Input**: `cost = [10,15,20]`
+- **Output**: `15`
+- **Explanation**: Start at index 1, pay 15, and step two to the top.
+
+**Example 2**
+- **Input**: `cost = [1,100,1,1,1,100,1,1,100,1]`
+- **Output**: `6`
+- **Explanation**: Take the cheap steps at indices 0, 2, 4, 6, 7, 9.
+
+#### Constraints
+- `2 <= cost.length <= 1000`
+- `0 <= cost[i] <= 999`
+
+#### Intuition
+Define `f(i)` as the minimum cost to reach the top starting at step `i`, including the cost of step `i`. Then `f(i) = cost[i] + min(f(i+1), f(i+2))`, with anything at or past the top costing zero. The answer is `min(f(0), f(1))`.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Compute `f(i)` directly from the recurrence, recursing into both options at each step.
+
+**Algorithm**:
+1. If `i >= n`, return `0`.
+2. Return `cost[i] + min(f(i+1), f(i+2))`.
+3. The answer is `min(f(0), f(1))`.
+
 ```java
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
-        int downOne = 0, downTwo = 0;
-        for (int i = 2; i <= cost.length; i++) {
-            int curr = Math.min(downOne + cost[i - 1], downTwo + cost[i - 2]);
-            downTwo = downOne;
-            downOne = curr;
+        return Math.min(f(cost, 0), f(cost, 1));
+    }
+
+    private int f(int[] cost, int i) {
+        if (i >= cost.length) return 0;
+        return cost[i] + Math.min(f(cost, i + 1), f(cost, i + 2));
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$
+- **Space Complexity**: $O(n)$ for recursion depth
+
+---
+
+##### Approach 2: Better (Memoization)
+
+**Intuition**: Cache `f(i)` in an array, so each index is computed once.
+
+**Algorithm**:
+1. Allocate `memo[n]` filled with `-1`.
+2. `f(i)` returns the cached value if present, otherwise computes and stores it.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        int[] memo = new int[cost.length];
+        Arrays.fill(memo, -1);
+        return Math.min(f(cost, 0, memo), f(cost, 1, memo));
+    }
+
+    private int f(int[] cost, int i, int[] memo) {
+        if (i >= cost.length) return 0;
+        if (memo[i] != -1) return memo[i];
+        memo[i] = cost[i] + Math.min(f(cost, i + 1, memo), f(cost, i + 2, memo));
+        return memo[i];
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up, Two Variables)
+
+**Intuition**: Compute from the end. Each `f(i)` needs only `f(i+1)` and `f(i+2)`, so two variables suffice.
+
+**Algorithm**:
+1. `a = f(n) = 0`, `b = f(n+1) = 0`.
+2. For `i` from `n-1` down to `0`: `cur = cost[i] + min(a, b)`, then `b = a`, `a = cur`.
+3. Return `min(a, b)`, which is `min(f(0), f(1))`.
+
+```java
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        int a = 0, b = 0;
+        for (int i = cost.length - 1; i >= 0; i--) {
+            int cur = cost[i] + Math.min(a, b);
+            b = a;
+            a = cur;
         }
-        return downOne;
+        return Math.min(a, b);
     }
 }
 ```
@@ -7804,22 +14050,108 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [198. House Robber](https://leetcode.com/problems/house-robber/)
 - **NeetCode**: [House Robber](https://neetcode.io/problems/house-robber)
-- **Data Structures**: Array, DP
-- **Patterns**: Include / Exclude DP
+- **Data Structures**: Array
+- **Patterns**: Take-or-Skip Recurrence, Rolling Variables
 
-#### Solutions
+#### Problem Description
+You are a robber planning to rob houses along a street. Each house has an amount of money `nums[i]`. Adjacent houses have security systems that alert the police if two adjacent houses are robbed on the same night. Return the maximum amount you can rob without alerting the police.
 
-##### Approach 1: Optimised / Best (Two Variables DP)
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,2,3,1]`
+- **Output**: `4`
+- **Explanation**: Rob house 0 (1) and house 2 (3). Total 4.
+
+**Example 2**
+- **Input**: `nums = [2,7,9,3,1]`
+- **Output**: `12`
+- **Explanation**: Rob houses 0, 2, and 4 for `2 + 9 + 1 = 12`.
+
+#### Constraints
+- `1 <= nums.length <= 100`
+- `0 <= nums[i] <= 400`
+
+#### Intuition
+At house `i`, either skip it and take the best from `i+1`, or rob it and take the best from `i+2`. So `rob(i) = max(rob(i+1), nums[i] + rob(i+2))`.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Apply the recurrence directly from the first house.
+
+**Algorithm**:
+1. If `i >= n`, return `0`.
+2. Return `max(rob(i+1), nums[i] + rob(i+2))`.
+
 ```java
 class Solution {
     public int rob(int[] nums) {
-        int rob1 = 0, rob2 = 0;
-        for (int num : nums) {
-            int newRob = Math.max(rob1 + num, rob2);
-            rob1 = rob2;
-            rob2 = newRob;
+        return solve(nums, 0);
+    }
+
+    private int solve(int[] nums, int i) {
+        if (i >= nums.length) return 0;
+        return Math.max(solve(nums, i + 1), nums[i] + solve(nums, i + 2));
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoization)
+
+**Intuition**: Cache `rob(i)` for each house.
+
+**Algorithm**:
+1. Allocate `memo[n]` filled with `-1`.
+2. Compute `rob(i)` with caching.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int rob(int[] nums) {
+        int[] memo = new int[nums.length];
+        Arrays.fill(memo, -1);
+        return solve(nums, 0, memo);
+    }
+
+    private int solve(int[] nums, int i, int[] memo) {
+        if (i >= nums.length) return 0;
+        if (memo[i] != -1) return memo[i];
+        memo[i] = Math.max(solve(nums, i + 1, memo), nums[i] + solve(nums, i + 2, memo));
+        return memo[i];
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up, Rolling Variables)
+
+**Intuition**: Process houses left to right. Keep the best total up to the previous house and up to the house before it.
+
+**Algorithm**:
+1. `prev2 = 0`, `prev1 = 0`.
+2. For each `x` in `nums`: `cur = max(prev1, prev2 + x)`, then `prev2 = prev1`, `prev1 = cur`.
+3. Return `prev1`.
+
+```java
+class Solution {
+    public int rob(int[] nums) {
+        int prev2 = 0, prev1 = 0;
+        for (int x : nums) {
+            int cur = Math.max(prev1, prev2 + x);
+            prev2 = prev1;
+            prev1 = cur;
         }
-        return rob2;
+        return prev1;
     }
 }
 ```
@@ -7832,28 +14164,125 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [213. House Robber II](https://leetcode.com/problems/house-robber-ii/)
 - **NeetCode**: [House Robber II](https://neetcode.io/problems/house-robber-ii)
-- **Data Structures**: Array, DP
-- **Patterns**: Circular Array Reduction (Two Passes)
+- **Data Structures**: Array
+- **Patterns**: Circular Reduction to Two Linear Problems
 
-#### Solutions
+#### Problem Description
+This is House Robber with the houses arranged in a circle. The first and last houses are adjacent, so they cannot both be robbed. Return the maximum amount you can rob.
 
-##### Approach 1: Optimised / Best (Two Passes of House Robber I)
-Compare stealing from houses $0$ to $n-2$ vs houses $1$ to $n-1$.
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [2,3,2]`
+- **Output**: `3`
+- **Explanation**: Rob house 1 alone. Robbing houses 0 and 2 would trigger the alarm.
+
+**Example 2**
+- **Input**: `nums = [1,2,3,1]`
+- **Output**: `4`
+- **Explanation**: Rob houses 0 and 2.
+
+**Example 3**
+- **Input**: `nums = [1,2,3]`
+- **Output**: `3`
+
+#### Constraints
+- `1 <= nums.length <= 100`
+- `0 <= nums[i] <= 1000`
+
+#### Intuition
+Either house `0` is skipped, or house `n-1` is skipped. Both cases can be solved as linear House Robber problems, on `nums[0..n-2]` and on `nums[1..n-1]`. The answer is the larger of the two. Single-house arrays are a special case.
+
+---
+
+##### Approach 1: Brute Force (Recursion with an End Bound)
+
+**Intuition**: Run the linear recursion on each of the two ranges without caching.
+
+**Algorithm**:
+1. If `n == 1`, return `nums[0]`.
+2. Return `max(solve(0, n-2), solve(1, n-1))`, where `solve(i, end)` is the linear recurrence over `[i, end]`.
+
 ```java
 class Solution {
     public int rob(int[] nums) {
-        if (nums.length == 1) return nums[0];
-        return Math.max(robSimple(nums, 0, nums.length - 2), robSimple(nums, 1, nums.length - 1));
+        int n = nums.length;
+        if (n == 1) return nums[0];
+        return Math.max(solve(nums, 0, n - 2), solve(nums, 1, n - 1));
     }
 
-    private int robSimple(int[] nums, int start, int end) {
-        int rob1 = 0, rob2 = 0;
-        for (int i = start; i <= end; i++) {
-            int newRob = Math.max(rob1 + nums[i], rob2);
-            rob1 = rob2;
-            rob2 = newRob;
+    private int solve(int[] nums, int i, int end) {
+        if (i > end) return 0;
+        return Math.max(solve(nums, i + 1, end), nums[i] + solve(nums, i + 2, end));
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoization on Each Range)
+
+**Intuition**: Cache results for each range. The two ranges have different bounds, so each linear pass gets its own cache.
+
+**Algorithm**:
+1. Handle `n == 1`.
+2. For each range, run memoised recursion with a fresh `memo` array indexed by start position.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return nums[0];
+        return Math.max(solve(nums, 0, n - 2), solve(nums, 1, n - 1));
+    }
+
+    private int solve(int[] nums, int lo, int hi) {
+        int[] memo = new int[nums.length];
+        Arrays.fill(memo, -1);
+        return dfs(nums, lo, hi, memo);
+    }
+
+    private int dfs(int[] nums, int i, int end, int[] memo) {
+        if (i > end) return 0;
+        if (memo[i] != -1) return memo[i];
+        memo[i] = Math.max(dfs(nums, i + 1, end, memo), nums[i] + dfs(nums, i + 2, end, memo));
+        return memo[i];
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Two Rolling Passes)
+
+**Intuition**: Apply the rolling House Robber to each range directly. No arrays are needed.
+
+**Algorithm**:
+1. Handle `n == 1`.
+2. `robLinear(nums, 0, n-2)` and `robLinear(nums, 1, n-1)`, each with rolling variables. Return the maximum.
+
+```java
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return nums[0];
+        return Math.max(robLinear(nums, 0, n - 2), robLinear(nums, 1, n - 1));
+    }
+
+    private int robLinear(int[] nums, int lo, int hi) {
+        int prev2 = 0, prev1 = 0;
+        for (int i = lo; i <= hi; i++) {
+            int cur = Math.max(prev1, prev2 + nums[i]);
+            prev2 = prev1;
+            prev1 = cur;
         }
-        return rob2;
+        return prev1;
     }
 }
 ```
@@ -7866,39 +14295,140 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 - **NeetCode**: [Longest Palindromic Substring](https://neetcode.io/problems/longest-palindromic-substring)
-- **Data Structures**: String, Two Pointers / DP
-- **Patterns**: Expand Around Center
+- **Data Structures**: String
+- **Patterns**: Expand Around Center, Interval DP
 
-#### Solutions
+#### Problem Description
+Given a string `s`, return the longest palindromic substring in `s`.
 
-##### Approach 1: Optimised / Best (Expand Around Center)
+#### Examples
+
+**Example 1**
+- **Input**: `s = "babad"`
+- **Output**: `"bab"`
+- **Explanation**: `"aba"` is also valid. Any longest palindrome is accepted.
+
+**Example 2**
+- **Input**: `s = "cbbd"`
+- **Output**: `"bb"`
+
+#### Constraints
+- `1 <= s.length <= 1000`
+- `s` consists of only digits and English letters.
+
+#### Intuition
+A palindrome is symmetric around its centre. There are `2n - 1` possible centres: each character, and each gap between characters. Expanding outward from each centre while the characters match finds the longest palindrome at that centre. This is a 1-D problem in the sense that each centre is handled independently.
+
+---
+
+##### Approach 1: Brute Force (Check Every Substring)
+
+**Intuition**: Try every substring and keep the longest palindrome.
+
+**Algorithm**:
+1. For each start `i` and end `j >= i`, check whether `s[i..j]` is a palindrome.
+2. Track the longest.
+
 ```java
 class Solution {
     public String longestPalindrome(String s) {
-        if (s == null || s.length() < 1) return "";
-        int start = 0, end = 0;
-        for (int i = 0; i < s.length(); i++) {
-            int len1 = expand(s, i, i);     // Odd length
-            int len2 = expand(s, i, i + 1); // Even length
-            int len = Math.max(len1, len2);
-            if (len > end - start) {
-                start = i - (len - 1) / 2;
-                end = i + len / 2;
+        int bestL = 0, bestLen = 1;
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                if (j - i + 1 > bestLen && isPal(s, i, j)) {
+                    bestL = i;
+                    bestLen = j - i + 1;
+                }
             }
         }
-        return s.substring(start, end + 1);
+        return s.substring(bestL, bestL + bestLen);
     }
 
-    private int expand(String s, int left, int right) {
-        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
-            left--;
-            right++;
+    private boolean isPal(String s, int l, int r) {
+        while (l < r) {
+            if (s.charAt(l++) != s.charAt(r--)) return false;
         }
-        return right - left - 1;
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n^3)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Interval DP Table)
+
+**Intuition**: `s[i..j]` is a palindrome when `s[i] == s[j]` and `s[i+1..j-1]` is a palindrome. Fill a table by increasing length, so each entry uses already computed shorter entries.
+
+**Algorithm**:
+1. `dp[i][i] = true`. `dp[i][i+1] = s[i] == s[i+1]`.
+2. For longer lengths, `dp[i][j] = s[i] == s[j] && dp[i+1][j-1]`.
+3. Track the longest `true` entry.
+
+```java
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        int bestL = 0, bestLen = 1;
+        for (int len = 1; len <= n; len++) {
+            for (int i = 0; i + len - 1 < n; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j) && (len <= 2 || dp[i + 1][j - 1])) {
+                    dp[i][j] = true;
+                    if (len > bestLen) {
+                        bestL = i;
+                        bestLen = len;
+                    }
+                }
+            }
+        }
+        return s.substring(bestL, bestL + bestLen);
     }
 }
 ```
 - **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 3: Optimised / Best (Expand Around Each Centre)
+
+**Intuition**: Each palindrome has a centre. Expand from each of the `2n - 1` centres while the ends match, and keep the longest. No table is needed.
+
+**Algorithm**:
+1. For each centre `i`, expand `(i, i)` for odd length and `(i, i+1)` for even length.
+2. Each expansion moves `l` left and `r` right while `s[l] == s[r]`.
+3. Keep the longest range found.
+
+```java
+class Solution {
+    private int start = 0, maxLen = 1;
+
+    public String longestPalindrome(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            expand(s, i, i);
+            expand(s, i, i + 1);
+        }
+        return s.substring(start, start + maxLen);
+    }
+
+    private void expand(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        int len = r - l - 1;
+        if (len > maxLen) {
+            maxLen = len;
+            start = l + 1;
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case, $O(n)$ typical
 - **Space Complexity**: $O(1)$
 
 ---
@@ -7908,34 +14438,124 @@ class Solution {
 - **LeetCode**: [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
 - **NeetCode**: [Palindromic Substrings](https://neetcode.io/problems/palindromic-substrings)
 - **Data Structures**: String
-- **Patterns**: Expand Around Center Count
+- **Patterns**: Count by Expanding Around Centres, Interval DP
 
-#### Solutions
+#### Problem Description
+Given a string `s`, return the number of palindromic substrings in it. A substring is counted each time it appears at a different position.
 
-##### Approach 1: Optimised / Best (Expand Around Center)
+#### Examples
+
+**Example 1**
+- **Input**: `s = "abc"`
+- **Output**: `3`
+- **Explanation**: `"a"`, `"b"`, `"c"`.
+
+**Example 2**
+- **Input**: `s = "aaa"`
+- **Output**: `6`
+- **Explanation**: `"a"`, `"a"`, `"a"`, `"aa"`, `"aa"`, `"aaa"`.
+
+#### Constraints
+- `1 <= s.length <= 1000`
+- `s` consists of lowercase English letters.
+
+#### Intuition
+Counting is like finding the longest palindrome, except every palindrome at every centre counts. Each expansion from a centre adds one palindrome per successful step.
+
+---
+
+##### Approach 1: Brute Force (Check Every Substring)
+
+**Intuition**: Test every substring and count the palindromes.
+
+**Algorithm**:
+1. For each `i <= j`, check `s[i..j]` and increment the count if it is a palindrome.
+
 ```java
 class Solution {
     public int countSubstrings(String s) {
-        int count = 0;
-        for (int i = 0; i < s.length(); i++) {
-            count += expand(s, i, i);     // Odd
-            count += expand(s, i, i + 1); // Even
+        int count = 0, n = s.length();
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                if (isPal(s, i, j)) count++;
+            }
         }
         return count;
     }
 
-    private int expand(String s, int l, int r) {
-        int res = 0;
-        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
-            res++;
-            l--;
-            r++;
+    private boolean isPal(String s, int l, int r) {
+        while (l < r) {
+            if (s.charAt(l++) != s.charAt(r--)) return false;
         }
-        return res;
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n^3)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Interval DP Table)
+
+**Intuition**: Use the same table as in 12.5. Every `true` entry is one palindromic substring.
+
+**Algorithm**:
+1. Fill `dp[i][j]` by increasing length, as in 12.5.
+2. Count the `true` entries.
+
+```java
+class Solution {
+    public int countSubstrings(String s) {
+        int n = s.length(), count = 0;
+        boolean[][] dp = new boolean[n][n];
+        for (int len = 1; len <= n; len++) {
+            for (int i = 0; i + len - 1 < n; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j) && (len <= 2 || dp[i + 1][j - 1])) {
+                    dp[i][j] = true;
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
 ```
 - **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 3: Optimised / Best (Expand Around Each Centre)
+
+**Intuition**: Each centre contributes one palindrome for each successful expansion step. Count those steps directly.
+
+**Algorithm**:
+1. For each centre, expand for odd and even lengths. Each successful step increments the count.
+
+```java
+class Solution {
+    private int count = 0;
+
+    public int countSubstrings(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            expand(s, i, i);
+            expand(s, i, i + 1);
+        }
+        return count;
+    }
+
+    private void expand(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            count++;
+            l--;
+            r++;
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ worst case
 - **Space Complexity**: $O(1)$
 
 ---
@@ -7944,28 +14564,142 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [91. Decode Ways](https://leetcode.com/problems/decode-ways/)
 - **NeetCode**: [Decode Ways](https://neetcode.io/problems/decode-ways)
-- **Data Structures**: String, DP
-- **Patterns**: 1-D DP (Single and Double Digit Transitions)
+- **Data Structures**: String
+- **Patterns**: Prefix Count Recurrence, Rolling Variables
 
-#### Solutions
+#### Problem Description
+A message containing letters `A-Z` is encoded as numbers, where `'A' -> "1"` through `'Z' -> "26"`. Given a string `s` of digits, return the number of ways to decode it. A string starting with `'0'` that cannot be decoded gives `0`.
 
-##### Approach 1: Optimised / Best (Space-Optimized DP)
+#### Examples
+
+**Example 1**
+- **Input**: `s = "12"`
+- **Output**: `2`
+- **Explanation**: `"AB"` (1 2) or `"L"` (12).
+
+**Example 2**
+- **Input**: `s = "226"`
+- **Output**: `3`
+- **Explanation**: `"BBF"`, `"BZ"`, `"VF"`.
+
+**Example 3**
+- **Input**: `s = "06"`
+- **Output**: `0`
+- **Explanation**: `"06"` does not map to any letter.
+
+#### Constraints
+- `1 <= s.length <= 100`
+- `s` contains only digits and may contain leading zeros.
+
+#### Intuition
+At index `i`, a non-zero digit can be decoded alone. A two-digit group `s[i..i+1]` is also valid if it is `10` to `26`. So `ways(i) = ways(i+1)` when `s[i] != '0'`, plus `ways(i+2)` when the two-digit group is valid. A `'0'` cannot start a group, so `ways(i) = 0` there.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Apply the recurrence from the start of the string.
+
+**Algorithm**:
+1. If `i == n`, return `1`.
+2. If `s[i] == '0'`, return `0`.
+3. Add `ways(i+1)`. If `s[i..i+1]` is a valid two-digit code, add `ways(i+2)`.
+
 ```java
 class Solution {
     public int numDecodings(String s) {
-        if (s == null || s.length() == 0 || s.charAt(0) == '0') return 0;
-        int n = s.length();
-        int prev2 = 1, prev1 = 1;
-        for (int i = 1; i < n; i++) {
-            int curr = 0;
-            int singleDigit = s.charAt(i) - '0';
-            int twoDigits = Integer.parseInt(s.substring(i - 1, i + 1));
-            if (singleDigit != 0) curr += prev1;
-            if (twoDigits >= 10 && twoDigits <= 26) curr += prev2;
-            prev2 = prev1;
-            prev1 = curr;
+        return ways(s, 0);
+    }
+
+    private int ways(String s, int i) {
+        if (i == s.length()) return 1;
+        if (s.charAt(i) == '0') return 0;
+        int res = ways(s, i + 1);
+        if (i + 1 < s.length() && valid2(s, i)) {
+            res += ways(s, i + 2);
         }
-        return prev1;
+        return res;
+    }
+
+    private boolean valid2(String s, int i) {
+        char a = s.charAt(i), b = s.charAt(i + 1);
+        return a == '1' || (a == '2' && b <= '6');
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoization)
+
+**Intuition**: `ways(i)` depends only on `i`, so cache it.
+
+**Algorithm**:
+1. Allocate `memo[n]` filled with `-1`.
+2. Compute `ways(i)` with caching, using the same rules as Approach 1.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int numDecodings(String s) {
+        int[] memo = new int[s.length()];
+        Arrays.fill(memo, -1);
+        return ways(s, 0, memo);
+    }
+
+    private int ways(String s, int i, int[] memo) {
+        if (i == s.length()) return 1;
+        if (s.charAt(i) == '0') return 0;
+        if (memo[i] != -1) return memo[i];
+        int res = ways(s, i + 1, memo);
+        if (i + 1 < s.length() && valid2(s, i)) {
+            res += ways(s, i + 2, memo);
+        }
+        memo[i] = res;
+        return res;
+    }
+
+    private boolean valid2(String s, int i) {
+        char a = s.charAt(i), b = s.charAt(i + 1);
+        return a == '1' || (a == '2' && b <= '6');
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up, Two Variables)
+
+**Intuition**: Compute from the end. Each step needs only the next two values, so keep two variables.
+
+**Algorithm**:
+1. `next1 = 1` (ways from `n`), `next2 = 0` (ways from `n+1`).
+2. For `i` from `n-1` down to `0`: if `s[i] == '0'`, `cur = 0`. Otherwise `cur = next1`, and add `next2` if the two-digit group is valid. Then shift the variables.
+3. Return `next1`.
+
+```java
+class Solution {
+    public int numDecodings(String s) {
+        int n = s.length();
+        int next1 = 1, next2 = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            int cur = 0;
+            if (s.charAt(i) != '0') {
+                cur = next1;
+                if (i + 1 < n) {
+                    char a = s.charAt(i), b = s.charAt(i + 1);
+                    if (a == '1' || (a == '2' && b <= '6')) cur += next2;
+                }
+            }
+            next2 = next1;
+            next1 = cur;
+        }
+        return next1;
     }
 }
 ```
@@ -7978,33 +14712,136 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [322. Coin Change](https://leetcode.com/problems/coin-change/)
 - **NeetCode**: [Coin Change](https://neetcode.io/problems/coin-change)
-- **Data Structures**: Array, DP
-- **Patterns**: Unbounded Knapsack / Bottom-Up 1D DP
+- **Data Structures**: Array
+- **Patterns**: Unbounded Knapsack, Minimum Over Choices
 
-#### Solutions
+#### Problem Description
+You are given an integer array `coins` representing coins of different denominations, and an integer `amount`. Return the fewest number of coins needed to make up `amount`. If that amount cannot be made, return `-1`. You have an infinite number of each coin.
 
-##### Approach 1: Optimised / Best (Bottom-Up 1D DP)
+#### Examples
+
+**Example 1**
+- **Input**: `coins = [1,2,5]`, `amount = 11`
+- **Output**: `3`
+- **Explanation**: `11 = 5 + 5 + 1`.
+
+**Example 2**
+- **Input**: `coins = [2]`, `amount = 3`
+- **Output**: `-1`
+- **Explanation**: Only even amounts are possible.
+
+**Example 3**
+- **Input**: `coins = [1]`, `amount = 0`
+- **Output**: `0`
+
+#### Constraints
+- `1 <= coins.length <= 12`
+- `1 <= coins[i] <= 2^31 - 1`
+- `0 <= amount <= 10^4`
+
+#### Intuition
+Let `f(a)` be the fewest coins for amount `a`. The last coin used is some denomination `c`, so `f(a) = 1 + min over c of f(a - c)`, with `f(0) = 0` and invalid choices ignored.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Try every coin at every step. This explores every combination, so it is exponential, and only practical for small amounts.
+
+**Algorithm**:
+1. If `rem == 0`, return `0`. If `rem < 0`, return `-1` (impossible).
+2. For each coin, compute `r = solve(rem - c)`. If `r >= 0`, take `1 + r` as a candidate.
+3. Return the minimum candidate, or `-1`.
+
+```java
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        return solve(coins, amount);
+    }
+
+    private int solve(int[] coins, int rem) {
+        if (rem == 0) return 0;
+        if (rem < 0) return -1;
+        int best = Integer.MAX_VALUE;
+        for (int c : coins) {
+            int r = solve(coins, rem - c);
+            if (r >= 0) best = Math.min(best, r + 1);
+        }
+        return best == Integer.MAX_VALUE ? -1 : best;
+    }
+}
+```
+- **Time Complexity**: $O(n^{A/c_{\min}})$, exponential
+- **Space Complexity**: $O(A / c_{\min})$ for recursion depth
+
+---
+
+##### Approach 2: Better (Memoization)
+
+**Intuition**: `solve(rem)` depends only on `rem`, so cache the result for each remaining amount.
+
+**Algorithm**:
+1. Allocate `memo[amount+1]` filled with `-2` (unknown).
+2. Compute `solve(rem)` with caching, using the same rules as Approach 1.
+
 ```java
 import java.util.Arrays;
 
 class Solution {
     public int coinChange(int[] coins, int amount) {
+        int[] memo = new int[amount + 1];
+        Arrays.fill(memo, -2);
+        return solve(coins, amount, memo);
+    }
+
+    private int solve(int[] coins, int rem, int[] memo) {
+        if (rem == 0) return 0;
+        if (rem < 0) return -1;
+        if (memo[rem] != -2) return memo[rem];
+        int best = Integer.MAX_VALUE;
+        for (int c : coins) {
+            int r = solve(coins, rem - c, memo);
+            if (r >= 0) best = Math.min(best, r + 1);
+        }
+        memo[rem] = best == Integer.MAX_VALUE ? -1 : best;
+        return memo[rem];
+    }
+}
+```
+- **Time Complexity**: $O(A \cdot n)$
+- **Space Complexity**: $O(A)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up Table)
+
+**Intuition**: Fill `dp[a]` for `a` from `1` to `amount`, using only smaller amounts already computed. Use `amount + 1` as an infinity sentinel, since no valid answer can exceed `amount`.
+
+**Algorithm**:
+1. `dp[0] = 0`, others `amount + 1`.
+2. For each `a` from `1` to `amount`, for each coin `c <= a`, set `dp[a] = min(dp[a], dp[a-c] + 1)`.
+3. Return `dp[amount]` if it is at most `amount`, else `-1`.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int inf = amount + 1;
         int[] dp = new int[amount + 1];
-        Arrays.fill(dp, amount + 1);
+        Arrays.fill(dp, inf);
         dp[0] = 0;
         for (int a = 1; a <= amount; a++) {
             for (int c : coins) {
-                if (a - c >= 0) {
-                    dp[a] = Math.min(dp[a], 1 + dp[a - c]);
-                }
+                if (c <= a) dp[a] = Math.min(dp[a], dp[a - c] + 1);
             }
         }
         return dp[amount] > amount ? -1 : dp[amount];
     }
 }
 ```
-- **Time Complexity**: $O(\text{amount} \times \text{coins.length})$
-- **Space Complexity**: $O(\text{amount})$
+- **Time Complexity**: $O(A \cdot n)$
+- **Space Complexity**: $O(A)$
 
 ---
 
@@ -8012,25 +14849,112 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)
 - **NeetCode**: [Maximum Product Subarray](https://neetcode.io/problems/maximum-product-subarray)
-- **Data Structures**: Array, DP
-- **Patterns**: Min/Max Product Tracking DP
+- **Data Structures**: Array
+- **Patterns**: Kadane Variant, Tracking Max and Min
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums`, find a contiguous subarray that has the largest product, and return that product.
 
-##### Approach 1: Optimised / Best (Tracking Current Max and Current Min)
-Negative numbers can turn minimum product into maximum.
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [2,3,-2,4]`
+- **Output**: `6`
+- **Explanation**: The subarray `[2,3]` has product `6`.
+
+**Example 2**
+- **Input**: `nums = [-2,0,-1]`
+- **Output**: `0`
+- **Explanation**: The result cannot be `2` because `[-2]` and `[-1]` are not contiguous with a positive product.
+
+#### Constraints
+- `1 <= nums.length <= 2 * 10^4`
+- `-10 <= nums[i] <= 10`
+- The product of any subarray fits in a 32-bit integer.
+
+#### Intuition
+Unlike sums, products can flip sign. A large negative product becomes the largest positive when multiplied by a negative number. So track both the largest and the smallest product ending at each index. The next maximum is among `nums[i]`, `nums[i] * max`, and `nums[i] * min`.
+
+---
+
+##### Approach 1: Brute Force (Check Every Subarray)
+
+**Intuition**: Compute the product of every subarray by extending from each start.
+
+**Algorithm**:
+1. For each start `i`, multiply forward through `j`, tracking the largest product.
+
 ```java
 class Solution {
     public int maxProduct(int[] nums) {
-        int max = nums[0];
-        int curMin = 1, curMax = 1;
-        for (int n : nums) {
-            int temp = curMax * n;
-            curMax = Math.max(n, Math.max(curMax * n, curMin * n));
-            curMin = Math.min(n, Math.min(temp, curMin * n));
-            max = Math.max(max, curMax);
+        int best = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            int prod = 1;
+            for (int j = i; j < nums.length; j++) {
+                prod *= nums[j];
+                best = Math.max(best, prod);
+            }
         }
-        return max;
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (DP Arrays of Max and Min)
+
+**Intuition**: Store `maxEnd[i]` and `minEnd[i]`, the largest and smallest products of subarrays ending at `i`. Each is the best among `nums[i]` alone, and `nums[i]` times the previous max or min.
+
+**Algorithm**:
+1. `maxEnd[0] = minEnd[0] = nums[0]`.
+2. For `i >= 1`: `maxEnd[i] = max(nums[i], nums[i]*maxEnd[i-1], nums[i]*minEnd[i-1])`, and similarly for `minEnd`.
+3. Return the maximum of `maxEnd`.
+
+```java
+class Solution {
+    public int maxProduct(int[] nums) {
+        int n = nums.length;
+        int[] maxEnd = new int[n], minEnd = new int[n];
+        maxEnd[0] = minEnd[0] = nums[0];
+        int best = nums[0];
+        for (int i = 1; i < n; i++) {
+            int x = nums[i];
+            maxEnd[i] = Math.max(x, Math.max(x * maxEnd[i - 1], x * minEnd[i - 1]));
+            minEnd[i] = Math.min(x, Math.min(x * maxEnd[i - 1], x * minEnd[i - 1]));
+            best = Math.max(best, maxEnd[i]);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Rolling Max and Min)
+
+**Intuition**: Each step needs only the previous max and min, so keep two running values.
+
+**Algorithm**:
+1. `curMax = curMin = best = nums[0]`.
+2. For each `x` from index `1`: compute new max and min from `x`, `x*curMax`, `x*curMin`, then update `best`.
+
+```java
+class Solution {
+    public int maxProduct(int[] nums) {
+        int curMax = nums[0], curMin = nums[0], best = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int x = nums[i];
+            int a = x * curMax, b = x * curMin;
+            curMax = Math.max(x, Math.max(a, b));
+            curMin = Math.min(x, Math.min(a, b));
+            best = Math.max(best, curMax);
+        }
+        return best;
     }
 }
 ```
@@ -8043,33 +14967,144 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [139. Word Break](https://leetcode.com/problems/word-break/)
 - **NeetCode**: [Word Break](https://neetcode.io/problems/word-break)
-- **Data Structures**: String, Hash Table, DP
-- **Patterns**: 1-D DP Prefix Matching
+- **Data Structures**: String, Hash Set, Array
+- **Patterns**: Prefix Segmentation DP, Set Membership
 
-#### Solutions
+#### Problem Description
+Given a string `s` and a dictionary `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words. The same word may be reused.
 
-##### Approach 1: Optimised / Best (Bottom-Up 1-D DP)
+#### Examples
+
+**Example 1**
+- **Input**: `s = "leetcode"`, `wordDict = ["leet","code"]`
+- **Output**: `true`
+- **Explanation**: `leet code`.
+
+**Example 2**
+- **Input**: `s = "applepenapple"`, `wordDict = ["apple","pen"]`
+- **Output**: `true`
+- **Explanation**: `apple pen apple`. Words may be reused.
+
+**Example 3**
+- **Input**: `s = "catsandog"`, `wordDict = ["cats","dog","sand","and","cat"]`
+- **Output**: `false`
+
+#### Constraints
+- `1 <= s.length <= 300`
+- `1 <= wordDict.length <= 1000`
+- `1 <= wordDict[i].length <= 20`
+- `s` and `wordDict[i]` consist of lowercase English letters.
+
+#### Intuition
+`canBreak(i)` means the suffix `s[i..]` can be segmented. It holds if some dictionary word starts at `i` and the rest can be segmented. Equivalently, using prefixes: `dp[i]` is true if some `j < i` has `dp[j]` true and `s[j..i)` is a word.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion on Suffixes)
+
+**Intuition**: From each position, try every dictionary word that starts there, and recurse on the remainder.
+
+**Algorithm**:
+1. If `start == n`, return `true`.
+2. For each `end` from `start+1` to `n`, if `s[start..end)` is in the dictionary and `solve(end)` is true, return `true`.
+
 ```java
-import java.util.*;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
 
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
         Set<String> dict = new HashSet<>(wordDict);
-        boolean[] dp = new boolean[s.length() + 1];
+        return solve(s, 0, dict);
+    }
+
+    private boolean solve(String s, int start, Set<String> dict) {
+        if (start == s.length()) return true;
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (dict.contains(s.substring(start, end)) && solve(s, end, dict)) return true;
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$ worst case
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoized Suffixes)
+
+**Intuition**: `solve(start)` depends only on `start`, so memoise it.
+
+**Algorithm**:
+1. Allocate `memo[n]` of `Boolean`, using `null` as unknown.
+2. Compute `solve(start)` with caching.
+
+```java
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> dict = new HashSet<>(wordDict);
+        Boolean[] memo = new Boolean[s.length()];
+        return solve(s, 0, dict, memo);
+    }
+
+    private boolean solve(String s, int start, Set<String> dict, Boolean[] memo) {
+        if (start == s.length()) return true;
+        if (memo[start] != null) return memo[start];
+        boolean ok = false;
+        for (int end = start + 1; end <= s.length() && !ok; end++) {
+            if (dict.contains(s.substring(start, end)) && solve(s, end, dict, memo)) ok = true;
+        }
+        memo[start] = ok;
+        return ok;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ substring checks, plus hashing
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up Prefix DP with Max Word Length)
+
+**Intuition**: Build `dp[i]`, true when `s[0..i)` can be segmented. Only substrings no longer than the longest word can be words, so each `i` checks at most `maxLen` candidates.
+
+**Algorithm**:
+1. `dp[0] = true`. Compute `maxLen` from the dictionary.
+2. For `i` from `1` to `n`, for `j` from `i - 1` down to `max(0, i - maxLen)`: if `dp[j]` and `s[j..i)` is a word, set `dp[i] = true` and stop.
+3. Return `dp[n]`.
+
+```java
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> dict = new HashSet<>(wordDict);
+        int maxLen = 0;
+        for (String w : wordDict) maxLen = Math.max(maxLen, w.length());
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
         dp[0] = true;
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = i - 1; j >= Math.max(0, i - maxLen); j--) {
                 if (dp[j] && dict.contains(s.substring(j, i))) {
                     dp[i] = true;
                     break;
                 }
             }
         }
-        return dp[s.length()];
+        return dp[n];
     }
 }
 ```
-- **Time Complexity**: $O(n^3)$
+- **Time Complexity**: $O(n \cdot \text{maxLen})$ substring checks
 - **Space Complexity**: $O(n)$
 
 ---
@@ -8078,52 +15113,122 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 - **NeetCode**: [Longest Increasing Subsequence](https://neetcode.io/problems/longest-increasing-subsequence)
-- **Data Structures**: Array, DP / Binary Search
-- **Patterns**: Patience Sorting / Binary Search on Tails Array
+- **Data Structures**: Array, Binary Search
+- **Patterns**: Subsequence DP, Patience Sorting with Binary Search
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums`, return the length of the longest strictly increasing subsequence. A subsequence is derived by deleting some or no elements without changing the order of the rest.
 
-##### Approach 1: $O(n^2)$ Dynamic Programming
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [10,9,2,5,3,7,101,18]`
+- **Output**: `4`
+- **Explanation**: `[2,3,7,101]`.
+
+**Example 2**
+- **Input**: `nums = [0,1,0,3,2,3]`
+- **Output**: `4`
+- **Explanation**: `[0,1,2,3]`.
+
+**Example 3**
+- **Input**: `nums = [7,7,7,7,7,7,7]`
+- **Output**: `1`
+- **Explanation**: Strictly increasing requires distinct values.
+
+#### Constraints
+- `1 <= nums.length <= 2500`
+- `-10^4 <= nums[i] <= 10^4`
+
+#### Intuition
+Every element is either the start of a subsequence or extends one that ends with a smaller value. So `L(i) = 1 + max(L(j))` over `j < i` with `nums[j] < nums[i]`. Faster: maintain `tails[k]`, the smallest possible last value of an increasing subsequence of length `k+1`. This array is sorted, so each new value replaces the first tail that is at least as large, found by binary search.
+
+---
+
+##### Approach 1: Brute Force (Enumerate Subsequences via Recursion)
+
+**Intuition**: At each element, either take it (if it extends the previous chosen value) or skip it. Explore all choices.
+
+**Algorithm**:
+1. `solve(i, prev)`: if `i == n`, return `0`.
+2. Skip: `solve(i+1, prev)`. Take, if `prev == -1` or `nums[i] > nums[prev]`: `1 + solve(i+1, i)`.
+3. Return the maximum.
+
 ```java
-import java.util.Arrays;
-
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int[] dp = new int[nums.length];
-        Arrays.fill(dp, 1);
-        int max = 1;
-        for (int i = 1; i < nums.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (nums[j] < nums[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-                }
-            }
-            max = Math.max(max, dp[i]);
+        return solve(nums, 0, -1);
+    }
+
+    private int solve(int[] nums, int i, int prev) {
+        if (i == nums.length) return 0;
+        int skip = solve(nums, i + 1, prev);
+        int take = 0;
+        if (prev == -1 || nums[i] > nums[prev]) {
+            take = 1 + solve(nums, i + 1, i);
         }
-        return max;
+        return Math.max(skip, take);
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Quadratic DP)
+
+**Intuition**: `L(i)` is the longest increasing subsequence ending at `i`. Compare against every earlier smaller element.
+
+**Algorithm**:
+1. `dp[i] = 1` for all `i`.
+2. For each `i`, for each `j < i` with `nums[j] < nums[i]`, set `dp[i] = max(dp[i], dp[j] + 1)`.
+3. Return the maximum of `dp`.
+
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length, best = 1;
+        int[] dp = new int[n];
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+            best = Math.max(best, dp[i]);
+        }
+        return best;
     }
 }
 ```
 - **Time Complexity**: $O(n^2)$
 - **Space Complexity**: $O(n)$
 
-##### Approach 2: Best ($O(n \log n)$ Patience Sorting via Binary Search)
-```java
-import java.util.Arrays;
+---
 
+##### Approach 3: Optimised / Best (Patience Sorting with Binary Search)
+
+**Intuition**: Maintain `tails`, where `tails[k]` is the smallest tail of any increasing subsequence of length `k+1`. For each number, binary search for the first tail that is `>=` it. Replace that tail with the number, or extend the list if none is found. The list length is the answer, even though `tails` itself is not a valid subsequence.
+
+**Algorithm**:
+1. `size = 0`, `tails = new int[n]`.
+2. For each `x`: find `pos`, the first index in `[0, size)` with `tails[pos] >= x`. Set `tails[pos] = x`. If `pos == size`, increment `size`.
+3. Return `size`.
+
+```java
 class Solution {
     public int lengthOfLIS(int[] nums) {
         int[] tails = new int[nums.length];
         int size = 0;
         for (int x : nums) {
-            int i = 0, j = size;
-            while (i != j) {
-                int mid = (i + j) / 2;
-                if (tails[mid] < x) i = mid + 1;
-                else j = mid;
+            int lo = 0, hi = size;
+            while (lo < hi) {
+                int mid = lo + (hi - lo) / 2;
+                if (tails[mid] < x) lo = mid + 1;
+                else hi = mid;
             }
-            tails[i] = x;
-            if (i == size) size++;
+            tails[lo] = x;
+            if (lo == size) size++;
         }
         return size;
     }
@@ -8138,65 +15243,244 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
 - **NeetCode**: [Partition Equal Subset Sum](https://neetcode.io/problems/partition-equal-subset-sum)
-- **Data Structures**: Array, DP
-- **Patterns**: 0/1 Knapsack Target Sum DP
+- **Data Structures**: Array
+- **Patterns**: 0/1 Subset Sum, Boolean Knapsack
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums`, return `true` if you can partition it into two subsets whose sums are equal, and `false` otherwise.
 
-##### Approach 1: Optimised / Best (1D Boolean DP Array)
-Find if there is a subset summing to `sum / 2`.
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,5,11,5]`
+- **Output**: `true`
+- **Explanation**: `[1,5,5]` and `[11]`, both summing to `11`.
+
+**Example 2**
+- **Input**: `nums = [1,2,3,5]`
+- **Output**: `false`
+- **Explanation**: The total is odd.
+
+#### Constraints
+- `1 <= nums.length <= 200`
+- `1 <= nums[i] <= 100`
+
+#### Intuition
+If the total sum is odd, the answer is `false`. Otherwise the problem reduces to: does some subset sum to `target = total / 2`? Each element is either in that subset or not, which is a 0/1 choice, and the state is the remaining sum.
+
+---
+
+##### Approach 1: Brute Force (Include or Exclude Recursion)
+
+**Intuition**: For each element, try including it (reducing the remaining target) and excluding it.
+
+**Algorithm**:
+1. If the total is odd, return `false`. `target = total / 2`.
+2. `solve(i, rem)`: if `rem == 0`, return `true`. If `i == n` or `rem < 0`, return `false`. Otherwise return `solve(i+1, rem - nums[i]) || solve(i+1, rem)`.
+
 ```java
 class Solution {
     public boolean canPartition(int[] nums) {
-        int sum = 0;
-        for (int n : nums) sum += n;
-        if (sum % 2 != 0) return false;
-        int target = sum / 2;
+        int total = 0;
+        for (int x : nums) total += x;
+        if (total % 2 != 0) return false;
+        return solve(nums, 0, total / 2);
+    }
+
+    private boolean solve(int[] nums, int i, int rem) {
+        if (rem == 0) return true;
+        if (i == nums.length || rem < 0) return false;
+        return solve(nums, i + 1, rem - nums[i]) || solve(nums, i + 1, rem);
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoization on (Index, Remaining))
+
+**Intuition**: The state `(i, rem)` determines the outcome, so cache each pair. The table has `n * target` entries.
+
+**Algorithm**:
+1. Allocate `memo[n+1][target+1]` of `Boolean`.
+2. Compute `solve(i, rem)` with caching.
+
+```java
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int total = 0;
+        for (int x : nums) total += x;
+        if (total % 2 != 0) return false;
+        int target = total / 2;
+        Boolean[][] memo = new Boolean[nums.length + 1][target + 1];
+        return solve(nums, 0, target, memo);
+    }
+
+    private boolean solve(int[] nums, int i, int rem, Boolean[][] memo) {
+        if (rem == 0) return true;
+        if (i == nums.length || rem < 0) return false;
+        if (memo[i][rem] != null) return memo[i][rem];
+        boolean ok = solve(nums, i + 1, rem - nums[i], memo) || solve(nums, i + 1, rem, memo);
+        memo[i][rem] = ok;
+        return ok;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot \text{target})$
+- **Space Complexity**: $O(n \cdot \text{target})$
+
+---
+
+##### Approach 3: Optimised / Best (1-D Boolean DP over Sums)
+
+**Intuition**: `dp[s]` means some subset so far sums to `s`. Process each number and update `dp` from high sums to low, so that each number is used at most once. Then `dp[target]` is the answer.
+
+**Algorithm**:
+1. `dp[0] = true`, others `false`.
+2. For each `x`, for `s` from `target` down to `x`: `dp[s] |= dp[s - x]`.
+3. Return `dp[target]`.
+
+```java
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int total = 0;
+        for (int x : nums) total += x;
+        if (total % 2 != 0) return false;
+        int target = total / 2;
         boolean[] dp = new boolean[target + 1];
         dp[0] = true;
-        for (int n : nums) {
-            for (int i = target; i >= n; i--) {
-                dp[i] = dp[i] || dp[i - n];
+        for (int x : nums) {
+            for (int s = target; s >= x; s--) {
+                dp[s] = dp[s] || dp[s - x];
             }
         }
         return dp[target];
     }
 }
 ```
-- **Time Complexity**: $O(n \times \text{target})$
+- **Time Complexity**: $O(n \cdot \text{target})$
 - **Space Complexity**: $O(\text{target})$
 
 ---
 
 ## 13. 2-D Dynamic Programming
 
+Two-dimensional DP states usually depend on two indices, such as a position in a grid, or positions in two strings. Each problem shows the same progression: a plain recursive formulation, the same recursion with memoisation, and a bottom-up version that keeps only the rows it needs.
+
 ### 13.1 Unique Paths
 - **Difficulty**: Medium
 - **LeetCode**: [62. Unique Paths](https://leetcode.com/problems/unique-paths/)
-- **NeetCode**: [Unique Paths](https://neetcode.io/problems/unique-paths)
-- **Data Structures**: Matrix, DP
-- **Patterns**: Grid DP Transition ($dp[c] += dp[c-1]$)
+- **NeetCode**: [Unique Paths](https://neetcode.io/problems/count-paths)
+- **Data Structures**: Matrix
+- **Patterns**: Grid Path Counting, Rolling Row
 
-#### Solutions
+#### Problem Description
+A robot is on an `m x n` grid, starting at the top-left corner. It can only move down or right at any point, and it tries to reach the bottom-right corner. Return the number of possible unique paths.
 
-##### Approach 1: Optimised / Best (1D Row Rolling DP)
+#### Examples
+
+**Example 1**
+- **Input**: `m = 3`, `n = 7`
+- **Output**: `28`
+
+**Example 2**
+- **Input**: `m = 3`, `n = 2`
+- **Output**: `3`
+- **Explanation**: `Right, Down, Down`; `Down, Down, Right`; `Down, Right, Down`.
+
+#### Constraints
+- `1 <= m, n <= 100`
+
+#### Intuition
+The number of paths to a cell is the number of paths to the cell above plus the number to the cell on its left. Boundary cells have one way. Computing this over the grid fills the table.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Count paths from the current cell to the goal by trying both moves.
+
+**Algorithm**:
+1. If the cell is outside the grid, return `0`.
+2. If the cell is the goal, return `1`.
+3. Return `paths(r+1, c) + paths(r, c+1)`.
+
+```java
+class Solution {
+    public int uniquePaths(int m, int n) {
+        return paths(0, 0, m, n);
+    }
+
+    private int paths(int r, int c, int m, int n) {
+        if (r >= m || c >= n) return 0;
+        if (r == m - 1 && c == n - 1) return 1;
+        return paths(r + 1, c, m, n) + paths(r, c + 1, m, n);
+    }
+}
+```
+- **Time Complexity**: $O(2^{m+n})$ approximately
+- **Space Complexity**: $O(m + n)$ for recursion depth
+
+---
+
+##### Approach 2: Better (Memoization)
+
+**Intuition**: A cell's path count never changes, so store it in a 2-D table.
+
+**Algorithm**:
+1. Allocate `memo[m][n]` filled with `-1`.
+2. Compute `paths(r, c)` with caching.
+
 ```java
 import java.util.Arrays;
 
 class Solution {
     public int uniquePaths(int m, int n) {
-        int[] row = new int[n];
-        Arrays.fill(row, 1);
-        for (int r = 1; r < m; r++) {
-            for (int c = 1; c < n; c++) {
-                row[c] += row[c - 1];
-            }
-        }
-        return row[n - 1];
+        int[][] memo = new int[m][n];
+        for (int[] row : memo) Arrays.fill(row, -1);
+        return paths(0, 0, m, n, memo);
+    }
+
+    private int paths(int r, int c, int m, int n, int[][] memo) {
+        if (r >= m || c >= n) return 0;
+        if (r == m - 1 && c == n - 1) return 1;
+        if (memo[r][c] != -1) return memo[r][c];
+        memo[r][c] = paths(r + 1, c, m, n, memo) + paths(r, c + 1, m, n, memo);
+        return memo[r][c];
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 3: Optimised / Best (Single Rolling Row)
+
+**Intuition**: Each row depends only on the row above and the cell to its left. A single array representing the current row, updated left to right, is enough.
+
+**Algorithm**:
+1. `dp[j] = 1` for all `j` (the first row).
+2. For each subsequent row, for `j` from `1` to `n-1`: `dp[j] += dp[j-1]`.
+3. Return `dp[n-1]`.
+
+```java
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[] dp = new int[n];
+        java.util.Arrays.fill(dp, 1);
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[j] += dp[j - 1];
+            }
+        }
+        return dp[n - 1];
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
 
 ---
@@ -8205,35 +15489,132 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
 - **NeetCode**: [Longest Common Subsequence](https://neetcode.io/problems/longest-common-subsequence)
-- **Data Structures**: String, DP
-- **Patterns**: 2D Grid DP with Match Transition
+- **Data Structures**: String
+- **Patterns**: Two-String DP, Match or Skip
 
-#### Solutions
+#### Problem Description
+Given two strings `text1` and `text2`, return the length of their longest common subsequence. A subsequence is formed by deleting some or no characters without changing the order of the rest. If there is no common subsequence, return `0`.
 
-##### Approach 1: Optimised / Best (Space-Optimized Two Rows DP)
+#### Examples
+
+**Example 1**
+- **Input**: `text1 = "abcde"`, `text2 = "ace"`
+- **Output**: `3`
+- **Explanation**: `"ace"`.
+
+**Example 2**
+- **Input**: `text1 = "abc"`, `text2 = "abc"`
+- **Output**: `3`
+
+**Example 3**
+- **Input**: `text1 = "abc"`, `text2 = "def"`
+- **Output**: `0`
+
+#### Constraints
+- `1 <= text1.length, text2.length <= 1000`
+- Both strings consist of lowercase English letters.
+
+#### Intuition
+Compare the first characters. If they match, that character belongs to an optimal subsequence, so take it and solve the rest. If not, one of them must be skipped, so take the better of the two options. The state is a pair of indices.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Apply the match-or-skip rule from the start of both strings.
+
+**Algorithm**:
+1. If either index reaches the end, return `0`.
+2. If the characters match, return `1 + lcs(i+1, j+1)`.
+3. Otherwise return `max(lcs(i+1, j), lcs(i, j+1))`.
+
+```java
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        return lcs(text1, text2, 0, 0);
+    }
+
+    private int lcs(String a, String b, int i, int j) {
+        if (i == a.length() || j == b.length()) return 0;
+        if (a.charAt(i) == b.charAt(j)) return 1 + lcs(a, b, i + 1, j + 1);
+        return Math.max(lcs(a, b, i + 1, j), lcs(a, b, i, j + 1));
+    }
+}
+```
+- **Time Complexity**: $O(2^{m+n})$ approximately
+- **Space Complexity**: $O(m + n)$
+
+---
+
+##### Approach 2: Better (Memoization)
+
+**Intuition**: `lcs(i, j)` depends only on `(i, j)`, so cache it in a table.
+
+**Algorithm**:
+1. Allocate `memo[m][n]` filled with `-1`.
+2. Compute `lcs(i, j)` with caching.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int[][] memo = new int[text1.length()][text2.length()];
+        for (int[] row : memo) Arrays.fill(row, -1);
+        return lcs(text1, text2, 0, 0, memo);
+    }
+
+    private int lcs(String a, String b, int i, int j, int[][] memo) {
+        if (i == a.length() || j == b.length()) return 0;
+        if (memo[i][j] != -1) return memo[i][j];
+        if (a.charAt(i) == b.charAt(j)) {
+            memo[i][j] = 1 + lcs(a, b, i + 1, j + 1, memo);
+        } else {
+            memo[i][j] = Math.max(lcs(a, b, i + 1, j, memo), lcs(a, b, i, j + 1, memo));
+        }
+        return memo[i][j];
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up with Two Rows)
+
+**Intuition**: Row `i` of the table depends only on row `i+1` and the current row. Keep two rows of length `n+1`, and roll them.
+
+**Algorithm**:
+1. `prev` and `cur` are arrays of length `n + 1`, all zero.
+2. For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:
+   - If `a[i] == b[j]`, `cur[j] = 1 + prev[j+1]`.
+   - Otherwise `cur[j] = max(prev[j], cur[j+1])`.
+3. Swap `prev` and `cur` after each row.
+4. Return `prev[0]`.
+
 ```java
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
         int m = text1.length(), n = text2.length();
-        int[] prev = new int[n + 1];
-        int[] curr = new int[n + 1];
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
-                    curr[j] = 1 + prev[j - 1];
+        int[] prev = new int[n + 1], cur = new int[n + 1];
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                if (text1.charAt(i) == text2.charAt(j)) {
+                    cur[j] = 1 + prev[j + 1];
                 } else {
-                    curr[j] = Math.max(prev[j], curr[j - 1]);
+                    cur[j] = Math.max(prev[j], cur[j + 1]);
                 }
             }
-            int[] temp = prev;
-            prev = curr;
-            curr = temp;
+            int[] tmp = prev;
+            prev = cur;
+            cur = tmp;
         }
-        return prev[n];
+        return prev[0];
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
 
 ---
@@ -8242,23 +15623,131 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [309. Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
 - **NeetCode**: [Buy and Sell Crypto with Cooldown](https://neetcode.io/problems/buy-and-sell-crypto-with-cooldown)
-- **Data Structures**: Array, DP State Machine
-- **Patterns**: State Machine DP (Held, Sold, Reset)
+- **Data Structures**: Array
+- **Patterns**: State Machine DP (Holding, Sold, Resting)
 
-#### Solutions
+#### Problem Description
+You are given an array `prices` where `prices[i]` is the price of a stock on day `i`. You may complete as many transactions as you like, with these constraints:
+- You must sell the stock before buying again.
+- After you sell, you cannot buy on the next day (one day of cooldown).
 
-##### Approach 1: Optimised / Best (State Machine with 3 Variables)
+Return the maximum profit.
+
+#### Examples
+
+**Example 1**
+- **Input**: `prices = [1,2,3,0,2]`
+- **Output**: `3`
+- **Explanation**: Buy at 1, sell at 2, cooldown, buy at 0, sell at 2.
+
+**Example 2**
+- **Input**: `prices = [1]`
+- **Output**: `0`
+
+#### Constraints
+- `1 <= prices.length <= 5000`
+- `0 <= prices[i] <= 1000`
+
+#### Intuition
+At each day, you are in one of three states: holding a stock, having just sold (so cooling down tomorrow), or resting (free to buy). Each state transitions to others with a known profit change. A three-state machine captures every valid sequence of actions.
+
+---
+
+##### Approach 1: Brute Force (Recursion over Day and State)
+
+**Intuition**: From each day and state, try every legal action and recurse.
+
+**Algorithm**:
+1. States: `0` free, `1` holding, `2` cooldown.
+2. `f(i, s)`: if `i >= n`, return `0`.
+   - Free: `max(f(i+1, 0), -p[i] + f(i+1, 1))`.
+   - Holding: `max(f(i+1, 1), p[i] + f(i+1, 2))`.
+   - Cooldown: `f(i+1, 0)`.
+
 ```java
 class Solution {
     public int maxProfit(int[] prices) {
-        int sold = 0, held = Integer.MIN_VALUE, reset = 0;
-        for (int price : prices) {
-            int prevSold = sold;
-            sold = held + price;
-            held = Math.max(held, reset - price);
-            reset = Math.max(reset, prevSold);
+        return f(prices, 0, 0);
+    }
+
+    private int f(int[] p, int i, int state) {
+        if (i >= p.length) return 0;
+        if (state == 0) return Math.max(f(p, i + 1, 0), -p[i] + f(p, i + 1, 1));
+        if (state == 1) return Math.max(f(p, i + 1, 1), p[i] + f(p, i + 1, 2));
+        return f(p, i + 1, 0);
+    }
+}
+```
+- **Time Complexity**: $O(2^n)$ in the worst case without the state reuse
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoization on Day and State)
+
+**Intuition**: `f(i, s)` has only `3n` distinct states, so cache them.
+
+**Algorithm**:
+1. Allocate `memo[n][3]` filled with `-1`.
+2. Compute `f(i, s)` with caching, using the same transitions.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int[][] memo = new int[prices.length][3];
+        for (int[] row : memo) Arrays.fill(row, -1);
+        return f(prices, 0, 0, memo);
+    }
+
+    private int f(int[] p, int i, int state, int[][] memo) {
+        if (i >= p.length) return 0;
+        if (memo[i][state] != -1) return memo[i][state];
+        int res;
+        if (state == 0) {
+            res = Math.max(f(p, i + 1, 0, memo), -p[i] + f(p, i + 1, 1, memo));
+        } else if (state == 1) {
+            res = Math.max(f(p, i + 1, 1, memo), p[i] + f(p, i + 1, 2, memo));
+        } else {
+            res = f(p, i + 1, 0, memo);
         }
-        return Math.max(sold, reset);
+        memo[i][state] = res;
+        return res;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised / Best (Rolling Three Variables)
+
+**Intuition**: Process days forward. Each day needs only the previous day's three state values, so three variables suffice.
+
+**Algorithm**:
+1. `hold = -p[0]`, `sold = 0`, `rest = 0`.
+2. For each later day with price `x`:
+   - `newHold = max(hold, rest - x)`
+   - `newSold = hold + x`
+   - `newRest = max(rest, sold)`
+3. Return `max(sold, rest)`.
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int hold = -prices[0], sold = 0, rest = 0;
+        for (int i = 1; i < prices.length; i++) {
+            int x = prices[i];
+            int newHold = Math.max(hold, rest - x);
+            int newSold = hold + x;
+            int newRest = Math.max(rest, sold);
+            hold = newHold;
+            sold = newSold;
+            rest = newRest;
+        }
+        return Math.max(sold, rest);
     }
 }
 ```
@@ -8271,28 +15760,120 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [518. Coin Change II](https://leetcode.com/problems/coin-change-ii/)
 - **NeetCode**: [Coin Change II](https://neetcode.io/problems/coin-change-ii)
-- **Data Structures**: Array, DP
-- **Patterns**: Unbounded Knapsack Combinations
+- **Data Structures**: Array
+- **Patterns**: Unbounded Knapsack Counting
 
-#### Solutions
+#### Problem Description
+You are given an integer array `coins` representing coins of different denominations and an integer `amount`. Return the number of combinations that make up that amount. If that amount cannot be made, return `0`. You have an infinite number of each coin. Combinations are unordered.
 
-##### Approach 1: Optimised / Best (1D Rolling DP Iterating Coins First)
-Iterating coins outer loop ensures distinct combinations without permutations.
+#### Examples
+
+**Example 1**
+- **Input**: `amount = 5`, `coins = [1,2,5]`
+- **Output**: `4`
+- **Explanation**: `5`, `2+2+1`, `2+1+1+1`, `1+1+1+1+1`.
+
+**Example 2**
+- **Input**: `amount = 3`, `coins = [2]`
+- **Output**: `0`
+
+**Example 3**
+- **Input**: `amount = 10`, `coins = [10]`
+- **Output**: `1`
+
+#### Constraints
+- `1 <= coins.length <= 300`
+- `1 <= coins[i] <= 5000`
+- All coin values are unique.
+- `0 <= amount <= 5000`
+
+#### Intuition
+Order does not matter, so the coins must be considered in a fixed sequence. For each coin index `i` and remaining amount, either use coin `i` again (staying at index `i`), or move on to the next coin. Counting these paths gives the number of combinations.
+
+---
+
+##### Approach 1: Brute Force (Recursion over Coin Index and Amount)
+
+**Intuition**: At each coin, use it once more or skip to the next denomination.
+
+**Algorithm**:
+1. `ways(i, rem)`: if `rem == 0`, return `1`. If `i == n` or `rem < 0`, return `0`.
+2. Return `ways(i, rem - coins[i]) + ways(i + 1, rem)`.
+
+```java
+class Solution {
+    public int change(int amount, int[] coins) {
+        return ways(coins, 0, amount);
+    }
+
+    private int ways(int[] coins, int i, int rem) {
+        if (rem == 0) return 1;
+        if (i == coins.length || rem < 0) return 0;
+        return ways(coins, i, rem - coins[i]) + ways(coins, i + 1, rem);
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(\text{amount})$ for recursion depth
+
+---
+
+##### Approach 2: Better (Memoization on Index and Remaining)
+
+**Intuition**: The state `(i, rem)` fully determines the count, so cache it.
+
+**Algorithm**:
+1. Allocate `memo[n+1][amount+1]` filled with `-1`.
+2. Compute `ways(i, rem)` with caching.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int change(int amount, int[] coins) {
+        int[][] memo = new int[coins.length + 1][amount + 1];
+        for (int[] row : memo) Arrays.fill(row, -1);
+        return ways(coins, 0, amount, memo);
+    }
+
+    private int ways(int[] coins, int i, int rem, int[][] memo) {
+        if (rem == 0) return 1;
+        if (i == coins.length || rem < 0) return 0;
+        if (memo[i][rem] != -1) return memo[i][rem];
+        memo[i][rem] = ways(coins, i, rem - coins[i], memo) + ways(coins, i + 1, rem, memo);
+        return memo[i][rem];
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot \text{amount})$
+- **Space Complexity**: $O(n \cdot \text{amount})$
+
+---
+
+##### Approach 3: Optimised / Best (1-D Unbounded Knapsack Table)
+
+**Intuition**: Process coins one at a time. For each coin, iterate amounts upward, so `dp[s - c]` already includes uses of coin `c`. This allows unlimited reuse. The order of loops means each combination is counted once, regardless of order.
+
+**Algorithm**:
+1. `dp[0] = 1`, others `0`.
+2. For each coin `c`, for `s` from `c` to `amount`: `dp[s] += dp[s - c]`.
+3. Return `dp[amount]`.
+
 ```java
 class Solution {
     public int change(int amount, int[] coins) {
         int[] dp = new int[amount + 1];
         dp[0] = 1;
-        for (int coin : coins) {
-            for (int i = coin; i <= amount; i++) {
-                dp[i] += dp[i - coin];
+        for (int c : coins) {
+            for (int s = c; s <= amount; s++) {
+                dp[s] += dp[s - c];
             }
         }
         return dp[amount];
     }
 }
 ```
-- **Time Complexity**: $O(\text{amount} \times \text{coins.length})$
+- **Time Complexity**: $O(n \cdot \text{amount})$
 - **Space Complexity**: $O(\text{amount})$
 
 ---
@@ -8301,33 +15882,125 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [494. Target Sum](https://leetcode.com/problems/target-sum/)
 - **NeetCode**: [Target Sum](https://neetcode.io/problems/target-sum)
-- **Data Structures**: Array, DP
-- **Patterns**: Subset Sum Mathematical Reduction
+- **Data Structures**: Array
+- **Patterns**: Sign Assignment, Subset Sum Reduction
 
-#### Solutions
+#### Problem Description
+You are given an integer array `nums` and an integer `target`. You want to build an expression by assigning either `+` or `-` before each integer in `nums`, and concatenating them. Return the number of different expressions that evaluate to `target`.
 
-##### Approach 1: Optimised / Best (Reduction to Subset Sum)
-Let $P$ be positive set and $N$ be negative set. $P - N = \text{target} \implies 2P = \text{target} + \text{totalSum}$.
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,1,1,1,1]`, `target = 3`
+- **Output**: `5`
+- **Explanation**: There are five ways to assign signs that sum to 3.
+
+**Example 2**
+- **Input**: `nums = [1]`, `target = 1`
+- **Output**: `1`
+
+#### Constraints
+- `1 <= nums.length <= 20`
+- `0 <= nums[i] <= 1000`
+- `0 <= sum(nums) <= 1000`
+- `-1000 <= target <= 1000`
+
+#### Intuition
+Let `P` be the set of numbers with `+` and `N` the rest. Then `sum(P) - sum(N) = target`, and `sum(P) + sum(N) = total`. Adding gives `sum(P) = (total + target) / 2`. So the problem becomes counting subsets that sum to `(total + target) / 2`, which is a knapsack count. If the value is not a non-negative integer, the answer is `0`.
+
+---
+
+##### Approach 1: Brute Force (Recursion over Signs)
+
+**Intuition**: Try `+` and `-` for each number and count the results that match the target.
+
+**Algorithm**:
+1. `count(i, sum)`: if `i == n`, return `1` if `sum == target`, else `0`.
+2. Return `count(i+1, sum + nums[i]) + count(i+1, sum - nums[i])`.
+
 ```java
 class Solution {
     public int findTargetSumWays(int[] nums, int target) {
-        int sum = 0;
-        for (int n : nums) sum += n;
-        if (Math.abs(target) > sum || (sum + target) % 2 != 0) return 0;
-        int subsetSum = (sum + target) / 2;
-        int[] dp = new int[subsetSum + 1];
-        dp[0] = 1;
-        for (int n : nums) {
-            for (int i = subsetSum; i >= n; i--) {
-                dp[i] += dp[i - n];
-            }
-        }
-        return dp[subsetSum];
+        return count(nums, 0, 0, target);
+    }
+
+    private int count(int[] nums, int i, int sum, int target) {
+        if (i == nums.length) return sum == target ? 1 : 0;
+        return count(nums, i + 1, sum + nums[i], target) + count(nums, i + 1, sum - nums[i], target);
     }
 }
 ```
-- **Time Complexity**: $O(n \times \text{subsetSum})$
-- **Space Complexity**: $O(\text{subsetSum})$
+- **Time Complexity**: $O(2^n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoization on Index and Running Sum)
+
+**Intuition**: The count from `(i, sum)` is fixed, so cache it. Sums range over `[-total, total]`, so offset them to use an array.
+
+**Algorithm**:
+1. Let `total = sum(nums)`. Allocate `memo[n][2*total+1]` filled with `-1`.
+2. Compute `count(i, sum)` with caching, indexing by `sum + total`.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int total = 0;
+        for (int x : nums) total += x;
+        if (Math.abs(target) > total) return 0;
+        int[][] memo = new int[nums.length][2 * total + 1];
+        for (int[] row : memo) Arrays.fill(row, -1);
+        return count(nums, 0, 0, target, total, memo);
+    }
+
+    private int count(int[] nums, int i, int sum, int target, int total, int[][] memo) {
+        if (i == nums.length) return sum == target ? 1 : 0;
+        int idx = sum + total;
+        if (memo[i][idx] != -1) return memo[i][idx];
+        memo[i][idx] = count(nums, i + 1, sum + nums[i], target, total, memo)
+                     + count(nums, i + 1, sum - nums[i], target, total, memo);
+        return memo[i][idx];
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot \text{total})$
+- **Space Complexity**: $O(n \cdot \text{total})$
+
+---
+
+##### Approach 3: Optimised / Best (Subset-Sum Counting with 1-D Table)
+
+**Intuition**: Reduce to counting subsets that sum to `P = (total + target) / 2`. Use a 1-D table where `dp[s]` is the number of subsets with sum `s`. Iterate sums downward so each number is used at most once. A zero value doubles the count at `dp[s]` for each `s`, correctly handling both choices for that zero.
+
+**Algorithm**:
+1. If `|target| > total` or `(total + target)` is odd, return `0`.
+2. `P = (total + target) / 2`. `dp[0] = 1`.
+3. For each `x`, for `s` from `P` down to `x`: `dp[s] += dp[s - x]`.
+4. Return `dp[P]`.
+
+```java
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int total = 0;
+        for (int x : nums) total += x;
+        if (Math.abs(target) > total || (total + target) % 2 != 0) return 0;
+        int P = (total + target) / 2;
+        int[] dp = new int[P + 1];
+        dp[0] = 1;
+        for (int x : nums) {
+            for (int s = P; s >= x; s--) {
+                dp[s] += dp[s - x];
+            }
+        }
+        return dp[P];
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot P)$
+- **Space Complexity**: $O(P)$
 
 ---
 
@@ -8335,33 +16008,139 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [97. Interleaving String](https://leetcode.com/problems/interleaving-string/)
 - **NeetCode**: [Interleaving String](https://neetcode.io/problems/interleaving-string)
-- **Data Structures**: String, DP
-- **Patterns**: 2D Grid DP Traversal
+- **Data Structures**: String
+- **Patterns**: Two-Pointer DP, Consume From Either Source
 
-#### Solutions
+#### Problem Description
+Given strings `s1`, `s2`, and `s3`, return `true` if `s3` is formed by an interleaving of `s1` and `s2`. An interleaving keeps the relative order of characters from each string, and together they use every character of `s1`, `s2`, and `s3`.
 
-##### Approach 1: Optimised / Best (Space-Optimized 1D Row DP)
+#### Examples
+
+**Example 1**
+- **Input**: `s1 = "aabcc"`, `s2 = "dbbca"`, `s3 = "aadbbcbcac"`
+- **Output**: `true`
+
+**Example 2**
+- **Input**: `s1 = "aabcc"`, `s2 = "dbbca"`, `s3 = "aadbbbaccc"`
+- **Output**: `false`
+
+**Example 3**
+- **Input**: `s1 = ""`, `s2 = ""`, `s3 = ""`
+- **Output**: `true`
+
+#### Constraints
+- `0 <= s1.length, s2.length <= 100`
+- `0 <= s3.length <= 200`
+- All strings consist of lowercase English letters.
+
+#### Intuition
+Let `(i, j)` be how many characters of `s1` and `s2` have been used. Then `i + j` characters of `s3` have been matched. The next character of `s3` must come from `s1[i]` or `s2[j]`. This is a reachability question over the grid of `(i, j)` states.
+
+---
+
+##### Approach 1: Brute Force (Recursion over Both Positions)
+
+**Intuition**: At each state, try to consume the next character from `s1` or from `s2`.
+
+**Algorithm**:
+1. If `i == m` and `j == n`, return `true`.
+2. `k = i + j`. If `s1[i] == s3[k]` and `solve(i+1, j)`, return `true`.
+3. If `s2[j] == s3[k]` and `solve(i, j+1)`, return `true`.
+4. Return `false`.
+
 ```java
 class Solution {
     public boolean isInterleave(String s1, String s2, String s3) {
         if (s1.length() + s2.length() != s3.length()) return false;
-        boolean[] dp = new boolean[s2.length() + 1];
-        dp[0] = true;
-        for (int j = 1; j <= s2.length(); j++) {
-            dp[j] = dp[j - 1] && s2.charAt(j - 1) == s3.charAt(j - 1);
-        }
-        for (int i = 1; i <= s1.length(); i++) {
-            dp[0] = dp[0] && s1.charAt(i - 1) == s3.charAt(i - 1);
-            for (int j = 1; j <= s2.length(); j++) {
-                char c = s3.charAt(i + j - 1);
-                dp[j] = (dp[j] && s1.charAt(i - 1) == c) || (dp[j - 1] && s2.charAt(j - 1) == c);
-            }
-        }
-        return dp[s2.length()];
+        return solve(s1, s2, s3, 0, 0);
+    }
+
+    private boolean solve(String s1, String s2, String s3, int i, int j) {
+        if (i == s1.length() && j == s2.length()) return true;
+        int k = i + j;
+        if (i < s1.length() && s1.charAt(i) == s3.charAt(k) && solve(s1, s2, s3, i + 1, j)) return true;
+        if (j < s2.length() && s2.charAt(j) == s3.charAt(k) && solve(s1, s2, s3, i, j + 1)) return true;
+        return false;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(2^{m+n})$ in the worst case
+- **Space Complexity**: $O(m + n)$
+
+---
+
+##### Approach 2: Better (Memoization on (i, j))
+
+**Intuition**: The outcome from `(i, j)` is fixed, so cache it in a 2-D table.
+
+**Algorithm**:
+1. Allocate `memo[m+1][n+1]` of `Boolean`.
+2. Compute `solve(i, j)` with caching.
+
+```java
+class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        if (s1.length() + s2.length() != s3.length()) return false;
+        Boolean[][] memo = new Boolean[s1.length() + 1][s2.length() + 1];
+        return solve(s1, s2, s3, 0, 0, memo);
+    }
+
+    private boolean solve(String s1, String s2, String s3, int i, int j, Boolean[][] memo) {
+        if (i == s1.length() && j == s2.length()) return true;
+        if (memo[i][j] != null) return memo[i][j];
+        int k = i + j;
+        boolean ok = false;
+        if (i < s1.length() && s1.charAt(i) == s3.charAt(k)) {
+            ok = solve(s1, s2, s3, i + 1, j, memo);
+        }
+        if (!ok && j < s2.length() && s2.charAt(j) == s3.charAt(k)) {
+            ok = solve(s1, s2, s3, i, j + 1, memo);
+        }
+        memo[i][j] = ok;
+        return ok;
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up with One Row)
+
+**Intuition**: `dp[i][j]` depends on `dp[i-1][j]` and `dp[i][j-1]`. Process rows in order and keep only one array, which is updated in place as `j` increases.
+
+**Algorithm**:
+1. If the lengths do not add up, return `false`.
+2. `dp[j]` is `true` if the first `i` characters of `s1` and `j` characters of `s2` interleave to form `s3[0..i+j)`.
+3. For each `i` from `0` to `m`, and `j` from `0` to `n`:
+   - `dp[0]` for `i == 0` is `true`.
+   - `dp[j] = (i > 0 && dp[j] && s1[i-1] == s3[i+j-1]) || (j > 0 && dp[j-1] && s2[j-1] == s3[i+j-1])`.
+4. Return `dp[n]`.
+
+```java
+class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        int m = s1.length(), n = s2.length();
+        if (m + n != s3.length()) return false;
+        boolean[] dp = new boolean[n + 1];
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 && j == 0) {
+                    dp[0] = true;
+                    continue;
+                }
+                int k = i + j - 1;
+                boolean fromTop = i > 0 && dp[j] && s1.charAt(i - 1) == s3.charAt(k);
+                boolean fromLeft = j > 0 && dp[j - 1] && s2.charAt(j - 1) == s3.charAt(k);
+                dp[j] = fromTop || fromLeft;
+            }
+        }
+        return dp[n];
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
 
 ---
@@ -8369,115 +16148,434 @@ class Solution {
 ### 13.7 Longest Increasing Path in a Matrix
 - **Difficulty**: Hard
 - **LeetCode**: [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
-- **NeetCode**: [Longest Increasing Path in Matrix](https://neetcode.io/problems/longest-increasing-path-in-matrix)
-- **Data Structures**: Matrix, DFS with Memoization
-- **Patterns**: DFS + Memoization (DAG Traversal)
+- **NeetCode**: [Longest Increasing Path](https://neetcode.io/problems/longest-increasing-path)
+- **Data Structures**: Matrix, Graph
+- **Patterns**: DAG Longest Path, Memoized DFS, Topological Layers
 
-#### Solutions
+#### Problem Description
+Given an `m x n` integers matrix, return the length of the longest strictly increasing path in the matrix. From each cell you may move to its four neighbours (up, down, left, right), but not diagonally or outside the matrix.
 
-##### Approach 1: Optimised / Best (DFS with Memoization)
-Since path is strictly increasing, cycles are impossible; the grid forms a DAG.
+#### Examples
+
+**Example 1**
+- **Input**: `matrix = [[9,9,4],[6,6,8],[2,1,1]]`
+- **Output**: `4`
+- **Explanation**: `[1, 2, 6, 9]`.
+
+**Example 2**
+- **Input**: `matrix = [[3,4,5],[3,2,6],[2,2,1]]`
+- **Output**: `4`
+- **Explanation**: `[3, 4, 5, 6]`.
+
+**Example 3**
+- **Input**: `matrix = [[1]]`
+- **Output**: `1`
+
+#### Constraints
+- `m == matrix.length`, `n == matrix[i].length`
+- `1 <= m, n <= 200`
+- `0 <= matrix[i][j] <= 2^31 - 1`
+
+#### Intuition
+Moving only to strictly larger neighbours means no cycles, so the matrix is a directed acyclic graph. The longest path starting at a cell is one plus the longest path from its best larger neighbour. Two ways to compute this: memoised DFS from each cell, or Kahn-style layering from the local minima, which counts the number of layers.
+
+---
+
+##### Approach 1: Brute Force (DFS from Every Cell, No Cache)
+
+**Intuition**: From each cell, explore all increasing paths and track the longest. Each path is recomputed many times.
+
+**Algorithm**:
+1. For each cell, call `dfs(r, c, prev)`, which moves to neighbours with larger values.
+2. Return `1` plus the best of its neighbours' paths, or `1` if none.
+
 ```java
 class Solution {
-    private int[][] memo;
-    private int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
 
     public int longestIncreasingPath(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        memo = new int[m][n];
-        int maxLen = 0;
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                maxLen = Math.max(maxLen, dfs(matrix, r, c));
+        int best = 0;
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[0].length; c++) {
+                best = Math.max(best, dfs(matrix, r, c));
             }
         }
-        return maxLen;
+        return best;
     }
 
-    private int dfs(int[][] matrix, int r, int c) {
-        if (memo[r][c] != 0) return memo[r][c];
-        int max = 1;
-        for (int[] d : dirs) {
+    private int dfs(int[][] mat, int r, int c) {
+        int best = 1;
+        for (int[] d : DIRS) {
             int nr = r + d[0], nc = c + d[1];
-            if (nr >= 0 && nr < matrix.length && nc >= 0 && nc < matrix[0].length && matrix[nr][nc] > matrix[r][c]) {
-                max = Math.max(max, 1 + dfs(matrix, nr, nc));
+            if (nr < 0 || nc < 0 || nr >= mat.length || nc >= mat[0].length) continue;
+            if (mat[nr][nc] > mat[r][c]) {
+                best = Math.max(best, 1 + dfs(mat, nr, nc));
             }
         }
-        return memo[r][c] = max;
+        return best;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(mn)$ for recursion
+
+---
+
+##### Approach 2: Better (Memoized DFS)
+
+**Intuition**: The longest path starting at a cell is fixed, so cache it. Each cell is then expanded once.
+
+**Algorithm**:
+1. Allocate `memo[m][n]` filled with `0` (unknown).
+2. `dfs(r, c)`: return the cached value if non-zero. Otherwise compute from larger neighbours and store the result.
+
+```java
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public int longestIncreasingPath(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int[][] memo = new int[m][n];
+        int best = 0;
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                best = Math.max(best, dfs(matrix, r, c, memo));
+            }
+        }
+        return best;
+    }
+
+    private int dfs(int[][] mat, int r, int c, int[][] memo) {
+        if (memo[r][c] != 0) return memo[r][c];
+        int best = 1;
+        for (int[] d : DIRS) {
+            int nr = r + d[0], nc = c + d[1];
+            if (nr < 0 || nc < 0 || nr >= mat.length || nc >= mat[0].length) continue;
+            if (mat[nr][nc] > mat[r][c]) {
+                best = Math.max(best, 1 + dfs(mat, nr, nc, memo));
+            }
+        }
+        memo[r][c] = best;
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 3: Optimised / Best (Kahn Layering from Local Minima)
+
+**Intuition**: Treat each edge as pointing from a smaller cell to a larger neighbour. A cell's indegree is the number of smaller neighbours. Cells with indegree zero are local minima. Remove them layer by layer, as in a topological sort. The number of layers equals the longest increasing path length.
+
+**Algorithm**:
+1. For each cell, `indeg` = number of neighbours with a smaller value.
+2. Enqueue all cells with `indeg == 0`.
+3. While the queue is non-empty: count one layer. Process the current layer, and for each larger neighbour, decrement its indegree and enqueue it when it reaches zero.
+4. Return the number of layers.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public int longestIncreasingPath(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int[][] indeg = new int[m][n];
+        Queue<int[]> q = new ArrayDeque<>();
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                for (int[] d : DIRS) {
+                    int nr = r + d[0], nc = c + d[1];
+                    if (nr >= 0 && nc >= 0 && nr < m && nc < n && matrix[nr][nc] < matrix[r][c]) {
+                        indeg[r][c]++;
+                    }
+                }
+                if (indeg[r][c] == 0) q.offer(new int[]{r, c});
+            }
+        }
+        int layers = 0;
+        while (!q.isEmpty()) {
+            layers++;
+            for (int size = q.size(); size > 0; size--) {
+                int[] cur = q.poll();
+                for (int[] d : DIRS) {
+                    int nr = cur[0] + d[0], nc = cur[1] + d[1];
+                    if (nr < 0 || nc < 0 || nr >= m || nc >= n) continue;
+                    if (matrix[nr][nc] > matrix[cur[0]][cur[1]] && --indeg[nr][nc] == 0) {
+                        q.offer(new int[]{nr, nc});
+                    }
+                }
+            }
+        }
+        return layers;
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
 
 ---
 
 ### 13.8 Distinct Subsequences
 - **Difficulty**: Hard
 - **LeetCode**: [115. Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)
-- **NeetCode**: [Count Subsequences](https://neetcode.io/problems/count-subsequences)
-- **Data Structures**: String, DP
-- **Patterns**: 2D Subsequence Matching DP
+- **NeetCode**: [Distinct Subsequences](https://neetcode.io/problems/distinct-subsequences)
+- **Data Structures**: String
+- **Patterns**: Subsequence Counting, Match or Skip
 
-#### Solutions
+#### Problem Description
+Given two strings `s` and `t`, return the number of distinct subsequences of `s` which equal `t`. A subsequence is formed by deleting some or no characters without reordering the rest.
 
-##### Approach 1: Optimised / Best (1D Space-Optimized DP)
+#### Examples
+
+**Example 1**
+- **Input**: `s = "rabbbit"`, `t = "rabbit"`
+- **Output**: `3`
+- **Explanation**: Three ways to delete one of the three `b`s and keep the rest.
+
+**Example 2**
+- **Input**: `s = "babgbag"`, `t = "bag"`
+- **Output**: `5`
+
+#### Constraints
+- `1 <= s.length, t.length <= 1000`
+- `s` and `t` consist of English letters.
+
+#### Intuition
+Count the ways `t[j..]` can be formed from `s[i..]`. If `s[i] == t[j]`, you may match them (moving both forward) or skip `s[i]` (moving only `i`). If they differ, you must skip `s[i]`. Counting these choices gives the answer.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Apply the match-or-skip rule directly.
+
+**Algorithm**:
+1. If `j == m`, return `1` (all of `t` matched).
+2. If `i == n`, return `0`.
+3. If `s[i] == t[j]`, return `count(i+1, j+1) + count(i+1, j)`. Otherwise return `count(i+1, j)`.
+
 ```java
 class Solution {
     public int numDistinct(String s, String t) {
-        int m = s.length(), n = t.length();
-        int[] dp = new int[n + 1];
-        dp[0] = 1;
-        for (int i = 1; i <= m; i++) {
-            for (int j = n; j >= 1; j--) {
-                if (s.charAt(i - 1) == t.charAt(j - 1)) {
-                    dp[j] += dp[j - 1];
-                }
-            }
-        }
-        return dp[n];
+        return count(s, t, 0, 0);
+    }
+
+    private int count(String s, String t, int i, int j) {
+        if (j == t.length()) return 1;
+        if (i == s.length()) return 0;
+        int res = count(s, t, i + 1, j);
+        if (s.charAt(i) == t.charAt(j)) res += count(s, t, i + 1, j + 1);
+        return res;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(n)$
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(n + m)$ for recursion
+
+---
+
+##### Approach 2: Better (Memoization on (i, j))
+
+**Intuition**: The count from `(i, j)` is fixed, so cache it.
+
+**Algorithm**:
+1. Allocate `memo[n+1][m+1]` filled with `-1`.
+2. Compute `count(i, j)` with caching.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int numDistinct(String s, String t) {
+        int[][] memo = new int[s.length() + 1][t.length() + 1];
+        for (int[] row : memo) Arrays.fill(row, -1);
+        return count(s, t, 0, 0, memo);
+    }
+
+    private int count(String s, String t, int i, int j, int[][] memo) {
+        if (j == t.length()) return 1;
+        if (i == s.length()) return 0;
+        if (memo[i][j] != -1) return memo[i][j];
+        int res = count(s, t, i + 1, j, memo);
+        if (s.charAt(i) == t.charAt(j)) res += count(s, t, i + 1, j + 1, memo);
+        memo[i][j] = res;
+        return res;
+    }
+}
+```
+- **Time Complexity**: $O(nm)$
+- **Space Complexity**: $O(nm)$
+
+---
+
+##### Approach 3: Optimised / Best (1-D Table over Prefixes of t)
+
+**Intuition**: Let `dp[j]` be the number of ways to form `t[0..j)` from the characters of `s` processed so far. When a character `c` of `s` is read, it can extend every prefix of `t` that ends in `c`. Iterate `j` downward so each character of `s` is used at most once per update.
+
+**Algorithm**:
+1. `dp[0] = 1`, others `0`.
+2. For each `c` in `s`, for `j` from `m` down to `1`: if `c == t[j-1]`, `dp[j] += dp[j-1]`.
+3. Return `dp[m]`.
+
+```java
+class Solution {
+    public int numDistinct(String s, String t) {
+        int m = t.length();
+        int[] dp = new int[m + 1];
+        dp[0] = 1;
+        for (char c : s.toCharArray()) {
+            for (int j = m; j >= 1; j--) {
+                if (c == t.charAt(j - 1)) dp[j] += dp[j - 1];
+            }
+        }
+        return dp[m];
+    }
+}
+```
+- **Time Complexity**: $O(nm)$
+- **Space Complexity**: $O(m)$
 
 ---
 
 ### 13.9 Edit Distance
-- **Difficulty**: Medium
+- **Difficulty**: Hard
 - **LeetCode**: [72. Edit Distance](https://leetcode.com/problems/edit-distance/)
 - **NeetCode**: [Edit Distance](https://neetcode.io/problems/edit-distance)
-- **Data Structures**: String, DP
-- **Patterns**: Classic Levenshtein Distance DP
+- **Data Structures**: String
+- **Patterns**: Levenshtein DP, Insert/Delete/Replace
 
-#### Solutions
+#### Problem Description
+Given two strings `word1` and `word2`, return the minimum number of operations required to convert `word1` into `word2`. The allowed operations are insert a character, delete a character, or replace a character.
 
-##### Approach 1: Optimised / Best (1D Row Rolling DP)
+#### Examples
+
+**Example 1**
+- **Input**: `word1 = "horse"`, `word2 = "ros"`
+- **Output**: `3`
+- **Explanation**: `horse -> rorse -> rose -> ros`.
+
+**Example 2**
+- **Input**: `word1 = "intention"`, `word2 = "execution"`
+- **Output**: `5`
+
+#### Constraints
+- `0 <= word1.length, word2.length <= 500`
+- Both strings consist of lowercase English letters.
+
+#### Intuition
+Compare the last characters. If they match, no operation is needed for them, so solve the prefixes. If not, one operation fixes the last position: insert (advance `word2`), delete (advance `word1`), or replace (advance both). Take the cheapest. Base cases: converting an empty prefix costs the length of the other.
+
+---
+
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Apply the recurrence from the full strings down to the empty prefixes.
+
+**Algorithm**:
+1. If `i == m`, return `n - j`. If `j == n`, return `m - i`.
+2. If `word1[i] == word2[j]`, return `solve(i+1, j+1)`.
+3. Otherwise return `1 + min(solve(i+1, j), solve(i, j+1), solve(i+1, j+1))`.
+
+```java
+class Solution {
+    public int minDistance(String word1, String word2) {
+        return solve(word1, word2, 0, 0);
+    }
+
+    private int solve(String a, String b, int i, int j) {
+        if (i == a.length()) return b.length() - j;
+        if (j == b.length()) return a.length() - i;
+        if (a.charAt(i) == b.charAt(j)) return solve(a, b, i + 1, j + 1);
+        return 1 + Math.min(solve(a, b, i + 1, j + 1),
+                   Math.min(solve(a, b, i + 1, j), solve(a, b, i, j + 1)));
+    }
+}
+```
+- **Time Complexity**: Exponential, about $O(3^{m+n})$
+- **Space Complexity**: $O(m + n)$
+
+---
+
+##### Approach 2: Better (Memoization on (i, j))
+
+**Intuition**: Each `(i, j)` has one answer, so cache it.
+
+**Algorithm**:
+1. Allocate `memo[m+1][n+1]` filled with `-1`.
+2. Compute `solve(i, j)` with caching.
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int minDistance(String word1, String word2) {
+        int[][] memo = new int[word1.length() + 1][word2.length() + 1];
+        for (int[] row : memo) Arrays.fill(row, -1);
+        return solve(word1, word2, 0, 0, memo);
+    }
+
+    private int solve(String a, String b, int i, int j, int[][] memo) {
+        if (i == a.length()) return b.length() - j;
+        if (j == b.length()) return a.length() - i;
+        if (memo[i][j] != -1) return memo[i][j];
+        int res;
+        if (a.charAt(i) == b.charAt(j)) {
+            res = solve(a, b, i + 1, j + 1, memo);
+        } else {
+            res = 1 + Math.min(solve(a, b, i + 1, j + 1, memo),
+                      Math.min(solve(a, b, i + 1, j, memo), solve(a, b, i, j + 1, memo)));
+        }
+        memo[i][j] = res;
+        return res;
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up with One Row)
+
+**Intuition**: Each row depends only on the row below it and the current row. Keep one row, and track the diagonal value that the in-place update overwrites.
+
+**Algorithm**:
+1. `dp[j]` holds the distance from the suffix `word1[i..]` to `word2[j..]`, for the current `i`. Start with the row for `i = m`: `dp[j] = n - j`.
+2. For `i` from `m-1` down to `0`:
+   - Keep `diag = dp[n]` (the value from the row below, at column `n`) before the row changes.
+   - Set `dp[n] = m - i`.
+   - For `j` from `n-1` down to `0`: `temp = dp[j]`. If equal, `dp[j] = diag`. Otherwise `dp[j] = 1 + min(diag, dp[j], dp[j+1])`. Then `diag = temp`.
+3. Return `dp[0]`.
+
 ```java
 class Solution {
     public int minDistance(String word1, String word2) {
         int m = word1.length(), n = word2.length();
         int[] dp = new int[n + 1];
-        for (int j = 0; j <= n; j++) dp[j] = j;
-        for (int i = 1; i <= m; i++) {
-            int prev = dp[0];
-            dp[0] = i;
-            for (int j = 1; j <= n; j++) {
+        for (int j = 0; j <= n; j++) dp[j] = n - j;
+        for (int i = m - 1; i >= 0; i--) {
+            int diag = dp[n];
+            dp[n] = m - i;
+            for (int j = n - 1; j >= 0; j--) {
                 int temp = dp[j];
-                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-                    dp[j] = prev;
+                if (word1.charAt(i) == word2.charAt(j)) {
+                    dp[j] = diag;
                 } else {
-                    dp[j] = 1 + Math.min(prev, Math.min(dp[j], dp[j - 1]));
+                    dp[j] = 1 + Math.min(diag, Math.min(dp[j], dp[j + 1]));
                 }
-                prev = temp;
+                diag = temp;
             }
         }
-        return dp[n];
+        return dp[0];
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
 
 ---
@@ -8486,32 +16584,133 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [312. Burst Balloons](https://leetcode.com/problems/burst-balloons/)
 - **NeetCode**: [Burst Balloons](https://neetcode.io/problems/burst-balloons)
-- **Data Structures**: Array, Interval DP
-- **Patterns**: Reverse Thinking Interval DP (Burst Last)
+- **Data Structures**: Array
+- **Patterns**: Interval DP, Last-Burst Decomposition
 
-#### Solutions
+#### Problem Description
+You are given `n` balloons, indexed from `0` to `n - 1`, each painted with a number `nums[i]`. You burst every balloon one at a time. Bursting balloon `i` gives `nums[left] * nums[i] * nums[right]` coins, where `left` and `right` are the adjacent balloons still present. Out-of-bounds neighbours count as `1`. Return the maximum coins you can collect.
 
-##### Approach 1: Optimised / Best (Bottom-Up Interval DP)
-Think in reverse: which balloon is burst LAST in range $(i, j)$?
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [3,1,5,8]`
+- **Output**: `167`
+- **Explanation**: Bursting order `1, 5, 3, 8` gives `3*1*5 + 3*5*8 + 1*3*8 + 1*8*1 = 167`.
+
+**Example 2**
+- **Input**: `nums = [1,5]`
+- **Output**: `10`
+
+#### Constraints
+- `n == nums.length`
+- `1 <= n <= 300`
+- `0 <= nums[i] <= 100`
+
+#### Intuition
+Thinking about the first balloon to burst is hard, because its neighbours change. Think about the last balloon to burst instead. When it bursts, its neighbours are the boundary balloons of the interval, which are fixed. So for an interval `(l, r)` exclusive, choose the last burst `k` inside it, and combine the two subintervals with the coins from `k`. Pad the array with `1` on both ends to handle the boundaries.
+
+---
+
+##### Approach 1: Brute Force (Recursion on Intervals, No Cache)
+
+**Intuition**: For each interval, try every balloon as the last to burst, and recurse on the two sides.
+
+**Algorithm**:
+1. `solve(l, r)`: if `r - l < 2`, return `0`.
+2. For each `k` in `(l, r)`: candidate = `solve(l, k) + solve(k, r) + arr[l] * arr[k] * arr[r]`.
+3. Return the maximum.
+
 ```java
 class Solution {
     public int maxCoins(int[] nums) {
         int n = nums.length;
         int[] arr = new int[n + 2];
-        arr[0] = 1;
-        arr[n + 1] = 1;
-        System.arraycopy(nums, 0, arr, 1, n);
-        int[][] dp = new int[n + 2][n + 2];
-        for (int len = 1; len <= n; len++) {
-            for (int left = 1; left <= n - len + 1; left++) {
-                int right = left + len - 1;
-                for (int k = left; k <= right; k++) {
-                    int coins = arr[left - 1] * arr[k] * arr[right + 1] + dp[left][k - 1] + dp[k + 1][right];
-                    dp[left][right] = Math.max(dp[left][right], coins);
+        arr[0] = arr[n + 1] = 1;
+        for (int i = 0; i < n; i++) arr[i + 1] = nums[i];
+        return solve(arr, 0, n + 1);
+    }
+
+    private int solve(int[] arr, int l, int r) {
+        if (r - l < 2) return 0;
+        int best = 0;
+        for (int k = l + 1; k < r; k++) {
+            int cand = solve(arr, l, k) + solve(arr, k, r) + arr[l] * arr[k] * arr[r];
+            best = Math.max(best, cand);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(n)$ for recursion
+
+---
+
+##### Approach 2: Better (Memoization on (l, r))
+
+**Intuition**: Each interval `(l, r)` has one best value, so cache it.
+
+**Algorithm**:
+1. Pad as in Approach 1. Allocate `memo[N][N]`, with `N = n + 2`.
+2. Compute `solve(l, r)` with caching.
+
+```java
+class Solution {
+    public int maxCoins(int[] nums) {
+        int n = nums.length;
+        int[] arr = new int[n + 2];
+        arr[0] = arr[n + 1] = 1;
+        for (int i = 0; i < n; i++) arr[i + 1] = nums[i];
+        int[][] memo = new int[n + 2][n + 2];
+        return solve(arr, 0, n + 1, memo);
+    }
+
+    private int solve(int[] arr, int l, int r, int[][] memo) {
+        if (r - l < 2) return 0;
+        if (memo[l][r] != 0) return memo[l][r];
+        int best = 0;
+        for (int k = l + 1; k < r; k++) {
+            int cand = solve(arr, l, k, memo) + solve(arr, k, r, memo) + arr[l] * arr[k] * arr[r];
+            best = Math.max(best, cand);
+        }
+        memo[l][r] = best;
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n^3)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up Interval DP)
+
+**Intuition**: The subproblems for `(l, r)` only need intervals strictly shorter than `r - l`. So fill the table by increasing interval length.
+
+**Algorithm**:
+1. Pad `nums` as before. `dp[l][r]` is zero for `r - l < 2`.
+2. For `len` from `2` to `N - 1`, for each `l` with `r = l + len < N`: `dp[l][r] = max over k in (l, r) of dp[l][k] + dp[k][r] + arr[l]*arr[k]*arr[r]`.
+3. Return `dp[0][N-1]`.
+
+```java
+class Solution {
+    public int maxCoins(int[] nums) {
+        int n = nums.length;
+        int N = n + 2;
+        int[] arr = new int[N];
+        arr[0] = arr[N - 1] = 1;
+        for (int i = 0; i < n; i++) arr[i + 1] = nums[i];
+        int[][] dp = new int[N][N];
+        for (int len = 2; len < N; len++) {
+            for (int l = 0; l + len < N; l++) {
+                int r = l + len;
+                for (int k = l + 1; k < r; k++) {
+                    int cand = dp[l][k] + dp[k][r] + arr[l] * arr[k] * arr[r];
+                    dp[l][r] = Math.max(dp[l][r], cand);
                 }
             }
         }
-        return dp[1][n];
+        return dp[0][N - 1];
     }
 }
 ```
@@ -8524,46 +16723,146 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [10. Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)
 - **NeetCode**: [Regular Expression Matching](https://neetcode.io/problems/regular-expression-matching)
-- **Data Structures**: String, DP
-- **Patterns**: 2D Grid DP with Wildcard Transitions
+- **Data Structures**: String
+- **Patterns**: Pattern Matching DP, Star Handling
 
-#### Solutions
+#### Problem Description
+Given an input string `s` and a pattern `p`, implement regular expression matching with support for `.` and `*`:
+- `.` matches any single character.
+- `*` matches zero or more of the preceding element.
 
-##### Approach 1: Optimised / Best (Bottom-Up 2D DP)
-```java
-class Solution {
-    public boolean isMatch(String s, String p) {
-        int m = s.length(), n = p.length();
-        boolean[][] dp = new boolean[m + 1][n + 1];
-        dp[0][0] = true;
-        for (int j = 2; j <= n; j += 2) {
-            if (p.charAt(j - 1) == '*') {
-                dp[0][j] = dp[0][j - 2];
-            }
-        }
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                char sc = s.charAt(i - 1), pc = p.charAt(j - 1);
-                if (pc == '.' || pc == sc) {
-                    dp[i][j] = dp[i - 1][j - 1];
-                } else if (pc == '*') {
-                    dp[i][j] = dp[i][j - 2]; // 0 occurrences
-                    char prevChar = p.charAt(j - 2);
-                    if (prevChar == '.' || prevChar == sc) {
-                        dp[i][j] = dp[i][j] || dp[i - 1][j];
-                    }
-                }
-            }
-        }
-        return dp[m][n];
-    }
-}
-```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(m \cdot n)$
+The matching must cover the entire input string, not just a substring.
+
+#### Examples
+
+**Example 1**
+- **Input**: `s = "aa"`, `p = "a"`
+- **Output**: `false`
+- **Explanation**: `"a"` does not match the entire string `"aa"`.
+
+**Example 2**
+- **Input**: `s = "aa"`, `p = "a*"`
+- **Output**: `true`
+- **Explanation**: `*` lets `a` repeat.
+
+**Example 3**
+- **Input**: `s = "ab"`, `p = ".*"`
+- **Output**: `true`
+
+#### Constraints
+- `1 <= s.length <= 20`
+- `1 <= p.length <= 20`
+- `s` contains only lowercase English letters.
+- `p` contains lowercase letters, `.`, and `*`.
+- Every `*` is preceded by a valid character.
+
+#### Intuition
+Process both strings from the left. At a pattern position, look at the next character. If it is `*`, the current element can match zero copies (skip two pattern characters) or one more copy (consume a string character and keep the same pattern position). Otherwise the current character must match directly. The state is the pair of positions, so DP over `(i, j)` works.
 
 ---
 
+##### Approach 1: Brute Force (Plain Recursion)
+
+**Intuition**: Apply the star and non-star rules directly from the start.
+
+**Algorithm**:
+1. `match(i, j)`: if `j == m`, return `i == n`.
+2. `first = i < n && (p[j] == s[i] || p[j] == '.')`.
+3. If `j + 1 < m` and `p[j+1] == '*'`: return `match(i, j+2) || (first && match(i+1, j))`.
+4. Otherwise return `first && match(i+1, j+1)`.
+
+```java
+class Solution {
+    public boolean isMatch(String s, String p) {
+        return match(s, p, 0, 0);
+    }
+
+    private boolean match(String s, String p, int i, int j) {
+        if (j == p.length()) return i == s.length();
+        boolean first = i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');
+        if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
+            return match(s, p, i, j + 2) || (first && match(s, p, i + 1, j));
+        }
+        return first && match(s, p, i + 1, j + 1);
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(m + n)$
+
+---
+
+##### Approach 2: Better (Memoization on (i, j))
+
+**Intuition**: The result of `match(i, j)` is fixed, so cache it.
+
+**Algorithm**:
+1. Allocate `memo[n+1][m+1]` of `Boolean`.
+2. Compute `match(i, j)` with caching, using the same rules as Approach 1.
+
+```java
+class Solution {
+    public boolean isMatch(String s, String p) {
+        Boolean[][] memo = new Boolean[s.length() + 1][p.length() + 1];
+        return match(s, p, 0, 0, memo);
+    }
+
+    private boolean match(String s, String p, int i, int j, Boolean[][] memo) {
+        if (j == p.length()) return i == s.length();
+        if (memo[i][j] != null) return memo[i][j];
+        boolean first = i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');
+        boolean res;
+        if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
+            res = match(s, p, i, j + 2, memo) || (first && match(s, p, i + 1, j, memo));
+        } else {
+            res = first && match(s, p, i + 1, j + 1, memo);
+        }
+        memo[i][j] = res;
+        return res;
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 3: Optimised / Best (Bottom-Up Table)
+
+**Intuition**: `dp[i][j]` means `s[i..]` matches `p[j..]`. Each entry depends only on entries with larger `i` or larger `j`, so fill the table from the end. Base case: the empty suffix of the string matches the empty pattern.
+
+**Algorithm**:
+1. `dp[n][m] = true`.
+2. For `i` from `n` down to `0`, and `j` from `m-1` down to `0`:
+   - `first = i < n && (p[j] matches s[i])`.
+   - If `p[j+1] == '*'`: `dp[i][j] = dp[i][j+2] || (first && dp[i+1][j])`.
+   - Otherwise `dp[i][j] = first && dp[i+1][j+1]`.
+3. Return `dp[0][0]`.
+
+```java
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int n = s.length(), m = p.length();
+        boolean[][] dp = new boolean[n + 1][m + 1];
+        dp[n][m] = true;
+        for (int i = n; i >= 0; i--) {
+            for (int j = m - 1; j >= 0; j--) {
+                boolean first = i < n && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');
+                if (j + 1 < m && p.charAt(j + 1) == '*') {
+                    dp[i][j] = dp[i][j + 2] || (first && dp[i + 1][j]);
+                } else {
+                    dp[i][j] = first && dp[i + 1][j + 1];
+                }
+            }
+        }
+        return dp[0][0];
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$
+
+---
 
 ## 14. Greedy
 

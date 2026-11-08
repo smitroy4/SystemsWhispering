@@ -136,15 +136,7 @@ export default function SheetDetailPage() {
                       if (!problem) return <li key={id}>{id}</li>;
                       return (
                         <li key={id}>
-                          <Link to={`/problems/${problem.slug}`}>{problem.title}</Link>{' '}
-                          <a
-                            href={problem.leetcodeUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="sheet-day__leet"
-                          >
-                            ↗
-                          </a>
+                          <Link to={`/problems/${problem.slug}`}>{problem.title}</Link>
                         </li>
                       );
                     })}

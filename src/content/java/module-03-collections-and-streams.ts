@@ -2,7 +2,7 @@ import type { JavaModule } from '../../types/java.ts';
 
 export const module03: JavaModule = {
   slug: 'collections-and-streams',
-  title: 'Collection',
+  title: 'Collections API',
   order: 3,
   summary: 'The data structures, comparison rules and lazy pipelines behind everyday Java code.',
   overview:
@@ -10,15 +10,13 @@ export const module03: JavaModule = {
   topics: [
     {
       slug: 'collection-framework',
+      vizId: 'collections-and-streams',
       title: 'The Java Collection Framework',
       order: 1,
       summary: 'Why Java ships a family of containers, how they relate, and how to pick one.',
       level: 'beginner',
-      subtopics: [
-        {
-          id: 'why-a-framework',
-          title: 'Why a framework instead of arrays',
-          body: `An array is the cheapest container Java offers: contiguous memory, constant-time indexing and almost no per-element overhead. Its weakness is rigidity. The length is fixed at allocation, removing an element leaves a hole or forces a shift, and the language gives you no search, sort or uniqueness guarantee out of the box. Every real program therefore needs something more flexible, and every flexible structure is a compromise.
+      sections: [
+        { heading: 'Why a framework instead of arrays', body: `An array is the cheapest container Java offers: contiguous memory, constant-time indexing and almost no per-element overhead. Its weakness is rigidity. The length is fixed at allocation, removing an element leaves a hole or forces a shift, and the language gives you no search, sort or uniqueness guarantee out of the box. Every real program therefore needs something more flexible, and every flexible structure is a compromise.
 
 The Collection Framework is Java's packaged answer: a small set of interfaces (\`Collection\`, \`List\`, \`Set\`, \`Queue\`, \`Map\`) plus implementations that trade time, space and ordering against each other. Because the contracts are interfaces, a method written against \`Collection<E>\` keeps compiling when the caller switches from an \`ArrayList\` to a \`HashSet\`.
 
@@ -30,10 +28,7 @@ Every choice comes down to three axes:
 
 Naming those three axes before writing code is the whole skill.`,
         },
-        {
-          id: 'the-hierarchy',
-          title: 'The hierarchy at a glance',
-          body: `The framework has two roots, and this is the first fact interviewers probe. \`Iterable<E>\` sits at the top and contributes exactly one abstract method, \`iterator()\`. Below it, \`Collection<E>\` adds the element-group operations: \`add\`, \`remove\`, \`contains\`, \`size\`, \`clear\`, \`toArray\`.
+        { heading: 'The hierarchy at a glance', body: `The framework has two roots, and this is the first fact interviewers probe. \`Iterable<E>\` sits at the top and contributes exactly one abstract method, \`iterator()\`. Below it, \`Collection<E>\` adds the element-group operations: \`add\`, \`remove\`, \`contains\`, \`size\`, \`clear\`, \`toArray\`.
 
 \`Collection\` then branches three ways:
 
@@ -45,19 +40,13 @@ Naming those three axes before writing code is the whole skill.`,
 
 \`Map<K, V>\` is deliberately **not** a \`Collection\`. A map stores key-value associations, not individual elements, so it cannot honestly implement \`add(E)\` or \`iterator()\` over \`E\`. It starts its own hierarchy: \`Map\` → \`SortedMap\` → \`NavigableMap\`, with \`HashMap\`, \`LinkedHashMap\`, \`TreeMap\` and the specialised variants below it. The bridge between the two worlds is \`map.entrySet()\`, a \`Set<Map.Entry<K, V>>\` that does extend \`Collection\`.`,
         },
-        {
-          id: 'interfaces-before-classes',
-          title: 'Program to the interface',
-          body: `The framework's real value is substitutability. Declaring \`List<String> names = new ArrayList<>();\` costs nothing today and buys you the ability to swap in a \`LinkedList\`, a \`CopyOnWriteArrayList\` or a test double tomorrow without touching a single call site. Declaring \`ArrayList<String> names = new ArrayList<>();\` leaks an implementation detail into every method signature that receives it.
+        { heading: 'Program to the interface', body: `The framework's real value is substitutability. Declaring \`List<String> names = new ArrayList<>();\` costs nothing today and buys you the ability to swap in a \`LinkedList\`, a \`CopyOnWriteArrayList\` or a test double tomorrow without touching a single call site. Declaring \`ArrayList<String> names = new ArrayList<>();\` leaks an implementation detail into every method signature that receives it.
 
 The discipline extends to parameters. A method that only iterates should accept \`Iterable<? extends T>\`. One that only reads size and membership should accept \`Collection<?>\`. One that needs positional access needs \`List<?>\`. Widening the parameter type widens the set of callers that can use the method for free.
 
 There is a counterweight: interfaces expose only the contract, so implementation-specific behaviour has to be requested explicitly. \`ArrayList\`'s \`ensureCapacity\`, \`LinkedHashMap\`'s access-order constructor and \`EnumMap\`'s ordinal indexing are invisible through the interface. Use the interface at API boundaries, and the concrete type only inside the small scope that genuinely needs the extra behaviour.`,
         },
-        {
-          id: 'choosing-a-container',
-          title: 'Choosing a container',
-          body: `Most selection questions collapse into a short decision table. Start from the operation you perform most often, not from the one that sounds most sophisticated.
+        { heading: 'Choosing a container', body: `Most selection questions collapse into a short decision table. Start from the operation you perform most often, not from the one that sounds most sophisticated.
 
 | Need | Default choice | Reason |
 | --- | --- | --- |
@@ -74,10 +63,7 @@ There is a counterweight: interfaces expose only the contract, so implementation
 
 Two rules of thumb cover the majority of cases: \`ArrayList\` beats \`LinkedList\` in practice because of cache locality, and \`HashMap\`/\`HashSet\` beat tree variants unless you actually need ordering or range queries.`,
         },
-        {
-          id: 'performance-mental-model',
-          title: 'A performance mental model',
-          body: `Big-O is the starting point, not the answer. Two structures can both be O(1) and differ by an order of magnitude because of constant factors, memory layout and allocation.
+        { heading: 'A performance mental model', body: `Big-O is the starting point, not the answer. Two structures can both be O(1) and differ by an order of magnitude because of constant factors, memory layout and allocation.
 
 Three effects dominate in practice:
 
@@ -87,10 +73,7 @@ Three effects dominate in practice:
 
 Measure before rewriting. A \`HashMap\` with a bad key type is slower than a sorted array with binary search, and a small \`ArrayList\` scanned linearly often beats a \`HashSet\` because it avoids hashing and pointer chasing entirely.`,
         },
-        {
-          id: 'what-the-framework-omits',
-          title: 'What the framework does not give you',
-          body: `Knowing the boundaries prevents misuse. The standard collections are **not thread-safe** by default: concurrent writes to a \`HashMap\` can corrupt internal state or spin forever during a resize. \`Collections.synchronizedMap\` wraps every method in a lock, which is correct but serialises all access; \`ConcurrentHashMap\` is the real answer for concurrent read/write workloads.
+        { heading: 'What the framework does not give you', body: `Knowing the boundaries prevents misuse. The standard collections are **not thread-safe** by default: concurrent writes to a \`HashMap\` can corrupt internal state or spin forever during a resize. \`Collections.synchronizedMap\` wraps every method in a lock, which is correct but serialises all access; \`ConcurrentHashMap\` is the real answer for concurrent read/write workloads.
 
 They are also **not persistent or immutable**. \`List.of(...)\` and \`Map.copyOf(...)\` produce unmodifiable snapshots, but there is no structural sharing, so "modifying" them means copying. A \`List.copyOf\` is a defensive copy, not a view.
 
@@ -219,24 +202,19 @@ public class MapViews {
     },
     {
       slug: 'iterable-and-iterator',
+      vizId: 'iterable-and-iterator',
       title: 'Iterable, Iterator & Fail-Fast Behaviour',
       order: 2,
       summary: 'How the for-each loop really works, why modCount exists, and when iteration explodes.',
       level: 'intermediate',
-      subtopics: [
-        {
-          id: 'iterable-vs-iterator',
-          title: 'Iterable versus Iterator',
-          body: `\`Iterable<T>\` answers "can this object be traversed?" and declares a single method, \`Iterator<T> iterator()\`. \`Iterator<T>\` answers "where are we right now?" and holds the cursor state: \`hasNext()\`, \`next()\`, and optionally \`remove()\`.
+      sections: [
+        { heading: 'Iterable versus Iterator', body: `\`Iterable<T>\` answers "can this object be traversed?" and declares a single method, \`Iterator<T> iterator()\`. \`Iterator<T>\` answers "where are we right now?" and holds the cursor state: \`hasNext()\`, \`next()\`, and optionally \`remove()\`.
 
 The split is not cosmetic. If \`ArrayList\` implemented \`Iterator\` directly, the cursor would live on the list itself, and two nested loops over the same list would overwrite each other's position. Because \`iterator()\` returns a **fresh** iterator object on every call, any number of independent traversals can run simultaneously, and each sees its own snapshot of the cursor.
 
 \`Iterable\` also earns its place as a parameter type. A method that accepts \`Iterable<? extends T>\` works with lists, sets, queues, \`Path\` from the file system, and any custom type you write, while a method accepting \`List<T>\` works with far fewer callers. Streaming frameworks and test helpers use this trick heavily, because traversal is the only capability they need.`,
         },
-        {
-          id: 'for-each-desugaring',
-          title: 'What for-each compiles to',
-          body: `The enhanced for loop is pure syntax sugar over \`Iterator\`. This code:
+        { heading: 'What for-each compiles to', body: `The enhanced for loop is pure syntax sugar over \`Iterator\`. This code:
 
 \`\`\`java
 for (String name : names) {
@@ -257,10 +235,7 @@ Two consequences follow. First, the loop works on any \`Iterable\`, which is why
 
 For arrays, the compiler emits a plain indexed loop instead, which is why for-each over an array does not create an iterator object at all.`,
         },
-        {
-          id: 'cursor-mechanics',
-          title: 'Cursor mechanics in real collections',
-          body: `Each implementation implements the same contract with completely different machinery, and knowing the shapes explains most performance surprises.
+        { heading: 'Cursor mechanics in real collections', body: `Each implementation implements the same contract with completely different machinery, and knowing the shapes explains most performance surprises.
 
 \`ArrayList.Itr\` is an inner class holding \`cursor\` (next index to read), \`lastRet\` (last index returned), and \`expectedModCount\`. \`next()\` reads \`elementData[cursor++]\` after a bounds check. Traversal is a linear scan of a contiguous array, which is as cache-friendly as Java gets.
 
@@ -270,19 +245,13 @@ For arrays, the compiler emits a plain indexed loop instead, which is why for-ea
 
 \`TreeMap\`'s iterator walks the red-black tree in order using successor links, which yields sorted traversal without any extra sorting step.`,
         },
-        {
-          id: 'modcount-and-fail-fast',
-          title: 'modCount and fail-fast behaviour',
-          body: `Every non-concurrent collection carries a \`transient int modCount\` field that increments on each **structural** modification: an add, a remove, a clear, a resize that rehashes. Setting an existing value, as in \`list.set(i, value)\` or \`map.put(existingKey, value)\`, is not structural and leaves the counter alone.
+        { heading: 'modCount and fail-fast behaviour', body: `Every non-concurrent collection carries a \`transient int modCount\` field that increments on each **structural** modification: an add, a remove, a clear, a resize that rehashes. Setting an existing value, as in \`list.set(i, value)\` or \`map.put(existingKey, value)\`, is not structural and leaves the counter alone.
 
 When an iterator is created it snapshots \`expectedModCount = modCount\`. Every call to \`next()\` compares the two and throws \`ConcurrentModificationException\` on a mismatch. This is a **best-effort** diagnostic, not a concurrency guarantee: the check happens before reading, so a racing writer can still slip through, and a collection modified after the last \`next()\` may never report the problem. The Javadoc calls the behaviour "fail-fast" precisely because it fails early and loudly rather than returning nonsense.
 
 The counter is also why removal through the collection fails while \`iterator.remove()\` succeeds. \`Iterator.remove()\` deletes the element and then resynchronises \`expectedModCount = modCount\`, keeping the cursor valid.`,
         },
-        {
-          id: 'writing-your-own-iterable',
-          title: 'Writing your own Iterable',
-          body: `Implementing \`Iterable\` is a small, self-contained exercise that makes the contract concrete. The type needs a stateful inner iterator, and each call to \`iterator()\` must return a new one.
+        { heading: 'Writing your own Iterable', body: `Implementing \`Iterable\` is a small, self-contained exercise that makes the contract concrete. The type needs a stateful inner iterator, and each call to \`iterator()\` must return a new one.
 
 The pattern is worth learning because it lets domain types participate in for-each and in the stream API for free: a class that implements \`Iterable\` also gets \`forEach\`, \`spliterator\` and \`stream()\` from default methods, as long as \`Spliterator\` can be derived from the iterator.
 
@@ -290,10 +259,7 @@ Two design points are easy to get wrong. First, do not return \`this\` from \`it
 
 Records cannot easily hold the mutable cursor, so write a small final class with a private inner iterator.`,
         },
-        {
-          id: 'remove-and-listiterator',
-          title: 'remove, forEachRemaining and ListIterator',
-          body: `\`Iterator.remove()\` is optional and by default throws \`UnsupportedOperationException\`. When supported, it removes the element last returned by \`next()\`, and calling it before \`next()\` or twice in a row throws \`IllegalStateException\`. Immutable collections such as \`List.of\` return iterators that reject it.
+        { heading: 'remove, forEachRemaining and ListIterator', body: `\`Iterator.remove()\` is optional and by default throws \`UnsupportedOperationException\`. When supported, it removes the element last returned by \`next()\`, and calling it before \`next()\` or twice in a row throws \`IllegalStateException\`. Immutable collections such as \`List.of\` return iterators that reject it.
 
 \`forEachRemaining(Consumer)\` drains the rest of the iterator in one call. The default implementation loops over \`hasNext\` and \`next\`, but \`ArrayList\` overrides it with an indexed bulk loop and \`HashMap\` overrides it to walk buckets directly, so it is often faster than a hand-written loop.
 
@@ -463,15 +429,13 @@ public class FailFastScope {
     },
     {
       slug: 'collection-interface',
+      vizId: 'collection-interface',
       title: 'The Collection Interface',
       order: 3,
       summary: 'The universal method contract shared by lists, sets and queues, and what each method promises.',
       level: 'beginner',
-      subtopics: [
-        {
-          id: 'the-core-contract',
-          title: 'The core contract',
-          body: `\`Collection<E>\` fixes a small vocabulary that every single-element container understands: \`size()\`, \`isEmpty()\`, \`contains(Object)\`, \`add(E)\`, \`remove(Object)\`, \`clear()\`, plus bulk and array operations. Implementations are free to add behaviour, but they may not weaken these promises.
+      sections: [
+        { heading: 'The core contract', body: `\`Collection<E>\` fixes a small vocabulary that every single-element container understands: \`size()\`, \`isEmpty()\`, \`contains(Object)\`, \`add(E)\`, \`remove(Object)\`, \`clear()\`, plus bulk and array operations. Implementations are free to add behaviour, but they may not weaken these promises.
 
 The return types carry meaning. \`add\` returns \`boolean\` because a \`Set\` may decline a duplicate; a \`List\` always returns \`true\`. \`remove(Object)\` returns \`true\` only if something was actually removed, which makes "delete if present" a one-liner with no pre-check. \`contains\` is defined in terms of \`equals\`, so the element type's equality contract determines the answer.
 
@@ -479,10 +443,7 @@ The return types carry meaning. \`add\` returns \`boolean\` because a \`Set\` ma
 
 \`clear()\` is optional in principle and throws \`UnsupportedOperationException\` on unmodifiable collections.`,
         },
-        {
-          id: 'why-contains-takes-object',
-          title: 'Why contains takes Object',
-          body: `The signature is \`boolean contains(Object o)\`, not \`contains(E e)\`, and the same is true of \`remove(Object)\`, \`containsAll(Collection<?>)\` and \`Map.get(Object)\`. Generics are erased at runtime, so the compiler cannot verify that a value is of type \`E\`; widening the parameter simply admits the truth.
+        { heading: 'Why contains takes Object', body: `The signature is \`boolean contains(Object o)\`, not \`contains(E e)\`, and the same is true of \`remove(Object)\`, \`containsAll(Collection<?>)\` and \`Map.get(Object)\`. Generics are erased at runtime, so the compiler cannot verify that a value is of type \`E\`; widening the parameter simply admits the truth.
 
 The practical upside is that you can ask whether a \`Collection<Long>\` contains an \`Integer\` without an unchecked cast. The lookup compares with \`o.equals(element)\`, and \`Integer(1).equals(Long(1))\` is \`false\`, so the answer is a correct \`false\` rather than an exception.
 
@@ -490,10 +451,7 @@ The downside is that type errors move from compile time to "always false at runt
 
 There is a subtlety in the direction of comparison: implementations call \`o.equals(element)\` in some paths and \`element.equals(o)\` in others. A non-symmetric \`equals\` therefore produces inconsistent results, which is one more reason to honour the equals contract strictly.`,
         },
-        {
-          id: 'bulk-operations',
-          title: 'Bulk operations as set algebra',
-          body: `The bulk methods turn a collection into a mutable set. Reading them as algebra avoids most confusion:
+        { heading: 'Bulk operations as set algebra', body: `The bulk methods turn a collection into a mutable set. Reading them as algebra avoids most confusion:
 
 | Method | Meaning | Mutates receiver |
 | --- | --- | --- |
@@ -508,19 +466,13 @@ Parameter types are deliberately loose. \`addAll\` takes \`Collection<? extends 
 
 Bulk operations on an unmodifiable collection throw, but the failure may come after partial work, so do not rely on atomicity.`,
         },
-        {
-          id: 'array-interop',
-          title: 'Array interoperability',
-          body: `\`toArray()\` returns \`Object[]\`, which is rarely what you want. The generic overload \`<T> T[] toArray(T[] a)\` either fills the array you pass or allocates a new one of the same runtime type using reflection.
+        { heading: 'Array interoperability', body: `\`toArray()\` returns \`Object[]\`, which is rarely what you want. The generic overload \`<T> T[] toArray(T[] a)\` either fills the array you pass or allocates a new one of the same runtime type using reflection.
 
 The idiom that survives every Java version is \`collection.toArray(new String[0])\`. Older code used \`new String[collection.size()]\` to avoid allocation; on modern JVMs the empty array is faster because the JIT recognises the pattern and the array is allocated only once, at the right size. Passing an array that is too small is still correct, just less efficient.
 
 In the other direction, \`Arrays.asList(array)\` returns a fixed-size list **backed by the array**: \`set\` writes through, \`add\` and \`remove\` throw \`UnsupportedOperationException\`. \`List.of(array)\` copies instead, so it is truly immutable but costs an allocation. For a mutable copy, use \`new ArrayList<>(Arrays.asList(array))\` or \`Arrays.stream(array).collect(...)\`.`,
         },
-        {
-          id: 'default-methods',
-          title: 'Default methods added in Java 8',
-          body: `Java 8 added behaviour to \`Collection\` without breaking a single implementation, using default methods. The most important are:
+        { heading: 'Default methods added in Java 8', body: `Java 8 added behaviour to \`Collection\` without breaking a single implementation, using default methods. The most important are:
 
 - \`removeIf(Predicate)\` — removes every element matching the predicate and returns whether anything changed. It is implemented with \`iterator.remove()\`, so it is safe where a for-each loop is not.
 - \`forEach(Consumer)\` — iterates in the collection's own order, if it has one.
@@ -678,15 +630,13 @@ public class RemoveIfDemo {
     },
     {
       slug: 'list-implementations',
+      vizId: 'list-implementations',
       title: 'List Implementations: ArrayList to Stack',
       order: 4,
       summary: 'Growth policy, memory layout and the real cost of ArrayList, LinkedList, Vector and Stack.',
       level: 'intermediate',
-      subtopics: [
-        {
-          id: 'the-list-contract',
-          title: 'What List adds',
-          body: `\`List<E>\` extends \`Collection<E>\` with positional access: \`get(int)\`, \`set(int, E)\`, \`add(int, E)\`, \`remove(int)\`, \`indexOf\`, \`lastIndexOf\`, \`subList\`, and the \`ListIterator\`. The contract promises an ordered sequence where duplicates are allowed and every element has a stable index.
+      sections: [
+        { heading: 'What List adds', body: `\`List<E>\` extends \`Collection<E>\` with positional access: \`get(int)\`, \`set(int, E)\`, \`add(int, E)\`, \`remove(int)\`, \`indexOf\`, \`lastIndexOf\`, \`subList\`, and the \`ListIterator\`. The contract promises an ordered sequence where duplicates are allowed and every element has a stable index.
 
 Two aspects catch people out. First, \`remove\` is overloaded: \`remove(int)\` removes by position, \`remove(Object)\` removes by value. On a \`List<Integer>\`, \`list.remove(1)\` removes index 1, while \`list.remove(Integer.valueOf(1))\` removes the value 1. The compiler picks the most specific overload, and autoboxing does not save you.
 
@@ -694,10 +644,7 @@ Second, \`subList(from, to)\` returns a **view**, not a copy. It is backed by th
 
 \`List.equals\` is element-wise and order-sensitive, so \`ArrayList\` and \`LinkedList\` with the same contents are equal.`,
         },
-        {
-          id: 'arraylist-growth',
-          title: 'ArrayList growth and amortised cost',
-          body: `\`ArrayList\` wraps an \`Object[] elementData\` plus an \`int size\`. The default constructor starts with a shared empty array and lazily allocates capacity 10 on the first \`add\`. The capacity constructor lets you skip that growth entirely when the size is known.
+        { heading: 'ArrayList growth and amortised cost', body: `\`ArrayList\` wraps an \`Object[] elementData\` plus an \`int size\`. The default constructor starts with a shared empty array and lazily allocates capacity 10 on the first \`add\`. The capacity constructor lets you skip that growth entirely when the size is known.
 
 When the array is full, \`grow()\` computes \`newCapacity = oldCapacity + (oldCapacity >> 1)\`, a 50% increase, then copies with \`Arrays.copyOf\`, which is a single \`System.arraycopy\` of the live elements. The copy is O(n), but it happens at sizes 10, 15, 22, 33, 49, and so on, so the total work for n appends is bounded by a geometric series. That gives amortised O(1) per append and O(n) worst case for the single append that triggers a resize.
 
@@ -705,10 +652,7 @@ Insertion or removal at index i shifts the tail with \`System.arraycopy\`, costi
 
 Two practical notes: \`ensureCapacity\` pre-sizes the array, and \`trimToSize\` releases slack after a bulk removal.`,
         },
-        {
-          id: 'linkedlist-anatomy',
-          title: 'LinkedList anatomy and the locality problem',
-          body: `\`LinkedList\` is a doubly linked list of \`Node<E>\` objects, each holding \`item\`, \`next\` and \`prev\`, plus \`first\` and \`last\` references on the list. It also implements \`Deque\`, so it doubles as a queue and stack.
+        { heading: 'LinkedList anatomy and the locality problem', body: `\`LinkedList\` is a doubly linked list of \`Node<E>\` objects, each holding \`item\`, \`next\` and \`prev\`, plus \`first\` and \`last\` references on the list. It also implements \`Deque\`, so it doubles as a queue and stack.
 
 Indexed access walks from whichever end is closer: \`node(index)\` compares the index against \`size >> 1\` and traverses forward or backward. That makes \`get(i)\` O(n), and a naive indexed for loop over a \`LinkedList\` is O(n²), which is the classic performance trap.
 
@@ -716,19 +660,13 @@ Iteration itself is O(n) and allocation-free, but every step follows a pointer t
 
 Node insertion at a known position is O(1), which is the one case where the linked list wins: moving elements between lists via \`ListIterator\`, or an LRU cache built with \`LinkedHashMap\`. In almost every other benchmark, \`ArrayList\` is faster despite its O(n) middle inserts.`,
         },
-        {
-          id: 'vector-and-stack',
-          title: 'Vector, Stack and the legacy trap',
-          body: `\`Vector\` predates the framework and was retrofitted into it. Internally it is an array like \`ArrayList\`, but every public method is \`synchronized\` on the vector instance, and growth doubles the capacity instead of increasing it by half. The lock is held even for reads, so single-threaded use pays for a monitor it never needs, and compound operations such as check-then-act are still not atomic without external synchronisation.
+        { heading: 'Vector, Stack and the legacy trap', body: `\`Vector\` predates the framework and was retrofitted into it. Internally it is an array like \`ArrayList\`, but every public method is \`synchronized\` on the vector instance, and growth doubles the capacity instead of increasing it by half. The lock is held even for reads, so single-threaded use pays for a monitor it never needs, and compound operations such as check-then-act are still not atomic without external synchronisation.
 
 \`Stack\` extends \`Vector\` and adds \`push\`, \`pop\`, \`peek\` and \`empty\`. Because it inherits the whole \`List\` API, you can insert at an arbitrary index and violate the LIFO invariant; the class cannot prevent it. Its synchronisation is also per-method, not per-operation.
 
 The modern replacements are clear: \`ArrayDeque\` for a stack or queue in single-threaded code, \`ConcurrentLinkedDeque\` or a \`BlockingQueue\` when multiple threads are involved. \`Collections.synchronizedList(new ArrayList<>())\` is preferable to \`Vector\` when a locked list is genuinely required, because the intent is explicit and the implementation is not encumbered by legacy serialisation semantics.`,
         },
-        {
-          id: 'choosing-and-benchmarking',
-          title: 'Choosing and benchmarking',
-          body: `The default answer is \`ArrayList\`. It has the smallest per-element overhead, the best iteration behaviour, and O(1) random access. Choose something else only for a specific reason.
+        { heading: 'Choosing and benchmarking', body: `The default answer is \`ArrayList\`. It has the smallest per-element overhead, the best iteration behaviour, and O(1) random access. Choose something else only for a specific reason.
 
 Reasons that hold up:
 
@@ -888,15 +826,13 @@ public class LinkedListTrap {
     },
     {
       slug: 'map-and-set-internals',
+      vizId: 'map-and-set-internals',
       title: 'Map & Set Internals: HashMap, HashSet, TreeMap',
       order: 5,
       summary: 'Hashing, bucket collisions, treeification thresholds and red-black ordering under the hood.',
       level: 'advanced',
-      subtopics: [
-        {
-          id: 'map-versus-collection',
-          title: 'Why Map is separate',
-          body: `A \`Map<K, V>\` maps each unique key to at most one value. It cannot extend \`Collection<V>\` without lying: \`add(V)\` has no key, \`iterator()\` would have to choose between keys, values and entries, and \`contains(Object)\` would be ambiguous.
+      sections: [
+        { heading: 'Why Map is separate', body: `A \`Map<K, V>\` maps each unique key to at most one value. It cannot extend \`Collection<V>\` without lying: \`add(V)\` has no key, \`iterator()\` would have to choose between keys, values and entries, and \`contains(Object)\` would be ambiguous.
 
 The bridge is the entry view. \`entrySet()\` returns a \`Set<Map.Entry<K, V>>\`, and \`Map.Entry\` exposes \`getKey\`, \`getValue\`, \`setValue\` and the static \`comparingByKey\`/\`comparingByValue\` comparators. \`keySet()\` and \`values()\` are the other two views. All three are live: removing from a view removes from the map, and \`map.remove(key)\` is reflected in views already held.
 
@@ -904,10 +840,7 @@ The views also explain the iteration idiom. Iterating \`entrySet()\` performs on
 
 \`Map\` defines its own algebra: \`getOrDefault\`, \`putIfAbsent\`, \`computeIfAbsent\`, \`computeIfPresent\`, \`merge\`, \`replaceAll\`, all of which are atomic on concurrent maps.`,
         },
-        {
-          id: 'hashmap-storage',
-          title: 'HashMap storage model',
-          body: `A \`HashMap\` holds a \`Node<K, V>[] table\`, where each node carries \`final int hash\`, \`final K key\`, \`V value\` and \`Node<K, V> next\`. The table length is always a power of two and starts at 16 (lazily allocated on first put).
+        { heading: 'HashMap storage model', body: `A \`HashMap\` holds a \`Node<K, V>[] table\`, where each node carries \`final int hash\`, \`final K key\`, \`V value\` and \`Node<K, V> next\`. The table length is always a power of two and starts at 16 (lazily allocated on first put).
 
 \`put\` does four things. First, it spreads the hash: \`h = key.hashCode(); hash = h ^ (h >>> 16)\`. XORing the high bits into the low bits matters because the index calculation discards everything above the table length. Without spreading, keys whose hashes differ only in the high 16 bits collide in small tables.
 
@@ -915,10 +848,7 @@ Second, it computes the bucket as \`(n - 1) & hash\`. Because n is a power of tw
 
 Third, it walks the bucket comparing hashes first and then \`equals\`, replacing the value if the key matches. Fourth, it inserts a new node at the tail, increments \`size\` and checks whether the map needs to grow or treeify. A null key is legal and always lands in bucket 0.`,
         },
-        {
-          id: 'collisions-and-treeification',
-          title: 'Collisions and treeification',
-          body: `Two different keys can share a bucket. Java resolves the collision with **separate chaining**: nodes in the same bucket form a singly linked list, and lookup scans it. With a decent hash distribution, buckets hold one or two entries and lookup is effectively O(1). With a bad \`hashCode\`, every key piles into one bucket and lookup degrades to O(n).
+        { heading: 'Collisions and treeification', body: `Two different keys can share a bucket. Java resolves the collision with **separate chaining**: nodes in the same bucket form a singly linked list, and lookup scans it. With a decent hash distribution, buckets hold one or two entries and lookup is effectively O(1). With a bad \`hashCode\`, every key piles into one bucket and lookup degrades to O(n).
 
 Java 8 added a defence. When a bucket's chain reaches \`TREEIFY_THRESHOLD = 8\` **and** the table has at least \`MIN_TREEIFY_CAPACITY = 64\` slots, the chain is converted into a red-black tree of \`TreeNode\` objects, and lookup becomes O(log n). If the table is smaller than 64, the map resizes instead of treeifying, because a bigger table is the cheaper fix.
 
@@ -926,10 +856,7 @@ On removal, a treeified bucket converts back to a list when it shrinks to \`UNTR
 
 The thresholds are probabilistic: with random hashes, a chain of 8 has vanishingly small probability, so treeification only triggers for genuinely poor hash functions or adversarial keys.`,
         },
-        {
-          id: 'resize-and-load-factor',
-          title: 'Resize, load factor and rehashing',
-          body: `The default load factor is \`0.75\`, and the resize threshold is \`capacity × loadFactor\`, so a 16-slot table resizes when the 13th entry arrives. The 0.75 value balances two costs: lower values waste memory but shorten chains, higher values fill the table but increase collisions. It is a statistical compromise, not a law.
+        { heading: 'Resize, load factor and rehashing', body: `The default load factor is \`0.75\`, and the resize threshold is \`capacity × loadFactor\`, so a 16-slot table resizes when the 13th entry arrives. The 0.75 value balances two costs: lower values waste memory but shorten chains, higher values fill the table but increase collisions. It is a statistical compromise, not a law.
 
 \`resize()\` allocates a table of double the capacity and redistributes every node. Because capacity is a power of two, each key either stays at index \`i\` or moves to \`i + oldCap\`, depending on whether the bit at position \`log2(oldCap)\` is set. Java 8 exploits this: instead of recomputing hashes, it splits each bucket into a low list and a high list using \`(e.hash & oldCap) == 0\`, preserving relative order and avoiding a second hash pass.
 
@@ -937,10 +864,7 @@ A resize is O(n) and pauses the map. Pre-sizing with \`new HashMap<>(expectedSiz
 
 Resizes also reorder iteration, so never rely on \`HashMap\` order.`,
         },
-        {
-          id: 'equals-hashcode-contract',
-          title: 'The equals and hashCode contract',
-          body: `Hash-based collections only work if the key type obeys the contract: if \`a.equals(b)\` then \`a.hashCode() == b.hashCode()\`. The converse is not required; equal hashes may belong to unequal keys, which is just a collision.
+        { heading: 'The equals and hashCode contract', body: `Hash-based collections only work if the key type obeys the contract: if \`a.equals(b)\` then \`a.hashCode() == b.hashCode()\`. The converse is not required; equal hashes may belong to unequal keys, which is just a collision.
 
 Break it in either direction and the map misbehaves. Override \`equals\` without \`hashCode\` and two "equal" keys land in different buckets: \`map.get(copy)\` returns null while \`map.containsKey(copy)\` is false, even though the entry is visibly there. Override \`hashCode\` without \`equals\` and unequal keys overwrite each other in the same bucket.
 
@@ -948,10 +872,7 @@ Mutability is the second trap. A key's hash is computed at insertion; if a field
 
 Records generate a correct \`equals\` and \`hashCode\` from their components, so they are the default choice for composite keys. For arrays, neither method is value-based; use \`List.of(...)\` or a record wrapper instead.`,
         },
-        {
-          id: 'hashset-and-treemap',
-          title: 'HashSet, TreeSet and TreeMap',
-          body: `\`HashSet\` has no storage engine of its own. It holds a private \`HashMap<E, Object>\` and a single shared sentinel:
+        { heading: 'HashSet, TreeSet and TreeMap', body: `\`HashSet\` has no storage engine of its own. It holds a private \`HashMap<E, Object>\` and a single shared sentinel:
 
 \`\`\`java
 private transient HashMap<E, Object> map;
@@ -1105,15 +1026,13 @@ public class TreeNavigation {
     },
     {
       slug: 'specialized-maps',
+      vizId: 'specialized-maps',
       title: 'Specialized Maps: EnumMap, IdentityHashMap & More',
       order: 6,
       summary: 'Order-aware, array-backed, identity-based and weakly referenced maps, plus when each one earns its place.',
       level: 'advanced',
-      subtopics: [
-        {
-          id: 'linkedhashmap-order',
-          title: 'LinkedHashMap and access order',
-          body: `\`LinkedHashMap\` extends \`HashMap\` and threads a doubly linked list through all entries, using \`before\` and \`after\` fields on each node. The hash table still decides bucket placement, so lookup keeps its O(1) average; the list only fixes iteration order.
+      sections: [
+        { heading: 'LinkedHashMap and access order', body: `\`LinkedHashMap\` extends \`HashMap\` and threads a doubly linked list through all entries, using \`before\` and \`after\` fields on each node. The hash table still decides bucket placement, so lookup keeps its O(1) average; the list only fixes iteration order.
 
 The constructor takes a third argument, \`accessOrder\`. With \`false\` (the default) iteration follows insertion order. With \`true\`, every \`get\` and \`put\` of an existing key moves that entry to the tail, producing least-recently-used order at the head. This is the entire basis of the classic LRU cache:
 
@@ -1122,10 +1041,7 @@ The constructor takes a third argument, \`accessOrder\`. With \`false\` (the def
 
 \`LinkedHashSet\` is the same structure for keys only. Iteration order is deterministic across runs, which makes both classes useful for reproducible output and serialisation, at the cost of two extra references per entry and slightly slower writes. Removal during iteration is still fail-fast.`,
         },
-        {
-          id: 'enummap',
-          title: 'EnumMap: an array in disguise',
-          body: `An enum constant has a fixed ordinal assigned at compile time, which means an enum type has a known, dense key space. \`EnumMap<K extends Enum<K>, V>\` exploits this directly: internally it holds a plain \`Object[] vals\` indexed by \`key.ordinal()\`, plus a \`Class<K> keyType\` for validation and a \`boolean[]\` to distinguish "mapped to null" from "absent".
+        { heading: 'EnumMap: an array in disguise', body: `An enum constant has a fixed ordinal assigned at compile time, which means an enum type has a known, dense key space. \`EnumMap<K extends Enum<K>, V>\` exploits this directly: internally it holds a plain \`Object[] vals\` indexed by \`key.ordinal()\`, plus a \`Class<K> keyType\` for validation and a \`boolean[]\` to distinguish "mapped to null" from "absent".
 
 Consequences follow immediately. \`get\` and \`put\` are a single array access, with no hashing, no bucket walk and no node allocation. Memory is one slot per constant regardless of how many are used, and iteration simply scans the array, so it is fast and ordinal-ordered.
 
@@ -1133,10 +1049,7 @@ Restrictions: null keys are rejected (with a \`NullPointerException\`), the key 
 
 For configuration tables, state machines and per-category counters, \`EnumMap\` is strictly better than \`HashMap\`. Use \`EnumSet\` for the set equivalent: a bit vector over the ordinals, usually a single \`long\`.`,
         },
-        {
-          id: 'identityhashmap',
-          title: 'IdentityHashMap and reference equality',
-          body: `\`IdentityHashMap<K, V>\` deliberately violates the \`Map\` contract's equality clause: it compares keys with \`==\` and hashes them with \`System.identityHashCode\`, ignoring \`equals\` and \`hashCode\` entirely.
+        { heading: 'IdentityHashMap and reference equality', body: `\`IdentityHashMap<K, V>\` deliberately violates the \`Map\` contract's equality clause: it compares keys with \`==\` and hashes them with \`System.identityHashCode\`, ignoring \`equals\` and \`hashCode\` entirely.
 
 The implementation is a flat \`Object[] table\` storing alternating key and value slots, with linear probing on collision. That is a different layout from \`HashMap\`'s node chains: no per-entry objects, better locality, but probing degrades on a crowded table. The expected size should be passed to the constructor when known.
 
@@ -1144,19 +1057,13 @@ Typical uses are framework-level: tracking visited objects during graph serialis
 
 Because it ignores value equality, it is the wrong tool for domain keys. \`map.get("hello")\` only finds an entry if that exact \`String\` instance was inserted, which is fragile with string interning. Also note the iteration order is unspecified, and null keys are allowed.`,
         },
-        {
-          id: 'weakhashmap',
-          title: 'WeakHashMap and collectable keys',
-          body: `\`WeakHashMap\` wraps each key in a \`WeakReference\` registered with a \`ReferenceQueue\`. When no strong reference to a key remains, the garbage collector clears the reference and enqueues it; the next map operation drains the queue and removes the corresponding entry. The map therefore shrinks on its own without explicit cleanup.
+        { heading: 'WeakHashMap and collectable keys', body: `\`WeakHashMap\` wraps each key in a \`WeakReference\` registered with a \`ReferenceQueue\`. When no strong reference to a key remains, the garbage collector clears the reference and enqueues it; the next map operation drains the queue and removes the corresponding entry. The map therefore shrinks on its own without explicit cleanup.
 
 The fine print is where it bites. Entries are only purged when the map is touched, so a \`WeakHashMap\` can hold cleared entries for a while and \`size()\` may be stale between operations. If the **value** strongly references its own key, the entry becomes a self-retaining cycle and is never collected. And if the key is a string literal, an interned string, or a boxed small integer, it is reachable from the constant pool or cache and will never be collected either.
 
 Legitimate use: attaching metadata to objects you do not own, such as per-class caches keyed by \`Class\`, or listener registries where the listener's lifetime controls the entry. For bounded caches with eviction policy, a real cache library is clearer than relying on GC timing.`,
         },
-        {
-          id: 'immutable-and-factory-maps',
-          title: 'Immutable maps and factory methods',
-          body: `\`Map.of\`, \`Map.ofEntries\` and \`Map.copyOf\` produce unmodifiable maps with value-based equality and iteration order that is deliberately randomised per JVM run to discourage reliance on it. They reject null keys and values, and any mutator throws \`UnsupportedOperationException\`.
+        { heading: 'Immutable maps and factory methods', body: `\`Map.of\`, \`Map.ofEntries\` and \`Map.copyOf\` produce unmodifiable maps with value-based equality and iteration order that is deliberately randomised per JVM run to discourage reliance on it. They reject null keys and values, and any mutator throws \`UnsupportedOperationException\`.
 
 These are snapshots, not views. \`Map.copyOf(existing)\` allocates and copies, so later changes to the source are invisible, and the copy is safe to share across threads because nothing can mutate it. That makes them ideal for constants, configuration and return values of public methods.
 
@@ -1308,15 +1215,13 @@ public class IdentityDifference {
     },
     {
       slug: 'queue-and-priorityqueue',
+      vizId: 'queue-and-priorityqueue',
       title: 'Queue, Deque & PriorityQueue',
       order: 7,
       summary: 'FIFO and double-ended contracts, ring buffers, and the binary heap inside PriorityQueue.',
       level: 'intermediate',
-      subtopics: [
-        {
-          id: 'queue-contract',
-          title: 'The Queue contract and its two method families',
-          body: `\`Queue<E>\` models a pipeline: elements enter at the tail and leave at the head. It defines six operations in three pairs, each offered in a throwing form and a value-returning form.
+      sections: [
+        { heading: 'The Queue contract and its two method families', body: `\`Queue<E>\` models a pipeline: elements enter at the tail and leave at the head. It defines six operations in three pairs, each offered in a throwing form and a value-returning form.
 
 | Purpose | Throws on failure | Returns sentinel |
 | --- | --- | --- |
@@ -1330,10 +1235,7 @@ In production code prefer \`offer\`, \`poll\` and \`peek\`: exceptions should si
 
 \`Queue\` does not require FIFO. \`PriorityQueue\` orders by priority, and \`Deque\` implementations can be used either way.`,
         },
-        {
-          id: 'deque-and-arraydeque',
-          title: 'Deque and ArrayDeque',
-          body: `\`Deque<E>\` extends \`Queue\` with operations at both ends: \`addFirst\`, \`addLast\`, \`offerFirst\`, \`offerLast\`, \`removeFirst\`, \`removeLast\`, \`pollFirst\`, \`pollLast\`, \`peekFirst\`, \`peekLast\`, plus \`push\`, \`pop\` and a descending iterator.
+        { heading: 'Deque and ArrayDeque', body: `\`Deque<E>\` extends \`Queue\` with operations at both ends: \`addFirst\`, \`addLast\`, \`offerFirst\`, \`offerLast\`, \`removeFirst\`, \`removeLast\`, \`pollFirst\`, \`pollLast\`, \`peekFirst\`, \`peekLast\`, plus \`push\`, \`pop\` and a descending iterator.
 
 \`ArrayDeque\` implements it with a resizable circular array: a \`Object[] elements\` plus \`int head\` and \`int tail\`. Both ends are O(1) because the index arithmetic wraps with \`(head - 1) & (length - 1)\`. The capacity is always a power of two, doubling when full, and the array is allocated lazily at 16 on first insertion.
 
@@ -1341,10 +1243,7 @@ It is the fastest general-purpose stack and queue in the JDK: no node allocation
 
 Use \`ArrayDeque\` for DFS stacks, BFS queues and sliding-window problems. \`LinkedList\` also implements \`Deque\` but allocates a node per element; it is only preferable when you also need \`List\` operations at arbitrary positions.`,
         },
-        {
-          id: 'priorityqueue-heap',
-          title: 'PriorityQueue as a binary heap',
-          body: `\`PriorityQueue<E>\` stores elements in a binary **min-heap** laid out in a plain \`Object[] queue\`. The tree is implicit in the indices:
+        { heading: 'PriorityQueue as a binary heap', body: `\`PriorityQueue<E>\` stores elements in a binary **min-heap** laid out in a plain \`Object[] queue\`. The tree is implicit in the indices:
 
 - parent of \`i\` is \`(i - 1) >>> 1\`
 - left child of \`i\` is \`2 * i + 1\`
@@ -1356,10 +1255,7 @@ The ordering comes from \`compareTo\` for \`Comparable\` elements or from the su
 
 Construction from a collection uses \`heapify\` with sift-down from the middle backwards, which is O(n) rather than O(n log n) for n successive inserts.`,
         },
-        {
-          id: 'heap-limits-and-iteration',
-          title: 'Heap limits: iteration, mutation and ties',
-          body: `A heap only guarantees the root is extremal. The rest of the array is partially ordered, so iterating a \`PriorityQueue\` does **not** produce sorted output, and \`toString\` looks arbitrary. To consume elements in order, poll repeatedly, which is O(n log n) overall; to sort without destroying the queue, copy and sort.
+        { heading: 'Heap limits: iteration, mutation and ties', body: `A heap only guarantees the root is extremal. The rest of the array is partially ordered, so iterating a \`PriorityQueue\` does **not** produce sorted output, and \`toString\` looks arbitrary. To consume elements in order, poll repeatedly, which is O(n log n) overall; to sort without destroying the queue, copy and sort.
 
 Elements must not change in a way that affects comparison while they are in the queue. Mutating a field used by \`compareTo\` corrupts the heap silently, because no sift happens. This is why priority queues are usually filled with immutable records.
 
@@ -1367,10 +1263,7 @@ Ties are resolved arbitrarily, so equal-priority elements have no stable order. 
 
 \`PriorityQueue\` is not thread-safe; \`PriorityBlockingQueue\` adds blocking take operations but still offers no ordering guarantee for iteration. It also does not support null elements, and its iterator is fail-fast.`,
         },
-        {
-          id: 'concurrent-queues',
-          title: 'Blocking and concurrent queues',
-          body: `The \`java.util.concurrent\` package supplies queue implementations designed for hand-off between threads:
+        { heading: 'Blocking and concurrent queues', body: `The \`java.util.concurrent\` package supplies queue implementations designed for hand-off between threads:
 
 - \`ArrayBlockingQueue\` — bounded, array-backed, optional fairness for waiting producers and consumers.
 - \`LinkedBlockingQueue\` — optionally bounded, node-based, higher throughput under contention because it uses separate locks for head and tail.
@@ -1517,15 +1410,13 @@ public class TopK {
     },
     {
       slug: 'comparable-and-collections',
+      vizId: 'comparable-and-collections',
       title: 'Comparable, Comparator & the Collections Utility',
       order: 8,
       summary: 'Natural ordering, external comparators and the static algorithms that operate on them.',
       level: 'intermediate',
-      subtopics: [
-        {
-          id: 'comparable-contract',
-          title: 'Comparable and natural ordering',
-          body: `\`Comparable<T>\` declares one method, \`int compareTo(T other)\`, and defines the type's single **natural ordering**. The return value follows a strict convention: negative means \`this\` comes before \`other\`, zero means they are equal in ordering, positive means \`this\` comes after.
+      sections: [
+        { heading: 'Comparable and natural ordering', body: `\`Comparable<T>\` declares one method, \`int compareTo(T other)\`, and defines the type's single **natural ordering**. The return value follows a strict convention: negative means \`this\` comes before \`other\`, zero means they are equal in ordering, positive means \`this\` comes after.
 
 The contract has three requirements that are easy to violate:
 
@@ -1537,10 +1428,7 @@ The third is strongly recommended rather than required, but sorted collections d
 
 Never implement \`compareTo\` by subtraction. \`this.value - other.value\` overflows for large integers and returns the wrong sign. Use \`Integer.compare(this.value, other.value)\`, \`Long.compare\`, or \`Comparator.comparingInt\`.`,
         },
-        {
-          id: 'comparator-alternatives',
-          title: 'Comparator and its combinators',
-          body: `\`Comparator<T>\` is the external, reusable ordering strategy. Because a class has only one natural order, comparators provide the rest: by name, by price, by date descending, with nulls first.
+        { heading: 'Comparator and its combinators', body: `\`Comparator<T>\` is the external, reusable ordering strategy. Because a class has only one natural order, comparators provide the rest: by name, by price, by date descending, with nulls first.
 
 The static factories in \`Comparator\` remove nearly all boilerplate:
 
@@ -1556,10 +1444,7 @@ The static factories in \`Comparator\` remove nearly all boilerplate:
 
 A comparator is a functional interface, so it can be a lambda, a method reference or a chain of factories. Chains are immutable: \`reversed()\` returns a new comparator rather than mutating the original, which matters when comparators are shared static constants.`,
         },
-        {
-          id: 'sorted-collections',
-          title: 'Sorted collections and comparator precedence',
-          body: `\`TreeSet\` and \`TreeMap\` keep their elements ordered by \`compareTo\` or by a supplied \`Comparator\`. When a comparator is provided, it **replaces** natural ordering entirely, including for uniqueness: \`new TreeSet<>(Comparator.comparing(String::length))\` treats "cat" and "dog" as the same element because both have length 3, and the second add returns \`false\`.
+        { heading: 'Sorted collections and comparator precedence', body: `\`TreeSet\` and \`TreeMap\` keep their elements ordered by \`compareTo\` or by a supplied \`Comparator\`. When a comparator is provided, it **replaces** natural ordering entirely, including for uniqueness: \`new TreeSet<>(Comparator.comparing(String::length))\` treats "cat" and "dog" as the same element because both have length 3, and the second add returns \`false\`.
 
 This produces one of the classic production bugs: a tree set keyed by one field silently losing records that differ only in other fields. Always make the comparator total, ending with a tie-breaker on a unique field or on \`System.identityHashCode\`.
 
@@ -1567,10 +1452,7 @@ This produces one of the classic production bugs: a tree set keyed by one field 
 
 Note that \`HashSet\` and \`TreeSet\` are not equal even with identical contents, because \`AbstractSet.equals\` compares membership, which does work across implementations.`,
         },
-        {
-          id: 'collections-utility',
-          title: 'The Collections utility class',
-          body: `\`java.util.Collections\` is a static utility belt, not to be confused with the \`Collection\` interface. Its most used members:
+        { heading: 'The Collections utility class', body: `\`java.util.Collections\` is a static utility belt, not to be confused with the \`Collection\` interface. Its most used members:
 
 - \`sort(list)\` and \`sort(list, comparator)\` — stable merge sort on the list's array, O(n log n).
 - \`binarySearch(list, key)\` — O(log n), but only on a list sorted with the same ordering; otherwise the result is undefined.
@@ -1585,10 +1467,7 @@ Note that \`HashSet\` and \`TreeSet\` are not equal even with identical contents
 
 \`unmodifiableList\` returns a view; the source list can still change. \`binarySearch\` on a list sorted descending returns garbage unless you pass a reversed comparator.`,
         },
-        {
-          id: 'sorting-algorithms',
-          title: 'What sort is actually running',
-          body: `\`Collections.sort\` and \`List.sort\` delegate to \`Arrays.sort\` on the backing array. For object arrays that is **TimSort**, a stable adaptive merge sort that detects existing runs and merges them. Stability matters: equal elements keep their relative order, which lets you sort by multiple keys in successive passes (least significant first).
+        { heading: 'What sort is actually running', body: `\`Collections.sort\` and \`List.sort\` delegate to \`Arrays.sort\` on the backing array. For object arrays that is **TimSort**, a stable adaptive merge sort that detects existing runs and merges them. Stability matters: equal elements keep their relative order, which lets you sort by multiple keys in successive passes (least significant first).
 
 For primitive arrays, \`Arrays.sort\` uses dual-pivot quicksort, which is faster but **not stable**, because there is no identity to preserve for primitives. \`Arrays.parallelSort\` uses a parallel merge sort and only pays off for large arrays.
 
@@ -1737,15 +1616,13 @@ public class TreeUniqueness {
     },
     {
       slug: 'lambdas-and-functional-interfaces',
+      vizId: 'lambdas-and-functional-interfaces',
       title: 'Lambdas & Functional Interfaces',
       order: 9,
       summary: 'Behaviour as a value: target typing, capture rules and the standard functional shapes.',
       level: 'intermediate',
-      subtopics: [
-        {
-          id: 'from-anonymous-classes',
-          title: 'From anonymous classes to lambdas',
-          body: `Before Java 8, passing behaviour meant an anonymous inner class:
+      sections: [
+        { heading: 'From anonymous classes to lambdas', body: `Before Java 8, passing behaviour meant an anonymous inner class:
 
 \`\`\`java
 Comparator<String> byLength = new Comparator<String>() {
@@ -1762,10 +1639,7 @@ The implementation difference is more than cosmetic. An anonymous class compiles
 
 That does **not** mean lambdas are always allocation-free. A lambda that captures values needs an object to hold them.`,
         },
-        {
-          id: 'target-typing',
-          title: 'Target typing and the functional interface',
-          body: `A lambda has no type of its own. Its type is the **target type** supplied by context: an assignment, a method argument, a return statement or a cast. That target must be a functional interface, meaning exactly one abstract method after inherited and default methods are considered.
+        { heading: 'Target typing and the functional interface', body: `A lambda has no type of its own. Its type is the **target type** supplied by context: an assignment, a method argument, a return statement or a cast. That target must be a functional interface, meaning exactly one abstract method after inherited and default methods are considered.
 
 The single abstract method fixes everything: arity, parameter types and return type. \`(a, b) -> a + b\` is valid for \`BiFunction<Integer, Integer, Integer>\`, \`IntBinaryOperator\` or \`Comparator<String>\` depending on where it appears, and the compiler checks the body against the chosen signature.
 
@@ -1773,10 +1647,7 @@ Two consequences follow. A lambda cannot be assigned to \`var\` without a cast, 
 
 \`@FunctionalInterface\` is documentation plus a compiler check, not a requirement.`,
         },
-        {
-          id: 'capturing-variables',
-          title: 'Capture and effectively final variables',
-          body: `A lambda can read local variables from the enclosing scope, but only those that are final or **effectively final**, meaning never reassigned after initialisation. This is stricter than anonymous classes, which had the same rule, and it exists because the captured value is copied into the lambda object at creation time, not shared by reference.
+        { heading: 'Capture and effectively final variables', body: `A lambda can read local variables from the enclosing scope, but only those that are final or **effectively final**, meaning never reassigned after initialisation. This is stricter than anonymous classes, which had the same rule, and it exists because the captured value is copied into the lambda object at creation time, not shared by reference.
 
 \`this\` inside a lambda refers to the enclosing instance, unlike an anonymous class where \`this\` is the anonymous instance. That difference is a common source of confusion when converting between the two forms.
 
@@ -1784,10 +1655,7 @@ Mutating shared state from a lambda is legal only through a mutable container, f
 
 Method parameters and \`for\` loop variables are also effectively final, so \`for (int i = 0; ...)\` cannot be captured unless you copy it into a local inside the body.`,
         },
-        {
-          id: 'built-in-interfaces',
-          title: 'The standard functional interfaces',
-          body: `\`java.util.function\` provides reusable shapes so you rarely need a custom interface:
+        { heading: 'The standard functional interfaces', body: `\`java.util.function\` provides reusable shapes so you rarely need a custom interface:
 
 | Interface | Method | Shape |
 | --- | --- | --- |
@@ -1804,10 +1672,7 @@ Primitive specialisations (\`IntFunction\`, \`ToIntFunction\`, \`IntPredicate\`,
 
 Choose by intent: if a method transforms, take a \`Function\`; if it validates, take a \`Predicate\`. Reusing the standard names makes APIs immediately understandable, and it avoids inventing an interface per method.`,
         },
-        {
-          id: 'composition',
-          title: 'Composing behaviour',
-          body: `Functional interfaces carry default methods that compose them without new syntax. \`Predicate\` offers \`and\`, \`or\` and \`negate\`, evaluated left to right with short-circuiting, plus \`Predicate.not(...)\` for method-reference negation. \`Function\` offers \`andThen\` and \`compose\`, and \`UnaryOperator\` inherits both.
+        { heading: 'Composing behaviour', body: `Functional interfaces carry default methods that compose them without new syntax. \`Predicate\` offers \`and\`, \`or\` and \`negate\`, evaluated left to right with short-circuiting, plus \`Predicate.not(...)\` for method-reference negation. \`Function\` offers \`andThen\` and \`compose\`, and \`UnaryOperator\` inherits both.
 
 A composed predicate is still just a lambda, so it can be passed anywhere a \`Predicate\` is expected and stored in a constant for reuse. This is the building block of rule engines built from small named predicates.
 
@@ -1956,15 +1821,13 @@ public class CompositionDemo {
     },
     {
       slug: 'method-references-and-composition',
+      vizId: 'method-references-and-composition',
       title: 'Method References & Function Composition',
       order: 10,
       summary: 'The four :: forms, what the compiler infers, and how andThen differs from compose.',
       level: 'advanced',
-      subtopics: [
-        {
-          id: 'four-forms',
-          title: 'The four forms of method reference',
-          body: `A method reference is shorthand for a lambda that only calls an existing method. There are four syntactic shapes, and telling them apart is the whole skill:
+      sections: [
+        { heading: 'The four forms of method reference', body: `A method reference is shorthand for a lambda that only calls an existing method. There are four syntactic shapes, and telling them apart is the whole skill:
 
 | Form | Example | Equivalent lambda |
 | --- | --- | --- |
@@ -1977,10 +1840,7 @@ The distinction between bound and unbound is the one candidates mix up. In \`Sys
 
 An unbound reference with n arguments invokes a method with n-1 explicit parameters plus the receiver. A constructor reference with n arguments matches a constructor with n parameters, and \`String[]::new\` matches an array constructor of one int argument.`,
         },
-        {
-          id: 'inference-gotchas',
-          title: 'Inference and overloading gotchas',
-          body: `The compiler checks a method reference against the target type's single abstract method: arity, parameter types and return type. Because the reference has no argument list, overload selection often has to happen from the target alone, which is where ambiguity appears.
+        { heading: 'Inference and overloading gotchas', body: `The compiler checks a method reference against the target type's single abstract method: arity, parameter types and return type. Because the reference has no argument list, overload selection often has to happen from the target alone, which is where ambiguity appears.
 
 Three recurring problems:
 
@@ -1992,10 +1852,7 @@ A cast is the standard escape hatch: \`(Function<String, Integer>) Integer::pars
 
 Constructors that throw checked exceptions cannot be used directly, since the functional interfaces in the JDK do not declare them.`,
         },
-        {
-          id: 'andthen-versus-compose',
-          title: 'andThen versus compose',
-          body: `\`Function<T, R>\` has two composition methods with outward-identical results and opposite reading order:
+        { heading: 'andThen versus compose', body: `\`Function<T, R>\` has two composition methods with outward-identical results and opposite reading order:
 
 - \`f.andThen(g)\` produces \`x -> g.apply(f.apply(x))\`, so \`f\` runs first.
 - \`f.compose(g)\` produces \`x -> f.apply(g.apply(x))\`, so \`g\` runs first.
@@ -2006,10 +1863,7 @@ Types restrict composition: \`andThen\` requires the input of the next function 
 
 \`Consumer\` has \`andThen\` only, because a consumer has no result to feed forward. \`Predicate\` has \`and\`, \`or\`, \`negate\` rather than function composition.`,
         },
-        {
-          id: 'currying-and-partial-application',
-          title: 'Currying and partial application',
-          body: `Java has no first-class currying syntax, but \`BiFunction\` plus a lambda produces it in one line:
+        { heading: 'Currying and partial application', body: `Java has no first-class currying syntax, but \`BiFunction\` plus a lambda produces it in one line:
 
 \`\`\`java
 static <T, U, R> Function<U, R> partial(BiFunction<T, U, R> fn, T fixed) {
@@ -2023,10 +1877,7 @@ This pattern is useful for configuration: bind a repository, a formatter or a lo
 
 The cost is indirection: every partial application creates a capturing lambda object. In a hot loop over millions of elements, prefer a direct method call or a stored constant. Currying aids readability and reuse; it is not a performance technique, and Java's type system makes deeply curried code verbose compared with functional-first languages.`,
         },
-        {
-          id: 'semantics-and-receivers',
-          title: 'Semantics: receivers, identity and evaluation',
-          body: `A bound method reference evaluates its receiver **immediately**, at the point the reference is created. \`obj::method\` captures the current value of \`obj\`, and a later reassignment of the variable does not change the reference. Passing \`this::handle\` inside a constructor therefore captures \`this\` before the object is fully initialised, which can leak a partially built instance.
+        { heading: 'Semantics: receivers, identity and evaluation', body: `A bound method reference evaluates its receiver **immediately**, at the point the reference is created. \`obj::method\` captures the current value of \`obj\`, and a later reassignment of the variable does not change the reference. Passing \`this::handle\` inside a constructor therefore captures \`this\` before the object is fully initialised, which can leak a partially built instance.
 
 Method references and equivalent lambdas compile to the same invokedynamic shape, so there is no meaningful performance difference. Choose by readability: a reference is shorter when a method already exists with exactly the right signature, and a lambda is clearer when you need to adapt arguments, reorder them or add a constant.
 
@@ -2164,15 +2015,13 @@ public class CurryingDemo {
     },
     {
       slug: 'streams-creation-and-architecture',
+      vizId: 'streams-creation-and-architecture',
       title: 'Streams: Creation & Architecture',
       order: 11,
       summary: 'What a stream really is, how pipelines stay lazy, and every practical way to create one.',
       level: 'intermediate',
-      subtopics: [
-        {
-          id: 'stream-versus-collection',
-          title: 'A stream is not a collection',
-          body: `A collection stores elements; a stream describes a computation over elements. That single difference explains every other property.
+      sections: [
+        { heading: 'A stream is not a collection', body: `A collection stores elements; a stream describes a computation over elements. That single difference explains every other property.
 
 Streams hold no data. They wrap a **source** (a collection, an array, a file, a generator) and a chain of operations. They are **lazy**: intermediate operations only record what should happen, and nothing runs until a terminal operation requests a result. They are **single-use**: after a terminal operation the stream is consumed, and reusing it throws \`IllegalStateException: stream has already been operated upon or closed\`.
 
@@ -2180,10 +2029,7 @@ They are also **pull-based**, at least conceptually. The terminal operation pull
 
 Collections are about storage and reuse; streams are about one-shot transformation. When you need the result twice, collect it.`,
         },
-        {
-          id: 'pipeline-anatomy',
-          title: 'Pipeline anatomy',
-          body: `Every pipeline has three parts:
+        { heading: 'Pipeline anatomy', body: `Every pipeline has three parts:
 
 1. **Source** — \`list.stream()\`, \`Arrays.stream(array)\`, \`Stream.of(...)\`, \`Files.lines(path)\`, \`IntStream.range(...)\`. The source supplies a \`Spliterator\` and a set of characteristics such as \`ORDERED\`, \`SIZED\` and \`DISTINCT\`.
 2. **Intermediate operations** — \`filter\`, \`map\`, \`flatMap\`, \`sorted\`, \`distinct\`, \`limit\`, \`skip\`, \`peek\`. Each returns a new \`Stream\` and records a stage.
@@ -2193,10 +2039,7 @@ Internally, a stream is a linked chain of \`AbstractPipeline\` nodes. Evaluation
 
 A pipeline with no terminal operation is dead code.`,
         },
-        {
-          id: 'creating-streams',
-          title: 'Creating streams',
-          body: `The creation options cover almost every data source:
+        { heading: 'Creating streams', body: `The creation options cover almost every data source:
 
 | Source | Call |
 | --- | --- |
@@ -2217,10 +2060,7 @@ Two cautions. \`Stream.of(array)\` with a primitive array produces a stream of o
 
 \`Files.lines\` holds an open file handle and must be closed, so use try-with-resources.`,
         },
-        {
-          id: 'laziness-in-practice',
-          title: 'Laziness in practice',
-          body: `Laziness is observable, and demonstrating it is the fastest way to prove you understand pipelines. Put a print or counter inside \`filter\` and \`map\`, build the pipeline, and note that nothing appears until the terminal operation runs. Then note the *interleaving*: each element travels the whole chain before the next one starts, not stage by stage over the entire input.
+        { heading: 'Laziness in practice', body: `Laziness is observable, and demonstrating it is the fastest way to prove you understand pipelines. Put a print or counter inside \`filter\` and \`map\`, build the pipeline, and note that nothing appears until the terminal operation runs. Then note the *interleaving*: each element travels the whole chain before the next one starts, not stage by stage over the entire input.
 
 That interleaving is why short-circuiting works. In \`stream.filter(...).findFirst()\`, elements are pulled only until the first match, so an infinite source can still terminate. \`anyMatch\`, \`allMatch\`, \`noneMatch\`, \`findFirst\`, \`findAny\` and \`limit\` are all short-circuiting.
 
@@ -2228,10 +2068,7 @@ Stateful operations break the pattern. \`sorted\` must buffer everything before 
 
 \`peek\` exists for debugging exactly this flow; it is not a business-logic hook.`,
         },
-        {
-          id: 'stream-flags-and-fusion',
-          title: 'Flags, fusion and why order matters',
-          body: `A stream carries a bitmask of characteristics inherited from its source and adjusted by each stage. \`SIZED\` lets \`count()\` return without traversal. \`ORDERED\` guarantees encounter order and enables \`findFirst\` semantics. \`DISTINCT\` and \`SORTED\` let the implementation skip redundant \`distinct()\` or \`sorted()\` calls, because it can prove the data already satisfies them.
+        { heading: 'Flags, fusion and why order matters', body: `A stream carries a bitmask of characteristics inherited from its source and adjusted by each stage. \`SIZED\` lets \`count()\` return without traversal. \`ORDERED\` guarantees encounter order and enables \`findFirst\` semantics. \`DISTINCT\` and \`SORTED\` let the implementation skip redundant \`distinct()\` or \`sorted()\` calls, because it can prove the data already satisfies them.
 
 Operations also clear flags. \`map\` clears \`SORTED\` and \`DISTINCT\`, since a transformed value may not preserve either. \`filter\` clears \`SIZED\`. These flag updates explain why \`stream().map(f).sorted()\` must actually sort, while \`stream().sorted().map(f)\` also sorts — but a second \`sorted()\` after that is a no-op.
 
@@ -2375,15 +2212,13 @@ public class InfiniteStreams {
     },
     {
       slug: 'stream-operations',
+      vizId: 'stream-operations',
       title: 'Intermediate & Terminal Stream Operations',
       order: 12,
       summary: 'The full operation catalogue, short-circuiting, and collectors that group, join and reduce.',
       level: 'advanced',
-      subtopics: [
-        {
-          id: 'stateless-intermediate',
-          title: 'Stateless intermediate operations',
-          body: `Stateless stages process each element independently and fuse into a single pass:
+      sections: [
+        { heading: 'Stateless intermediate operations', body: `Stateless stages process each element independently and fuse into a single pass:
 
 - \`filter(Predicate)\` drops elements that fail the test.
 - \`map(Function)\` transforms one element into one element.
@@ -2396,10 +2231,7 @@ public class InfiniteStreams {
 
 \`peek\` is frequently misused to mutate elements. That is undefined under parallelism and wrong even sequentially, because a stream should describe transformation, not side effects. Use \`map\` instead.`,
         },
-        {
-          id: 'stateful-intermediate',
-          title: 'Stateful intermediate operations',
-          body: `Stateful stages retain information across elements and therefore introduce a barrier:
+        { heading: 'Stateful intermediate operations', body: `Stateful stages retain information across elements and therefore introduce a barrier:
 
 - \`distinct()\` keeps a \`HashSet\` of seen elements, so it needs O(n) memory. It relies on \`equals\` and \`hashCode\`.
 - \`sorted()\` and \`sorted(Comparator)\` buffer everything and sort; O(n log n) time and O(n) memory, and stable for ordered streams.
@@ -2413,10 +2245,7 @@ Combining stateful stages is where pipelines get expensive. \`sorted().distinct(
 
 \`limit\` after \`sorted\` still sorts the whole input; there is no top-k optimisation.`,
         },
-        {
-          id: 'terminal-reductions',
-          title: 'Terminal operations and reductions',
-          body: `Terminal operations fall into three groups.
+        { heading: 'Terminal operations and reductions', body: `Terminal operations fall into three groups.
 
 **Aggregation:** \`count()\`, \`sum()\`, \`average()\`, \`min()\`, \`max()\`, \`summaryStatistics()\`. On primitive streams these return primitives or primitive optionals and avoid boxing.
 
@@ -2434,10 +2263,7 @@ Combining stateful stages is where pipelines get expensive. \`sorted().distinct(
 
 The identity must satisfy \`identity op x == x\` for every x, and the accumulator must be associative, or parallel reduction produces wrong results. This is the single most important correctness rule in the stream API.`,
         },
-        {
-          id: 'collectors-core',
-          title: 'Collectors: the core set',
-          body: `\`collect(Collector)\` is the general-purpose terminal operation. \`Collectors\` supplies the implementations:
+        { heading: 'Collectors: the core set', body: `\`collect(Collector)\` is the general-purpose terminal operation. \`Collectors\` supplies the implementations:
 
 | Collector | Result |
 | --- | --- |
@@ -2457,10 +2283,7 @@ The identity must satisfy \`identity op x == x\` for every x, and the accumulato
 
 \`Collectors.toList()\` historically returned a mutable \`ArrayList\`; the contract never guaranteed it, and the modern \`Stream.toList()\` is explicitly unmodifiable.`,
         },
-        {
-          id: 'grouping-and-partitioning',
-          title: 'Grouping and partitioning',
-          body: `\`groupingBy\` builds a \`Map<K, List<T>>\` by default, and accepts a downstream collector to shape the values:
+        { heading: 'Grouping and partitioning', body: `\`groupingBy\` builds a \`Map<K, List<T>>\` by default, and accepts a downstream collector to shape the values:
 
 - \`groupingBy(classifier, counting())\` gives counts per key.
 - \`groupingBy(classifier, mapping(fn, toList()))\` projects before collecting.
@@ -2627,15 +2450,13 @@ public class PartitionDemo {
     },
     {
       slug: 'optional',
+      vizId: 'optional',
       title: 'Optional from Scratch',
       order: 13,
       summary: 'A container for maybe-absent values: how to build one, chain it, and where not to use it.',
       level: 'intermediate',
-      subtopics: [
-        {
-          id: 'why-optional',
-          title: 'The problem Optional solves',
-          body: `A null return is ambiguous. It can mean "not found", "not applicable", "an error occurred" or simply "someone forgot to assign a value". The type system says nothing, so callers either check defensively at every level or forget and get a \`NullPointerException\` far from the cause.
+      sections: [
+        { heading: 'The problem Optional solves', body: `A null return is ambiguous. It can mean "not found", "not applicable", "an error occurred" or simply "someone forgot to assign a value". The type system says nothing, so callers either check defensively at every level or forget and get a \`NullPointerException\` far from the cause.
 
 \`Optional<T>\` makes absence explicit in the type. A method returning \`Optional<User>\` tells the caller that no user is a normal outcome and must be handled, without exceptions for control flow and without a nullable reference that looks identical to a valid one.
 
@@ -2643,10 +2464,7 @@ The container is small and immutable. It either holds a non-null reference or is
 
 The design intent is narrow, and the JDK authors have said so repeatedly: \`Optional\` is a **return type** for methods that may legitimately produce nothing. It is not a general null replacement, and using it everywhere produces a different kind of noise rather than fewer bugs.`,
         },
-        {
-          id: 'creation-and-inspection',
-          title: 'Creation and inspection',
-          body: `Three factories cover creation:
+        { heading: 'Creation and inspection', body: `Three factories cover creation:
 
 - \`Optional.of(value)\` requires a non-null value and throws \`NullPointerException\` immediately otherwise. Use it when null is a bug.
 - \`Optional.ofNullable(value)\` accepts null and returns \`empty()\` in that case. Use it at the boundary where a nullable value enters.
@@ -2658,10 +2476,7 @@ Inspection has three useful methods and one dangerous one. \`isPresent()\` and \
 
 \`Optional.of(null)\` failing fast is deliberate: it separates "programmer error" from "expected absence".`,
         },
-        {
-          id: 'transformation',
-          title: 'map, flatMap and filter',
-          body: `The value-oriented methods let you describe a chain without unwrapping:
+        { heading: 'map, flatMap and filter', body: `The value-oriented methods let you describe a chain without unwrapping:
 
 - \`map(Function<T, R>)\` applies the function if a value is present, wrapping the result. If the function returns null, the result is \`empty()\`, not \`Optional.of(null)\`.
 - \`flatMap(Function<T, Optional<R>>)\` is for functions that already return an optional. Without it you would get \`Optional<Optional<R>>\`.
@@ -2672,10 +2487,7 @@ The map/flatMap distinction mirrors streams exactly, and the same mistake appear
 
 A realistic chain reads top to bottom: \`user.map(User::address).map(Address::city).filter(s -> !s.isBlank())\`. Each step handles absence automatically, and no branch is written. That is the actual benefit: absence propagates without ceremony instead of nesting.`,
         },
-        {
-          id: 'or-else-family',
-          title: 'The orElse family',
-          body: `Extraction methods differ mainly in eagerness:
+        { heading: 'The orElse family', body: `Extraction methods differ mainly in eagerness:
 
 | Method | Behaviour |
 | --- | --- |
@@ -2691,10 +2503,7 @@ The eager-versus-lazy distinction is the classic interview question and a real p
 
 Use \`orElse\` only for cheap constants, and \`orElseGet\` whenever the fallback allocates, queries or throws. \`orElseThrow\` with a domain exception is the idiomatic replacement for a null check that signals a contract violation.`,
         },
-        {
-          id: 'anti-patterns',
-          title: 'Anti-patterns and boundaries',
-          body: `\`Optional\` is easy to over-apply. The well-known anti-patterns:
+        { heading: 'Anti-patterns and boundaries', body: `\`Optional\` is easy to over-apply. The well-known anti-patterns:
 
 - **Fields and constructor parameters.** \`Optional\` is not \`Serializable\`, adds an allocation, and makes every access awkward. Use a nullable field with a documented invariant, or a null-object pattern.
 - **Collections of Optional.** Use an empty collection instead, or filter before collecting. \`Optional\` inside a \`List\` forces every consumer to unwrap.
@@ -2858,15 +2667,13 @@ public class OptionalStreams {
     },
     {
       slug: 'parallel-streams',
+      vizId: 'parallel-streams',
       title: 'Parallel Streams & Primitive Optionals',
       order: 14,
       summary: 'Spliterators, the common ForkJoinPool, parallel pitfalls, and boxing-free numeric streams.',
       level: 'advanced',
-      subtopics: [
-        {
-          id: 'forkjoin-common-pool',
-          title: 'The common ForkJoinPool',
-          body: `A parallel stream runs on \`ForkJoinPool.commonPool()\`, a JVM-wide pool created lazily with \`Runtime.getRuntime().availableProcessors() - 1\` worker threads, since the calling thread participates. Work is distributed by work-stealing: idle workers take tasks from the tail of another worker's deque.
+      sections: [
+        { heading: 'The common ForkJoinPool', body: `A parallel stream runs on \`ForkJoinPool.commonPool()\`, a JVM-wide pool created lazily with \`Runtime.getRuntime().availableProcessors() - 1\` worker threads, since the calling thread participates. Work is distributed by work-stealing: idle workers take tasks from the tail of another worker's deque.
 
 Because the pool is shared, a slow parallel stream can starve every other parallel stream in the JVM, including those inside libraries. Blocking operations such as I/O or \`synchronized\` waits on pool threads are especially damaging, since a blocked worker cannot steal work and the effective parallelism collapses.
 
@@ -2874,10 +2681,7 @@ Two escape hatches exist. The system property \`java.util.concurrent.ForkJoinPoo
 
 Parallelism is not free: splitting, task creation, result combination and memory barriers all cost. For small or cheap workloads, the overhead exceeds any gain.`,
         },
-        {
-          id: 'spliterator-mechanics',
-          title: 'Spliterators and how splitting works',
-          body: `A \`Spliterator\` is the parallel counterpart of an iterator. Instead of a single cursor it offers \`trySplit()\`, which partitions off a prefix for another thread, and \`forEachRemaining\` for bulk traversal.
+        { heading: 'Spliterators and how splitting works', body: `A \`Spliterator\` is the parallel counterpart of an iterator. Instead of a single cursor it offers \`trySplit()\`, which partitions off a prefix for another thread, and \`forEachRemaining\` for bulk traversal.
 
 Characteristics drive the strategy: \`SIZED\` allows exact splitting, \`SUBSIZED\` guarantees that children are also sized, \`ORDERED\` guarantees encounter order, \`DISTINCT\` and \`SORTED\` enable optimisations, and \`IMMUTABLE\` or \`CONCURRENT\` affect safety assumptions.
 
@@ -2891,10 +2695,7 @@ The source structure determines splitting quality:
 
 A spliterator can be traversed only once, like an iterator.`,
         },
-        {
-          id: 'when-parallel-helps',
-          title: 'When parallel actually helps',
-          body: `The classic rule of thumb is N × Q: the number of elements times the cost per element must be large. If N is 1,000 and Q is a few nanoseconds, coordination dominates and parallel is slower. If N is 10 million or Q is milliseconds, parallel can win.
+        { heading: 'When parallel actually helps', body: `The classic rule of thumb is N × Q: the number of elements times the cost per element must be large. If N is 1,000 and Q is a few nanoseconds, coordination dominates and parallel is slower. If N is 10 million or Q is milliseconds, parallel can win.
 
 The conditions that make it work:
 
@@ -2907,10 +2708,7 @@ The conditions that make it work:
 
 A parallel stream over a \`LinkedList\` of 100,000 small objects, doing a trivial map, is reliably slower than the sequential version. Measure with JMH; wall-clock timing in a loop is dominated by JIT warmup and dead-code elimination.`,
         },
-        {
-          id: 'parallel-pitfalls',
-          title: 'Correctness pitfalls',
-          body: `Parallel streams turn ordinary code into concurrent code, and most bugs are silent.
+        { heading: 'Correctness pitfalls', body: `Parallel streams turn ordinary code into concurrent code, and most bugs are silent.
 
 **Shared mutable state.** Accumulating into a shared \`ArrayList\` or incrementing a plain \`int\` from \`forEach\` is a data race. Use \`collect\`, or a concurrent collector, or \`reduce\`.
 
@@ -2924,10 +2722,7 @@ A parallel stream over a \`LinkedList\` of 100,000 small objects, doing a trivia
 
 **Ordered stateful stages.** \`sorted\`, \`distinct\` and \`limit\` on an ordered parallel stream require coordination and buffers, often erasing the gain.`,
         },
-        {
-          id: 'primitive-streams',
-          title: 'Primitive streams',
-          body: `\`Stream<Integer>\` boxes every element. For a million values that is a million \`Integer\` objects, plus the indirection on every operation. \`IntStream\`, \`LongStream\` and \`DoubleStream\` store primitives and expose numeric terminal operations directly: \`sum()\`, \`average()\`, \`min()\`, \`max()\`, \`summaryStatistics()\`.
+        { heading: 'Primitive streams', body: `\`Stream<Integer>\` boxes every element. For a million values that is a million \`Integer\` objects, plus the indirection on every operation. \`IntStream\`, \`LongStream\` and \`DoubleStream\` store primitives and expose numeric terminal operations directly: \`sum()\`, \`average()\`, \`min()\`, \`max()\`, \`summaryStatistics()\`.
 
 Bridge methods move between the two worlds: \`mapToInt\`, \`mapToLong\`, \`mapToDouble\` on an object stream; \`boxed()\` on a primitive stream; \`mapToObj\` to convert a primitive into an object.
 
@@ -2937,10 +2732,7 @@ Primitive streams are also the natural home for range generation: \`IntStream.ra
 
 \`chars()\` on a \`String\` returns an \`IntStream\` of code units, not code points.`,
         },
-        {
-          id: 'primitive-optionals',
-          title: 'OptionalInt, OptionalLong and OptionalDouble',
-          body: `Numeric terminal operations cannot return \`null\` or a boxed \`Optional<Integer>\` without losing the point of going primitive. The JDK supplies three dedicated containers: \`OptionalInt\`, \`OptionalLong\` and \`OptionalDouble\`.
+        { heading: 'OptionalInt, OptionalLong and OptionalDouble', body: `Numeric terminal operations cannot return \`null\` or a boxed \`Optional<Integer>\` without losing the point of going primitive. The JDK supplies three dedicated containers: \`OptionalInt\`, \`OptionalLong\` and \`OptionalDouble\`.
 
 They store a primitive plus a boolean presence flag, so they allocate no wrapper for the value itself. The API mirrors \`Optional\`: \`of\`, \`empty\`, \`isPresent\`, \`isEmpty\`, \`getAsInt\`, \`orElse\`, \`orElseThrow\`, \`ifPresent\`, \`ifPresentOrElse\`, \`stream\`, and \`map\`/\`flatMap\` variants that take primitive-friendly functions.
 

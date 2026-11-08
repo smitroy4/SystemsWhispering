@@ -234,7 +234,7 @@ export default function ProblemsPage() {
                 </div>
                 <Badge tone={difficultyTone(problem.difficulty)}>{problem.difficulty}</Badge>
                 <a
-                  className="problem-row__link"
+                  className="problem-row__link leet-link"
                   href={problem.leetcodeUrl}
                   target="_blank"
                   rel="noreferrer"

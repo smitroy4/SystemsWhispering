@@ -55,13 +55,6 @@ const NAV_MENUS: NavMenu[] = [
     ],
   },
   {
-    label: 'System Design',
-    items: [
-      { label: 'Low-level Design', to: '/lld' },
-      { label: 'High-level Design' },
-    ],
-  },
-  {
     label: 'The Backend Craft',
     items: [
       { label: 'Java: The Backbone', to: '/java' },
@@ -77,6 +70,13 @@ const NAV_MENUS: NavMenu[] = [
       { label: 'LLMs & Generative AI' },
       { label: 'RAG & AI Applications' },
       { label: 'AI Engineering & Agents' },
+    ],
+  },
+  {
+    label: 'System Design',
+    items: [
+      { label: 'Low-level Design', to: '/lld' },
+      { label: 'High-level Design' },
     ],
   },
 ];
