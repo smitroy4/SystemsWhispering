@@ -14,7 +14,17 @@ function difficultyTone(difficulty: SheetDifficulty): 'success' | 'warning' | 'd
   return 'info';
 }
 
-function SheetCard({ slug, title, description, difficulty, days }: { slug: string; title: string; description: string; difficulty: SheetDifficulty; days: number }) {
+function countSheetStats(sheet: { days: { topicSlugs: string[]; problemIds: string[] }[] }) {
+  const topicSet = new Set<string>();
+  const problemSet = new Set<string>();
+  for (const day of sheet.days) {
+    for (const t of day.topicSlugs) topicSet.add(t);
+    for (const p of day.problemIds) problemSet.add(p);
+  }
+  return { topicCount: topicSet.size, problemCount: problemSet.size };
+}
+
+function SheetCard({ slug, title, description, difficulty, days, topicCount, problemCount }: { slug: string; title: string; description: string; difficulty: SheetDifficulty; days: number; topicCount: number; problemCount: number }) {
   const { completed } = useSheetProgress(slug);
   const percent = days === 0 ? 0 : Math.round((completed.size / days) * 100);
 
@@ -24,8 +34,7 @@ function SheetCard({ slug, title, description, difficulty, days }: { slug: strin
         <Link to={`/sheets/${slug}`}>{title}</Link>
       </h2>
       <p className="sheet-card__meta">
-        Duration: {days} days
-        {completed.size > 0 ? ` · ${completed.size}/${days} done (${percent}%)` : ''}
+        Topics: {topicCount} · Problems: {problemCount}
       </p>
       <p className="sheet-card__meta">
         <Badge tone={difficultyTone(difficulty)}>{difficulty}</Badge>
@@ -56,16 +65,21 @@ export default function SheetsPage() {
       description="Guided study plans and roadmaps. Your per-day progress saves in your browser."
     >
       <div className="sheet-grid">
-        {sheets.map((sheet) => (
-          <SheetCard
-            key={sheet.slug}
-            slug={sheet.slug}
-            title={sheet.title}
-            description={sheet.description}
-            difficulty={sheet.difficulty}
-            days={sheet.days.length}
-          />
-        ))}
+        {sheets.map((sheet) => {
+          const stats = countSheetStats(sheet);
+          return (
+            <SheetCard
+              key={sheet.slug}
+              slug={sheet.slug}
+              title={sheet.title}
+              description={sheet.description}
+              difficulty={sheet.difficulty}
+              days={sheet.days.length}
+              topicCount={stats.topicCount}
+              problemCount={stats.problemCount}
+            />
+          );
+        })}
       </div>
     </PageShell>
   );

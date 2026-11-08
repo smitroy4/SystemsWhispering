@@ -6,6 +6,16 @@ import { useSheetProgress } from '../utils/sheetProgress.ts';
 import { usePageMeta } from '../utils/pageMeta.ts';
 import './SheetsPage.css';
 
+function countSheetStats(sheet: { days: { topicSlugs: string[]; problemIds: string[] }[] }) {
+  const topicSet = new Set<string>();
+  const problemSet = new Set<string>();
+  for (const day of sheet.days) {
+    for (const t of day.topicSlugs) topicSet.add(t);
+    for (const p of day.problemIds) problemSet.add(p);
+  }
+  return { topicCount: topicSet.size, problemCount: problemSet.size };
+}
+
 export default function SheetDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const sheet = slug ? getSheet(slug) : undefined;
@@ -26,9 +36,13 @@ export default function SheetDetailPage() {
     );
   }
 
+  const stats = countSheetStats(sheet);
   const total = sheet.days.length;
-  const doneCount = sheet.days.filter((day) => completed.has(day.day)).length;
+  const doneDays = sheet.days.filter((day) => completed.has(day.day));
+  const doneCount = doneDays.length;
   const percent = total === 0 ? 0 : Math.round((doneCount / total) * 100);
+  const topicProgress = new Set(doneDays.flatMap((day) => day.topicSlugs)).size;
+  const problemProgress = new Set(doneDays.flatMap((day) => day.problemIds)).size;
   const nextDay = sheet.days.find((day) => !completed.has(day.day));
 
   const scrollToDay = (day: number) => {
@@ -49,6 +63,10 @@ export default function SheetDetailPage() {
           ) : (
             <span>Complete — nicely done!</span>
           )}
+        </div>
+        <div className="sheet-progress__metrics">
+          <span>Topics: {topicProgress} / {stats.topicCount}</span>
+          <span>Problems: {problemProgress} / {stats.problemCount}</span>
         </div>
         <div
           className="sheet-progress__bar"

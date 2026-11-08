@@ -1,7 +1,23 @@
 {
+  "01-matrix": {
+    "title": "01 Matrix",
+    "difficulty": "Medium"
+  },
   "3sum": {
     "title": "3Sum",
     "difficulty": "Medium"
+  },
+  "4sum": {
+    "title": "4Sum",
+    "difficulty": "Medium"
+  },
+  "accounts-merge": {
+    "title": "Accounts Merge",
+    "difficulty": "Medium"
+  },
+  "add-binary": {
+    "title": "Add Binary",
+    "difficulty": "Easy"
   },
   "add-two-numbers": {
     "title": "Add Two Numbers",
@@ -11,25 +27,65 @@
     "title": "Alien Dictionary",
     "difficulty": "Hard"
   },
+  "all-nodes-distance-k-in-binary-tree": {
+    "title": "All Nodes Distance K in Binary Tree",
+    "difficulty": "Medium"
+  },
+  "armstrong-number": {
+    "title": "Armstrong Number",
+    "difficulty": "Easy"
+  },
   "assign-cookies": {
     "title": "Assign Cookies",
     "difficulty": "Easy"
   },
+  "asteroid-collision": {
+    "title": "Asteroid Collision",
+    "difficulty": "Medium"
+  },
   "balanced-binary-tree": {
     "title": "Balanced Binary Tree",
+    "difficulty": "Easy"
+  },
+  "baseball-game": {
+    "title": "Baseball Game",
     "difficulty": "Easy"
   },
   "best-time-to-buy-and-sell-stock": {
     "title": "Best Time to Buy and Sell Stock",
     "difficulty": "Easy"
   },
+  "best-time-to-buy-and-sell-stock-ii": {
+    "title": "Best Time to Buy and Sell Stock II",
+    "difficulty": "Medium"
+  },
+  "best-time-to-buy-and-sell-stock-iii": {
+    "title": "Best Time to Buy and Sell Stock III",
+    "difficulty": "Hard"
+  },
+  "best-time-to-buy-and-sell-stock-iv": {
+    "title": "Best Time to Buy and Sell Stock IV",
+    "difficulty": "Hard"
+  },
   "best-time-to-buy-and-sell-stock-with-cooldown": {
     "title": "Best Time to Buy and Sell Stock with Cooldown",
+    "difficulty": "Medium"
+  },
+  "best-time-to-buy-and-sell-stock-with-transaction-fee": {
+    "title": "Best Time to Buy and Sell Stock with Transaction Fee",
     "difficulty": "Medium"
   },
   "binary-search": {
     "title": "Binary Search",
     "difficulty": "Easy"
+  },
+  "binary-search-tree-iterator": {
+    "title": "Binary Search Tree Iterator",
+    "difficulty": "Medium"
+  },
+  "binary-subarrays-with-sum": {
+    "title": "Binary Subarrays With Sum",
+    "difficulty": "Medium"
   },
   "binary-tree-inorder-traversal": {
     "title": "Binary Tree Inorder Traversal",
@@ -43,16 +99,52 @@
     "title": "Binary Tree Maximum Path Sum",
     "difficulty": "Hard"
   },
+  "binary-tree-postorder-traversal": {
+    "title": "Binary Tree Postorder Traversal",
+    "difficulty": "Easy"
+  },
+  "binary-tree-preorder-traversal": {
+    "title": "Binary Tree Preorder Traversal",
+    "difficulty": "Easy"
+  },
   "binary-tree-right-side-view": {
     "title": "Binary Tree Right Side View",
+    "difficulty": "Medium"
+  },
+  "binary-tree-zigzag-level-order-traversal": {
+    "title": "Binary Tree Zigzag Level Order Traversal",
+    "difficulty": "Medium"
+  },
+  "bitwise-and-of-numbers-range": {
+    "title": "Bitwise AND of Numbers Range",
+    "difficulty": "Medium"
+  },
+  "boats-to-save-people": {
+    "title": "Boats to Save People",
+    "difficulty": "Medium"
+  },
+  "boundary-of-binary-tree": {
+    "title": "Boundary of Binary Tree",
+    "difficulty": "Medium"
+  },
+  "build-a-matrix-with-conditions": {
+    "title": "Build a Matrix With Conditions",
+    "difficulty": "Hard"
+  },
+  "building-h2o": {
+    "title": "Building H2O",
     "difficulty": "Medium"
   },
   "burst-balloons": {
     "title": "Burst Balloons",
     "difficulty": "Hard"
   },
-  "building-h2o": {
-    "title": "Building H2O",
+  "candy": {
+    "title": "Candy",
+    "difficulty": "Hard"
+  },
+  "capacity-to-ship-packages-within-d-days": {
+    "title": "Capacity To Ship Packages Within D Days",
     "difficulty": "Medium"
   },
   "car-fleet": {
@@ -62,6 +154,10 @@
   "cheapest-flights-within-k-stops": {
     "title": "Cheapest Flights Within K Stops",
     "difficulty": "Medium"
+  },
+  "check-if-array-is-sorted-and-rotated": {
+    "title": "Check if Array Is Sorted and Rotated",
+    "difficulty": "Easy"
   },
   "climbing-stairs": {
     "title": "Climbing Stairs",
@@ -87,8 +183,36 @@
     "title": "Combination Sum II",
     "difficulty": "Medium"
   },
+  "combination-sum-iii": {
+    "title": "Combination Sum III",
+    "difficulty": "Medium"
+  },
+  "combination-sum-iv": {
+    "title": "Combination Sum IV",
+    "difficulty": "Medium"
+  },
+  "combinations": {
+    "title": "Combinations",
+    "difficulty": "Medium"
+  },
+  "concatenation-of-array": {
+    "title": "Concatenation of Array",
+    "difficulty": "Easy"
+  },
+  "construct-binary-search-tree-from-preorder-traversal": {
+    "title": "Construct Binary Search Tree from Preorder Traversal",
+    "difficulty": "Medium"
+  },
+  "construct-binary-tree-from-inorder-and-postorder-traversal": {
+    "title": "Construct Binary Tree from Inorder and Postorder Traversal",
+    "difficulty": "Medium"
+  },
   "construct-binary-tree-from-preorder-and-inorder-traversal": {
     "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+    "difficulty": "Medium"
+  },
+  "construct-quad-tree": {
+    "title": "Construct Quad Tree",
     "difficulty": "Medium"
   },
   "container-with-most-water": {
@@ -103,13 +227,29 @@
     "title": "Copy List with Random Pointer",
     "difficulty": "Medium"
   },
+  "count-and-say": {
+    "title": "Count and Say",
+    "difficulty": "Medium"
+  },
+  "count-complete-tree-nodes": {
+    "title": "Count Complete Tree Nodes",
+    "difficulty": "Medium"
+  },
   "count-good-nodes-in-binary-tree": {
     "title": "Count Good Nodes in Binary Tree",
+    "difficulty": "Medium"
+  },
+  "count-number-of-nice-subarrays": {
+    "title": "Count Number of Nice Subarrays",
     "difficulty": "Medium"
   },
   "count-of-smaller-numbers-after-self": {
     "title": "Count of Smaller Numbers After Self",
     "difficulty": "Hard"
+  },
+  "count-primes": {
+    "title": "Count Primes",
+    "difficulty": "Medium"
   },
   "counting-bits": {
     "title": "Counting Bits",
@@ -123,12 +263,44 @@
     "title": "Course Schedule II",
     "difficulty": "Medium"
   },
+  "course-schedule-iv": {
+    "title": "Course Schedule IV",
+    "difficulty": "Medium"
+  },
+  "critical-connections-in-a-network": {
+    "title": "Critical Connections in a Network",
+    "difficulty": "Hard"
+  },
   "daily-temperatures": {
     "title": "Daily Temperatures",
     "difficulty": "Medium"
   },
+  "decode-string": {
+    "title": "Decode String",
+    "difficulty": "Medium"
+  },
   "decode-ways": {
     "title": "Decode Ways",
+    "difficulty": "Medium"
+  },
+  "delete-leaves-with-a-given-value": {
+    "title": "Delete Leaves With a Given Value",
+    "difficulty": "Medium"
+  },
+  "delete-node-in-a-bst": {
+    "title": "Delete Node in a BST",
+    "difficulty": "Medium"
+  },
+  "delete-node-in-a-linked-list": {
+    "title": "Delete Node in a Linked List",
+    "difficulty": "Medium"
+  },
+  "delete-operation-for-two-strings": {
+    "title": "Delete Operation for Two Strings",
+    "difficulty": "Medium"
+  },
+  "delete-the-middle-node-of-a-linked-list": {
+    "title": "Delete the Middle Node of a Linked List",
     "difficulty": "Medium"
   },
   "design-add-and-search-words-data-structure": {
@@ -143,8 +315,16 @@
     "title": "Design Browser History",
     "difficulty": "Medium"
   },
+  "design-circular-queue": {
+    "title": "Design Circular Queue",
+    "difficulty": "Medium"
+  },
   "design-hashmap": {
     "title": "Design HashMap",
+    "difficulty": "Easy"
+  },
+  "design-hashset": {
+    "title": "Design HashSet",
     "difficulty": "Easy"
   },
   "design-hit-counter": {
@@ -171,6 +351,14 @@
     "title": "Distinct Subsequences",
     "difficulty": "Hard"
   },
+  "divide-two-integers": {
+    "title": "Divide Two Integers",
+    "difficulty": "Medium"
+  },
+  "dota2-senate": {
+    "title": "Dota2 Senate",
+    "difficulty": "Medium"
+  },
   "edit-distance": {
     "title": "Edit Distance",
     "difficulty": "Hard"
@@ -179,16 +367,48 @@
     "title": "Encode and Decode Strings",
     "difficulty": "Medium"
   },
+  "evaluate-division": {
+    "title": "Evaluate Division",
+    "difficulty": "Medium"
+  },
   "evaluate-reverse-polish-notation": {
     "title": "Evaluate Reverse Polish Notation",
+    "difficulty": "Medium"
+  },
+  "excel-sheet-column-title": {
+    "title": "Excel Sheet Column Title",
+    "difficulty": "Easy"
+  },
+  "extra-characters-in-a-string": {
+    "title": "Extra Characters in a String",
     "difficulty": "Medium"
   },
   "fibonacci-number": {
     "title": "Fibonacci Number",
     "difficulty": "Easy"
   },
+  "find-a-peak-element-ii": {
+    "title": "Find a Peak Element II",
+    "difficulty": "Medium"
+  },
+  "find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree": {
+    "title": "Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree",
+    "difficulty": "Hard"
+  },
   "find-eventual-safe-states": {
     "title": "Find Eventual Safe States",
+    "difficulty": "Medium"
+  },
+  "find-first-and-last-position-of-element-in-sorted-array": {
+    "title": "Find First and Last Position of Element in Sorted Array",
+    "difficulty": "Medium"
+  },
+  "find-in-mountain-array": {
+    "title": "Find in Mountain Array",
+    "difficulty": "Hard"
+  },
+  "find-k-closest-elements": {
+    "title": "Find K Closest Elements",
     "difficulty": "Medium"
   },
   "find-median-from-data-stream": {
@@ -199,13 +419,33 @@
     "title": "Find Minimum in Rotated Sorted Array",
     "difficulty": "Medium"
   },
+  "find-peak-element": {
+    "title": "Find Peak Element",
+    "difficulty": "Medium"
+  },
   "find-pivot-index": {
     "title": "Find Pivot Index",
     "difficulty": "Easy"
   },
+  "find-the-celebrity": {
+    "title": "Find the Celebrity",
+    "difficulty": "Medium"
+  },
+  "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance": {
+    "title": "Find the City With the Smallest Number of Neighbors at a Threshold Distance",
+    "difficulty": "Medium"
+  },
   "find-the-duplicate-number": {
     "title": "Find the Duplicate Number",
     "difficulty": "Medium"
+  },
+  "find-the-smallest-divisor-given-a-threshold": {
+    "title": "Find the Smallest Divisor Given a Threshold",
+    "difficulty": "Medium"
+  },
+  "find-the-town-judge": {
+    "title": "Find the Town Judge",
+    "difficulty": "Easy"
   },
   "first-bad-version": {
     "title": "First Bad Version",
@@ -213,6 +453,22 @@
   },
   "fizz-buzz-multithreaded": {
     "title": "Fizz Buzz Multithreaded",
+    "difficulty": "Medium"
+  },
+  "flatten-binary-tree-to-linked-list": {
+    "title": "Flatten Binary Tree to Linked List",
+    "difficulty": "Medium"
+  },
+  "flood-fill": {
+    "title": "Flood Fill",
+    "difficulty": "Easy"
+  },
+  "frequency-of-the-most-frequent-element": {
+    "title": "Frequency of the Most Frequent Element",
+    "difficulty": "Medium"
+  },
+  "fruit-into-baskets": {
+    "title": "Fruit Into Baskets",
     "difficulty": "Medium"
   },
   "gas-station": {
@@ -227,9 +483,21 @@
     "title": "Graph Valid Tree",
     "difficulty": "Medium"
   },
+  "greatest-common-divisor-of-strings": {
+    "title": "Greatest Common Divisor of Strings",
+    "difficulty": "Easy"
+  },
+  "greatest-common-divisor-traversal": {
+    "title": "Greatest Common Divisor Traversal",
+    "difficulty": "Hard"
+  },
   "group-anagrams": {
     "title": "Group Anagrams",
     "difficulty": "Medium"
+  },
+  "guess-number-higher-or-lower": {
+    "title": "Guess Number Higher or Lower",
+    "difficulty": "Easy"
   },
   "h-index": {
     "title": "H-Index",
@@ -255,6 +523,10 @@
     "title": "House Robber II",
     "difficulty": "Medium"
   },
+  "house-robber-iii": {
+    "title": "House Robber III",
+    "difficulty": "Medium"
+  },
   "implement-queue-using-stacks": {
     "title": "Implement Queue using Stacks",
     "difficulty": "Easy"
@@ -267,8 +539,24 @@
     "title": "Implement Trie (Prefix Tree)",
     "difficulty": "Medium"
   },
+  "inorder-successor-in-bst": {
+    "title": "Inorder Successor in BST",
+    "difficulty": "Medium"
+  },
+  "insert-greatest-common-divisors-in-linked-list": {
+    "title": "Insert Greatest Common Divisors in Linked List",
+    "difficulty": "Medium"
+  },
   "insert-interval": {
     "title": "Insert Interval",
+    "difficulty": "Medium"
+  },
+  "insert-into-a-binary-search-tree": {
+    "title": "Insert into a Binary Search Tree",
+    "difficulty": "Medium"
+  },
+  "integer-break": {
+    "title": "Integer Break",
     "difficulty": "Medium"
   },
   "interleaving-string": {
@@ -279,13 +567,29 @@
     "title": "Intersection of Two Arrays",
     "difficulty": "Easy"
   },
+  "intersection-of-two-linked-lists": {
+    "title": "Intersection of Two Linked Lists",
+    "difficulty": "Easy"
+  },
   "invert-binary-tree": {
     "title": "Invert Binary Tree",
     "difficulty": "Easy"
   },
+  "ipo": {
+    "title": "IPO",
+    "difficulty": "Hard"
+  },
   "is-graph-bipartite": {
     "title": "Is Graph Bipartite?",
     "difficulty": "Medium"
+  },
+  "island-perimeter": {
+    "title": "Island Perimeter",
+    "difficulty": "Easy"
+  },
+  "isomorphic-strings": {
+    "title": "Isomorphic Strings",
+    "difficulty": "Easy"
   },
   "jump-game": {
     "title": "Jump Game",
@@ -293,6 +597,10 @@
   },
   "jump-game-ii": {
     "title": "Jump Game II",
+    "difficulty": "Medium"
+  },
+  "jump-game-vii": {
+    "title": "Jump Game VII",
     "difficulty": "Medium"
   },
   "k-closest-points-to-origin": {
@@ -311,9 +619,21 @@
     "title": "Kth Largest Element in an Array",
     "difficulty": "Medium"
   },
+  "kth-missing-positive-number": {
+    "title": "Kth Missing Positive Number",
+    "difficulty": "Easy"
+  },
   "kth-smallest-element-in-a-bst": {
     "title": "Kth Smallest Element in a BST",
     "difficulty": "Medium"
+  },
+  "largest-divisible-subset": {
+    "title": "Largest Divisible Subset",
+    "difficulty": "Medium"
+  },
+  "largest-odd-number-in-string": {
+    "title": "Largest Odd Number in String",
+    "difficulty": "Easy"
   },
   "largest-rectangle-in-histogram": {
     "title": "Largest Rectangle in Histogram",
@@ -323,12 +643,32 @@
     "title": "Last Stone Weight",
     "difficulty": "Easy"
   },
+  "last-stone-weight-ii": {
+    "title": "Last Stone Weight II",
+    "difficulty": "Medium"
+  },
+  "lemonade-change": {
+    "title": "Lemonade Change",
+    "difficulty": "Easy"
+  },
   "letter-combinations-of-a-phone-number": {
     "title": "Letter Combinations of a Phone Number",
     "difficulty": "Medium"
   },
+  "lfu-cache": {
+    "title": "LFU Cache",
+    "difficulty": "Hard"
+  },
   "linked-list-cycle": {
     "title": "Linked List Cycle",
+    "difficulty": "Easy"
+  },
+  "linked-list-cycle-ii": {
+    "title": "Linked List Cycle II",
+    "difficulty": "Medium"
+  },
+  "longest-common-prefix": {
+    "title": "Longest Common Prefix",
     "difficulty": "Easy"
   },
   "longest-common-subsequence": {
@@ -339,12 +679,24 @@
     "title": "Longest Consecutive Sequence",
     "difficulty": "Medium"
   },
+  "longest-happy-prefix": {
+    "title": "Longest Happy Prefix",
+    "difficulty": "Hard"
+  },
+  "longest-happy-string": {
+    "title": "Longest Happy String",
+    "difficulty": "Medium"
+  },
   "longest-increasing-path-in-a-matrix": {
     "title": "Longest Increasing Path in a Matrix",
     "difficulty": "Hard"
   },
   "longest-increasing-subsequence": {
     "title": "Longest Increasing Subsequence",
+    "difficulty": "Medium"
+  },
+  "longest-palindromic-subsequence": {
+    "title": "Longest Palindromic Subsequence",
     "difficulty": "Medium"
   },
   "longest-palindromic-substring": {
@@ -355,6 +707,14 @@
     "title": "Longest Repeating Character Replacement",
     "difficulty": "Medium"
   },
+  "longest-string-chain": {
+    "title": "Longest String Chain",
+    "difficulty": "Medium"
+  },
+  "longest-substring-with-at-most-k-distinct-characters": {
+    "title": "Longest Substring with At Most K Distinct Characters",
+    "difficulty": "Medium"
+  },
   "longest-substring-without-repeating-characters": {
     "title": "Longest Substring Without Repeating Characters",
     "difficulty": "Medium"
@@ -363,9 +723,9 @@
     "title": "Lowest Common Ancestor of a Binary Search Tree",
     "difficulty": "Easy"
   },
-  "lfu-cache": {
-    "title": "LFU Cache",
-    "difficulty": "Hard"
+  "lowest-common-ancestor-of-a-binary-tree": {
+    "title": "Lowest Common Ancestor of a Binary Tree",
+    "difficulty": "Medium"
   },
   "lru-cache": {
     "title": "LRU Cache",
@@ -375,13 +735,49 @@
     "title": "Majority Element",
     "difficulty": "Easy"
   },
+  "majority-element-ii": {
+    "title": "Majority Element II",
+    "difficulty": "Medium"
+  },
+  "making-a-large-island": {
+    "title": "Making A Large Island",
+    "difficulty": "Hard"
+  },
+  "matchsticks-to-square": {
+    "title": "Matchsticks to Square",
+    "difficulty": "Medium"
+  },
   "max-area-of-island": {
     "title": "Max Area of Island",
     "difficulty": "Medium"
   },
+  "max-consecutive-ones": {
+    "title": "Max Consecutive Ones",
+    "difficulty": "Easy"
+  },
+  "max-consecutive-ones-iii": {
+    "title": "Max Consecutive Ones III",
+    "difficulty": "Medium"
+  },
+  "maximal-rectangle": {
+    "title": "Maximal Rectangle",
+    "difficulty": "Hard"
+  },
   "maximum-depth-of-binary-tree": {
     "title": "Maximum Depth of Binary Tree",
     "difficulty": "Easy"
+  },
+  "maximum-frequency-stack": {
+    "title": "Maximum Frequency Stack",
+    "difficulty": "Hard"
+  },
+  "maximum-number-of-non-overlapping-substrings": {
+    "title": "Maximum Number of Non-Overlapping Substrings",
+    "difficulty": "Hard"
+  },
+  "maximum-points-you-can-obtain-from-cards": {
+    "title": "Maximum Points You Can Obtain from Cards",
+    "difficulty": "Medium"
   },
   "maximum-product-subarray": {
     "title": "Maximum Product Subarray",
@@ -390,6 +786,22 @@
   "maximum-subarray": {
     "title": "Maximum Subarray",
     "difficulty": "Medium"
+  },
+  "maximum-sum-bst-in-binary-tree": {
+    "title": "Maximum Sum BST in Binary Tree",
+    "difficulty": "Hard"
+  },
+  "maximum-width-of-binary-tree": {
+    "title": "Maximum Width of Binary Tree",
+    "difficulty": "Medium"
+  },
+  "maximum-xor-of-two-numbers-in-an-array": {
+    "title": "Maximum XOR of Two Numbers in an Array",
+    "difficulty": "Medium"
+  },
+  "maximum-xor-with-an-element-from-array": {
+    "title": "Maximum XOR With an Element From Array",
+    "difficulty": "Hard"
   },
   "median-of-two-sorted-arrays": {
     "title": "Median of Two Sorted Arrays",
@@ -403,6 +815,10 @@
     "title": "Meeting Rooms II",
     "difficulty": "Medium"
   },
+  "meeting-rooms-iii": {
+    "title": "Meeting Rooms III",
+    "difficulty": "Hard"
+  },
   "merge-intervals": {
     "title": "Merge Intervals",
     "difficulty": "Medium"
@@ -413,6 +829,10 @@
   },
   "merge-sorted-array": {
     "title": "Merge Sorted Array",
+    "difficulty": "Easy"
+  },
+  "merge-strings-alternately": {
+    "title": "Merge Strings Alternately",
     "difficulty": "Easy"
   },
   "merge-triplets-to-form-target-triplet": {
@@ -439,12 +859,44 @@
     "title": "Min Stack",
     "difficulty": "Medium"
   },
+  "minimize-max-distance-to-gas-station": {
+    "title": "Minimize Max Distance to Gas Station",
+    "difficulty": "Hard"
+  },
+  "minimum-add-to-make-parentheses-valid": {
+    "title": "Minimum Add to Make Parentheses Valid",
+    "difficulty": "Medium"
+  },
+  "minimum-array-end": {
+    "title": "Minimum Array End",
+    "difficulty": "Medium"
+  },
+  "minimum-bit-flips-to-convert-number": {
+    "title": "Minimum Bit Flips to Convert Number",
+    "difficulty": "Easy"
+  },
+  "minimum-height-trees": {
+    "title": "Minimum Height Trees",
+    "difficulty": "Medium"
+  },
+  "minimum-insertion-steps-to-make-a-string-palindrome": {
+    "title": "Minimum Insertion Steps to Make a String Palindrome",
+    "difficulty": "Hard"
+  },
   "minimum-interval-to-include-each-query": {
     "title": "Minimum Interval to Include Each Query",
     "difficulty": "Hard"
   },
+  "minimum-number-of-days-to-make-m-bouquets": {
+    "title": "Minimum Number of Days to Make m Bouquets",
+    "difficulty": "Medium"
+  },
   "minimum-path-sum": {
     "title": "Minimum Path Sum",
+    "difficulty": "Medium"
+  },
+  "minimum-size-subarray-sum": {
+    "title": "Minimum Size Subarray Sum",
     "difficulty": "Medium"
   },
   "minimum-window-substring": {
@@ -454,6 +906,10 @@
   "missing-number": {
     "title": "Missing Number",
     "difficulty": "Easy"
+  },
+  "most-stones-removed-with-same-row-or-column": {
+    "title": "Most Stones Removed with Same Row or Column",
+    "difficulty": "Medium"
   },
   "move-zeroes": {
     "title": "Move Zeroes",
@@ -467,6 +923,14 @@
     "title": "N-Queens",
     "difficulty": "Hard"
   },
+  "n-queens-ii": {
+    "title": "N-Queens II",
+    "difficulty": "Hard"
+  },
+  "n-th-tribonacci-number": {
+    "title": "N-th Tribonacci Number",
+    "difficulty": "Easy"
+  },
   "network-delay-time": {
     "title": "Network Delay Time",
     "difficulty": "Medium"
@@ -474,6 +938,14 @@
   "next-greater-element-i": {
     "title": "Next Greater Element I",
     "difficulty": "Easy"
+  },
+  "next-greater-element-ii": {
+    "title": "Next Greater Element II",
+    "difficulty": "Medium"
+  },
+  "next-permutation": {
+    "title": "Next Permutation",
+    "difficulty": "Medium"
   },
   "non-overlapping-intervals": {
     "title": "Non-overlapping Intervals",
@@ -487,8 +959,24 @@
     "title": "Number of Connected Components in an Undirected Graph",
     "difficulty": "Medium"
   },
+  "number-of-enclaves": {
+    "title": "Number of Enclaves",
+    "difficulty": "Medium"
+  },
   "number-of-islands": {
     "title": "Number of Islands",
+    "difficulty": "Medium"
+  },
+  "number-of-islands-ii": {
+    "title": "Number of Islands II",
+    "difficulty": "Hard"
+  },
+  "number-of-longest-increasing-subsequence": {
+    "title": "Number of Longest Increasing Subsequence",
+    "difficulty": "Medium"
+  },
+  "number-of-operations-to-make-network-connected": {
+    "title": "Number of Operations to Make Network Connected",
     "difficulty": "Medium"
   },
   "number-of-provinces": {
@@ -499,21 +987,65 @@
     "title": "Number of Recent Calls",
     "difficulty": "Easy"
   },
+  "number-of-substrings-containing-all-three-characters": {
+    "title": "Number of Substrings Containing All Three Characters",
+    "difficulty": "Medium"
+  },
+  "number-of-ways-to-arrive-at-destination": {
+    "title": "Number of Ways to Arrive at Destination",
+    "difficulty": "Medium"
+  },
+  "odd-even-linked-list": {
+    "title": "Odd Even Linked List",
+    "difficulty": "Medium"
+  },
   "ones-and-zeroes": {
     "title": "Ones and Zeroes",
+    "difficulty": "Medium"
+  },
+  "online-stock-span": {
+    "title": "Online Stock Span",
+    "difficulty": "Medium"
+  },
+  "open-the-lock": {
+    "title": "Open the Lock",
     "difficulty": "Medium"
   },
   "pacific-atlantic-water-flow": {
     "title": "Pacific Atlantic Water Flow",
     "difficulty": "Medium"
   },
+  "palindrome-linked-list": {
+    "title": "Palindrome Linked List",
+    "difficulty": "Easy"
+  },
+  "palindrome-number": {
+    "title": "Palindrome Number",
+    "difficulty": "Easy"
+  },
   "palindrome-partitioning": {
     "title": "Palindrome Partitioning",
     "difficulty": "Medium"
   },
+  "palindrome-partitioning-ii": {
+    "title": "Palindrome Partitioning II",
+    "difficulty": "Hard"
+  },
   "palindromic-substrings": {
     "title": "Palindromic Substrings",
     "difficulty": "Medium"
+  },
+  "parsing-a-boolean-expression": {
+    "title": "Parsing A Boolean Expression",
+    "difficulty": "Hard"
+  },
+  "partition-array-for-maximum-sum": {
+    "title": "Partition Array for Maximum Sum",
+    "difficulty": "Medium"
+  },
+  "partition-array-into-two-arrays-to-minimize-sum-difference": {
+    "title": "Partition Array Into Two Arrays to Minimize Sum Difference",
+    "difficulty": "Hard"
   },
   "partition-equal-subset-sum": {
     "title": "Partition Equal Subset Sum",
@@ -523,8 +1055,20 @@
     "title": "Partition Labels",
     "difficulty": "Medium"
   },
+  "partition-to-k-equal-sum-subsets": {
+    "title": "Partition to K Equal Sum Subsets",
+    "difficulty": "Medium"
+  },
+  "pascals-triangle": {
+    "title": "Pascal's Triangle",
+    "difficulty": "Easy"
+  },
   "path-with-minimum-effort": {
     "title": "Path With Minimum Effort",
+    "difficulty": "Medium"
+  },
+  "perfect-squares": {
+    "title": "Perfect Squares",
     "difficulty": "Medium"
   },
   "permutation-in-string": {
@@ -533,6 +1077,10 @@
   },
   "permutations": {
     "title": "Permutations",
+    "difficulty": "Medium"
+  },
+  "permutations-ii": {
+    "title": "Permutations II",
     "difficulty": "Medium"
   },
   "plus-one": {
@@ -559,6 +1107,10 @@
     "title": "Product of Array Except Self",
     "difficulty": "Medium"
   },
+  "range-sum-query-2d-immutable": {
+    "title": "Range Sum Query 2D - Immutable",
+    "difficulty": "Medium"
+  },
   "range-sum-query-immutable": {
     "title": "Range Sum Query - Immutable",
     "difficulty": "Easy"
@@ -567,9 +1119,17 @@
     "title": "Range Sum Query - Mutable",
     "difficulty": "Medium"
   },
+  "rearrange-array-elements-by-sign": {
+    "title": "Rearrange Array Elements by Sign",
+    "difficulty": "Medium"
+  },
   "reconstruct-itinerary": {
     "title": "Reconstruct Itinerary",
     "difficulty": "Hard"
+  },
+  "recover-binary-search-tree": {
+    "title": "Recover Binary Search Tree",
+    "difficulty": "Medium"
   },
   "redundant-connection": {
     "title": "Redundant Connection",
@@ -583,12 +1143,24 @@
     "title": "Remove Duplicates from Sorted Array",
     "difficulty": "Easy"
   },
+  "remove-k-digits": {
+    "title": "Remove K Digits",
+    "difficulty": "Medium"
+  },
   "remove-nth-node-from-end-of-list": {
     "title": "Remove Nth Node From End of List",
     "difficulty": "Medium"
   },
   "reorder-list": {
     "title": "Reorder List",
+    "difficulty": "Medium"
+  },
+  "reorganize-string": {
+    "title": "Reorganize String",
+    "difficulty": "Medium"
+  },
+  "repeated-string-match": {
+    "title": "Repeated String Match",
     "difficulty": "Medium"
   },
   "reverse-bits": {
@@ -603,17 +1175,45 @@
     "title": "Reverse Linked List",
     "difficulty": "Easy"
   },
+  "reverse-linked-list-ii": {
+    "title": "Reverse Linked List II",
+    "difficulty": "Medium"
+  },
   "reverse-nodes-in-k-group": {
     "title": "Reverse Nodes in k-Group",
+    "difficulty": "Hard"
+  },
+  "reverse-pairs": {
+    "title": "Reverse Pairs",
     "difficulty": "Hard"
   },
   "reverse-string": {
     "title": "Reverse String",
     "difficulty": "Easy"
   },
+  "reverse-words-in-a-string": {
+    "title": "Reverse Words in a String",
+    "difficulty": "Medium"
+  },
+  "roman-to-integer": {
+    "title": "Roman to Integer",
+    "difficulty": "Easy"
+  },
+  "rotate-array": {
+    "title": "Rotate Array",
+    "difficulty": "Medium"
+  },
   "rotate-image": {
     "title": "Rotate Image",
     "difficulty": "Medium"
+  },
+  "rotate-list": {
+    "title": "Rotate List",
+    "difficulty": "Medium"
+  },
+  "rotate-string": {
+    "title": "Rotate String",
+    "difficulty": "Easy"
   },
   "rotting-oranges": {
     "title": "Rotting Oranges",
@@ -627,8 +1227,20 @@
     "title": "Search a 2D Matrix",
     "difficulty": "Medium"
   },
+  "search-a-2d-matrix-ii": {
+    "title": "Search a 2D Matrix II",
+    "difficulty": "Medium"
+  },
+  "search-in-a-binary-search-tree": {
+    "title": "Search in a Binary Search Tree",
+    "difficulty": "Easy"
+  },
   "search-in-rotated-sorted-array": {
     "title": "Search in Rotated Sorted Array",
+    "difficulty": "Medium"
+  },
+  "search-in-rotated-sorted-array-ii": {
+    "title": "Search in Rotated Sorted Array II",
     "difficulty": "Medium"
   },
   "search-insert-position": {
@@ -643,9 +1255,29 @@
     "title": "Set Matrix Zeroes",
     "difficulty": "Medium"
   },
+  "shortest-common-supersequence": {
+    "title": "Shortest Common Supersequence ",
+    "difficulty": "Hard"
+  },
+  "shortest-path-in-binary-matrix": {
+    "title": "Shortest Path in Binary Matrix",
+    "difficulty": "Medium"
+  },
+  "simplify-path": {
+    "title": "Simplify Path",
+    "difficulty": "Medium"
+  },
+  "single-element-in-a-sorted-array": {
+    "title": "Single Element in a Sorted Array",
+    "difficulty": "Medium"
+  },
   "single-number": {
     "title": "Single Number",
     "difficulty": "Easy"
+  },
+  "single-threaded-cpu": {
+    "title": "Single-Threaded CPU",
+    "difficulty": "Medium"
   },
   "sliding-window-maximum": {
     "title": "Sliding Window Maximum",
@@ -655,21 +1287,53 @@
     "title": "Sort an Array",
     "difficulty": "Medium"
   },
+  "sort-characters-by-frequency": {
+    "title": "Sort Characters By Frequency",
+    "difficulty": "Medium"
+  },
   "sort-colors": {
     "title": "Sort Colors",
+    "difficulty": "Medium"
+  },
+  "sort-list": {
+    "title": "Sort List",
     "difficulty": "Medium"
   },
   "spiral-matrix": {
     "title": "Spiral Matrix",
     "difficulty": "Medium"
   },
+  "split-array-largest-sum": {
+    "title": "Split Array Largest Sum",
+    "difficulty": "Hard"
+  },
+  "sqrtx": {
+    "title": "Sqrt(x)",
+    "difficulty": "Easy"
+  },
   "squares-of-a-sorted-array": {
     "title": "Squares of a Sorted Array",
     "difficulty": "Easy"
   },
+  "stone-game": {
+    "title": "Stone Game",
+    "difficulty": "Medium"
+  },
+  "stone-game-ii": {
+    "title": "Stone Game II",
+    "difficulty": "Medium"
+  },
+  "stone-game-iii": {
+    "title": "Stone Game III",
+    "difficulty": "Hard"
+  },
   "subarray-sum-equals-k": {
     "title": "Subarray Sum Equals K",
     "difficulty": "Medium"
+  },
+  "subarrays-with-k-different-integers": {
+    "title": "Subarrays with K Different Integers",
+    "difficulty": "Hard"
   },
   "subsets": {
     "title": "Subsets",
@@ -683,6 +1347,22 @@
     "title": "Subtree of Another Tree",
     "difficulty": "Easy"
   },
+  "sudoku-solver": {
+    "title": "Sudoku Solver",
+    "difficulty": "Hard"
+  },
+  "sum-of-all-subset-xor-totals": {
+    "title": "Sum of All Subset XOR Totals",
+    "difficulty": "Easy"
+  },
+  "sum-of-subarray-minimums": {
+    "title": "Sum of Subarray Minimums",
+    "difficulty": "Medium"
+  },
+  "sum-of-subarray-ranges": {
+    "title": "Sum of Subarray Ranges",
+    "difficulty": "Medium"
+  },
   "sum-of-two-integers": {
     "title": "Sum of Two Integers",
     "difficulty": "Medium"
@@ -691,9 +1371,13 @@
     "title": "Surrounded Regions",
     "difficulty": "Medium"
   },
-  "swimming-in-rising-water": {
-    "title": "Swimming in Rising Water",
+  "swim-in-rising-water": {
+    "title": "Swim in Rising Water",
     "difficulty": "Hard"
+  },
+  "symmetric-tree": {
+    "title": "Symmetric Tree",
+    "difficulty": "Easy"
   },
   "target-sum": {
     "title": "Target Sum",
@@ -723,6 +1407,10 @@
     "title": "Trapping Rain Water",
     "difficulty": "Hard"
   },
+  "triangle": {
+    "title": "Triangle",
+    "difficulty": "Medium"
+  },
   "two-sum": {
     "title": "Two Sum",
     "difficulty": "Easy"
@@ -731,8 +1419,16 @@
     "title": "Two Sum II - Input Array Is Sorted",
     "difficulty": "Medium"
   },
+  "two-sum-iv-input-is-a-bst": {
+    "title": "Two Sum IV - Input is a BST",
+    "difficulty": "Easy"
+  },
   "unique-paths": {
     "title": "Unique Paths",
+    "difficulty": "Medium"
+  },
+  "unique-paths-ii": {
+    "title": "Unique Paths II",
     "difficulty": "Medium"
   },
   "valid-anagram": {
@@ -741,6 +1437,10 @@
   },
   "valid-palindrome": {
     "title": "Valid Palindrome",
+    "difficulty": "Easy"
+  },
+  "valid-palindrome-ii": {
+    "title": "Valid Palindrome II",
     "difficulty": "Easy"
   },
   "valid-parentheses": {
@@ -759,16 +1459,36 @@
     "title": "Validate Binary Search Tree",
     "difficulty": "Medium"
   },
+  "verifying-an-alien-dictionary": {
+    "title": "Verifying an Alien Dictionary",
+    "difficulty": "Easy"
+  },
+  "vertical-order-traversal-of-a-binary-tree": {
+    "title": "Vertical Order Traversal of a Binary Tree",
+    "difficulty": "Hard"
+  },
   "walls-and-gates": {
     "title": "Walls and Gates",
     "difficulty": "Medium"
+  },
+  "wildcard-matching": {
+    "title": "Wildcard Matching",
+    "difficulty": "Hard"
   },
   "word-break": {
     "title": "Word Break",
     "difficulty": "Medium"
   },
+  "word-break-ii": {
+    "title": "Word Break II",
+    "difficulty": "Hard"
+  },
   "word-ladder": {
     "title": "Word Ladder",
+    "difficulty": "Hard"
+  },
+  "word-ladder-ii": {
+    "title": "Word Ladder II",
     "difficulty": "Hard"
   },
   "word-search": {

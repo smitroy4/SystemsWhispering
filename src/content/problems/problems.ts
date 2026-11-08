@@ -2,11 +2,11 @@ import type { Problem } from '../../types/content.ts';
 import { leetCodeUrl } from '../../types/content.ts';
 
 /**
- * The full practice bank (NeetCode 150 + extras). Every slug is a real
+ * The full practice bank (core interview set plus extras). Every slug is a real
  * LeetCode problem. `id` always equals `slug` so topic `problemIds`
  * resolve through `getProblem`.
  */
-export const neetcodeProblems: Problem[] = [
+export const coreProblems: Problem[] = [
   // ----- Arrays & Hashing -----
   {
     id: 'contains-duplicate',
@@ -1351,10 +1351,10 @@ export const neetcodeProblems: Problem[] = [
     patterns: ['dijkstra-source'],
   },
   {
-    id: 'swimming-in-rising-water',
-    title: 'Swimming in Rising Water',
-    slug: 'swimming-in-rising-water',
-    leetcodeUrl: leetCodeUrl('swimming-in-rising-water'),
+    id: 'swim-in-rising-water',
+    title: 'Swim in Rising Water',
+    slug: 'swim-in-rising-water',
+    leetcodeUrl: leetCodeUrl('swim-in-rising-water'),
     difficulty: 'Hard',
     dataStructures: ['weighted-graph', 'heap'],
     patterns: ['bottleneck-dijkstra'],
