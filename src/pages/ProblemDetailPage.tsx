@@ -17,7 +17,7 @@ function difficultyTone(difficulty: ProblemDifficulty): 'success' | 'warning' | 
   return 'danger';
 }
 
-function solutionTabs(solutions: { label: string; intuition?: string; algorithm?: string[]; code: string; complexity: { time: string; space: string } }[]) {
+function solutionTabs(solutions: { label: string; intuition?: string; algorithm?: string[]; detailedWalkthrough?: string[]; correctnessCheck?: string; code: string; complexity: { time: string; space: string } }[]) {
   return solutions.map((sol, i) => ({
     id: `solution-${i}`,
     label: sol.label,
@@ -34,12 +34,28 @@ function solutionTabs(solutions: { label: string; intuition?: string; algorithm?
             <h4 className="pd-solution__label">Algorithm</h4>
             <ol className="pd-algorithm">
               {sol.algorithm.map((step, si) => (
-                <li key={si}>{step}</li>
+                <li key={si}>{step.replace(/^\d+\.\s*/, '')}</li>
               ))}
             </ol>
           </>
         )}
-        {!sol.intuition && !sol.algorithm && (
+        {sol.detailedWalkthrough && sol.detailedWalkthrough.length > 0 && (
+          <>
+            <h4 className="pd-solution__label">Detailed Walkthrough</h4>
+            <ol className="pd-algorithm">
+              {sol.detailedWalkthrough.map((step, si) => (
+                <li key={si}>{step.replace(/^\d+\.\s*\*\*[^*]+\*\*\s*/, '').replace(/^\d+\.\s*/, '')}</li>
+              ))}
+            </ol>
+          </>
+        )}
+        {sol.correctnessCheck && (
+          <>
+            <h4 className="pd-solution__label">Correctness Check</h4>
+            <p className="pd-solution__desc">{sol.correctnessCheck}</p>
+          </>
+        )}
+        {!sol.intuition && !sol.algorithm && !sol.detailedWalkthrough && !sol.correctnessCheck && (
           <p className="pd-solution__desc">{sol.label} approach.</p>
         )}
         <CodeBlock title={`Java — ${sol.label}`} description={sol.label} code={sol.code} />
@@ -101,6 +117,13 @@ export default function ProblemDetailPage() {
         <h2 className="pd-section__title">Description</h2>
         <div className="pd-section__body">{renderMarkdownLite(content.description)}</div>
       </section>
+
+      {content.problemIntuition && (
+        <section id="problem-intuition" className="pd-section" aria-label="Problem Intuition">
+          <h2 className="pd-section__title">Problem Intuition</h2>
+          <div className="pd-section__body">{renderMarkdownLite(content.problemIntuition)}</div>
+        </section>
+      )}
 
       <section id="examples" className="pd-section" aria-label="Examples">
         <h2 className="pd-section__title">Examples</h2>

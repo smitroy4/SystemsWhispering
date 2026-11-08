@@ -133,6 +133,10 @@ export interface ProblemSolution {
   intuition?: string;
   /** Step-by-step algorithm description, one line per step. */
   algorithm?: string[];
+  /** Detailed walkthrough explaining why each step matters. */
+  detailedWalkthrough?: string[];
+  /** Correctness verification notes. */
+  correctnessCheck?: string;
   /** Idiomatic Java solution. */
   code: string;
   /** Complexity summary displayed under the code block. */
@@ -153,6 +157,8 @@ export interface ProblemContent {
   difficulty: ProblemDifficulty;
   /** Problem statement in markdown-lite (rendered by renderMarkdownLite). */
   description: string;
+  /** Problem-level intuition (high-level pattern). */
+  problemIntuition?: string;
   examples: ProblemExample[];
   constraints?: string;
   solutions: ProblemSolution[];

@@ -102,6 +102,7 @@ export default function Navbar({ mode, onCycleTheme }: NavbarProps) {
     <header className="navbar">
       <div className="container navbar__inner">
         <Link to="/" className="navbar__brand" onClick={closeMenus}>
+          <img src="/sw-logo.png" alt="" className="navbar__logo" />
           Systems <span className="navbar__brand-accent">Whispering</span>
         </Link>
 

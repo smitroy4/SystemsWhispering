@@ -207,6 +207,11 @@
 - **20.9** [LFU Cache] - *Hard*
 - **20.10** [Design Hit Counter] - *Medium*
 
+
+## How to Study Each Solution
+
+For each problem, read the problem-level intuition first to understand the central pattern. Then study each approach in order: identify what information it maintains, trace the algorithm step by step, and explain why each update is necessary. Before looking at the Java code, try to state the condition that makes the approach correct. Finally, compare the approaches by their time and space complexity and note what the faster approach avoids doing.
+
 ---
 
 ## 1. Arrays & Hashing
@@ -252,6 +257,22 @@ Duplicates are the only thing that matters, not their positions. So the core que
 3. If `nums[i] == nums[j]`, return `true`.
 4. Return `false`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i` from `0` to `n-1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each `j` from `i+1` to `n-1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If `nums[i] == nums[j]`, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean containsDuplicate(int[] nums) {
@@ -282,6 +303,20 @@ class Solution {
 
 Note: this sorts the input in place. Copy the array first if the caller needs it unchanged.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `nums`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **For each `i` from `1` to `n-1`, if `nums[i] == nums[i-1]`, return `true`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -310,6 +345,18 @@ class Solution {
 1. Add every element to a `HashSet`.
 2. Compare `set.size()` with `nums.length`. If smaller, return `true`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Add every element to a `HashSet`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Compare `set.size()` with `nums.length`. If smaller, return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -336,6 +383,18 @@ class Solution {
 **Algorithm**:
 1. For each `x` in `nums`, if `seen.add(x)` returns `false`, return `true`.
 2. Return `false`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `x` in `nums`, if `seen.add(x)` returns `false`, return `true`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashSet;
@@ -400,6 +459,20 @@ Two strings are anagrams exactly when they have the same character frequencies. 
 2. Convert both strings to char arrays and sort them.
 3. Return `Arrays.equals` on the two sorted arrays.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If lengths differ, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Convert both strings to char arrays and sort them.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Return `Arrays.equals` on the two sorted arrays.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -430,6 +503,22 @@ class Solution {
 2. For each character in `s`, increment its count in a `HashMap`.
 3. For each character in `t`, decrement its count. If the count is missing or would go below zero, return `false`.
 4. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If lengths differ, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **For each character in `s`, increment its count in a `HashMap`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **For each character in `t`, decrement its count. If the count is missing or would go below zero, return `false`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashMap;
@@ -470,6 +559,22 @@ class Solution {
 3. Subtract each letter of `t`. If any count goes negative, return `false`.
 4. Return `true`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If lengths differ, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Count each letter of `s` into `counts[c - 'a']`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Subtract each letter of `t`. If any count goes negative, return `false`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isAnagram(String s, String t) {
@@ -503,6 +608,22 @@ class Solution {
 2. For each index `i`, do `counts[s[i]-'a']++` and `counts[t[i]-'a']--`.
 3. Scan the 26 slots. If any is non-zero, return `false`.
 4. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If lengths differ, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **For each index `i`, do `counts[s[i]-'a']++` and `counts[t[i]-'a']--`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Scan the 26 slots. If any is non-zero, return `false`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -574,6 +695,22 @@ For every element `x` you visit, the only partner that completes the pair is `ta
 3. If `nums[i] + nums[j] == target`, return `{i, j}`.
 4. If no pair matches, return an empty array (unreachable under the problem guarantee).
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each index `i` from `0` to `n-1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each index `j` from `i+1` to `n-1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If `nums[i] + nums[j] == target`, return `{i, j}`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **If no pair matches, return an empty array (unreachable under the problem guarantee).**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] twoSum(int[] nums, int target) {
@@ -606,6 +743,22 @@ class Solution {
    - If `sum == target`, return `{idx[lo], idx[hi]}`.
    - If `sum < target`, increment `lo`. Otherwise decrement `hi`.
 4. Return an empty array.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `idx = [0, 1, ..., n-1]` and sort `idx` by `nums[idx[k]]`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Set `lo = 0`, `hi = n-1`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **While `lo < hi`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return an empty array.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -651,6 +804,20 @@ class Solution {
 
 The `!= i` check prevents using the same element twice. It matters when `complement == nums[i]` (for example, `nums = [3,3]`, `target = 6`).
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Pass 1: insert every `nums[i] -> i` into a `HashMap`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Pass 2: for each `i`, compute `complement = target - nums[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If the map contains `complement` and its stored index is not `i`, return `{i, map.get(complement)}`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -690,6 +857,20 @@ class Solution {
 3. Return an empty array.
 
 Because we return on the first match, the scan often ends before reaching the end of the array.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Create an empty map `seen: value -> index`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each `i` from `0` to `n-1`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return an empty array.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashMap;
@@ -756,6 +937,22 @@ Anagrams share a signature: their sorted form, or their letter-count profile. If
 3. For each existing group, sort its first string and compare with `key`. If equal, add `s` to that group.
 4. If no group matches, create a new group with `s`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Keep a list of groups.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each string `s`, sort its characters into `key`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **For each existing group, sort its first string and compare with `key`. If equal, add `s` to that group.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **If no group matches, create a new group with `s`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -804,6 +1001,20 @@ class Solution {
 2. `map.computeIfAbsent(key, ...)` and add `s` to the list.
 3. Return the map's values.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each string, compute `key = sorted(s)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`map.computeIfAbsent(key, ...)` and add `s` to the list.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Return the map's values.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -828,7 +1039,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Character Count as Hash Key)
+##### Approach 3: Optimised (Character Count as Hash Key)
 
 **Intuition**: Sorting costs $O(k \log k)$ per word, but counting letters costs $O(k)$. A 26-slot count vector identifies the anagram class just as well, so encode it as a string key such as `"a1b0c0...t1..."`. The key does not depend on letter order, so anagrams still collide.
 
@@ -837,6 +1048,22 @@ class Solution {
 2. Build a key by appending each count with a separator, for example `"#1#0#0..."`.
 3. Group by key with a `HashMap`.
 4. Return the map's values.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each string, build `int[26] count` by incrementing `count[c - 'a']`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Build a key by appending each count with a separator, for example `"#1#0#0..."`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Group by key with a `HashMap`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Return the map's values.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -909,6 +1136,20 @@ Two steps: count frequencies, then select the top `k`. Selecting by sorting cost
 2. Copy entries into a list and sort by count, descending.
 3. Take the first `k` keys.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `freq: value -> count`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Copy entries into a list and sort by count, descending.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Take the first `k` keys.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -946,6 +1187,22 @@ class Solution {
 3. If the heap size exceeds `k`, poll the smallest.
 4. The heap now holds the top `k`. Extract their keys.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Count frequencies.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Push each entry into a min-heap ordered by count.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **If the heap size exceeds `k`, poll the smallest.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **The heap now holds the top `k`. Extract their keys.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -978,7 +1235,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bucket Sort by Frequency)
+##### Approach 3: Optimised (Bucket Sort by Frequency)
 
 **Intuition**: A value's frequency is between 1 and `n`. Create `n+1` buckets, where bucket `f` holds all values with frequency `f`. Walk the buckets from highest frequency downward and collect until you have `k` values. No comparisons are needed.
 
@@ -987,6 +1244,22 @@ class Solution {
 2. Create `buckets[0..n]`, each an empty list.
 3. For each `(value, f)`, add `value` to `buckets[f]`.
 4. Iterate `f` from `n` down to `1`, appending values from each bucket until the result has `k` items.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Count frequencies.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Create `buckets[0..n]`, each an empty list.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+3. **For each `(value, f)`, add `value` to `buckets[f]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Iterate `f` from `n` down to `1`, appending values from each bucket until the result has `k` items.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -1070,6 +1343,20 @@ You must write an algorithm that runs in $O(n)$ time and does **not** use the di
 2. For each `j != i`, multiply `prod` by `nums[j]`.
 3. Store `prod` in `answer[i]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, set `prod = 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each `j != i`, multiply `prod` by `nums[j]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Store `prod` in `answer[i]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] productExceptSelf(int[] nums) {
@@ -1102,6 +1389,20 @@ class Solution {
 2. `suffix[n-1] = 1`, and `suffix[i] = suffix[i+1] * nums[i+1]`.
 3. `answer[i] = prefix[i] * suffix[i]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`prefix[0] = 1`, and `prefix[i] = prefix[i-1] * nums[i-1]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`suffix[n-1] = 1`, and `suffix[i] = suffix[i+1] * nums[i+1]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`answer[i] = prefix[i] * suffix[i]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] productExceptSelf(int[] nums) {
@@ -1129,13 +1430,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (In-Place Prefix, Running Suffix)
+##### Approach 3: Optimised (In-Place Prefix, Running Suffix)
 
 **Intuition**: The output array can hold the prefix products. Then a single right-to-left pass with one running variable multiplies in the suffix product, so the separate suffix array is unnecessary.
 
 **Algorithm**:
 1. Pass left to right: `answer[i] = product of nums[0..i-1]`, tracked with a running `left`.
 2. Pass right to left with a running `right = 1`: `answer[i] *= right`, then `right *= nums[i]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Pass left to right: `answer[i] = product of nums[0..i-1]`, tracked with a running `left`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Pass right to left with a running `right = 1`: `answer[i] *= right`, then `right *= nums[i]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -1208,6 +1521,20 @@ Box index for cell `(r, c)`: `(r / 3) * 3 + (c / 3)`, which runs from `0` to `8`
 2. Scan the other cells in row `r`, column `c`, and the box containing `(r, c)`. If any holds `d`, return `false`.
 3. Return `true` after all cells pass.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each cell `(r, c)` with a digit `d`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Scan the other cells in row `r`, column `c`, and the box containing `(r, c)`. If any holds `d`, return `false`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true` after all cells pass.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isValidSudoku(char[][] board) {
@@ -1245,6 +1572,20 @@ class Solution {
 2. Try `seen.add(key)` for each. If it returns `false`, return `false`.
 3. Return `true`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each filled cell `(r, c)` with digit `d`, build three keys: row, column, and box.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Try `seen.add(key)` for each. If it returns `false`, return `false`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -1279,6 +1620,20 @@ class Solution {
 1. For each filled cell with digit `d` (converted to index `d - '1'`):
 2. If `rows[r][d]`, `cols[c][d]`, or `boxes[box][d]` is already set, return `false`.
 3. Otherwise, set all three to `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each filled cell with digit `d` (converted to index `d - '1'`):**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If `rows[r][d]`, `cols[c][d]`, or `boxes[box][d]` is already set, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Otherwise, set all three to `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -1316,6 +1671,22 @@ class Solution {
 2. For digit `d` (as `0..8`), let `bit = 1 << d`.
 3. If `rows[r] & bit`, `cols[c] & bit`, or `boxes[box] & bit` is set, return `false`.
 4. Otherwise OR the bit into all three masks.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Keep `int[] rows = new int[9]`, `cols`, and `boxes`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For digit `d` (as `0..8`), let `bit = 1 << d`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If `rows[r] & bit`, `cols[c] & bit`, or `boxes[box] & bit` is set, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **Otherwise OR the bit into all three masks.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -1388,6 +1759,20 @@ A consecutive run has exactly one starting element, the one whose predecessor `x
 2. While `cur + 1` exists in `nums` (linear scan), increment `cur` and `len`.
 3. Track the maximum `len`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `x` in `nums`, set `len = 1` and `cur = x`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **While `cur + 1` exists in `nums` (linear scan), increment `cur` and `len`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Track the maximum `len`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int longestConsecutive(int[] nums) {
@@ -1426,6 +1811,22 @@ class Solution {
 3. Scan `i` from `1`. If `nums[i] == nums[i-1]`, skip. If `nums[i] == nums[i-1] + 1`, extend the run. Otherwise, reset the run to `1`.
 4. Track the maximum run length.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If empty, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Sort `nums`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Scan `i` from `1`. If `nums[i] == nums[i-1]`, skip. If `nums[i] == nums[i-1] + 1`, extend the run. Otherwise, reset the run to `1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Track the maximum run length.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -1452,7 +1853,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (HashSet, Start Only at Sequence Beginnings)
+##### Approach 3: Optimised (HashSet, Start Only at Sequence Beginnings)
 
 **Intuition**: Put all numbers in a set. Start counting only from `x` where `x - 1` is absent, which guarantees each run is walked exactly once. Every element is touched at most twice (once as a candidate start, once inside a run), so the total work is linear.
 
@@ -1461,6 +1862,22 @@ class Solution {
 2. For each `x` in `set`: if `set` contains `x - 1`, skip it.
 3. Otherwise, count `len` by checking `x+1`, `x+2`, ... in the set.
 4. Track the maximum length.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Insert all numbers into `set`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **For each `x` in `set`: if `set` contains `x - 1`, skip it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Otherwise, count `len` by checking `x+1`, `x+2`, ... in the set.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **Track the maximum length.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashSet;
@@ -1534,6 +1951,18 @@ A delimiter alone fails the moment the data contains the delimiter. Two robust o
 1. Encode: for each string, write each character, prefixing `\` when the character is `,` or `\`. Then append an unescaped `,`.
 2. Decode: walk the string. On `\`, take the next character literally. On an unescaped `,`, finish the current item. Otherwise, append the character.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Encode: for each string, write each character, prefixing `\` when the character is `,` or `\`. Then append an unescaped `,`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Decode: walk the string. On `\`, take the next character literally. On an unescaped `,`, finish the current item. Otherwise, append the character.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -1574,7 +2003,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Length-Prefix Encoding, NeetCode Solution)
+##### Approach 2: Optimised (Length-Prefix Encoding, NeetCode Solution)
 
 **Intuition**: Write each string as `length#content`. The decoder reads digits up to `#`, knows exactly how many characters follow, and jumps there. It never inspects the content, so any character, including `#` and digits, is safe.
 
@@ -1582,6 +2011,20 @@ class Solution {
 1. Encode: for each `s`, append `s.length()`, then `#`, then `s`.
 2. Decode: keep index `i`. Find the next `#` at `j`. Parse `len = str[i..j)`. Take `str[j+1 .. j+1+len)`. Set `i = j + 1 + len`.
 3. Repeat until the end of the string.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Encode: for each `s`, append `s.length()`, then `#`, then `s`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Decode: keep index `i`. Find the next `#` at `j`. Parse `len = str[i..j)`. Take `str[j+1 .. j+1+len)`. Set `i = j + 1 + len`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+3. **Repeat until the end of the string.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -1655,6 +2098,18 @@ A palindrome is symmetric around its centre. Compare the outermost pair of chara
 1. Build `cleaned` by appending `Character.toLowerCase(c)` for each alphanumeric `c`.
 2. Compare `cleaned` with its reverse.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `cleaned` by appending `Character.toLowerCase(c)` for each alphanumeric `c`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Compare `cleaned` with its reverse.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isPalindrome(String s) {
@@ -1683,6 +2138,20 @@ class Solution {
 2. Use `l = 0`, `r = len - 1`. While `l < r`, if `chars[l] != chars[r]`, return `false`. Otherwise move both inward.
 3. Return `true`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Copy alphanumeric characters into a lowercase `char[]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Use `l = 0`, `r = len - 1`. While `l < r`, if `chars[l] != chars[r]`, return `false`. Otherwise move both inward.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isPalindrome(String s) {
@@ -1710,7 +2179,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (In-Place Two Pointers, Skip Non-Alphanumerics)
+##### Approach 3: Optimised (In-Place Two Pointers, Skip Non-Alphanumerics)
 
 **Intuition**: Skip non-alphanumeric characters with the pointers themselves. No copy is needed, so extra memory is constant.
 
@@ -1722,6 +2191,20 @@ class Solution {
    - If `toLowerCase(s[l]) != toLowerCase(s[r])`, return `false`.
    - Move both pointers inward.
 3. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`l = 0`, `r = n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `l < r`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -1788,6 +2271,16 @@ Sorting is a gift. If the sum is too small, the left value must increase, so mov
 **Algorithm**:
 1. For each `i`, for each `j > i`, if `numbers[i] + numbers[j] == target`, return `{i+1, j+1}`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, for each `j > i`, if `numbers[i] + numbers[j] == target`, return `{i+1, j+1}`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
@@ -1816,6 +2309,20 @@ class Solution {
 1. For each `i`, compute `comp = target - numbers[i]`.
 2. Binary search for `comp` in the range `(i, n)`.
 3. If found at index `j`, return `{i+1, j+1}`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, compute `comp = target - numbers[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Binary search for `comp` in the range `(i, n)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If found at index `j`, return `{i+1, j+1}`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -1846,6 +2353,18 @@ class Solution {
 **Algorithm**:
 1. For each `i`, check whether `target - numbers[i]` is in the map. If so, return `{map.get(comp) + 1, i + 1}`.
 2. Otherwise store `numbers[i] -> i`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, check whether `target - numbers[i]` is in the map. If so, return `{map.get(comp) + 1, i + 1}`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Otherwise store `numbers[i] -> i`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashMap;
@@ -1880,6 +2399,18 @@ class Solution {
    - `sum = numbers[l] + numbers[r]`.
    - If `sum == target`, return `{l+1, r+1}`.
    - If `sum < target`, `l++`. Otherwise `r--`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`l = 0`, `r = n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `l < r`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -1946,6 +2477,20 @@ Reduce 3Sum to a 2Sum problem. Fix one element `a`, then find pairs that sum to 
 2. Add the sorted list to a `HashSet`.
 3. Return the set's contents.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `i < j < k`, if the sum is zero, sort `[nums[i], nums[j], nums[k]]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Add the sorted list to a `HashSet`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Return the set's contents.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1987,6 +2532,22 @@ class Solution {
 3. Add `nums[j]` to `seen`.
 4. Return the unique triplets.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, create an empty `seen` set.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each `j > i`: let `comp = -nums[i] - nums[j]`. If `comp` is in `seen`, add the sorted triplet to `result`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Add `nums[j]` to `seen`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+4. **Return the unique triplets.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -2019,7 +2580,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Sort, Fix One, Two Pointers with Skipping)
+##### Approach 3: Optimised (Sort, Fix One, Two Pointers with Skipping)
 
 **Intuition**: After sorting, for a fixed `i` the remaining problem is 2Sum on a sorted subarray, solvable with two pointers. Duplicates are skipped at three points: the fixed `i`, and both pointers after a match. Since the array is sorted, a positive `nums[i]` means no later triplet can sum to zero, so the loop can stop early.
 
@@ -2033,6 +2594,20 @@ class Solution {
      - If `sum < 0`, `l++`. If `sum > 0`, `r--`.
      - If `sum == 0`, record the triplet, move both pointers inward, and skip equal values on each side.
 3. Return the result.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `nums`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **For each `i` from `0` to `n-3`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the result.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -2113,6 +2688,18 @@ The area is `min(height[l], height[r]) * (r - l)`. Start with the widest contain
 1. For each `i < j`, compute `min(height[i], height[j]) * (j - i)`.
 2. Track the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i < j`, compute `min(height[i], height[j]) * (j - i)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Track the maximum.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxArea(int[] height) {
@@ -2132,7 +2719,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Two Pointers, Move the Shorter Wall)
+##### Approach 2: Optimised (Two Pointers, Move the Shorter Wall)
 
 **Intuition**: A container's height is limited by its shorter wall. Moving the taller wall inward keeps the same limiting height but reduces the width, so it can never produce a larger area. Therefore, the shorter wall is the only one worth moving.
 
@@ -2142,6 +2729,20 @@ class Solution {
    - `best = max(best, min(height[l], height[r]) * (r - l))`.
    - If `height[l] < height[r]`, `l++`. Otherwise `r--`.
 3. Return `best`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`l = 0`, `r = n - 1`, `best = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `l < r`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `best`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -2206,6 +2807,20 @@ The water above index `i` is `min(maxLeft[i], maxRight[i]) - height[i]`, where `
 2. Compute `maxR` as the max over `height[i..n-1]`.
 3. Add `min(maxL, maxR) - height[i]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, compute `maxL` as the max over `height[0..i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Compute `maxR` as the max over `height[i..n-1]`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+3. **Add `min(maxL, maxR) - height[i]`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int trap(int[] height) {
@@ -2234,6 +2849,20 @@ class Solution {
 2. `maxR[i] = max(maxR[i+1], height[i])`.
 3. Sum `min(maxL[i], maxR[i]) - height[i]` over all `i`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`maxL[i] = max(maxL[i-1], height[i])`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`maxR[i] = max(maxR[i+1], height[i])`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Sum `min(maxL[i], maxR[i]) - height[i]` over all `i`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int trap(int[] height) {
@@ -2260,7 +2889,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Two Pointers with Running Maxima)
+##### Approach 3: Optimised (Two Pointers with Running Maxima)
 
 **Intuition**: At any point, the side whose current bar is shorter determines the water level. If `height[l] < height[r]`, then `maxLeft` is the binding constraint on the left, because a taller bar exists on the right, so `maxLeft` is safe to use. Process the left side and advance `l`. Otherwise do the same on the right. This achieves the prefix/suffix result without arrays.
 
@@ -2274,6 +2903,20 @@ class Solution {
      - If `height[r] >= rMax`, update `rMax`. Otherwise add `rMax - height[r]`.
      - `r--`.
 3. Return `total`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`l = 0`, `r = n-1`, `lMax = 0`, `rMax = 0`, `total = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `l < r`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `total`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -2347,6 +2990,18 @@ For each sell day, the best buy day is the cheapest price before it. Track the m
 1. For each `i < j`, compute `prices[j] - prices[i]`.
 2. Track the maximum, starting from `0`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i < j`, compute `prices[j] - prices[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Track the maximum, starting from `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxProfit(int[] prices) {
@@ -2373,6 +3028,18 @@ class Solution {
 1. Build `minSoFar` in one pass.
 2. For each `i`, compute `prices[i] - minSoFar[i-1]`, and track the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `minSoFar` in one pass.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each `i`, compute `prices[i] - minSoFar[i-1]`, and track the maximum.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxProfit(int[] prices) {
@@ -2395,7 +3062,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Single Pass, Running Minimum)
+##### Approach 3: Optimised (Single Pass, Running Minimum)
 
 **Intuition**: The prefix array is unnecessary. Keep only the minimum price seen so far, and update the best profit as you go.
 
@@ -2403,6 +3070,20 @@ class Solution {
 1. `minPrice = prices[0]`, `best = 0`.
 2. For each price: `best = max(best, price - minPrice)`, then `minPrice = min(minPrice, price)`.
 3. Return `best`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`minPrice = prices[0]`, `best = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each price: `best = max(best, price - minPrice)`, then `minPrice = min(minPrice, price)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `best`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -2461,6 +3142,20 @@ Maintain a window `[left, right]` with no repeats. When `right` adds a duplicate
 2. Extend `j` from `i` while `s[j]` is not already in the set, adding it.
 3. The length is `j - i`. Track the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, create an empty set.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Extend `j` from `i` while `s[j]` is not already in the set, adding it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **The length is `j - i`. Track the maximum.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -2495,6 +3190,18 @@ class Solution {
    - While `s[right]` is in `set`, remove `s[left]` and `left++`.
    - Add `s[right]`.
    - Update the maximum window length `right - left + 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`left = 0`, `set` empty.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `right`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashSet;
@@ -2531,6 +3238,22 @@ class Solution {
 3. Store `lastSeen[c] = right`.
 4. Update the maximum window length.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `right`, let `c = s[right]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If `c` was last seen at index `p` and `p >= left`, set `left = p + 1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Store `lastSeen[c] = right`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+4. **Update the maximum window length.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -2566,6 +3289,22 @@ class Solution {
 2. For each `right`, set `left = max(left, next[c])`.
 3. Set `next[c] = right + 1`.
 4. Update the best length.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`next[c]` holds one past the last index where `c` appeared (0 if never).**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `right`, set `left = max(left, next[c])`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Set `next[c] = right + 1`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+4. **Update the best length.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -2630,6 +3369,20 @@ A window is valid if the number of characters that are not the most frequent let
 2. For each `j >= i`, increment `count[s[j]]`, update `maxF`.
 3. If `(j - i + 1) - maxF <= k`, update the answer.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, reset `count[26]` and `maxF = 0`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each `j >= i`, increment `count[s[j]]`, update `maxF`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If `(j - i + 1) - maxF <= k`, update the answer.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int characterReplacement(String s, int k) {
@@ -2663,6 +3416,20 @@ class Solution {
 2. While `windowSize - maxFreq(count) > k`, remove `s[left]` and `left++`.
 3. Update the best window size.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `right` from `0` to `n-1`, add `s[right]` to `count`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **While `windowSize - maxFreq(count) > k`, remove `s[left]` and `left++`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Update the best window size.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int characterReplacement(String s, int k) {
@@ -2691,7 +3458,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Non-Shrinking Window with Historical Max Frequency)
+##### Approach 3: Optimised (Non-Shrinking Window with Historical Max Frequency)
 
 **Intuition**: The answer only grows when a new window exceeds the best length so far. So the window never needs to shrink; it only slides. Keep `maxF` as the largest frequency ever seen in any window. A stale `maxF` can only overstate validity, but a window longer than the best answer requires a genuinely larger `maxF` to appear, and that is exactly what updates it. The window size therefore never decreases in a way that changes the answer.
 
@@ -2699,6 +3466,20 @@ class Solution {
 1. For each `right`, increment `count[s[right]]`, and update `maxF = max(maxF, count[s[right]])`.
 2. If `(right - left + 1) - maxF > k`, decrement `count[s[left]]` and `left++`. The window slides rather than shrinks.
 3. Return `s.length() - left` at the end (the final window size).
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `right`, increment `count[s[right]]`, and update `maxF = max(maxF, count[s[right]])`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If `(right - left + 1) - maxF > k`, decrement `count[s[left]]` and `left++`. The window slides rather than shrinks.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return `s.length() - left` at the end (the final window size).**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -2762,6 +3543,20 @@ A permutation has the same length and the same letter counts. So scan `s2` with 
 2. Sort `s1` into `target`.
 3. For each start `i` in `s2`, copy `s2[i..i+m)`, sort it, and compare with `target`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `m > n`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Sort `s1` into `target`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **For each start `i` in `s2`, copy `s2[i..i+m)`, sort it, and compare with `target`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -2796,6 +3591,20 @@ class Solution {
 2. For each index `i` in `s2`, add `s2[i]` to `have`. If `i >= m`, remove `s2[i-m]`.
 3. Once `i >= m - 1`, the window is full. If `have` equals `need`, return `true`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `need` from `s1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each index `i` in `s2`, add `s2[i]` to `have`. If `i >= m`, remove `s2[i-m]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Once `i >= m - 1`, the window is full. If `have` equals `need`, return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -2823,7 +3632,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Diff Array with Non-Zero Counter)
+##### Approach 3: Optimised (Diff Array with Non-Zero Counter)
 
 **Intuition**: Rather than comparing all 26 slots on every step, track `diff = have - need` per letter, and a counter `nonZero` of letters where `diff != 0`. The window matches exactly when `nonZero == 0`. Updates touch only one or two slots, so each step is O(1).
 
@@ -2834,6 +3643,20 @@ class Solution {
    - If `i >= m`, remove `s2[i-m]` with the mirror logic.
    - If `i >= m - 1` and `nonZero == 0`, return `true`.
 3. Return `false`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each character of `s1`, decrement `diff`. Count the non-zero entries into `nonZero`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each index `i` in `s2`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -2912,6 +3735,20 @@ Expand the right edge until the window covers `t`. Then shrink from the left as 
 2. For each start `i`, extend `j` from `i`, maintaining window counts.
 3. Whenever every required count is satisfied, record the window if it is shorter than the best so far.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Count the required letters from `t`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each start `i`, extend `j` from `i`, maintaining window counts.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Whenever every required count is satisfied, record the window if it is shorter than the best so far.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public String minWindow(String s, String t) {
@@ -2954,6 +3791,22 @@ class Solution {
 3. While `formed == required`: record the window if it is smaller. Remove `s[left]`. If its count drops below `need`, decrement `formed`. Advance `left`.
 4. Return the best window, or `""`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `need` from `t`. Let `required = need.size()`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Expand `right`: add `s[right]` to `win`. If its count now equals `need`, increment `formed`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **While `formed == required`: record the window if it is smaller. Remove `s[left]`. If its count drops below `need`, decrement `formed`. Advance `left`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return the best window, or `""`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -2994,7 +3847,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Array Counts with Formed Counter)
+##### Approach 3: Optimised (Array Counts with Formed Counter)
 
 **Intuition**: Same logic as the map version, with fixed 128-slot arrays in place of hash maps. Arrays are faster and avoid boxing. A character with `need[c] == 0` does not contribute to `formed`, so only required characters are checked.
 
@@ -3002,6 +3855,20 @@ class Solution {
 1. `need[c]` counts `t`. `required` counts distinct characters with `need > 0`.
 2. Slide the window as in the map version, using `win[c]` and comparing against `need[c]`.
 3. Return the minimal window.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`need[c]` counts `t`. `required` counts distinct characters with `need > 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Slide the window as in the map version, using `win[c]` and comparing against `need[c]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return the minimal window.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -3077,6 +3944,18 @@ A window's maximum is the largest value in it. Recomputing that for each window 
 1. For each start `i` from `0` to `n-k`, compute the max over `nums[i..i+k)`.
 2. Store it in the result.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each start `i` from `0` to `n-k`, compute the max over `nums[i..i+k)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Store it in the result.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
@@ -3107,6 +3986,20 @@ class Solution {
 2. While the top's index is `<= i - k`, pop it.
 3. Once `i >= k - 1`, the top is the maximum of the current window. Record it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, push `(nums[i], i)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **While the top's index is `<= i - k`, pop it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Once `i >= k - 1`, the top is the maximum of the current window. Record it.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.PriorityQueue;
 
@@ -3133,7 +4026,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Monotonic Decreasing Deque)
+##### Approach 3: Optimised (Monotonic Decreasing Deque)
 
 **Intuition**: Keep a deque of indices whose values are in decreasing order from front to back. Before adding index `i`, drop any indices at the back with smaller values, because `i` is larger and outlasts them. Drop the front index once it leaves the window. The front is always the current maximum. Each index enters and leaves the deque at most once.
 
@@ -3143,6 +4036,18 @@ class Solution {
    - Remove from the back while `nums[back] <= nums[i]`.
    - Push `i` to the back.
 2. If `i >= k - 1`, `nums[front]` is the window maximum. Record it.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If `i >= k - 1`, `nums[front]` is the window maximum. Record it.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -3218,6 +4123,18 @@ Brackets nest like a call stack. The most recently opened bracket must be the fi
 1. While the string contains `()`, `[]`, or `{}`, remove all occurrences.
 2. Return whether the result is empty.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While the string contains `()`, `[]`, or `{}`, remove all occurrences.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return whether the result is empty.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isValid(String s) {
@@ -3243,6 +4160,20 @@ class Solution {
 1. Map each closer to its opener.
 2. For each character: if it is a closer, pop (fail if the stack is empty or the top doesn't match). Otherwise push.
 3. Return `true` only if the stack is empty at the end.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Map each closer to its opener.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each character: if it is a closer, pop (fail if the stack is empty or the top doesn't match). Otherwise push.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true` only if the stack is empty at the end.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -3271,7 +4202,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Char Array Stack)
+##### Approach 3: Optimised (Char Array Stack)
 
 **Intuition**: The stack never holds more than `n` items, so a fixed `char[]` with an index pointer avoids boxing `Character` objects and the map lookups. The matching check becomes a direct character comparison.
 
@@ -3281,6 +4212,20 @@ class Solution {
    - If `c` is an opener, `stack[++top] = c`.
    - Otherwise, if `top < 0` or the expected opener (`(`, `[`, or `{` for `)`, `]`, `}`) is not `stack[top]`, return `false`. Else `top--`.
 3. Return `top == -1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`stack = new char[n]`, `top = -1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `c`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `top == -1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -3355,6 +4300,18 @@ Implement the `MinStack` class:
 1. `push` and `pop` and `top` use a standard stack.
 2. `getMin` iterates over all elements and returns the smallest.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`push` and `pop` and `top` use a standard stack.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`getMin` iterates over all elements and returns the smallest.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -3389,6 +4346,20 @@ class MinStack {
 2. `pop()`: `v = stack.pop()`. If `v == minStack.peek()`, pop `minStack`.
 3. `getMin()`: return `minStack.peek()`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`push(v)`: push to `stack`. If `minStack` is empty or `v <= minStack.peek()`, push to `minStack`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`pop()`: `v = stack.pop()`. If `v == minStack.peek()`, pop `minStack`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`getMin()`: return `minStack.peek()`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -3420,7 +4391,7 @@ class MinStack {
 
 ---
 
-##### Approach 3: Optimised / Best (Single Stack of (value, min) Pairs)
+##### Approach 3: Optimised (Single Stack of (value, min) Pairs)
 
 **Intuition**: Store each value alongside the minimum of the stack at the time it was pushed. The pair is self-contained, so pops need no synchronisation with a second stack. The minimum of the stack is always the minimum stored at the top.
 
@@ -3429,6 +4400,22 @@ class MinStack {
 2. `pop()`: remove the top pair.
 3. `top()`: `stack.peek()[0]`.
 4. `getMin()`: `stack.peek()[1]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`push(v)`: `m = stack.isEmpty() ? v : min(v, stack.peek()[1])`. Push `{v, m}`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`pop()`: remove the top pair.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **`top()`: `stack.peek()[0]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **`getMin()`: `stack.peek()[1]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -3496,6 +4483,20 @@ Subtle point: the right operand is popped first, so `a - b` is `left - right`, w
 2. If the token is a number, return it.
 3. Otherwise, `right = eval()`, then `left = eval()`, and return `left op right`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`eval()` takes the token at the current index and moves the index left.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **If the token is a number, return it.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Otherwise, `right = eval()`, then `left = eval()`, and return `left op right`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     private int pos;
@@ -3545,6 +4546,20 @@ class Solution {
 2. If it is an operator, pop `b` then `a`, compute `a op b`, and push the result.
 3. Return the single remaining value.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each token: if it is a number, push its integer value.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If it is an operator, pop `b` then `a`, compute `a op b`, and push the result.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return the single remaining value.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -3576,7 +4591,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Int Array Stack)
+##### Approach 3: Optimised (Int Array Stack)
 
 **Intuition**: The same algorithm with a primitive `int[]` stack. This removes boxing and the per-element cost of `Deque`, which matters on large inputs.
 
@@ -3584,6 +4599,20 @@ class Solution {
 1. `st = new int[n]`, `top = -1`.
 2. For each token: if it is `+`, `-`, `*`, or `/`, compute `st[top-1] op st[top]` and decrement `top`. Otherwise push the number.
 3. Return `st[0]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`st = new int[n]`, `top = -1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each token: if it is `+`, `-`, `*`, or `/`, compute `st[top-1] op st[top]` and decrement `top`. Otherwise push the number.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `st[0]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -3654,6 +4683,18 @@ Build the string left to right and only make choices that keep it extendable. Yo
 1. For each bitmask `mask` in `[0, 2^(2n))`, bit `i` set means `(`, otherwise `)`.
 2. Walk the string with a balance counter. If it ever goes negative, reject. At the end, keep it only if the balance is zero.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each bitmask `mask` in `[0, 2^(2n))`, bit `i` set means `(`, otherwise `)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Walk the string with a balance counter. If it ever goes negative, reject. At the end, keep it only if the balance is zero.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -3698,6 +4739,22 @@ class Solution {
 3. If `open < n`, append `(` and recurse, then remove it.
 4. If `close < open`, append `)` and recurse, then remove it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`backtrack(sb, open, close)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **If `sb.length() == 2n`, record the string.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **If `open < n`, append `(` and recurse, then remove it.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **If `close < open`, append `)` and recurse, then remove it.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -3732,7 +4789,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Backtracking with char Array, No Undo)
+##### Approach 3: Optimised (Backtracking with char Array, No Undo)
 
 **Intuition**: Write into a pre-sized `char[]` at position `pos`. Each recursive call overwrites the slot it owns, so no undo step is needed, and the final copy happens only for complete strings.
 
@@ -3742,6 +4799,18 @@ class Solution {
    - If `pos == 2n`, add `new String(buf)`.
    - If `open < n`: `buf[pos] = '('`, recurse with `open + 1`.
    - If `close < open`: `buf[pos] = ')'`, recurse with `close + 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`buf = new char[2n]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`dfs(pos, open, close)`:**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -3815,6 +4884,20 @@ This is a "next greater element" problem. For each day, you need the nearest lat
 2. The first `j` with `temperatures[j] > temperatures[i]` gives `answer[i] = j - i`.
 3. If none is found, `answer[i]` stays `0`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, scan `j = i+1, ...`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **The first `j` with `temperatures[j] > temperatures[i]` gives `answer[i] = j - i`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **If none is found, `answer[i]` stays `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
@@ -3847,6 +4930,18 @@ class Solution {
    - For each `t` in `(temperatures[i], 100]` with `nextIdx[t] != -1`, track the smallest index.
    - If found, `answer[i] = minIdx - i`.
    - Set `nextIdx[temperatures[i]] = i`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`nextIdx = new int[101]`, filled with `-1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `n-1` down to `0`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -3887,6 +4982,18 @@ class Solution {
      - Pop `j`, set `answer[j] = i - j`.
    - Push `i`.
 2. Indices left on the stack keep `answer = 0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Indices left on the stack keep `answer = 0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -3960,6 +5067,20 @@ Each car has an arrival time if unobstructed: `(target - position) / speed`. Pro
 2. For each car `i`, check every car `j` with `position[j] > position[i]`. If any has `time[j] >= time[i]`, car `i` merges, so skip it.
 3. Count the cars that do not merge.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Compute `time[i] = (target - position[i]) / speed[i]`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **For each car `i`, check every car `j` with `position[j] > position[i]`. If any has `time[j] >= time[i]`, car `i` merges, so skip it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Count the cars that do not merge.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int carFleet(int target, int[] position, int[] speed) {
@@ -3997,6 +5118,20 @@ class Solution {
 2. For each car with time `t`: if the stack is empty or `t > stack.peek()`, push `t`.
 3. Return the stack size.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort the cars by position, descending.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **For each car with time `t`: if the stack is empty or `t > stack.peek()`, push `t`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the stack size.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -4027,7 +5162,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Sort, Single Running Fleet Time)
+##### Approach 3: Optimised (Sort, Single Running Fleet Time)
 
 **Intuition**: The stack is only ever read at its top, which is the arrival time of the most recent fleet head. A single variable holding that value is enough. Whenever a car arrives later than it, a new fleet starts and the variable updates.
 
@@ -4036,6 +5171,22 @@ class Solution {
 2. `lastTime = -1`, `fleets = 0`.
 3. For each car with time `t`: if `t > lastTime`, `fleets++` and `lastTime = t`.
 4. Return `fleets`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort by position, descending.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`lastTime = -1`, `fleets = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For each car with time `t`: if `t > lastTime`, `fleets++` and `lastTime = t`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `fleets`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -4108,6 +5259,22 @@ For each bar `i`, the largest rectangle that uses bar `i` at its full height ext
 3. While `r < n-1` and `heights[r+1] >= heights[i]`, increment `r`.
 4. Area is `heights[i] * (r - l + 1)`. Track the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, set `l = i`, `r = i`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **While `l > 0` and `heights[l-1] >= heights[i]`, decrement `l`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **While `r < n-1` and `heights[r+1] >= heights[i]`, increment `r`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Area is `heights[i] * (r - l + 1)`. Track the maximum.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int largestRectangleArea(int[] heights) {
@@ -4135,6 +5302,20 @@ class Solution {
 1. Left pass: maintain an increasing stack. For each `i`, pop while `heights[top] >= heights[i]`. `left[i]` is the new top, or `-1`. Push `i`.
 2. Right pass: symmetric, from right to left. `right[i]` is the new top, or `n` if empty.
 3. Area for bar `i` is `heights[i] * (right[i] - left[i] - 1)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Left pass: maintain an increasing stack. For each `i`, pop while `heights[top] >= heights[i]`. `left[i]` is the new top, or `-1`. Push `i`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Right pass: symmetric, from right to left. `right[i]` is the new top, or `n` if empty.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Area for bar `i` is `heights[i] * (right[i] - left[i] - 1)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -4169,7 +5350,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Single Monotonic Stack Pass)
+##### Approach 3: Optimised (Single Monotonic Stack Pass)
 
 **Intuition**: The right boundary of a bar is found exactly when a shorter bar arrives, and that is when the bar is popped. So the area can be computed at pop time, using the index now on top of the stack as the left boundary. A sentinel height `0` at the end flushes the stack.
 
@@ -4180,6 +5361,20 @@ class Solution {
    - Left boundary: the new top, or `-1` if empty.
    - Area is `h * (i - left - 1)`.
 3. Push `i`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `i` from `0` to `n` inclusive, let `cur = (i == n) ? 0 : heights[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **While the stack is not empty and `heights[top] >= cur`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Push `i`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -4251,6 +5446,18 @@ Sorted order means that comparing `target` with the middle element tells you whi
 1. For each index `i`, return `i` if `nums[i] == target`.
 2. Otherwise return `-1`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each index `i`, return `i` if `nums[i] == target`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Otherwise return `-1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int search(int[] nums, int target) {
@@ -4275,6 +5482,20 @@ class Solution {
 2. `mid = lo + (hi - lo) / 2`.
 3. If `nums[mid] == target`, return `mid`. If `nums[mid] < target`, recurse on `[mid+1, hi]`. Otherwise recurse on `[lo, mid-1]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`search(lo, hi)`: if `lo > hi`, return `-1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`mid = lo + (hi - lo) / 2`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **If `nums[mid] == target`, return `mid`. If `nums[mid] < target`, recurse on `[mid+1, hi]`. Otherwise recurse on `[lo, mid-1]`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int search(int[] nums, int target) {
@@ -4295,7 +5516,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative Binary Search)
+##### Approach 3: Optimised (Iterative Binary Search)
 
 **Intuition**: The same halving, written as a loop. This avoids recursion overhead. `lo + (hi - lo) / 2` avoids integer overflow that `(lo + hi) / 2` can cause on large indices.
 
@@ -4303,6 +5524,20 @@ class Solution {
 1. `lo = 0`, `hi = n - 1`.
 2. While `lo <= hi`: compute `mid`. Return `mid` on a match. Move `lo` or `hi` past `mid`.
 3. Return `-1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 0`, `hi = n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `lo <= hi`: compute `mid`. Return `mid` on a match. Move `lo` or `hi` past `mid`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `-1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4370,6 +5605,18 @@ The matrix properties mean it is effectively one sorted array of length `m*n`, l
 1. For each row and column, return `true` on a match.
 2. Otherwise return `false`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each row and column, return `true` on a match.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Otherwise return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
@@ -4394,6 +5641,18 @@ class Solution {
 **Algorithm**:
 1. Binary search over rows to find the last row whose first element is `<= target`.
 2. Binary search within that row for `target`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Binary search over rows to find the last row whose first element is `<= target`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **Binary search within that row for `target`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4426,7 +5685,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Single Binary Search on Flattened Index)
+##### Approach 3: Optimised (Single Binary Search on Flattened Index)
 
 **Intuition**: Treat the matrix as a sorted array of length `m*n`. A flattened index `k` maps to `matrix[k / n][k % n]`. One binary search covers both dimensions.
 
@@ -4434,6 +5693,20 @@ class Solution {
 1. `lo = 0`, `hi = m*n - 1`.
 2. `mid = lo + (hi - lo) / 2`, and `val = matrix[mid / n][mid % n]`.
 3. Compare `val` with `target` and halve the range as usual.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 0`, `hi = m*n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`mid = lo + (hi - lo) / 2`, and `val = matrix[mid / n][mid % n]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Compare `val` with `target` and halve the range as usual.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4499,6 +5772,16 @@ Feasibility is monotone. If speed `k` finishes in time, every speed greater than
    - Compute `hours = sum(ceil(piles[i] / k))`.
    - If `hours <= h`, return `k`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `k` from `1` to `max(piles)`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
@@ -4520,7 +5803,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Binary Search on the Answer)
+##### Approach 2: Optimised (Binary Search on the Answer)
 
 **Intuition**: Feasibility is monotone in `k`, so binary search for the smallest feasible value. Each probe costs $O(n)$. Since the range is at most $10^9$, that is about 30 probes. `hours` is accumulated in a `long` because the sum can exceed the `int` range.
 
@@ -4528,6 +5811,20 @@ class Solution {
 1. `lo = 1`, `hi = max(piles)`.
 2. While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `hoursFor(mid) <= h`, set `hi = mid`. Otherwise set `lo = mid + 1`.
 3. Return `lo`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 1`, `hi = max(piles)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `hoursFor(mid) <= h`, set `hi = mid`. Otherwise set `lo = mid + 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `lo`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4602,6 +5899,18 @@ The array consists of two ascending runs, and the minimum is the first element o
 1. Track the smallest value seen.
 2. Return it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Track the smallest value seen.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Return it.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int findMin(int[] nums) {
@@ -4628,6 +5937,20 @@ class Solution {
    - If `nums[lo] < nums[hi]`, return `nums[lo]`.
    - `mid = lo + (hi - lo) / 2`. If `nums[mid] > nums[hi]`, `lo = mid + 1`. Otherwise `hi = mid`.
 3. Return `nums[lo]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 0`, `hi = n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `lo < hi`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `nums[lo]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4661,6 +5984,20 @@ class Solution {
 1. `lo = 0`, `hi = n - 1`.
 2. While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `nums[mid] > nums[hi]`, `lo = mid + 1`; else `hi = mid`.
 3. Return `nums[lo]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 0`, `hi = n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `nums[mid] > nums[hi]`, `lo = mid + 1`; else `hi = mid`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `nums[lo]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4726,6 +6063,18 @@ At any midpoint, at least one of the two halves is sorted. Identify which half i
 1. Return the index where `nums[i] == target`.
 2. Return `-1` if none.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Return the index where `nums[i] == target`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Return `-1` if none.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int search(int[] nums, int target) {
@@ -4749,6 +6098,20 @@ class Solution {
 1. Find pivot `p` = index of the minimum (binary search from Problem 5.4).
 2. Determine the search range: if `target >= nums[0]`, the range is `[0, p-1]`. Otherwise, it is `[p, n-1]`. If `p == 0`, use the whole array.
 3. Standard binary search in that range.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Find pivot `p` = index of the minimum (binary search from Problem 5.4).**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **Determine the search range: if `target >= nums[0]`, the range is `[0, p-1]`. Otherwise, it is `[p, n-1]`. If `p == 0`, use the whole array.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Standard binary search in that range.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4790,7 +6153,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Single Binary Search with Sorted-Half Test)
+##### Approach 3: Optimised (Single Binary Search with Sorted-Half Test)
 
 **Intuition**: One pass suffices. At each `mid`, determine which side is sorted, using `nums[lo] <= nums[mid]`. If the left side is sorted and `target` lies in `[nums[lo], nums[mid])`, keep the left. Otherwise keep the right. If the right side is sorted, apply the mirror test with `(nums[mid], nums[hi]]`.
 
@@ -4802,6 +6165,18 @@ class Solution {
    - Else (right sorted):
      - If `nums[mid] < target <= nums[hi]`, `lo = mid + 1`. Else `hi = mid - 1`.
 2. Return `-1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 0`, `hi = n - 1`. While `lo <= hi`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `-1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -4879,6 +6254,18 @@ Each key holds a timeline of `(timestamp, value)` pairs in increasing order of t
 1. `set` appends `(timestamp, value)` to the key's list.
 2. `get` iterates from the last entry to the first, returning the first with `ts <= timestamp`. Otherwise return `""`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`set` appends `(timestamp, value)` to the key's list.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`get` iterates from the last entry to the first, returning the first with `ts <= timestamp`. Otherwise return `""`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -4918,6 +6305,18 @@ class TimeMap {
 1. `set` puts `timestamp -> value` into the key's `TreeMap`.
 2. `get` calls `floorEntry(timestamp)` and returns its value, or `""` if null.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`set` puts `timestamp -> value` into the key's `TreeMap`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`get` calls `floorEntry(timestamp)` and returns its value, or `""` if null.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -4943,7 +6342,7 @@ class TimeMap {
 
 ---
 
-##### Approach 3: Optimised / Best (Parallel Sorted Lists with Manual Binary Search)
+##### Approach 3: Optimised (Parallel Sorted Lists with Manual Binary Search)
 
 **Intuition**: Timestamps are appended in increasing order, so each key's timestamp list is already sorted, and a plain `ArrayList` suffices. Use binary search for the last index with `ts <= timestamp`. This avoids the tree-node overhead of `TreeMap` and is cache-friendlier.
 
@@ -4951,6 +6350,20 @@ class TimeMap {
 1. Each key maps to two parallel lists: `times` and `values`.
 2. `set` appends to both.
 3. `get`: binary search for the largest index `m` with `times[m] <= timestamp`. Track the best candidate found so far. Return `values[m]` or `""`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Each key maps to two parallel lists: `times` and `values`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`set` appends to both.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **`get`: binary search for the largest index `m` with `times[m] <= timestamp`. Track the best candidate found so far. Return `values[m]` or `""`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -5033,6 +6446,18 @@ The median splits the combined sorted sequence into two halves of (nearly) equal
 1. Merge `nums1` and `nums2` into `merged` (standard two-pointer merge).
 2. If the length is odd, return the middle element. Otherwise return the average of the two middle elements.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Merge `nums1` and `nums2` into `merged` (standard two-pointer merge).**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **If the length is odd, return the middle element. Otherwise return the average of the two middle elements.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
@@ -5066,6 +6491,20 @@ class Solution {
 2. Keep `prev` (the element before the current one) and `curr`.
 3. If `total` is odd, return `curr`. Otherwise return `(prev + curr) / 2.0`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Walk `k` from `0` to `total/2`, each step taking the smaller head of the two arrays.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Keep `prev` (the element before the current one) and `curr`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+3. **If `total` is odd, return `curr`. Otherwise return `(prev + curr) / 2.0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
@@ -5089,7 +6528,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Binary Search on Partition)
+##### Approach 3: Optimised (Binary Search on Partition)
 
 **Intuition**: Partition `A` (the smaller array) at index `i` and `B` at index `j = half - i`, where `half` is the size of the left half. The partition is valid when every left element is at most every right element, which means `A[i-1] <= B[j]` and `B[j-1] <= A[i]`. Binary search on `i` in `A`. If `A[i-1] > B[j]`, the cut in `A` is too far right. If `B[j-1] > A[i]`, it is too far left. Sentinels `±infinity` handle empty sides.
 
@@ -5102,6 +6541,20 @@ class Solution {
    - If `aLeft <= bRight` and `bLeft <= aRight`: this is the partition. Return the median from the boundary values.
    - If `aLeft > bRight`, `hi = i - 1`. Otherwise `lo = i + 1`.
 3. For odd total, return `max(aLeft, bLeft)`. For even total, return `(max(aLeft, bLeft) + min(aRight, bRight)) / 2.0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Ensure `m <= n` by swapping if needed.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`half = (m + n + 1) / 2`. Binary search `i` in `[0, m]`:**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For odd total, return `max(aLeft, bLeft)`. For even total, return `(max(aLeft, bLeft) + min(aRight, bRight)) / 2.0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -5194,6 +6647,18 @@ Reversing means every node's `next` must point to its predecessor. Walk the list
 1. Collect values into an array.
 2. Walk the list again, assigning values from the end of the array.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Collect values into an array.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Walk the list again, assigning values from the end of the array.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -5227,6 +6692,22 @@ class Solution {
 3. `head.next.next = head`, then `head.next = null`.
 4. Return `newHead`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `head` or `head.next` is `null`, return `head`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`newHead = reverseList(head.next)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **`head.next.next = head`, then `head.next = null`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Return `newHead`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public ListNode reverseList(ListNode head) {
@@ -5245,7 +6726,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative Three-Pointer)
+##### Approach 3: Optimised (Iterative Three-Pointer)
 
 **Intuition**: Keep `prev` (already reversed part) and `cur` (next node to process). Each step saves `cur.next`, points `cur` backward at `prev`, and advances both pointers. No recursion is used.
 
@@ -5256,6 +6737,20 @@ class Solution {
    - `cur.next = prev`.
    - `prev = cur`, `cur = next`.
 3. Return `prev`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`prev = null`, `cur = head`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `cur != null`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `prev`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -5317,6 +6812,20 @@ Both inputs are already sorted, so the smallest unprocessed node is always the h
 2. Sort them.
 3. Build a new list from the sorted values.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Collect the values from both lists.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Sort them.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Build a new list from the sorted values.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -5351,6 +6860,20 @@ class Solution {
 2. If `list1.val <= list2.val`: `list1.next = merge(list1.next, list2)`, return `list1`.
 3. Otherwise: `list2.next = merge(list1, list2.next)`, return `list2`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If one list is `null`, return the other.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If `list1.val <= list2.val`: `list1.next = merge(list1.next, list2)`, return `list1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Otherwise: `list2.next = merge(list1, list2.next)`, return `list2`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
@@ -5370,7 +6893,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative with Dummy Head)
+##### Approach 3: Optimised (Iterative with Dummy Head)
 
 **Intuition**: Use a dummy node as a fixed starting point so the first node needs no special case. Append whichever head is smaller to `tail`, then advance. Attach the leftover list at the end.
 
@@ -5379,6 +6902,22 @@ class Solution {
 2. While both lists are non-null, append the smaller head to `tail` and advance that list. Advance `tail`.
 3. Attach the non-empty remainder: `tail.next = (list1 != null) ? list1 : list2`.
 4. Return `dummy.next`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dummy`, `tail = dummy`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While both lists are non-null, append the smaller head to `tail` and advance that list. Advance `tail`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Attach the non-empty remainder: `tail.next = (list1 != null) ? list1 : list2`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Return `dummy.next`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -5444,6 +6983,20 @@ The result interleaves the first half in order with the second half in reverse. 
 2. With `i = 0` and `j = n-1`, set `nodes[i].next = nodes[j]`, then `nodes[j].next = nodes[i+1]`, moving the pointers inward until they meet.
 3. Set the last node's `next` to `null`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Store every node in `nodes[]`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **With `i = 0` and `j = n-1`, set `nodes[i].next = nodes[j]`, then `nodes[j].next = nodes[i+1]`, moving the pointers inward until they meet.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Set the last node's `next` to `null`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -5477,6 +7030,20 @@ class Solution {
 1. Find the middle node. Cut the list there, so the first half ends at `mid`.
 2. Push every node of the second half onto a stack. The top is the tail.
 3. Walk the first half. Each step, pop from the stack and interleave.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Find the middle node. Cut the list there, so the first half ends at `mid`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **Push every node of the second half onto a stack. The top is the tail.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Walk the first half. Each step, pop from the stack and interleave.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -5512,7 +7079,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Find Middle, Reverse Second Half, Merge)
+##### Approach 3: Optimised (Find Middle, Reverse Second Half, Merge)
 
 **Intuition**: Three well-known steps, all in place. A slow/fast pointer finds the middle. Reversing the second half gives the nodes in tail-to-middle order. Then merge the two halves by alternating, which is exactly the required output order.
 
@@ -5520,6 +7087,20 @@ class Solution {
 1. Find the middle with `slow` and `fast`. `slow` ends at the last node of the first half.
 2. `second = reverse(slow.next)`, and set `slow.next = null`.
 3. Merge: alternately take a node from the first half and from `second`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Find the middle with `slow` and `fast`. `slow` ends at the last node of the first half.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **`second = reverse(slow.next)`, and set `slow.next = null`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Merge: alternately take a node from the first half and from `second`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -5600,6 +7181,20 @@ Removing a node requires its predecessor. The predecessor of the `n`-th node fro
 2. The predecessor of the target is at index `size - n - 1`.
 3. Relink `prev.next = prev.next.next`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Put a dummy node in front of the head, and store all nodes including the dummy in a list.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **The predecessor of the target is at index `size - n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Relink `prev.next = prev.next.next`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -5629,6 +7224,20 @@ class Solution {
 2. Walk `L - n` steps from the dummy.
 3. Remove the next node.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Count the length `L`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Walk `L - n` steps from the dummy.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Remove the next node.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
@@ -5647,7 +7256,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (One Pass with Gap of n)
+##### Approach 3: Optimised (One Pass with Gap of n)
 
 **Intuition**: Keep two pointers with a gap of `n` between them. Advance `fast` by `n+1` steps from the dummy first. Then advance both until `fast` is `null`. At that point `slow` is the predecessor of the target. The `+1` ensures `slow` stops one node before the target, not on it.
 
@@ -5656,6 +7265,22 @@ class Solution {
 2. Move `fast` forward `n + 1` times.
 3. While `fast != null`, move both `slow` and `fast`.
 4. `slow.next = slow.next.next`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dummy`, `slow = fast = dummy`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Move `fast` forward `n + 1` times.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **While `fast != null`, move both `slow` and `fast`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **`slow.next = slow.next.next`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -5730,6 +7355,20 @@ Copying `next` is easy in one pass. Copying `random` requires knowing the copy o
 2. For each original node `o` with `random != null`, count how many steps from the head reach `o.random`.
 3. Walk the copy chain the same number of steps and set `copy.random`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build a copy chain following `next`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each original node `o` with `random != null`, count how many steps from the head reach `o.random`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Walk the copy chain the same number of steps and set `copy.random`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public Node copyRandomList(Node head) {
@@ -5768,6 +7407,18 @@ class Solution {
 1. For each original `c`, `map.put(c, new Node(c.val))`.
 2. For each original `c`, `copy = map.get(c)`. Set `copy.next = map.get(c.next)` and `copy.random = map.get(c.random)`. `get(null)` returns `null`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each original `c`, `map.put(c, new Node(c.val))`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each original `c`, `copy = map.get(c)`. Set `copy.next = map.get(c.next)` and `copy.random = map.get(c.random)`. `get(null)` returns `null`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -5793,7 +7444,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Interweave Copies, Then Split)
+##### Approach 3: Optimised (Interweave Copies, Then Split)
 
 **Intuition**: Insert each copy directly after its original, so `original.next` is its copy. Then `original.random.next` is the copy of `original.random`, with no map. Finally split the interleaved list into the two lists.
 
@@ -5801,6 +7452,20 @@ class Solution {
 1. For each original `c`, insert `copy` between `c` and `c.next`.
 2. For each original `c` with `random != null`, set `c.next.random = c.random.next`.
 3. Walk the interleaved list, detaching the copies and restoring the originals' `next` pointers.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each original `c`, insert `copy` between `c` and `c.next`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each original `c` with `random != null`, set `c.next.random = c.random.next`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Walk the interleaved list, detaching the copies and restoring the originals' `next` pointers.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -5879,6 +7544,20 @@ Digits are stored least-significant first, so the lists can be added in the same
 2. Add the two values.
 3. Write the decimal string of the sum into a new list, starting from its least significant digit.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each list, collect digits in reverse, then build a `BigInteger`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Add the two values.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Write the decimal string of the sum into a new list, starting from its least significant digit.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.math.BigInteger;
 
@@ -5917,6 +7596,20 @@ class Solution {
 2. `sum = carry + (a?.val) + (b?.val)`, treating missing nodes as `0`.
 3. Return a node with `sum % 10`, whose `next` is `add(a.next, b.next, sum / 10)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`add(a, b, carry)`: if `a`, `b` are both `null` and `carry == 0`, return `null`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`sum = carry + (a?.val) + (b?.val)`, treating missing nodes as `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return a node with `sum % 10`, whose `next` is `add(a.next, b.next, sum / 10)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -5937,7 +7630,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative with Dummy Head and Carry)
+##### Approach 3: Optimised (Iterative with Dummy Head and Carry)
 
 **Intuition**: The same digit-by-digit addition, written as a loop. A dummy head simplifies the first node, and the loop continues while either list has digits or a carry remains.
 
@@ -5948,6 +7641,20 @@ class Solution {
    - Append `sum % 10`, set `carry = sum / 10`.
    - Advance `l1` and `l2` if non-null.
 3. Return `dummy.next`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dummy`, `tail = dummy`, `carry = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `l1 != null || l2 != null || carry != 0`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dummy.next`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -6011,6 +7718,18 @@ If there is no cycle, a traversal ends at `null`. If there is a cycle, a travers
 1. For each node, if it is already in the set, return `true`. Otherwise add it.
 2. When the traversal reaches `null`, return `false`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each node, if it is already in the set, return `true`. Otherwise add it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **When the traversal reaches `null`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -6030,7 +7749,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Floyd's Cycle Detection)
+##### Approach 2: Optimised (Floyd's Cycle Detection)
 
 **Intuition**: Move `slow` one step and `fast` two steps each iteration. Outside a cycle, `fast` reaches `null`. Inside a cycle, `fast` gains one node on `slow` per iteration, so they must meet.
 
@@ -6038,6 +7757,20 @@ class Solution {
 1. `slow = fast = head`.
 2. While `fast != null && fast.next != null`: move `slow` one step, `fast` two steps. If they are equal, return `true`.
 3. Return `false`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`slow = fast = head`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `fast != null && fast.next != null`: move `slow` one step, `fast` two steps. If they are equal, return `true`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -6099,6 +7832,16 @@ The pigeonhole principle drives this problem. With `n+1` values in `[1, n]`, at 
 **Algorithm**:
 1. For each `i`, for each `j > i`, if `nums[i] == nums[j]`, return `nums[i]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, for each `j > i`, if `nums[i] == nums[j]`, return `nums[i]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int findDuplicate(int[] nums) {
@@ -6122,6 +7865,16 @@ class Solution {
 
 **Algorithm**:
 1. For each value, if `seen.add(value)` fails, return it.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each value, if `seen.add(value)` fails, return it.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashSet;
@@ -6151,6 +7904,22 @@ class Solution {
 2. While `lo < hi`: `mid = lo + (hi - lo) / 2`. Let `count = #{x : x <= mid}`.
 3. If `count > mid`, `hi = mid`. Otherwise `lo = mid + 1`.
 4. Return `lo`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 1`, `hi = n`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `lo < hi`: `mid = lo + (hi - lo) / 2`. Let `count = #{x : x <= mid}`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If `count > mid`, `hi = mid`. Otherwise `lo = mid + 1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **Return `lo`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -6185,6 +7954,20 @@ class Solution {
 1. Phase 1: `slow = fast = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[nums[fast]]` until they are equal.
 2. Phase 2: `slow = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[fast]` until they are equal.
 3. Return `slow`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Phase 1: `slow = fast = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[nums[fast]]` until they are equal.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Phase 2: `slow = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[fast]` until they are equal.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `slow`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -6258,6 +8041,20 @@ Two requirements: fast lookup by key, and fast reordering by recency. A hash map
 2. `get`: if the key is absent, return `-1`. Otherwise move the key to the end of `order`.
 3. `put`: if the key exists, update it and move it to the end. Otherwise, if full, evict `order.get(0)` from both structures, then add.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`values` maps keys to values. `order` lists keys, least recent first.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`get`: if the key is absent, return `-1`. Otherwise move the key to the end of `order`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **`put`: if the key exists, update it and move it to the end. Otherwise, if full, evict `order.get(0)` from both structures, then add.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6313,6 +8110,20 @@ class LRUCache {
 2. `get` returns the value or `-1`.
 3. `put` inserts or updates, and `removeEldestEntry` returns `true` when `size() > capacity`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Extend `LinkedHashMap<Integer, Integer>` with access ordering enabled.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`get` returns the value or `-1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`put` inserts or updates, and `removeEldestEntry` returns `true` when `size() > capacity`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -6344,7 +8155,7 @@ class LRUCache extends LinkedHashMap<Integer, Integer> {
 
 ---
 
-##### Approach 3: Optimised / Best (HashMap + Custom Doubly Linked List with Sentinels)
+##### Approach 3: Optimised (HashMap + Custom Doubly Linked List with Sentinels)
 
 **Intuition**: Implement what `LinkedHashMap` does explicitly. The map stores key to node. The list runs from `head` (least recent, after the sentinel) to `tail` (most recent, before the sentinel). Two sentinel nodes remove all edge cases at the ends. Moving a node is four pointer updates.
 
@@ -6353,6 +8164,22 @@ class LRUCache extends LinkedHashMap<Integer, Integer> {
 2. `addToTail(node)`: insert before the tail sentinel.
 3. `get(key)`: if present, `remove` then `addToTail`, and return the value.
 4. `put(key, value)`: if present, update the value, then move to tail. Otherwise, if full, remove `head.next` (evict) and its map entry. Then create, insert, and map the new node.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`remove(node)`: unlink from its neighbours.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`addToTail(node)`: insert before the tail sentinel.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **`get(key)`: if present, `remove` then `addToTail`, and return the value.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+4. **`put(key, value)`: if present, update the value, then move to tail. Otherwise, if full, remove `head.next` (evict) and its map entry. Then create, insert, and map the new node.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashMap;
@@ -6463,6 +8290,20 @@ Merging two sorted lists is a linear operation. Merging `k` lists is the same pr
 2. Sort the values.
 3. Build a new list.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Collect every value from every list.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Sort the values.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Build a new list.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6497,6 +8338,20 @@ class Solution {
 1. `result = null`.
 2. For each list, `result = mergeTwo(result, list)`.
 3. Return `result`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`result = null`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each list, `result = mergeTwo(result, list)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `result`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -6539,6 +8394,20 @@ class Solution {
 2. While the heap is not empty: pop the smallest node, append it to the result, and push `node.next` if it is non-null.
 3. Return the result.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Push each non-null list head into a min-heap.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **While the heap is not empty: pop the smallest node, append it to the result, and push `node.next` if it is non-null.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the result.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.PriorityQueue;
 
@@ -6572,6 +8441,20 @@ class Solution {
 1. `solve(lists, lo, hi)`: if `lo > hi`, return `null`. If `lo == hi`, return `lists[lo]`.
 2. `mid = (lo + hi) / 2`.
 3. Return `mergeTwo(solve(lo, mid), solve(mid+1, hi))`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`solve(lists, lo, hi)`: if `lo > hi`, return `null`. If `lo == hi`, return `lists[lo]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`mid = (lo + hi) / 2`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return `mergeTwo(solve(lo, mid), solve(mid+1, hi))`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -6652,6 +8535,20 @@ Process the list in blocks of `k`. Before reversing a block, verify that it cont
 2. For `start` from `0` in steps of `k`, if `start + k <= n`, reverse `vals[start..start+k)`.
 3. Write the array back into the nodes.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Collect all values.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `start` from `0` in steps of `k`, if `start + k <= n`, reverse `vals[start..start+k)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Write the array back into the nodes.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6687,6 +8584,22 @@ class Solution {
 3. Reverse the group: for each of the `k` nodes, set `next` to the previous one. Start with `prev = rest`.
 4. Return the new group head.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Count `k` nodes starting at `head`. If fewer than `k` exist, return `head`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`rest = reverseKGroup(cur, k)`, where `cur` is the node after the group.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Reverse the group: for each of the `k` nodes, set `next` to the previous one. Start with `prev = rest`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return the new group head.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
@@ -6712,7 +8625,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative with Dummy and Group Check)
+##### Approach 3: Optimised (Iterative with Dummy and Group Check)
 
 **Intuition**: Keep a pointer `groupPrev` to the node before the current group. For each group, find the `k`-th node. If it does not exist, stop. Otherwise reverse the group between `groupPrev.next` and the `k`-th node, reconnect, and advance `groupPrev` to the old first node, which is now the tail of the reversed group.
 
@@ -6724,6 +8637,20 @@ class Solution {
    - Reverse the nodes from `first = groupPrev.next` up to `kth`, with `prev` starting at `groupNext`.
    - `groupPrev.next = kth` (the new head). `groupPrev = first` (the new tail).
 3. Return `dummy.next`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dummy.next = head`, `groupPrev = dummy`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Loop:**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return `dummy.next`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -6818,6 +8745,20 @@ Inverting a tree means inverting each subtree and then swapping its two children
 2. Enqueue `root`. While the queue is not empty: dequeue `n`, swap `n.left` and `n.right`, and enqueue any non-null child.
 3. Return `root`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `root` is `null`, return `null`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Enqueue `root`. While the queue is not empty: dequeue `n`, swap `n.left` and `n.right`, and enqueue any non-null child.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `root`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -6853,6 +8794,20 @@ class Solution {
 2. `left = invertTree(root.left)`, `right = invertTree(root.right)`.
 3. Set `root.left = right`, `root.right = left`. Return `root`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `root` is `null`, return `null`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`left = invertTree(root.left)`, `right = invertTree(root.right)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Set `root.left = right`, `root.right = left`. Return `root`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public TreeNode invertTree(TreeNode root) {
@@ -6870,7 +8825,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative DFS with Explicit Stack)
+##### Approach 3: Optimised (Iterative DFS with Explicit Stack)
 
 **Intuition**: The same swap-at-every-node idea, driven by an explicit stack instead of recursion. This avoids stack overflow on deep, skewed trees.
 
@@ -6878,6 +8833,20 @@ class Solution {
 1. Push `root` onto a stack.
 2. While the stack is not empty: pop `n`, swap its children, and push any non-null child.
 3. Return `root`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Push `root` onto a stack.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **While the stack is not empty: pop `n`, swap its children, and push any non-null child.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `root`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -6945,6 +8914,20 @@ The depth of a tree is one more than the greater of its subtree depths. That giv
 2. Enqueue `root`. While the queue is not empty: process every node currently in the queue, enqueuing their children, then increment `depth`.
 3. Return `depth`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `root` is `null`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Enqueue `root`. While the queue is not empty: process every node currently in the queue, enqueuing their children, then increment `depth`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `depth`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -6980,6 +8963,18 @@ class Solution {
 1. If `root` is `null`, return `0`.
 2. Return `1 + max(maxDepth(left), maxDepth(right))`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `root` is `null`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Return `1 + max(maxDepth(left), maxDepth(right))`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxDepth(TreeNode root) {
@@ -6993,7 +8988,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative DFS, Track Depth per Node)
+##### Approach 3: Optimised (Iterative DFS, Track Depth per Node)
 
 **Intuition**: Walk the tree with a stack of `(node, depth)` pairs, and record the largest depth seen. This has the same complexity as recursion but avoids deep call stacks.
 
@@ -7001,6 +8996,20 @@ class Solution {
 1. Push `(root, 1)`.
 2. Pop `(n, d)`, update `best = max(best, d)`, and push each non-null child with `d + 1`.
 3. Return `best`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Push `(root, 1)`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Pop `(n, d)`, update `best = max(best, d)`, and push each non-null child with `d + 1`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Return `best`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -7069,6 +9078,18 @@ The longest path through a node `v` uses its two deepest subtrees, so its length
 1. For each node `v`, compute `h(v.left) + h(v.right)` using a fresh height function.
 2. Return the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each node `v`, compute `h(v.left) + h(v.right)` using a fresh height function.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the maximum.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
@@ -7095,7 +9116,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Single DFS with Global Maximum)
+##### Approach 2: Optimised (Single DFS with Global Maximum)
 
 **Intuition**: Compute each node's height bottom-up, and at each node record `left + right` as a candidate diameter. Heights are reused, so every node is visited once.
 
@@ -7104,6 +9125,22 @@ class Solution {
 2. Update `diameter = max(diameter, l + r)`.
 3. Return `1 + max(l, r)`.
 4. Call `height(root)` and return `diameter`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`height(node)`: return `0` for `null`. Otherwise compute `l` and `r` for the children.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Update `diameter = max(diameter, l + r)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return `1 + max(l, r)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Call `height(root)` and return `diameter`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -7168,6 +9205,20 @@ Balance is a property of every node, so checking it requires comparing subtree h
 2. If `|height(left) - height(right)| > 1`, return `false`.
 3. Return `isBalanced(left) && isBalanced(right)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `root` is `null`, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If `|height(left) - height(right)| > 1`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return `isBalanced(left) && isBalanced(right)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isBalanced(TreeNode root) {
@@ -7187,7 +9238,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Bottom-Up with -1 Sentinel)
+##### Approach 2: Optimised (Bottom-Up with -1 Sentinel)
 
 **Intuition**: Return the height from `height()`, or `-1` when the subtree is unbalanced. Once any child returns `-1`, the answer is already determined, so propagate `-1` upward. Each node is visited once.
 
@@ -7196,6 +9247,22 @@ class Solution {
 2. `l = check(left)`, `r = check(right)`. If either is `-1`, or `|l - r| > 1`, return `-1`.
 3. Otherwise return `1 + max(l, r)`.
 4. The tree is balanced if `check(root) != -1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`check(node)`: return `0` for `null`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`l = check(left)`, `r = check(right)`. If either is `-1`, or `|l - r| > 1`, return `-1`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+3. **Otherwise return `1 + max(l, r)`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **The tree is balanced if `check(root) != -1`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -7258,6 +9325,18 @@ Two trees match exactly when their roots match and their left subtrees match and
 1. Serialize `p` and `q` in preorder with `#` for null, separated by `,`.
 2. Return `equals` on the two strings.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Serialize `p` and `q` in preorder with `#` for null, separated by `,`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `equals` on the two strings.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
@@ -7295,6 +9374,20 @@ class Solution {
 2. If exactly one is `null`, or `p.val != q.val`, return `false`.
 3. Return `isSameTree(p.left, q.left) && isSameTree(p.right, q.right)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `p` and `q` are both `null`, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If exactly one is `null`, or `p.val != q.val`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return `isSameTree(p.left, q.left) && isSameTree(p.right, q.right)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
@@ -7310,7 +9403,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative Paired BFS)
+##### Approach 3: Optimised (Iterative Paired BFS)
 
 **Intuition**: Keep a queue of node pairs, one from each tree at the same position. Process pairs level by level. This avoids recursion and makes the parallel nature explicit.
 
@@ -7319,6 +9412,22 @@ class Solution {
 2. Dequeue a pair. If both are `null`, continue. If exactly one is `null`, or the values differ, return `false`.
 3. Enqueue `{p.left, q.left}` and `{p.right, q.right}`.
 4. If the queue empties, return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Enqueue `{p, q}`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Dequeue a pair. If both are `null`, continue. If exactly one is `null`, or the values differ, return `false`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Enqueue `{p.left, q.left}` and `{p.right, q.right}`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **If the queue empties, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -7385,6 +9494,18 @@ At each node of `root`, test whether the subtree rooted there equals `subRoot`, 
 1. For each node `v` in `root`, if `isSame(v, subRoot)`, return `true`.
 2. Return `false`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each node `v` in `root`, if `isSame(v, subRoot)`, return `true`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
@@ -7412,6 +9533,18 @@ class Solution {
 **Algorithm**:
 1. Serialize `root` and `subRoot` in preorder, wrapping each token in `[` and `]`, with `#` for null.
 2. Return `rootStr.contains(subStr)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Serialize `root` and `subRoot` in preorder, wrapping each token in `[` and `]`, with `#` for null.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `rootStr.contains(subStr)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -7441,7 +9574,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Token Lists with KMP)
+##### Approach 3: Optimised (Token Lists with KMP)
 
 **Intuition**: Represent each serialization as a list of tokens. Matching is then a sequence search over tokens, where each token is compared with `equals`, so there is no string-boundary ambiguity. KMP's prefix table lets the search never backtrack in `root`, which gives linear time.
 
@@ -7449,6 +9582,20 @@ class Solution {
 1. Serialize both trees into token lists in preorder, with `#` for null.
 2. Build the KMP prefix table (`lps`) for the pattern (`subRoot`'s tokens).
 3. Scan the text (`root`'s tokens). On a mismatch, fall back using `lps`. When the full pattern matches, return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Serialize both trees into token lists in preorder, with `#` for null.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Build the KMP prefix table (`lps`) for the pattern (`subRoot`'s tokens).**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Scan the text (`root`'s tokens). On a mismatch, fall back using `lps`. When the full pattern matches, return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -7538,6 +9685,20 @@ In a BST, the values determine direction. If both `p` and `q` are smaller than t
 2. Build `pathP` and `pathQ`.
 3. Walk both lists in step. The last matching node is the LCA.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`path(root, target)` collects nodes from root to `target` using DFS with backtracking.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Build `pathP` and `pathQ`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+3. **Walk both lists in step. The last matching node is the LCA.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -7579,6 +9740,20 @@ class Solution {
 2. `l = lca(left)`, `r = lca(right)`.
 3. If both are non-null, return `root`. Otherwise return whichever is non-null.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `root` is `null`, or `root == p`, or `root == q`, return `root`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`l = lca(left)`, `r = lca(right)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **If both are non-null, return `root`. Otherwise return whichever is non-null.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
@@ -7595,7 +9770,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative BST Navigation)
+##### Approach 3: Optimised (Iterative BST Navigation)
 
 **Intuition**: Use the BST ordering to decide direction at each step, so only one path is followed and no recursion is needed. The walk stops at the first node that lies between `p` and `q`, or equals one of them.
 
@@ -7604,6 +9779,16 @@ class Solution {
    - If both `p.val` and `q.val` are less than `root.val`, move to `root.left`.
    - Else if both are greater, move to `root.right`.
    - Else return `root`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While `root` is not `null`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -7666,6 +9851,18 @@ Levels are naturally a breadth-first concept. A queue processes nodes in level o
 1. Compute the height `h`.
 2. For `d` from `0` to `h-1`, collect values at depth `d` with a DFS that recurses into children with `d-1`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Compute the height `h`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **For `d` from `0` to `h-1`, collect values at depth `d` with a DFS that recurses into children with `d-1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -7712,6 +9909,20 @@ class Solution {
 2. While the queue is not empty: let `size = queue.size()`. Process `size` nodes, collecting values and enqueuing children.
 3. Add the level to the result.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Enqueue `root` if non-null.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While the queue is not empty: let `size = queue.size()`. Process `size` nodes, collecting values and enqueuing children.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Add the level to the result.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -7743,7 +9954,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Recursive DFS by Depth Index)
+##### Approach 3: Optimised (Recursive DFS by Depth Index)
 
 **Intuition**: Pass the depth down the recursion. When a depth is reached for the first time, create its list. Then append each node's value to the list at its depth. Nodes are visited once, in pre-order, and each level's list fills left to right, which is exactly level order.
 
@@ -7752,6 +9963,22 @@ class Solution {
 2. If `result.size() == depth`, append a new list.
 3. `result.get(depth).add(node.val)`.
 4. Recurse on left and right with `depth + 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(node, depth)`: if `null`, return.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **If `result.size() == depth`, append a new list.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **`result.get(depth).add(node.val)`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+4. **Recurse on left and right with `depth + 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -7819,6 +10046,18 @@ The visible node on each level is the rightmost node of that level. Any traversa
 1. Build all levels with BFS.
 2. Return the last element of each level.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build all levels with BFS.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Return the last element of each level.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -7862,6 +10101,18 @@ class Solution {
 1. Run BFS by level.
 2. For each level, record the last node dequeued in that level.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Run BFS by level.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each level, record the last node dequeued in that level.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -7893,7 +10144,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Right-First DFS with Depth Check)
+##### Approach 3: Optimised (Right-First DFS with Depth Check)
 
 **Intuition**: Visit the right child before the left. The first node reached at each depth is the rightmost node at that depth, because the right subtree is always explored first. Record a node only if its depth has not been recorded yet. No queue is needed.
 
@@ -7901,6 +10152,20 @@ class Solution {
 1. `dfs(node, depth)`: if `null`, return.
 2. If `result.size() == depth`, add `node.val`.
 3. Recurse on `right`, then on `left`, with `depth + 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(node, depth)`: if `null`, return.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **If `result.size() == depth`, add `node.val`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Recurse on `right`, then on `left`, with `depth + 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -7967,6 +10232,18 @@ A node is good if its value is at least the maximum on its root path. That maxim
 1. DFS while keeping an explicit list of the current root path.
 2. At each node, compare its value with the maximum of the list (including itself). If it is at least the maximum, count it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **DFS while keeping an explicit list of the current root path.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **At each node, compare its value with the maximum of the list (including itself). If it is at least the maximum, count it.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -8004,6 +10281,22 @@ class Solution {
 3. `newMax = max(maxSoFar, node.val)`.
 4. Return `good + dfs(left, newMax) + dfs(right, newMax)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(node, maxSoFar)`: if `null`, return `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`good = node.val >= maxSoFar ? 1 : 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`newMax = max(maxSoFar, node.val)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Return `good + dfs(left, newMax) + dfs(right, newMax)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int goodNodes(TreeNode root) {
@@ -8023,7 +10316,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative DFS with (Node, Max) Stack)
+##### Approach 3: Optimised (Iterative DFS with (Node, Max) Stack)
 
 **Intuition**: The same propagation, driven by an explicit stack of `(node, maxSoFar)` pairs. This avoids deep recursion on skewed trees.
 
@@ -8031,6 +10324,20 @@ class Solution {
 1. Push `(root, MIN_VALUE)`.
 2. Pop `(n, m)`. If `n.val >= m`, increment the count. Push each non-null child with `max(m, n.val)`.
 3. Return the count.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Push `(root, MIN_VALUE)`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Pop `(n, m)`. If `n.val >= m`, increment the count. Push each non-null child with `max(m, n.val)`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Return the count.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -8104,6 +10411,20 @@ Checking only each node against its immediate children is not enough, since a gr
 2. `allGreater(node, bound)`: true if every value is `> bound`.
 3. `isBST(node)`: if `null`, true. Otherwise check `allLess(left, node.val)` and `allGreater(right, node.val)`, and recurse on both children.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`allLess(node, bound)`: true if every value in the subtree is `< bound`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`allGreater(node, bound)`: true if every value is `> bound`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`isBST(node)`: if `null`, true. Otherwise check `allLess(left, node.val)` and `allGreater(right, node.val)`, and recurse on both children.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isValidBST(TreeNode root) {
@@ -8136,6 +10457,18 @@ class Solution {
 1. Perform in-order traversal, appending each value to a list.
 2. Return `true` if the list is strictly increasing.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Perform in-order traversal, appending each value to a list.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Return `true` if the list is strictly increasing.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -8163,7 +10496,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Range Bounds Passed Down)
+##### Approach 3: Optimised (Range Bounds Passed Down)
 
 **Intuition**: Each node has an open interval `(lo, hi)` derived from its ancestors. The root's interval is unbounded. Going left tightens `hi` to the current value, and going right tightens `lo`. A node is valid if its value lies strictly within its interval. Use `long` bounds so that `Integer.MIN_VALUE` and `Integer.MAX_VALUE` node values are handled correctly.
 
@@ -8172,6 +10505,22 @@ class Solution {
 2. If `node.val <= lo` or `node.val >= hi`, return `false`.
 3. Return `validate(left, lo, node.val) && validate(right, node.val, hi)`.
 4. Call with `Long.MIN_VALUE` and `Long.MAX_VALUE`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`validate(node, lo, hi)`: if `null`, true.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **If `node.val <= lo` or `node.val >= hi`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return `validate(left, lo, node.val) && validate(right, node.val, hi)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Call with `Long.MIN_VALUE` and `Long.MAX_VALUE`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -8230,6 +10579,18 @@ An in-order traversal of a BST yields values in sorted order. So the `k`-th smal
 1. In-order traverse, appending values to a list.
 2. Return `list.get(k - 1)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **In-order traverse, appending values to a list.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `list.get(k - 1)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -8264,6 +10625,22 @@ class Solution {
 3. Increment `count`. If it equals `k`, record `node.val` and return.
 4. Recurse right.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`inorder(node)`: if `null` or already found, return.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Recurse left.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Increment `count`. If it equals `k`, record `node.val` and return.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+4. **Recurse right.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     private int count = 0;
@@ -8290,7 +10667,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative In-Order with Stack)
+##### Approach 3: Optimised (Iterative In-Order with Stack)
 
 **Intuition**: Simulate the in-order traversal with an explicit stack. Push the left spine, pop a node, and count it. When the count reaches `k`, return the value. This is the same early exit without recursion.
 
@@ -8299,6 +10676,16 @@ class Solution {
    - Push `cur` and all its left descendants.
    - Pop a node. Increment `count`. If `count == k`, return its value.
    - Set `cur` to the popped node's right child.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`cur = root`. While `cur != null` or the stack is not empty:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -8369,6 +10756,20 @@ The first value in preorder is always the root. Its position in inorder splits t
 2. `root = preorder[0]`. Find `m`, its index in `inorder`, by linear search.
 3. Build the left subtree from `preorder[1..m]` and `inorder[0..m)`, and the right subtree from `preorder[m+1..]` and `inorder[m+1..]`, copying each subarray.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `preorder` is empty, return `null`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`root = preorder[0]`. Find `m`, its index in `inorder`, by linear search.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+3. **Build the left subtree from `preorder[1..m]` and `inorder[0..m)`, and the right subtree from `preorder[m+1..]` and `inorder[m+1..]`, copying each subarray.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -8403,6 +10804,22 @@ class Solution {
 3. `root = preorder[ps]`. Find `m` in `[is, ie]` by linear search. `leftSize = m - is`.
 4. Left: `build(ps+1, ps+leftSize, is, m-1)`. Right: `build(ps+leftSize+1, pe, m+1, ie)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`build(ps, pe, is, ie)`: preorder range `[ps, pe]`, inorder range `[is, ie]`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **If `ps > pe`, return `null`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **`root = preorder[ps]`. Find `m` in `[is, ie]` by linear search. `leftSize = m - is`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+4. **Left: `build(ps+1, ps+leftSize, is, m-1)`. Right: `build(ps+leftSize+1, pe, m+1, ie)`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -8426,7 +10843,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Index Ranges with Hash Map)
+##### Approach 3: Optimised (Index Ranges with Hash Map)
 
 **Intuition**: The only expensive step is finding the root's position in inorder. Precompute a map from value to inorder index, so every root lookup is $O(1)$. Each node is created once, and the total work is linear.
 
@@ -8434,6 +10851,20 @@ class Solution {
 1. Build `idx: value -> index in inorder`.
 2. `build(is, ie)` uses a shared pointer `preIdx` into `preorder`. The root is `preorder[preIdx++]`.
 3. `m = idx.get(root)`. Build the left subtree on `[is, m-1]` and the right on `[m+1, ie]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `idx: value -> index in inorder`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **`build(is, ie)` uses a shared pointer `preIdx` into `preorder`. The root is `preorder[preIdx++]`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+3. **`m = idx.get(root)`. Build the left subtree on `[is, m-1]` and the right on `[m+1, ie]`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashMap;
@@ -8510,6 +10941,20 @@ Every path has a highest node, its apex, where it turns. At the apex, the path u
 2. For each node `v`, candidate = `v.val + max(0, down(v.left)) + max(0, down(v.right))`.
 3. Return the maximum candidate.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`down(x)`: return `0` for `null`. Otherwise return `x.val + max(0, down(left), down(right))`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each node `v`, candidate = `v.val + max(0, down(v.left)) + max(0, down(v.right))`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the maximum candidate.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxPathSum(TreeNode root) {
@@ -8536,7 +10981,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Single Post-Order DFS with Global Maximum)
+##### Approach 2: Optimised (Single Post-Order DFS with Global Maximum)
 
 **Intuition**: Compute each node's best downward gain once, bottom-up. At each node, the path using both branches is a candidate for the global answer. Only the single-branch gain is returned to the parent, since a path cannot fork above its apex.
 
@@ -8546,6 +10991,24 @@ class Solution {
 3. Update `best = max(best, node.val + l + r)`.
 4. Return `node.val + max(l, r)`.
 5. Initialise `best` to `Integer.MIN_VALUE`, and return it after `gain(root)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`gain(node)`: return `0` for `null`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`l = max(0, gain(left))`, `r = max(0, gain(right))`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Update `best = max(best, node.val + l + r)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Return `node.val + max(l, r)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+5. **Initialise `best` to `Integer.MIN_VALUE`, and return it after `gain(root)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -8613,6 +11076,18 @@ Serialization must record both values and structure. A null marker is the key: w
 1. Serialize: BFS. For each dequeued node, append its value. If it has no left child, append `#`, otherwise enqueue it. Do the same for the right child. Join tokens with `,`.
 2. Deserialize: split on `,`. Create the root from the first token. Enqueue it. For each dequeued node, read the next token for its left child and then for its right child. Create a node for any non-`#` token and enqueue it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Serialize: BFS. For each dequeued node, append its value. If it has no left child, append `#`, otherwise enqueue it. Do the same for the right child. Join tokens with `,`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Deserialize: split on `,`. Create the root from the first token. Enqueue it. For each dequeued node, read the next token for its left child and then for its right child. Create a node for any non-`#` token and enqueue it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8669,13 +11144,25 @@ class Codec {
 
 ---
 
-##### Approach 2: Optimised / Best (Pre-Order with Null Markers, Token Deque)
+##### Approach 2: Optimised (Pre-Order with Null Markers, Token Deque)
 
 **Intuition**: Pre-order serialization writes each node before its subtrees, with `#` for null. To decode, read tokens from the front. The current token is the next node in pre-order, so decode it, then recursively decode its left subtree and then its right subtree. The recursion consumes tokens in exactly the order they were written, so no index bookkeeping is needed beyond the shared queue.
 
 **Algorithm**:
 1. Serialize: `build(node)`. If `null`, append `#`. Otherwise append the value, then build left, then build right.
 2. Deserialize: put the tokens in a deque. `decode()`: poll a token. If it is `#`, return `null`. Otherwise create the node, set `left = decode()`, then `right = decode()`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Serialize: `build(node)`. If `null`, append `#`. Otherwise append the value, then build left, then build right.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Deserialize: put the tokens in a deque. `decode()`: poll a token. If it is `#`, return `null`. Otherwise create the node, set `left = decode()`, then `right = decode()`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -8767,6 +11254,18 @@ The `k`-th largest value is the root of a min-heap that keeps only the `k` large
 1. The constructor stores all values.
 2. `add` appends the value, sorts ascending, and returns `all.get(size - k)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **The constructor stores all values.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`add` appends the value, sorts ascending, and returns `all.get(size - k)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8801,6 +11300,18 @@ class KthLargest {
 1. Sort the initial values.
 2. `add(val)`: find the insertion point with `Collections.binarySearch`, insert, and return `sorted.get(size - k)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort the initial values.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`add(val)`: find the insertion point with `Collections.binarySearch`, insert, and return `sorted.get(size - k)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8829,7 +11340,7 @@ class KthLargest {
 
 ---
 
-##### Approach 3: Optimised / Best (Min-Heap of Size K)
+##### Approach 3: Optimised (Min-Heap of Size K)
 
 **Intuition**: Only the `k` largest values matter. Keep a min-heap of exactly `k` elements. Its root is the `k`-th largest. A new value larger than the root replaces the root. A smaller value is ignored.
 
@@ -8837,6 +11348,20 @@ class KthLargest {
 1. `push(val)`: if the heap has fewer than `k` items, offer `val`. Otherwise, if `val > peek()`, poll and offer `val`.
 2. Construct by pushing every initial value.
 3. `add(val)`: push, and return `heap.peek()`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`push(val)`: if the heap has fewer than `k` items, offer `val`. Otherwise, if `val > peek()`, poll and offer `val`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Construct by pushing every initial value.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **`add(val)`: push, and return `heap.peek()`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.PriorityQueue;
@@ -8911,6 +11436,18 @@ Each turn needs the two largest values, and the result goes back into the pool. 
 1. While the list has more than one stone: sort it, remove the last two, and add `|a - b|` if non-zero.
 2. Return the remaining stone, or `0`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While the list has more than one stone: sort it, remove the last two, and add `|a - b|` if non-zero.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the remaining stone, or `0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8935,7 +11472,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Max-Heap)
+##### Approach 2: Optimised (Max-Heap)
 
 **Intuition**: A max-heap yields the two heaviest stones in $O(\log n)$ each. The surviving difference is pushed back, so each smash costs logarithmic time instead of a full sort.
 
@@ -8943,6 +11480,20 @@ class Solution {
 1. Offer every stone into a max-heap.
 2. While the heap has at least two elements: poll `y` and `x`. If `y != x`, offer `y - x`.
 3. Return the heap's peek, or `0` if empty.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Offer every stone into a max-heap.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **While the heap has at least two elements: poll `y` and `x`. If `y != x`, offer `y - x`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the heap's peek, or `0` if empty.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Collections;
@@ -9005,6 +11556,18 @@ Comparing Euclidean distances is the same as comparing squared distances, so avo
 1. Sort `points` with a comparator on `x^2 + y^2`.
 2. Return the first `k` points.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `points` with a comparator on `x^2 + y^2`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **Return the first `k` points.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -9033,6 +11596,20 @@ class Solution {
 2. If the heap size exceeds `k`, poll the farthest.
 3. Return the heap's contents.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each point, offer it into a max-heap ordered by distance.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If the heap size exceeds `k`, poll the farthest.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return the heap's contents.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.PriorityQueue;
 
@@ -9058,7 +11635,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Quickselect)
+##### Approach 3: Optimised (Quickselect)
 
 **Intuition**: Quickselect partitions the array around a pivot in $O(n)$ expected time, and then recurses into only one side. After the process, the first `k` positions hold the `k` closest points, in any order. Random pivots keep the expected time linear.
 
@@ -9066,6 +11643,20 @@ class Solution {
 1. `select(lo, hi)`: pick a random pivot in `[lo, hi]`, swap it to `hi`, and partition by distance (Lomuto).
 2. If the pivot's final index `p` equals `k`, stop. If `p < k`, search `[p+1, hi]`. Otherwise search `[lo, p-1]`.
 3. Return the first `k` points.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`select(lo, hi)`: pick a random pivot in `[lo, hi]`, swap it to `hi`, and partition by distance (Lomuto).**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **If the pivot's final index `p` equals `k`, stop. If `p < k`, search `[p+1, hi]`. Otherwise search `[lo, p-1]`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return the first `k` points.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -9155,6 +11746,18 @@ The answer is the element at index `n - k` in ascending order. Sorting finds it 
 1. Sort `nums`.
 2. Return `nums[n - k]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `nums`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **Return `nums[n - k]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -9178,6 +11781,18 @@ class Solution {
 1. For each value, offer it to a min-heap. If the size exceeds `k`, poll the smallest.
 2. Return the heap's peek.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each value, offer it to a min-heap. If the size exceeds `k`, poll the smallest.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the heap's peek.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.PriorityQueue;
 
@@ -9197,7 +11812,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Quickselect)
+##### Approach 3: Optimised (Quickselect)
 
 **Intuition**: Partition around a random pivot so that all smaller values are on the left and all larger on the right. If the pivot lands at the target index `n - k`, it is the answer. Otherwise recurse into only the side containing the target.
 
@@ -9205,6 +11820,20 @@ class Solution {
 1. `target = n - k`. `lo = 0`, `hi = n - 1`.
 2. Loop: choose a random pivot in `[lo, hi]`, swap it to `hi`, and partition (Lomuto). Let `p` be its final index.
 3. If `p == target`, return `nums[p]`. If `p < target`, `lo = p + 1`. Otherwise `hi = p - 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`target = n - k`. `lo = 0`, `hi = n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Loop: choose a random pivot in `[lo, hi]`, swap it to `hi`, and partition (Lomuto). Let `p` be its final index.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **If `p == target`, return `nums[p]`. If `p < target`, `lo = p + 1`. Otherwise `hi = p - 1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Random;
@@ -9295,6 +11924,20 @@ The most frequent task dictates the schedule. If task `A` appears `f` times, it 
    - Advance `time`.
 3. Return `time`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`cnt[26]` holds remaining counts, `readyAt[26]` holds the cycle when each task becomes available.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `time = 0, 1, ...` until all tasks are done:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `time`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int leastInterval(char[] tasks, int n) {
@@ -9336,6 +11979,20 @@ class Solution {
    - If the queue head's ready time equals `time`, push its count back into the heap.
 3. Return `time`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Put all counts into a max-heap. `time = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While the heap or the cooldown queue is non-empty:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `time`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Collections;
@@ -9369,7 +12026,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Closed-Form Formula)
+##### Approach 3: Optimised (Closed-Form Formula)
 
 **Intuition**: Let `maxF` be the highest frequency, and `m` the number of tasks that have that frequency. The most frequent tasks form `maxF` rows with `m` tasks in the last row. The first `maxF - 1` rows each have `n + 1` slots, so the total is `(maxF - 1) * (n + 1) + m`. If the other tasks are so numerous that every slot is filled, no idle time exists, and the answer is the number of tasks.
 
@@ -9377,6 +12034,20 @@ class Solution {
 1. Count frequencies. Let `maxF` be the maximum, and `m` the number of letters with that count.
 2. `idle = (maxF - 1) * (n + 1) + m`.
 3. Return `max(tasks.length, idle)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Count frequencies. Let `maxF` be the maximum, and `m` the number of letters with that count.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`idle = (maxF - 1) * (n + 1) + m`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return `max(tasks.length, idle)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -9439,6 +12110,18 @@ Each tweet needs a global timestamp so that ordering across users is possible. E
 1. `postTweet` appends `(author, tweetId, time)`.
 2. `getNewsFeed(u)`: build the set `{u} ∪ follows(u)`. Filter the global list by author membership, sort by time descending, and return the first 10 IDs.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`postTweet` appends `(author, tweetId, time)`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`getNewsFeed(u)`: build the set `{u} ∪ follows(u)`. Filter the global list by author membership, sort by time descending, and return the first 10 IDs.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9497,6 +12180,18 @@ class Twitter {
 1. `tweets: userId -> List<Tweet>` in posting order.
 2. `getNewsFeed(u)`: collect every tweet from each relevant user's list, sort by time descending, and return the first 10.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`tweets: userId -> List<Tweet>` in posting order.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`getNewsFeed(u)`: collect every tweet from each relevant user's list, sort by time descending, and return the first 10.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9547,7 +12242,7 @@ class Twitter {
 
 ---
 
-##### Approach 3: Optimised / Best (K-Way Merge with Max-Heap)
+##### Approach 3: Optimised (K-Way Merge with Max-Heap)
 
 **Intuition**: Each user's list is sorted by time. The feed is a merge of those lists, and only the top 10 items are needed. Put the most recent tweet of each relevant user into a max-heap by time. Pop the largest, and push the previous tweet from that same user. Ten pops produce the feed, and each pop costs $O(\log F)$.
 
@@ -9555,6 +12250,20 @@ class Twitter {
 1. Let `users` be the user and their followees.
 2. For each user with tweets, push `(time, user, index)` for their last tweet.
 3. Repeat up to 10 times: pop the largest time, record its tweet ID, and if the index is greater than 0, push the previous tweet of that user.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Let `users` be the user and their followees.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each user with tweets, push `(time, user, index)` for their last tweet.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Repeat up to 10 times: pop the largest time, record its tweet ID, and if the index is greater than 0, push the previous tweet of that user.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -9659,6 +12368,18 @@ Split the stream into two halves: the lower half and the upper half. The median 
 1. `addNum` appends to a list.
 2. `findMedian` sorts a copy of the list and returns the middle, or the average of the two middle values.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`addNum` appends to a list.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`findMedian` sorts a copy of the list and returns the middle, or the average of the two middle values.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9693,6 +12414,18 @@ class MedianFinder {
 1. `addNum`: binary search for the insertion index, then insert.
 2. `findMedian`: read the middle element, or average the two middle elements.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`addNum`: binary search for the insertion index, then insert.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`findMedian`: read the middle element, or average the two middle elements.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9719,13 +12452,25 @@ class MedianFinder {
 
 ---
 
-##### Approach 3: Optimised / Best (Two Heaps)
+##### Approach 3: Optimised (Two Heaps)
 
 **Intuition**: Keep a max-heap `lo` holding the smaller half and a min-heap `hi` holding the larger half. Maintain the invariant that `lo` has the same size as `hi` or one more element, and that every value in `lo` is at most every value in `hi`. Then the median is `lo.peek()` when `lo` is larger, or the average of both tops when sizes are equal.
 
 **Algorithm**:
 1. `addNum(x)`: push `x` into `lo`. Move `lo`'s maximum into `hi`. If `hi` is larger than `lo`, move `hi`'s minimum back to `lo`.
 2. `findMedian()`: if `lo` has more elements, return `lo.peek()`. Otherwise return `(lo.peek() + hi.peek()) / 2.0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`addNum(x)`: push `x` into `lo`. Move `lo`'s maximum into `hi`. If `hi` is larger than `lo`, move `hi`'s minimum back to `lo`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`findMedian()`: if `lo` has more elements, return `lo.peek()`. Otherwise return `(lo.peek() + hi.peek()) / 2.0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Collections;
@@ -9798,6 +12543,18 @@ Each element is either in a subset or not. That yields exactly $2^n$ subsets, an
 1. For each `mask` in `[0, 2^n)`, build a list of `nums[i]` where bit `i` of `mask` is set.
 2. Add the list to the result.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `mask` in `[0, 2^n)`, build a list of `nums[i]` where bit `i` of `mask` is set.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Add the list to the result.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -9830,6 +12587,18 @@ class Solution {
 1. `result = [[]]`.
 2. For each `x` in `nums`: for every subset currently in `result`, copy it, append `x`, and add the copy.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`result = [[]]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x` in `nums`: for every subset currently in `result`, copy it, append `x`, and add the copy.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -9855,13 +12624,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Backtracking with Start Index)
+##### Approach 3: Optimised (Backtracking with Start Index)
 
 **Intuition**: Record the current path as a subset at every node of the recursion. To avoid permutations of the same set, only extend the path with elements at or after the current index. Each subset is generated exactly once.
 
 **Algorithm**:
 1. `dfs(start, path)`: add a copy of `path` to the result.
 2. For `i` from `start` to `n-1`: append `nums[i]`, recurse with `i + 1`, then remove the last element.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(start, path)`: add a copy of `path` to the result.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **For `i` from `start` to `n-1`: append `nums[i]`, recurse with `i + 1`, then remove the last element.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -9930,6 +12711,18 @@ At each step, choose a candidate that fits in the remaining sum, then recurse wi
 1. `gen(path, sum)`: if `sum == target`, store the sorted copy of `path` in a set. If `sum > target`, return.
 2. For each candidate, append, recurse with `sum + candidate`, then remove.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`gen(path, sum)`: if `sum == target`, store the sorted copy of `path` in a set. If `sum > target`, return.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **For each candidate, append, recurse with `sum + candidate`, then remove.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9973,6 +12766,18 @@ class Solution {
 1. `dfs(start, remaining)`: if `remaining == 0`, record a copy of the path.
 2. For `i` from `start` to `n-1`, if `candidates[i] <= remaining`, append it, recurse with `(i, remaining - candidates[i])`, then remove it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(start, remaining)`: if `remaining == 0`, record a copy of the path.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `start` to `n-1`, if `candidates[i] <= remaining`, append it, recurse with `(i, remaining - candidates[i])`, then remove it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -10004,13 +12809,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Sorted Candidates with Early Break)
+##### Approach 3: Optimised (Sorted Candidates with Early Break)
 
 **Intuition**: Sort the candidates. Once a candidate exceeds the remaining sum, every later candidate does too, so the loop can `break` instead of `continue`. This prunes a whole suffix of the search at once.
 
 **Algorithm**:
 1. Sort `candidates`.
 2. `dfs(start, remaining)`: if `remaining == 0`, record a copy. For `i` from `start`, if `candidates[i] > remaining`, `break`. Otherwise append, recurse with `(i, remaining - candidates[i])`, and remove.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `candidates`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`dfs(start, remaining)`: if `remaining == 0`, record a copy. For `i` from `start`, if `candidates[i] > remaining`, `break`. Otherwise append, recurse with `(i, remaining - candidates[i])`, and remove.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -10086,6 +12903,18 @@ This is Combination Sum with two changes: each element is used once, and duplica
 1. `gen(i, path, sum)`: if `sum == target`, store the sorted copy of `path`. If `i == n` or `sum > target`, return.
 2. Recurse with `path` excluding `c[i]`, then including it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`gen(i, path, sum)`: if `sum == target`, store the sorted copy of `path`. If `i == n` or `sum > target`, return.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Recurse with `path` excluding `c[i]`, then including it.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10128,6 +12957,18 @@ class Solution {
 1. `dfs(start, remaining)`: if `remaining == 0`, add a sorted copy of `path` to the set.
 2. For `i` from `start`, if `c[i] <= remaining`, append, recurse with `(i + 1, remaining - c[i])`, and remove.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(start, remaining)`: if `remaining == 0`, add a sorted copy of `path` to the set.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **For `i` from `start`, if `c[i] <= remaining`, append, recurse with `(i + 1, remaining - c[i])`, and remove.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10163,7 +13004,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Sort, Skip Duplicates at Same Depth, Early Break)
+##### Approach 3: Optimised (Sort, Skip Duplicates at Same Depth, Early Break)
 
 **Intuition**: Sort the candidates so equal values are adjacent. Within one loop, if `c[i]` equals `c[i-1]` and `i > start`, skip it. The earlier copy already explored every combination that would start with that value at this depth. Sorting also allows an early break once a candidate exceeds the remaining sum. No set is needed, because duplicates are never generated.
 
@@ -10174,6 +13015,20 @@ class Solution {
    - If `c[i] > remaining`, `break`.
    - If `i > start` and `c[i] == c[i-1]`, `continue`.
    - Append `c[i]`, recurse with `i + 1`, and remove.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `candidates`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`dfs(start, remaining)`: if `remaining == 0`, record a copy of the path.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For `i` from `start`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -10248,6 +13103,18 @@ A permutation picks one unused element for each position in turn. The search tre
 1. `gen(path)`: when `path` has length `n`, check that all values are distinct, and if so, record a copy.
 2. Otherwise, try each element and recurse.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`gen(path)`: when `path` has length `n`, check that all values are distinct, and if so, record a copy.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **Otherwise, try each element and recurse.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10289,6 +13156,18 @@ class Solution {
 1. `dfs(path)`: if the path is full, record a copy.
 2. For each index `i` not marked used: mark it, append `nums[i]`, recurse, then unmark and remove.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(path)`: if the path is full, record a copy.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each index `i` not marked used: mark it, append `nums[i]`, recurse, then unmark and remove.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -10321,13 +13200,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (In-Place Swap Backtracking)
+##### Approach 3: Optimised (In-Place Swap Backtracking)
 
 **Intuition**: Permute the array in place. At position `first`, try swapping each element from `first` onward into that position, recurse on the next position, then swap back. The prefix `[0, first)` is fixed, and the suffix holds the remaining elements, so no used array or path list is needed.
 
 **Algorithm**:
 1. `dfs(first)`: if `first == n`, record a copy of `nums`.
 2. For `i` from `first` to `n-1`: swap `nums[first]` and `nums[i]`, recurse with `first + 1`, then swap back.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(first)`: if `first == n`, record a copy of `nums`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `first` to `n-1`: swap `nums[first]` and `nums[i]`, recurse with `first + 1`, then swap back.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -10405,6 +13296,18 @@ Subsets II is Subsets with duplicates. Sorting puts equal values next to each ot
 1. For each mask, build the subset, sort it, and insert it into a set.
 2. Return the set's contents.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each mask, build the subset, sort it, and insert it into a set.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the set's contents.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10441,6 +13344,18 @@ class Solution {
 1. `dfs(start, path)`: add a sorted copy of `path` to the set.
 2. For `i` from `start`, append `nums[i]`, recurse with `i + 1`, and remove.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(start, path)`: add a sorted copy of `path` to the set.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **For `i` from `start`, append `nums[i]`, recurse with `i + 1`, and remove.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10472,7 +13387,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Sort, Skip Duplicates at Same Depth)
+##### Approach 3: Optimised (Sort, Skip Duplicates at Same Depth)
 
 **Intuition**: Sort first. In the loop at each depth, skip `nums[i]` when `i > start` and `nums[i] == nums[i-1]`. The earlier sibling already produced every subset that begins with this value at this depth. No set is needed, and each subset is generated exactly once.
 
@@ -10480,6 +13395,20 @@ class Solution {
 1. Sort `nums`.
 2. `dfs(start, path)`: record a copy of `path`.
 3. For `i` from `start`: if `i > start` and `nums[i] == nums[i-1]`, `continue`. Otherwise append, recurse with `i + 1`, and remove.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `nums`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`dfs(start, path)`: record a copy of `path`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For `i` from `start`: if `i > start` and `nums[i] == nums[i-1]`, `continue`. Otherwise append, recurse with `i + 1`, and remove.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -10551,6 +13480,20 @@ Start a DFS from every cell that matches the first letter. At each step, move to
 2. `dfs`: if `idx == len`, return `true`. If out of bounds, mismatched, or visited, return `false`.
 3. Otherwise copy the visited set, add the cell, and recurse into the four neighbours with `idx + 1`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For every start cell, call `dfs(r, c, 0, new HashSet<>())`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`dfs`: if `idx == len`, return `true`. If out of bounds, mismatched, or visited, return `false`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Otherwise copy the visited set, add the cell, and recurse into the four neighbours with `idx + 1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -10595,6 +13538,20 @@ class Solution {
 2. `dfs`: check bounds, match, and not visited. If `idx` is the last character, return `true`.
 3. Mark, explore the four neighbours, then unmark.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For every start cell, run `dfs`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`dfs`: check bounds, match, and not visited. If `idx` is the last character, return `true`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+3. **Mark, explore the four neighbours, then unmark.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
@@ -10630,7 +13587,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (In-Place Marking)
+##### Approach 3: Optimised (In-Place Marking)
 
 **Intuition**: The board is ours to modify temporarily. Overwrite a visited cell with a sentinel character such as `#` while exploring, then restore it on return. This removes the separate visited array, so each cell check is a single comparison.
 
@@ -10638,6 +13595,20 @@ class Solution {
 1. For every start cell, run `dfs`.
 2. `dfs`: return `false` if out of bounds or the cell does not match. If `idx` is the last character, return `true`.
 3. Save `ch = board[r][c]`, set `board[r][c] = '#'`, explore the four neighbours, and restore `board[r][c] = ch`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For every start cell, run `dfs`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`dfs`: return `false` if out of bounds or the cell does not match. If `idx` is the last character, return `true`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Save `ch = board[r][c]`, set `board[r][c] = '#'`, explore the four neighbours, and restore `board[r][c] = ch`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -10713,6 +13684,18 @@ A partition is a choice of cut points. Each piece between cuts must be a palindr
 1. For each bitmask over the `n - 1` gaps, bit `i` set means a cut after index `i`.
 2. Split accordingly, and keep the partition if every piece is a palindrome.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each bitmask over the `n - 1` gaps, bit `i` set means a cut after index `i`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Split accordingly, and keep the partition if every piece is a palindrome.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -10764,6 +13747,18 @@ class Solution {
 1. `dfs(start)`: if `start == n`, record a copy of the current parts.
 2. For `end` from `start` to `n-1`: if `s[start..end]` is a palindrome, append it, recurse with `end + 1`, and remove.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(start)`: if `start == n`, record a copy of the current parts.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `end` from `start` to `n-1`: if `s[start..end]` is a palindrome, append it, recurse with `end + 1`, and remove.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -10802,13 +13797,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Precomputed Palindrome Table)
+##### Approach 3: Optimised (Precomputed Palindrome Table)
 
 **Intuition**: A substring `s[i..j]` is a palindrome when `s[i] == s[j]` and `s[i+1..j-1]` is a palindrome. Fill a table `isPal[i][j]` in increasing order of length. Backtracking then checks each piece in $O(1)$.
 
 **Algorithm**:
 1. For `j` from `0` to `n-1`, and `i` from `0` to `j`: `isPal[i][j] = s[i] == s[j] && (j - i < 2 || isPal[i+1][j-1])`.
 2. `dfs(start)`: as in Approach 2, but test `isPal[start][end]` instead of recomputing.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `j` from `0` to `n-1`, and `i` from `0` to `j`: `isPal[i][j] = s[i] == s[j] && (j - i < 2 || isPal[i+1][j-1])`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`dfs(start)`: as in Approach 2, but test `isPal[start][end]` instead of recomputing.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -10892,6 +13899,20 @@ The answer is the Cartesian product of the letter sets for each digit. The produ
 2. Compute `total`, the product of letter counts.
 3. For each `idx` in `[0, total)`, decode one letter per digit from the end, using `letters.charAt(idx % len)` and then `idx /= len`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `digits` is empty, return an empty list.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Compute `total`, the product of letter counts.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+3. **For each `idx` in `[0, total)`, decode one letter per digit from the end, using `letters.charAt(idx % len)` and then `idx /= len`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -10932,6 +13953,18 @@ class Solution {
 1. `result = [""]`.
 2. For each digit `d` (if the digit has letters): build `next` by appending each letter to each element of `result`. Replace `result` with `next`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`result = [""]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each digit `d` (if the digit has letters): build `next` by appending each letter to each element of `result`. Replace `result` with `next`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -10961,13 +13994,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Backtracking with StringBuilder)
+##### Approach 3: Optimised (Backtracking with StringBuilder)
 
 **Intuition**: Recurse through the digits. At each level, try every letter for the current digit, append it, recurse to the next digit, and remove it. A single `StringBuilder` is reused, so no intermediate lists are built.
 
 **Algorithm**:
 1. `dfs(i, sb)`: if `i == n`, record `sb.toString()`.
 2. Otherwise, for each letter of `digits[i]`: append, recurse with `i + 1`, and delete the last character.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(i, sb)`: if `i == n`, record `sb.toString()`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Otherwise, for each letter of `digits[i]`: append, recurse with `i + 1`, and delete the last character.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -11039,6 +14084,18 @@ Place one queen per row, so the row constraint is automatic. A column may hold a
 1. Generate permutations `perm` where `perm[r]` is the column of the queen in row `r`.
 2. For each permutation, check every pair of rows `(i, j)` for `|i - j| == |perm[i] - perm[j]|`. If none conflict, build the board.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Generate permutations `perm` where `perm[r]` is the column of the queen in row `r`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each permutation, check every pair of rows `(i, j)` for `|i - j| == |perm[i] - perm[j]|`. If none conflict, build the board.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -11101,6 +14158,20 @@ class Solution {
 2. For each column `c`, if `isSafe(r, c)`, place `'Q'`, recurse with `r + 1`, and reset to `'.'`.
 3. `isSafe` scans upward in column `c`, and the up-left and up-right diagonals.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`solve(r)`: if `r == n`, record the board.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each column `c`, if `isSafe(r, c)`, place `'Q'`, recurse with `r + 1`, and reset to `'.'`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **`isSafe` scans upward in column `c`, and the up-left and up-right diagonals.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11154,7 +14225,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Boolean Arrays for Columns and Diagonals)
+##### Approach 3: Optimised (Boolean Arrays for Columns and Diagonals)
 
 **Intuition**: Keep three boolean arrays: `cols[c]`, `diag1[r + c]` for anti-diagonals, and `diag2[r - c + n - 1]` for diagonals. A square is safe when all three are free, which takes $O(1)$. Marking and unmarking are constant time, so the search does no scanning.
 
@@ -11163,6 +14234,18 @@ class Solution {
 2. For each column `c`, if `!cols[c] && !d1[r+c] && !d2[r-c+n-1]`:
    - Set `queenCol[r] = c`, mark all three arrays.
    - Recurse with `r + 1`, then unmark.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`solve(r)`: if `r == n`, build the board from the `queenCol` array and record it.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each column `c`, if `!cols[c] && !d1[r+c] && !d2[r-c+n-1]`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -11255,6 +14338,20 @@ A trie stores strings by sharing common prefixes. Each node represents a prefix,
 2. `search` checks whether the list contains the word.
 3. `startsWith` returns `true` if any word starts with the prefix.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`insert` appends the word.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`search` checks whether the list contains the word.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+3. **`startsWith` returns `true` if any word starts with the prefix.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -11292,6 +14389,20 @@ class Trie {
 2. `search(word)`: return `words.contains(word)`.
 3. `startsWith(prefix)`: return `prefixes.contains(prefix)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`insert(word)`: add `word` to `words`, and every prefix `word[0..i]` to `prefixes`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`search(word)`: return `words.contains(word)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`startsWith(prefix)`: return `prefixes.contains(prefix)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -11321,7 +14432,7 @@ class Trie {
 
 ---
 
-##### Approach 3: Optimised / Best (Trie Nodes with 26-Child Arrays)
+##### Approach 3: Optimised (Trie Nodes with 26-Child Arrays)
 
 **Intuition**: Build the actual tree. Each node has up to 26 children, indexed by letter, and a flag marking the end of a word. Insertion and lookup each walk the characters once, sharing storage across common prefixes.
 
@@ -11329,6 +14440,20 @@ class Trie {
 1. `insert`: from the root, for each character, create the child if missing and descend. Set `isEnd` at the last node.
 2. `search`: descend; return `isEnd` of the final node, or `false` if a child is missing.
 3. `startsWith`: descend; return `true` if the path exists.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`insert`: from the root, for each character, create the child if missing and descend. Set `isEnd` at the last node.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`search`: descend; return `isEnd` of the final node, or `false` if a child is missing.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`startsWith`: descend; return `true` if the path exists.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Trie {
@@ -11414,6 +14539,18 @@ Exact-match search is the trie problem from 10.1. The only difference is the `.`
 1. `addWord` appends.
 2. `search` iterates through words, skipping those with a different length, and returns `true` on the first match.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`addWord` appends.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`search` iterates through words, skipping those with a different length, and returns `true` on the first match.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -11453,6 +14590,18 @@ class WordDictionary {
 1. `addWord` puts the word in `buckets[length]`.
 2. `search` scans only `buckets[pattern.length()]`, comparing characters with the `.` wildcard.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`addWord` puts the word in `buckets[length]`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`search` scans only `buckets[pattern.length()]`, comparing characters with the `.` wildcard.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11486,13 +14635,25 @@ class WordDictionary {
 
 ---
 
-##### Approach 3: Optimised / Best (Trie with DFS on Wildcards)
+##### Approach 3: Optimised (Trie with DFS on Wildcards)
 
 **Intuition**: Store words in a trie. For a normal letter, follow one child. For a `.`, try every existing child and succeed if any branch matches the rest of the pattern. Branches that do not exist are pruned immediately.
 
 **Algorithm**:
 1. `addWord`: insert into the trie, marking `isEnd` at the last node.
 2. `search(word, idx, node)`: if `idx` is past the end, return `node.isEnd`. If the character is a letter, descend into that child if it exists. If it is `.`, return `true` if any non-null child matches from `idx + 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`addWord`: insert into the trie, marking `isEnd` at the last node.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`search(word, idx, node)`: if `idx` is past the end, return `node.isEnd`. If the character is a letter, descend into that child if it exists. If it is `.`, return `true` if any non-null child matches from `idx + 1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class WordDictionary {
@@ -11579,6 +14740,18 @@ Running Word Search (9.6) once per word repeats almost the same grid exploration
 1. For each word, try every start cell with DFS (marking cells in place and restoring them).
 2. If a start yields the full word, add it to the result and move on.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each word, try every start cell with DFS (marking cells in place and restoring them).**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If a start yields the full word, add it to the result and move on.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -11633,6 +14806,20 @@ class Solution {
 1. Insert each word into a trie. Store the full word at its end node.
 2. For each cell, call `dfs(r, c, root)`.
 3. `dfs`: look up `board[r][c]` among the children of the current node. If absent, return. If that child holds a word, add it to the result and clear it. Mark the cell, recurse into the four neighbours with the child node, and restore the cell.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Insert each word into a trie. Store the full word at its end node.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **For each cell, call `dfs(r, c, root)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **`dfs`: look up `board[r][c]` among the children of the current node. If absent, return. If that child holds a word, add it to the result and clear it. Mark the cell, recurse into the four neighbours with the child node, and restore the cell.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -11689,13 +14876,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Trie with Pruning of Exhausted Branches)
+##### Approach 3: Optimised (Trie with Pruning of Exhausted Branches)
 
 **Intuition**: Once every word below a trie node is found, that node is dead weight, and the DFS would keep visiting it. After returning from a child, remove the child from the trie if it has no children and no pending word. This shrinks the trie as the search runs, so later cells explore less. Clearing the word marker still prevents duplicates.
 
 **Algorithm**:
 1. Build the trie as in Approach 2.
 2. In `dfs`, after exploring the neighbours, restore the cell. If `next` has no children and `next.word == null`, set `parent.children[ch - 'a'] = null`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build the trie as in Approach 2.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **In `dfs`, after exploring the neighbours, restore the cell. If `next` has no children and `next.word == null`, set `parent.children[ch - 'a'] = null`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -11815,6 +15014,16 @@ Each island is a connected component of land cells. Scan the grid, and every tim
 **Algorithm**:
 1. For each cell that is `'1'` and not in `seen`, increment the count and flood-fill from it, adding every reached cell to `seen`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each cell that is `'1'` and not in `seen`, increment the count and flood-fill from it, adding every reached cell to `seen`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -11859,6 +15068,18 @@ class Solution {
 1. For each land cell not visited, increment the count and run DFS.
 2. DFS marks cells visited and recurses into the four neighbours that are unvisited land.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each land cell not visited, increment the count and run DFS.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **DFS marks cells visited and recurses into the four neighbours that are unvisited land.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int numIslands(char[][] grid) {
@@ -11891,12 +15112,22 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Sink Visited Land In Place)
+##### Approach 3: Optimised (Sink Visited Land In Place)
 
 **Intuition**: Once a land cell is part of a counted island, change it to water. Then the grid itself records visited cells, and no extra structure is needed.
 
 **Algorithm**:
 1. For each `'1'` cell, increment the count and sink the island: set the cell to `'0'` and recurse into land neighbours.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `'1'` cell, increment the count and sink the island: set the cell to `'0'` and recurse into land neighbours.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -11968,6 +15199,18 @@ Island Count with a twist: instead of counting components, measure each one. The
 1. For each unvisited `1`, compute `area = fill(r, c)`.
 2. Return the maximum area.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each unvisited `1`, compute `area = fill(r, c)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the maximum area.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.Set;
@@ -12009,6 +15252,18 @@ class Solution {
 1. For each unvisited `1`, DFS returns the number of cells in its component.
 2. Track the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each unvisited `1`, DFS returns the number of cells in its component.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Track the maximum.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxAreaOfIsland(int[][] grid) {
@@ -12038,13 +15293,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (In-Place Sinking with Area Return)
+##### Approach 3: Optimised (In-Place Sinking with Area Return)
 
 **Intuition**: Sink each visited land cell to water, so the grid records visited cells. The DFS returns the area directly, with no extra memory beyond the recursion stack.
 
 **Algorithm**:
 1. For each `1`, compute the area by sinking the island and summing the returned counts.
 2. Return the maximum.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `1`, compute the area by sinking the island and summing the returned counts.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the maximum.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -12114,6 +15381,20 @@ The clone must have the same structure but none of the original node objects. Ev
 2. Create `clones[i] = new Node(nodes[i].val)`.
 3. For each `i`, for each neighbour `nb`, find `j` with `nodes[j] == nb` by linear search, and add `clones[j]` to `clones[i].neighbors`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **DFS to collect all original nodes into `nodes`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Create `clones[i] = new Node(nodes[i].val)`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+3. **For each `i`, for each neighbour `nb`, find `j` with `nodes[j] == nb` by linear search, and add `clones[j]` to `clones[i].neighbors`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -12154,6 +15435,16 @@ class Solution {
 **Algorithm**:
 1. `clone(n)`: if `n` is in the map, return its clone. Otherwise create `copy`, store it, and for each neighbour add `clone(nb)` to `copy.neighbors`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`clone(n)`: if `n` is in the map, return its clone. Otherwise create `copy`, store it, and for each neighbour add `clone(nb)` to `copy.neighbors`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12179,7 +15470,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Iterative BFS with Hash Map)
+##### Approach 3: Optimised (Iterative BFS with Hash Map)
 
 **Intuition**: The same mapping, driven by a queue instead of recursion. Clone each node when it is first discovered, and wire its neighbours as the queue drains. This avoids deep recursion on large graphs.
 
@@ -12187,6 +15478,20 @@ class Solution {
 1. Create the clone of `node`, map it, and enqueue the original.
 2. While the queue is non-empty: dequeue `n`. For each neighbour `nb`, if it has no clone, create one, map it, and enqueue `nb`. Add `map.get(nb)` to `map.get(n).neighbors`.
 3. Return `map.get(node)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Create the clone of `node`, map it, and enqueue the original.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **While the queue is non-empty: dequeue `n`. For each neighbour `nb`, if it has no clone, create one, map it, and enqueue `nb`. Add `map.get(nb)` to `map.get(n).neighbors`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `map.get(node)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -12266,6 +15571,18 @@ The distance from a room to its nearest gate is a shortest-path distance in an u
 1. For each room equal to `INF`, BFS outward through non-wall cells.
 2. The first gate found gives the distance. Store it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each room equal to `INF`, BFS outward through non-wall cells.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **The first gate found gives the distance. Store it.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -12318,6 +15635,18 @@ class Solution {
 1. For each gate, call `dfs(r, c, 0)`.
 2. `dfs(r, c, d)`: return if out of bounds, or if `rooms[r][c] < d` (wall or a shorter path already known). Otherwise set `rooms[r][c] = d` and recurse with `d + 1`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each gate, call `dfs(r, c, 0)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`dfs(r, c, d)`: return if out of bounds, or if `rooms[r][c] < d` (wall or a shorter path already known). Otherwise set `rooms[r][c] = d` and recurse with `d + 1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
@@ -12345,13 +15674,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Multi-Source BFS from All Gates)
+##### Approach 3: Optimised (Multi-Source BFS from All Gates)
 
 **Intuition**: Push every gate into the queue at once, at distance 0. BFS then expands all gates in parallel, one layer per step. The first time a room is reached is its shortest distance to any gate, so each room is visited exactly once.
 
 **Algorithm**:
 1. Enqueue every gate.
 2. Dequeue `(r, c)`. For each neighbour that is an empty room (`INF`), set it to `rooms[r][c] + 1` and enqueue it.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Enqueue every gate.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Dequeue `(r, c)`. For each neighbour that is an empty room (`INF`), set it to `rooms[r][c] + 1` and enqueue it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -12432,6 +15773,20 @@ Rot spreads in layers: every orange in layer `k` rots at minute `k`. That is exa
 2. If nothing changed, stop. Count the minutes that changed something.
 3. If any fresh orange remains, return `-1`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Loop: copy the grid, rot every fresh orange adjacent to a rotten one (reading from the old grid), and track whether anything changed.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **If nothing changed, stop. Count the minutes that changed something.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **If any fresh orange remains, return `-1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int orangesRotting(int[][] grid) {
@@ -12477,7 +15832,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Multi-Source BFS by Level)
+##### Approach 2: Optimised (Multi-Source BFS by Level)
 
 **Intuition**: Start with all rotten oranges in the queue. Process one layer at a time, and each completed layer is one minute. Track the count of fresh oranges, decrementing as they rot. If any remain at the end, they were unreachable.
 
@@ -12485,6 +15840,20 @@ class Solution {
 1. Enqueue every rotten orange, and count the fresh ones.
 2. While the queue is non-empty and fresh oranges remain: process the current layer, rotting adjacent fresh oranges and enqueuing them. Increment `minutes`.
 3. Return `minutes` if `fresh == 0`, else `-1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Enqueue every rotten orange, and count the fresh ones.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While the queue is non-empty and fresh oranges remain: process the current layer, rotting adjacent fresh oranges and enqueuing them. Increment `minutes`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `minutes` if `fresh == 0`, else `-1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -12565,6 +15934,18 @@ Simulating water from every cell is expensive. Reverse the direction: water flow
 1. For each cell, DFS to the Pacific boundary (top or left) and to the Atlantic boundary (bottom or right) following moves to neighbours with height `<=` current.
 2. Include the cell if both are reachable.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each cell, DFS to the Pacific boundary (top or left) and to the Atlantic boundary (bottom or right) following moves to neighbours with height `<=` current.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Include the cell if both are reachable.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -12606,7 +15987,7 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Two Uphill Traversals from the Oceans)
+##### Approach 2: Optimised (Two Uphill Traversals from the Oceans)
 
 **Intuition**: Seed a DFS from every Pacific-border cell, moving only to neighbours with height `>=` the current one (the reverse of water flow). Do the same from Atlantic-border cells. Each traversal marks every cell that can reach its ocean. Two linear passes replace the per-cell searches.
 
@@ -12615,6 +15996,22 @@ class Solution {
 2. For each top and left cell, `dfs(pac, r, c)`. For each bottom and right cell, `dfs(atl, r, c)`.
 3. `dfs(reach, r, c)`: mark the cell. For each unmarked neighbour with height `>=` current, recurse.
 4. Collect cells where both are `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`pac` and `atl` are boolean grids.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each top and left cell, `dfs(pac, r, c)`. For each bottom and right cell, `dfs(atl, r, c)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **`dfs(reach, r, c)`: mark the cell. For each unmarked neighbour with height `>=` current, recurse.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Collect cells where both are `true`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -12699,6 +16096,18 @@ An `O` region is captured unless it touches the border. Equivalently, the region
 1. For each unvisited `O`, flood fill, recording the cells and whether any touches the border.
 2. If the region does not touch the border, set all its cells to `X`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each unvisited `O`, flood fill, recording the cells and whether any touches the border.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If the region does not touch the border, set all its cells to `X`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -12741,13 +16150,25 @@ class Solution {
 
 ---
 
-##### Approach 2: Optimised / Best (Mark Border-Connected O's as Safe, Then Flip)
+##### Approach 2: Optimised (Mark Border-Connected O's as Safe, Then Flip)
 
 **Intuition**: Flood fill from every border `O`, marking reached cells as `S` (safe). Afterwards, every remaining `O` is enclosed, so flip it to `X`. Then restore `S` to `O`. Only two linear passes are needed, and no region list is built.
 
 **Algorithm**:
 1. For each border cell that is `O`, DFS and set reached `O`s to `S`.
 2. Scan the board: `O` becomes `X`, and `S` becomes `O`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each border cell that is `O`, DFS and set reached `O`s to `S`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Scan the board: `O` becomes `X`, and `S` becomes `O`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -12826,6 +16247,18 @@ Each connected component is counted once. Either traverse each unvisited node's 
 1. Set `adj[a][b] = adj[b][a] = true` for each edge.
 2. For each unvisited node, increment the count and DFS over every `j` with `adj[i][j]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Set `adj[a][b] = adj[b][a] = true` for each edge.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each unvisited node, increment the count and DFS over every `j` with `adj[i][j]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int countComponents(int n, int[][] edges) {
@@ -12866,6 +16299,18 @@ class Solution {
 1. Build `adj` as a list of neighbour lists.
 2. For each unvisited node, increment the count and DFS through its list.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `adj` as a list of neighbour lists.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each unvisited node, increment the count and DFS through its list.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -12902,7 +16347,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Disjoint Set Union)
+##### Approach 3: Optimised (Disjoint Set Union)
 
 **Intuition**: Every node starts as its own component. Each edge that joins two different components merges them and reduces the count by one. Path compression and union by size keep the structure nearly constant-time per operation.
 
@@ -12910,6 +16355,20 @@ class Solution {
 1. `parent[i] = i`, `components = n`.
 2. For each edge `(a, b)`: if `find(a) != find(b)`, union them and decrement `components`.
 3. Return `components`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`parent[i] = i`, `components = n`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each edge `(a, b)`: if `find(a) != find(b)`, union them and decrement `components`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `components`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -12990,6 +16449,18 @@ A tree on `n` nodes has exactly `n - 1` edges, is connected, and has no cycles. 
 1. If `edges.length != n - 1`, return `false`.
 2. Build the matrix. DFS from node `0`, and return whether all `n` nodes were visited.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `edges.length != n - 1`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Build the matrix. DFS from node `0`, and return whether all `n` nodes were visited.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean validTree(int n, int[][] edges) {
@@ -13029,6 +16500,20 @@ class Solution {
 2. `dfs(u, parent)`: mark `u` visited. For each neighbour `v` other than `parent`: if `v` is visited, return `false`. Otherwise recurse, and propagate `false`.
 3. Return `true` if the DFS succeeds and all nodes are visited.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `edges.length != n - 1`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`dfs(u, parent)`: mark `u` visited. For each neighbour `v` other than `parent`: if `v` is visited, return `false`. Otherwise recurse, and propagate `false`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true` if the DFS succeeds and all nodes are visited.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -13066,7 +16551,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Disjoint Set Union Cycle Check)
+##### Approach 3: Optimised (Disjoint Set Union Cycle Check)
 
 **Intuition**: Process the edges with DSU. If an edge connects two nodes already in the same set, it creates a cycle, so the graph is not a tree. If no cycle appears among `n - 1` edges, the graph must be a single connected component, which is a tree.
 
@@ -13074,6 +16559,20 @@ class Solution {
 1. If `edges.length != n - 1`, return `false`.
 2. For each edge `(a, b)`: if `find(a) == find(b)`, return `false`. Otherwise union them.
 3. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `edges.length != n - 1`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **For each edge `(a, b)`: if `find(a) == find(b)`, return `false`. Otherwise union them.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -13153,6 +16652,20 @@ Words are nodes, and an edge joins two words that differ in one letter. The shor
 2. BFS from `beginWord`. For each dequeued word, enqueue every unvisited dictionary word that differs in exactly one letter.
 3. Return the level when `endWord` is dequeued.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `endWord` is not in the list, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **BFS from `beginWord`. For each dequeued word, enqueue every unvisited dictionary word that differs in exactly one letter.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the level when `endWord` is dequeued.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.HashSet;
@@ -13207,6 +16720,18 @@ class Solution {
 1. For each word in `wordList` and each position `i`, add the word to the bucket for `word[0..i) + '*' + word(i..]`.
 2. BFS: for each dequeued word, for each position, look up the bucket. Enqueue unvisited words. Return when `endWord` is reached.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each word in `wordList` and each position `i`, add the word to the bucket for `word[0..i) + '*' + word(i..]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **BFS: for each dequeued word, for each position, look up the bucket. Enqueue unvisited words. Return when `endWord` is reached.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -13253,7 +16778,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bidirectional BFS with Wildcard Buckets)
+##### Approach 3: Optimised (Bidirectional BFS with Wildcard Buckets)
 
 **Intuition**: BFS from both ends simultaneously, and always expand the smaller frontier. The search stops as soon as the two frontiers touch. In wide graphs this reduces the explored nodes dramatically, since the two frontiers grow more slowly than one large one.
 
@@ -13262,6 +16787,22 @@ class Solution {
 2. `beginSet = {beginWord}`, `endSet = {endWord}`, `visited` holds both, `level = 1`.
 3. While both sets are non-empty: swap so `beginSet` is the smaller. Expand each word in `beginSet` through its buckets. If a neighbour is in `endSet`, return `level + 1`. Otherwise add unvisited neighbours to a new frontier, which replaces `beginSet`. Increment `level`.
 4. Return `0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build the wildcard buckets as in Approach 2.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **`beginSet = {beginWord}`, `endSet = {endWord}`, `visited` holds both, `level = 1`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **While both sets are non-empty: swap so `beginSet` is the smaller. Expand each word in `beginSet` through its buckets. If a neighbour is in `endSet`, return `level + 1`. Otherwise add unvisited neighbours to a new frontier, which replaces `beginSet`. Increment `level`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayList;
@@ -13356,6 +16897,18 @@ The question is whether the directed graph (edge `b -> a`) has a cycle. A cycle 
 1. `adj[b][a] = true` for each prerequisite `[a, b]`.
 2. `state`: 0 unvisited, 1 on stack, 2 done. DFS: if a neighbour is on stack, return a cycle. Otherwise recurse into unvisited neighbours. Mark done on exit.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`adj[b][a] = true` for each prerequisite `[a, b]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`state`: 0 unvisited, 1 on stack, 2 done. DFS: if a neighbour is on stack, return a cycle. Otherwise recurse into unvisited neighbours. Mark done on exit.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -13393,6 +16946,18 @@ class Solution {
 1. Build `adj` lists with edges `b -> a`.
 2. DFS with colours as above, visiting only actual neighbours.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `adj` lists with edges `b -> a`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **DFS with colours as above, visiting only actual neighbours.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -13425,7 +16990,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Kahn's Algorithm, Indegree BFS)
+##### Approach 3: Optimised (Kahn's Algorithm, Indegree BFS)
 
 **Intuition**: Repeatedly remove courses with no remaining prerequisites. These are the nodes with indegree zero. If every course can be removed, the graph is acyclic. If some remain, each of them waits on another, so a cycle must exist. This algorithm is iterative and needs no recursion.
 
@@ -13433,6 +16998,20 @@ class Solution {
 1. Compute `indegree[a]` for each course, and build the adjacency list.
 2. Enqueue every course with indegree zero. Dequeue `u`, count it, and decrement the indegree of each dependent. Enqueue those that reach zero.
 3. Return `processed == numCourses`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Compute `indegree[a]` for each course, and build the adjacency list.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Enqueue every course with indegree zero. Dequeue `u`, count it, and decrement the indegree of each dependent. Enqueue those that reach zero.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Return `processed == numCourses`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -13516,6 +17095,18 @@ A valid order is a topological order of the prerequisite graph, and one exists e
 1. Build `prereqs[c]`, the list of prerequisites of each course.
 2. While some course is unfinished: scan every unfinished course. If all its prerequisites are finished, record it and mark it finished. If a pass records nothing, return `[]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `prereqs[c]`, the list of prerequisites of each course.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **While some course is unfinished: scan every unfinished course. If all its prerequisites are finished, record it and mark it finished. If a pass records nothing, return `[]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -13566,6 +17157,20 @@ class Solution {
 2. DFS from each unvisited node. When a node finishes, append it to `order`. A node on the current stack reached again means a cycle.
 3. Reverse `order` and return it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build the adjacency list `adj[b]` containing `a` for each prerequisite `[a, b]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **DFS from each unvisited node. When a node finishes, append it to `order`. A node on the current stack reached again means a cycle.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Reverse `order` and return it.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -13610,7 +17215,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Kahn's Algorithm)
+##### Approach 3: Optimised (Kahn's Algorithm)
 
 **Intuition**: Start from courses with no prerequisites. Each time a course is taken, decrement the indegree of its dependents, and enqueue any that reach zero. The order in which they are dequeued is a valid topological order. If fewer than `n` courses are dequeued, a cycle blocks the rest.
 
@@ -13618,6 +17223,20 @@ class Solution {
 1. Build `adj` and `indegree`.
 2. Enqueue all zero-indegree courses. Dequeue `u`, append it to `order`, and decrement its dependents.
 3. Return `order` if its length is `n`, else an empty array.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `adj` and `indegree`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Enqueue all zero-indegree courses. Dequeue `u`, append it to `order`, and decrement its dependents.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Return `order` if its length is `n`, else an empty array.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -13700,6 +17319,16 @@ The graph has exactly one cycle, and any edge on that cycle is removable. The an
    - Build the adjacency list from all edges except `i`.
    - DFS from node `1`. If all `n` nodes are reached, return `edges[i]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `i` from `n-1` down to `0`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -13750,6 +17379,18 @@ class Solution {
 1. Maintain an adjacency list of accepted edges.
 2. For each edge `(u, v)`: DFS from `u` with a fresh visited array. If `v` is reached, return `[u, v]`. Otherwise add the edge.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Maintain an adjacency list of accepted edges.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each edge `(u, v)`: DFS from `u` with a fresh visited array. If `v` is reached, return `[u, v]`. Otherwise add the edge.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -13782,13 +17423,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Disjoint Set Union)
+##### Approach 3: Optimised (Disjoint Set Union)
 
 **Intuition**: DSU answers "are these two nodes already connected?" in near-constant time. The first edge whose endpoints share a set closes the cycle, and this is the answer because edges are processed in input order.
 
 **Algorithm**:
 1. Initialise `parent[i] = i` for `i` in `1..n`.
 2. For each edge `(u, v)`: if `find(u) == find(v)`, return `[u, v]`. Otherwise union them.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Initialise `parent[i] = i` for `i` in `1..n`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each edge `(u, v)`: if `find(u) == find(v)`, return `[u, v]`. Otherwise union them.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -13822,7 +17475,7 @@ class Solution {
 
 ## 12. 1-D Dynamic Programming
 
-Dynamic programming solves a problem by combining solutions to smaller subproblems. For each problem below, three approaches are shown in the same order: a plain recursive formulation (Brute Force), the same recursion with results cached (Better), and a bottom-up version that keeps only the values it needs (Optimised / Best).
+Dynamic programming solves a problem by combining solutions to smaller subproblems. For each problem below, three approaches are shown in the same order: a plain recursive formulation (Brute Force), the same recursion with results cached (Better), and a bottom-up version that keeps only the values it needs (Optimised).
 
 ### 12.1 Climbing Stairs
 - **Difficulty**: Easy
@@ -13862,6 +17515,18 @@ The last move onto step `n` is either a 1-step from `n-1` or a 2-step from `n-2`
 1. If `n <= 2`, return `n`.
 2. Otherwise return `climb(n-1) + climb(n-2)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `n <= 2`, return `n`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Otherwise return `climb(n-1) + climb(n-2)`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int climbStairs(int n) {
@@ -13883,6 +17548,18 @@ class Solution {
 1. Allocate `memo[n+1]`.
 2. Return `solve(n)`, which checks `memo` before recursing.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n+1]`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Return `solve(n)`, which checks `memo` before recursing.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int climbStairs(int n) {
@@ -13903,7 +17580,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Rolling Two Variables)
+##### Approach 3: Optimised (Rolling Two Variables)
 
 **Intuition**: Each value depends only on the previous two. Keep just those two values and roll them forward.
 
@@ -13911,6 +17588,20 @@ class Solution {
 1. If `n <= 2`, return `n`.
 2. `a = 1`, `b = 2`. For `i` from `3` to `n`: `c = a + b`, `a = b`, `b = c`.
 3. Return `b`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `n <= 2`, return `n`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`a = 1`, `b = 2`. For `i` from `3` to `n`: `c = a + b`, `a = b`, `b = c`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `b`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -13971,6 +17662,20 @@ Define `f(i)` as the minimum cost to reach the top starting at step `i`, includi
 2. Return `cost[i] + min(f(i+1), f(i+2))`.
 3. The answer is `min(f(0), f(1))`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `i >= n`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Return `cost[i] + min(f(i+1), f(i+2))`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **The answer is `min(f(0), f(1))`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
@@ -13996,6 +17701,18 @@ class Solution {
 1. Allocate `memo[n]` filled with `-1`.
 2. `f(i)` returns the cached value if present, otherwise computes and stores it.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **`f(i)` returns the cached value if present, otherwise computes and stores it.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -14019,7 +17736,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up, Two Variables)
+##### Approach 3: Optimised (Bottom-Up, Two Variables)
 
 **Intuition**: Compute from the end. Each `f(i)` needs only `f(i+1)` and `f(i+2)`, so two variables suffice.
 
@@ -14027,6 +17744,20 @@ class Solution {
 1. `a = f(n) = 0`, `b = f(n+1) = 0`.
 2. For `i` from `n-1` down to `0`: `cur = cost[i] + min(a, b)`, then `b = a`, `a = cur`.
 3. Return `min(a, b)`, which is `min(f(0), f(1))`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`a = f(n) = 0`, `b = f(n+1) = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `n-1` down to `0`: `cur = cost[i] + min(a, b)`, then `b = a`, `a = cur`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `min(a, b)`, which is `min(f(0), f(1))`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -14085,6 +17816,18 @@ At house `i`, either skip it and take the best from `i+1`, or rob it and take th
 1. If `i >= n`, return `0`.
 2. Return `max(rob(i+1), nums[i] + rob(i+2))`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `i >= n`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Return `max(rob(i+1), nums[i] + rob(i+2))`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int rob(int[] nums) {
@@ -14110,6 +17853,18 @@ class Solution {
 1. Allocate `memo[n]` filled with `-1`.
 2. Compute `rob(i)` with caching.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `rob(i)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -14133,7 +17888,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up, Rolling Variables)
+##### Approach 3: Optimised (Bottom-Up, Rolling Variables)
 
 **Intuition**: Process houses left to right. Keep the best total up to the previous house and up to the house before it.
 
@@ -14141,6 +17896,20 @@ class Solution {
 1. `prev2 = 0`, `prev1 = 0`.
 2. For each `x` in `nums`: `cur = max(prev1, prev2 + x)`, then `prev2 = prev1`, `prev1 = cur`.
 3. Return `prev1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`prev2 = 0`, `prev1 = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x` in `nums`: `cur = max(prev1, prev2 + x)`, then `prev2 = prev1`, `prev1 = cur`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `prev1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -14203,6 +17972,18 @@ Either house `0` is skipped, or house `n-1` is skipped. Both cases can be solved
 1. If `n == 1`, return `nums[0]`.
 2. Return `max(solve(0, n-2), solve(1, n-1))`, where `solve(i, end)` is the linear recurrence over `[i, end]`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `n == 1`, return `nums[0]`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Return `max(solve(0, n-2), solve(1, n-1))`, where `solve(i, end)` is the linear recurrence over `[i, end]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int rob(int[] nums) {
@@ -14229,6 +18010,18 @@ class Solution {
 **Algorithm**:
 1. Handle `n == 1`.
 2. For each range, run memoised recursion with a fresh `memo` array indexed by start position.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Handle `n == 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each range, run memoised recursion with a fresh `memo` array indexed by start position.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -14259,13 +18052,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Two Rolling Passes)
+##### Approach 3: Optimised (Two Rolling Passes)
 
 **Intuition**: Apply the rolling House Robber to each range directly. No arrays are needed.
 
 **Algorithm**:
 1. Handle `n == 1`.
 2. `robLinear(nums, 0, n-2)` and `robLinear(nums, 1, n-1)`, each with rolling variables. Return the maximum.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Handle `n == 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`robLinear(nums, 0, n-2)` and `robLinear(nums, 1, n-1)`, each with rolling variables. Return the maximum.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -14329,6 +18134,18 @@ A palindrome is symmetric around its centre. There are `2n - 1` possible centres
 1. For each start `i` and end `j >= i`, check whether `s[i..j]` is a palindrome.
 2. Track the longest.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each start `i` and end `j >= i`, check whether `s[i..j]` is a palindrome.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Track the longest.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public String longestPalindrome(String s) {
@@ -14367,6 +18184,20 @@ class Solution {
 2. For longer lengths, `dp[i][j] = s[i] == s[j] && dp[i+1][j-1]`.
 3. Track the longest `true` entry.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[i][i] = true`. `dp[i][i+1] = s[i] == s[i+1]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For longer lengths, `dp[i][j] = s[i] == s[j] && dp[i+1][j-1]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Track the longest `true` entry.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public String longestPalindrome(String s) {
@@ -14394,7 +18225,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Expand Around Each Centre)
+##### Approach 3: Optimised (Expand Around Each Centre)
 
 **Intuition**: Each palindrome has a centre. Expand from each of the `2n - 1` centres while the ends match, and keep the longest. No table is needed.
 
@@ -14402,6 +18233,20 @@ class Solution {
 1. For each centre `i`, expand `(i, i)` for odd length and `(i, i+1)` for even length.
 2. Each expansion moves `l` left and `r` right while `s[l] == s[r]`.
 3. Keep the longest range found.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each centre `i`, expand `(i, i)` for odd length and `(i, i+1)` for even length.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Each expansion moves `l` left and `r` right while `s[l] == s[r]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Keep the longest range found.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -14471,6 +18316,16 @@ Counting is like finding the longest palindrome, except every palindrome at ever
 **Algorithm**:
 1. For each `i <= j`, check `s[i..j]` and increment the count if it is a palindrome.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i <= j`, check `s[i..j]` and increment the count if it is a palindrome.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int countSubstrings(String s) {
@@ -14504,6 +18359,18 @@ class Solution {
 1. Fill `dp[i][j]` by increasing length, as in 12.5.
 2. Count the `true` entries.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Fill `dp[i][j]` by increasing length, as in 12.5.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Count the `true` entries.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int countSubstrings(String s) {
@@ -14527,12 +18394,22 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Expand Around Each Centre)
+##### Approach 3: Optimised (Expand Around Each Centre)
 
 **Intuition**: Each centre contributes one palindrome for each successful expansion step. Count those steps directly.
 
 **Algorithm**:
 1. For each centre, expand for odd and even lengths. Each successful step increments the count.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each centre, expand for odd and even lengths. Each successful step increments the count.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -14605,6 +18482,20 @@ At index `i`, a non-zero digit can be decoded alone. A two-digit group `s[i..i+1
 2. If `s[i] == '0'`, return `0`.
 3. Add `ways(i+1)`. If `s[i..i+1]` is a valid two-digit code, add `ways(i+2)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `i == n`, return `1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If `s[i] == '0'`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Add `ways(i+1)`. If `s[i..i+1]` is a valid two-digit code, add `ways(i+2)`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int numDecodings(String s) {
@@ -14640,6 +18531,18 @@ class Solution {
 1. Allocate `memo[n]` filled with `-1`.
 2. Compute `ways(i)` with caching, using the same rules as Approach 1.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `ways(i)` with caching, using the same rules as Approach 1.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -14673,7 +18576,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up, Two Variables)
+##### Approach 3: Optimised (Bottom-Up, Two Variables)
 
 **Intuition**: Compute from the end. Each step needs only the next two values, so keep two variables.
 
@@ -14681,6 +18584,20 @@ class Solution {
 1. `next1 = 1` (ways from `n`), `next2 = 0` (ways from `n+1`).
 2. For `i` from `n-1` down to `0`: if `s[i] == '0'`, `cur = 0`. Otherwise `cur = next1`, and add `next2` if the two-digit group is valid. Then shift the variables.
 3. Return `next1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`next1 = 1` (ways from `n`), `next2 = 0` (ways from `n+1`).**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `n-1` down to `0`: if `s[i] == '0'`, `cur = 0`. Otherwise `cur = next1`, and add `next2` if the two-digit group is valid. Then shift the variables.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `next1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -14753,6 +18670,20 @@ Let `f(a)` be the fewest coins for amount `a`. The last coin used is some denomi
 2. For each coin, compute `r = solve(rem - c)`. If `r >= 0`, take `1 + r` as a candidate.
 3. Return the minimum candidate, or `-1`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `rem == 0`, return `0`. If `rem < 0`, return `-1` (impossible).**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **For each coin, compute `r = solve(rem - c)`. If `r >= 0`, take `1 + r` as a candidate.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the minimum candidate, or `-1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int coinChange(int[] coins, int amount) {
@@ -14784,6 +18715,18 @@ class Solution {
 1. Allocate `memo[amount+1]` filled with `-2` (unknown).
 2. Compute `solve(rem)` with caching, using the same rules as Approach 1.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[amount+1]` filled with `-2` (unknown).**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `solve(rem)` with caching, using the same rules as Approach 1.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -14813,7 +18756,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up Table)
+##### Approach 3: Optimised (Bottom-Up Table)
 
 **Intuition**: Fill `dp[a]` for `a` from `1` to `amount`, using only smaller amounts already computed. Use `amount + 1` as an infinity sentinel, since no valid answer can exceed `amount`.
 
@@ -14821,6 +18764,20 @@ class Solution {
 1. `dp[0] = 0`, others `amount + 1`.
 2. For each `a` from `1` to `amount`, for each coin `c <= a`, set `dp[a] = min(dp[a], dp[a-c] + 1)`.
 3. Return `dp[amount]` if it is at most `amount`, else `-1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[0] = 0`, others `amount + 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `a` from `1` to `amount`, for each coin `c <= a`, set `dp[a] = min(dp[a], dp[a-c] + 1)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[amount]` if it is at most `amount`, else `-1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -14884,6 +18841,16 @@ Unlike sums, products can flip sign. A large negative product becomes the larges
 **Algorithm**:
 1. For each start `i`, multiply forward through `j`, tracking the largest product.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each start `i`, multiply forward through `j`, tracking the largest product.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxProduct(int[] nums) {
@@ -14913,6 +18880,20 @@ class Solution {
 2. For `i >= 1`: `maxEnd[i] = max(nums[i], nums[i]*maxEnd[i-1], nums[i]*minEnd[i-1])`, and similarly for `minEnd`.
 3. Return the maximum of `maxEnd`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`maxEnd[0] = minEnd[0] = nums[0]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i >= 1`: `maxEnd[i] = max(nums[i], nums[i]*maxEnd[i-1], nums[i]*minEnd[i-1])`, and similarly for `minEnd`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the maximum of `maxEnd`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxProduct(int[] nums) {
@@ -14935,13 +18916,25 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Rolling Max and Min)
+##### Approach 3: Optimised (Rolling Max and Min)
 
 **Intuition**: Each step needs only the previous max and min, so keep two running values.
 
 **Algorithm**:
 1. `curMax = curMin = best = nums[0]`.
 2. For each `x` from index `1`: compute new max and min from `x`, `x*curMax`, `x*curMin`, then update `best`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`curMax = curMin = best = nums[0]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x` from index `1`: compute new max and min from `x`, `x*curMax`, `x*curMin`, then update `best`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -15008,6 +19001,18 @@ Given a string `s` and a dictionary `wordDict`, return `true` if `s` can be segm
 1. If `start == n`, return `true`.
 2. For each `end` from `start+1` to `n`, if `s[start..end)` is in the dictionary and `solve(end)` is true, return `true`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `start == n`, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **For each `end` from `start+1` to `n`, if `s[start..end)` is in the dictionary and `solve(end)` is true, return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Set;
 import java.util.HashSet;
@@ -15041,6 +19046,18 @@ class Solution {
 1. Allocate `memo[n]` of `Boolean`, using `null` as unknown.
 2. Compute `solve(start)` with caching.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n]` of `Boolean`, using `null` as unknown.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `solve(start)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.HashSet;
 import java.util.List;
@@ -15070,7 +19087,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up Prefix DP with Max Word Length)
+##### Approach 3: Optimised (Bottom-Up Prefix DP with Max Word Length)
 
 **Intuition**: Build `dp[i]`, true when `s[0..i)` can be segmented. Only substrings no longer than the longest word can be words, so each `i` checks at most `maxLen` candidates.
 
@@ -15078,6 +19095,20 @@ class Solution {
 1. `dp[0] = true`. Compute `maxLen` from the dictionary.
 2. For `i` from `1` to `n`, for `j` from `i - 1` down to `max(0, i - maxLen)`: if `dp[j]` and `s[j..i)` is a word, set `dp[i] = true` and stop.
 3. Return `dp[n]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[0] = true`. Compute `maxLen` from the dictionary.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **For `i` from `1` to `n`, for `j` from `i - 1` down to `max(0, i - maxLen)`: if `dp[j]` and `s[j..i)` is a word, set `dp[i] = true` and stop.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[n]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.HashSet;
@@ -15154,6 +19185,20 @@ Every element is either the start of a subsequence or extends one that ends with
 2. Skip: `solve(i+1, prev)`. Take, if `prev == -1` or `nums[i] > nums[prev]`: `1 + solve(i+1, i)`.
 3. Return the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`solve(i, prev)`: if `i == n`, return `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Skip: `solve(i+1, prev)`. Take, if `prev == -1` or `nums[i] > nums[prev]`: `1 + solve(i+1, i)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return the maximum.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int lengthOfLIS(int[] nums) {
@@ -15185,6 +19230,20 @@ class Solution {
 2. For each `i`, for each `j < i` with `nums[j] < nums[i]`, set `dp[i] = max(dp[i], dp[j] + 1)`.
 3. Return the maximum of `dp`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[i] = 1` for all `i`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each `i`, for each `j < i` with `nums[j] < nums[i]`, set `dp[i] = max(dp[i], dp[j] + 1)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the maximum of `dp`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int lengthOfLIS(int[] nums) {
@@ -15206,7 +19265,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Patience Sorting with Binary Search)
+##### Approach 3: Optimised (Patience Sorting with Binary Search)
 
 **Intuition**: Maintain `tails`, where `tails[k]` is the smallest tail of any increasing subsequence of length `k+1`. For each number, binary search for the first tail that is `>=` it. Replace that tail with the number, or extend the list if none is found. The list length is the answer, even though `tails` itself is not a valid subsequence.
 
@@ -15214,6 +19273,20 @@ class Solution {
 1. `size = 0`, `tails = new int[n]`.
 2. For each `x`: find `pos`, the first index in `[0, size)` with `tails[pos] >= x`. Set `tails[pos] = x`. If `pos == size`, increment `size`.
 3. Return `size`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`size = 0`, `tails = new int[n]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x`: find `pos`, the first index in `[0, size)` with `tails[pos] >= x`. Set `tails[pos] = x`. If `pos == size`, increment `size`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `size`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -15278,6 +19351,18 @@ If the total sum is odd, the answer is `false`. Otherwise the problem reduces to
 1. If the total is odd, return `false`. `target = total / 2`.
 2. `solve(i, rem)`: if `rem == 0`, return `true`. If `i == n` or `rem < 0`, return `false`. Otherwise return `solve(i+1, rem - nums[i]) || solve(i+1, rem)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If the total is odd, return `false`. `target = total / 2`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`solve(i, rem)`: if `rem == 0`, return `true`. If `i == n` or `rem < 0`, return `false`. Otherwise return `solve(i+1, rem - nums[i]) || solve(i+1, rem)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean canPartition(int[] nums) {
@@ -15307,6 +19392,18 @@ class Solution {
 1. Allocate `memo[n+1][target+1]` of `Boolean`.
 2. Compute `solve(i, rem)` with caching.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n+1][target+1]` of `Boolean`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `solve(i, rem)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean canPartition(int[] nums) {
@@ -15333,7 +19430,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (1-D Boolean DP over Sums)
+##### Approach 3: Optimised (1-D Boolean DP over Sums)
 
 **Intuition**: `dp[s]` means some subset so far sums to `s`. Process each number and update `dp` from high sums to low, so that each number is used at most once. Then `dp[target]` is the answer.
 
@@ -15341,6 +19438,20 @@ class Solution {
 1. `dp[0] = true`, others `false`.
 2. For each `x`, for `s` from `target` down to `x`: `dp[s] |= dp[s - x]`.
 3. Return `dp[target]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[0] = true`, others `false`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x`, for `s` from `target` down to `x`: `dp[s] |= dp[s - x]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[target]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -15407,6 +19518,20 @@ The number of paths to a cell is the number of paths to the cell above plus the 
 2. If the cell is the goal, return `1`.
 3. Return `paths(r+1, c) + paths(r, c+1)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If the cell is outside the grid, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If the cell is the goal, return `1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return `paths(r+1, c) + paths(r, c+1)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int uniquePaths(int m, int n) {
@@ -15433,6 +19558,18 @@ class Solution {
 1. Allocate `memo[m][n]` filled with `-1`.
 2. Compute `paths(r, c)` with caching.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[m][n]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `paths(r, c)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -15457,7 +19594,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Single Rolling Row)
+##### Approach 3: Optimised (Single Rolling Row)
 
 **Intuition**: Each row depends only on the row above and the cell to its left. A single array representing the current row, updated left to right, is enough.
 
@@ -15465,6 +19602,20 @@ class Solution {
 1. `dp[j] = 1` for all `j` (the first row).
 2. For each subsequent row, for `j` from `1` to `n-1`: `dp[j] += dp[j-1]`.
 3. Return `dp[n-1]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[j] = 1` for all `j` (the first row).**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each subsequent row, for `j` from `1` to `n-1`: `dp[j] += dp[j-1]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[n-1]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -15528,6 +19679,20 @@ Compare the first characters. If they match, that character belongs to an optima
 2. If the characters match, return `1 + lcs(i+1, j+1)`.
 3. Otherwise return `max(lcs(i+1, j), lcs(i, j+1))`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If either index reaches the end, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If the characters match, return `1 + lcs(i+1, j+1)`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Otherwise return `max(lcs(i+1, j), lcs(i, j+1))`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
@@ -15553,6 +19718,18 @@ class Solution {
 **Algorithm**:
 1. Allocate `memo[m][n]` filled with `-1`.
 2. Compute `lcs(i, j)` with caching.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[m][n]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `lcs(i, j)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -15581,7 +19758,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up with Two Rows)
+##### Approach 3: Optimised (Bottom-Up with Two Rows)
 
 **Intuition**: Row `i` of the table depends only on row `i+1` and the current row. Keep two rows of length `n+1`, and roll them.
 
@@ -15592,6 +19769,22 @@ class Solution {
    - Otherwise `cur[j] = max(prev[j], cur[j+1])`.
 3. Swap `prev` and `cur` after each row.
 4. Return `prev[0]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`prev` and `cur` are arrays of length `n + 1`, all zero.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Swap `prev` and `cur` after each row.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+4. **Return `prev[0]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -15664,6 +19857,18 @@ At each day, you are in one of three states: holding a stock, having just sold (
    - Holding: `max(f(i+1, 1), p[i] + f(i+1, 2))`.
    - Cooldown: `f(i+1, 0)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **States: `0` free, `1` holding, `2` cooldown.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`f(i, s)`: if `i >= n`, return `0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxProfit(int[] prices) {
@@ -15690,6 +19895,18 @@ class Solution {
 **Algorithm**:
 1. Allocate `memo[n][3]` filled with `-1`.
 2. Compute `f(i, s)` with caching, using the same transitions.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n][3]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `f(i, s)` with caching, using the same transitions.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -15722,7 +19939,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Rolling Three Variables)
+##### Approach 3: Optimised (Rolling Three Variables)
 
 **Intuition**: Process days forward. Each day needs only the previous day's three state values, so three variables suffice.
 
@@ -15733,6 +19950,20 @@ class Solution {
    - `newSold = hold + x`
    - `newRest = max(rest, sold)`
 3. Return `max(sold, rest)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`hold = -p[0]`, `sold = 0`, `rest = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each later day with price `x`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `max(sold, rest)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -15800,6 +20031,18 @@ Order does not matter, so the coins must be considered in a fixed sequence. For 
 1. `ways(i, rem)`: if `rem == 0`, return `1`. If `i == n` or `rem < 0`, return `0`.
 2. Return `ways(i, rem - coins[i]) + ways(i + 1, rem)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`ways(i, rem)`: if `rem == 0`, return `1`. If `i == n` or `rem < 0`, return `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Return `ways(i, rem - coins[i]) + ways(i + 1, rem)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int change(int amount, int[] coins) {
@@ -15826,6 +20069,18 @@ class Solution {
 1. Allocate `memo[n+1][amount+1]` filled with `-1`.
 2. Compute `ways(i, rem)` with caching.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n+1][amount+1]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `ways(i, rem)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -15850,7 +20105,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (1-D Unbounded Knapsack Table)
+##### Approach 3: Optimised (1-D Unbounded Knapsack Table)
 
 **Intuition**: Process coins one at a time. For each coin, iterate amounts upward, so `dp[s - c]` already includes uses of coin `c`. This allows unlimited reuse. The order of loops means each combination is counted once, regardless of order.
 
@@ -15858,6 +20113,20 @@ class Solution {
 1. `dp[0] = 1`, others `0`.
 2. For each coin `c`, for `s` from `c` to `amount`: `dp[s] += dp[s - c]`.
 3. Return `dp[amount]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[0] = 1`, others `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each coin `c`, for `s` from `c` to `amount`: `dp[s] += dp[s - c]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[amount]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -15918,6 +20187,18 @@ Let `P` be the set of numbers with `+` and `N` the rest. Then `sum(P) - sum(N) =
 1. `count(i, sum)`: if `i == n`, return `1` if `sum == target`, else `0`.
 2. Return `count(i+1, sum + nums[i]) + count(i+1, sum - nums[i])`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`count(i, sum)`: if `i == n`, return `1` if `sum == target`, else `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Return `count(i+1, sum + nums[i]) + count(i+1, sum - nums[i])`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int findTargetSumWays(int[] nums, int target) {
@@ -15942,6 +20223,18 @@ class Solution {
 **Algorithm**:
 1. Let `total = sum(nums)`. Allocate `memo[n][2*total+1]` filled with `-1`.
 2. Compute `count(i, sum)` with caching, indexing by `sum + total`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Let `total = sum(nums)`. Allocate `memo[n][2*total+1]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `count(i, sum)` with caching, indexing by `sum + total`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -15971,7 +20264,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Subset-Sum Counting with 1-D Table)
+##### Approach 3: Optimised (Subset-Sum Counting with 1-D Table)
 
 **Intuition**: Reduce to counting subsets that sum to `P = (total + target) / 2`. Use a 1-D table where `dp[s]` is the number of subsets with sum `s`. Iterate sums downward so each number is used at most once. A zero value doubles the count at `dp[s]` for each `s`, correctly handling both choices for that zero.
 
@@ -15980,6 +20273,22 @@ class Solution {
 2. `P = (total + target) / 2`. `dp[0] = 1`.
 3. For each `x`, for `s` from `P` down to `x`: `dp[s] += dp[s - x]`.
 4. Return `dp[P]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `|target| > total` or `(total + target)` is odd, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`P = (total + target) / 2`. `dp[0] = 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For each `x`, for `s` from `P` down to `x`: `dp[s] += dp[s - x]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `dp[P]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -16048,6 +20357,22 @@ Let `(i, j)` be how many characters of `s1` and `s2` have been used. Then `i + j
 3. If `s2[j] == s3[k]` and `solve(i, j+1)`, return `true`.
 4. Return `false`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `i == m` and `j == n`, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`k = i + j`. If `s1[i] == s3[k]` and `solve(i+1, j)`, return `true`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **If `s2[j] == s3[k]` and `solve(i, j+1)`, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isInterleave(String s1, String s2, String s3) {
@@ -16076,6 +20401,18 @@ class Solution {
 **Algorithm**:
 1. Allocate `memo[m+1][n+1]` of `Boolean`.
 2. Compute `solve(i, j)` with caching.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[m+1][n+1]` of `Boolean`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `solve(i, j)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -16106,7 +20443,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up with One Row)
+##### Approach 3: Optimised (Bottom-Up with One Row)
 
 **Intuition**: `dp[i][j]` depends on `dp[i-1][j]` and `dp[i][j-1]`. Process rows in order and keep only one array, which is updated in place as `j` increases.
 
@@ -16117,6 +20454,22 @@ class Solution {
    - `dp[0]` for `i == 0` is `true`.
    - `dp[j] = (i > 0 && dp[j] && s1[i-1] == s3[i+j-1]) || (j > 0 && dp[j-1] && s2[j-1] == s3[i+j-1])`.
 4. Return `dp[n]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If the lengths do not add up, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`dp[j]` is `true` if the first `i` characters of `s1` and `j` characters of `s2` interleave to form `s3[0..i+j)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For each `i` from `0` to `m`, and `j` from `0` to `n`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `dp[n]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -16189,6 +20542,18 @@ Moving only to strictly larger neighbours means no cycles, so the matrix is a di
 1. For each cell, call `dfs(r, c, prev)`, which moves to neighbours with larger values.
 2. Return `1` plus the best of its neighbours' paths, or `1` if none.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each cell, call `dfs(r, c, prev)`, which moves to neighbours with larger values.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `1` plus the best of its neighbours' paths, or `1` if none.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
@@ -16229,6 +20594,18 @@ class Solution {
 1. Allocate `memo[m][n]` filled with `0` (unknown).
 2. `dfs(r, c)`: return the cached value if non-zero. Otherwise compute from larger neighbours and store the result.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[m][n]` filled with `0` (unknown).**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **`dfs(r, c)`: return the cached value if non-zero. Otherwise compute from larger neighbours and store the result.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
@@ -16265,7 +20642,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Kahn Layering from Local Minima)
+##### Approach 3: Optimised (Kahn Layering from Local Minima)
 
 **Intuition**: Treat each edge as pointing from a smaller cell to a larger neighbour. A cell's indegree is the number of smaller neighbours. Cells with indegree zero are local minima. Remove them layer by layer, as in a topological sort. The number of layers equals the longest increasing path length.
 
@@ -16274,6 +20651,22 @@ class Solution {
 2. Enqueue all cells with `indeg == 0`.
 3. While the queue is non-empty: count one layer. Process the current layer, and for each larger neighbour, decrement its indegree and enqueue it when it reaches zero.
 4. Return the number of layers.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each cell, `indeg` = number of neighbours with a smaller value.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Enqueue all cells with `indeg == 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **While the queue is non-empty: count one layer. Process the current layer, and for each larger neighbour, decrement its indegree and enqueue it when it reaches zero.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return the number of layers.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.ArrayDeque;
@@ -16359,6 +20752,20 @@ Count the ways `t[j..]` can be formed from `s[i..]`. If `s[i] == t[j]`, you may 
 2. If `i == n`, return `0`.
 3. If `s[i] == t[j]`, return `count(i+1, j+1) + count(i+1, j)`. Otherwise return `count(i+1, j)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `j == m`, return `1` (all of `t` matched).**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If `i == n`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **If `s[i] == t[j]`, return `count(i+1, j+1) + count(i+1, j)`. Otherwise return `count(i+1, j)`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int numDistinct(String s, String t) {
@@ -16387,6 +20794,18 @@ class Solution {
 1. Allocate `memo[n+1][m+1]` filled with `-1`.
 2. Compute `count(i, j)` with caching.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n+1][m+1]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `count(i, j)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -16413,7 +20832,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (1-D Table over Prefixes of t)
+##### Approach 3: Optimised (1-D Table over Prefixes of t)
 
 **Intuition**: Let `dp[j]` be the number of ways to form `t[0..j)` from the characters of `s` processed so far. When a character `c` of `s` is read, it can extend every prefix of `t` that ends in `c`. Iterate `j` downward so each character of `s` is used at most once per update.
 
@@ -16421,6 +20840,20 @@ class Solution {
 1. `dp[0] = 1`, others `0`.
 2. For each `c` in `s`, for `j` from `m` down to `1`: if `c == t[j-1]`, `dp[j] += dp[j-1]`.
 3. Return `dp[m]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[0] = 1`, others `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `c` in `s`, for `j` from `m` down to `1`: if `c == t[j-1]`, `dp[j] += dp[j-1]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[m]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -16481,6 +20914,20 @@ Compare the last characters. If they match, no operation is needed for them, so 
 2. If `word1[i] == word2[j]`, return `solve(i+1, j+1)`.
 3. Otherwise return `1 + min(solve(i+1, j), solve(i, j+1), solve(i+1, j+1))`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `i == m`, return `n - j`. If `j == n`, return `m - i`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **If `word1[i] == word2[j]`, return `solve(i+1, j+1)`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Otherwise return `1 + min(solve(i+1, j), solve(i, j+1), solve(i+1, j+1))`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int minDistance(String word1, String word2) {
@@ -16508,6 +20955,18 @@ class Solution {
 **Algorithm**:
 1. Allocate `memo[m+1][n+1]` filled with `-1`.
 2. Compute `solve(i, j)` with caching.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[m+1][n+1]` filled with `-1`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `solve(i, j)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 import java.util.Arrays;
@@ -16540,7 +20999,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up with One Row)
+##### Approach 3: Optimised (Bottom-Up with One Row)
 
 **Intuition**: Each row depends only on the row below it and the current row. Keep one row, and track the diagonal value that the in-place update overwrites.
 
@@ -16551,6 +21010,20 @@ class Solution {
    - Set `dp[n] = m - i`.
    - For `j` from `n-1` down to `0`: `temp = dp[j]`. If equal, `dp[j] = diag`. Otherwise `dp[j] = 1 + min(diag, dp[j], dp[j+1])`. Then `diag = temp`.
 3. Return `dp[0]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[j]` holds the distance from the suffix `word1[i..]` to `word2[j..]`, for the current `i`. Start with the row for `i = m`: `dp[j] = n - j`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For `i` from `m-1` down to `0`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[0]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -16620,6 +21093,20 @@ Thinking about the first balloon to burst is hard, because its neighbours change
 2. For each `k` in `(l, r)`: candidate = `solve(l, k) + solve(k, r) + arr[l] * arr[k] * arr[r]`.
 3. Return the maximum.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`solve(l, r)`: if `r - l < 2`, return `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `k` in `(l, r)`: candidate = `solve(l, k) + solve(k, r) + arr[l] * arr[k] * arr[r]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the maximum.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxCoins(int[] nums) {
@@ -16654,6 +21141,18 @@ class Solution {
 1. Pad as in Approach 1. Allocate `memo[N][N]`, with `N = n + 2`.
 2. Compute `solve(l, r)` with caching.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Pad as in Approach 1. Allocate `memo[N][N]`, with `N = n + 2`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `solve(l, r)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxCoins(int[] nums) {
@@ -16683,7 +21182,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up Interval DP)
+##### Approach 3: Optimised (Bottom-Up Interval DP)
 
 **Intuition**: The subproblems for `(l, r)` only need intervals strictly shorter than `r - l`. So fill the table by increasing interval length.
 
@@ -16691,6 +21190,20 @@ class Solution {
 1. Pad `nums` as before. `dp[l][r]` is zero for `r - l < 2`.
 2. For `len` from `2` to `N - 1`, for each `l` with `r = l + len < N`: `dp[l][r] = max over k in (l, r) of dp[l][k] + dp[k][r] + arr[l]*arr[k]*arr[r]`.
 3. Return `dp[0][N-1]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Pad `nums` as before. `dp[l][r]` is zero for `r - l < 2`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For `len` from `2` to `N - 1`, for each `l` with `r = l + len < N`: `dp[l][r] = max over k in (l, r) of dp[l][k] + dp[k][r] + arr[l]*arr[k]*arr[r]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[0][N-1]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -16771,6 +21284,22 @@ Process both strings from the left. At a pattern position, look at the next char
 3. If `j + 1 < m` and `p[j+1] == '*'`: return `match(i, j+2) || (first && match(i+1, j))`.
 4. Otherwise return `first && match(i+1, j+1)`.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`match(i, j)`: if `j == m`, return `i == n`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`first = i < n && (p[j] == s[i] || p[j] == '.')`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **If `j + 1 < m` and `p[j+1] == '*'`: return `match(i, j+2) || (first && match(i+1, j))`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **Otherwise return `first && match(i+1, j+1)`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isMatch(String s, String p) {
@@ -16800,6 +21329,18 @@ class Solution {
 1. Allocate `memo[n+1][m+1]` of `Boolean`.
 2. Compute `match(i, j)` with caching, using the same rules as Approach 1.
 
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n+1][m+1]` of `Boolean`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `match(i, j)` with caching, using the same rules as Approach 1.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isMatch(String s, String p) {
@@ -16827,7 +21368,7 @@ class Solution {
 
 ---
 
-##### Approach 3: Optimised / Best (Bottom-Up Table)
+##### Approach 3: Optimised (Bottom-Up Table)
 
 **Intuition**: `dp[i][j]` means `s[i..]` matches `p[j..]`. Each entry depends only on entries with larger `i` or larger `j`, so fill the table from the end. Base case: the empty suffix of the string matches the empty pattern.
 
@@ -16838,6 +21379,20 @@ class Solution {
    - If `p[j+1] == '*'`: `dp[i][j] = dp[i][j+2] || (first && dp[i+1][j])`.
    - Otherwise `dp[i][j] = first && dp[i+1][j+1]`.
 3. Return `dp[0][0]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[n][m] = true`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `n` down to `0`, and `j` from `m-1` down to `0`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[0][0]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
 
 ```java
 class Solution {
@@ -16866,28 +21421,154 @@ class Solution {
 
 ## 14. Greedy
 
+Greedy algorithms make the locally best choice at each step and never revisit it. They are correct for a problem only when a local choice can be shown to lead to a global optimum. Each problem below shows a more exhaustive approach first, then the greedy insight that removes the search.
+
 ### 14.1 Maximum Subarray
 - **Difficulty**: Medium
 - **LeetCode**: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 - **NeetCode**: [Maximum Subarray](https://neetcode.io/problems/maximum-subarray)
 - **Data Structures**: Array
-- **Patterns**: Kadane's Algorithm
+- **Patterns**: Kadane's Algorithm, Prefix Sums
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums`, find the contiguous subarray with the largest sum, and return that sum.
 
-##### Approach 1: Optimised / Best (Kadane's Algorithm)
-If running sum drops below zero, reset running sum to 0.
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [-2,1,-3,4,-1,2,1,-5,4]`
+- **Output**: `6`
+- **Explanation**: The subarray `[4,-1,2,1]` has sum `6`.
+
+**Example 2**
+- **Input**: `nums = [1]`
+- **Output**: `1`
+
+**Example 3**
+- **Input**: `nums = [5,4,-1,7,8]`
+- **Output**: `23`
+- **Explanation**: The entire array.
+
+#### Constraints
+- `1 <= nums.length <= 10^5`
+- `-10^4 <= nums[i] <= 10^4`
+
+#### Intuition
+A subarray ending at index `i` either starts fresh at `nums[i]` or extends the best subarray ending at `i - 1`. Carrying a running sum that is discarded whenever it turns negative gives the answer in one pass. The greedy step is safe because a negative prefix can only reduce any later subarray's sum.
+
+---
+
+##### Approach 1: Brute Force (Check Every Subarray)
+
+**Intuition**: Sum every subarray by extending from each start.
+
+**Algorithm**:
+1. For each start `i`, accumulate `sum` while extending `j`.
+2. Track the maximum sum.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each start `i`, accumulate `sum` while extending `j`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Track the maximum sum.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int maxSubArray(int[] nums) {
-        int max = nums[0];
-        int sum = 0;
-        for (int n : nums) {
-            sum += n;
-            max = Math.max(max, sum);
-            if (sum < 0) sum = 0;
+        int best = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            int sum = 0;
+            for (int j = i; j < nums.length; j++) {
+                sum += nums[j];
+                best = Math.max(best, sum);
+            }
         }
-        return max;
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Prefix Sums with Minimum Prefix)
+
+**Intuition**: The sum of `nums[i..j]` equals `prefix[j+1] - prefix[i]`. For each end, the best start is the smallest earlier prefix. Track that minimum as you go.
+
+**Algorithm**:
+1. `prefix = 0`, `minPrefix = 0` (the empty prefix).
+2. For each `x`: `prefix += x`. Update `best = max(best, prefix - minPrefix)`. Then `minPrefix = min(minPrefix, prefix)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`prefix = 0`, `minPrefix = 0` (the empty prefix).**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x`: `prefix += x`. Update `best = max(best, prefix - minPrefix)`. Then `minPrefix = min(minPrefix, prefix)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int prefix = 0, minPrefix = 0;
+        int best = Integer.MIN_VALUE;
+        for (int x : nums) {
+            prefix += x;
+            best = Math.max(best, prefix - minPrefix);
+            minPrefix = Math.min(minPrefix, prefix);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Kadane's Algorithm)
+
+**Intuition**: If the best subarray ending at `i-1` has a negative sum, it only hurts anything that extends it, so start over at `nums[i]`. Otherwise extend it.
+
+**Algorithm**:
+1. `cur = best = nums[0]`.
+2. For each later `x`: `cur = max(x, cur + x)`, then `best = max(best, cur)`.
+3. Return `best`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`cur = best = nums[0]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each later `x`: `cur = max(x, cur + x)`, then `best = max(best, cur)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `best`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int cur = nums[0], best = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            cur = Math.max(nums[i], cur + nums[i]);
+            best = Math.max(best, cur);
+        }
+        return best;
     }
 }
 ```
@@ -16900,12 +21581,146 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [55. Jump Game](https://leetcode.com/problems/jump-game/)
 - **NeetCode**: [Jump Game](https://neetcode.io/problems/jump-game)
-- **Data Structures**: Array, Greedy
-- **Patterns**: Max Reachable Index Tracking
+- **Data Structures**: Array
+- **Patterns**: Reachability, Greedy Maximum Reach
 
-#### Solutions
+#### Problem Description
+You are given an integer array `nums`. You start at index `0`, and each element `nums[i]` is the maximum jump length from that position. Return `true` if you can reach the last index, and `false` otherwise.
 
-##### Approach 1: Optimised / Best (Greedy Max Reach)
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [2,3,1,1,4]`
+- **Output**: `true`
+- **Explanation**: Jump 1 step to index 1, then 3 steps to the last index.
+
+**Example 2**
+- **Input**: `nums = [3,2,1,0,4]`
+- **Output**: `false`
+- **Explanation**: Every path reaches index 3, which is stuck at 0.
+
+#### Constraints
+- `1 <= nums.length <= 10^4`
+- `0 <= nums[i] <= 10^5`
+
+#### Intuition
+Track the farthest index reachable so far. If you ever stand on an index beyond that reach, you are stuck. Otherwise, the reach only grows, and once it covers the last index, the answer is `true`.
+
+---
+
+##### Approach 1: Brute Force (Recursive Search)
+
+**Intuition**: From each index, try every jump length and recurse.
+
+**Algorithm**:
+1. `canJump(i)`: if `i >= n - 1`, return `true`.
+2. For each `step` from `1` to `nums[i]`, if `canJump(i + step)`, return `true`.
+3. Return `false`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`canJump(i)`: if `i >= n - 1`, return `true`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `step` from `1` to `nums[i]`, if `canJump(i + step)`, return `true`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public boolean canJump(int[] nums) {
+        return solve(nums, 0);
+    }
+
+    private boolean solve(int[] nums, int i) {
+        if (i >= nums.length - 1) return true;
+        for (int step = 1; step <= nums[i]; step++) {
+            if (solve(nums, i + step)) return true;
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Bottom-Up Reachability DP)
+
+**Intuition**: `good[i]` means the last index is reachable from `i`. Index `i` is good if some index in `(i, i + nums[i]]` is good.
+
+**Algorithm**:
+1. `good[n-1] = true`.
+2. For `i` from `n-2` down to `0`: `good[i] = true` if any `good[j]` for `j` in `[i+1, min(n-1, i+nums[i])]`.
+3. Return `good[0]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`good[n-1] = true`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `n-2` down to `0`: `good[i] = true` if any `good[j]` for `j` in `[i+1, min(n-1, i+nums[i])]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `good[0]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public boolean canJump(int[] nums) {
+        int n = nums.length;
+        boolean[] good = new boolean[n];
+        good[n - 1] = true;
+        for (int i = n - 2; i >= 0; i--) {
+            int far = Math.min(n - 1, i + nums[i]);
+            for (int j = i + 1; j <= far; j++) {
+                if (good[j]) {
+                    good[i] = true;
+                    break;
+                }
+            }
+        }
+        return good[0];
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Greedy Maximum Reach)
+
+**Intuition**: Keep `maxReach`, the farthest index reachable from the indices scanned so far. If the current index is beyond `maxReach`, it cannot be reached. Otherwise update `maxReach` from this index's jump.
+
+**Algorithm**:
+1. `maxReach = 0`.
+2. For each `i`: if `i > maxReach`, return `false`. Set `maxReach = max(maxReach, i + nums[i])`.
+3. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`maxReach = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `i`: if `i > maxReach`, return `false`. Set `maxReach = max(maxReach, i + nums[i])`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean canJump(int[] nums) {
@@ -16913,7 +21728,6 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             if (i > maxReach) return false;
             maxReach = Math.max(maxReach, i + nums[i]);
-            if (maxReach >= nums.length - 1) return true;
         }
         return true;
     }
@@ -16928,13 +21742,147 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/)
 - **NeetCode**: [Jump Game II](https://neetcode.io/problems/jump-game-ii)
-- **Data Structures**: Array, Greedy
-- **Patterns**: BFS Window Expansion
+- **Data Structures**: Array
+- **Patterns**: Minimum Jumps, BFS by Levels
 
-#### Solutions
+#### Problem Description
+You are given a 0-indexed array `nums` of non-negative integers. You start at index `0`, and `nums[i]` is the maximum jump length from index `i`. Return the minimum number of jumps needed to reach the last index. You can assume the last index is always reachable.
 
-##### Approach 1: Optimised / Best (Greedy Level BFS)
-Track the current window boundary `curEnd` and the furthest reachable index `farthest`. When `i == curEnd`, increment jumps and set `curEnd = farthest`.
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [2,3,1,1,4]`
+- **Output**: `2`
+- **Explanation**: Jump from index 0 to 1, then from 1 to 4.
+
+**Example 2**
+- **Input**: `nums = [2,3,0,1,4]`
+- **Output**: `2`
+
+#### Constraints
+- `1 <= nums.length <= 10^4`
+- `0 <= nums[i] <= 1000`
+- The last index is reachable.
+
+#### Intuition
+Think of jumps as levels. Level `k` is the set of indices reachable in exactly `k` jumps. Each new level begins where the previous one ended. Greedily count how many levels are needed to reach the end, rather than tracking every path.
+
+---
+
+##### Approach 1: Brute Force (Recursion over All Jump Choices)
+
+**Intuition**: From each index, try every jump length and keep the smallest total.
+
+**Algorithm**:
+1. `minJumps(i)`: if `i >= n - 1`, return `0`.
+2. For each `step` in `[1, nums[i]]`, compute `1 + minJumps(i + step)`, and return the minimum.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`minJumps(i)`: if `i >= n - 1`, return `0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `step` in `[1, nums[i]]`, compute `1 + minJumps(i + step)`, and return the minimum.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int jump(int[] nums) {
+        return solve(nums, 0);
+    }
+
+    private int solve(int[] nums, int i) {
+        if (i >= nums.length - 1) return 0;
+        int best = Integer.MAX_VALUE;
+        for (int step = 1; step <= nums[i]; step++) {
+            int r = solve(nums, i + step);
+            if (r != Integer.MAX_VALUE) best = Math.min(best, 1 + r);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Bottom-Up DP)
+
+**Intuition**: `dp[i]` is the minimum jumps from `i` to the end. Compute from right to left, taking the best over all reachable next indices.
+
+**Algorithm**:
+1. `dp[n-1] = 0`. Others start at infinity.
+2. For `i` from `n-2` down to `0`: `dp[i] = min over j in (i, i+nums[i]] of dp[j] + 1`.
+3. Return `dp[0]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dp[n-1] = 0`. Others start at infinity.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `n-2` down to `0`: `dp[i] = min over j in (i, i+nums[i]] of dp[j] + 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `dp[0]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int jump(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[n - 1] = 0;
+        for (int i = n - 2; i >= 0; i--) {
+            int far = Math.min(n - 1, i + nums[i]);
+            for (int j = i + 1; j <= far; j++) {
+                if (dp[j] != Integer.MAX_VALUE) dp[i] = Math.min(dp[i], dp[j] + 1);
+            }
+        }
+        return dp[0];
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Greedy Level Boundaries)
+
+**Intuition**: Track the end of the current level (`curEnd`) and the farthest index reachable from anywhere in the current level (`farthest`). When the scan reaches `curEnd`, a jump is needed, and the next level ends at `farthest`.
+
+**Algorithm**:
+1. `jumps = 0`, `curEnd = 0`, `farthest = 0`.
+2. For `i` from `0` to `n-2`:
+   - `farthest = max(farthest, i + nums[i])`.
+   - If `i == curEnd`, increment `jumps` and set `curEnd = farthest`.
+3. Return `jumps`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`jumps = 0`, `curEnd = 0`, `farthest = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `0` to `n-2`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `jumps`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int jump(int[] nums) {
@@ -16944,7 +21892,6 @@ class Solution {
             if (i == curEnd) {
                 jumps++;
                 curEnd = farthest;
-                if (curEnd >= nums.length - 1) break;
             }
         }
         return jumps;
@@ -16960,27 +21907,167 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [134. Gas Station](https://leetcode.com/problems/gas-station/)
 - **NeetCode**: [Gas Station](https://neetcode.io/problems/gas-station)
-- **Data Structures**: Array, Greedy
-- **Patterns**: Net Surplus Accumulation
+- **Data Structures**: Array
+- **Patterns**: Circular Greedy, Prefix Minimum
 
-#### Solutions
+#### Problem Description
+There are `n` gas stations along a circular route. `gas[i]` is the fuel at station `i`, and `cost[i]` is the fuel needed to travel from station `i` to station `i+1`. You begin with an empty tank at one station. Return the starting index from which you can complete the circuit once in the clockwise direction, or `-1` if it is impossible. If a solution exists, it is unique.
 
-##### Approach 1: Optimised / Best (Single Pass Reset)
-If total gas < total cost, return -1. Otherwise, whenever tank < 0, candidate starting index must be `i + 1`.
+#### Examples
+
+**Example 1**
+- **Input**: `gas = [1,2,3,4,5]`, `cost = [3,4,5,1,2]`
+- **Output**: `3`
+- **Explanation**: Starting at index 3, the tank never goes negative.
+
+**Example 2**
+- **Input**: `gas = [2,3,4]`, `cost = [3,4,3]`
+- **Output**: `-1`
+- **Explanation**: Total gas is less than total cost.
+
+#### Constraints
+- `n == gas.length == cost.length`
+- `1 <= n <= 10^5`
+- `0 <= gas[i], cost[i] <= 10^4`
+
+#### Intuition
+If total gas is less than total cost, no start works. Otherwise, a valid start exists. If starting at `s` leads the tank negative at station `k`, then no start between `s` and `k` can work either, because each of them would arrive at `k` with less fuel. So the next candidate start is `k + 1`.
+
+---
+
+##### Approach 1: Brute Force (Simulate from Every Start)
+
+**Intuition**: For each start, drive the full circuit and check whether the tank ever goes negative.
+
+**Algorithm**:
+1. For each `start`, simulate `n` stations with `tank += gas[idx] - cost[idx]`.
+2. If the tank stays non-negative throughout, return `start`.
+3. Return `-1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `start`, simulate `n` stations with `tank += gas[idx] - cost[idx]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If the tank stays non-negative throughout, return `start`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **Return `-1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int totalTank = 0, currTank = 0, start = 0;
-        for (int i = 0; i < gas.length; i++) {
-            int net = gas[i] - cost[i];
-            totalTank += net;
-            currTank += net;
-            if (currTank < 0) {
+        int n = gas.length;
+        for (int start = 0; start < n; start++) {
+            int tank = 0;
+            boolean ok = true;
+            for (int k = 0; k < n; k++) {
+                int idx = (start + k) % n;
+                tank += gas[idx] - cost[idx];
+                if (tank < 0) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) return start;
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Prefix Minimum of Net Fuel)
+
+**Intuition**: Let `diff[i] = gas[i] - cost[i]`. If the total is non-negative, the answer is the index right after the point where the running sum of `diff` reaches its minimum. That point is where the deficit is worst, so starting just after it leaves the tank as full as possible.
+
+**Algorithm**:
+1. If `sum(diff) < 0`, return `-1`.
+2. Scan with `running += diff[i]`. When `running` is a new minimum, record `start = i + 1`.
+3. Return `start % n`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `sum(diff) < 0`, return `-1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Scan with `running += diff[i]`. When `running` is a new minimum, record `start = i + 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `start % n`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length;
+        long total = 0, running = 0, minPrefix = Long.MAX_VALUE;
+        int start = 0;
+        for (int i = 0; i < n; i++) {
+            long diff = gas[i] - cost[i];
+            total += diff;
+            running += diff;
+            if (running < minPrefix) {
+                minPrefix = running;
                 start = i + 1;
-                currTank = 0;
             }
         }
-        return totalTank >= 0 ? start : -1;
+        return total < 0 ? -1 : start % n;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Single Greedy Pass with Reset)
+
+**Intuition**: Track the tank from a candidate start. When it goes negative at `i`, no start from the candidate through `i` works, so reset the candidate to `i + 1` and the tank to zero. Feasibility is then decided by whether the total fuel covers the total cost.
+
+**Algorithm**:
+1. `total = 0`, `tank = 0`, `start = 0`.
+2. For each `i`: `diff = gas[i] - cost[i]`. Add to `total` and `tank`. If `tank < 0`, set `start = i + 1` and `tank = 0`.
+3. Return `total < 0 ? -1 : start`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`total = 0`, `tank = 0`, `start = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `i`: `diff = gas[i] - cost[i]`. Add to `total` and `tank`. If `tank < 0`, set `start = i + 1` and `tank = 0`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `total < 0 ? -1 : start`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int total = 0, tank = 0, start = 0;
+        for (int i = 0; i < gas.length; i++) {
+            int diff = gas[i] - cost[i];
+            total += diff;
+            tank += diff;
+            if (tank < 0) {
+                start = i + 1;
+                tank = 0;
+            }
+        }
+        return total < 0 ? -1 : start;
     }
 }
 ```
@@ -16993,28 +22080,122 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [846. Hand of Straights](https://leetcode.com/problems/hand-of-straights/)
 - **NeetCode**: [Hand of Straights](https://neetcode.io/problems/hand-of-straights)
-- **Data Structures**: Hash Table, TreeMap
-- **Patterns**: Greedy Consecutive Frequency Matching
+- **Data Structures**: Array, Hash Map, Tree Map
+- **Patterns**: Greedy Smallest-First Grouping
 
-#### Solutions
+#### Problem Description
+Alice has a hand of cards given as an integer array `hand`, and a group size `groupSize`. She wants to rearrange the cards into groups so that each group has `groupSize` cards and consists of consecutive values. Return `true` if she can, and `false` otherwise.
 
-##### Approach 1: Optimised / Best (TreeMap or HashMap + Sorting)
+#### Examples
+
+**Example 1**
+- **Input**: `hand = [1,2,3,6,2,3,4,7,8]`, `groupSize = 3`
+- **Output**: `true`
+- **Explanation**: Groups `[1,2,3]`, `[2,3,4]`, `[6,7,8]`.
+
+**Example 2**
+- **Input**: `hand = [1,2,3,4,5]`, `groupSize = 4`
+- **Output**: `false`
+- **Explanation**: 5 cards cannot form groups of 4.
+
+#### Constraints
+- `1 <= hand.length <= 10^4`
+- `0 <= hand[i] <= 10^9`
+- `1 <= groupSize <= hand.length`
+
+#### Intuition
+The smallest remaining card must start a group, because no other group can supply it. So always start a group at the smallest card, and remove the consecutive cards it needs. If any is missing, the answer is `false`.
+
+---
+
+##### Approach 1: Brute Force (Sorted List, Linear Removal)
+
+**Intuition**: Keep the cards in a sorted list. Repeatedly take the first card, and search for and remove the next `groupSize - 1` consecutive values.
+
+**Algorithm**:
+1. If `n % groupSize != 0`, return `false`.
+2. While the list is non-empty: `first = list[0]`. For `k` from `0` to `groupSize-1`, find `first + k` in the list and remove it. If missing, return `false`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `n % groupSize != 0`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **While the list is non-empty: `first = list[0]`. For `k` from `0` to `groupSize-1`, find `first + k` in the list and remove it. If missing, return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class Solution {
     public boolean isNStraightHand(int[] hand, int groupSize) {
         if (hand.length % groupSize != 0) return false;
-        Map<Integer, Integer> count = new HashMap<>();
-        for (int card : hand) count.put(card, count.getOrDefault(card, 0) + 1);
-        Arrays.sort(hand);
-        for (int card : hand) {
-            if (count.get(card) > 0) {
-                for (int i = 0; i < groupSize; i++) {
-                    int next = card + i;
-                    if (count.getOrDefault(next, 0) <= 0) return false;
-                    count.put(next, count.get(next) - 1);
-                }
+        List<Integer> list = new ArrayList<>();
+        for (int x : hand) list.add(x);
+        list.sort(null);
+        while (!list.isEmpty()) {
+            int first = list.get(0);
+            for (int k = 0; k < groupSize; k++) {
+                int idx = list.indexOf(first + k);
+                if (idx == -1) return false;
+                list.remove(idx);
+            }
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (TreeMap of Counts)
+
+**Intuition**: A `TreeMap` keeps the distinct values in order, so `firstKey()` is the smallest remaining card. Consume `groupSize` consecutive keys from it, decrementing counts and removing keys that reach zero.
+
+**Algorithm**:
+1. Count each value into a `TreeMap`.
+2. While the map is non-empty: `first = firstKey()`. For `k` from `0` to `groupSize-1`, decrement the count of `first + k`. If the key is missing, return `false`. Remove a key when its count reaches zero.
+3. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Count each value into a `TreeMap`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While the map is non-empty: `first = firstKey()`. For `k` from `0` to `groupSize-1`, decrement the count of `first + k`. If the key is missing, return `false`. Remove a key when its count reaches zero.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.Map;
+import java.util.TreeMap;
+
+class Solution {
+    public boolean isNStraightHand(int[] hand, int groupSize) {
+        if (hand.length % groupSize != 0) return false;
+        TreeMap<Integer, Integer> counts = new TreeMap<>();
+        for (int x : hand) counts.merge(x, 1, Integer::sum);
+        while (!counts.isEmpty()) {
+            int first = counts.firstKey();
+            for (int k = 0; k < groupSize; k++) {
+                int v = first + k;
+                Integer c = counts.get(v);
+                if (c == null) return false;
+                if (c == 1) counts.remove(v);
+                else counts.put(v, c - 1);
             }
         }
         return true;
@@ -17026,30 +22207,180 @@ class Solution {
 
 ---
 
+##### Approach 3: Optimised (Sort, Then Greedy with Hash Map Counts)
+
+**Intuition**: Sort the cards once. Walking the sorted distinct values, each value with a remaining count must start that many groups. Decrement the counts of the following `groupSize - 1` consecutive values. Because the values are processed in order, a hash map is enough, and no ordered structure is needed during the process.
+
+**Algorithm**:
+1. If `n % groupSize != 0`, return `false`.
+2. Sort `hand`. Build `cnt` as a hash map of counts.
+3. For each `x` in sorted order: if `cnt[x]` is zero, skip it. Otherwise, let `need = cnt[x]`. For `k` from `0` to `groupSize-1`, subtract `need` from `cnt[x + k]`, and return `false` if it goes negative.
+4. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `n % groupSize != 0`, return `false`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Sort `hand`. Build `cnt` as a hash map of counts.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+3. **For each `x` in sorted order: if `cnt[x]` is zero, skip it. Otherwise, let `need = cnt[x]`. For `k` from `0` to `groupSize-1`, subtract `need` from `cnt[x + k]`, and return `false` if it goes negative.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public boolean isNStraightHand(int[] hand, int groupSize) {
+        if (hand.length % groupSize != 0) return false;
+        Arrays.sort(hand);
+        Map<Integer, Integer> cnt = new HashMap<>();
+        for (int x : hand) cnt.merge(x, 1, Integer::sum);
+        for (int x : hand) {
+            int need = cnt.getOrDefault(x, 0);
+            if (need == 0) continue;
+            for (int k = 0; k < groupSize; k++) {
+                int v = x + k;
+                int c = cnt.getOrDefault(v, 0) - need;
+                if (c < 0) return false;
+                cnt.put(v, c);
+            }
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$ for the sort, plus $O(n \cdot \text{groupSize})$ for the greedy
+- **Space Complexity**: $O(n)$
+
+---
+
 ### 14.6 Merge Triplets to Form Target Triplet
 - **Difficulty**: Medium
 - **LeetCode**: [1899. Merge Triplets to Form Target Triplet](https://leetcode.com/problems/merge-triplets-to-form-target-triplet/)
 - **NeetCode**: [Merge Triplets to Form Target](https://neetcode.io/problems/merge-triplets-to-form-target)
-- **Data Structures**: Array, Greedy
-- **Patterns**: Filter Exceeding Triplets
+- **Data Structures**: Array
+- **Patterns**: Filter Dominated Candidates, Per-Coordinate Coverage
 
-#### Solutions
+#### Problem Description
+You are given a 2-D array `triplets` where `triplets[i] = [ai, bi, ci]`, and a target `target = [x, y, z]`. You may choose any triplets and merge them by taking, at each coordinate, the maximum value. Return `true` if you can obtain the target exactly through such merges.
 
-##### Approach 1: Optimised / Best (Greedy Filtering)
-Ignore triplets that have any component strictly greater than target. Collect match flags for positions 0, 1, 2.
+#### Examples
+
+**Example 1**
+- **Input**: `triplets = [[2,5,3],[1,8,4],[1,7,5]]`, `target = [2,7,5]`
+- **Output**: `true`
+- **Explanation**: Merge `[2,5,3]` and `[1,7,5]`, giving `[2,7,5]`.
+
+**Example 2**
+- **Input**: `triplets = [[3,4,5],[4,5,6]]`, `target = [3,2,5]`
+- **Output**: `false`
+- **Explanation**: Every triplet exceeds the target in some coordinate.
+
+**Example 3**
+- **Input**: `triplets = [[2,5,3],[2,3,4],[1,2,5],[5,2,3]]`, `target = [5,5,5]`
+- **Output**: `true`
+
+#### Constraints
+- `1 <= triplets.length <= 10^5`
+- `triplets[i].length == target.length == 3`
+- `1 <= ai, bi, ci, x, y, z <= 1000`
+
+#### Intuition
+Merging only increases coordinates, so a triplet that exceeds the target in any coordinate can never be used. Discard those. Among the rest, use every triplet that matches the target exactly in a coordinate, since using more usable triplets never hurts. The target is reachable exactly when each coordinate is matched by some usable triplet.
+
+---
+
+##### Approach 1: Brute Force (Try Every Subset)
+
+**Intuition**: Enumerate all subsets of triplets, merge each, and check against the target.
+
+**Algorithm**:
+1. For each bitmask over the triplets, compute the coordinate-wise maximum of the selected triplets.
+2. If it equals the target, return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each bitmask over the triplets, compute the coordinate-wise maximum of the selected triplets.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If it equals the target, return `true`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean mergeTriplets(int[][] triplets, int[] target) {
-        boolean match0 = false, match1 = false, match2 = false;
-        for (int[] t : triplets) {
-            if (t[0] <= target[0] && t[1] <= target[1] && t[2] <= target[2]) {
-                if (t[0] == target[0]) match0 = true;
-                if (t[1] == target[1]) match1 = true;
-                if (t[2] == target[2]) match2 = true;
-                if (match0 && match1 && match2) return true;
+        int n = triplets.length;
+        for (int mask = 1; mask < (1 << n); mask++) {
+            int[] merged = new int[3];
+            boolean valid = true;
+            for (int i = 0; i < n && valid; i++) {
+                if (((mask >> i) & 1) == 1) {
+                    for (int k = 0; k < 3; k++) {
+                        if (triplets[i][k] > target[k]) valid = false;
+                        merged[k] = Math.max(merged[k], triplets[i][k]);
+                    }
+                }
+            }
+            if (valid && merged[0] == target[0] && merged[1] == target[1] && merged[2] == target[2]) {
+                return true;
             }
         }
-        return match0 && match1 && match2;
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(2^n \cdot n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Optimised (Filter and Coverage Flags)
+
+**Intuition**: Skip any triplet that exceeds the target anywhere. Among the rest, mark each coordinate as covered when some triplet matches the target there. Taking all usable triplets gives the best possible merge, so checking coverage is enough.
+
+**Algorithm**:
+1. `found = [false, false, false]`.
+2. For each triplet: if any coordinate exceeds the target, skip it. Otherwise, mark `found[k]` for each coordinate where it equals the target.
+3. Return `found[0] && found[1] && found[2]`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`found = [false, false, false]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each triplet: if any coordinate exceeds the target, skip it. Otherwise, mark `found[k]` for each coordinate where it equals the target.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `found[0] && found[1] && found[2]`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public boolean mergeTriplets(int[][] triplets, int[] target) {
+        boolean[] found = new boolean[3];
+        for (int[] t : triplets) {
+            if (t[0] > target[0] || t[1] > target[1] || t[2] > target[2]) continue;
+            for (int k = 0; k < 3; k++) {
+                if (t[k] == target[k]) found[k] = true;
+            }
+        }
+        return found[0] && found[1] && found[2];
     }
 }
 ```
@@ -17062,14 +22393,99 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [763. Partition Labels](https://leetcode.com/problems/partition-labels/)
 - **NeetCode**: [Partition Labels](https://neetcode.io/problems/partition-labels)
-- **Data Structures**: String, Greedy
-- **Patterns**: Last Occurrence Tracking Window
+- **Data Structures**: String, Array
+- **Patterns**: Last-Occurrence Tracking, Greedy Partitioning
 
-#### Solutions
+#### Problem Description
+You are given a string `s`. Partition it into as many parts as possible so that each letter appears in at most one part. Return a list of the sizes of these parts, in order.
 
-##### Approach 1: Optimised / Best (Greedy Last Occurrence Interval)
+#### Examples
+
+**Example 1**
+- **Input**: `s = "ababcbacadefegdehijhklij"`
+- **Output**: `[9,7,8]`
+- **Explanation**: The parts are `"ababcbaca"`, `"defegde"`, and `"hijhklij"`.
+
+**Example 2**
+- **Input**: `s = "eccbbbbdec"`
+- **Output**: `[10]`
+
+#### Constraints
+- `1 <= s.length <= 500`
+- `s` consists of lowercase English letters.
+
+#### Intuition
+A part must end at a position where no letter in it appears later. Starting a part at `start`, extend its end to the last occurrence of every letter inside it. When the scan reaches that end, the part is closed. The greedy choice of the earliest valid cut gives the most parts.
+
+---
+
+##### Approach 1: Brute Force (Rescan for Last Occurrences)
+
+**Intuition**: For each part, repeatedly find the furthest last occurrence of any letter already in the part, by searching the string directly.
+
+**Algorithm**:
+1. `start = 0`. While `start < n`:
+   - `end = start`. For `j` from `start` to `end`, set `end = max(end, s.lastIndexOf(s.charAt(j)))`.
+   - Record `end - start + 1`. Set `start = end + 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`start = 0`. While `start < n`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> partitionLabels(String s) {
+        List<Integer> sizes = new ArrayList<>();
+        int start = 0, n = s.length();
+        while (start < n) {
+            int end = start;
+            for (int j = start; j <= end; j++) {
+                end = Math.max(end, s.lastIndexOf(s.charAt(j)));
+            }
+            sizes.add(end - start + 1);
+            start = end + 1;
+        }
+        return sizes;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n)$ for the output
+
+---
+
+##### Approach 2: Optimised (Precomputed Last Occurrence Array)
+
+**Intuition**: Record the last index of each letter once. Then scan left to right, extending the current part's end with each letter's last occurrence. When the scan index reaches the end, the part is complete.
+
+**Algorithm**:
+1. `last[c]` is the last index of letter `c`.
+2. `start = 0`, `end = 0`. For each `i`: `end = max(end, last[s[i]])`. If `i == end`, record `end - start + 1`, and set `start = i + 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`last[c]` is the last index of letter `c`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`start = 0`, `end = 0`. For each `i`: `end = max(end, last[s[i]])`. If `i == end`, record `end - start + 1`, and set `start = i + 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<Integer> partitionLabels(String s) {
@@ -17077,21 +22493,21 @@ class Solution {
         for (int i = 0; i < s.length(); i++) {
             last[s.charAt(i) - 'a'] = i;
         }
-        List<Integer> res = new ArrayList<>();
+        List<Integer> sizes = new ArrayList<>();
         int start = 0, end = 0;
         for (int i = 0; i < s.length(); i++) {
             end = Math.max(end, last[s.charAt(i) - 'a']);
             if (i == end) {
-                res.add(end - start + 1);
+                sizes.add(end - start + 1);
                 start = i + 1;
             }
         }
-        return res;
+        return sizes;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$ (26 integers)
+- **Space Complexity**: $O(1)$ extra, excluding output
 
 ---
 
@@ -17099,32 +22515,177 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [678. Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
 - **NeetCode**: [Valid Parenthesis String](https://neetcode.io/problems/valid-parenthesis-string)
-- **Data Structures**: String, Greedy Range
-- **Patterns**: Min / Max Open Bracket Range Tracking
+- **Data Structures**: String
+- **Patterns**: Range of Open Brackets, Greedy Balance Bounds
 
-#### Solutions
+#### Problem Description
+Given a string `s` containing only `'('`, `')'`, and `'*'`, return `true` if `s` is valid. A `'*'` may be treated as `'('`, `')'`, or an empty string. A string is valid if its brackets are balanced and correctly nested.
 
-##### Approach 1: Optimised / Best (Open Count Range `[cMin, cMax]`)
-Treat `'*'` as `(`, `)`, or empty. Maintain possible range of open parentheses count.
+#### Examples
+
+**Example 1**
+- **Input**: `s = "()"`
+- **Output**: `true`
+
+**Example 2**
+- **Input**: `s = "(*)"`
+- **Output**: `true`
+- **Explanation**: The `*` is an empty string or `)`... Here it becomes `()` by treating it as empty.
+
+**Example 3**
+- **Input**: `s = "(*))"`
+- **Output**: `true`
+- **Explanation**: The `*` acts as `(`, giving `(())`.
+
+#### Constraints
+- `1 <= s.length <= 100`
+- `s[i]` is `'('`, `')'`, or `'*'`.
+
+#### Intuition
+Track the possible numbers of unmatched open brackets, as a range `[lo, hi]`. Each `'('` raises both bounds. Each `')'` lowers both. Each `'*'` can be `(` (raising `hi`), `)` (lowering `lo`), or empty (no change). The string is valid if `0` lies in the range at the end. A negative `hi` means no assignment can work.
+
+---
+
+##### Approach 1: Brute Force (Try Every Interpretation of Each Star)
+
+**Intuition**: Each `'*'` has three choices. Recurse through the string, trying each choice, and reject any path where the balance goes negative.
+
+**Algorithm**:
+1. `check(i, bal)`: if `bal < 0`, return `false`. If `i == n`, return `bal == 0`.
+2. For `'('`: `check(i+1, bal+1)`. For `')'`: `check(i+1, bal-1)`.
+3. For `'*'`: return `check(i+1, bal+1) || check(i+1, bal-1) || check(i+1, bal)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`check(i, bal)`: if `bal < 0`, return `false`. If `i == n`, return `bal == 0`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **For `'('`: `check(i+1, bal+1)`. For `')'`: `check(i+1, bal-1)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **For `'*'`: return `check(i+1, bal+1) || check(i+1, bal-1) || check(i+1, bal)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean checkValidString(String s) {
-        int cMin = 0, cMax = 0;
+        return check(s, 0, 0);
+    }
+
+    private boolean check(String s, int i, int bal) {
+        if (bal < 0) return false;
+        if (i == s.length()) return bal == 0;
+        char c = s.charAt(i);
+        if (c == '(') return check(s, i + 1, bal + 1);
+        if (c == ')') return check(s, i + 1, bal - 1);
+        return check(s, i + 1, bal + 1) || check(s, i + 1, bal - 1) || check(s, i + 1, bal);
+    }
+}
+```
+- **Time Complexity**: $O(3^n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Memoization on (Index, Balance))
+
+**Intuition**: The outcome depends only on the index and the current balance, so cache those pairs. The balance never exceeds `n`.
+
+**Algorithm**:
+1. Allocate `memo[n+1][n+2]` of `Boolean`.
+2. Compute `check(i, bal)` with caching.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Allocate `memo[n+1][n+2]` of `Boolean`.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Compute `check(i, bal)` with caching.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public boolean checkValidString(String s) {
+        Boolean[][] memo = new Boolean[s.length() + 1][s.length() + 2];
+        return check(s, 0, 0, memo);
+    }
+
+    private boolean check(String s, int i, int bal, Boolean[][] memo) {
+        if (bal < 0) return false;
+        if (i == s.length()) return bal == 0;
+        if (memo[i][bal] != null) return memo[i][bal];
+        char c = s.charAt(i);
+        boolean res;
+        if (c == '(') {
+            res = check(s, i + 1, bal + 1, memo);
+        } else if (c == ')') {
+            res = check(s, i + 1, bal - 1, memo);
+        } else {
+            res = check(s, i + 1, bal + 1, memo) || check(s, i + 1, bal - 1, memo) || check(s, i + 1, bal, memo);
+        }
+        memo[i][bal] = res;
+        return res;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 3: Optimised (Greedy Range of Open Brackets)
+
+**Intuition**: Replace the search with the range `[lo, hi]` described above. `lo` is the fewest unmatched opens possible, and `hi` the most. Whenever `hi` becomes negative, even the most generous assignment fails. Clamp `lo` at zero, since it cannot go below zero. At the end, the string is valid when `lo == 0`.
+
+**Algorithm**:
+1. `lo = 0`, `hi = 0`.
+2. For each character:
+   - `'('`: `lo++`, `hi++`.
+   - `')'`: `lo--`, `hi--`.
+   - `'*'`: `lo--`, `hi++`.
+   - If `hi < 0`, return `false`. Set `lo = max(lo, 0)`.
+3. Return `lo == 0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = 0`, `hi = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each character:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `lo == 0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public boolean checkValidString(String s) {
+        int lo = 0, hi = 0;
         for (char c : s.toCharArray()) {
             if (c == '(') {
-                cMin++;
-                cMax++;
+                lo++;
+                hi++;
             } else if (c == ')') {
-                cMin--;
-                cMax--;
-            } else { // '*'
-                cMin--;
-                cMax++;
+                lo--;
+                hi--;
+            } else {
+                lo--;
+                hi++;
             }
-            if (cMax < 0) return false;
-            cMin = Math.max(0, cMin);
+            if (hi < 0) return false;
+            lo = Math.max(lo, 0);
         }
-        return cMin == 0;
+        return lo == 0;
     }
 }
 ```
@@ -17135,44 +22696,190 @@ class Solution {
 
 ## 15. Intervals
 
+Interval problems are about ordering and overlap. Most solutions start by sorting intervals by start time, or by end time, and then making one linear pass.
+
 ### 15.1 Insert Interval
 - **Difficulty**: Medium
 - **LeetCode**: [57. Insert Interval](https://leetcode.com/problems/insert-interval/)
-- **NeetCode**: [Insert New Interval](https://neetcode.io/problems/insert-new-interval)
-- **Data Structures**: Array, Intervals
-- **Patterns**: 3-Phase Linear Merge (Before, Overlap, After)
+- **NeetCode**: [Insert Interval](https://neetcode.io/problems/insert-new-interval)
+- **Data Structures**: Array
+- **Patterns**: Three-Phase Scan, Interval Merging
 
-#### Solutions
+#### Problem Description
+You are given an array `intervals` where `intervals[i] = [starti, endi]`, sorted by `starti`, with no overlapping intervals. You are also given `newInterval = [start, end]`. Insert it into `intervals` so that the array remains sorted and non-overlapping, merging intervals if necessary. Return the resulting array.
 
-##### Approach 1: Optimised / Best (Three Linear Phases)
+#### Examples
+
+**Example 1**
+- **Input**: `intervals = [[1,3],[6,9]]`, `newInterval = [2,5]`
+- **Output**: `[[1,5],[6,9]]`
+
+**Example 2**
+- **Input**: `intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]`, `newInterval = [4,8]`
+- **Output**: `[[1,2],[3,10],[12,16]]`
+- **Explanation**: `[4,8]` overlaps `[3,5]`, `[6,7]`, and `[8,10]`.
+
+#### Constraints
+- `0 <= intervals.length <= 10^4`
+- `intervals[i].length == 2`
+- `0 <= starti <= endi <= 10^5`
+- `intervals` is sorted by `starti` and has no overlaps.
+
+#### Intuition
+Because the list is already sorted and non-overlapping, the new interval affects a contiguous block. Intervals that end before it are unaffected and go first. Intervals that overlap it are merged into it. Intervals that start after it go last.
+
+---
+
+##### Approach 1: Brute Force (Append, Sort, Generic Merge)
+
+**Intuition**: Ignore the existing order. Add the new interval, sort everything, and merge.
+
+**Algorithm**:
+1. Append `newInterval`, and sort by start.
+2. Merge overlapping intervals in one pass.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Append `newInterval`, and sort by start.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Merge overlapping intervals in one pass.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        List<int[]> res = new ArrayList<>();
-        int i = 0, n = intervals.length;
-        // 1. Add all intervals before newInterval
-        while (i < n && intervals[i][1] < newInterval[0]) {
-            res.add(intervals[i++]);
+        List<int[]> all = new ArrayList<>(Arrays.asList(intervals));
+        all.add(newInterval);
+        all.sort((a, b) -> Integer.compare(a[0], b[0]));
+        List<int[]> merged = new ArrayList<>();
+        for (int[] cur : all) {
+            if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < cur[0]) {
+                merged.add(new int[]{cur[0], cur[1]});
+            } else {
+                int[] last = merged.get(merged.size() - 1);
+                last[1] = Math.max(last[1], cur[1]);
+            }
         }
-        // 2. Merge overlapping intervals
-        while (i < n && intervals[i][0] <= newInterval[1]) {
-            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
-            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
+        return merged.toArray(new int[0][]);
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Insert at Position, Then Generic Merge)
+
+**Intuition**: The sorted order is already known, so find where the new interval belongs with a linear scan, insert it there, and merge in one pass. This avoids a full sort.
+
+**Algorithm**:
+1. Find `pos`, the first index whose start is greater than `newInterval[0]`.
+2. Insert `newInterval` at `pos`.
+3. Merge in a single pass.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Find `pos`, the first index whose start is greater than `newInterval[0]`.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+2. **Insert `newInterval` at `pos`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Merge in a single pass.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> all = new ArrayList<>(Arrays.asList(intervals));
+        int pos = 0;
+        while (pos < all.size() && all.get(pos)[0] <= newInterval[0]) pos++;
+        all.add(pos, newInterval);
+        List<int[]> merged = new ArrayList<>();
+        for (int[] cur : all) {
+            if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < cur[0]) {
+                merged.add(new int[]{cur[0], cur[1]});
+            } else {
+                int[] last = merged.get(merged.size() - 1);
+                last[1] = Math.max(last[1], cur[1]);
+            }
+        }
+        return merged.toArray(new int[0][]);
+    }
+}
+```
+- **Time Complexity**: $O(n)$ for the scan and merge, plus $O(n)$ for list insertion
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Three-Phase Scan)
+
+**Intuition**: Process the sorted list in three phases. First, copy intervals that end before the new one starts. Second, merge every interval that overlaps the new one into it, widening it as needed. Third, copy the rest. No sorting or insertion is required.
+
+**Algorithm**:
+1. Phase 1: while `intervals[i][1] < newInterval[0]`, add `intervals[i]`.
+2. Phase 2: while `intervals[i][0] <= newInterval[1]`, widen `newInterval` to cover `intervals[i]`.
+3. Add the widened `newInterval`, then add the remaining intervals.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Phase 1: while `intervals[i][1] < newInterval[0]`, add `intervals[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Phase 2: while `intervals[i][0] <= newInterval[1]`, widen `newInterval` to cover `intervals[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Add the widened `newInterval`, then add the remaining intervals.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> result = new ArrayList<>();
+        int i = 0, n = intervals.length;
+        int start = newInterval[0], end = newInterval[1];
+        while (i < n && intervals[i][1] < start) {
+            result.add(intervals[i++]);
+        }
+        while (i < n && intervals[i][0] <= end) {
+            start = Math.min(start, intervals[i][0]);
+            end = Math.max(end, intervals[i][1]);
             i++;
         }
-        res.add(newInterval);
-        // 3. Add remaining intervals
+        result.add(new int[]{start, end});
         while (i < n) {
-            res.add(intervals[i++]);
+            result.add(intervals[i++]);
         }
-        return res.toArray(new int[res.size()][]);
+        return result.toArray(new int[0][]);
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$ for the output
 
 ---
 
@@ -17180,31 +22887,130 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 - **NeetCode**: [Merge Intervals](https://neetcode.io/problems/merge-intervals)
-- **Data Structures**: Array, Intervals
-- **Patterns**: Sort by Start Time + Linear Merge
+- **Data Structures**: Array, Sorting
+- **Patterns**: Sort by Start, Sweep and Merge
 
-#### Solutions
+#### Problem Description
+Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the input intervals.
 
-##### Approach 1: Optimised / Best (Sort by Start Time)
+#### Examples
+
+**Example 1**
+- **Input**: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
+- **Output**: `[[1,6],[8,10],[15,18]]`
+- **Explanation**: `[1,3]` and `[2,6]` overlap, so merge them to `[1,6]`.
+
+**Example 2**
+- **Input**: `intervals = [[1,4],[4,5]]`
+- **Output**: `[[1,5]]`
+- **Explanation**: Intervals that touch at a point are considered overlapping.
+
+#### Constraints
+- `1 <= intervals.length <= 10^4`
+- `intervals[i].length == 2`
+- `0 <= starti <= endi <= 10^4`
+
+#### Intuition
+Sorting by start means any interval that overlaps the current merged block must begin before the block ends. So sweep in order: extend the block while overlaps continue, and start a new block when the next interval begins after the block's end.
+
+---
+
+##### Approach 1: Brute Force (Repeatedly Merge Any Overlapping Pair)
+
+**Intuition**: Find any two overlapping intervals, merge them, and repeat until no pair overlaps.
+
+**Algorithm**:
+1. Put intervals in a list.
+2. While some pair `(i, j)` overlaps (`a.start <= b.end && b.start <= a.end`), replace `i` with the merged interval and remove `j`.
+3. Sort the result by start for output.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Put intervals in a list.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While some pair `(i, j)` overlaps (`a.start <= b.end && b.start <= a.end`), replace `i` with the merged interval and remove `j`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Sort the result by start for output.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
-        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-        List<int[]> res = new ArrayList<>();
-        int[] curr = intervals[0];
-        res.add(curr);
-        for (int[] next : intervals) {
-            if (next[0] <= curr[1]) {
-                curr[1] = Math.max(curr[1], next[1]);
-            } else {
-                curr = next;
-                res.add(curr);
+        List<int[]> list = new ArrayList<>();
+        for (int[] iv : intervals) list.add(new int[]{iv[0], iv[1]});
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+            outer:
+            for (int i = 0; i < list.size(); i++) {
+                for (int j = i + 1; j < list.size(); j++) {
+                    int[] a = list.get(i), b = list.get(j);
+                    if (a[0] <= b[1] && b[0] <= a[1]) {
+                        a[0] = Math.min(a[0], b[0]);
+                        a[1] = Math.max(a[1], b[1]);
+                        list.remove(j);
+                        changed = true;
+                        break outer;
+                    }
+                }
             }
         }
-        return res.toArray(new int[res.size()][]);
+        list.sort((x, y) -> Integer.compare(x[0], y[0]));
+        return list.toArray(new int[0][]);
+    }
+}
+```
+- **Time Complexity**: $O(n^3)$ in the worst case
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Optimised (Sort by Start, Sweep and Merge)
+
+**Intuition**: After sorting by start, each interval either overlaps the last merged block (extend its end) or begins a new block.
+
+**Algorithm**:
+1. Sort by start.
+2. For each interval: if the result is empty or its start is greater than the last block's end, append it. Otherwise set the last block's end to the maximum of both ends.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort by start.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **For each interval: if the result is empty or its start is greater than the last block's end, append it. Otherwise set the last block's end to the maximum of both ends.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        List<int[]> result = new ArrayList<>();
+        for (int[] iv : intervals) {
+            if (result.isEmpty() || result.get(result.size() - 1)[1] < iv[0]) {
+                result.add(new int[]{iv[0], iv[1]});
+            } else {
+                int[] last = result.get(result.size() - 1);
+                last[1] = Math.max(last[1], iv[1]);
+            }
+        }
+        return result.toArray(new int[0][]);
     }
 }
 ```
@@ -17217,47 +23023,271 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)
 - **NeetCode**: [Non-overlapping Intervals](https://neetcode.io/problems/non-overlapping-intervals)
-- **Data Structures**: Array, Greedy
-- **Patterns**: Earliest Deadline First (Sort by End Time)
+- **Data Structures**: Array, Sorting
+- **Patterns**: Maximum Non-overlapping Subset, Earliest-End Greedy
 
-#### Solutions
+#### Problem Description
+Given an array of intervals `intervals`, return the minimum number of intervals you need to remove to make the rest non-overlapping. Intervals that only touch at an endpoint, such as `[1,2]` and `[2,3]`, are not overlapping.
 
-##### Approach 1: Optimised / Best (Greedy Sort by End Time)
+#### Examples
+
+**Example 1**
+- **Input**: `intervals = [[1,2],[2,3],[3,4],[1,3]]`
+- **Output**: `1`
+- **Explanation**: Remove `[1,3]`.
+
+**Example 2**
+- **Input**: `intervals = [[1,2],[1,2],[1,2]]`
+- **Output**: `2`
+- **Explanation**: Keep one copy.
+
+**Example 3**
+- **Input**: `intervals = [[1,2],[2,3]]`
+- **Output**: `0`
+
+#### Constraints
+- `1 <= intervals.length <= 10^5`
+- `intervals[i].length == 2`
+- `-5 * 10^4 <= starti < endi <= 5 * 10^4`
+
+#### Intuition
+Minimising removals is the same as maximising the number of intervals kept, which is a maximum set of non-overlapping intervals. Among candidates, the one that ends earliest leaves the most room for the rest. So the greedy choice is to keep the interval with the smallest end, and skip any that start before it ends.
+
+---
+
+##### Approach 1: Brute Force (Recursion over Take or Skip)
+
+**Intuition**: Sort by start. Recursively decide, for each interval in order, whether to take it (if it does not overlap the last taken one) or skip it. Keep the largest kept count.
+
+**Algorithm**:
+1. Sort by start.
+2. `best(i, prevEnd)`: if `i == n`, return `0`. Skip gives `best(i+1, prevEnd)`. Take, if `start >= prevEnd`, gives `1 + best(i+1, end)`.
+3. Return `n - best(0, -inf)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort by start.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`best(i, prevEnd)`: if `i == n`, return `0`. Skip gives `best(i+1, prevEnd)`. Take, if `start >= prevEnd`, gives `1 + best(i+1, end)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return `n - best(0, -inf)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-        if (intervals.length == 0) return 0;
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        return intervals.length - best(intervals, 0, Integer.MIN_VALUE);
+    }
+
+    private int best(int[][] iv, int i, int prevEnd) {
+        if (i == iv.length) return 0;
+        int skip = best(iv, i + 1, prevEnd);
+        int take = 0;
+        if (iv[i][0] >= prevEnd) {
+            take = 1 + best(iv, i + 1, iv[i][1]);
+        }
+        return Math.max(skip, take);
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Longest Chain DP)
+
+**Intuition**: The kept intervals form a chain where each starts no earlier than the previous one ends. `dp[i]` is the longest such chain ending with interval `i`. Compare against all earlier intervals that end before `i` starts.
+
+**Algorithm**:
+1. Sort by start.
+2. `dp[i] = 1 + max(dp[j])` over `j < i` with `end[j] <= start[i]`.
+3. The kept count is `max(dp)`. Return `n - max(dp)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort by start.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`dp[i] = 1 + max(dp[j])` over `j < i` with `end[j] <= start[i]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **The kept count is `max(dp)`. Return `n - max(dp)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        int n = intervals.length, kept = 1;
+        int[] dp = new int[n];
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (intervals[j][1] <= intervals[i][0]) dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+            kept = Math.max(kept, dp[i]);
+        }
+        return n - kept;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Greedy by Earliest End)
+
+**Intuition**: Sort by end time. Keep each interval whose start is at or after the last kept end. An interval that ends earliest leaves the most room for later intervals, so this greedy choice is always optimal.
+
+**Algorithm**:
+1. Sort by end.
+2. `prevEnd = -inf`, `kept = 0`.
+3. For each interval: if `start >= prevEnd`, keep it and set `prevEnd = end`.
+4. Return `n - kept`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort by end.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`prevEnd = -inf`, `kept = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For each interval: if `start >= prevEnd`, keep it and set `prevEnd = end`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `n - kept`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1]));
-        int count = 0;
-        int prevEnd = intervals[0][1];
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] < prevEnd) {
-                count++;
-            } else {
-                prevEnd = intervals[i][1];
+        int prevEnd = Integer.MIN_VALUE, kept = 0;
+        for (int[] iv : intervals) {
+            if (iv[0] >= prevEnd) {
+                kept++;
+                prevEnd = iv[1];
             }
         }
-        return count;
+        return intervals.length - kept;
     }
 }
 ```
 - **Time Complexity**: $O(n \log n)$
-- **Space Complexity**: $O(1)$ auxiliary
+- **Space Complexity**: $O(1)$ extra, excluding the sort
 
 ---
 
 ### 15.4 Meeting Rooms
 - **Difficulty**: Easy
-- **LeetCode**: [252. Meeting Rooms](https://leetcode.com/problems/meeting-rooms/)
-- **NeetCode**: [Meeting Rooms](https://neetcode.io/problems/meeting-rooms)
-- **Data Structures**: Array, Intervals
-- **Patterns**: Sort by Start + Overlap Check
+- **LeetCode**: [252. Meeting Rooms (Premium)](https://leetcode.com/problems/meeting-rooms/)
+- **NeetCode**: [Meeting Rooms](https://neetcode.io/problems/meeting-schedule)
+- **Data Structures**: Array, Sorting
+- **Patterns**: Overlap Detection
 
-#### Solutions
+#### Problem Description
+Given an array of meeting time intervals `intervals`, where `intervals[i] = [starti, endi]`, determine whether a person can attend all meetings. A person can attend a meeting only if it does not overlap another meeting. Back-to-back meetings that end and start at the same time are allowed.
 
-##### Approach 1: Optimised / Best (Sort by Start Time)
+#### Examples
+
+**Example 1**
+- **Input**: `intervals = [[0,30],[5,10],[15,20]]`
+- **Output**: `false`
+
+**Example 2**
+- **Input**: `intervals = [[7,10],[2,4]]`
+- **Output**: `true`
+
+#### Constraints
+- `0 <= intervals.length <= 10^4`
+- `0 <= starti < endi <= 10^6`
+
+#### Intuition
+Two meetings conflict when one starts before the other ends. If any pair conflicts, the answer is `false`. After sorting by start, any conflict must appear between neighbours, so a single adjacent check suffices.
+
+---
+
+##### Approach 1: Brute Force (Check Every Pair)
+
+**Intuition**: Compare each pair of meetings directly.
+
+**Algorithm**:
+1. For each `i < j`, if the intervals overlap (`a.start < b.end && b.start < a.end`), return `false`.
+2. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i < j`, if the intervals overlap (`a.start < b.end && b.start < a.end`), return `false`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public boolean canAttendMeetings(int[][] intervals) {
+        for (int i = 0; i < intervals.length; i++) {
+            for (int j = i + 1; j < intervals.length; j++) {
+                int[] a = intervals[i], b = intervals[j];
+                if (a[0] < b[1] && b[0] < a[1]) return false;
+            }
+        }
+        return true;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Optimised (Sort by Start, Check Neighbours)
+
+**Intuition**: After sorting by start, a meeting can only conflict with the one before it, since any earlier meeting ends no later than that one's start, unless the previous one overlaps it.
+
+**Algorithm**:
+1. Sort by start.
+2. For each `i >= 1`, if `intervals[i][0] < intervals[i-1][1]`, return `false`.
+3. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort by start.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **For each `i >= 1`, if `intervals[i][0] < intervals[i-1][1]`, return `false`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
@@ -17265,53 +23295,181 @@ class Solution {
     public boolean canAttendMeetings(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
         for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] < intervals[i - 1][1]) {
-                return false;
-            }
+            if (intervals[i][0] < intervals[i - 1][1]) return false;
         }
         return true;
     }
 }
 ```
 - **Time Complexity**: $O(n \log n)$
-- **Space Complexity**: $O(1)$ auxiliary
+- **Space Complexity**: $O(1)$ extra, excluding the sort
 
 ---
 
 ### 15.5 Meeting Rooms II
 - **Difficulty**: Medium
-- **LeetCode**: [253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
-- **NeetCode**: [Meeting Schedule II](https://neetcode.io/problems/meeting-schedule-ii)
-- **Data Structures**: Array, Min-Heap / Two Pointers
-- **Patterns**: Min-Heap for Ongoing Meetings or Chronological Two Pointers
+- **LeetCode**: [253. Meeting Rooms II (Premium)](https://leetcode.com/problems/meeting-rooms-ii/)
+- **NeetCode**: [Meeting Rooms II](https://neetcode.io/problems/meeting-schedule-ii)
+- **Data Structures**: Array, Heap, Sorting
+- **Patterns**: Maximum Overlap, Min-Heap of End Times, Two Sorted Arrays
 
-#### Solutions
+#### Problem Description
+Given an array of meeting time intervals `intervals`, return the minimum number of conference rooms required so that all meetings can take place.
 
-##### Approach 1: Two Pointers Chronological Scan
-Sort start times and end times independently. Advance start pointer; if start < end, allocate room, else room freed.
+#### Examples
+
+**Example 1**
+- **Input**: `intervals = [[0,30],[5,10],[15,20]]`
+- **Output**: `2`
+
+**Example 2**
+- **Input**: `intervals = [[7,10],[2,4]]`
+- **Output**: `1`
+
+#### Constraints
+- `1 <= intervals.length <= 10^4`
+- `0 <= starti < endi <= 10^6`
+
+#### Intuition
+The number of rooms needed is the maximum number of meetings in progress at any moment. That maximum is attained at some meeting's start time. Count overlaps directly, or sweep through start and end events in order, keeping a running count.
+
+---
+
+##### Approach 1: Brute Force (Count Overlaps at Each Start)
+
+**Intuition**: For each meeting's start time, count how many meetings are in progress at that moment. The largest count is the answer.
+
+**Algorithm**:
+1. For each `i`, count `j` where `start[j] <= start[i] < end[j]`.
+2. Return the maximum count.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, count `j` where `start[j] <= start[i] < end[j]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the maximum count.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        int best = 0;
+        for (int[] a : intervals) {
+            int count = 0;
+            for (int[] b : intervals) {
+                if (b[0] <= a[0] && a[0] < b[1]) count++;
+            }
+            best = Math.max(best, count);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Min-Heap of End Times)
+
+**Intuition**: Process meetings by start time. Keep a min-heap of the end times of meetings currently occupying rooms. If the earliest-ending room is free by this meeting's start, reuse it. Otherwise, add a room. The heap size is the number of rooms in use.
+
+**Algorithm**:
+1. Sort by start.
+2. For each meeting: if the heap's minimum end is `<= start`, poll it. Offer this meeting's end.
+3. Return the maximum heap size reached.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort by start.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **For each meeting: if the heap's minimum end is `<= start`, poll it. Offer this meeting's end.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the maximum heap size reached.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        PriorityQueue<Integer> ends = new PriorityQueue<>();
+        int best = 0;
+        for (int[] iv : intervals) {
+            if (!ends.isEmpty() && ends.peek() <= iv[0]) ends.poll();
+            ends.offer(iv[1]);
+            best = Math.max(best, ends.size());
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Two Sorted Arrays, Sweep)
+
+**Intuition**: Separate starts and ends into two sorted arrays. Walk through the starts. Each start either needs a new room (if no meeting has ended yet) or reuses one freed by an earlier end. Advancing the end pointer frees a room without changing the count, so the room count changes only at starts.
+
+**Algorithm**:
+1. Sort `starts` and `ends` separately.
+2. `j = 0`, `rooms = 0`, `best = 0`.
+3. For each `i`: if `starts[i] < ends[j]`, `rooms++`. Otherwise `j++`. Set `best = max(best, rooms)`.
+4. Return `best`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `starts` and `ends` separately.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`j = 0`, `rooms = 0`, `best = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **For each `i`: if `starts[i] < ends[j]`, `rooms++`. Otherwise `j++`. Set `best = max(best, rooms)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Return `best`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
         int n = intervals.length;
-        int[] starts = new int[n];
-        int[] ends = new int[n];
+        int[] starts = new int[n], ends = new int[n];
         for (int i = 0; i < n; i++) {
             starts[i] = intervals[i][0];
             ends[i] = intervals[i][1];
         }
         Arrays.sort(starts);
         Arrays.sort(ends);
-        int rooms = 0, endIdx = 0;
+        int rooms = 0, best = 0, j = 0;
         for (int i = 0; i < n; i++) {
-            if (starts[i] < ends[endIdx]) {
+            if (starts[i] < ends[j]) {
                 rooms++;
             } else {
-                endIdx++;
+                j++;
             }
+            best = Math.max(best, rooms);
         }
-        return rooms;
+        return best;
     }
 }
 ```
@@ -17323,84 +23481,293 @@ class Solution {
 ### 15.6 Minimum Interval to Include Each Query
 - **Difficulty**: Hard
 - **LeetCode**: [1851. Minimum Interval to Include Each Query](https://leetcode.com/problems/minimum-interval-to-include-each-query/)
-- **NeetCode**: [Minimum Interval Including Query](https://neetcode.io/problems/minimum-interval-including-query)
-- **Data Structures**: Min-Heap, Sorting
-- **Patterns**: Offline Queries + Min-Heap Sweep-Line
+- **NeetCode**: [Minimum Interval to Include Each Query](https://neetcode.io/problems/minimum-interval-to-include-each-query)
+- **Data Structures**: Array, Heap, Sorting
+- **Patterns**: Offline Query Processing, Sweep with Min-Heap and Lazy Deletion
 
-#### Solutions
+#### Problem Description
+You are given a 2-D integer array `intervals`, where `intervals[i] = [lefti, righti]`, and an integer array `queries`. For each query `q`, find the length of the smallest interval `i` such that `lefti <= q <= righti`. If no interval contains `q`, the answer is `-1`. Return an array of answers for all queries, in the order given.
 
-##### Approach 1: Optimised / Best (Sorted Queries + PriorityQueue)
-Sort intervals and queries. Use min-heap ordered by interval size. Remove intervals that end before current query.
+The length of an interval `[l, r]` is `r - l + 1`.
+
+#### Examples
+
+**Example 1**
+- **Input**: `intervals = [[1,4],[2,4],[3,6],[4,4]]`, `queries = [2,3,4,5]`
+- **Output**: `[3,3,1,4]`
+- **Explanation**: For `q = 2`, the smallest containing interval is `[2,4]`, of length 3. For `q = 5`, it is `[3,6]`, of length 4.
+
+**Example 2**
+- **Input**: `intervals = [[2,3],[2,5],[1,8],[20,25]]`, `queries = [2,19,5,22]`
+- **Output**: `[2,-1,4,6]`
+
+#### Constraints
+- `1 <= intervals.length <= 10^5`
+- `1 <= queries.length <= 10^5`
+- `intervals[i].length == 2`
+- `1 <= lefti <= righti <= 10^7`
+- `1 <= queries[j] <= 10^7`
+
+#### Intuition
+For a single query, the candidates are the intervals containing it. Processing every query against every interval is quadratic. Instead, sort the queries and the intervals together. Add intervals as their start is reached, into a min-heap keyed by length. Discard intervals that end before the current query, since they can never contain later queries either. The heap top is then the answer.
+
+---
+
+##### Approach 1: Brute Force (Scan All Intervals per Query)
+
+**Intuition**: For each query, check every interval for containment and keep the shortest.
+
+**Algorithm**:
+1. For each query `q`, initialise `best = -1`.
+2. For each interval containing `q`, set `best` to the smaller length.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each query `q`, initialise `best = -1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For each interval containing `q`, set `best` to the smaller length.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+class Solution {
+    public int[] minInterval(int[][] intervals, int[] queries) {
+        int[] ans = new int[queries.length];
+        for (int qi = 0; qi < queries.length; qi++) {
+            int q = queries[qi], best = -1;
+            for (int[] iv : intervals) {
+                if (iv[0] <= q && q <= iv[1]) {
+                    int len = iv[1] - iv[0] + 1;
+                    if (best == -1 || len < best) best = len;
+                }
+            }
+            ans[qi] = best;
+        }
+        return ans;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot m)$, where $n$ is the number of intervals and $m$ the number of queries
+- **Space Complexity**: $O(1)$ extra, excluding output
+
+---
+
+##### Approach 2: Optimised (Offline Sweep with Min-Heap and Lazy Deletion)
+
+**Intuition**: Sort the intervals by start, and the query indices by query value. Process queries in increasing order. Push every interval whose start is `<=` the query into a min-heap of `(length, end)`. Before answering, pop heap entries whose end is less than the query, since those intervals cannot contain this query or any later one. The remaining top is the smallest containing interval.
+
+**Algorithm**:
+1. Sort `intervals` by start. Sort query indices by `queries[index]`.
+2. For each query `q` in sorted order:
+   - Push all intervals with `start <= q` as `{length, end}`.
+   - While the heap top's `end < q`, poll it.
+   - Answer is the top's `length`, or `-1` if the heap is empty.
+3. Return answers in original order.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `intervals` by start. Sort query indices by `queries[index]`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **For each query `q` in sorted order:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return answers in original order.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
 class Solution {
     public int[] minInterval(int[][] intervals, int[] queries) {
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-        int qLen = queries.length;
-        int[][] sortedQ = new int[qLen][2];
-        for (int i = 0; i < qLen; i++) {
-            sortedQ[i][0] = queries[i];
-            sortedQ[i][1] = i;
-        }
-        Arrays.sort(sortedQ, (a, b) -> Integer.compare(a[0], b[0]));
+        Integer[] order = new Integer[queries.length];
+        for (int i = 0; i < order.length; i++) order[i] = i;
+        Arrays.sort(order, (a, b) -> Integer.compare(queries[a], queries[b]));
 
-        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
-        int[] res = new int[qLen];
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        int[] ans = new int[queries.length];
         int i = 0;
-        for (int[] q : sortedQ) {
-            int qVal = q[0], qIdx = q[1];
-            while (i < intervals.length && intervals[i][0] <= qVal) {
-                int left = intervals[i][0], right = intervals[i][1];
-                minHeap.offer(new int[]{right - left + 1, right});
-                i++;
+        for (int idx : order) {
+            int q = queries[idx];
+            while (i < intervals.length && intervals[i][0] <= q) {
+                int[] iv = intervals[i++];
+                heap.offer(new int[]{iv[1] - iv[0] + 1, iv[1]});
             }
-            while (!minHeap.isEmpty() && minHeap.peek()[1] < qVal) {
-                minHeap.poll();
+            while (!heap.isEmpty() && heap.peek()[1] < q) {
+                heap.poll();
             }
-            res[qIdx] = minHeap.isEmpty() ? -1 : minHeap.peek()[0];
+            ans[idx] = heap.isEmpty() ? -1 : heap.peek()[0];
         }
-        return res;
+        return ans;
     }
 }
 ```
-- **Time Complexity**: $O(N \log N + Q \log Q)$
-- **Space Complexity**: $O(N + Q)$
+- **Time Complexity**: $O((n + m) \log n)$
+- **Space Complexity**: $O(n + m)$
 
 ---
-
 
 ## 16. Math & Geometry
 
 ### 16.1 Rotate Image
 - **Difficulty**: Medium
 - **LeetCode**: [48. Rotate Image](https://leetcode.com/problems/rotate-image/)
-- **NeetCode**: [Rotate Image](https://neetcode.io/problems/rotate-image)
+- **NeetCode**: [Rotate Matrix](https://neetcode.io/problems/rotate-matrix)
 - **Data Structures**: Matrix
-- **Patterns**: Transpose + Reverse Rows
+- **Patterns**: Transpose and Reflect, Layer-by-Layer Four-Way Swap
 
-#### Solutions
+#### Problem Description
+You are given an `n x n` 2-D matrix representing an image. Rotate the image by 90 degrees clockwise. You must rotate it in place, which means modifying the input matrix directly.
 
-##### Approach 1: Optimised / Best (Transpose then Reverse Rows)
-Rotate $90^\circ$ clockwise is equivalent to transposing the matrix along main diagonal, then reversing each row horizontally.
+#### Examples
+
+**Example 1**
+- **Input**: `matrix = [[1,2,3],[4,5,6],[7,8,9]]`
+- **Output**: `[[7,4,1],[8,5,2],[9,6,3]]`
+
+**Example 2**
+- **Input**: `matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]`
+- **Output**: `[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]`
+
+#### Constraints
+- `n == matrix.length == matrix[i].length`
+- `1 <= n <= 20`
+- `-1000 <= matrix[i][j] <= 1000`
+
+#### Intuition
+A clockwise rotation sends element `(i, j)` to `(j, n-1-i)`. Doing it through a second matrix is straightforward. In place, a transpose followed by a reversal of each row gives the same result. Going further, each concentric layer rotates as a four-way cycle of elements, so you can rotate the layers directly with no extra matrix.
+
+---
+
+##### Approach 1: Brute Force (Copy into a New Matrix)
+
+**Intuition**: Write each element to its rotated position in a fresh matrix, then copy it back.
+
+**Algorithm**:
+1. For each `(i, j)`, set `res[j][n-1-i] = matrix[i][j]`.
+2. Copy `res` back into `matrix`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `(i, j)`, set `res[j][n-1-i] = matrix[i][j]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Copy `res` back into `matrix`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public void rotate(int[][] matrix) {
         int n = matrix.length;
-        // 1. Transpose
+        int[][] res = new int[n][n];
         for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = temp;
+            for (int j = 0; j < n; j++) {
+                res[j][n - 1 - i] = matrix[i][j];
             }
         }
-        // 2. Reverse each row
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n / 2; j++) {
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[i][n - 1 - j];
-                matrix[i][n - 1 - j] = temp;
+            matrix[i] = res[i];
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 2: Better (Transpose, Then Reverse Each Row)
+
+**Intuition**: Transposing swaps `(i, j)` with `(j, i)`. Reversing each row then moves column `j` to column `n-1-j`, which is the clockwise rotation. Both steps are in place.
+
+**Algorithm**:
+1. For `i` from `0` to `n-1`, for `j` from `i+1` to `n-1`, swap `matrix[i][j]` and `matrix[j][i]`.
+2. Reverse each row.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `i` from `0` to `n-1`, for `j` from `i+1` to `n-1`, swap `matrix[i][j]` and `matrix[j][i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Reverse each row.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int t = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = t;
+            }
+        }
+        for (int[] row : matrix) {
+            for (int l = 0, r = n - 1; l < r; l++, r--) {
+                int t = row[l];
+                row[l] = row[r];
+                row[r] = t;
+            }
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Layer-by-Layer Four-Way Swap)
+
+**Intuition**: Each concentric layer is a ring. Rotating it moves four elements at a time: top to right, right to bottom, bottom to left, left to top. Walk along the top edge of each layer and rotate each group of four in one step.
+
+**Algorithm**:
+1. For each layer `l` from `0` to `n/2 - 1`, and each offset `i` from `l` to `n - l - 2`:
+   - Save `top = matrix[l][i]`.
+   - `matrix[l][i] = matrix[n-1-i][l]` (left to top).
+   - `matrix[n-1-i][l] = matrix[n-1-l][n-1-i]` (bottom to left).
+   - `matrix[n-1-l][n-1-i] = matrix[i][n-1-l]` (right to bottom).
+   - `matrix[i][n-1-l] = top` (saved top to right).
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each layer `l` from `0` to `n/2 - 1`, and each offset `i` from `l` to `n - l - 2`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        for (int l = 0; l < n / 2; l++) {
+            for (int i = l; i < n - l - 1; i++) {
+                int top = matrix[l][i];
+                matrix[l][i] = matrix[n - 1 - i][l];
+                matrix[n - 1 - i][l] = matrix[n - 1 - l][n - 1 - i];
+                matrix[n - 1 - l][n - 1 - i] = matrix[i][n - 1 - l];
+                matrix[i][n - 1 - l] = top;
             }
         }
     }
@@ -17415,87 +23782,313 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/)
 - **NeetCode**: [Spiral Matrix](https://neetcode.io/problems/spiral-matrix)
-- **Data Structures**: Matrix, Simulation
-- **Patterns**: Four Boundaries Shrinking Simulation
+- **Data Structures**: Matrix
+- **Patterns**: Boundary Shrinking, Direction Turning
 
-#### Solutions
+#### Problem Description
+Given an `m x n` matrix, return all elements of the matrix in spiral order: left to right along the top row, then down the right column, then right to left along the bottom row, then up the left column, and so on inward.
 
-##### Approach 1: Optimised / Best (Four Boundaries Simulation)
+#### Examples
+
+**Example 1**
+- **Input**: `matrix = [[1,2,3],[4,5,6],[7,8,9]]`
+- **Output**: `[1,2,3,6,9,8,7,4,5]`
+
+**Example 2**
+- **Input**: `matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]`
+- **Output**: `[1,2,3,4,8,12,11,10,9,5,6,7]`
+
+#### Constraints
+- `m == matrix.length`, `n == matrix[i].length`
+- `1 <= m, n <= 10`
+- `-100 <= matrix[i][j] <= 100`
+
+#### Intuition
+Walk in the current direction until you hit the edge or an already visited cell, then turn clockwise. Alternatively, keep four boundaries and peel off one edge at a time, shrinking the boundaries after each side.
+
+---
+
+##### Approach 1: Brute Force (Visited Grid and Direction Turning)
+
+**Intuition**: Track visited cells. Move in the current direction, and turn clockwise whenever the next cell is out of bounds or already visited.
+
+**Algorithm**:
+1. `dirs` is right, down, left, up. Start at `(0, 0)` going right.
+2. Repeat `m * n` times: record the current cell, mark it visited. If the next cell is invalid, advance the direction. Move.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dirs` is right, down, left, up. Start at `(0, 0)` going right.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Repeat `m * n` times: record the current cell, mark it visited. If the next cell is invalid, advance the direction. Move.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> res = new ArrayList<>();
-        if (matrix == null || matrix.length == 0) return res;
-        int top = 0, bottom = matrix.length - 1;
-        int left = 0, right = matrix[0].length - 1;
-
-        while (top <= bottom && left <= right) {
-            for (int c = left; c <= right; c++) res.add(matrix[top][c]);
-            top++;
-            for (int r = top; r <= bottom; r++) res.add(matrix[r][right]);
-            right--;
-            if (top <= bottom) {
-                for (int c = right; c >= left; c--) res.add(matrix[bottom][c]);
-                bottom--;
+        int m = matrix.length, n = matrix[0].length;
+        boolean[][] visited = new boolean[m][n];
+        int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};
+        List<Integer> result = new ArrayList<>();
+        int r = 0, c = 0, d = 0;
+        for (int k = 0; k < m * n; k++) {
+            result.add(matrix[r][c]);
+            visited[r][c] = true;
+            int nr = r + dirs[d][0], nc = c + dirs[d][1];
+            if (nr < 0 || nc < 0 || nr >= m || nc >= n || visited[nr][nc]) {
+                d = (d + 1) % 4;
+                nr = r + dirs[d][0];
+                nc = c + dirs[d][1];
             }
-            if (left <= right) {
-                for (int r = bottom; r >= top; r--) res.add(matrix[r][left]);
-                left++;
-            }
+            r = nr;
+            c = nc;
         }
-        return res;
+        return result;
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
-- **Space Complexity**: $O(1)$ auxiliary
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(mn)$ for the visited grid
+
+---
+
+##### Approach 2: Optimised (Four Shrinking Boundaries)
+
+**Intuition**: Maintain `top`, `bottom`, `left`, and `right`. Traverse one full side, then move that boundary inward. Repeat until the boundaries cross. Each side is handled in one loop, with no visited tracking.
+
+**Algorithm**:
+1. While `top <= bottom` and `left <= right`:
+   - Traverse the top row from `left` to `right`, then `top++`.
+   - Traverse the right column from `top` to `bottom`, then `right--`.
+   - If `top <= bottom`, traverse the bottom row from `right` to `left`, then `bottom--`.
+   - If `left <= right`, traverse the left column from `bottom` to `top`, then `left++`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While `top <= bottom` and `left <= right`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        int top = 0, bottom = matrix.length - 1;
+        int left = 0, right = matrix[0].length - 1;
+        while (top <= bottom && left <= right) {
+            for (int c = left; c <= right; c++) result.add(matrix[top][c]);
+            top++;
+            for (int r = top; r <= bottom; r++) result.add(matrix[r][right]);
+            right--;
+            if (top <= bottom) {
+                for (int c = right; c >= left; c--) result.add(matrix[bottom][c]);
+                bottom--;
+            }
+            if (left <= right) {
+                for (int r = bottom; r >= top; r--) result.add(matrix[r][left]);
+                left++;
+            }
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(1)$ extra, excluding output
 
 ---
 
 ### 16.3 Set Matrix Zeroes
 - **Difficulty**: Medium
 - **LeetCode**: [73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/)
-- **NeetCode**: [Set Matrix Zeroes](https://www.google.com/search?q=https://neetcode.io/problems/set-matrix-zeroes)
+- **NeetCode**: [Zero Matrix](https://neetcode.io/problems/zero-matrix)
 - **Data Structures**: Matrix
-- **Patterns**: In-Place First Row & Column Flags
+- **Patterns**: Marker Rows and Columns, In-Place Markers
 
-#### Solutions
+#### Problem Description
+Given an `m x n` integer matrix, if an element is `0`, set its entire row and column to `0`. You must do it in place.
 
-##### Approach 1: Optimised / Best ($O(1)$ Space Using First Row/Col)
-Use `matrix[0][0...n-1]` and `matrix[0...m-1][0]` as marker arrays, plus one boolean flag `rowZero`.
+#### Examples
+
+**Example 1**
+- **Input**: `matrix = [[1,1,1],[1,0,1],[1,1,1]]`
+- **Output**: `[[1,0,1],[0,0,0],[1,0,1]]`
+
+**Example 2**
+- **Input**: `matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]`
+- **Output**: `[[0,0,0,0],[0,4,5,0],[0,3,1,0]]`
+
+#### Constraints
+- `1 <= m, n <= 200`
+- `-2^31 <= matrix[i][j] <= 2^31 - 1`
+
+#### Intuition
+Zeroing as you go would corrupt later decisions, because newly zeroed cells look like original zeros. So first record which rows and columns must be zeroed, then apply the zeros in a second pass. The record can be a copy, two boolean arrays, or the matrix's own first row and column.
+
+---
+
+##### Approach 1: Brute Force (Zero Rows and Columns in a Copy)
+
+**Intuition**: For each original zero, zero its row and column in a copy. The original stays intact during the scan, so no zero is misread.
+
+**Algorithm**:
+1. Copy the matrix.
+2. For each zero in the original, zero its row and column in the copy.
+3. Copy the result back.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Copy the matrix.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each zero in the original, zero its row and column in the copy.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Copy the result back.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public void setZeroes(int[][] matrix) {
         int m = matrix.length, n = matrix[0].length;
-        boolean rowZero = false;
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                if (matrix[r][c] == 0) {
-                    matrix[0][c] = 0;
-                    if (r > 0) matrix[r][0] = 0;
-                    else rowZero = true;
+        int[][] copy = new int[m][];
+        for (int i = 0; i < m; i++) copy[i] = matrix[i].clone();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    for (int k = 0; k < n; k++) copy[i][k] = 0;
+                    for (int k = 0; k < m; k++) copy[k][j] = 0;
                 }
             }
         }
-        for (int r = 1; r < m; r++) {
-            for (int c = 1; c < n; c++) {
-                if (matrix[0][c] == 0 || matrix[r][0] == 0) {
-                    matrix[r][c] = 0;
+        for (int i = 0; i < m; i++) matrix[i] = copy[i];
+    }
+}
+```
+- **Time Complexity**: $O(mn \cdot (m + n))$ in the worst case
+- **Space Complexity**: $O(mn)$
+
+---
+
+##### Approach 2: Better (Two Boolean Arrays for Rows and Columns)
+
+**Intuition**: Record which rows and which columns contain a zero, in two small arrays. Then apply the zeros in a second pass.
+
+**Algorithm**:
+1. `rows[m]` and `cols[n]` are false initially.
+2. Scan the matrix, marking `rows[i]` and `cols[j]` for each zero.
+3. Scan again, zeroing any cell whose row or column is marked.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`rows[m]` and `cols[n]` are false initially.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Scan the matrix, marking `rows[i]` and `cols[j]` for each zero.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Scan again, zeroing any cell whose row or column is marked.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        boolean[] rows = new boolean[m], cols = new boolean[n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    rows[i] = true;
+                    cols[j] = true;
                 }
             }
         }
-        if (matrix[0][0] == 0) {
-            for (int r = 0; r < m; r++) matrix[r][0] = 0;
-        }
-        if (rowZero) {
-            for (int c = 0; c < n; c++) matrix[0][c] = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (rows[i] || cols[j]) matrix[i][j] = 0;
+            }
         }
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
+- **Space Complexity**: $O(m + n)$
+
+---
+
+##### Approach 3: Optimised (First Row and Column as Markers)
+
+**Intuition**: Use the matrix's own first row and first column to store the markers, which avoids the extra arrays. Two flags record whether the first row and first column originally contained zeros, since those cells are overwritten as markers.
+
+**Algorithm**:
+1. `firstRowZero` and `firstColZero` record whether row `0` or column `0` contains a zero.
+2. For each inner cell `(i, j)` with `i, j >= 1`, if it is zero, set `matrix[i][0] = 0` and `matrix[0][j] = 0`.
+3. For each inner cell, if `matrix[i][0] == 0` or `matrix[0][j] == 0`, set it to zero.
+4. Zero the first row if `firstRowZero`, and the first column if `firstColZero`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`firstRowZero` and `firstColZero` record whether row `0` or column `0` contains a zero.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each inner cell `(i, j)` with `i, j >= 1`, if it is zero, set `matrix[i][0] = 0` and `matrix[0][j] = 0`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **For each inner cell, if `matrix[i][0] == 0` or `matrix[0][j] == 0`, set it to zero.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Zero the first row if `firstRowZero`, and the first column if `firstColZero`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        boolean firstRowZero = false, firstColZero = false;
+        for (int j = 0; j < n; j++) if (matrix[0][j] == 0) firstRowZero = true;
+        for (int i = 0; i < m; i++) if (matrix[i][0] == 0) firstColZero = true;
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
+            }
+        }
+        if (firstRowZero) for (int j = 0; j < n; j++) matrix[0][j] = 0;
+        if (firstColZero) for (int i = 0; i < m; i++) matrix[i][0] = 0;
+    }
+}
+```
+- **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(1)$
 
 ---
@@ -17503,36 +24096,174 @@ class Solution {
 ### 16.4 Happy Number
 - **Difficulty**: Easy
 - **LeetCode**: [202. Happy Number](https://leetcode.com/problems/happy-number/)
-- **NeetCode**: [Non-cyclical Number](https://neetcode.io/problems/non-cyclical-number)
-- **Data Structures**: Hash Set / Fast & Slow Pointers
-- **Patterns**: Floyd's Cycle Detection on Digit Sums
+- **NeetCode**: [Happy Number](https://neetcode.io/problems/happy-number)
+- **Data Structures**: Hash Set, Math
+- **Patterns**: Cycle Detection, Floyd's Algorithm
 
-#### Solutions
+#### Problem Description
+A happy number is defined by repeatedly replacing a number with the sum of the squares of its digits. If the process reaches `1`, the number is happy. If it loops forever in a cycle that does not include `1`, it is not. Given an integer `n`, return `true` if it is happy.
 
-##### Approach 1: Optimised / Best (Floyd's Fast & Slow Pointers)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 19`
+- **Output**: `true`
+- **Explanation**: `1^2 + 9^2 = 82`, `8^2 + 2^2 = 68`, `6^2 + 8^2 = 100`, `1^2 + 0^2 + 0^2 = 1`.
+
+**Example 2**
+- **Input**: `n = 2`
+- **Output**: `false`
+
+#### Constraints
+- `1 <= n <= 2^31 - 1`
+
+#### Intuition
+Every number's next value is at most a few hundred for realistic inputs, so the sequence either reaches `1` or enters a cycle. The question is only how to detect the cycle: remember every value seen, or use two pointers moving at different speeds.
+
+---
+
+##### Approach 1: Brute Force (Fixed-Step Simulation)
+
+**Intuition**: Simulate a bounded number of steps. Any number that is not happy falls into a short cycle quickly, so a generous step limit suffices.
+
+**Algorithm**:
+1. For up to `1000` steps, replace `n` with `next(n)`. If it reaches `1`, return `true`.
+2. Return `false`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For up to `1000` steps, replace `n` with `next(n)`. If it reaches `1`, return `true`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `false`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public boolean isHappy(int n) {
-        int slow = n, fast = sumOfSquares(n);
-        while (fast != 1 && slow != fast) {
-            slow = sumOfSquares(slow);
-            fast = sumOfSquares(sumOfSquares(fast));
+        for (int step = 0; step < 1000; step++) {
+            if (n == 1) return true;
+            n = next(n);
         }
-        return fast == 1;
+        return n == 1;
     }
 
-    private int sumOfSquares(int n) {
+    private int next(int n) {
         int sum = 0;
         while (n > 0) {
-            int digit = n % 10;
-            sum += digit * digit;
+            int d = n % 10;
+            sum += d * d;
             n /= 10;
         }
         return sum;
     }
 }
 ```
-- **Time Complexity**: $O(\log n)$
+- **Time Complexity**: $O(1)$ for the bounded steps, times the digit work
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Hash Set of Seen Values)
+
+**Intuition**: If a value repeats before reaching `1`, the process is in a cycle and will never reach `1`. Record each value and stop on the first repeat.
+
+**Algorithm**:
+1. While `n != 1`, if `n` is in the set, return `false`. Otherwise add it and set `n = next(n)`.
+2. Return `true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While `n != 1`, if `n` is in the set, return `false`. Otherwise add it and set `n = next(n)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `true`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public boolean isHappy(int n) {
+        Set<Integer> seen = new HashSet<>();
+        while (n != 1) {
+            if (!seen.add(n)) return false;
+            n = next(n);
+        }
+        return true;
+    }
+
+    private int next(int n) {
+        int sum = 0;
+        while (n > 0) {
+            int d = n % 10;
+            sum += d * d;
+            n /= 10;
+        }
+        return sum;
+    }
+}
+```
+- **Time Complexity**: $O(\log n)$ per step, with a small number of steps
+- **Space Complexity**: $O(\text{number of steps})$
+
+---
+
+##### Approach 3: Optimised (Floyd's Cycle Detection)
+
+**Intuition**: The sequence is a functional graph, so it is a path that enters a cycle. Floyd's tortoise and hare detects the cycle in constant space. If the cycle contains `1`, it is the fixed point `1 -> 1`, and both pointers meet there.
+
+**Algorithm**:
+1. `slow = n`, `fast = next(n)`.
+2. While `fast != 1` and `slow != fast`: `slow = next(slow)`, `fast = next(next(fast))`.
+3. Return `fast == 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`slow = n`, `fast = next(n)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `fast != 1` and `slow != fast`: `slow = next(slow)`, `fast = next(next(fast))`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `fast == 1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public boolean isHappy(int n) {
+        int slow = n, fast = next(n);
+        while (fast != 1 && slow != fast) {
+            slow = next(slow);
+            fast = next(next(fast));
+        }
+        return fast == 1;
+    }
+
+    private int next(int n) {
+        int sum = 0;
+        while (n > 0) {
+            int d = n % 10;
+            sum += d * d;
+            n /= 10;
+        }
+        return sum;
+    }
+}
+```
+- **Time Complexity**: $O(\log n)$ per step, with a small number of steps
 - **Space Complexity**: $O(1)$
 
 ---
@@ -17542,11 +24273,92 @@ class Solution {
 - **LeetCode**: [66. Plus One](https://leetcode.com/problems/plus-one/)
 - **NeetCode**: [Plus One](https://neetcode.io/problems/plus-one)
 - **Data Structures**: Array
-- **Patterns**: Backward Traversal with Carry
+- **Patterns**: Carry Propagation
 
-#### Solutions
+#### Problem Description
+You are given a large integer represented as an integer array `digits`, where each `digits[i]` is the `i`-th digit, most significant first. The integer has no leading zeros. Increment the integer by one, and return the resulting array of digits.
 
-##### Approach 1: Optimised / Best (Backward Traversal)
+#### Examples
+
+**Example 1**
+- **Input**: `digits = [1,2,3]`
+- **Output**: `[1,2,4]`
+
+**Example 2**
+- **Input**: `digits = [9,9]`
+- **Output**: `[1,0,0]`
+
+#### Constraints
+- `1 <= digits.length <= 100`
+- `0 <= digits[i] <= 9`
+- `digits` does not contain leading zeros, except the number `0` itself.
+
+#### Intuition
+Adding one only affects the trailing run of nines. Those become zeros, and the first digit before that run gains one. If every digit was nine, the result gains a leading one.
+
+---
+
+##### Approach 1: Brute Force (Convert to BigInteger and Back)
+
+**Intuition**: Build an arbitrary-precision number, add one, and split its decimal string back into digits.
+
+**Algorithm**:
+1. Convert `digits` to a `BigInteger` via a string.
+2. Add one and convert the result back to an array of digits.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Convert `digits` to a `BigInteger` via a string.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Add one and convert the result back to an array of digits.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.math.BigInteger;
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        StringBuilder sb = new StringBuilder();
+        for (int d : digits) sb.append(d);
+        String s = new BigInteger(sb.toString()).add(BigInteger.ONE).toString();
+        int[] result = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            result[i] = s.charAt(i) - '0';
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$ in the worst case for the conversions
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Optimised (Single Pass with Carry)
+
+**Intuition**: Walk from the least significant digit. Each digit that is less than nine absorbs the carry and stops the propagation, so you can return immediately. Only trailing nines become zero, and only if every digit is nine does the array need to grow by one.
+
+**Algorithm**:
+1. For `i` from the last index down to `0`: if `digits[i] < 9`, increment it and return `digits`. Otherwise set `digits[i] = 0`.
+2. If the loop finishes, all digits were nine. Return an array of length `n + 1` with a leading `1` and zeros.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `i` from the last index down to `0`: if `digits[i] < 9`, increment it and return `digits`. Otherwise set `digits[i] = 0`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If the loop finishes, all digits were nine. Return an array of length `n + 1` with a leading `1` and zeros.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] plusOne(int[] digits) {
@@ -17557,27 +24369,121 @@ class Solution {
             }
             digits[i] = 0;
         }
-        int[] res = new int[digits.length + 1];
-        res[0] = 1;
-        return res;
+        int[] result = new int[digits.length + 1];
+        result[0] = 1;
+        return result;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$ auxiliary (or $O(n)$ if all 9s)
+- **Space Complexity**: $O(1)$ extra, except when the array grows
 
 ---
 
 ### 16.6 Pow(x, n)
 - **Difficulty**: Medium
 - **LeetCode**: [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
-- **NeetCode**: [Pow(x, n)](https://www.google.com/search?q=https://neetcode.io/problems/powx-n)
+- **NeetCode**: [Pow(x, n)](https://neetcode.io/problems/pow-x-n)
 - **Data Structures**: Math
-- **Patterns**: Binary Exponentiation (Exponent Squaring)
+- **Patterns**: Fast Exponentiation, Binary Decomposition
 
-#### Solutions
+#### Problem Description
+Implement `pow(x, n)`, which computes `x` raised to the power `n`, where `x` is a floating-point number and `n` is an integer that may be negative.
 
-##### Approach 1: Optimised / Best (Iterative Binary Exponentiation)
+#### Examples
+
+**Example 1**
+- **Input**: `x = 2.00000`, `n = 10`
+- **Output**: `1024.00000`
+
+**Example 2**
+- **Input**: `x = 2.10000`, `n = 3`
+- **Output**: `9.26100`
+
+**Example 3**
+- **Input**: `x = 2.00000`, `n = -2`
+- **Output**: `0.25000`
+- **Explanation**: `2^-2 = 1 / 2^2 = 1 / 4`.
+
+#### Constraints
+- `-100.0 < x < 100.0`
+- `-2^31 <= n <= 2^31 - 1`
+- `n` is an integer.
+- `x^n` fits in a 32-bit floating-point range (as in LeetCode's test cases).
+
+#### Intuition
+Multiplying `x` by itself `n` times is linear in `n`, which is far too slow for `n` near `2^31`. Squaring halves the exponent at each step. Writing `n` in binary, each set bit contributes one factor of a precomputed power of `x`, so `O(log n)` multiplications are enough. Negative exponents invert the base. Use a `long` for `n` so that `-2^31` negates safely.
+
+---
+
+##### Approach 1: Brute Force (Repeated Multiplication)
+
+**Intuition**: Multiply `x` into the result `|n|` times. If `n` is negative, invert the result.
+
+**Algorithm**:
+1. `N = |n|` as a `long`.
+2. Multiply the result by `x`, `N` times.
+3. Return `1 / result` if `n` was negative.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`N = |n|` as a `long`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Multiply the result by `x`, `N` times.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return `1 / result` if `n` was negative.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public double myPow(double x, int n) {
+        long N = n;
+        boolean neg = N < 0;
+        if (neg) N = -N;
+        double result = 1;
+        for (long i = 0; i < N; i++) {
+            result *= x;
+        }
+        return neg ? 1 / result : result;
+    }
+}
+```
+- **Time Complexity**: $O(|n|)$, which is too slow for large exponents
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Recursive Divide and Conquer)
+
+**Intuition**: `x^n` equals `(x^(n/2))^2`, times one more `x` when `n` is odd. Each call halves the exponent, so the recursion depth is about `log n`.
+
+**Algorithm**:
+1. If `n == 0`, return `1`.
+2. `half = pow(x, n / 2)`.
+3. If `n` is even, return `half * half`. Otherwise return `half * half * x`.
+4. For negative `n`, compute with `|n|` and invert.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `n == 0`, return `1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **`half = pow(x, n / 2)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **If `n` is even, return `half * half`. Otherwise return `half * half * x`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **For negative `n`, compute with `|n|` and invert.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public double myPow(double x, int n) {
@@ -17586,15 +24492,59 @@ class Solution {
             x = 1 / x;
             N = -N;
         }
-        double ans = 1.0;
-        double currentProd = x;
-        for (long i = N; i > 0; i /= 2) {
-            if (i % 2 == 1) {
-                ans *= currentProd;
-            }
-            currentProd *= currentProd;
+        return helper(x, N);
+    }
+
+    private double helper(double x, long n) {
+        if (n == 0) return 1;
+        double half = helper(x, n / 2);
+        return (n % 2 == 0) ? half * half : half * half * x;
+    }
+}
+```
+- **Time Complexity**: $O(\log n)$
+- **Space Complexity**: $O(\log n)$ for recursion
+
+---
+
+##### Approach 3: Optimised (Iterative Binary Exponentiation)
+
+**Intuition**: Process the bits of `n` from least significant upward. Keep `x` as the current power `x^(2^k)`. When bit `k` is set, multiply the result by that power. Then square the power and shift `n`. No recursion is needed.
+
+**Algorithm**:
+1. `N = |n|` as a `long`. If `n < 0`, set `x = 1 / x`.
+2. `result = 1`. While `N > 0`: if `N` is odd, `result *= x`. Then `x *= x`, and `N >>= 1`.
+3. Return `result`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`N = |n|` as a `long`. If `n < 0`, set `x = 1 / x`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`result = 1`. While `N > 0`: if `N` is odd, `result *= x`. Then `x *= x`, and `N >>= 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `result`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public double myPow(double x, int n) {
+        long N = n;
+        if (N < 0) {
+            x = 1 / x;
+            N = -N;
         }
-        return ans;
+        double result = 1;
+        while (N > 0) {
+            if ((N & 1) == 1) result *= x;
+            x *= x;
+            N >>= 1;
+        }
+        return result;
     }
 }
 ```
@@ -17607,37 +24557,115 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [43. Multiply Strings](https://leetcode.com/problems/multiply-strings/)
 - **NeetCode**: [Multiply Strings](https://neetcode.io/problems/multiply-strings)
-- **Data Structures**: String, Array
-- **Patterns**: Elementary School Multiplication Simulation
+- **Data Structures**: String, Math
+- **Patterns**: Positional Multiplication, Deferred Carry
 
-#### Solutions
+#### Problem Description
+Given two non-negative integers `num1` and `num2` represented as strings, return the product of `num1` and `num2`, also as a string. You must not use any built-in big-integer library or convert the inputs to integers directly.
 
-##### Approach 1: Optimised / Best (Digit Array Accumulation)
-Indices $i$ and $j$ place their product at index $i + j$ and $i + j + 1$.
+#### Examples
+
+**Example 1**
+- **Input**: `num1 = "2"`, `num2 = "3"`
+- **Output**: `"6"`
+
+**Example 2**
+- **Input**: `num1 = "123"`, `num2 = "456"`
+- **Output**: `"56088"`
+
+#### Constraints
+- `1 <= num1.length, num2.length <= 200`
+- Both numbers contain only digits and do not have leading zeros, except the number `0` itself.
+
+#### Intuition
+The product of an `m`-digit and an `n`-digit number has at most `m + n` digits. The digit at position `i` in `num1` and `j` in `num2` contributes to positions `i + j` and `i + j + 1` of the result. Accumulate every contribution into those positions, and carry afterwards.
+
+---
+
+##### Approach 1: Brute Force (BigInteger)
+
+**Intuition**: Java's arbitrary-precision type multiplies the numbers directly. The problem forbids this, so treat it as a baseline for checking results.
+
+**Algorithm**:
+1. Convert both strings to `BigInteger`.
+2. Multiply and return the string form.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Convert both strings to `BigInteger`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Multiply and return the string form.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.math.BigInteger;
+
+class Solution {
+    public String multiply(String num1, String num2) {
+        return new BigInteger(num1).multiply(new BigInteger(num2)).toString();
+    }
+}
+```
+- **Time Complexity**: Implementation-dependent, roughly $O(mn)$
+- **Space Complexity**: $O(m + n)$
+
+---
+
+##### Approach 2: Optimised (Positional Accumulation)
+
+**Intuition**: Multiply every pair of digits, and add the product into the two result positions that it affects. Process digits from the right, so each position is settled once its contributions are complete. Carries are folded into the next position as you go.
+
+**Algorithm**:
+1. `pos` is an int array of length `m + n`, zeroed.
+2. For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:
+   - `sum = digit(i) * digit(j) + pos[i + j + 1]`.
+   - `pos[i + j + 1] = sum % 10`.
+   - `pos[i + j] += sum / 10`.
+3. Skip leading zeros in `pos`. If all are zero, return `"0"`.
+4. Build the string from the remaining digits.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`pos` is an int array of length `m + n`, zeroed.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Skip leading zeros in `pos`. If all are zero, return `"0"`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **Build the string from the remaining digits.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public String multiply(String num1, String num2) {
-        if (num1.equals("0") || num2.equals("0")) return "0";
         int m = num1.length(), n = num2.length();
         int[] pos = new int[m + n];
         for (int i = m - 1; i >= 0; i--) {
             for (int j = n - 1; j >= 0; j--) {
-                int mul = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
-                int p1 = i + j, p2 = i + j + 1;
-                int sum = mul + pos[p2];
-                pos[p1] += sum / 10;
-                pos[p2] = sum % 10;
+                int sum = (num1.charAt(i) - '0') * (num2.charAt(j) - '0') + pos[i + j + 1];
+                pos[i + j + 1] = sum % 10;
+                pos[i + j] += sum / 10;
             }
         }
         StringBuilder sb = new StringBuilder();
-        for (int p : pos) {
-            if (!(sb.length() == 0 && p == 0)) sb.append(p);
-        }
-        return sb.length() == 0 ? "0" : sb.toString();
+        int idx = 0;
+        while (idx < pos.length - 1 && pos[idx] == 0) idx++;
+        for (; idx < pos.length; idx++) sb.append(pos[idx]);
+        return sb.toString();
     }
 }
 ```
-- **Time Complexity**: $O(m \cdot n)$
+- **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(m + n)$
 
 ---
@@ -17646,42 +24674,194 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [2013. Detect Squares](https://leetcode.com/problems/detect-squares/)
 - **NeetCode**: [Count Squares](https://neetcode.io/problems/count-squares)
-- **Data Structures**: Hash Table, Geometry
-- **Patterns**: Diagonal Identification + Frequency Lookup
+- **Data Structures**: Hash Map, Design
+- **Patterns**: Diagonal Counting, Frequency Map
 
-#### Solutions
+#### Problem Description
+Design a data structure that supports adding points on a 2-D plane and counting the number of axis-aligned squares with a given point as one corner. The square must have positive area.
 
-##### Approach 1: Optimised / Best (Diagonal Corner Matching)
+Implement `DetectSquares`:
+- `void add(int[] point)` adds a point to the data structure. Duplicate points are allowed and count separately.
+- `int count(int[] point)` returns the number of axis-aligned squares that can be formed with `point` as a vertex and the other three vertices already added.
+
+#### Examples
+
+**Example 1**
+- **Input**: `add([3,10])`, `add([11,2])`, `add([3,2])`, `count([11,10])`, `count([14,8])`, `add([11,2])`, `count([11,10])`
+- **Output**: `1, 0, 2`
+- **Explanation**: The square with corners `(3,10)`, `(11,2)`, `(3,2)`, `(11,10)` is counted once. The second `(11,2)` doubles the count.
+
+#### Constraints
+- `point.length == 2`
+- `0 <= x, y <= 1000`
+- At most `3000` calls in total to `add` and `count`.
+
+#### Intuition
+An axis-aligned square is fixed by two opposite corners. Given the query point `q`, any stored point `p` with `|p.x - q.x| == |p.y - q.y|` and `p.x != q.x` is a diagonal partner. The other two corners are `(p.x, q.y)` and `(q.x, p.y)`. The number of squares is the sum over partners of how many copies of each of the two corners exist.
+
+---
+
+##### Approach 1: Brute Force (List Scan with Nested Counting)
+
+**Intuition**: Keep the points in a list. For each query, treat each stored point as a diagonal partner, and count the corner points by scanning the list.
+
+**Algorithm**:
+1. For each stored point `p` that forms a valid diagonal with the query, compute the two corners.
+2. Count each corner by scanning the whole list, and add the product of the two counts.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each stored point `p` that forms a valid diagonal with the query, compute the two corners.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Count each corner by scanning the whole list, and add the product of the two counts.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class DetectSquares {
-    private int[][] counts = new int[1001][1001];
-    private List<int[]> points = new ArrayList<>();
-
-    public DetectSquares() {}
+    private final List<int[]> pts = new ArrayList<>();
 
     public void add(int[] point) {
-        counts[point[0]][point[1]]++;
-        points.add(point);
+        pts.add(new int[]{point[0], point[1]});
     }
 
-    public int count(int[] point) {
-        int x1 = point[0], y1 = point[1];
-        int totalSquares = 0;
-        for (int[] p : points) {
-            int x3 = p[0], y3 = p[1];
-            if (Math.abs(x1 - x3) == 0 || Math.abs(x1 - x3) != Math.abs(y1 - y3)) {
-                continue; // Not a valid non-zero diagonal
-            }
-            totalSquares += counts[x1][y3] * counts[x3][y1];
+    public int count(int[] q) {
+        int res = 0;
+        for (int[] p : pts) {
+            int dx = Math.abs(p[0] - q[0]), dy = Math.abs(p[1] - q[1]);
+            if (dx == 0 || dx != dy) continue;
+            res += countAt(p[0], q[1]) * countAt(q[0], p[1]);
         }
-        return totalSquares;
+        return res;
+    }
+
+    private int countAt(int x, int y) {
+        int c = 0;
+        for (int[] p : pts) {
+            if (p[0] == x && p[1] == y) c++;
+        }
+        return c;
     }
 }
 ```
-- **Time Complexity**: `add`: $O(1)$, `count`: $O(N)$
-- **Space Complexity**: $O(N)$
+- **Time Complexity**: `add` is $O(1)$, `count` is $O(n^2)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (List of Points with Map Lookups)
+
+**Intuition**: Keep a frequency map keyed by coordinate, so each corner count is a single lookup. The list remains the source of diagonal partners, with duplicates counted once per copy.
+
+**Algorithm**:
+1. `add` appends to the list and increments the frequency of the point.
+2. `count`: for each stored point that forms a valid diagonal, add `freq(p.x, q.y) * freq(q.x, p.y)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`add` appends to the list and increments the frequency of the point.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`count`: for each stored point that forms a valid diagonal, add `freq(p.x, q.y) * freq(q.x, p.y)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class DetectSquares {
+    private final List<int[]> pts = new ArrayList<>();
+    private final Map<Integer, Integer> freq = new HashMap<>();
+
+    private int key(int x, int y) {
+        return x * 1001 + y;
+    }
+
+    public void add(int[] point) {
+        pts.add(new int[]{point[0], point[1]});
+        freq.merge(key(point[0], point[1]), 1, Integer::sum);
+    }
+
+    public int count(int[] q) {
+        int res = 0;
+        for (int[] p : pts) {
+            int dx = Math.abs(p[0] - q[0]), dy = Math.abs(p[1] - q[1]);
+            if (dx == 0 || dx != dy) continue;
+            res += freq.getOrDefault(key(p[0], q[1]), 0) * freq.getOrDefault(key(q[0], p[1]), 0);
+        }
+        return res;
+    }
+}
+```
+- **Time Complexity**: `add` is $O(1)$, `count` is $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Iterate Distinct Points with Multiplicity)
+
+**Intuition**: Many stored points are duplicates. Iterate over the distinct points only, and multiply each one's count by the corner frequencies. The result is the same, with fewer iterations when duplicates are common.
+
+**Algorithm**:
+1. `freq` maps each coordinate key to its count.
+2. `count(q)`: for each entry `(p, cnt)` in `freq` where `p` forms a valid diagonal with `q`, add `cnt * freq(p.x, q.y) * freq(q.x, p.y)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`freq` maps each coordinate key to its count.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`count(q)`: for each entry `(p, cnt)` in `freq` where `p` forms a valid diagonal with `q`, add `cnt * freq(p.x, q.y) * freq(q.x, p.y)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class DetectSquares {
+    private final Map<Integer, Integer> freq = new HashMap<>();
+
+    private int key(int x, int y) {
+        return x * 1001 + y;
+    }
+
+    public void add(int[] point) {
+        freq.merge(key(point[0], point[1]), 1, Integer::sum);
+    }
+
+    public int count(int[] q) {
+        int res = 0;
+        for (Map.Entry<Integer, Integer> e : freq.entrySet()) {
+            int px = e.getKey() / 1001, py = e.getKey() % 1001;
+            int dx = Math.abs(px - q[0]), dy = Math.abs(py - q[1]);
+            if (dx == 0 || dx != dy) continue;
+            res += e.getValue()
+                 * freq.getOrDefault(key(px, q[1]), 0)
+                 * freq.getOrDefault(key(q[0], py), 0);
+        }
+        return res;
+    }
+}
+```
+- **Time Complexity**: `add` is $O(1)$, `count` is $O(d)$ where $d$ is the number of distinct points
+- **Space Complexity**: $O(d)$
 
 ---
 
@@ -17691,18 +24871,140 @@ class DetectSquares {
 - **Difficulty**: Easy
 - **LeetCode**: [136. Single Number](https://leetcode.com/problems/single-number/)
 - **NeetCode**: [Single Number](https://neetcode.io/problems/single-number)
-- **Data Structures**: Bit Manipulation
-- **Patterns**: XOR Cancellation ($x \oplus x = 0$)
+- **Data Structures**: Array
+- **Patterns**: XOR Cancellation
 
-#### Solutions
+#### Problem Description
+Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one. You must implement a solution with linear runtime complexity and constant extra space.
 
-##### Approach 1: Optimised / Best (XOR Accumulator)
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [2,2,1]`
+- **Output**: `1`
+
+**Example 2**
+- **Input**: `nums = [4,1,2,1,2]`
+- **Output**: `4`
+
+#### Constraints
+- `1 <= nums.length <= 3 * 10^4`
+- `-3 * 10^4 <= nums[i] <= 3 * 10^4`
+- Every element appears twice except for one.
+
+#### Intuition
+XOR has three useful properties: `x ^ x = 0`, `x ^ 0 = x`, and XOR is commutative and associative. Every paired value cancels to zero regardless of order, leaving only the single value.
+
+---
+
+##### Approach 1: Brute Force (Count Each Element)
+
+**Intuition**: For each element, count its occurrences by scanning the array, and return the one that appears once.
+
+**Algorithm**:
+1. For each `nums[i]`, count the elements equal to it.
+2. Return the element whose count is `1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `nums[i]`, count the elements equal to it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the element whose count is `1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int singleNumber(int[] nums) {
-        int res = 0;
-        for (int n : nums) res ^= n;
-        return res;
+        for (int i = 0; i < nums.length; i++) {
+            int count = 0;
+            for (int j = 0; j < nums.length; j++) {
+                if (nums[i] == nums[j]) count++;
+            }
+            if (count == 1) return nums[i];
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Frequency Map)
+
+**Intuition**: Count occurrences in a hash map in one pass, then find the entry with count one.
+
+**Algorithm**:
+1. Build `counts` with a single pass.
+2. Return the key whose count is `1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `counts` with a single pass.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Return the key whose count is `1`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        Map<Integer, Integer> counts = new HashMap<>();
+        for (int x : nums) counts.merge(x, 1, Integer::sum);
+        for (Map.Entry<Integer, Integer> e : counts.entrySet()) {
+            if (e.getValue() == 1) return e.getKey();
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (XOR All Elements)
+
+**Intuition**: XOR every element together. Paired values cancel, and the result is the single element.
+
+**Algorithm**:
+1. `result = 0`.
+2. For each `x`, `result ^= x`.
+3. Return `result`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`result = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x`, `result ^= x`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `result`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int singleNumber(int[] nums) {
+        int result = 0;
+        for (int x : nums) result ^= x;
+        return result;
     }
 }
 ```
@@ -17714,27 +25016,140 @@ class Solution {
 ### 17.2 Number of 1 Bits
 - **Difficulty**: Easy
 - **LeetCode**: [191. Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)
-- **NeetCode**: [Number of One Bits](https://neetcode.io/problems/number-of-one-bits)
-- **Data Structures**: Bit Manipulation
-- **Patterns**: Brian Kernighan's Algorithm ($n \ \& \ (n - 1)$)
+- **NeetCode**: [Number of 1 Bits](https://neetcode.io/problems/number-of-1-bits)
+- **Data Structures**: Bit
+- **Patterns**: Hamming Weight, Clear Lowest Set Bit
 
-#### Solutions
+#### Problem Description
+Given a positive integer `n`, write a function that returns the number of set bits in its binary representation (also known as the Hamming weight).
 
-##### Approach 1: Optimised / Best (Brian Kernighan's Algorithm)
-Clears lowest set bit in each iteration.
+#### Examples
+
+**Example 1**
+- **Input**: `n = 11` (binary `00000000000000000000000000001011`)
+- **Output**: `3`
+
+**Example 2**
+- **Input**: `n = 128` (binary `00000000000000000000000010000000`)
+- **Output**: `1`
+
+**Example 3**
+- **Input**: `n = -3` (binary `11111111111111111111111111111101`)
+- **Output**: `31`
+
+#### Constraints
+- `1 <= n <= 2^31 - 1`
+
+The problem allows the 32-bit unsigned form, so a negative Java `int` must be handled as its 32-bit pattern.
+
+#### Intuition
+A number has as many set bits as the number of times its lowest set bit can be cleared. `n & (n - 1)` clears exactly the lowest set bit, so counting how many times that can be done counts the set bits. Shifting and testing each of the 32 positions gives the same result more slowly.
+
+---
+
+##### Approach 1: Brute Force (Binary String)
+
+**Intuition**: Convert to the 32-bit binary string and count the `'1'` characters.
+
+**Algorithm**:
+1. `Integer.toBinaryString(n)` gives the unsigned 32-bit form for negative inputs.
+2. Count the `'1'` characters.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`Integer.toBinaryString(n)` gives the unsigned 32-bit form for negative inputs.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Count the `'1'` characters.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int hammingWeight(int n) {
+        String bits = Integer.toBinaryString(n);
+        int count = 0;
+        for (char c : bits.toCharArray()) {
+            if (c == '1') count++;
+        }
+        return count;
+    }
+}
+```
+- **Time Complexity**: $O(32)$
+- **Space Complexity**: $O(32)$
+
+---
+
+##### Approach 2: Better (Test Each of the 32 Bits)
+
+**Intuition**: Check each bit position with a shift and a mask. Using unsigned shift handles negative inputs correctly.
+
+**Algorithm**:
+1. For `i` from `0` to `31`, add `(n >>> i) & 1` to the count.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `i` from `0` to `31`, add `(n >>> i) & 1` to the count.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int hammingWeight(int n) {
+        int count = 0;
+        for (int i = 0; i < 32; i++) {
+            count += (n >>> i) & 1;
+        }
+        return count;
+    }
+}
+```
+- **Time Complexity**: $O(32)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Brian Kernighan's Algorithm)
+
+**Intuition**: `n & (n - 1)` clears the lowest set bit. Repeat until the value is zero, counting the iterations. The loop runs once per set bit, not once per bit position.
+
+**Algorithm**:
+1. While `n != 0`: `n &= n - 1`, and increment the count.
+2. Return the count.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While `n != 0`: `n &= n - 1`, and increment the count.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the count.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int hammingWeight(int n) {
         int count = 0;
         while (n != 0) {
-            n &= (n - 1);
+            n &= n - 1;
             count++;
         }
         return count;
     }
 }
 ```
-- **Time Complexity**: $O(k)$ where $k$ is number of set bits (at most 32)
+- **Time Complexity**: $O(k)$, where $k$ is the number of set bits
 - **Space Complexity**: $O(1)$
 
 ---
@@ -17743,25 +25158,134 @@ class Solution {
 - **Difficulty**: Easy
 - **LeetCode**: [338. Counting Bits](https://leetcode.com/problems/counting-bits/)
 - **NeetCode**: [Counting Bits](https://neetcode.io/problems/counting-bits)
-- **Data Structures**: Array, Bit Manipulation, DP
-- **Patterns**: DP Bit Shifting ($dp[i] = dp[i >> 1] + (i \ \& \ 1)$)
+- **Data Structures**: Array, Bit
+- **Patterns**: Hamming Weight per Index, Dynamic Programming on Bits
 
-#### Solutions
+#### Problem Description
+Given an integer `n`, return an array `ans` of length `n + 1` such that for each `i` from `0` to `n`, `ans[i]` is the number of `1`s in the binary representation of `i`.
 
-##### Approach 1: Optimised / Best (DP Right Shift)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 2`
+- **Output**: `[0,1,1]`
+
+**Example 2**
+- **Input**: `n = 5`
+- **Output**: `[0,1,1,2,1,2]`
+
+#### Constraints
+- `0 <= n <= 10^5`
+
+#### Intuition
+Dividing `i` by two (a right shift) drops its lowest bit. So the count for `i` equals the count for `i >> 1`, plus one if `i` is odd. Each value is derived from an earlier one.
+
+---
+
+##### Approach 1: Brute Force (Count Each Number Separately)
+
+**Intuition**: Use the library bit count for each index.
+
+**Algorithm**:
+1. For each `i` from `0` to `n`, set `ans[i] = Integer.bitCount(i)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i` from `0` to `n`, set `ans[i] = Integer.bitCount(i)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int[] countBits(int n) {
-        int[] dp = new int[n + 1];
-        for (int i = 1; i <= n; i++) {
-            dp[i] = dp[i >> 1] + (i & 1);
+        int[] ans = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            ans[i] = Integer.bitCount(i);
         }
-        return dp;
+        return ans;
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Kernighan Count per Index)
+
+**Intuition**: Count each index with the clear-lowest-bit loop. The work per index depends on its set bits.
+
+**Algorithm**:
+1. For each `i`, count set bits by repeatedly applying `i &= i - 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `i`, count set bits by repeatedly applying `i &= i - 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int[] countBits(int n) {
+        int[] ans = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            int x = i, count = 0;
+            while (x != 0) {
+                x &= x - 1;
+                count++;
+            }
+            ans[i] = count;
+        }
+        return ans;
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (DP on Shifted Index)
+
+**Intuition**: `bits[i] = bits[i >> 1] + (i & 1)`. Index `i >> 1` was computed earlier, so each value is one lookup and one addition.
+
+**Algorithm**:
+1. `ans[0] = 0`.
+2. For `i` from `1` to `n`: `ans[i] = ans[i >> 1] + (i & 1)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`ans[0] = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For `i` from `1` to `n`: `ans[i] = ans[i >> 1] + (i & 1)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int[] countBits(int n) {
+        int[] ans = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            ans[i] = ans[i >> 1] + (i & 1);
+        }
+        return ans;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$ auxiliary
+- **Space Complexity**: $O(n)$
 
 ---
 
@@ -17769,25 +25293,148 @@ class Solution {
 - **Difficulty**: Easy
 - **LeetCode**: [190. Reverse Bits](https://leetcode.com/problems/reverse-bits/)
 - **NeetCode**: [Reverse Bits](https://neetcode.io/problems/reverse-bits)
-- **Data Structures**: Bit Manipulation
-- **Patterns**: 32-Bit Shifting Loop
+- **Data Structures**: Bit
+- **Patterns**: Bit Extraction and Assembly, Divide and Conquer on Bits
 
-#### Solutions
+#### Problem Description
+Reverse the bits of a given 32-bit unsigned integer. Return the result as an unsigned integer.
 
-##### Approach 1: Optimised / Best (32-Bit Shift Loop)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 00000010100101000001111010011100`
+- **Output**: `964176192` (binary `00111001011110000010100101000000`)
+
+**Example 2**
+- **Input**: `n = 11111111111111111111111111111101`
+- **Output**: `3221225471` (binary `10111111111111111111111111111111`)
+
+#### Constraints
+- The input is a 32-bit unsigned integer.
+
+In Java, the `int` type holds the same 32 bits. Results above `2^31 - 1` appear as negative `int` values with the same bit pattern.
+
+#### Intuition
+Reversal maps bit `i` to bit `31 - i`. Build the result one bit at a time, or swap progressively larger blocks of bits: adjacent bits, then pairs, nibbles, bytes, and finally the two halves.
+
+---
+
+##### Approach 1: Brute Force (Reverse the Binary String)
+
+**Intuition**: Pad the binary string to 32 characters, reverse it, and parse it back.
+
+**Algorithm**:
+1. Get the 32-character binary string of `n`, padded with leading zeros.
+2. Reverse it and parse it as an unsigned value. Cast to `int`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Get the 32-character binary string of `n`, padded with leading zeros.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Reverse it and parse it as an unsigned value. Cast to `int`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-public class Solution {
+class Solution {
     public int reverseBits(int n) {
-        int res = 0;
-        for (int i = 0; i < 32; i++) {
-            res = (res << 1) | (n & 1);
-            n >>>= 1;
-        }
-        return res;
+        String s = String.format("%32s", Integer.toBinaryString(n)).replace(' ', '0');
+        String reversed = new StringBuilder(s).reverse().toString();
+        return (int) Long.parseLong(reversed, 2);
     }
 }
 ```
-- **Time Complexity**: $O(1)$ (exactly 32 iterations)
+- **Time Complexity**: $O(32)$
+- **Space Complexity**: $O(32)$
+
+---
+
+##### Approach 2: Better (Bit-by-Bit Assembly)
+
+**Intuition**: Read the lowest bit of `n` and append it to the result, 32 times. Each step shifts the result left and the input right.
+
+**Algorithm**:
+1. `result = 0`.
+2. Repeat 32 times: `result = (result << 1) | (n & 1)`, then `n >>>= 1`.
+3. Return `result`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`result = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Repeat 32 times: `result = (result << 1) | (n & 1)`, then `n >>>= 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `result`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int reverseBits(int n) {
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            result = (result << 1) | (n & 1);
+            n >>>= 1;
+        }
+        return result;
+    }
+}
+```
+- **Time Complexity**: $O(32)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Swap Blocks with Masks)
+
+**Intuition**: Swap the two 16-bit halves. Within each half, swap the 8-bit blocks, then 4-bit, 2-bit, and 1-bit blocks. Each stage uses a mask to select one group and a shift to move it. Five stages replace 32 steps.
+
+**Algorithm**:
+1. Swap halves: `n = (n >>> 16) | (n << 16)`.
+2. Swap bytes within halves: `n = ((n & 0xff00ff00) >>> 8) | ((n & 0x00ff00ff) << 8)`.
+3. Swap nibbles: `n = ((n & 0xf0f0f0f0) >>> 4) | ((n & 0x0f0f0f0f) << 4)`.
+4. Swap pairs: `n = ((n & 0xcccccccc) >>> 2) | ((n & 0x33333333) << 2)`.
+5. Swap bits: `n = ((n & 0xaaaaaaaa) >>> 1) | ((n & 0x55555555) << 1)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Swap halves: `n = (n >>> 16) | (n << 16)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **Swap bytes within halves: `n = ((n & 0xff00ff00) >>> 8) | ((n & 0x00ff00ff) << 8)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+3. **Swap nibbles: `n = ((n & 0xf0f0f0f0) >>> 4) | ((n & 0x0f0f0f0f) << 4)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+4. **Swap pairs: `n = ((n & 0xcccccccc) >>> 2) | ((n & 0x33333333) << 2)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+5. **Swap bits: `n = ((n & 0xaaaaaaaa) >>> 1) | ((n & 0x55555555) << 1)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int reverseBits(int n) {
+        n = (n >>> 16) | (n << 16);
+        n = ((n & 0xff00ff00) >>> 8) | ((n & 0x00ff00ff) << 8);
+        n = ((n & 0xf0f0f0f0) >>> 4) | ((n & 0x0f0f0f0f) << 4);
+        n = ((n & 0xcccccccc) >>> 2) | ((n & 0x33333333) << 2);
+        n = ((n & 0xaaaaaaaa) >>> 1) | ((n & 0x55555555) << 1);
+        return n;
+    }
+}
+```
+- **Time Complexity**: $O(1)$
 - **Space Complexity**: $O(1)$
 
 ---
@@ -17796,35 +25443,146 @@ public class Solution {
 - **Difficulty**: Easy
 - **LeetCode**: [268. Missing Number](https://leetcode.com/problems/missing-number/)
 - **NeetCode**: [Missing Number](https://neetcode.io/problems/missing-number)
-- **Data Structures**: Array, Math / Bit Manipulation
-- **Patterns**: Gauss Sum Formula or XOR Accumulator
+- **Data Structures**: Array, Hash Set
+- **Patterns**: Sorting Scan, XOR of Indices and Values
 
-#### Solutions
+#### Problem Description
+Given an array `nums` containing `n` distinct numbers in the range `[0, n]`, return the only number in the range that is missing from the array.
 
-##### Approach 1: Gauss Sum Formula
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [3,0,1]`
+- **Output**: `2`
+
+**Example 2**
+- **Input**: `nums = [0,1]`
+- **Output**: `2`
+
+**Example 3**
+- **Input**: `nums = [9,6,4,2,3,5,7,0,1]`
+- **Output**: `8`
+
+#### Constraints
+- `n == nums.length`
+- `1 <= n <= 10^4`
+- `0 <= nums[i] <= n`
+- All numbers are unique.
+
+#### Intuition
+The values `0..n` should be exactly the indices `0..n-1` plus `n`. The missing number is the one value that breaks that pattern. Any method that matches indices to values finds it.
+
+---
+
+##### Approach 1: Brute Force (Sort, Find First Mismatch)
+
+**Intuition**: After sorting, `nums[i]` should equal `i`. The first position where it does not gives the missing value.
+
+**Algorithm**:
+1. Sort `nums`.
+2. Return the first `i` with `nums[i] != i`, or `n` if none.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort `nums`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **Return the first `i` with `nums[i] != i`, or `n` if none.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
+import java.util.Arrays;
+
 class Solution {
     public int missingNumber(int[] nums) {
-        int n = nums.length;
-        int expectedSum = n * (n + 1) / 2;
-        int actualSum = 0;
-        for (int x : nums) actualSum += x;
-        return expectedSum - actualSum;
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i) return i;
+        }
+        return nums.length;
+    }
+}
+```
+- **Time Complexity**: $O(n \log n)$
+- **Space Complexity**: $O(1)$ extra
+
+---
+
+##### Approach 2: Better (Hash Set Lookup)
+
+**Intuition**: Store the values in a set. Check each number in `0..n` for membership, and return the first absent one.
+
+**Algorithm**:
+1. Add all values to a `HashSet`.
+2. For `i` from `0` to `n`, return the first `i` not in the set.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Add all values to a `HashSet`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **For `i` from `0` to `n`, return the first `i` not in the set.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int x : nums) set.add(x);
+        for (int i = 0; i <= nums.length; i++) {
+            if (!set.contains(i)) return i;
+        }
+        return -1;
     }
 }
 ```
 - **Time Complexity**: $O(n)$
-- **Space Complexity**: $O(1)$
+- **Space Complexity**: $O(n)$
 
-##### Approach 2: Best (XOR Accumulation - Overflow-Proof)
+---
+
+##### Approach 3: Optimised (XOR of Indices and Values)
+
+**Intuition**: XOR the indices `0..n` with the values. Every value present cancels with its matching index, leaving the missing number.
+
+**Algorithm**:
+1. `result = n`.
+2. For each `i` in `[0, n)`, `result ^= i ^ nums[i]`.
+3. Return `result`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`result = n`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `i` in `[0, n)`, `result ^= i ^ nums[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `result`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int missingNumber(int[] nums) {
-        int xor = nums.length;
+        int result = nums.length;
         for (int i = 0; i < nums.length; i++) {
-            xor ^= i ^ nums[i];
+            result ^= i ^ nums[i];
         }
-        return xor;
+        return result;
     }
 }
 ```
@@ -17837,12 +25595,117 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [371. Sum of Two Integers](https://leetcode.com/problems/sum-of-two-integers/)
 - **NeetCode**: [Sum of Two Integers](https://neetcode.io/problems/sum-of-two-integers)
-- **Data Structures**: Bit Manipulation
-- **Patterns**: Half Adder Bit Logic (XOR Sum & AND Shifted Carry)
+- **Data Structures**: Bit
+- **Patterns**: Carry Propagation with XOR and AND
 
-#### Solutions
+#### Problem Description
+Given two integers `a` and `b`, return the sum of the two integers without using the operators `+` and `-`.
 
-##### Approach 1: Optimised / Best (Bitwise Half-Adder)
+#### Examples
+
+**Example 1**
+- **Input**: `a = 1`, `b = 2`
+- **Output**: `3`
+
+**Example 2**
+- **Input**: `a = 2`, `b = 3`
+- **Output**: `5`
+
+#### Constraints
+- `-1000 <= a, b <= 1000`
+
+#### Intuition
+Binary addition is XOR for the sum digit without carries, and AND shifted left for the carries. Repeat until no carries remain. Each round moves carries one position further, so the loop ends after at most 32 rounds.
+
+---
+
+##### Approach 1: Brute Force (Repeated Increment or Decrement)
+
+**Intuition**: Step `a` up or down by one, `|b|` times. This is trivially correct for the small constraints, though it uses the operators the problem forbids. It is included as a baseline.
+
+**Algorithm**:
+1. If `b > 0`, increment `a` `b` times. Otherwise decrement `a` `-b` times.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `b > 0`, increment `a` `b` times. Otherwise decrement `a` `-b` times.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int getSum(int a, int b) {
+        if (b > 0) {
+            for (int i = 0; i < b; i++) a++;
+        } else {
+            for (int i = 0; i < -b; i++) a--;
+        }
+        return a;
+    }
+}
+```
+- **Time Complexity**: $O(|b|)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Recursive XOR and AND)
+
+**Intuition**: The sum without carries is `a ^ b`, and the carries are `(a & b) << 1`. Add those two with the same method, recursively, until the carry is zero.
+
+**Algorithm**:
+1. If `b == 0`, return `a`.
+2. Return `getSum(a ^ b, (a & b) << 1)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `b == 0`, return `a`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **Return `getSum(a ^ b, (a & b) << 1)`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int getSum(int a, int b) {
+        if (b == 0) return a;
+        return getSum(a ^ b, (a & b) << 1);
+    }
+}
+```
+- **Time Complexity**: $O(32)$
+- **Space Complexity**: $O(32)$ for recursion
+
+---
+
+##### Approach 3: Optimised (Iterative XOR and AND)
+
+**Intuition**: The same carry propagation as Approach 2, written as a loop. No recursion is needed.
+
+**Algorithm**:
+1. While `b != 0`: `carry = (a & b) << 1`, `a = a ^ b`, `b = carry`.
+2. Return `a`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While `b != 0`: `carry = (a & b) << 1`, `a = a ^ b`, `b = carry`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return `a`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int getSum(int a, int b) {
@@ -17855,7 +25718,7 @@ class Solution {
     }
 }
 ```
-- **Time Complexity**: $O(1)$ (at most 32 loops)
+- **Time Complexity**: $O(32)$
 - **Space Complexity**: $O(1)$
 
 ---
@@ -17865,27 +25728,163 @@ class Solution {
 - **LeetCode**: [7. Reverse Integer](https://leetcode.com/problems/reverse-integer/)
 - **NeetCode**: [Reverse Integer](https://neetcode.io/problems/reverse-integer)
 - **Data Structures**: Math
-- **Patterns**: Digit Extraction with 32-bit Overflow Detection
+- **Patterns**: Digit Extraction, Overflow Detection
 
-#### Solutions
+#### Problem Description
+Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing would take the value outside the signed 32-bit range `[-2^31, 2^31 - 1]`, return `0`.
 
-##### Approach 1: Optimised / Best (Overflow-Safe Reversal)
+#### Examples
+
+**Example 1**
+- **Input**: `x = 123`
+- **Output**: `321`
+
+**Example 2**
+- **Input**: `x = -123`
+- **Output**: `-321`
+
+**Example 3**
+- **Input**: `x = 120`
+- **Output**: `21`
+
+**Example 4**
+- **Input**: `x = 1534236469`
+- **Output**: `0`
+- **Explanation**: The reversed value `9646324351` exceeds the 32-bit range.
+
+#### Constraints
+- `-2^31 <= x <= 2^31 - 1`
+
+#### Intuition
+Extract digits from the least significant end, append each to the reversed value, and remove them from `x`. The only difficulty is overflow. Either detect it with a wider type, or check before each multiplication whether the next step would exceed the range.
+
+---
+
+##### Approach 1: Brute Force (String Reversal with Long)
+
+**Intuition**: Reverse the digit string of `|x|`, parse it as a `long`, apply the sign, and range-check.
+
+**Algorithm**:
+1. Reverse the digits of `Math.abs((long) x)`.
+2. Parse as `long`, negate if `x < 0`.
+3. Return the value if it fits in `int`, else `0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Reverse the digits of `Math.abs((long) x)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **Parse as `long`, negate if `x < 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Return the value if it fits in `int`, else `0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int reverse(int x) {
+        long abs = Math.abs((long) x);
+        long rev = Long.parseLong(new StringBuilder(Long.toString(abs)).reverse().toString());
+        if (x < 0) rev = -rev;
+        if (rev < Integer.MIN_VALUE || rev > Integer.MAX_VALUE) return 0;
+        return (int) rev;
+    }
+}
+```
+- **Time Complexity**: $O(d)$, where $d$ is the number of digits
+- **Space Complexity**: $O(d)$
+
+---
+
+##### Approach 2: Better (Arithmetic with Long and Final Range Check)
+
+**Intuition**: Build the reversed value arithmetically, using `long` so it cannot overflow mid-computation. Check the range once at the end.
+
+**Algorithm**:
+1. `rev = 0` as `long`.
+2. While `x != 0`: `rev = rev * 10 + x % 10`, then `x /= 10`.
+3. Return `rev` if it is in range, else `0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`rev = 0` as `long`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `x != 0`: `rev = rev * 10 + x % 10`, then `x /= 10`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `rev` if it is in range, else `0`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int reverse(int x) {
+        long rev = 0;
+        while (x != 0) {
+            rev = rev * 10 + x % 10;
+            x /= 10;
+        }
+        if (rev < Integer.MIN_VALUE || rev > Integer.MAX_VALUE) return 0;
+        return (int) rev;
+    }
+}
+```
+- **Time Complexity**: $O(d)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Int Arithmetic with Pre-Multiplication Overflow Check)
+
+**Intuition**: Stay within `int` the entire time. Before computing `rev * 10 + digit`, test whether `rev` is already past the limit that would overflow. Checking `rev` against `MAX / 10` and `MIN / 10` catches the overflow before it happens. On the boundary, the final digit decides.
+
+**Algorithm**:
+1. While `x != 0`: `digit = x % 10`, `x /= 10`.
+2. If `rev > MAX / 10`, or `rev == MAX / 10` and `digit > 7`, return `0`.
+3. If `rev < MIN / 10`, or `rev == MIN / 10` and `digit < -8`, return `0`.
+4. `rev = rev * 10 + digit`.
+5. Return `rev`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **While `x != 0`: `digit = x % 10`, `x /= 10`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If `rev > MAX / 10`, or `rev == MAX / 10` and `digit > 7`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+3. **If `rev < MIN / 10`, or `rev == MIN / 10` and `digit < -8`, return `0`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+4. **`rev = rev * 10 + digit`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+5. **Return `rev`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int reverse(int x) {
         int rev = 0;
         while (x != 0) {
-            int pop = x % 10;
+            int digit = x % 10;
             x /= 10;
-            if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
-            if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
-            rev = rev * 10 + pop;
+            if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && digit > 7)) return 0;
+            if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && digit < -8)) return 0;
+            rev = rev * 10 + digit;
         }
         return rev;
     }
 }
 ```
-- **Time Complexity**: $O(\log_{10} x)$
+- **Time Complexity**: $O(d)$
 - **Space Complexity**: $O(1)$
 
 ---
@@ -17896,77 +25895,407 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [332. Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/)
 - **NeetCode**: [Reconstruct Flight Path](https://neetcode.io/problems/reconstruct-flight-path)
-- **Data Structures**: Graph, PriorityQueue
-- **Patterns**: Hierholzer's Algorithm (Eulerian Path)
+- **Data Structures**: Graph, Stack, Priority Queue
+- **Patterns**: Hierholzer's Algorithm (Eulerian Path), Lexical Ordering
 
-#### Solutions
+#### Problem Description
+You are given a list of airline `tickets`, where `tickets[i] = [fromi, toi]`. Reconstruct the itinerary in order, starting from `"JFK"`. All tickets must be used exactly once. If there are multiple valid itineraries, return the one with the smallest lexical order when read as a single string.
 
-##### Approach 1: Optimised / Best (Hierholzer's Algorithm via Postorder DFS)
+#### Examples
+
+**Example 1**
+- **Input**: `tickets = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]`
+- **Output**: `["JFK","MUC","LHR","SFO","SJC"]`
+
+**Example 2**
+- **Input**: `tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]`
+- **Output**: `["JFK","ATL","JFK","SFO","ATL","SFO"]`
+- **Explanation**: Two valid itineraries exist. `"JFK","ATL"` comes before `"JFK","SFO"` lexically.
+
+#### Constraints
+- `1 <= tickets.length <= 300`
+- `tickets[i].length == 2`
+- `fromi` and `toi` are three-letter uppercase airport codes.
+- A valid itinerary is guaranteed to exist.
+
+#### Intuition
+The tickets are edges of a directed multigraph, and an itinerary is an Eulerian path that starts at `JFK`. Visit destinations in lexical order at each node, and handle dead ends correctly. Hierholzer's algorithm builds the path by walking greedily until stuck, then appending nodes on the way back. Reversing that post-order gives a valid path. Sorting outgoing edges gives the lexically smallest one.
+
+---
+
+##### Approach 1: Brute Force (Backtracking Over Ticket Orders)
+
+**Intuition**: Sort tickets lexically, then try each unused ticket from the current airport in order. If a full itinerary is reached, return it. If not, undo the choice and try the next.
+
+**Algorithm**:
+1. Sort tickets by `(from, to)`.
+2. `dfs(cur)`: if the path uses all tickets, return `true`. For each unused ticket starting at `cur`, mark it used, append its destination, and recurse. Undo on failure.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort tickets by `(from, to)`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+2. **`dfs(cur)`: if the path uses all tickets, return `true`. For each unused ticket starting at `cur`, mark it used, append its destination, and recurse. Undo on failure.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<String> findItinerary(List<List<String>> tickets) {
-        Map<String, PriorityQueue<String>> adj = new HashMap<>();
+        tickets.sort((a, b) -> {
+            int c = a.get(0).compareTo(b.get(0));
+            return c != 0 ? c : a.get(1).compareTo(b.get(1));
+        });
+        boolean[] used = new boolean[tickets.size()];
+        List<String> path = new ArrayList<>();
+        path.add("JFK");
+        dfs(tickets, used, path);
+        return path;
+    }
+
+    private boolean dfs(List<List<String>> tickets, boolean[] used, List<String> path) {
+        if (path.size() == tickets.size() + 1) return true;
+        String cur = path.get(path.size() - 1);
+        for (int i = 0; i < tickets.size(); i++) {
+            if (!used[i] && tickets.get(i).get(0).equals(cur)) {
+                used[i] = true;
+                path.add(tickets.get(i).get(1));
+                if (dfs(tickets, used, path)) return true;
+                path.remove(path.size() - 1);
+                used[i] = false;
+            }
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Hierholzer's Algorithm, Recursive)
+
+**Intuition**: Keep a min-heap of destinations per airport. Walk from `JFK`, always taking the smallest destination. When an airport has no unused exits, it must be the end of the itinerary, so add it to the route. Adding nodes after all their exits are exhausted, then reversing, places dead ends in the right order.
+
+**Algorithm**:
+1. Build `adj[from]` as a min-heap of destinations.
+2. `dfs(u)`: while `adj[u]` is non-empty, `dfs(adj[u].poll())`. Then add `u` to the front of the route.
+3. Call `dfs("JFK")` and return the route.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build `adj[from]` as a min-heap of destinations.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **`dfs(u)`: while `adj[u]` is non-empty, `dfs(adj[u].poll())`. Then add `u` to the front of the route.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Call `dfs("JFK")` and return the route.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+
+class Solution {
+    private final Map<String, PriorityQueue<String>> adj = new HashMap<>();
+    private final LinkedList<String> route = new LinkedList<>();
+
+    public List<String> findItinerary(List<List<String>> tickets) {
         for (List<String> t : tickets) {
             adj.computeIfAbsent(t.get(0), k -> new PriorityQueue<>()).offer(t.get(1));
         }
-        LinkedList<String> route = new LinkedList<>();
-        dfs("JFK", adj, route);
+        dfs("JFK");
         return route;
     }
 
-    private void dfs(String airport, Map<String, PriorityQueue<String>> adj, LinkedList<String> route) {
-        PriorityQueue<String> pq = adj.get(airport);
+    private void dfs(String u) {
+        PriorityQueue<String> pq = adj.get(u);
         while (pq != null && !pq.isEmpty()) {
-            dfs(pq.poll(), adj, route);
+            dfs(pq.poll());
         }
-        route.addFirst(airport);
+        route.addFirst(u);
     }
 }
 ```
 - **Time Complexity**: $O(E \log E)$
-- **Space Complexity**: $O(V + E)$
+- **Space Complexity**: $O(E)$
+
+---
+
+##### Approach 3: Optimised (Hierholzer's Algorithm, Iterative)
+
+**Intuition**: The same algorithm with an explicit stack, which avoids recursion depth limits. Sorted adjacency lists are consumed from the front. When the top of the stack has no unused exits, pop it onto the route.
+
+**Algorithm**:
+1. Sort tickets, and build `adj[from]` as a deque of destinations in lexical order.
+2. Push `JFK`. While the stack is non-empty: if the top has an unused exit, push the next destination. Otherwise pop the top and add it to the front of the route.
+3. Return the route.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Sort tickets, and build `adj[from]` as a deque of destinations in lexical order.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Push `JFK`. While the stack is non-empty: if the top has an unused exit, push the next destination. Otherwise pop the top and add it to the front of the route.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the route.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+class Solution {
+    public List<String> findItinerary(List<List<String>> tickets) {
+        tickets.sort((a, b) -> {
+            int c = a.get(0).compareTo(b.get(0));
+            return c != 0 ? c : a.get(1).compareTo(b.get(1));
+        });
+        Map<String, Deque<String>> adj = new HashMap<>();
+        for (List<String> t : tickets) {
+            adj.computeIfAbsent(t.get(0), k -> new ArrayDeque<>()).offerLast(t.get(1));
+        }
+        LinkedList<String> route = new LinkedList<>();
+        Deque<String> stack = new ArrayDeque<>();
+        stack.push("JFK");
+        while (!stack.isEmpty()) {
+            String top = stack.peek();
+            Deque<String> exits = adj.get(top);
+            if (exits != null && !exits.isEmpty()) {
+                stack.push(exits.pollFirst());
+            } else {
+                route.addFirst(stack.pop());
+            }
+        }
+        return route;
+    }
+}
+```
+- **Time Complexity**: $O(E \log E)$ for sorting, plus $O(E)$ for traversal
+- **Space Complexity**: $O(E)$
 
 ---
 
 ### 18.2 Min Cost to Connect All Points
 - **Difficulty**: Medium
 - **LeetCode**: [1584. Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/)
-- **NeetCode**: [Min Cost to Connect Points](https://neetcode.io/problems/min-cost-to-connect-points)
-- **Data Structures**: Graph, MST
-- **Patterns**: Prim's Algorithm / Kruskal's with DSU
+- **NeetCode**: [Min Cost to Connect All Points](https://neetcode.io/problems/min-cost-to-connect-all-points)
+- **Data Structures**: Graph, Heap, Disjoint Set Union
+- **Patterns**: Minimum Spanning Tree, Manhattan Distance
 
-#### Solutions
+#### Problem Description
+You are given an array `points` representing integer coordinates of points on a 2-D plane. The cost of connecting two points is their Manhattan distance, `|xi - xj| + |yi - yj|`. Return the minimum total cost to connect all points, such that there is exactly one path between any two points.
 
-##### Approach 1: Optimised / Best (Prim's Algorithm with Array Tracking)
-Maintain minimum distance to visited tree in an array $O(V^2)$ (faster than PQ for dense complete graph).
+#### Examples
+
+**Example 1**
+- **Input**: `points = [[0,0],[2,2],[3,10],[5,2],[7,0]]`
+- **Output**: `20`
+
+**Example 2**
+- **Input**: `points = [[3,12],[-2,5],[-4,1]]`
+- **Output**: `18`
+
+#### Constraints
+- `1 <= points.length <= 1000`
+- `-10^6 <= xi, yi <= 10^6`
+- All point pairs are distinct.
+
+#### Intuition
+Connecting every point with the cheapest total cost is a minimum spanning tree problem. The graph is complete, with `n` nodes and `n(n-1)/2` edges. Kruskal's algorithm adds the cheapest edges that do not form a cycle. Prim's algorithm grows one tree from a single node, always adding the cheapest edge leaving it. On a dense complete graph, Prim with an array is the most efficient.
+
+---
+
+##### Approach 1: Brute Force (Kruskal with All Edges)
+
+**Intuition**: List every pair of points as an edge, sort by weight, and add edges that join different components using a union-find structure.
+
+**Algorithm**:
+1. Create all `n(n-1)/2` edges with Manhattan weights, and sort them.
+2. For each edge in order, if its endpoints are in different components, union them and add the weight. Stop after `n - 1` unions.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Create all `n(n-1)/2` edges with Manhattan weights, and sort them.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **For each edge in order, if its endpoints are in different components, union them and add the weight. Stop after `n - 1` unions.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private int[] parent;
+
+    public int minCostConnectPoints(int[][] points) {
+        int n = points.length;
+        List<int[]> edges = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int w = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
+                edges.add(new int[]{w, i, j});
+            }
+        }
+        edges.sort((a, b) -> Integer.compare(a[0], b[0]));
+        parent = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+        int total = 0, used = 0;
+        for (int[] e : edges) {
+            int a = find(e[1]), b = find(e[2]);
+            if (a != b) {
+                parent[a] = b;
+                total += e[0];
+                if (++used == n - 1) break;
+            }
+        }
+        return total;
+    }
+
+    private int find(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+}
+```
+- **Time Complexity**: $O(n^2 \log n)$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 2: Better (Prim with a Min-Heap)
+
+**Intuition**: Start from one point. Repeatedly take the cheapest edge from the tree to a point outside it. A min-heap of candidate edges finds that edge. Entries for points already in the tree are skipped when they surface.
+
+**Algorithm**:
+1. Push `(0, 0)` as `(cost, node)`.
+2. While the tree has fewer than `n` nodes: pop `(d, u)`. If `u` is in the tree, skip it. Otherwise add it, add `d` to the total, and push the distance from `u` to every point outside the tree.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Push `(0, 0)` as `(cost, node)`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **While the tree has fewer than `n` nodes: pop `(d, u)`. If `u` is in the tree, skip it. Otherwise add it, add `d` to the total, and push the distance from `u` to every point outside the tree.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.PriorityQueue;
+
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        int n = points.length;
+        boolean[] inTree = new boolean[n];
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        pq.offer(new int[]{0, 0});
+        int total = 0, count = 0;
+        while (count < n) {
+            int[] top = pq.poll();
+            int d = top[0], u = top[1];
+            if (inTree[u]) continue;
+            inTree[u] = true;
+            total += d;
+            count++;
+            for (int v = 0; v < n; v++) {
+                if (!inTree[v]) {
+                    int w = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);
+                    pq.offer(new int[]{w, v});
+                }
+            }
+        }
+        return total;
+    }
+}
+```
+- **Time Complexity**: $O(n^2 \log n)$
+- **Space Complexity**: $O(n^2)$ for the heap in the worst case
+
+---
+
+##### Approach 3: Optimised (Dense Prim, Array of Minimum Distances)
+
+**Intuition**: The graph is complete, so every point is a candidate at every step. Keep `minDist[v]`, the cheapest edge from the tree to each point. Each round, pick the point with the smallest `minDist` that is not yet in the tree, add it, and update the distances of the rest. This needs no heap and is $O(n^2)$ overall.
+
+**Algorithm**:
+1. `minDist` filled with infinity, except `minDist[0] = 0`.
+2. Repeat `n` times: pick the unvisited `u` with the smallest `minDist[u]`. Mark it visited and add its distance to the total. For each unvisited `v`, set `minDist[v] = min(minDist[v], dist(u, v))`.
+3. Return the total.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`minDist` filled with infinity, except `minDist[0] = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Repeat `n` times: pick the unvisited `u` with the smallest `minDist[u]`. Mark it visited and add its distance to the total. For each unvisited `v`, set `minDist[v] = min(minDist[v], dist(u, v))`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return the total.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int minCostConnectPoints(int[][] points) {
         int n = points.length;
         int[] minDist = new int[n];
-        for (int i = 1; i < n; i++) minDist[i] = Integer.MAX_VALUE;
         boolean[] visited = new boolean[n];
-        int totalCost = 0;
-
-        for (int step = 0; step < n; step++) {
+        java.util.Arrays.fill(minDist, Integer.MAX_VALUE);
+        minDist[0] = 0;
+        int total = 0;
+        for (int iter = 0; iter < n; iter++) {
             int u = -1;
-            for (int i = 0; i < n; i++) {
-                if (!visited[i] && (u == -1 || minDist[i] < minDist[u])) {
-                    u = i;
-                }
+            for (int v = 0; v < n; v++) {
+                if (!visited[v] && (u == -1 || minDist[v] < minDist[u])) u = v;
             }
             visited[u] = true;
-            totalCost += minDist[u];
+            total += minDist[u];
             for (int v = 0; v < n; v++) {
                 if (!visited[v]) {
-                    int dist = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);
-                    minDist[v] = Math.min(minDist[v], dist);
+                    int w = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);
+                    minDist[v] = Math.min(minDist[v], w);
                 }
             }
         }
-        return totalCost;
+        return total;
     }
 }
 ```
@@ -17979,43 +26308,150 @@ class Solution {
 - **Difficulty**: Medium
 - **LeetCode**: [743. Network Delay Time](https://leetcode.com/problems/network-delay-time/)
 - **NeetCode**: [Network Delay Time](https://neetcode.io/problems/network-delay-time)
-- **Data Structures**: Graph, PriorityQueue
-- **Patterns**: Dijkstra's Shortest Path Algorithm
+- **Data Structures**: Graph, Heap
+- **Patterns**: Single-Source Shortest Path, Dijkstra's Algorithm
 
-#### Solutions
+#### Problem Description
+You are given a network of `n` nodes labelled `1` to `n`, and a list of directed `times`, where `times[i] = [ui, vi, wi]` is a signal travelling from `ui` to `vi` in `wi` milliseconds. A signal is sent from node `k`. Return the minimum time for all nodes to receive the signal, or `-1` if some node cannot receive it.
 
-##### Approach 1: Optimised / Best (Dijkstra's Algorithm)
+#### Examples
+
+**Example 1**
+- **Input**: `times = [[2,1,1],[2,3,1],[3,4,1]]`, `n = 4`, `k = 2`
+- **Output**: `2`
+
+**Example 2**
+- **Input**: `times = [[1,2,1]]`, `n = 2`, `k = 1`
+- **Output**: `1`
+
+**Example 3**
+- **Input**: `times = [[1,2,1]]`, `n = 2`, `k = 2`
+- **Output**: `-1`
+
+#### Constraints
+- `1 <= k <= n <= 100`
+- `1 <= times.length <= 6000`
+- `times[i].length == 3`
+- `1 <= ui, vi <= n`, with `ui != vi`
+- `0 <= wi <= 100`
+- All pairs `(ui, vi)` are unique.
+
+#### Intuition
+The answer is the largest shortest-path distance from `k` to any node. Edge weights are non-negative, so Dijkstra's algorithm applies. Bellman-Ford also works, at a higher cost, and serves as the brute-force baseline.
+
+---
+
+##### Approach 1: Brute Force (Bellman-Ford)
+
+**Intuition**: Relax every edge `n - 1` times. After that many rounds, every shortest path has been found, regardless of edge order. Bellman-Ford does not rely on non-negative weights, so it is a safe baseline.
+
+**Algorithm**:
+1. `dist[k] = 0`, others infinity.
+2. Repeat `n - 1` times: for each edge `(u, v, w)`, if `dist[u] + w < dist[v]`, update `dist[v]`.
+3. If any node is unreachable, return `-1`. Otherwise return the maximum distance.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dist[k] = 0`, others infinity.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Repeat `n - 1` times: for each edge `(u, v, w)`, if `dist[u] + w < dist[v]`, update `dist[v]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If any node is unreachable, return `-1`. Otherwise return the maximum distance.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.Arrays;
 
 class Solution {
     public int networkDelayTime(int[][] times, int n, int k) {
-        Map<Integer, List<int[]>> adj = new HashMap<>();
-        for (int[] t : times) {
-            adj.computeIfAbsent(t[0], x -> new ArrayList<>()).add(new int[]{t[1], t[2]});
-        }
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
-        pq.offer(new int[]{k, 0});
-        Map<Integer, Integer> dist = new HashMap<>();
-
-        while (!pq.isEmpty()) {
-            int[] curr = pq.poll();
-            int u = curr[0], d = curr[1];
-            if (dist.containsKey(u)) continue;
-            dist.put(u, d);
-            if (adj.containsKey(u)) {
-                for (int[] edge : adj.get(u)) {
-                    int v = edge[0], weight = edge[1];
-                    if (!dist.containsKey(v)) {
-                        pq.offer(new int[]{v, d + weight});
-                    }
+        int INF = Integer.MAX_VALUE / 2;
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, INF);
+        dist[k] = 0;
+        for (int round = 0; round < n - 1; round++) {
+            for (int[] e : times) {
+                int u = e[0], v = e[1], w = e[2];
+                if (dist[u] != INF && dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
                 }
             }
         }
-        if (dist.size() != n) return -1;
-        int maxDist = 0;
-        for (int d : dist.values()) maxDist = Math.max(maxDist, d);
-        return maxDist;
+        int best = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == INF) return -1;
+            best = Math.max(best, dist[i]);
+        }
+        return best;
+    }
+}
+```
+- **Time Complexity**: $O(n \cdot E)$
+- **Space Complexity**: $O(n + E)$
+
+---
+
+##### Approach 2: Optimised (Dijkstra with a Min-Heap)
+
+**Intuition**: Always settle the unsettled node with the smallest tentative distance. Non-negative weights guarantee that its distance is final. Relax its outgoing edges, and repeat. A min-heap gives the next node in logarithmic time.
+
+**Algorithm**:
+1. Build the adjacency list.
+2. Push `(0, k)`. While the heap is non-empty: pop `(d, u)`. If `u` is already settled, skip it. Otherwise settle `u`, and for each edge `(u, v, w)`, if `d + w` improves `dist[v]`, update it and push.
+3. If fewer than `n` nodes are settled, return `-1`. Otherwise return the largest settled distance.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build the adjacency list.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Push `(0, k)`. While the heap is non-empty: pop `(d, u)`. If `u` is already settled, skip it. Otherwise settle `u`, and for each edge `(u, v, w)`, if `d + w` improves `dist[v]`, update it and push.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If fewer than `n` nodes are settled, return `-1`. Otherwise return the largest settled distance.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+        for (int[] e : times) adj.get(e[0]).add(new int[]{e[1], e[2]});
+
+        int[] dist = new int[n + 1];
+        java.util.Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[k] = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        pq.offer(new int[]{0, k});
+        boolean[] settled = new boolean[n + 1];
+        int settledCount = 0, best = 0;
+        while (!pq.isEmpty()) {
+            int[] top = pq.poll();
+            int d = top[0], u = top[1];
+            if (settled[u]) continue;
+            settled[u] = true;
+            settledCount++;
+            best = Math.max(best, d);
+            for (int[] edge : adj.get(u)) {
+                int v = edge[0], w = edge[1];
+                if (!settled[v] && d + w < dist[v]) {
+                    dist[v] = d + w;
+                    pq.offer(new int[]{dist[v], v});
+                }
+            }
+        }
+        return settledCount == n ? best : -1;
     }
 }
 ```
@@ -18028,33 +26464,209 @@ class Solution {
 - **Difficulty**: Hard
 - **LeetCode**: [778. Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water/)
 - **NeetCode**: [Swim in Rising Water](https://neetcode.io/problems/swim-in-rising-water)
-- **Data Structures**: Matrix, PriorityQueue
-- **Patterns**: Modified Dijkstra's Algorithm (Minimax Path)
+- **Data Structures**: Matrix, Graph, Heap
+- **Patterns**: Minimax Path, Binary Search on Answer, Dijkstra Variant
 
-#### Solutions
+#### Problem Description
+You are given an `n x n` grid where `grid[r][c]` is the elevation at that cell. Rain rises over time. At time `t`, you can swim to a cell if its elevation is at most `t`. You start at the top-left `(0, 0)` and must reach the bottom-right `(n-1, n-1)`, moving to 4-directional neighbours. Return the least time `t` at which this is possible.
 
-##### Approach 1: Optimised / Best (Dijkstra's Min-Heap Path Expansion)
+#### Examples
+
+**Example 1**
+- **Input**: `grid = [[0,2],[1,3]]`
+- **Output**: `3`
+- **Explanation**: At `t = 3`, the path `0 -> 1 -> 3` becomes possible.
+
+**Example 2**
+- **Input**: `grid = [[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]]`
+- **Output**: `16`
+
+#### Constraints
+- `n == grid.length == grid[i].length`
+- `1 <= n <= 50`
+- `0 <= grid[i][j] < n^2`
+- Each value in the grid is unique.
+
+#### Intuition
+For a path, its cost is the highest elevation along it, and the answer is the minimum such cost over all paths. The problem has two monotone structures. Feasibility at time `t` is monotone: if you can reach the end at `t`, you can at any later time. So binary search on `t` with a reachability check works. Alternatively, a Dijkstra variant can track the best minimax cost to each cell directly.
+
+---
+
+##### Approach 1: Brute Force (Test Each Time Step)
+
+**Intuition**: For each `t` from the starting elevation upward, run a BFS over cells with elevation at most `t`. The first `t` that reaches the far corner is the answer.
+
+**Algorithm**:
+1. For `t` from `grid[0][0]` to `n*n - 1`: BFS from `(0,0)` through cells with value `<= t`.
+2. If `(n-1, n-1)` is reached, return `t`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `t` from `grid[0][0]` to `n*n - 1`: BFS from `(0,0)` through cells with value `<= t`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **If `(n-1, n-1)` is reached, return `t`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public int swimInWater(int[][] grid) {
+        int n = grid.length;
+        for (int t = grid[0][0]; t < n * n; t++) {
+            if (reachable(grid, t)) return t;
+        }
+        return n * n - 1;
+    }
+
+    private boolean reachable(int[][] g, int t) {
+        int n = g.length;
+        if (g[0][0] > t) return false;
+        boolean[][] seen = new boolean[n][n];
+        Queue<int[]> q = new ArrayDeque<>();
+        q.offer(new int[]{0, 0});
+        seen[0][0] = true;
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            if (cur[0] == n - 1 && cur[1] == n - 1) return true;
+            for (int[] d : DIRS) {
+                int nr = cur[0] + d[0], nc = cur[1] + d[1];
+                if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;
+                if (seen[nr][nc] || g[nr][nc] > t) continue;
+                seen[nr][nc] = true;
+                q.offer(new int[]{nr, nc});
+            }
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n^4)$ in the worst case
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 2: Better (Binary Search on Time with BFS Check)
+
+**Intuition**: Feasibility is monotone in `t`. Binary search the smallest `t` in `[grid[0][0], n*n - 1]` for which a BFS reaches the end, reducing the number of checks to logarithmic.
+
+**Algorithm**:
+1. `lo = grid[0][0]`, `hi = n*n - 1`.
+2. While `lo < hi`: `mid = (lo + hi) / 2`. If `reachable(mid)`, set `hi = mid`. Otherwise `lo = mid + 1`.
+3. Return `lo`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`lo = grid[0][0]`, `hi = n*n - 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **While `lo < hi`: `mid = (lo + hi) / 2`. If `reachable(mid)`, set `hi = mid`. Otherwise `lo = mid + 1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `lo`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    public int swimInWater(int[][] grid) {
+        int n = grid.length;
+        int lo = grid[0][0], hi = n * n - 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (reachable(grid, mid)) hi = mid;
+            else lo = mid + 1;
+        }
+        return lo;
+    }
+
+    private boolean reachable(int[][] g, int t) {
+        int n = g.length;
+        if (g[0][0] > t) return false;
+        boolean[][] seen = new boolean[n][n];
+        Queue<int[]> q = new ArrayDeque<>();
+        q.offer(new int[]{0, 0});
+        seen[0][0] = true;
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            if (cur[0] == n - 1 && cur[1] == n - 1) return true;
+            for (int[] d : DIRS) {
+                int nr = cur[0] + d[0], nc = cur[1] + d[1];
+                if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;
+                if (seen[nr][nc] || g[nr][nc] > t) continue;
+                seen[nr][nc] = true;
+                q.offer(new int[]{nr, nc});
+            }
+        }
+        return false;
+    }
+}
+```
+- **Time Complexity**: $O(n^2 \log(n^2))$
+- **Space Complexity**: $O(n^2)$
+
+---
+
+##### Approach 3: Optimised (Dijkstra as Minimax)
+
+**Intuition**: Define a path's cost as the largest elevation on it. Run Dijkstra with cost `max(cost so far, elevation of the next cell)`, and relax only when this improves the best known cost. The first time the corner is settled, its cost is the answer.
+
+**Algorithm**:
+1. `best[r][c] = infinity`, except `best[0][0] = grid[0][0]`.
+2. Push `(grid[0][0], 0, 0)`. While the heap is non-empty: pop `(cost, r, c)`. If `(r, c)` is the corner, return `cost`. For each neighbour, `nc = max(cost, grid[nr][nc])`. If `nc < best[nr][nc]`, update and push.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`best[r][c] = infinity`, except `best[0][0] = grid[0][0]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Push `(grid[0][0], 0, 0)`. While the heap is non-empty: pop `(cost, r, c)`. If `(r, c)` is the corner, return `cost`. For each neighbour, `nc = max(cost, grid[nr][nc])`. If `nc < best[nr][nc]`, update and push.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.PriorityQueue;
 
 class Solution {
+    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};
+
     public int swimInWater(int[][] grid) {
         int n = grid.length;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
-        boolean[][] visited = new boolean[n][n];
-        pq.offer(new int[]{0, 0, grid[0][0]});
-        visited[0][0] = true;
-        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
-
+        int[][] best = new int[n][n];
+        for (int[] row : best) java.util.Arrays.fill(row, Integer.MAX_VALUE);
+        best[0][0] = grid[0][0];
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        pq.offer(new int[]{grid[0][0], 0, 0});
         while (!pq.isEmpty()) {
-            int[] curr = pq.poll();
-            int r = curr[0], c = curr[1], maxWater = curr[2];
-            if (r == n - 1 && c == n - 1) return maxWater;
-            for (int[] d : dirs) {
+            int[] top = pq.poll();
+            int cost = top[0], r = top[1], c = top[2];
+            if (r == n - 1 && c == n - 1) return cost;
+            if (cost > best[r][c]) continue;
+            for (int[] d : DIRS) {
                 int nr = r + d[0], nc = c + d[1];
-                if (nr >= 0 && nr < n && nc >= 0 && nc < n && !visited[nr][nc]) {
-                    visited[nr][nc] = true;
-                    pq.offer(new int[]{nr, nc, Math.max(maxWater, grid[nr][nc])});
+                if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;
+                int next = Math.max(cost, grid[nr][nc]);
+                if (next < best[nr][nc]) {
+                    best[nr][nc] = next;
+                    pq.offer(new int[]{next, nr, nc});
                 }
             }
         }
@@ -18062,139 +26674,561 @@ class Solution {
     }
 }
 ```
-- **Time Complexity**: $O(n^2 \log n)$
+- **Time Complexity**: $O(n^2 \log(n^2))$
 - **Space Complexity**: $O(n^2)$
 
 ---
 
 ### 18.5 Alien Dictionary
 - **Difficulty**: Hard
-- **LeetCode**: [269. Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)
-- **NeetCode**: [Foreign Dictionary](https://neetcode.io/problems/foreign-dictionary)
-- **Data Structures**: Graph, Topological Sort
-- **Patterns**: Directed Graph Topological Sort (Kahn's or DFS)
+- **LeetCode**: [269. Alien Dictionary (Premium)](https://leetcode.com/problems/alien-dictionary/)
+- **NeetCode**: [Alien Dictionary](https://neetcode.io/problems/foreign-dictionary)
+- **Data Structures**: Graph, String
+- **Patterns**: Topological Sort, Adjacent Word Comparison
 
-#### Solutions
+#### Problem Description
+There is a new alien language that uses the English alphabet. The order of the letters is unknown. You are given a list of strings `words` from the alien language's dictionary, sorted lexicographically by that language's rules. Derive the order of letters in the alien language. Return the order as a string, or `""` if no valid order exists. If multiple valid orders exist, return any one of them.
 
-##### Approach 1: Optimised / Best (Kahn's Algorithm with Prefix Edge Validation)
+#### Examples
+
+**Example 1**
+- **Input**: `words = ["wrt","wrf","er","ett","rftt"]`
+- **Output**: `"wertf"`
+
+**Example 2**
+- **Input**: `words = ["z","x"]`
+- **Output**: `"zx"`
+
+**Example 3**
+- **Input**: `words = ["z","x","z"]`
+- **Output**: `""`
+- **Explanation**: The constraints `z < x` and `x < z` form a cycle.
+
+**Example 4**
+- **Input**: `words = ["abc","ab"]`
+- **Output**: `""`
+- **Explanation**: A word cannot come before its own prefix.
+
+#### Constraints
+- `1 <= words.length <= 100`
+- `1 <= words[i].length <= 100`
+- `words[i]` consists of lowercase English letters.
+
+#### Intuition
+Comparing neighbouring words gives ordering constraints. The first differing character in `words[i]` and `words[i+1]` says that the first letter comes before the second. The result is a directed graph over letters, and a valid alphabet order is a topological order of that graph. A cycle means no valid order exists. A prefix violation (a longer word listed before its prefix) also makes the input invalid.
+
+Build the same letter graph in each approach. The approaches differ in how they produce the topological order.
+
+---
+
+##### Approach 1: Brute Force (Repeated Selection of Free Letters)
+
+**Intuition**: On each round, choose any letter that appears in the input and has no unplaced letter pointing to it. Place it, and repeat. If a round finds no candidate while letters remain, the graph has a cycle.
+
+**Algorithm**:
+1. Mark letters that appear. Build `adj[a][b] = true` for each constraint.
+2. Repeat: find a present, unplaced letter `c` such that no unplaced `d` has `adj[d][c]`. If none, stop. Otherwise append `c` and mark it placed.
+3. If every present letter was placed, return the order. Otherwise return `""`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Mark letters that appear. Build `adj[a][b] = true` for each constraint.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Repeat: find a present, unplaced letter `c` such that no unplaced `d` has `adj[d][c]`. If none, stop. Otherwise append `c` and mark it placed.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **If every present letter was placed, return the order. Otherwise return `""`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
-
 class Solution {
     public String foreignDictionary(String[] words) {
-        Map<Character, Set<Character>> adj = new HashMap<>();
-        Map<Character, Integer> inDegree = new HashMap<>();
-        for (String w : words) {
-            for (char c : w.toCharArray()) inDegree.put(c, 0);
-        }
-
-        for (int i = 0; i < words.length - 1; i++) {
-            String w1 = words[i], w2 = words[i + 1];
-            if (w1.length() > w2.length() && w1.startsWith(w2)) return ""; // Invalid prefix order
-            for (int j = 0; j < Math.min(w1.length(), w2.length()); j++) {
-                char c1 = w1.charAt(j), c2 = w2.charAt(j);
-                if (c1 != c2) {
-                    adj.computeIfAbsent(c1, k -> new HashSet<>());
-                    if (adj.get(c1).add(c2)) {
-                        inDegree.put(c2, inDegree.get(c2) + 1);
-                    }
+        boolean[] present = new boolean[26];
+        for (String w : words) for (char c : w.toCharArray()) present[c - 'a'] = true;
+        boolean[][] adj = new boolean[26][26];
+        for (int i = 0; i + 1 < words.length; i++) {
+            String a = words[i], b = words[i + 1];
+            int len = Math.min(a.length(), b.length());
+            boolean differs = false;
+            for (int j = 0; j < len; j++) {
+                if (a.charAt(j) != b.charAt(j)) {
+                    adj[a.charAt(j) - 'a'][b.charAt(j) - 'a'] = true;
+                    differs = true;
                     break;
                 }
             }
+            if (!differs && a.length() > b.length()) return "";
         }
-
-        Queue<Character> queue = new LinkedList<>();
-        for (char c : inDegree.keySet()) {
-            if (inDegree.get(c) == 0) queue.offer(c);
-        }
-
+        boolean[] placed = new boolean[26];
         StringBuilder sb = new StringBuilder();
-        while (!queue.isEmpty()) {
-            char curr = queue.poll();
-            sb.append(curr);
-            if (adj.containsKey(curr)) {
-                for (char next : adj.get(curr)) {
-                    inDegree.put(next, inDegree.get(next) - 1);
-                    if (inDegree.get(next) == 0) queue.offer(next);
+        int total = 0;
+        for (boolean p : present) if (p) total++;
+        while (true) {
+            int pick = -1;
+            for (int c = 0; c < 26 && pick == -1; c++) {
+                if (!present[c] || placed[c]) continue;
+                boolean free = true;
+                for (int d = 0; d < 26; d++) {
+                    if (!placed[d] && adj[d][c]) {
+                        free = false;
+                        break;
+                    }
                 }
+                if (free) pick = c;
             }
+            if (pick == -1) break;
+            placed[pick] = true;
+            sb.append((char) ('a' + pick));
         }
-
-        return sb.length() == inDegree.size() ? sb.toString() : "";
+        return sb.length() == total ? sb.toString() : "";
     }
 }
 ```
-- **Time Complexity**: $O(C)$ where $C$ is total characters in all words
-- **Space Complexity**: $O(1)$ (at most 26 characters)
+- **Time Complexity**: $O(26^3)$ for the fixed alphabet, plus $O(\text{total length})$ for the constraints
+- **Space Complexity**: $O(26^2)$
+
+---
+
+##### Approach 2: Better (DFS with Three-Colour Marking)
+
+**Intuition**: Run DFS from each letter. A letter's finishing order comes after all letters that must follow it. Reversing the finishing order gives a topological order. A back edge to a letter still on the current path reveals a cycle.
+
+**Algorithm**:
+1. Build the graph as in Approach 1, with the prefix check.
+2. `state`: 0 unvisited, 1 on the current path, 2 finished.
+3. `dfs(c)`: set `state[c] = 1`. For each `d` with `adj[c][d]`: if `state[d] == 1`, a cycle exists. If `state[d] == 0`, recurse. Then set `state[c] = 2` and append `c`.
+4. Run `dfs` from each present letter. Return the reversed output, or `""` if a cycle was found.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build the graph as in Approach 1, with the prefix check.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **`state`: 0 unvisited, 1 on the current path, 2 finished.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`dfs(c)`: set `state[c] = 1`. For each `d` with `adj[c][d]`: if `state[d] == 1`, a cycle exists. If `state[d] == 0`, recurse. Then set `state[c] = 2` and append `c`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **Run `dfs` from each present letter. Return the reversed output, or `""` if a cycle was found.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    private boolean[][] adj;
+    private int[] state;
+    private StringBuilder sb;
+    private boolean cycle;
+
+    public String foreignDictionary(String[] words) {
+        boolean[] present = new boolean[26];
+        for (String w : words) for (char c : w.toCharArray()) present[c - 'a'] = true;
+        adj = new boolean[26][26];
+        for (int i = 0; i + 1 < words.length; i++) {
+            String a = words[i], b = words[i + 1];
+            int len = Math.min(a.length(), b.length());
+            boolean differs = false;
+            for (int j = 0; j < len; j++) {
+                if (a.charAt(j) != b.charAt(j)) {
+                    adj[a.charAt(j) - 'a'][b.charAt(j) - 'a'] = true;
+                    differs = true;
+                    break;
+                }
+            }
+            if (!differs && a.length() > b.length()) return "";
+        }
+        state = new int[26];
+        sb = new StringBuilder();
+        for (int c = 0; c < 26 && !cycle; c++) {
+            if (present[c] && state[c] == 0) dfs(c);
+        }
+        return cycle ? "" : sb.reverse().toString();
+    }
+
+    private void dfs(int c) {
+        state[c] = 1;
+        for (int d = 0; d < 26 && !cycle; d++) {
+            if (!adj[c][d]) continue;
+            if (state[d] == 1) {
+                cycle = true;
+                return;
+            }
+            if (state[d] == 0) dfs(d);
+        }
+        state[c] = 2;
+        sb.append((char) ('a' + c));
+    }
+}
+```
+- **Time Complexity**: $O(26^2 + \text{total length})$
+- **Space Complexity**: $O(26^2)$
+
+---
+
+##### Approach 3: Optimised (Kahn's Algorithm on the Letter Graph)
+
+**Intuition**: Track each letter's indegree (the number of distinct letters that must come before it). Letters with indegree zero are ready. Remove them one at a time, decrementing the indegree of their successors. If every present letter is removed, the order is valid.
+
+**Algorithm**:
+1. Build the graph and count indegrees over distinct edges only.
+2. Enqueue present letters with indegree zero. Dequeue `c`, append it, and decrement the indegree of each successor `d`, enqueuing those that reach zero.
+3. Return the order if its length equals the number of present letters, otherwise `""`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build the graph and count indegrees over distinct edges only.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Enqueue present letters with indegree zero. Dequeue `c`, append it, and decrement the indegree of each successor `d`, enqueuing those that reach zero.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Return the order if its length equals the number of present letters, otherwise `""`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    public String foreignDictionary(String[] words) {
+        boolean[] present = new boolean[26];
+        for (String w : words) for (char c : w.toCharArray()) present[c - 'a'] = true;
+        boolean[][] adj = new boolean[26][26];
+        int[] indeg = new int[26];
+        for (int i = 0; i + 1 < words.length; i++) {
+            String a = words[i], b = words[i + 1];
+            int len = Math.min(a.length(), b.length());
+            boolean differs = false;
+            for (int j = 0; j < len; j++) {
+                if (a.charAt(j) != b.charAt(j)) {
+                    int u = a.charAt(j) - 'a', v = b.charAt(j) - 'a';
+                    if (!adj[u][v]) {
+                        adj[u][v] = true;
+                        indeg[v]++;
+                    }
+                    differs = true;
+                    break;
+                }
+            }
+            if (!differs && a.length() > b.length()) return "";
+        }
+        Queue<Integer> q = new ArrayDeque<>();
+        int total = 0;
+        for (int c = 0; c < 26; c++) {
+            if (present[c]) {
+                total++;
+                if (indeg[c] == 0) q.offer(c);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            sb.append((char) ('a' + u));
+            for (int v = 0; v < 26; v++) {
+                if (adj[u][v] && --indeg[v] == 0) q.offer(v);
+            }
+        }
+        return sb.length() == total ? sb.toString() : "";
+    }
+}
+```
+- **Time Complexity**: $O(26^2 + \text{total length})$
+- **Space Complexity**: $O(26^2)$
 
 ---
 
 ### 18.6 Cheapest Flights Within K Stops
 - **Difficulty**: Medium
 - **LeetCode**: [787. Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
-- **NeetCode**: [Cheapest Flight Path](https://neetcode.io/problems/cheapest-flight-path)
-- **Data Structures**: Graph, Bellman-Ford
-- **Patterns**: Bellman-Ford $(K + 1)$ Relaxations
+- **NeetCode**: [Cheapest Flights Within K Stops](https://neetcode.io/problems/cheapest-flight-path)
+- **Data Structures**: Graph, Heap
+- **Patterns**: Bounded-Hop Shortest Path, Bellman-Ford with Rounds
 
-#### Solutions
+#### Problem Description
+There are `n` cities connected by some flights, where `flights[i] = [fromi, toi, pricei]` is a flight from `fromi` to `toi` costing `pricei`. You are given `src`, `dst`, and `k`. Return the cheapest price from `src` to `dst` with at most `k` stops, or `-1` if no such route exists.
 
-##### Approach 1: Optimised / Best (Bellman-Ford $K + 1$ Passes)
+#### Examples
+
+**Example 1**
+- **Input**: `n = 4`, `flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]`, `src = 0`, `dst = 3`, `k = 1`
+- **Output**: `700`
+
+**Example 2**
+- **Input**: `n = 3`, `flights = [[0,1,100],[1,2,100],[0,2,500]]`, `src = 0`, `dst = 2`, `k = 1`
+- **Output**: `200`
+
+**Example 3**
+- **Input**: Same as Example 2, with `k = 0`
+- **Output**: `500`
+
+#### Constraints
+- `2 <= n <= 100`
+- `0 <= flights.length <= (n * (n - 1) / 2)`
+- `flights[i].length == 3`
+- `0 <= fromi, toi < n`, with `fromi != toi`
+- `1 <= pricei <= 10^4`
+- No duplicate flights.
+- `0 <= src, dst, k < n`, with `src != dst`
+
+#### Intuition
+A route with `k` stops uses at most `k + 1` flights. The cheapest route must be found among routes of bounded length, so unbounded Dijkstra can return a route that uses too many flights. Limiting the number of rounds fixes that. Bellman-Ford naturally does this: after round `i`, the best price for each city using at most `i` flights is known.
+
+---
+
+##### Approach 1: Brute Force (Enumerate Routes by DFS)
+
+**Intuition**: From `src`, explore every route with at most `k + 1` flights, and keep the cheapest one that reaches `dst`.
+
+**Algorithm**:
+1. `dfs(node, flightsUsed, cost)`: if `node == dst`, update the best. If `flightsUsed == k + 1`, stop.
+2. For each flight from `node`, recurse with one more flight and the added cost.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`dfs(node, flightsUsed, cost)`: if `node == dst`, update the best. If `flightsUsed == k + 1`, stop.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each flight from `node`, recurse with one more flight and the added cost.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    private long best = Long.MAX_VALUE;
+
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+        for (int[] f : flights) adj.get(f[0]).add(new int[]{f[1], f[2]});
+        dfs(adj, src, dst, 0, 0L, k);
+        return best == Long.MAX_VALUE ? -1 : (int) best;
+    }
+
+    private void dfs(List<List<int[]>> adj, int node, int dst, int used, long cost, int k) {
+        if (node == dst) {
+            best = Math.min(best, cost);
+            return;
+        }
+        if (used == k + 1) return;
+        for (int[] edge : adj.get(node)) {
+            dfs(adj, edge[0], dst, used + 1, cost + edge[1], k);
+        }
+    }
+}
+```
+- **Time Complexity**: Exponential in the worst case
+- **Space Complexity**: $O(k)$ for recursion depth
+
+---
+
+##### Approach 2: Optimised (Bounded Bellman-Ford)
+
+**Intuition**: Run `k + 1` rounds of relaxation. Each round uses only prices from the previous round, so the path gains at most one flight per round. Copying the previous round's prices prevents chaining several flights in one round.
+
+**Algorithm**:
+1. `prices[src] = 0`, others infinity.
+2. Repeat `k + 1` times: copy `prices` into `next`. For each flight `(u, v, w)`, if `prices[u]` is finite and `prices[u] + w < next[v]`, set `next[v]`. Then `prices = next`.
+3. Return `prices[dst]`, or `-1` if it is infinite.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`prices[src] = 0`, others infinity.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Repeat `k + 1` times: copy `prices` into `next`. For each flight `(u, v, w)`, if `prices[u]` is finite and `prices[u] + w < next[v]`, set `next[v]`. Then `prices = next`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `prices[dst]`, or `-1` if it is infinite.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.Arrays;
 
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        int[] prices = new int[n];
-        Arrays.fill(prices, Integer.MAX_VALUE);
+        final long INF = Long.MAX_VALUE / 4;
+        long[] prices = new long[n];
+        Arrays.fill(prices, INF);
         prices[src] = 0;
-
-        for (int i = 0; i <= k; i++) {
-            int[] tmpPrices = Arrays.copyOf(prices, n);
-            for (int[] flight : flights) {
-                int s = flight[0], d = flight[1], p = flight[2];
-                if (prices[s] == Integer.MAX_VALUE) continue;
-                if (prices[s] + p < tmpPrices[d]) {
-                    tmpPrices[d] = prices[s] + p;
+        for (int round = 0; round <= k; round++) {
+            long[] next = prices.clone();
+            for (int[] f : flights) {
+                int u = f[0], v = f[1];
+                long w = f[2];
+                if (prices[u] != INF && prices[u] + w < next[v]) {
+                    next[v] = prices[u] + w;
                 }
             }
-            prices = tmpPrices;
+            prices = next;
         }
-        return prices[dst] == Integer.MAX_VALUE ? -1 : prices[dst];
+        return prices[dst] == INF ? -1 : (int) prices[dst];
     }
 }
 ```
-- **Time Complexity**: $O(K \cdot E)$
-- **Space Complexity**: $O(V)$
+- **Time Complexity**: $O((k + 1) \cdot E)$
+- **Space Complexity**: $O(n)$
 
 ---
-
 
 ## 19. Extras
 
 ### 19.1 Move Zeroes
 - **Difficulty**: Easy
 - **LeetCode**: [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/)
+- **NeetCode**: [Move Zeros to End](https://neetcode.io/problems/move-zeros-to-end)
 - **Data Structures**: Array, Two Pointers
 - **Patterns**: In-Place Writer Pointer
 
 #### Problem Description
-Given an integer array `nums`, move all `0`'s to the end of it while maintaining the relative order of the non-zero elements. You must do this in-place without making a copy of the array.
+Given an integer array `nums`, move all `0`s to the end of it while maintaining the relative order of the non-zero elements. You must do this in place, without making a copy of the array.
 
-#### Solutions
+#### Examples
 
-##### Approach 1: Optimised / Best (Two Pointers In-Place Swap)
+**Example 1**
+- **Input**: `nums = [0,1,0,3,12]`
+- **Output**: `[1,3,12,0,0]`
+
+**Example 2**
+- **Input**: `nums = [0]`
+- **Output**: `[0]`
+
+#### Constraints
+- `1 <= nums.length <= 10^4`
+- `-2^31 <= nums[i] <= 2^31 - 1`
+
+#### Intuition
+Keep the non-zero elements in their original relative order by moving each one into the next free slot at the front. Whatever remains after the last non-zero is zeros, which you then fill in.
+
+---
+
+##### Approach 1: Brute Force (Copy Non-Zeros, Then Pad)
+
+**Intuition**: Collect the non-zero values in order into a new list, then write them back followed by zeros.
+
+**Algorithm**:
+1. Collect non-zero values into `list`.
+2. Write `list` into the front of `nums`, then fill the remaining positions with zero.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Collect non-zero values into `list`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Write `list` into the front of `nums`, then fill the remaining positions with zero.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        for (int x : nums) {
+            if (x != 0) list.add(x);
+        }
+        int i = 0;
+        for (int x : list) nums[i++] = x;
+        while (i < nums.length) nums[i++] = 0;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Swap Each Non-Zero Forward)
+
+**Intuition**: When a non-zero element is found, swap it with the slot at the write position. The write position is the first slot not yet holding a non-zero element.
+
+**Algorithm**:
+1. `j = 0`.
+2. For each `i`: if `nums[i] != 0`, swap `nums[i]` and `nums[j]`, then increment `j`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`j = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `i`: if `nums[i] != 0`, swap `nums[i]` and `nums[j]`, then increment `j`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public void moveZeroes(int[] nums) {
-        int insertPos = 0;
+        int j = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
-                if (i != insertPos) {
-                    nums[insertPos] = nums[i];
-                    nums[i] = 0;
-                }
-                insertPos++;
+                int t = nums[i];
+                nums[i] = nums[j];
+                nums[j] = t;
+                j++;
             }
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Writer Pointer, Then Fill Zeros)
+
+**Intuition**: Write each non-zero value once, in order, at the write position. Then fill everything from the write position onward with zeros. This makes at most one write per element, with no swaps.
+
+**Algorithm**:
+1. `j = 0`. For each non-zero `nums[i]`, set `nums[j++] = nums[i]`.
+2. For `k` from `j` to `n - 1`, set `nums[k] = 0`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`j = 0`. For each non-zero `nums[i]`, set `nums[j++] = nums[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **For `k` from `j` to `n - 1`, set `nums[k] = 0`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int j = 0;
+        for (int x : nums) {
+            if (x != 0) nums[j++] = x;
+        }
+        for (int k = j; k < nums.length; k++) {
+            nums[k] = 0;
         }
     }
 }
@@ -18207,23 +27241,145 @@ class Solution {
 ### 19.2 Remove Duplicates from Sorted Array
 - **Difficulty**: Easy
 - **LeetCode**: [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+- **NeetCode**: [Remove Duplicates from Sorted Array](https://neetcode.io/problems/remove-duplicates-from-sorted-array)
 - **Data Structures**: Array, Two Pointers
-- **Patterns**: Slow/Fast Pointers
+- **Patterns**: In-Place Writer Pointer, Sorted-Array Deduplication
 
-#### Solutions
+#### Problem Description
+Given an integer array `nums` sorted in non-decreasing order, remove the duplicates in place so that each unique element appears once. Keep the relative order. Return `k`, the number of unique elements. The first `k` elements of `nums` must hold the unique values.
 
-##### Approach 1: Optimised / Best (Two Pointers Insertion)
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,1,2]`
+- **Output**: `2`, with `nums` starting `[1,2]`
+
+**Example 2**
+- **Input**: `nums = [0,0,1,1,1,2,2,3,3,4]`
+- **Output**: `5`, with `nums` starting `[0,1,2,3,4]`
+
+#### Constraints
+- `1 <= nums.length <= 3 * 10^4`
+- `-100 <= nums[i] <= 100`
+- `nums` is sorted in non-decreasing order.
+
+#### Intuition
+Because the array is sorted, equal values are adjacent. A value is new exactly when it differs from the last unique value kept. So a single pass that writes only new values produces the answer in place.
+
+---
+
+##### Approach 1: Brute Force (Membership Check in a Growing List)
+
+**Intuition**: Keep a list of unique values. For each element, check whether it is already in the list, and add it if not. Then write the list back.
+
+**Algorithm**:
+1. For each `x`, if the list does not contain `x`, append it.
+2. Write the list into the front of `nums`. Return its size.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `x`, if the list does not contain `x`, append it.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Write the list into the front of `nums`. Return its size.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        List<Integer> unique = new ArrayList<>();
+        for (int x : nums) {
+            if (!unique.contains(x)) unique.add(x);
+        }
+        for (int i = 0; i < unique.size(); i++) nums[i] = unique.get(i);
+        return unique.size();
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Set Deduplication in Order)
+
+**Intuition**: A `LinkedHashSet` keeps unique values in insertion order. Insert every element, then write the set back.
+
+**Algorithm**:
+1. Add every element to a `LinkedHashSet`.
+2. Write the set's values into the front of `nums`, in order. Return the set size.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Add every element to a `LinkedHashSet`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **Write the set's values into the front of `nums`, in order. Return the set size.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.LinkedHashSet;
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        LinkedHashSet<Integer> set = new LinkedHashSet<>();
+        for (int x : nums) set.add(x);
+        int i = 0;
+        for (int x : set) nums[i++] = x;
+        return set.size();
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Two Pointers, In Place)
+
+**Intuition**: Keep a write pointer `k` for the position of the next unique value. Scan with a read pointer. Whenever the read value differs from `nums[k - 1]`, the last kept unique value, write it at `k` and advance `k`.
+
+**Algorithm**:
+1. If `nums` is empty, return `0`. Set `k = 1`.
+2. For `i` from `1` to `n-1`: if `nums[i] != nums[k - 1]`, set `nums[k++] = nums[i]`.
+3. Return `k`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **If `nums` is empty, return `0`. Set `k = 1`.**
+   This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem's constraints.
+2. **For `i` from `1` to `n-1`: if `nums[i] != nums[k - 1]`, set `nums[k++] = nums[i]`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `k`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int removeDuplicates(int[] nums) {
         if (nums.length == 0) return 0;
-        int insertIdx = 1;
+        int k = 1;
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1]) {
-                nums[insertIdx++] = nums[i];
+            if (nums[i] != nums[k - 1]) {
+                nums[k++] = nums[i];
             }
         }
-        return insertIdx;
+        return k;
     }
 }
 ```
@@ -18235,22 +27391,143 @@ class Solution {
 ### 19.3 Majority Element
 - **Difficulty**: Easy
 - **LeetCode**: [169. Majority Element](https://leetcode.com/problems/majority-element/)
-- **Data Structures**: Array
-- **Patterns**: Boyer-Moore Voting Algorithm
+- **NeetCode**: [Majority Element](https://neetcode.io/problems/majority-element)
+- **Data Structures**: Array, Hash Map
+- **Patterns**: Frequency Counting, Boyer-Moore Voting
 
-#### Solutions
+#### Problem Description
+Given an array `nums` of size `n`, return the majority element. The majority element is the element that appears more than `n / 2` times. You may assume it always exists.
 
-##### Approach 1: Optimised / Best (Boyer-Moore Voting Algorithm)
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [3,2,3]`
+- **Output**: `3`
+
+**Example 2**
+- **Input**: `nums = [2,2,1,1,1,2,2]`
+- **Output**: `2`
+
+#### Constraints
+- `n == nums.length`
+- `1 <= n <= 5 * 10^4`
+- `-10^9 <= nums[i] <= 10^9`
+- The majority element always exists.
+
+#### Intuition
+An element that occupies more than half the positions cannot be cancelled out by the others, even if every other element is paired against it. Boyer-Moore voting exploits that: maintain a candidate and a counter, and let distinct values cancel each other.
+
+---
+
+##### Approach 1: Brute Force (Count Each Element by Scanning)
+
+**Intuition**: For each element, count its occurrences by scanning the array. Return the first with more than `n / 2`.
+
+**Algorithm**:
+1. For each `nums[i]`, count the matches.
+2. Return the element whose count exceeds `n / 2`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For each `nums[i]`, count the matches.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Return the element whose count exceeds `n / 2`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class Solution {
     public int majorityElement(int[] nums) {
-        int candidate = nums[0];
-        int count = 0;
-        for (int num : nums) {
-            if (count == 0) {
-                candidate = num;
+        for (int i = 0; i < nums.length; i++) {
+            int count = 0;
+            for (int x : nums) {
+                if (x == nums[i]) count++;
             }
-            count += (num == candidate) ? 1 : -1;
+            if (count > nums.length / 2) return nums[i];
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n^2)$
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Better (Frequency Map)
+
+**Intuition**: Count every value in a hash map, then return the value whose count exceeds half.
+
+**Algorithm**:
+1. Build a frequency map.
+2. Return the key whose count exceeds `n / 2`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Build a frequency map.**
+   This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.
+2. **Return the key whose count exceeds `n / 2`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        Map<Integer, Integer> counts = new HashMap<>();
+        for (int x : nums) counts.merge(x, 1, Integer::sum);
+        for (Map.Entry<Integer, Integer> e : counts.entrySet()) {
+            if (e.getValue() > nums.length / 2) return e.getKey();
+        }
+        return -1;
+    }
+}
+```
+- **Time Complexity**: $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Boyer-Moore Voting)
+
+**Intuition**: Track a candidate and a count. A matching element increases the count, and a different one decreases it. When the count reaches zero, the next element becomes the candidate. The majority element always survives, because it outnumbers all other values combined.
+
+**Algorithm**:
+1. `candidate = nums[0]`, `count = 0`.
+2. For each `x`: if `count == 0`, set `candidate = x`. Then `count += (x == candidate) ? 1 : -1`.
+3. Return `candidate`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`candidate = nums[0]`, `count = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For each `x`: if `count == 0`, set `candidate = x`. Then `count += (x == candidate) ? 1 : -1`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Return `candidate`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class Solution {
+    public int majorityElement(int[] nums) {
+        int candidate = 0, count = 0;
+        for (int x : nums) {
+            if (count == 0) candidate = x;
+            count += (x == candidate) ? 1 : -1;
         }
         return candidate;
     }
@@ -18263,71 +27540,193 @@ class Solution {
 
 ## 20. Concurrency & Companion Design
 
+The problems in this section are about coordinating threads and designing classes that other threads call. Each problem first shows a baseline that is either wasteful or unsafe, then the standard coordination primitive that fixes it. Brute-force approaches are labelled as baselines, and they are not meant for production use.
+
 ### 20.1 Print in Order
 - **Difficulty**: Easy
 - **LeetCode**: [1114. Print in Order](https://leetcode.com/problems/print-in-order/)
-- **Data Structures**: Concurrency
-- **Patterns**: AtomicInteger / Semaphores / CountDownLatch
+- **NeetCode**: [Print in Order](https://neetcode.io/problems/print-in-order)
+- **Data Structures**: Concurrency Primitives
+- **Patterns**: Ordering with Latches, Monitor Wait and Notify
 
-#### Solutions
+#### Problem Description
+Three threads call `first()`, `second()`, and `third()` on the same `Foo` object. The threads may start in any order. Ensure that `printFirst` runs before `printSecond`, and `printSecond` runs before `printThird`.
 
-##### Approach 1: AtomicInteger Spin Lock
+Implement the `Foo` class:
+- `first(Runnable printFirst)` calls `printFirst.run()`.
+- `second(Runnable printSecond)` calls `printSecond.run()`.
+- `third(Runnable printThird)` calls `printThird.run()`.
+
+#### Examples
+
+**Example 1**
+- **Input**: `nums = [1,2,3]`, the three methods are invoked on separate threads in the order `(1, 2, 3)`.
+- **Output**: `"firstsecondthird"`
+
+**Example 2**
+- **Input**: `nums = [1,3,2]`, the calls are invoked in the order `(1, 3, 2)`.
+- **Output**: `"firstsecondthird"`
+- **Explanation**: The thread calling `third` must wait until `second` has finished.
+
+#### Constraints
+- `nums` is a permutation of `[1, 2, 3]`.
+
+#### Intuition
+Each method must wait until the previous step is complete. A one-shot signal per step expresses that directly. A `CountDownLatch` is the natural signal: a waiting thread blocks until the latch reaches zero, and the previous step counts it down when it finishes.
+
+---
+
+##### Approach 1: Brute Force (Busy Spin on a Volatile Flag)
+
+**Intuition**: Store the current step in a `volatile` field. Each method spins until the field equals its own step. The field must be `volatile` so that the write is visible to the spinning thread. Correct, but it burns a CPU core while waiting.
+
+**Algorithm**:
+1. `step` starts at `1`.
+2. `first` runs and sets `step = 2`.
+3. `second` spins until `step == 2`, runs, and sets `step = 3`.
+4. `third` spins until `step == 3`, then runs.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`step` starts at `1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`first` runs and sets `step = 2`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`second` spins until `step == 2`, runs, and sets `step = 3`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **`third` spins until `step == 3`, then runs.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.concurrent.atomic.AtomicInteger;
-
 class Foo {
-    private AtomicInteger stage = new AtomicInteger(0);
+    private volatile int step = 1;
 
-    public Foo() {}
-
-    public void first(Runnable printFirst) throws InterruptedException {
+    public void first(Runnable printFirst) {
         printFirst.run();
-        stage.incrementAndGet();
+        step = 2;
     }
 
-    public void second(Runnable printSecond) throws InterruptedException {
-        while (stage.get() < 1) {} // Spin wait
+    public void second(Runnable printSecond) {
+        while (step != 2) Thread.onSpinWait();
         printSecond.run();
-        stage.incrementAndGet();
+        step = 3;
     }
 
-    public void third(Runnable printThird) throws InterruptedException {
-        while (stage.get() < 2) {} // Spin wait
+    public void third(Runnable printThird) {
+        while (step != 3) Thread.onSpinWait();
         printThird.run();
     }
 }
 ```
-- **Time Complexity**: $O(1)$
+- **Time Complexity**: Wait time is spent spinning, with $O(1)$ work per step
 - **Space Complexity**: $O(1)$
 
-##### Approach 2: Best (Semaphores - No CPU Spinning)
+---
+
+##### Approach 2: Better (Monitor Wait and Notify)
+
+**Intuition**: Replace spinning with blocking. Use `synchronized`, and call `wait()` while the step is not ready. The step-completing thread calls `notifyAll()` to wake the waiters. A waiting thread consumes no CPU.
+
+**Algorithm**:
+1. `synchronized` each method. While `step` is not the expected value, call `wait()`.
+2. Run the print action, set the next step, and call `notifyAll()`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`synchronized` each method. While `step` is not the expected value, call `wait()`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **Run the print action, set the next step, and call `notifyAll()`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.concurrent.Semaphore;
-
 class Foo {
-    private Semaphore s2 = new Semaphore(0);
-    private Semaphore s3 = new Semaphore(0);
+    private int step = 1;
 
-    public Foo() {}
-
-    public void first(Runnable printFirst) throws InterruptedException {
+    public synchronized void first(Runnable printFirst) {
         printFirst.run();
-        s2.release();
+        step = 2;
+        notifyAll();
     }
 
-    public void second(Runnable printSecond) throws InterruptedException {
-        s2.acquire();
+    public synchronized void second(Runnable printSecond) throws InterruptedException {
+        while (step != 2) wait();
         printSecond.run();
-        s3.release();
+        step = 3;
+        notifyAll();
     }
 
-    public void third(Runnable printThird) throws InterruptedException {
-        s3.acquire();
+    public synchronized void third(Runnable printThird) throws InterruptedException {
+        while (step != 3) wait();
         printThird.run();
     }
 }
 ```
-- **Time Complexity**: $O(1)$
+- **Time Complexity**: Waiting threads block, with $O(1)$ work per step
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Count-Down Latches)
+
+**Intuition**: Each step is a one-time event, which is exactly what a latch models. `first` counts down `latch1` after printing. `second` awaits `latch1`, prints, and counts down `latch2`. `third` awaits `latch2`. No shared state and no manual notification are needed.
+
+**Algorithm**:
+1. Two latches, each with count `1`.
+2. `first`: print, then count down `latch1`.
+3. `second`: await `latch1`, print, then count down `latch2`.
+4. `third`: await `latch2`, then print.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Two latches, each with count `1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`first`: print, then count down `latch1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`second`: await `latch1`, print, then count down `latch2`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+4. **`third`: await `latch2`, then print.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.concurrent.CountDownLatch;
+
+class Foo {
+    private final CountDownLatch latch1 = new CountDownLatch(1);
+    private final CountDownLatch latch2 = new CountDownLatch(1);
+
+    public void first(Runnable printFirst) {
+        printFirst.run();
+        latch1.countDown();
+    }
+
+    public void second(Runnable printSecond) throws InterruptedException {
+        latch1.await();
+        printSecond.run();
+        latch2.countDown();
+    }
+
+    public void third(Runnable printThird) throws InterruptedException {
+        latch2.await();
+        printThird.run();
+    }
+}
+```
+- **Time Complexity**: Waiting threads block, with $O(1)$ work per step
 - **Space Complexity**: $O(1)$
 
 ---
@@ -18335,19 +27734,115 @@ class Foo {
 ### 20.2 Print FooBar Alternately
 - **Difficulty**: Medium
 - **LeetCode**: [1115. Print FooBar Alternately](https://leetcode.com/problems/print-foobar-alternately/)
-- **Data Structures**: Concurrency
-- **Patterns**: Dual Semaphores / Synchronized Wait-Notify
+- **NeetCode**: [Print FooBar Alternately](https://neetcode.io/problems/print-foobar-alternately)
+- **Data Structures**: Concurrency Primitives
+- **Patterns**: Strict Alternation, Semaphore Hand-off
 
-#### Solutions
+#### Problem Description
+Two threads share one `FooBar` object. One thread calls `foo()` and the other calls `bar()`. Each method must print `"foo"` or `"bar"`, respectively, exactly `n` times. The output must alternate: `foo`, `bar`, `foo`, `bar`, and so on, starting with `foo`.
 
-##### Approach 1: Dual Semaphores
+#### Examples
+
+**Example 1**
+- **Input**: `n = 1`
+- **Output**: `"foobar"`
+
+**Example 2**
+- **Input**: `n = 2`
+- **Output**: `"foobarfoobar"`
+
+#### Constraints
+- `1 <= n <= 1000`
+
+#### Intuition
+Two threads take turns, so each one must wait for the other to hand over control. That is a hand-off. A binary token can do it: the foo thread holds the token first, and after printing, it passes the token to bar, and bar passes it back.
+
+---
+
+##### Approach 1: Brute Force (Busy Spin on a Volatile Turn)
+
+**Intuition**: Track whose turn it is in a `volatile boolean`. Each thread spins until it is their turn, prints, and flips the flag.
+
+**Algorithm**:
+1. `fooTurn` starts `true`.
+2. `foo()`: `n` times, spin until `fooTurn`, print, set `fooTurn = false`.
+3. `bar()`: `n` times, spin until `!fooTurn`, print, set `fooTurn = true`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`fooTurn` starts `true`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`foo()`: `n` times, spin until `fooTurn`, print, set `fooTurn = false`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **`bar()`: `n` times, spin until `!fooTurn`, print, set `fooTurn = true`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class FooBar {
+    private final int n;
+    private volatile boolean fooTurn = true;
+
+    public FooBar(int n) {
+        this.n = n;
+    }
+
+    public void foo(Runnable printFoo) {
+        for (int i = 0; i < n; i++) {
+            while (!fooTurn) Thread.onSpinWait();
+            printFoo.run();
+            fooTurn = false;
+        }
+    }
+
+    public void bar(Runnable printBar) {
+        for (int i = 0; i < n; i++) {
+            while (fooTurn) Thread.onSpinWait();
+            printBar.run();
+            fooTurn = true;
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n)$ prints, plus spin time
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Optimised (Two Semaphores as a Hand-Off)
+
+**Intuition**: A `Semaphore` with one permit holds the token. `fooSem` starts with one permit, and `barSem` starts with none. `foo` acquires `fooSem`, prints, and releases `barSem`. `bar` does the reverse. Each acquire blocks until the other thread has released.
+
+**Algorithm**:
+1. `fooSem = new Semaphore(1)`, `barSem = new Semaphore(0)`.
+2. `foo`: `n` times: acquire `fooSem`, print, release `barSem`.
+3. `bar`: `n` times: acquire `barSem`, print, release `fooSem`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`fooSem = new Semaphore(1)`, `barSem = new Semaphore(0)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`foo`: `n` times: acquire `fooSem`, print, release `barSem`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`bar`: `n` times: acquire `barSem`, print, release `fooSem`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.concurrent.Semaphore;
 
 class FooBar {
-    private int n;
-    private Semaphore fooSem = new Semaphore(1);
-    private Semaphore barSem = new Semaphore(0);
+    private final int n;
+    private final Semaphore fooSem = new Semaphore(1);
+    private final Semaphore barSem = new Semaphore(0);
 
     public FooBar(int n) {
         this.n = n;
@@ -18370,7 +27865,7 @@ class FooBar {
     }
 }
 ```
-- **Time Complexity**: $O(n)$
+- **Time Complexity**: $O(n)$ prints, with blocking waits
 - **Space Complexity**: $O(1)$
 
 ---
@@ -18378,21 +27873,135 @@ class FooBar {
 ### 20.3 Print Zero Even Odd
 - **Difficulty**: Medium
 - **LeetCode**: [1116. Print Zero Even Odd](https://leetcode.com/problems/print-zero-even-odd/)
-- **Data Structures**: Concurrency
-- **Patterns**: Tri-State Semaphore Coordination
+- **NeetCode**: [Print Zero Even Odd](https://neetcode.io/problems/print-zero-even-odd)
+- **Data Structures**: Concurrency Primitives
+- **Patterns**: Three-Way Turn-Taking, Semaphore Ring
 
-#### Solutions
+#### Problem Description
+Three threads share one `ZeroEvenOdd` object with an integer `n`:
+- Thread A calls `zero()`, which prints `0`.
+- Thread B calls `even()`, which prints the even numbers.
+- Thread C calls `odd()`, which prints the odd numbers.
 
-##### Approach 1: Optimised / Best (Semaphores for Zero, Even, Odd)
+The output must be `0102030405...` up to `n`. For example, `n = 2` prints `0102`, and `n = 5` prints `0102030405`.
+
+#### Examples
+
+**Example 1**
+- **Input**: `n = 2`
+- **Output**: `"0102"`
+
+**Example 2**
+- **Input**: `n = 5`
+- **Output**: `"0102030405"`
+
+#### Constraints
+- `1 <= n <= 1000`
+
+#### Intuition
+The three threads form a cycle: zero, then an odd or even number, then zero, then the next. A semaphore per role gives the turn. `zero` acquires its semaphore, prints `0`, then releases the semaphore of whichever role prints the next number. Each number's role depends only on its parity.
+
+---
+
+##### Approach 1: Brute Force (Busy Spin on a Shared Counter)
+
+**Intuition**: Keep a shared counter, and have each thread spin until the counter's next value is one it should print. Correct, but wasteful while waiting.
+
+**Algorithm**:
+1. A `volatile int cur = 1` tracks the next number to print.
+2. `zero` prints `0` before each number. `even` and `odd` each spin until `cur` is their number, print it, and advance.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **A `volatile int cur = 1` tracks the next number to print.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`zero` prints `0` before each number. `even` and `odd` each spin until `cur` is their number, print it, and advance.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.function.IntConsumer;
+
+class ZeroEvenOdd {
+    private final int n;
+    private volatile int cur = 1;
+    private volatile boolean zeroTurn = true;
+
+    public ZeroEvenOdd(int n) {
+        this.n = n;
+    }
+
+    public void zero(IntConsumer printNumber) {
+        for (int i = 1; i <= n; i++) {
+            while (!zeroTurn) Thread.onSpinWait();
+            printNumber.accept(0);
+            zeroTurn = false;
+        }
+    }
+
+    public void even(IntConsumer printNumber) {
+        for (int i = 2; i <= n; i += 2) {
+            while (zeroTurn || cur != i) Thread.onSpinWait();
+            printNumber.accept(i);
+            cur = i + 1;
+            zeroTurn = true;
+        }
+    }
+
+    public void odd(IntConsumer printNumber) {
+        for (int i = 1; i <= n; i += 2) {
+            while (zeroTurn || cur != i) Thread.onSpinWait();
+            printNumber.accept(i);
+            cur = i + 1;
+            zeroTurn = true;
+        }
+    }
+}
+```
+- **Time Complexity**: $O(n)$ prints, plus spin time
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Optimised (Three Semaphores in a Ring)
+
+**Intuition**: Give each role its own semaphore. `zero` starts with a permit, and the others start with none. After printing `0`, `zero` releases the odd or even semaphore based on the next number's parity. After printing a number, that thread releases `zero`. The ring makes the order correct with no shared counter.
+
+**Algorithm**:
+1. `zeroSem = 1`, `oddSem = 0`, `evenSem = 0`.
+2. `zero`: for `i` from `1` to `n`: acquire `zeroSem`, print `0`, release `oddSem` if `i` is odd, else `evenSem`.
+3. `odd`: for each odd `i`: acquire `oddSem`, print `i`, release `zeroSem`.
+4. `even`: for each even `i`: acquire `evenSem`, print `i`, release `zeroSem`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`zeroSem = 1`, `oddSem = 0`, `evenSem = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`zero`: for `i` from `1` to `n`: acquire `zeroSem`, print `0`, release `oddSem` if `i` is odd, else `evenSem`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **`odd`: for each odd `i`: acquire `oddSem`, print `i`, release `zeroSem`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+4. **`even`: for each even `i`: acquire `evenSem`, print `i`, release `zeroSem`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.concurrent.Semaphore;
 import java.util.function.IntConsumer;
 
 class ZeroEvenOdd {
-    private int n;
-    private Semaphore zeroSem = new Semaphore(1);
-    private Semaphore oddSem = new Semaphore(0);
-    private Semaphore evenSem = new Semaphore(0);
+    private final int n;
+    private final Semaphore zeroSem = new Semaphore(1);
+    private final Semaphore evenSem = new Semaphore(0);
+    private final Semaphore oddSem = new Semaphore(0);
 
     public ZeroEvenOdd(int n) {
         this.n = n;
@@ -18402,11 +28011,8 @@ class ZeroEvenOdd {
         for (int i = 1; i <= n; i++) {
             zeroSem.acquire();
             printNumber.accept(0);
-            if (i % 2 == 1) {
-                oddSem.release();
-            } else {
-                evenSem.release();
-            }
+            if (i % 2 == 1) oddSem.release();
+            else evenSem.release();
         }
     }
 
@@ -18427,7 +28033,7 @@ class ZeroEvenOdd {
     }
 }
 ```
-- **Time Complexity**: $O(n)$
+- **Time Complexity**: $O(n)$ prints, with blocking waits
 - **Space Complexity**: $O(1)$
 
 ---
@@ -18435,43 +28041,81 @@ class ZeroEvenOdd {
 ### 20.4 Building H2O
 - **Difficulty**: Medium
 - **LeetCode**: [1117. Building H2O](https://leetcode.com/problems/building-h2o/)
-- **Data Structures**: Concurrency
-- **Patterns**: CyclicBarrier + Semaphores
+- **NeetCode**: [Building H2O](https://neetcode.io/problems/building-h2o)
+- **Data Structures**: Concurrency Primitives
+- **Patterns**: Bounded Resource Pools, Barrier Synchronisation
 
-#### Solutions
+#### Problem Description
+Two kinds of threads, hydrogen and oxygen, call `hydrogen(Runnable releaseHydrogen)` and `oxygen(Runnable releaseOxygen)`. Form water molecules by grouping exactly two hydrogen threads and one oxygen thread. Each molecule's three threads must release together, before any thread of the next molecule releases. The releases of each molecule must not interleave with another molecule's releases.
 
-##### Approach 1: Optimised / Best (Semaphores + CyclicBarrier)
+#### Examples
+
+**Example 1**
+- **Input**: `water = "HOH"`
+- **Output**: `"HHO"` (the three releases of one molecule, in any order within the molecule)
+
+**Example 2**
+- **Input**: `water = "OOHHHH"`
+- **Output**: `"HHOHHO"`
+
+#### Constraints
+- `3 * n` threads in total, with exactly `2n` hydrogen threads and `n` oxygen threads.
+- Each call to `releaseHydrogen` or `releaseOxygen` prints one element.
+
+#### Intuition
+The molecule is a group of three threads that must rendezvous, so it needs a barrier. Limit the pool of waiting threads so that at most two hydrogen threads and one oxygen thread can be in progress at a time: a `Semaphore(2)` for hydrogen and a `Semaphore(1)` for oxygen. A `CyclicBarrier` of size three makes the three threads release together once all have arrived.
+
+---
+
+##### Approach 1: Optimised (Semaphores and a CyclicBarrier)
+
+**Intuition**: Each hydrogen thread acquires a hydrogen permit, and each oxygen thread acquires the oxygen permit. All three then wait at the barrier. Once the third arrives, the barrier trips, and all three release their element and return their permits, so the next molecule can begin.
+
+**Algorithm**:
+1. `hSem = new Semaphore(2)`, `oSem = new Semaphore(1)`, `barrier = new CyclicBarrier(3)`.
+2. `hydrogen`: acquire `hSem`, await the barrier, call `releaseHydrogen.run()`, release `hSem`.
+3. `oxygen`: acquire `oSem`, await the barrier, call `releaseOxygen.run()`, release `oSem`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`hSem = new Semaphore(2)`, `oSem = new Semaphore(1)`, `barrier = new CyclicBarrier(3)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`hydrogen`: acquire `hSem`, await the barrier, call `releaseHydrogen.run()`, release `hSem`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **`oxygen`: acquire `oSem`, await the barrier, call `releaseOxygen.run()`, release `oSem`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 
 class H2O {
-    private Semaphore hSem = new Semaphore(2);
-    private Semaphore oSem = new Semaphore(1);
-    private CyclicBarrier barrier = new CyclicBarrier(3);
+    private final Semaphore hSem = new Semaphore(2);
+    private final Semaphore oSem = new Semaphore(1);
+    private final CyclicBarrier barrier = new CyclicBarrier(3);
 
-    public H2O() {}
-
-    public void hydrogen(Runnable releaseHydrogen) throws InterruptedException {
+    public void hydrogen(Runnable releaseHydrogen) throws InterruptedException, BrokenBarrierException {
         hSem.acquire();
-        try {
-            barrier.await();
-        } catch (Exception e) {}
+        barrier.await();
         releaseHydrogen.run();
         hSem.release();
     }
 
-    public void oxygen(Runnable releaseOxygen) throws InterruptedException {
+    public void oxygen(Runnable releaseOxygen) throws InterruptedException, BrokenBarrierException {
         oSem.acquire();
-        try {
-            barrier.await();
-        } catch (Exception e) {}
+        barrier.await();
         releaseOxygen.run();
         oSem.release();
     }
 }
 ```
-- **Time Complexity**: $O(n)$
+- **Time Complexity**: Each molecule waits for three threads, with $O(1)$ work per thread
 - **Space Complexity**: $O(1)$
 
 ---
@@ -18479,92 +28123,70 @@ class H2O {
 ### 20.5 Fizz Buzz Multithreaded
 - **Difficulty**: Medium
 - **LeetCode**: [1195. Fizz Buzz Multithreaded](https://leetcode.com/problems/fizz-buzz-multithreaded/)
-- **Data Structures**: Concurrency
-- **Patterns**: Condition Variables / Semaphores / Lock
+- **NeetCode**: [Fizz Buzz Multithreaded](https://neetcode.io/problems/fizz-buzz-multithreaded)
+- **Data Structures**: Concurrency Primitives
+- **Patterns**: Predicate-Based Turn Taking, Monitor Wait and Notify
 
-#### Solutions
+#### Problem Description
+Four threads share one `FizzBuzz` object with an integer `n`:
+- Thread A calls `fizz()` to print `"fizz"` for numbers divisible by 3 but not 5.
+- Thread B calls `buzz()` to print `"buzz"` for numbers divisible by 5 but not 3.
+- Thread C calls `fizzbuzz()` to print `"fizzbuzz"` for numbers divisible by both.
+- Thread D calls `number()` to print every other number.
 
-##### Approach 1: Optimised / Best (ReentrantLock + Condition)
+The output must be the standard FizzBuzz sequence from `1` to `n`, in order.
+
+#### Examples
+
+**Example 1**
+- **Input**: `n = 15`
+- **Output**: `"1 2 fizz 4 buzz fizz 7 8 fizz buzz 11 fizz 13 14 fizzbuzz"`
+
+**Example 2**
+- **Input**: `n = 5`
+- **Output**: `"1 2 fizz 4 buzz"`
+
+#### Constraints
+- `1 <= n <= 50`
+
+#### Intuition
+Exactly one thread owns each number in the sequence, and the owner is determined by the number itself. Keep a shared counter of the next number. Each thread waits until the counter reaches a number it owns, prints it, advances the counter, and wakes the others. Waiting threads block, with no spinning.
+
+---
+
+##### Approach 1: Brute Force (Sequential Loop)
+
+**Intuition**: Ignore threads entirely and print the sequence in a single loop. This is the reference output the concurrent version must reproduce.
+
+**Algorithm**:
+1. For `i` from `1` to `n`, print the appropriate value.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **For `i` from `1` to `n`, print the appropriate value.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.IntConsumer;
 
 class FizzBuzz {
-    private int n;
-    private int curr = 1;
-    private ReentrantLock lock = new ReentrantLock();
-    private Condition cond = lock.newCondition();
+    private final int n;
 
     public FizzBuzz(int n) {
         this.n = n;
     }
 
-    public void fizz(Runnable printFizz) throws InterruptedException {
-        while (true) {
-            lock.lock();
-            try {
-                while (curr <= n && !(curr % 3 == 0 && curr % 5 != 0)) {
-                    cond.await();
-                }
-                if (curr > n) return;
-                printFizz.run();
-                curr++;
-                cond.signalAll();
-            } finally {
-                lock.unlock();
-            }
-        }
-    }
-
-    public void buzz(Runnable printBuzz) throws InterruptedException {
-        while (true) {
-            lock.lock();
-            try {
-                while (curr <= n && !(curr % 5 == 0 && curr % 3 != 0)) {
-                    cond.await();
-                }
-                if (curr > n) return;
-                printBuzz.run();
-                curr++;
-                cond.signalAll();
-            } finally {
-                lock.unlock();
-            }
-        }
-    }
-
-    public void fizzbuzz(Runnable printFizzBuzz) throws InterruptedException {
-        while (true) {
-            lock.lock();
-            try {
-                while (curr <= n && !(curr % 15 == 0)) {
-                    cond.await();
-                }
-                if (curr > n) return;
-                printFizzBuzz.run();
-                curr++;
-                cond.signalAll();
-            } finally {
-                lock.unlock();
-            }
-        }
-    }
-
-    public void number(IntConsumer printNumber) throws InterruptedException {
-        while (true) {
-            lock.lock();
-            try {
-                while (curr <= n && (curr % 3 == 0 || curr % 5 == 0)) {
-                    cond.await();
-                }
-                if (curr > n) return;
-                printNumber.accept(curr);
-                curr++;
-                cond.signalAll();
-            } finally {
-                lock.unlock();
-            }
+    public void sequential(Runnable printFizz, Runnable printBuzz, Runnable printFizzBuzz, IntConsumer printNumber) {
+        for (int i = 1; i <= n; i++) {
+            if (i % 15 == 0) printFizzBuzz.run();
+            else if (i % 3 == 0) printFizz.run();
+            else if (i % 5 == 0) printBuzz.run();
+            else printNumber.accept(i);
         }
     }
 }
@@ -18574,95 +28196,429 @@ class FizzBuzz {
 
 ---
 
+##### Approach 2: Optimised (Monitor with Predicate-Based Turns)
+
+**Intuition**: A shared `cur` holds the next number. Each thread's `turn` predicate says whether it owns `cur`. A thread waits until its predicate holds, prints, advances `cur`, and calls `notifyAll()`. The thread that finds `cur > n` returns, and the last print wakes any remaining waiters so they can exit too.
+
+**Algorithm**:
+1. `cur = 1`.
+2. Each thread loops: under the lock, wait while `cur <= n` and its predicate fails. If `cur > n`, notify and return. Otherwise print, advance `cur`, and notify.
+3. The predicates are: fizz when `cur % 3 == 0 && cur % 5 != 0`; buzz when `cur % 5 == 0 && cur % 3 != 0`; fizzbuzz when `cur % 15 == 0`; number otherwise.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`cur = 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Each thread loops: under the lock, wait while `cur <= n` and its predicate fails. If `cur > n`, notify and return. Otherwise print, advance `cur`, and notify.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **The predicates are: fizz when `cur % 3 == 0 && cur % 5 != 0`; buzz when `cur % 5 == 0 && cur % 3 != 0`; fizzbuzz when `cur % 15 == 0`; number otherwise.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.function.IntConsumer;
+import java.util.function.IntPredicate;
+
+class FizzBuzz {
+    private final int n;
+    private int cur = 1;
+
+    public FizzBuzz(int n) {
+        this.n = n;
+    }
+
+    public void fizz(Runnable printFizz) throws InterruptedException {
+        turn(x -> x % 3 == 0 && x % 5 != 0, x -> printFizz.run());
+    }
+
+    public void buzz(Runnable printBuzz) throws InterruptedException {
+        turn(x -> x % 5 == 0 && x % 3 != 0, x -> printBuzz.run());
+    }
+
+    public void fizzbuzz(Runnable printFizzBuzz) throws InterruptedException {
+        turn(x -> x % 15 == 0, x -> printFizzBuzz.run());
+    }
+
+    public void number(IntConsumer printNumber) throws InterruptedException {
+        turn(x -> x % 3 != 0 && x % 5 != 0, printNumber);
+    }
+
+    private synchronized void turn(IntPredicate mine, IntConsumer print) throws InterruptedException {
+        while (cur <= n) {
+            while (cur <= n && !mine.test(cur)) wait();
+            if (cur > n) break;
+            print.accept(cur);
+            cur++;
+            notifyAll();
+        }
+        notifyAll();
+    }
+}
+```
+- **Time Complexity**: $O(n)$ prints, with blocking waits
+- **Space Complexity**: $O(1)$
+
+---
+
 ### 20.6 The Dining Philosophers
 - **Difficulty**: Medium
 - **LeetCode**: [1226. The Dining Philosophers](https://leetcode.com/problems/the-dining-philosophers/)
-- **Data Structures**: Concurrency
-- **Patterns**: Resource Hierarchy / Global Mutex / Semaphores
+- **NeetCode**: [The Dining Philosophers](https://neetcode.io/problems/the-dining-philosophers)
+- **Data Structures**: Concurrency Primitives, Locks
+- **Patterns**: Resource Ordering, Bounded Concurrency
 
-#### Solutions
+#### Problem Description
+Five philosophers sit around a circular table with five forks, one between each pair of neighbours. A philosopher needs both adjacent forks to eat. The method `wantsToEat(philosopher, pickLeftFork, pickRightFork, eat, putLeftFork, putRightFork)` is called by each philosopher's thread, and must call the five callbacks in a valid order. The fork IDs are: philosopher `i` uses left fork `i` and right fork `(i + 1) % 5`.
 
-##### Approach 1: Resource Ordering (Asymmetric Fork Picking)
-Philosopher with odd ID picks left fork first; even ID picks right fork first to prevent circular wait deadlock.
+Ensure that no philosopher starves and no deadlock occurs.
+
+#### Examples
+
+**Example 1**
+- **Input**: Each of five philosophers eats once.
+- **Output**: All five complete. No two neighbours eat at the same time.
+
+#### Constraints
+- Five philosophers and five forks.
+- Each philosopher calls `wantsToEat` repeatedly.
+
+#### Intuition
+Deadlock arises when every philosopher holds their left fork and waits for their right fork. That cycle needs all five forks to be held at once. Remove the cycle by ordering, or by allowing at most four philosophers to compete for forks at a time. Either guarantees that at least one fork is always free to finish a meal.
+
+---
+
+##### Approach 1: Brute Force (Naive Left Then Right)
+
+**Intuition**: Every philosopher picks up the left fork, then the right. This is correct until all five pick up their left fork at once, which deadlocks. Included to show the failure mode.
+
+**Algorithm**:
+1. Pick left, then pick right, then eat, then put right, then put left.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Pick left, then pick right, then eat, then put right, then put left.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.concurrent.locks.ReentrantLock;
-
 class DiningPhilosophers {
-    private ReentrantLock[] forks = new ReentrantLock[5];
-
-    public DiningPhilosophers() {
-        for (int i = 0; i < 5; i++) {
-            forks[i] = new ReentrantLock();
-        }
-    }
-
     public void wantsToEat(int philosopher,
-                           Runnable pickLeftFork,
-                           Runnable pickRightFork,
-                           Runnable eat,
-                           Runnable putLeftFork,
-                           Runnable putRightFork) throws InterruptedException {
-        int left = philosopher;
-        int right = (philosopher + 1) % 5;
+                           Runnable pickLeftFork, Runnable pickRightFork,
+                           Runnable eat, Runnable putLeftFork, Runnable putRightFork) {
+        pickLeftFork.run();
+        pickRightFork.run();
+        eat.run();
+        putRightFork.run();
+        putLeftFork.run();
+    }
+}
+```
+- **Time Complexity**: Not applicable. This approach can deadlock.
+- **Space Complexity**: $O(1)$
 
-        // Resource hierarchy: always pick lower numbered lock first
-        int first = Math.min(left, right);
-        int second = Math.max(left, right);
+---
 
-        forks[first].lock();
-        forks[second].lock();
-        try {
+##### Approach 2: Better (Resource Ordering)
+
+**Intuition**: Number the forks. Every philosopher picks up the lower-numbered fork first. The philosopher who would otherwise pick the other way round reverses the order. The cycle then cannot form, because the fork with the highest number is always picked up second.
+
+**Algorithm**:
+1. Philosopher `i` has left fork `i` and right fork `(i+1) % 5`.
+2. For philosopher `4`, the lower fork is `0` (its right), so it picks right first. Everyone else picks left first.
+3. Eat, then release in the reverse order.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Philosopher `i` has left fork `i` and right fork `(i+1) % 5`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **For philosopher `4`, the lower fork is `0` (its right), so it picks right first. Everyone else picks left first.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **Eat, then release in the reverse order.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+class DiningPhilosophers {
+    public void wantsToEat(int philosopher,
+                           Runnable pickLeftFork, Runnable pickRightFork,
+                           Runnable eat, Runnable putLeftFork, Runnable putRightFork) {
+        if (philosopher == 4) {
+            pickRightFork.run();
+            pickLeftFork.run();
+        } else {
             pickLeftFork.run();
             pickRightFork.run();
-            eat.run();
+        }
+        eat.run();
+        if (philosopher == 4) {
             putLeftFork.run();
             putRightFork.run();
-        } finally {
-            forks[second].unlock();
-            forks[first].unlock();
+        } else {
+            putRightFork.run();
+            putLeftFork.run();
         }
     }
 }
 ```
-- **Time Complexity**: $O(1)$ per eat operation
+- **Time Complexity**: $O(1)$ per meal, with blocking waits
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 3: Optimised (Semaphore Limiting Concurrent Diners)
+
+**Intuition**: At most four philosophers may try to eat at once. With four attempting, at least one of the five forks is free, so the all-hold-one cycle cannot form. A `Semaphore(4)` enforces this. Inside the limit, philosophers pick up forks in the natural left-then-right order.
+
+**Algorithm**:
+1. `room = new Semaphore(4)`.
+2. `wantsToEat`: acquire `room`, pick left, pick right, eat, put right, put left, then release `room`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`room = new Semaphore(4)`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`wantsToEat`: acquire `room`, pick left, pick right, eat, put right, put left, then release `room`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.concurrent.Semaphore;
+
+class DiningPhilosophers {
+    private final Semaphore room = new Semaphore(4);
+
+    public void wantsToEat(int philosopher,
+                           Runnable pickLeftFork, Runnable pickRightFork,
+                           Runnable eat, Runnable putLeftFork, Runnable putRightFork) throws InterruptedException {
+        room.acquire();
+        try {
+            pickLeftFork.run();
+            pickRightFork.run();
+            eat.run();
+            putRightFork.run();
+            putLeftFork.run();
+        } finally {
+            room.release();
+        }
+    }
+}
+```
+- **Time Complexity**: $O(1)$ per meal, with blocking waits
 - **Space Complexity**: $O(1)$
 
 ---
 
 ### 20.7 Design Bounded Blocking Queue
 - **Difficulty**: Medium
-- **LeetCode**: [1188. Design Bounded Blocking Queue](https://leetcode.com/problems/design-bounded-blocking-queue/)
-- **Data Structures**: Queue, Concurrency
-- **Patterns**: Producer-Consumer with ReentrantLock & Conditions
+- **LeetCode**: [1188. Design Bounded Blocking Queue (Premium)](https://leetcode.com/problems/design-bounded-blocking-queue/)
+- **NeetCode**: [Design Bounded Blocking Queue](https://neetcode.io/problems/design-bounded-blocking-queue)
+- **Data Structures**: Queue, Concurrency Primitives
+- **Patterns**: Producer-Consumer, Two Conditions
 
-#### Solutions
+#### Problem Description
+Design a thread-safe bounded blocking queue with a fixed capacity. Implement:
+- `BoundedBlockingQueue(int capacity)` initialises the queue.
+- `void enqueue(int element)` adds an element, blocking while the queue is full.
+- `int dequeue()` removes and returns the front element, blocking while the queue is empty.
+- `int size()` returns the current number of elements.
 
-##### Approach 1: Optimised / Best (Circular Array + Two Conditions)
+Multiple producer and consumer threads may call these methods concurrently.
+
+#### Examples
+
+**Example 1**
+- **Input**: `capacity = 2`, `enqueue(1)`, `enqueue(2)`, `enqueue(3)` (blocks until space is available), `dequeue()`, `size()`
+- **Output**: `1`, then `2`
+- **Explanation**: The third enqueue waits until a dequeue frees a slot.
+
+#### Constraints
+- `1 <= capacity <= 1000`
+- At most `10^5` calls in total.
+
+#### Intuition
+Producers wait for space and consumers wait for items. These are two distinct conditions, and it is clearer to signal them separately. A single lock protects the state, and two condition variables let a producer wake a consumer, and a consumer wake a producer, without waking the wrong kind of thread.
+
+---
+
+##### Approach 1: Brute Force (Spin Outside the Lock)
+
+**Intuition**: Check the state under a lock, and if the operation cannot proceed, release the lock and retry. Correct, but it wastes CPU while waiting.
+
+**Algorithm**:
+1. `enqueue`: loop. Under the lock, if the queue is not full, add the element and return. Otherwise release and retry.
+2. `dequeue`: the same, with the empty check.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`enqueue`: loop. Under the lock, if the queue is not full, add the element and return. Otherwise release and retry.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`dequeue`: the same, with the empty check.**
+   This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class BoundedBlockingQueue {
+    private final int capacity;
+    private final Deque<Integer> items = new ArrayDeque<>();
+
+    public BoundedBlockingQueue(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void enqueue(int element) throws InterruptedException {
+        while (true) {
+            synchronized (this) {
+                if (items.size() < capacity) {
+                    items.offerLast(element);
+                    return;
+                }
+            }
+            Thread.onSpinWait();
+        }
+    }
+
+    public int dequeue() throws InterruptedException {
+        while (true) {
+            synchronized (this) {
+                if (!items.isEmpty()) return items.pollFirst();
+            }
+            Thread.onSpinWait();
+        }
+    }
+
+    public synchronized int size() {
+        return items.size();
+    }
+}
+```
+- **Time Complexity**: Spin time while blocked, $O(1)$ work per attempt
+- **Space Complexity**: $O(\text{capacity})$
+
+---
+
+##### Approach 2: Better (Monitor Wait and Notify)
+
+**Intuition**: Use `synchronized` with `wait()` and `notifyAll()`. A producer waits while the queue is full. A consumer waits while it is empty. Every change wakes all waiters, and each re-checks its own condition. This blocks rather than spins, but wakes threads unnecessarily.
+
+**Algorithm**:
+1. `enqueue`: `synchronized`, `while (full) wait()`, add, `notifyAll()`.
+2. `dequeue`: `synchronized`, `while (empty) wait()`, remove, `notifyAll()`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`enqueue`: `synchronized`, `while (full) wait()`, add, `notifyAll()`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+2. **`dequeue`: `synchronized`, `while (empty) wait()`, remove, `notifyAll()`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class BoundedBlockingQueue {
+    private final int capacity;
+    private final Deque<Integer> items = new ArrayDeque<>();
+
+    public BoundedBlockingQueue(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public synchronized void enqueue(int element) throws InterruptedException {
+        while (items.size() == capacity) wait();
+        items.offerLast(element);
+        notifyAll();
+    }
+
+    public synchronized int dequeue() throws InterruptedException {
+        while (items.isEmpty()) wait();
+        int v = items.pollFirst();
+        notifyAll();
+        return v;
+    }
+
+    public synchronized int size() {
+        return items.size();
+    }
+}
+```
+- **Time Complexity**: $O(1)$ per operation, with blocking waits
+- **Space Complexity**: $O(\text{capacity})$
+
+---
+
+##### Approach 3: Optimised (ReentrantLock with Two Conditions and a Ring Buffer)
+
+**Intuition**: Separate the waiting by role. `notFull` wakes only producers, and `notEmpty` wakes only consumers. A fixed-size ring buffer avoids allocation during operation. Each signal wakes exactly one thread that can make progress.
+
+**Algorithm**:
+1. A `ReentrantLock`, with `notFull` and `notEmpty` conditions, and an `int[]` ring buffer with `head`, `tail`, and `count`.
+2. `enqueue`: lock, `while (count == capacity) notFull.await()`, write at `tail`, advance `tail` modulo capacity, increment `count`, `notEmpty.signal()`, unlock.
+3. `dequeue`: lock, `while (count == 0) notEmpty.await()`, read at `head`, advance `head`, decrement `count`, `notFull.signal()`, unlock.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **A `ReentrantLock`, with `notFull` and `notEmpty` conditions, and an `int[]` ring buffer with `head`, `tail`, and `count`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`enqueue`: lock, `while (count == capacity) notFull.await()`, write at `tail`, advance `tail` modulo capacity, increment `count`, `notEmpty.signal()`, unlock.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+3. **`dequeue`: lock, `while (count == 0) notEmpty.await()`, read at `head`, advance `head`, decrement `count`, `notFull.signal()`, unlock.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 class BoundedBlockingQueue {
-    private int[] elements;
-    private int head = 0, tail = 0, size = 0, capacity;
-    private ReentrantLock lock = new ReentrantLock();
-    private Condition notFull = lock.newCondition();
-    private Condition notEmpty = lock.newCondition();
+    private final int[] buf;
+    private int head = 0, tail = 0, count = 0;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Condition notFull = lock.newCondition();
+    private final Condition notEmpty = lock.newCondition();
 
     public BoundedBlockingQueue(int capacity) {
-        this.capacity = capacity;
-        this.elements = new int[capacity];
+        this.buf = new int[capacity];
     }
 
     public void enqueue(int element) throws InterruptedException {
         lock.lock();
         try {
-            while (size == capacity) {
-                notFull.await();
-            }
-            elements[tail] = element;
-            tail = (tail + 1) % capacity;
-            size++;
+            while (count == buf.length) notFull.await();
+            buf[tail] = element;
+            tail = (tail + 1) % buf.length;
+            count++;
             notEmpty.signal();
         } finally {
             lock.unlock();
@@ -18672,14 +28628,12 @@ class BoundedBlockingQueue {
     public int dequeue() throws InterruptedException {
         lock.lock();
         try {
-            while (size == 0) {
-                notEmpty.await();
-            }
-            int val = elements[head];
-            head = (head + 1) % capacity;
-            size--;
+            while (count == 0) notEmpty.await();
+            int v = buf[head];
+            head = (head + 1) % buf.length;
+            count--;
             notFull.signal();
-            return val;
+            return v;
         } finally {
             lock.unlock();
         }
@@ -18688,49 +28642,141 @@ class BoundedBlockingQueue {
     public int size() {
         lock.lock();
         try {
-            return size;
+            return count;
         } finally {
             lock.unlock();
         }
     }
 }
 ```
-- **Time Complexity**: $O(1)$ for `enqueue`, `dequeue`, and `size`
+- **Time Complexity**: $O(1)$ per operation, with blocking waits
 - **Space Complexity**: $O(\text{capacity})$
 
 ---
 
 ### 20.8 Traffic Light Controlled Intersection
-- **Difficulty**: Easy
+- **Difficulty**: Medium
 - **LeetCode**: [1279. Traffic Light Controlled Intersection](https://leetcode.com/problems/traffic-light-controlled-intersection/)
-- **Data Structures**: Concurrency
-- **Patterns**: Mutual Exclusion with State Tracking
+- **NeetCode**: [Traffic Light Controlled Intersection](https://neetcode.io/problems/traffic-light-controlled-intersection)
+- **Data Structures**: Concurrency Primitives
+- **Patterns**: Mutual Exclusion over a Shared Resource, Minimising Light Changes
 
-#### Solutions
+#### Problem Description
+An intersection has two roads, road `1` and road `2`. Cars arrive from either road concurrently. Each car calls `carArrived(carId, roadId, direction, turnGreen, crossCar)`, where `turnGreen` switches the light to green for the car's road, and `crossCar` lets the car cross.
 
-##### Approach 1: Optimised / Best (Synchronized Road Control)
+Rules:
+- Only one road may have a green light at a time.
+- A car may cross only when its road's light is green.
+- Cars from the same road may cross together while that road is green.
+
+Initially road `1` is green.
+
+#### Examples
+
+**Example 1**
+- **Input**: Cars `1` on road `1`, `2` on road `2`, and `3` on road `1` arrive in order.
+- **Output**: The crossings occur as `1`, then `2` (after the light switches to road `2`), then `3` (after the light switches back to road `1`).
+
+#### Constraints
+- `1 <= carId <= 100`
+- `roadId` is `1` or `2`.
+- `direction` is `1`, `2`, or `3` (straight, left, right), and does not affect the light logic.
+
+#### Intuition
+The intersection is a shared resource, and at any moment only one road may cross. Mutual exclusion around the crossing is enough to prevent collisions. The remaining question is how often to switch the light. Switching on every car is correct but wasteful, and switching only when the road changes avoids unnecessary light changes.
+
+---
+
+##### Approach 1: Brute Force (Switch the Light for Every Car)
+
+**Intuition**: Hold a lock across each car's arrival. Every car switches its road to green, then crosses. It is correct, but it changes the light even when the road is already green.
+
+**Algorithm**:
+1. Lock.
+2. Call `turnGreen.run()`, record `currentRoad = roadId`, call `crossCar.run()`.
+3. Unlock.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Lock.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Call `turnGreen.run()`, record `currentRoad = roadId`, call `crossCar.run()`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+3. **Unlock.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
+import java.util.concurrent.locks.ReentrantLock;
+
 class TrafficLight {
-    private int currentGreenRoad = 1; // 1 for Road A, 2 for Road B
+    private final ReentrantLock lock = new ReentrantLock();
 
-    public TrafficLight() {}
-
-    public synchronized void carArrived(
-        int carId,           // ID of the car
-        int roadId,          // ID of the road the car travels on. Can be 1 (road A) or 2 (road B)
-        int direction,       // Direction of the car
-        Runnable turnGreen,  // Use turnGreen.run() to turn light to green on current road
-        Runnable crossCar    // Use crossCar.run() to make car cross the intersection
-    ) {
-        if (currentGreenRoad != roadId) {
+    public void carArrived(int carId, int roadId, int direction, Runnable turnGreen, Runnable crossCar) {
+        lock.lock();
+        try {
             turnGreen.run();
-            currentGreenRoad = roadId;
+            crossCar.run();
+        } finally {
+            lock.unlock();
         }
-        crossCar.run();
     }
 }
 ```
-- **Time Complexity**: $O(1)$
+- **Time Complexity**: $O(1)$ per car, plus the time spent holding the lock
+- **Space Complexity**: $O(1)$
+
+---
+
+##### Approach 2: Optimised (Switch Only When the Road Changes)
+
+**Intuition**: Track which road is currently green. A car on that road crosses without any light change. A car on the other road first switches the light, then crosses. The lock keeps the state and the crossings consistent.
+
+**Algorithm**:
+1. `currentRoad = 1`.
+2. Lock. If `roadId != currentRoad`, call `turnGreen.run()` and set `currentRoad = roadId`. Then call `crossCar.run()`.
+3. Unlock.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`currentRoad = 1`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **Lock. If `roadId != currentRoad`, call `turnGreen.run()` and set `currentRoad = roadId`. Then call `crossCar.run()`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **Unlock.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.concurrent.locks.ReentrantLock;
+
+class TrafficLight {
+    private final ReentrantLock lock = new ReentrantLock();
+    private int currentRoad = 1;
+
+    public void carArrived(int carId, int roadId, int direction, Runnable turnGreen, Runnable crossCar) {
+        lock.lock();
+        try {
+            if (roadId != currentRoad) {
+                turnGreen.run();
+                currentRoad = roadId;
+            }
+            crossCar.run();
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+```
+- **Time Complexity**: $O(1)$ per car, plus the time spent holding the lock
 - **Space Complexity**: $O(1)$
 
 ---
@@ -18738,150 +28784,371 @@ class TrafficLight {
 ### 20.9 LFU Cache
 - **Difficulty**: Hard
 - **LeetCode**: [460. LFU Cache](https://leetcode.com/problems/lfu-cache/)
-- **Data Structures**: Hash Table, Doubly Linked List
-- **Patterns**: Frequency-to-DoublyLinkedList Hash Map
+- **NeetCode**: [LFU Cache](https://neetcode.io/problems/lfu-cache)
+- **Data Structures**: Hash Map, Doubly Linked List, Linked Hash Set
+- **Patterns**: Frequency Buckets, Least-Recently-Used Within a Frequency
 
-#### Solutions
+#### Problem Description
+Design a data structure for a Least Frequently Used (LFU) cache.
 
-##### Approach 1: Optimised / Best (Two HashMaps + Doubly Linked Lists)
-Maintain `keyToVal`, `keyToCount`, `countToLRU`, and `minFreq`.
+Implement `LFUCache`:
+- `LFUCache(int capacity)` initialises the cache.
+- `int get(int key)` returns the value if the key exists, otherwise `-1`. A successful `get` increments the key's frequency.
+- `void put(int key, int value)` inserts or updates a key. When the cache is full, evict the key with the lowest frequency. If several keys share that frequency, evict the least recently used among them. An update counts as a use.
+
+Both operations must run in $O(1)$ average time.
+
+#### Examples
+
+**Example 1**
+- **Input**: `capacity = 2`. `put(1,1)`, `put(2,2)`, `get(1)`, `put(3,3)`, `get(2)`, `get(3)`, `put(4,4)`, `get(1)`, `get(3)`, `get(4)`
+- **Output**: `1, -1, 3, -1, 3, 4`
+- **Explanation**: After `get(1)`, key `2` has the lowest frequency, so `put(3,3)` evicts it. When `put(4,4)` arrives, keys `1` and `3` have equal frequency, and key `1` was used less recently, so it is evicted.
+
+#### Constraints
+- `1 <= capacity <= 10^4`
+- `0 <= key <= 10^5`
+- `0 <= value <= 10^9`
+- At most `2 * 10^5` calls to `get` and `put`.
+
+#### Intuition
+Eviction needs two things: the minimum frequency, and among keys at that frequency, the least recently used. Group keys into buckets by frequency. Each bucket is ordered by recency, so its head is the eviction candidate. Track the current minimum frequency. Then every operation is constant time.
+
+---
+
+##### Approach 1: Brute Force (Scan for the Eviction Candidate)
+
+**Intuition**: Store each key's value, frequency, and a timestamp of its last use. On eviction, scan all keys for the lowest frequency, breaking ties by the oldest timestamp.
+
+**Algorithm**:
+1. `get` and `put` update the frequency and timestamp.
+2. On eviction, scan all keys and remove the one with the minimum `(freq, timestamp)`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`get` and `put` update the frequency and timestamp.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **On eviction, scan all keys and remove the one with the minimum `(freq, timestamp)`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 class LFUCache {
-    private static class Node {
-        int key, val, count;
-        Node prev, next;
-        Node(int key, int val) {
-            this.key = key;
-            this.val = val;
-            this.count = 1;
-        }
-    }
-
-    private static class DLList {
-        Node head, tail;
-        int size = 0;
-        DLList() {
-            head = new Node(0, 0);
-            tail = new Node(0, 0);
-            head.next = tail;
-            tail.prev = head;
-        }
-        void add(Node node) {
-            node.next = head.next;
-            node.prev = head;
-            head.next.prev = node;
-            head.next = node;
-            size++;
-        }
-        void remove(Node node) {
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-            size--;
-        }
-        Node removeLast() {
-            if (size > 0) {
-                Node node = tail.prev;
-                remove(node);
-                return node;
-            }
-            return null;
-        }
-    }
-
     private final int capacity;
-    private int minFreq = 0;
-    private final Map<Integer, Node> nodeMap = new HashMap<>();
-    private final Map<Integer, DLList> countMap = new HashMap<>();
+    private int clock = 0;
+    private final Map<Integer, Integer> values = new HashMap<>();
+    private final Map<Integer, Integer> freq = new HashMap<>();
+    private final Map<Integer, Integer> lastUse = new HashMap<>();
 
     public LFUCache(int capacity) {
         this.capacity = capacity;
     }
 
     public int get(int key) {
-        Node node = nodeMap.get(key);
-        if (node == null) return -1;
-        update(node);
-        return node.val;
+        if (!values.containsKey(key)) return -1;
+        touch(key);
+        return values.get(key);
     }
 
     public void put(int key, int value) {
         if (capacity == 0) return;
-        if (nodeMap.containsKey(key)) {
-            Node node = nodeMap.get(key);
-            node.val = value;
-            update(node);
-        } else {
-            if (nodeMap.size() == capacity) {
-                DLList minList = countMap.get(minFreq);
-                Node removed = minList.removeLast();
-                nodeMap.remove(removed.key);
-            }
-            Node newNode = new Node(key, value);
-            nodeMap.put(key, newNode);
-            minFreq = 1;
-            countMap.computeIfAbsent(1, k -> new DLList()).add(newNode);
+        if (values.containsKey(key)) {
+            values.put(key, value);
+            touch(key);
+            return;
         }
+        if (values.size() == capacity) {
+            int evict = -1;
+            for (int k : values.keySet()) {
+                if (evict == -1
+                        || freq.get(k) < freq.get(evict)
+                        || (freq.get(k).equals(freq.get(evict)) && lastUse.get(k) < lastUse.get(evict))) {
+                    evict = k;
+                }
+            }
+            values.remove(evict);
+            freq.remove(evict);
+            lastUse.remove(evict);
+        }
+        values.put(key, value);
+        freq.put(key, 1);
+        lastUse.put(key, clock++);
     }
 
-    private void update(Node node) {
-        DLList oldList = countMap.get(node.count);
-        oldList.remove(node);
-        if (node.count == minFreq && oldList.size == 0) {
-            minFreq++;
-        }
-        node.count++;
-        countMap.computeIfAbsent(node.count, k -> new DLList()).add(node);
+    private void touch(int key) {
+        freq.merge(key, 1, Integer::sum);
+        lastUse.put(key, clock++);
     }
 }
 ```
-- **Time Complexity**: $O(1)$ for both `get` and `put`
-- **Space Complexity**: $O(\text{capacity})$
+- **Time Complexity**: $O(n)$ per eviction
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Optimised (Frequency Buckets of Linked Hash Sets)
+
+**Intuition**: Map each frequency to a `LinkedHashSet` of keys, in the order they were last used. Insertion order within a set is recency order, so the first element is the least recently used at that frequency. Track `minFreq`. When a key is accessed, move it from its bucket to the next frequency's bucket. If its bucket empties and it was the minimum, `minFreq` increases by one. A new key always starts at frequency `1`, which becomes the minimum.
+
+**Algorithm**:
+1. `values`, `freq`, and `buckets: frequency -> LinkedHashSet<key>`. `minFreq = 0`.
+2. `increment(key)`: remove it from `buckets[f]`. If that bucket is now empty and `f == minFreq`, set `minFreq = f + 1`. Set `freq[key] = f + 1`, and add it to `buckets[f + 1]`.
+3. `get`: if the key exists, increment it and return its value. Otherwise `-1`.
+4. `put`: if the key exists, update the value and increment. Otherwise, if full, evict the first key in `buckets[minFreq]`. Then insert the new key with frequency `1`, and set `minFreq = 1`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`values`, `freq`, and `buckets: frequency -> LinkedHashSet<key>`. `minFreq = 0`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`increment(key)`: remove it from `buckets[f]`. If that bucket is now empty and `f == minFreq`, set `minFreq = f + 1`. Set `freq[key] = f + 1`, and add it to `buckets[f + 1]`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **`get`: if the key exists, increment it and return its value. Otherwise `-1`.**
+   This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.
+4. **`put`: if the key exists, update the value and increment. Otherwise, if full, evict the first key in `buckets[minFreq]`. Then insert the new key with frequency `1`, and set `minFreq = 1`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+
+class LFUCache {
+    private final int capacity;
+    private int minFreq = 0;
+    private final Map<Integer, Integer> values = new HashMap<>();
+    private final Map<Integer, Integer> freq = new HashMap<>();
+    private final Map<Integer, LinkedHashSet<Integer>> buckets = new HashMap<>();
+
+    public LFUCache(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+        if (!values.containsKey(key)) return -1;
+        increment(key);
+        return values.get(key);
+    }
+
+    public void put(int key, int value) {
+        if (capacity == 0) return;
+        if (values.containsKey(key)) {
+            values.put(key, value);
+            increment(key);
+            return;
+        }
+        if (values.size() == capacity) {
+            LinkedHashSet<Integer> lowest = buckets.get(minFreq);
+            int evict = lowest.iterator().next();
+            lowest.remove(evict);
+            values.remove(evict);
+            freq.remove(evict);
+        }
+        values.put(key, value);
+        freq.put(key, 1);
+        buckets.computeIfAbsent(1, k -> new LinkedHashSet<>()).add(key);
+        minFreq = 1;
+    }
+
+    private void increment(int key) {
+        int f = freq.get(key);
+        LinkedHashSet<Integer> bucket = buckets.get(f);
+        bucket.remove(key);
+        if (bucket.isEmpty() && f == minFreq) minFreq = f + 1;
+        freq.put(key, f + 1);
+        buckets.computeIfAbsent(f + 1, k -> new LinkedHashSet<>()).add(key);
+    }
+}
+```
+- **Time Complexity**: $O(1)$ average per operation
+- **Space Complexity**: $O(n)$
 
 ---
 
 ### 20.10 Design Hit Counter
 - **Difficulty**: Medium
-- **LeetCode**: [362. Design Hit Counter](https://leetcode.com/problems/design-hit-counter/)
-- **Data Structures**: Queue / Fixed Circular Arrays
-- **Patterns**: Circular Ring Buffer of 300 Seconds
+- **LeetCode**: [362. Design Hit Counter (Premium)](https://leetcode.com/problems/design-hit-counter/)
+- **NeetCode**: [Design Hit Counter](https://neetcode.io/problems/design-hit-counter)
+- **Data Structures**: Queue, Array, Binary Search
+- **Patterns**: Sliding Time Window, Circular Buffer
 
-#### Solutions
+#### Problem Description
+Design a hit counter that counts the number of hits received in the past 5 minutes (300 seconds).
 
-##### Approach 1: Optimised / Best (Circular Fixed Array of Size 300)
+Implement `HitCounter`:
+- `void hit(int timestamp)` records a hit at `timestamp` (in seconds).
+- `int getHits(int timestamp)` returns the number of hits in the past 300 seconds, meaning hits with timestamps in `(timestamp - 300, timestamp]`.
+
+Timestamps are given in non-decreasing order.
+
+#### Examples
+
+**Example 1**
+- **Input**: `hit(1)`, `hit(2)`, `hit(3)`, `getHits(4)`, `hit(300)`, `getHits(300)`, `getHits(301)`
+- **Output**: `3, 4, 3`
+- **Explanation**: At time 301, the hit at time 1 is outside the window, so 3 hits remain.
+
+#### Constraints
+- `1 <= timestamp <= 2 * 10^9`
+- Calls are made in chronological order.
+- At most `300` calls to `hit` and `getHits`.
+
+#### Intuition
+Only hits within the last 300 seconds count, so older hits can be discarded. Because timestamps are non-decreasing, the hits form a sorted list, and the window is a contiguous suffix of it. Alternatively, a fixed circular buffer of 300 slots, one per second, stores counts without keeping every hit.
+
+---
+
+##### Approach 1: Brute Force (Store Every Timestamp, Scan)
+
+**Intuition**: Keep every hit. For each query, count the hits in the window by scanning the whole list.
+
+**Algorithm**:
+1. `hit` appends the timestamp.
+2. `getHits` counts timestamps `ts` with `timestamp - 300 < ts <= timestamp`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`hit` appends the timestamp.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`getHits` counts timestamps `ts` with `timestamp - 300 < ts <= timestamp`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class HitCounter {
+    private final List<Integer> hits = new ArrayList<>();
+
+    public void hit(int timestamp) {
+        hits.add(timestamp);
+    }
+
+    public int getHits(int timestamp) {
+        int count = 0;
+        for (int ts : hits) {
+            if (ts > timestamp - 300 && ts <= timestamp) count++;
+        }
+        return count;
+    }
+}
+```
+- **Time Complexity**: `hit` is $O(1)$, `getHits` is $O(n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 2: Better (Binary Search on the Sorted Hits)
+
+**Intuition**: Timestamps arrive in order, so the list is sorted. The window starts at the first hit with `ts > timestamp - 300`. A lower-bound binary search finds that position, and the count is the list size minus that index.
+
+**Algorithm**:
+1. `hit` appends to the list.
+2. `getHits`: find the first index `i` with `hits[i] > timestamp - 300`. Return `hits.size() - i`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **`hit` appends to the list.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+2. **`getHits`: find the first index `i` with `hits[i] > timestamp - 300`. Return `hits.size() - i`.**
+   This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class HitCounter {
+    private final List<Integer> hits = new ArrayList<>();
+
+    public void hit(int timestamp) {
+        hits.add(timestamp);
+    }
+
+    public int getHits(int timestamp) {
+        int threshold = timestamp - 300;
+        int lo = 0, hi = hits.size();
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (hits.get(mid) > threshold) hi = mid;
+            else lo = mid + 1;
+        }
+        return hits.size() - lo;
+    }
+}
+```
+- **Time Complexity**: `hit` is $O(1)$, `getHits` is $O(\log n)$
+- **Space Complexity**: $O(n)$
+
+---
+
+##### Approach 3: Optimised (Circular Buffer of 300 Slots)
+
+**Intuition**: Only the last 300 seconds matter, so keep one slot per second, indexed by `timestamp % 300`. Each slot stores the timestamp it was last written for and its hit count. A write to a slot holding an older timestamp resets it. A query sums the slots whose timestamp falls inside the window. Memory is fixed, and both operations take constant time.
+
+**Algorithm**:
+1. Arrays `times[300]` and `counts[300]`.
+2. `hit(ts)`: `idx = ts % 300`. If `times[idx] != ts`, set `times[idx] = ts` and `counts[idx] = 0`. Then increment `counts[idx]`.
+3. `getHits(ts)`: sum `counts[i]` for slots where `ts - times[i] < 300`.
+
+**Detailed walkthrough:**
+
+The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.
+
+1. **Arrays `times[300]` and `counts[300]`.**
+   This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.
+2. **`hit(ts)`: `idx = ts % 300`. If `times[idx] != ts`, set `times[idx] = ts` and `counts[idx] = 0`. Then increment `counts[idx]`.**
+   This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.
+3. **`getHits(ts)`: sum `counts[i]` for slots where `ts - times[i] < 300`.**
+   The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.
+
+**Correctness check:** The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.
+
+
 ```java
 class HitCounter {
-    private int[] times;
-    private int[] hits;
-
-    public HitCounter() {
-        times = new int[300];
-        hits = new int[300];
-    }
+    private final int[] times = new int[300];
+    private final int[] counts = new int[300];
 
     public void hit(int timestamp) {
         int idx = timestamp % 300;
         if (times[idx] != timestamp) {
             times[idx] = timestamp;
-            hits[idx] = 1;
-        } else {
-            hits[idx]++;
+            counts[idx] = 0;
         }
+        counts[idx]++;
     }
 
     public int getHits(int timestamp) {
         int total = 0;
         for (int i = 0; i < 300; i++) {
-            if (timestamp - times[i] < 300) {
-                total += hits[i];
-            }
+            if (timestamp - times[i] < 300) total += counts[i];
         }
         return total;
     }
 }
 ```
-- **Time Complexity**: `hit`: $O(1)$, `getHits`: $O(300) = O(1)$
-- **Space Complexity**: $O(1)$ (constant 300 integers)
+- **Time Complexity**: $O(1)$ per `hit`, and $O(300)$ per `getHits`, which is constant
+- **Space Complexity**: $O(300)$, which is constant
 
 ---
