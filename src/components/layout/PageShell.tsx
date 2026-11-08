@@ -16,12 +16,19 @@ interface PageShellProps {
  * Mistakes → Problems inside this shell.
  */
 export default function PageShell({ title, description, children, sidebar }: PageShellProps) {
+  const renderDescription = (desc: string) => {
+    const paragraphs = desc.split('<br><br>').filter(p => p.trim());
+    return paragraphs.map((p, i) => (
+      <p key={i} className="page-shell__desc">{p}</p>
+    ));
+  };
+
   return (
     <div className="page-shell">
       <div className="page-shell__content">
         <header className="page-shell__header">
           <h1 className="page-shell__title">{title}</h1>
-          {description ? <p className="page-shell__desc">{description}</p> : null}
+          {description ? renderDescription(description) : null}
         </header>
         {children}
       </div>

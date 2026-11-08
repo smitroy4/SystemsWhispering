@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import type { ThemeMode } from '../../utils/theme.ts';
 import SearchBox from './SearchBox.tsx';
+import ThemeAwareLogo from './ThemeAwareLogo.tsx';
 import './Navbar.css';
 
 interface NavbarProps {
@@ -102,7 +103,7 @@ export default function Navbar({ mode, onCycleTheme }: NavbarProps) {
     <header className="navbar">
       <div className="container navbar__inner">
         <Link to="/" className="navbar__brand" onClick={closeMenus}>
-          <img src="/sw-logo.png" alt="" className="navbar__logo" />
+          <ThemeAwareLogo className="navbar__logo" alt="Systems Whispering" width={28} height={28} />
           Systems <span className="navbar__brand-accent">Whispering</span>
         </Link>
 
