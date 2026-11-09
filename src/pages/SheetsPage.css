@@ -25,6 +25,7 @@
 .sheet-card__title {
   margin: 0;
   font-size: var(--text-xl);
+  color: var(--color-primary);
 }
 
 .sheet-card__meta {
@@ -176,6 +177,7 @@
 .sheet-day__title {
   margin: 0 0 var(--space-1);
   font-size: var(--text-lg);
+  color: var(--color-primary);
 }
 
 .sheet-day__goal {

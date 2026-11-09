@@ -49,7 +49,7 @@
   font-size: var(--text-xl);
   font-family: var(--font-display);
   letter-spacing: -0.01em;
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 .lld-module-card__summary {

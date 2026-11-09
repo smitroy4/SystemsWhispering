@@ -198,6 +198,7 @@
 
 .problem-row__title {
   font-weight: 600;
+  color: var(--color-primary);
 }
 
 .problem-row__tags {

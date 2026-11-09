@@ -57,6 +57,7 @@
 .home-section-title {
   margin: var(--space-8) 0 var(--space-3);
   font-size: var(--text-xl);
+  color: var(--color-primary);
 }
 
 .home-cards {
@@ -132,7 +133,7 @@
 .roadmap__sub {
   margin: var(--space-4) 0 var(--space-2);
   font-size: var(--text-sm);
-  color: var(--color-text);
+  color: var(--color-primary);
   font-family: var(--font-display);
   text-transform: uppercase;
   letter-spacing: 0.05em;

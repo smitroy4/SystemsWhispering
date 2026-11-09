@@ -20,6 +20,22 @@ body {
   min-height: 100vh;
   font-size: 1rem;
   line-height: 1.7;
+  font-weight: var(--font-weight-body);
+}
+
+/* Dark mode: only regular body text runs lighter. Headings, code blocks and
+   illustration texts keep their normal weight (illustrations set it inline). */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  font-weight: 400;
+}
+[data-theme="dark"] code,
+[data-theme="dark"] pre {
+  font-weight: 400;
 }
 
 h1,

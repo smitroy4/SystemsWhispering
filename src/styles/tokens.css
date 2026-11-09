@@ -102,6 +102,9 @@
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
 
+  /* --- Typography weights --- */
+  --font-weight-body: 400;
+
   /* --- Layout --- */
   --max-content-width: 72rem;
   --navbar-height: 4rem;
@@ -111,12 +114,12 @@
   color-scheme: dark;
 
   /* --- Colors: DARK "Ink & Champagne" --- */
-  --color-bg: #0B0D12;
-  --color-bg-raised: #12151C;
-  --color-bg-code: #181C26;
-  --color-surface: #12151C;
-  --color-surface-2: #181C26;
-  --color-border: #232836;
+  --color-bg: #1A1A1A;
+  --color-bg-raised: #282828;
+  --color-bg-code: #282828;
+  --color-surface: #282828;
+  --color-surface-2: #333333;
+  --color-border: #3A3A3A;
   --color-text: #E8E6E1;
   --color-text-muted: #8B90A0;
   --color-primary: #C9A96E;
@@ -157,6 +160,9 @@
   --viz-done-stroke: #C9A96E;
   --viz-ink: #E8E6E1;
   --viz-muted-ink: #8B90A0;
+
+  /* --- Typography weights (dark) --- */
+  --font-weight-body: 250;
 
   /* --- Big-O chart curves --- */
   --curve-o1: #6E9BD1;
