@@ -20,11 +20,9 @@ export default function JavaSidebar() {
     }
   }, [params.module, location.pathname]);
 
-  /** When inside a module, show only that module's sub-modules. On the
-   * landing page (no module param) show every module. */
-  const modules = params.module
-    ? javaModules.filter((m) => m.slug === params.module)
-    : javaModules;
+  /** Always show every module so a visitor can jump between modules from any
+   * topic page. The current module (when inside a topic) is auto-expanded. */
+  const modules = javaModules;
 
   const toggleModule = (slug: string) => {
     setExpanded((prev) => ({ ...prev, [slug]: !prev[slug] }));
