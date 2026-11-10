@@ -329,6 +329,9 @@ public class CompilerRewrites {
     {
       slug: 'number-representation',
       vizId: 'number-representation',
+      youtubeUrls: [
+        'https://www.youtube.com/watch?v=yzKcCLtU4JM',
+      ],
       title: 'How Java Stores Negative & Floating-Point Numbers',
       order: 4,
       level: 'intermediate',
