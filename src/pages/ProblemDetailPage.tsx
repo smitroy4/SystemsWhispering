@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { usePageMeta } from '../utils/pageMeta.ts';
 import { PageShell } from '../components/layout/index.ts';
@@ -17,7 +18,15 @@ function difficultyTone(difficulty: ProblemDifficulty): 'success' | 'warning' | 
   return 'danger';
 }
 
-function solutionTabs(solutions: { label: string; intuition?: string; algorithm?: string[]; detailedWalkthrough?: string[]; correctnessCheck?: string; code: string; complexity: { time: string; space: string } }[]) {
+function solutionTabs(solutions: {
+  label: string;
+  intuition?: string;
+  algorithm?: string[];
+  detailedWalkthrough?: string[];
+  correctnessCheck?: string;
+  code: string;
+  complexity: { time: string; space: string };
+}[]) {
   return solutions.map((sol, i) => ({
     id: `solution-${i}`,
     label: sol.label,
@@ -75,6 +84,7 @@ export default function ProblemDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const problem = slug ? getProblem(slug) : undefined;
   const content = problem ? problemContents.find((c) => c.slug === problem!.slug) : undefined;
+  const [language, setLanguage] = useState<'java' | 'python'>('java');
 
   usePageMeta(
     content ? content.title : 'Problem not found',
@@ -91,6 +101,8 @@ export default function ProblemDetailPage() {
       </PageShell>
     );
   }
+
+  const lastSolution = content.solutions[content.solutions.length - 1];
 
   return (
     <PageShell title={content.title} description={`LeetCode #${problem.id} — ${content.difficulty}`}>
@@ -157,10 +169,75 @@ export default function ProblemDetailPage() {
 
       <section id="solutions" className="pd-section" aria-label="Solutions">
         <h2 className="pd-section__title">Solutions</h2>
-        <p className="pd-intro">
-          Pick an approach below. Each tab shows the idea, idiomatic Java code, and its complexity.
-        </p>
-        <Tabs tabs={solutionTabs(content.solutions)} defaultTab={content.solutions[0]?.label} />
+        <div className="pd-language-tabs">
+          <button
+            type="button"
+            className={`pd-lang-tab${language === 'java' ? ' is-active' : ''}`}
+            onClick={() => setLanguage('java')}
+          >
+            Java
+          </button>
+          {lastSolution.pythonCode && (
+            <button
+              type="button"
+              className={`pd-lang-tab${language === 'python' ? ' is-active' : ''}`}
+              onClick={() => setLanguage('python')}
+            >
+              Python
+            </button>
+          )}
+        </div>
+        {language === 'java' ? (
+          <>
+            <p className="pd-intro">
+              Pick an approach below. Each tab shows the idea, idiomatic Java code, and its complexity.
+            </p>
+            <Tabs tabs={solutionTabs(content.solutions)} defaultTab={content.solutions[0]?.label} />
+          </>
+        ) : (
+          <>
+            {lastSolution.intuition && (
+              <>
+                <h4 className="pd-solution__label">Intuition</h4>
+                <p className="pd-solution__desc">{lastSolution.intuition}</p>
+              </>
+            )}
+            {lastSolution.algorithm && lastSolution.algorithm.length > 0 && (
+              <>
+                <h4 className="pd-solution__label">Algorithm</h4>
+                <ol className="pd-algorithm">
+                  {lastSolution.algorithm.map((step, si) => (
+                    <li key={si}>{step.replace(/^\d+\.\s*/, '')}</li>
+                  ))}
+                </ol>
+              </>
+            )}
+            {lastSolution.detailedWalkthrough && lastSolution.detailedWalkthrough.length > 0 && (
+              <>
+                <h4 className="pd-solution__label">Detailed Walkthrough</h4>
+                <ol className="pd-algorithm">
+                  {lastSolution.detailedWalkthrough.map((step, si) => (
+                    <li key={si}>{step.replace(/^\d+\.\s*\*\*[^*]+\*\*\s*/, '').replace(/^\d+\.\s*/, '')}</li>
+                  ))}
+                </ol>
+              </>
+            )}
+            {lastSolution.correctnessCheck && (
+              <>
+                <h4 className="pd-solution__label">Correctness Check</h4>
+                <p className="pd-solution__desc">{lastSolution.correctnessCheck}</p>
+              </>
+            )}
+            <CodeBlock title="Python — Optimal" description="Optimal Python solution" code={lastSolution.pythonCode ?? ''} />
+            <ComplexityTable
+              rows={[
+                { operation: 'Time', best: lastSolution.pythonComplexity?.time ?? lastSolution.complexity.time, average: lastSolution.pythonComplexity?.time ?? lastSolution.complexity.time, worst: lastSolution.pythonComplexity?.time ?? lastSolution.complexity.time },
+                { operation: 'Space', best: lastSolution.pythonComplexity?.space ?? lastSolution.complexity.space, average: lastSolution.pythonComplexity?.space ?? lastSolution.complexity.space, worst: lastSolution.pythonComplexity?.space ?? lastSolution.complexity.space },
+              ]}
+              caption="Optimal complexity"
+            />
+          </>
+        )}
       </section>
 
       {/* Sticky LeetCode button (below sidebar, transparent circle, logo only) */}

@@ -1,6 +1,6 @@
-# LeetCode & NeetCode Master Practice Bank (Java Solutions)
+# LeetCode & NeetCode Master Practice Bank (Java and Python Solutions)
 
-> A comprehensive master guide covering all 163 LeetCode problems sourced from the **NeetCode 150** curriculum and companion interview problems. Each problem features a clear problem description, inputs and outputs with constraints, and 3–4 progressive Java solutions (Brute Force, Better, Optimised, and Best) with rigorous Big-O time and space complexity analyses.
+> A comprehensive master guide covering all 163 LeetCode problems sourced from the **NeetCode 150** curriculum and companion interview problems. Each problem includes its description, examples, constraints, progressive Java approaches with detailed complexity analysis, and a corresponding optimal Python 3 solution.
 
 ## Master Table of Contents
 
@@ -208,6 +208,23 @@
 - **20.10** [Design Hit Counter] - *Medium*
 
 
+## Python Solution Notes
+
+Each problem also includes a Python 3 implementation using the standard LeetCode method or class signature. The shared imports used by these snippets are:
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+```
+
+For linked-list and tree problems, `ListNode`, `Node`, and `TreeNode` are the standard node classes supplied by LeetCode. Concurrency problems use the callback signatures expected by their corresponding LeetCode design questions.
+
+---
+
 ## How to Study Each Solution
 
 For each problem, read the problem-level intuition first to understand the central pattern. Then study each approach in order: identify what information it maintains, trace the algorithm step by step, and explain why each update is necessary. Before looking at the Java code, try to state the condition that makes the approach correct. Finally, compare the approaches by their time and space complexity and note what the faster approach avoids doing.
@@ -414,6 +431,22 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$ average, and it can exit early
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        return len(nums) != len(set(nums))
+```
+
 
 ---
 
@@ -647,6 +680,22 @@ class Solution {
 ```
 - **Time Complexity**: $O(n + 26) = O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return Counter(s) == Counter(t)
+```
+
 
 ---
 
@@ -893,6 +942,26 @@ class Solution {
 - **Time Complexity**: $O(n)$ (single pass, O(1) average per hash operation)
 - **Space Complexity**: $O(n)$ worst case for the hash map
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        seen = {}
+        for i, x in enumerate(nums):
+            if target - x in seen:
+                return [seen[target - x], i]
+            seen[x] = i
+```
+
+
 ---
 
 ### 1.4 Group Anagrams
@@ -1091,6 +1160,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \cdot (k + 26))$, which is $O(n \cdot k)$ for long strings
 - **Space Complexity**: $O(n \cdot k)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        groups = defaultdict(list)
+        for word in strs:
+            key = tuple(sorted(word))
+            groups[key].append(word)
+        return list(groups.values())
+```
+
 
 ---
 
@@ -1298,6 +1387,22 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        return [x for x, _ in Counter(nums).most_common(k)]
+```
+
+
 ---
 
 ### 1.6 Product of Array Except Self
@@ -1471,6 +1576,31 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$ extra (excluding output)
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        result = [1] * len(nums)
+        prefix = 1
+        for i, x in enumerate(nums):
+            result[i] = prefix
+            prefix *= x
+        suffix = 1
+        for i in range(len(nums) - 1, -1, -1):
+            result[i] *= suffix
+            suffix *= nums[i]
+        return result
+```
+
 
 ---
 
@@ -1715,6 +1845,32 @@ class Solution {
 - **Time Complexity**: $O(1)$ for the fixed board
 - **Space Complexity**: $O(1)$, 27 integers
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows, cols, boxes = set(), set(), set()
+        for r in range(9):
+            for c in range(9):
+                v = board[r][c]
+                if v == ".":
+                    continue
+                b = (r // 3, c // 3, v)
+                if (r, v) in rows or (c, v) in cols or b in boxes:
+                    return False
+                rows.add((r, v)); cols.add((c, v)); boxes.add(b)
+        return True
+```
+
+
 ---
 
 ### 1.8 Longest Consecutive Sequence
@@ -1905,6 +2061,30 @@ class Solution {
 - **Time Complexity**: $O(n)$ average
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        values = set(nums)
+        best = 0
+        for x in values:
+            if x - 1 not in values:
+                y = x
+                while y in values:
+                    y += 1
+                best = max(best, y - x)
+        return best
+```
+
+
 ---
 
 ### 1.9 Encode and Decode Strings
@@ -2058,6 +2238,32 @@ class Solution {
 ---
 
 ## 2. Two Pointers
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Codec:
+    def encode(self, strs: List[str]) -> str:
+        return "".join(f"{len(s)}#{s}" for s in strs)
+
+    def decode(self, s: str) -> List[str]:
+        result, i = [], 0
+        while i < len(s):
+            j = s.index("#", i)
+            length = int(s[i:j])
+            i = j + 1
+            result.append(s[i:i + length])
+            i += length
+        return result
+```
+
 
 ### 2.1 Valid Palindrome
 - **Difficulty**: Easy
@@ -2225,6 +2431,28 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        left, right = 0, len(s) - 1
+        while left < right:
+            while left < right and not s[left].isalnum(): left += 1
+            while left < right and not s[right].isalnum(): right -= 1
+            if s[left].lower() != s[right].lower(): return False
+            left += 1; right -= 1
+        return True
+```
+
 
 ---
 
@@ -2432,6 +2660,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        l, r = 0, len(numbers) - 1
+        while l < r:
+            total = numbers[l] + numbers[r]
+            if total == target: return [l + 1, r + 1]
+            if total < target: l += 1
+            else: r -= 1
+```
+
 
 ---
 
@@ -2645,6 +2894,36 @@ class Solution {
 - **Time Complexity**: $O(n^2)$ (sort is $O(n \log n)$, dominated by the nested scan)
 - **Space Complexity**: $O(1)$ extra, excluding the output and sort stack
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        result = []
+        for i in range(len(nums) - 2):
+            if i and nums[i] == nums[i - 1]: continue
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                total = nums[i] + nums[l] + nums[r]
+                if total < 0: l += 1
+                elif total > 0: r -= 1
+                else:
+                    result.append([nums[i], nums[l], nums[r]])
+                    l += 1; r -= 1
+                    while l < r and nums[l] == nums[l - 1]: l += 1
+                    while l < r and nums[r] == nums[r + 1]: r -= 1
+        return result
+```
+
+
 ---
 
 ### 2.4 Container With Most Water
@@ -2764,6 +3043,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l, r, best = 0, len(height) - 1, 0
+        while l < r:
+            best = max(best, min(height[l], height[r]) * (r - l))
+            if height[l] < height[r]: l += 1
+            else: r -= 1
+        return best
+```
+
 
 ---
 
@@ -2951,6 +3251,33 @@ class Solution {
 
 ## 3. Sliding Window
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
+        left_max = right_max = water = 0
+        while l < r:
+            if height[l] < height[r]:
+                left_max = max(left_max, height[l])
+                water += left_max - height[l]
+                l += 1
+            else:
+                right_max = max(right_max, height[r])
+                water += right_max - height[r]
+                r -= 1
+        return water
+```
+
+
 ### 3.1 Best Time to Buy and Sell Stock
 - **Difficulty**: Easy
 - **LeetCode**: [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
@@ -3099,6 +3426,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        low, best = float("inf"), 0
+        for price in prices:
+            low = min(low, price)
+            best = max(best, price - low)
+        return best
+```
+
 
 ---
 
@@ -3324,6 +3671,27 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$ (fixed 256-slot array)
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        last, left, best = {}, 0, 0
+        for right, ch in enumerate(s):
+            if ch in last: left = max(left, last[ch] + 1)
+            last[ch] = right
+            best = max(best, right - left + 1)
+        return best
+```
+
+
 ---
 
 ### 3.3 Longest Repeating Character Replacement
@@ -3500,6 +3868,31 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        counts = defaultdict(int)
+        left = max_freq = best = 0
+        for right, ch in enumerate(s):
+            counts[ch] += 1
+            max_freq = max(max_freq, counts[ch])
+            while right - left + 1 - max_freq > k:
+                counts[s[left]] -= 1
+                left += 1
+            best = max(best, right - left + 1)
+        return best
+```
+
 
 ---
 
@@ -3690,6 +4083,32 @@ class Solution {
 ```
 - **Time Complexity**: $O(n + 26) = O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2): return False
+        need = Counter(s1)
+        window = Counter(s2[:len(s1)])
+        if window == need: return True
+        for i in range(len(s1), len(s2)):
+            window[s2[i]] += 1
+            old = s2[i - len(s1)]
+            window[old] -= 1
+            if window[old] == 0: del window[old]
+            if window == need: return True
+        return False
+```
+
 
 ---
 
@@ -3902,6 +4321,36 @@ class Solution {
 - **Time Complexity**: $O(m + n)$
 - **Space Complexity**: $O(1)$ (fixed 128-slot arrays)
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if not t: return ""
+        need = Counter(t)
+        missing = len(t)
+        left = start = 0
+        best = float("inf")
+        for right, ch in enumerate(s):
+            if need[ch] > 0: missing -= 1
+            need[ch] -= 1
+            while missing == 0:
+                if right - left + 1 < best:
+                    start, best = left, right - left + 1
+                need[s[left]] += 1
+                if need[s[left]] > 0: missing += 1
+                left += 1
+        return "" if best == float("inf") else s[start:start + best]
+```
+
+
 ---
 
 ### 3.6 Sliding Window Maximum
@@ -4081,6 +4530,28 @@ class Solution {
 
 ## 4. Stack
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        dq, result = deque(), []
+        for i, x in enumerate(nums):
+            while dq and dq[0] <= i - k: dq.popleft()
+            while dq and nums[dq[-1]] <= x: dq.pop()
+            dq.append(i)
+            if i >= k - 1: result.append(nums[dq[0]])
+        return result
+```
+
+
 ### 4.1 Valid Parentheses
 - **Difficulty**: Easy
 - **LeetCode**: [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
@@ -4250,6 +4721,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack, pairs = [], {")": "(", "]": "[", "}": "{"}
+        for ch in s:
+            if ch in pairs:
+                if not stack or stack.pop() != pairs[ch]: return False
+            else: stack.append(ch)
+        return not stack
+```
+
 
 ---
 
@@ -4436,6 +4928,35 @@ class MinStack {
 ```
 - **Time Complexity**: $O(1)$ for every operation
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class MinStack:
+    def __init__(self):
+        self.stack, self.mins = [], []
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        self.mins.append(val if not self.mins else min(val, self.mins[-1]))
+
+    def pop(self) -> None:
+        self.stack.pop(); self.mins.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.mins[-1]
+```
+
 
 ---
 
@@ -4643,6 +5164,34 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        for token in tokens:
+            if token in {"+", "-", "*", "/"}:
+                b, a = stack.pop(), stack.pop()
+                if token == "+": value = a + b
+                elif token == "-": value = a - b
+                elif token == "*": value = a * b
+                else:
+                    value = (abs(a) // abs(b)) * (-1 if (a < 0) != (b < 0) else 1)
+                stack.append(value)
+            else:
+                stack.append(int(token))
+        return stack[-1]
+```
+
+
 ---
 
 ### 4.4 Generate Parentheses
@@ -4842,6 +5391,31 @@ class Solution {
 - **Time Complexity**: $O(4^n / \sqrt{n})$ (Catalan bound), with $O(n)$ per output string
 - **Space Complexity**: $O(n)$ recursion depth, plus the output
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        result, path = [], []
+        def backtrack(opened, closed):
+            if len(path) == 2 * n:
+                result.append("".join(path)); return
+            if opened < n:
+                path.append("("); backtrack(opened + 1, closed); path.pop()
+            if closed < opened:
+                path.append(")"); backtrack(opened, closed + 1); path.pop()
+        backtrack(0, 0)
+        return result
+```
+
+
 ---
 
 ### 4.5 Daily Temperatures
@@ -5017,6 +5591,28 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        result = [0] * len(temperatures)
+        stack = []
+        for i, temp in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < temp:
+                j = stack.pop(); result[j] = i - j
+            stack.append(i)
+        return result
+```
+
 
 ---
 
@@ -5216,6 +5812,28 @@ class Solution {
 - **Time Complexity**: $O(n \log n)$, dominated by the sort
 - **Space Complexity**: $O(n)$ for the sorted copy
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        cars = sorted(zip(position, speed), reverse=True)
+        fleets, last_time = 0, 0
+        for pos, spd in cars:
+            arrival = (target - pos) / spd
+            if arrival > last_time:
+                fleets += 1; last_time = arrival
+        return fleets
+```
+
+
 ---
 
 ### 4.7 Largest Rectangle in Histogram
@@ -5404,6 +6022,30 @@ class Solution {
 
 ## 5. Binary Search
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        stack, best = [], 0
+        for i, h in enumerate(heights + [0]):
+            start = i
+            while stack and stack[-1][1] > h:
+                idx, height = stack.pop()
+                best = max(best, height * (i - idx))
+                start = idx
+            stack.append((start, h))
+        return best
+```
+
+
 ### 5.1 Binary Search
 - **Difficulty**: Easy
 - **LeetCode**: [704. Binary Search](https://leetcode.com/problems/binary-search/)
@@ -5559,6 +6201,28 @@ class Solution {
 ```
 - **Time Complexity**: $O(\log n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = (l + r) // 2
+            if nums[m] == target: return m
+            if nums[m] < target: l = m + 1
+            else: r = m - 1
+        return -1
+```
+
 
 ---
 
@@ -5727,6 +6391,30 @@ class Solution {
 - **Time Complexity**: $O(\log(m \cdot n))$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        rows, cols = len(matrix), len(matrix[0])
+        l, r = 0, rows * cols - 1
+        while l <= r:
+            m = (l + r) // 2
+            value = matrix[m // cols][m % cols]
+            if value == target: return True
+            if value < target: l = m + 1
+            else: r = m - 1
+        return False
+```
+
+
 ---
 
 ### 5.3 Koko Eating Bananas
@@ -5853,6 +6541,28 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \log(\max(\text{piles})))$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        l, r = 1, max(piles)
+        while l < r:
+            speed = (l + r) // 2
+            hours = sum((p + speed - 1) // speed for p in piles)
+            if hours <= h: r = speed
+            else: l = speed + 1
+        return l
+```
+
 
 ---
 
@@ -6017,6 +6727,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(\log n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] > nums[r]: l = m + 1
+            else: r = m
+        return nums[l]
+```
+
 
 ---
 
@@ -6205,6 +6936,32 @@ class Solution {
 ```
 - **Time Complexity**: $O(\log n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = (l + r) // 2
+            if nums[m] == target: return m
+            if nums[l] <= nums[m]:
+                if nums[l] <= target < nums[m]: r = m - 1
+                else: l = m + 1
+            else:
+                if nums[m] < target <= nums[r]: l = m + 1
+                else: r = m - 1
+        return -1
+```
+
 
 ---
 
@@ -6401,6 +7158,35 @@ class TimeMap {
 ```
 - **Time Complexity**: $O(\log N)$ per `get`, $O(1)$ amortised per `set`
 - **Space Complexity**: $O(N)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class TimeMap:
+    def __init__(self):
+        self.store = defaultdict(list)
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.store[key].append((timestamp, value))
+
+    def get(self, key: str, timestamp: int) -> str:
+        values = self.store.get(key, [])
+        l, r, answer = 0, len(values) - 1, ""
+        while l <= r:
+            m = (l + r) // 2
+            if values[m][0] <= timestamp:
+                answer = values[m][1]; l = m + 1
+            else: r = m - 1
+        return answer
+```
+
 
 ---
 
@@ -6608,6 +7394,37 @@ class ListNode {
 }
 ```
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        a, b = nums1, nums2
+        if len(a) > len(b): a, b = b, a
+        m, n = len(a), len(b)
+        half = (m + n + 1) // 2
+        l, r = 0, m
+        while l <= r:
+            i = (l + r) // 2; j = half - i
+            al = a[i - 1] if i else float("-inf")
+            ar = a[i] if i < m else float("inf")
+            bl = b[j - 1] if j else float("-inf")
+            br = b[j] if j < n else float("inf")
+            if al <= br and bl <= ar:
+                if (m + n) % 2: return float(max(al, bl))
+                return (max(al, bl) + min(ar, br)) / 2
+            if al > br: r = i - 1
+            else: l = i + 1
+```
+
+
 ### 6.1 Reverse Linked List
 - **Difficulty**: Easy
 - **LeetCode**: [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
@@ -6768,6 +7585,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, cur = None, head
+        while cur:
+            nxt = cur.next; cur.next = prev
+            prev, cur = cur, nxt
+        return prev
+```
+
 
 ---
 
@@ -6940,6 +7777,30 @@ class Solution {
 ```
 - **Time Complexity**: $O(m+n)$
 - **Space Complexity**: $O(1)$ extra
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def mergeTwoLists(self, list1, list2):
+        dummy = tail = ListNode()
+        while list1 and list2:
+            if list1.val <= list2.val:
+                tail.next, list1 = list1, list1.next
+            else:
+                tail.next, list2 = list2, list2.next
+            tail = tail.next
+        tail.next = list1 or list2
+        return dummy.next
+```
+
 
 ---
 
@@ -7138,6 +7999,35 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        if not head or not head.next: return
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next; fast = fast.next.next
+        second, slow.next = slow.next, None
+        prev = None
+        while second:
+            nxt = second.next; second.next = prev
+            prev, second = second, nxt
+        first, second = head, prev
+        while second:
+            n1, n2 = first.next, second.next
+            first.next = second; second.next = n1
+            first, second = n1, n2
+```
+
+
 ---
 
 ### 6.4 Remove Nth Node From End of List
@@ -7301,6 +8191,28 @@ class Solution {
 ```
 - **Time Complexity**: $O(L)$, one pass
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        dummy = ListNode(0, head)
+        slow = fast = dummy
+        for _ in range(n): fast = fast.next
+        while fast.next:
+            slow = slow.next; fast = fast.next
+        slow.next = slow.next.next
+        return dummy.next
+```
+
 
 ---
 
@@ -7501,6 +8413,31 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$ extra (excluding output)
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def copyRandomList(self, head):
+        copies = {None: None}
+        cur = head
+        while cur:
+            copies[cur] = Node(cur.val); cur = cur.next
+        cur = head
+        while cur:
+            copies[cur].next = copies[cur.next]
+            copies[cur].random = copies[cur.random]
+            cur = cur.next
+        return copies[head]
+```
+
+
 ---
 
 ### 6.6 Add Two Numbers
@@ -7676,6 +8613,30 @@ class Solution {
 - **Time Complexity**: $O(\max(m, n))$
 - **Space Complexity**: $O(1)$ extra (excluding output)
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        dummy = tail = ListNode()
+        carry = 0
+        while l1 or l2 or carry:
+            total = carry
+            if l1: total += l1.val; l1 = l1.next
+            if l2: total += l2.val; l2 = l2.next
+            carry, digit = divmod(total, 10)
+            tail.next = ListNode(digit); tail = tail.next
+        return dummy.next
+```
+
+
 ---
 
 ### 6.7 Linked List Cycle
@@ -7787,6 +8748,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next; fast = fast.next.next
+            if slow is fast: return True
+        return False
+```
+
 
 ---
 
@@ -7989,6 +8970,29 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        slow = fast = nums[0]
+        while True:
+            slow = nums[slow]; fast = nums[nums[fast]]
+            if slow == fast: break
+        slow = nums[0]
+        while slow != fast:
+            slow = nums[slow]; fast = nums[fast]
+        return slow
+```
+
 
 ---
 
@@ -8244,6 +9248,33 @@ class LRUCache {
 - **Time Complexity**: $O(1)$ for every operation
 - **Space Complexity**: $O(capacity)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key not in self.cache: return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key: int, value: int) -> None:
+        self.cache[key] = value
+        self.cache.move_to_end(key)
+        if len(self.cache) > self.capacity: self.cache.popitem(last=False)
+```
+
+
 ---
 
 ### 6.10 Merge k Sorted Lists
@@ -8489,6 +9520,30 @@ class Solution {
 - **Time Complexity**: $O(N \log k)$
 - **Space Complexity**: $O(\log k)$ for the recursion stack
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def mergeKLists(self, lists):
+        heap = []
+        for i, node in enumerate(lists):
+            if node: heappush(heap, (node.val, i, node))
+        dummy = tail = ListNode()
+        while heap:
+            _, i, node = heappop(heap)
+            tail.next = node; tail = node
+            if node.next: heappush(heap, (node.next.val, i, node.next))
+        return dummy.next
+```
+
+
 ---
 
 ### 6.11 Reverse Nodes in k-Group
@@ -8705,6 +9760,36 @@ class TreeNode {
 }
 ```
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def reverseKGroup(self, head, k):
+        dummy = ListNode(0, head)
+        group_prev = dummy
+        while True:
+            kth = group_prev
+            for _ in range(k):
+                kth = kth.next
+                if not kth: return dummy.next
+            group_next = kth.next
+            prev, cur = group_next, group_prev.next
+            while cur != group_next:
+                nxt = cur.next; cur.next = prev
+                prev, cur = cur, nxt
+            old_start = group_prev.next
+            group_prev.next = kth
+            group_prev = old_start
+```
+
+
 ### 7.1 Invert Binary Tree
 - **Difficulty**: Easy
 - **LeetCode**: [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
@@ -8872,6 +9957,24 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def invertTree(self, root):
+        if root:
+            root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+        return root
+```
+
+
 ---
 
 ### 7.2 Maximum Depth of Binary Tree
@@ -9037,6 +10140,22 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxDepth(self, root):
+        return 0 if not root else 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+```
+
+
 ---
 
 ### 7.3 Diameter of Binary Tree
@@ -9163,6 +10282,29 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def diameterOfBinaryTree(self, root):
+        self.best = 0
+        def depth(node):
+            if not node: return 0
+            left, right = depth(node.left), depth(node.right)
+            self.best = max(self.best, left + right)
+            return 1 + max(left, right)
+        depth(root)
+        return self.best
+```
+
+
 ---
 
 ### 7.4 Balanced Binary Tree
@@ -9283,6 +10425,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isBalanced(self, root):
+        def height(node):
+            if not node: return 0
+            left, right = height(node.left), height(node.right)
+            if left == -1 or right == -1 or abs(left - right) > 1: return -1
+            return 1 + max(left, right)
+        return height(root) != -1
+```
+
 
 ---
 
@@ -9451,6 +10614,23 @@ class Solution {
 ```
 - **Time Complexity**: $O(\min(m, n))$
 - **Space Complexity**: $O(w)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isSameTree(self, p, q):
+        if not p or not q: return p is q
+        return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+```
+
 
 ---
 
@@ -9641,6 +10821,27 @@ class Solution {
 - **Time Complexity**: $O(m + n)$
 - **Space Complexity**: $O(m + n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isSubtree(self, root, subRoot):
+        def same(a, b):
+            if not a or not b: return a is b
+            return a.val == b.val and same(a.left, b.left) and same(a.right, b.right)
+        if not subRoot: return True
+        if not root: return False
+        return same(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+```
+
+
 ---
 
 ### 7.7 Lowest Common Ancestor of a Binary Search Tree
@@ -9809,6 +11010,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(h)$, where $h$ is the height of the BST
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def lowestCommonAncestor(self, root, p, q):
+        cur = root
+        while cur:
+            if p.val < cur.val and q.val < cur.val: cur = cur.left
+            elif p.val > cur.val and q.val > cur.val: cur = cur.right
+            else: return cur
+```
+
 
 ---
 
@@ -10005,6 +11226,31 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$ for recursion, plus output
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def levelOrder(self, root):
+        if not root: return []
+        result, queue = [], deque([root])
+        while queue:
+            level = []
+            for _ in range(len(queue)):
+                node = queue.popleft(); level.append(node.val)
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+            result.append(level)
+        return result
+```
+
+
 ---
 
 ### 7.9 Binary Tree Right Side View
@@ -10191,6 +11437,31 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$ for recursion, plus output
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def rightSideView(self, root):
+        if not root: return []
+        result, queue = [], deque([root])
+        while queue:
+            for i in range(len(queue)):
+                node = queue.popleft()
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+                if i == 0: rightmost = node.val
+            result.append(rightmost)
+        return result
+```
+
+
 ---
 
 ### 7.10 Count Good Nodes in Binary Tree
@@ -10366,6 +11637,27 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def goodNodes(self, root):
+        def dfs(node, maximum):
+            if not node: return 0
+            good = int(node.val >= maximum)
+            maximum = max(maximum, node.val)
+            return good + dfs(node.left, maximum) + dfs(node.right, maximum)
+        return dfs(root, float("-inf"))
+```
+
+
 ---
 
 ### 7.11 Validate Binary Search Tree
@@ -10537,6 +11829,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isValidBST(self, root):
+        def valid(node, low, high):
+            if not node: return True
+            if not low < node.val < high: return False
+            return valid(node.left, low, node.val) and valid(node.right, node.val, high)
+        return valid(root, float("-inf"), float("inf"))
+```
+
 
 ---
 
@@ -10711,6 +12023,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(h + k)$
 - **Space Complexity**: $O(h)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def kthSmallest(self, root, k):
+        stack, node = [], root
+        while True:
+            while node: stack.append(node); node = node.left
+            node = stack.pop(); k -= 1
+            if k == 0: return node.val
+            node = node.right
+```
+
 
 ---
 
@@ -10897,6 +12230,32 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$ for the map and recursion
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def buildTree(self, preorder, inorder):
+        positions = {v: i for i, v in enumerate(inorder)}
+        self.pre = 0
+        def build(left, right):
+            if left > right: return None
+            value = preorder[self.pre]; self.pre += 1
+            node = TreeNode(value)
+            mid = positions[value]
+            node.left = build(left, mid - 1)
+            node.right = build(mid + 1, right)
+            return node
+        return build(0, len(inorder) - 1)
+```
+
+
 ---
 
 ### 7.14 Binary Tree Maximum Path Sum
@@ -11030,6 +12389,29 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(h)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxPathSum(self, root):
+        self.best = float("-inf")
+        def gain(node):
+            if not node: return 0
+            left = max(0, gain(node.left)); right = max(0, gain(node.right))
+            self.best = max(self.best, node.val + left + right)
+            return node.val + max(left, right)
+        gain(root)
+        return self.best
+```
+
 
 ---
 
@@ -11207,6 +12589,37 @@ class Codec {
 ---
 
 ## 8. Heap / Priority Queue
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Codec:
+    def serialize(self, root):
+        values = []
+        def dfs(node):
+            if not node: values.append("#"); return
+            values.append(str(node.val)); dfs(node.left); dfs(node.right)
+        dfs(root)
+        return ",".join(values)
+
+    def deserialize(self, data):
+        values = iter(data.split(","))
+        def dfs():
+            value = next(values)
+            if value == "#": return None
+            node = TreeNode(int(value))
+            node.left = dfs(); node.right = dfs()
+            return node
+        return dfs()
+```
+
 
 ### 8.1 Kth Largest Element in a Stream
 - **Difficulty**: Easy
@@ -11393,6 +12806,30 @@ class KthLargest {
 - **Time Complexity**: `add` is $O(\log k)$
 - **Space Complexity**: $O(k)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class KthLargest:
+    def __init__(self, k: int, nums: List[int]):
+        self.k = k
+        self.heap = nums[:]
+        heapify(self.heap)
+        while len(self.heap) > k: heappop(self.heap)
+
+    def add(self, val: int) -> int:
+        heappush(self.heap, val)
+        if len(self.heap) > self.k: heappop(self.heap)
+        return self.heap[0]
+```
+
+
 ---
 
 ### 8.2 Last Stone Weight
@@ -11514,6 +12951,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        heap = [-x for x in stones]; heapify(heap)
+        while len(heap) > 1:
+            a, b = -heappop(heap), -heappop(heap)
+            if a != b: heappush(heap, -(a - b))
+        return -heap[0] if heap else 0
+```
+
 
 ---
 
@@ -11703,6 +13160,22 @@ class Solution {
 - **Time Complexity**: $O(n)$ expected, $O(n^2)$ worst case
 - **Space Complexity**: $O(1)$ extra, excluding output
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        return nsmallest(k, points, key=lambda p: p[0] * p[0] + p[1] * p[1])
+```
+
+
 ---
 
 ### 8.4 Kth Largest Element in an Array
@@ -11875,6 +13348,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$ expected, $O(n^2)$ worst case
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heap = nums[:k]; heapify(heap)
+        for x in nums[k:]:
+            if x > heap[0]: heapreplace(heap, x)
+        return heap[0]
+```
+
 
 ---
 
@@ -12065,6 +13557,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(T)$ to count, $O(1)$ for the formula
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        counts = Counter(tasks)
+        maximum = max(counts.values())
+        most = sum(v == maximum for v in counts.values())
+        return max(len(tasks), (maximum - 1) * (n + 1) + most)
+```
+
 
 ---
 
@@ -12326,6 +13837,41 @@ class Twitter {
 - **Time Complexity**: `getNewsFeed` is $O(F + 10 \log F)$
 - **Space Complexity**: $O(F)$ for the heap
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Twitter:
+    def __init__(self):
+        self.time = 0
+        self.tweets = defaultdict(list)
+        self.following = defaultdict(set)
+
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        self.tweets[userId].append((self.time, tweetId)); self.time += 1
+
+    def getNewsFeed(self, userId: int) -> List[int]:
+        users = self.following[userId] | {userId}
+        heap = []
+        for uid in users:
+            for item in self.tweets[uid][-10:]:
+                heappush(heap, (-item[0], item[1]))
+        return [heappop(heap)[1] for _ in range(min(10, len(heap)))]
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        if followerId != followeeId: self.following[followerId].add(followeeId)
+
+    def unfollow(self, followerId: int, followeeId: int) -> None:
+        self.following[followerId].discard(followeeId)
+```
+
+
 ---
 
 ### 8.7 Find Median from Data Stream
@@ -12503,6 +14049,35 @@ class MedianFinder {
 
 Backtracking builds candidates one decision at a time, abandons a partial candidate as soon as it cannot lead to a valid answer, and undoes the last decision before trying the next. Every solution below follows that shape. The approaches differ mainly in how much of the search space they explore before pruning.
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class MedianFinder:
+    def __init__(self):
+        self.small, self.large = [], []
+
+    def addNum(self, num: int) -> None:
+        heappush(self.small, -num)
+        if self.large and -self.small[0] > self.large[0]:
+            heappush(self.large, -heappop(self.small))
+        if len(self.small) > len(self.large) + 1:
+            heappush(self.large, -heappop(self.small))
+        elif len(self.large) > len(self.small):
+            heappush(self.small, -heappop(self.large))
+
+    def findMedian(self) -> float:
+        if len(self.small) > len(self.large): return float(-self.small[0])
+        return (-self.small[0] + self.large[0]) / 2
+```
+
+
 ### 9.1 Subsets
 - **Difficulty**: Medium
 - **LeetCode**: [78. Subsets](https://leetcode.com/problems/subsets/)
@@ -12667,6 +14242,24 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \cdot 2^n)$
 - **Space Complexity**: $O(n)$ for recursion, plus output
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = [[]]
+        for x in nums: result += [subset + [x] for subset in result]
+        return result
+```
+
 
 ---
 
@@ -12858,6 +14451,29 @@ class Solution {
 ```
 - **Time Complexity**: Exponential in the worst case, with pruning that cuts whole branches
 - **Space Complexity**: $O(\text{target})$ for recursion depth, plus output
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def combinationSum(self, candidates, target):
+        result = []
+        def dfs(start, remaining, path):
+            if remaining == 0: result.append(path[:]); return
+            for i in range(start, len(candidates)):
+                if candidates[i] > remaining: continue
+                dfs(i, remaining - candidates[i], path + [candidates[i]])
+        dfs(0, target, [])
+        return result
+```
+
 
 ---
 
@@ -13061,6 +14677,30 @@ class Solution {
 - **Time Complexity**: Exponential in the worst case, with pruning
 - **Space Complexity**: $O(\text{target})$ recursion, plus output
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def combinationSum2(self, candidates, target):
+        candidates.sort(); result = []
+        def dfs(start, remain, path):
+            if remain == 0: result.append(path[:]); return
+            for i in range(start, len(candidates)):
+                if i > start and candidates[i] == candidates[i - 1]: continue
+                if candidates[i] > remain: break
+                dfs(i + 1, remain - candidates[i], path + [candidates[i]])
+        dfs(0, target, [])
+        return result
+```
+
+
 ---
 
 ### 9.4 Permutations
@@ -13255,6 +14895,28 @@ class Solution {
 - **Time Complexity**: $O(n \cdot n!)$
 - **Space Complexity**: $O(n)$ for recursion, plus output
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def permute(self, nums):
+        result = []
+        def dfs(path, remaining):
+            if not remaining: result.append(path); return
+            for i, x in enumerate(remaining):
+                dfs(path + [x], remaining[:i] + remaining[i + 1:])
+        dfs([], nums)
+        return result
+```
+
+
 ---
 
 ### 9.5 Subsets II
@@ -13436,6 +15098,29 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \cdot 2^n)$
 - **Space Complexity**: $O(n)$ for recursion, plus output
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def subsetsWithDup(self, nums):
+        nums.sort(); result = []
+        def dfs(start, path):
+            result.append(path[:])
+            for i in range(start, len(nums)):
+                if i > start and nums[i] == nums[i - 1]: continue
+                dfs(i + 1, path + [nums[i]])
+        dfs(0, [])
+        return result
+```
+
 
 ---
 
@@ -13642,6 +15327,30 @@ class Solution {
 ```
 - **Time Complexity**: $O(m \cdot n \cdot 4^L)$, with small constants
 - **Space Complexity**: $O(L)$ for recursion
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def exist(self, board, word):
+        rows, cols = len(board), len(board[0])
+        def dfs(r, c, i):
+            if i == len(word): return True
+            if r < 0 or c < 0 or r == rows or c == cols or board[r][c] != word[i]: return False
+            ch = board[r][c]; board[r][c] = "#"
+            found = any(dfs(r + dr, c + dc, i + 1) for dr, dc in ((1,0),(-1,0),(0,1),(0,-1)))
+            board[r][c] = ch
+            return found
+        return any(dfs(r, c, 0) for r in range(rows) for c in range(cols))
+```
+
 
 ---
 
@@ -13855,6 +15564,29 @@ class Solution {
 - **Time Complexity**: $O(n^2)$ preprocessing, plus the output-bounded search
 - **Space Complexity**: $O(n^2)$ for the table
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        result = []
+        def dfs(start, path):
+            if start == len(s): result.append(path[:]); return
+            for end in range(start + 1, len(s) + 1):
+                part = s[start:end]
+                if part == part[::-1]: dfs(end, path + [part])
+        dfs(0, [])
+        return result
+```
+
+
 ---
 
 ### 9.8 Letter Combinations of a Phone Number
@@ -14043,6 +15775,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \cdot 4^n)$
 - **Space Complexity**: $O(n)$ recursion, plus output
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits: return []
+        mapping = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+        result = [""]
+        for digit in digits:
+            result = [prefix + ch for prefix in result for ch in mapping[int(digit)]]
+        return result
+```
+
 
 ---
 
@@ -14298,6 +16051,33 @@ class Solution {
 
 ## 10. Tries
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        result, cols, diag1, diag2 = [], set(), set(), set()
+        board = [["."] * n for _ in range(n)]
+        def dfs(r):
+            if r == n:
+                result.append(["".join(row) for row in board]); return
+            for c in range(n):
+                if c in cols or r-c in diag1 or r+c in diag2: continue
+                cols.add(c); diag1.add(r-c); diag2.add(r+c); board[r][c] = "Q"
+                dfs(r + 1)
+                board[r][c] = "."; cols.remove(c); diag1.remove(r-c); diag2.remove(r+c)
+        dfs(0)
+        return result
+```
+
+
 ### 10.1 Implement Trie (Prefix Tree)
 - **Difficulty**: Medium
 - **LeetCode**: [208. Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
@@ -14495,6 +16275,41 @@ class Trie {
 ```
 - **Time Complexity**: $O(L)$ per operation
 - **Space Complexity**: $O(N \cdot L \cdot 26)$ worst case for child arrays
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Trie:
+    def __init__(self):
+        self.root = {}
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for ch in word: node = node.setdefault(ch, {})
+        node["#"] = True
+
+    def search(self, word: str) -> bool:
+        node = self.root
+        for ch in word:
+            if ch not in node: return False
+            node = node[ch]
+        return "#" in node
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.root
+        for ch in prefix:
+            if ch not in node: return False
+            node = node[ch]
+        return True
+```
+
 
 ---
 
@@ -14694,6 +16509,35 @@ class WordDictionary {
 ```
 - **Time Complexity**: $O(L)$ for letter-only patterns, and $O(26^d \cdot L)$ worst case with $d$ dots
 - **Space Complexity**: $O(N \cdot L \cdot 26)$ worst case
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class WordDictionary:
+    def __init__(self):
+        self.root = {}
+
+    def addWord(self, word: str) -> None:
+        node = self.root
+        for ch in word: node = node.setdefault(ch, {})
+        node["#"] = True
+
+    def search(self, word: str) -> bool:
+        def dfs(node, i):
+            if i == len(word): return "#" in node
+            ch = word[i]
+            if ch == ".": return any(dfs(child, i + 1) for key, child in node.items() if key != "#")
+            return ch in node and dfs(node[ch], i + 1)
+        return dfs(self.root, 0)
+```
+
 
 ---
 
@@ -14976,6 +16820,43 @@ class Node {
 }
 ```
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findWords(self, board, words):
+        root = {}
+        for word in words:
+            node = root
+            for ch in word: node = node.setdefault(ch, {})
+            node["$"] = word
+        rows, cols, result = len(board), len(board[0]), []
+        def dfs(r, c, node):
+            ch = board[r][c]
+            if ch not in node: return
+            nxt = node[ch]
+            word = nxt.pop("$", None)
+            if word: result.append(word)
+            board[r][c] = "#"
+            for dr, dc in ((1,0),(-1,0),(0,1),(0,-1)):
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < rows and 0 <= nc < cols and board[nr][nc] != "#":
+                    dfs(nr, nc, nxt)
+            board[r][c] = ch
+            if not nxt: node.pop(ch)
+        for r in range(rows):
+            for c in range(cols): dfs(r, c, root)
+        return result
+```
+
+
 ### 11.1 Number of Islands
 - **Difficulty**: Medium
 - **LeetCode**: [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
@@ -15157,6 +17038,34 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(mn)$ worst case for recursion
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def numIslands(self, grid):
+        rows, cols, count = len(grid), len(grid[0]), 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] != "1": continue
+                count += 1
+                stack = [(r, c)]; grid[r][c] = "0"
+                while stack:
+                    x, y = stack.pop()
+                    for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):
+                        nx, ny = x+dx, y+dy
+                        if 0 <= nx < rows and 0 <= ny < cols and grid[nx][ny] == "1":
+                            grid[nx][ny] = "0"; stack.append((nx,ny))
+        return count
+```
+
+
 ---
 
 ### 11.2 Max Area of Island
@@ -15334,6 +17243,34 @@ class Solution {
 ```
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(mn)$ worst case for recursion
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxAreaOfIsland(self, grid):
+        rows, cols, best = len(grid), len(grid[0]), 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] != 1: continue
+                area = 0; stack = [(r,c)]; grid[r][c] = 0
+                while stack:
+                    x,y=stack.pop(); area+=1
+                    for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):
+                        nx,ny=x+dx,y+dy
+                        if 0<=nx<rows and 0<=ny<cols and grid[nx][ny]==1:
+                            grid[nx][ny]=0; stack.append((nx,ny))
+                best=max(best,area)
+        return best
+```
+
 
 ---
 
@@ -15523,6 +17460,31 @@ class Solution {
 ```
 - **Time Complexity**: $O(V + E)$
 - **Space Complexity**: $O(V)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def cloneGraph(self, node):
+        if not node: return None
+        copies = {node: Node(node.val)}
+        queue = deque([node])
+        while queue:
+            cur = queue.popleft()
+            for nei in cur.neighbors:
+                if nei not in copies:
+                    copies[nei] = Node(nei.val); queue.append(nei)
+                copies[cur].neighbors.append(copies[nei])
+        return copies[node]
+```
+
 
 ---
 
@@ -15725,6 +17687,29 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(mn)$ for the queue
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def wallsAndGates(self, rooms):
+        rows, cols = len(rooms), len(rooms[0])
+        q = deque((r,c) for r in range(rows) for c in range(cols) if rooms[r][c] == 0)
+        while q:
+            r,c = q.popleft()
+            for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):
+                nr,nc = r+dr,c+dc
+                if 0 <= nr < rows and 0 <= nc < cols and rooms[nr][nc] == 2147483647:
+                    rooms[nr][nc] = rooms[r][c] + 1; q.append((nr,nc))
+```
+
+
 ---
 
 ### 11.5 Rotting Oranges
@@ -15892,6 +17877,33 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(mn)$ for the queue
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def orangesRotting(self, grid):
+        rows, cols = len(grid), len(grid[0])
+        q = deque((r,c) for r in range(rows) for c in range(cols) if grid[r][c] == 2)
+        fresh = sum(v == 1 for row in grid for v in row); minutes = 0
+        while q and fresh:
+            for _ in range(len(q)):
+                r,c = q.popleft()
+                for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):
+                    nr,nc = r+dr,c+dc
+                    if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:
+                        grid[nr][nc] = 2; fresh -= 1; q.append((nr,nc))
+            minutes += 1
+        return minutes if fresh == 0 else -1
+```
+
+
 ---
 
 ### 11.6 Pacific Atlantic Water Flow
@@ -16054,6 +18066,35 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(mn)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def pacificAtlantic(self, heights):
+        rows, cols = len(heights), len(heights[0])
+        def reachable(starts):
+            seen=set(starts); stack=list(starts)
+            while stack:
+                r,c=stack.pop()
+                for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):
+                    nr,nc=r+dr,c+dc
+                    if (0<=nr<rows and 0<=nc<cols and (nr,nc) not in seen
+                            and heights[nr][nc]>=heights[r][c]):
+                        seen.add((nr,nc)); stack.append((nr,nc))
+            return seen
+        pac=reachable([(r,0) for r in range(rows)]+[(0,c) for c in range(cols)])
+        atl=reachable([(r,cols-1) for r in range(rows)]+[(rows-1,c) for c in range(cols)])
+        return [list(p) for p in pac & atl]
+```
+
+
 ---
 
 ### 11.7 Surrounded Regions
@@ -16203,6 +18244,33 @@ class Solution {
 ```
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(mn)$ worst case for recursion
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def solve(self, board):
+        if not board: return
+        rows, cols = len(board), len(board[0])
+        stack = [(r,c) for r in range(rows) for c in (0,cols-1)]
+        stack += [(r,c) for c in range(cols) for r in (0,rows-1)]
+        while stack:
+            r,c=stack.pop()
+            if 0<=r<rows and 0<=c<cols and board[r][c]=="O":
+                board[r][c]="#"
+                stack.extend(((r+1,c),(r-1,c),(r,c+1),(r,c-1)))
+        for r in range(rows):
+            for c in range(cols):
+                board[r][c]="O" if board[r][c]=="#" else "X"
+```
+
 
 ---
 
@@ -16406,6 +18474,31 @@ class Solution {
 - **Time Complexity**: $O(E \cdot \alpha(n))$, where $\alpha$ is the inverse Ackermann function
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def countComponents(self, n, edges):
+        parent = list(range(n))
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]; x = parent[x]
+            return x
+        count = n
+        for a,b in edges:
+            ra,rb=find(a),find(b)
+            if ra != rb: parent[ra]=rb; count-=1
+        return count
+```
+
+
 ---
 
 ### 11.9 Graph Valid Tree
@@ -16601,6 +18694,31 @@ class Solution {
 ```
 - **Time Complexity**: $O(E \cdot \alpha(n))$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def validTree(self, n, edges):
+        if len(edges) != n - 1: return False
+        parent = list(range(n))
+        def find(x):
+            if parent[x] != x: parent[x] = find(parent[x])
+            return parent[x]
+        for a,b in edges:
+            ra,rb=find(a),find(b)
+            if ra == rb: return False
+            parent[ra]=rb
+        return True
+```
+
 
 ---
 
@@ -16853,6 +18971,34 @@ class Solution {
 - **Time Complexity**: $O(N \cdot L^2)$, usually far less than one-directional BFS in practice
 - **Space Complexity**: $O(N \cdot L^2)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def ladderLength(self, beginWord, endWord, wordList):
+        words = set(wordList)
+        if endWord not in words: return 0
+        q, steps = deque([beginWord]), 1
+        while q:
+            for _ in range(len(q)):
+                word = q.popleft()
+                if word == endWord: return steps
+                for i in range(len(word)):
+                    for ch in "abcdefghijklmnopqrstuvwxyz":
+                        nxt = word[:i] + ch + word[i+1:]
+                        if nxt in words: words.remove(nxt); q.append(nxt)
+            steps += 1
+        return 0
+```
+
+
 ---
 
 ### 11.11 Course Schedule
@@ -17046,6 +19192,33 @@ class Solution {
 ```
 - **Time Complexity**: $O(n + E)$
 - **Space Complexity**: $O(n + E)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        graph = [[] for _ in range(numCourses)]
+        indegree = [0] * numCourses
+        for course, pre in prerequisites:
+            graph[pre].append(course); indegree[course] += 1
+        q = deque(i for i, d in enumerate(indegree) if d == 0)
+        done = 0
+        while q:
+            u = q.popleft(); done += 1
+            for v in graph[u]:
+                indegree[v] -= 1
+                if indegree[v] == 0: q.append(v)
+        return done == numCourses
+```
+
 
 ---
 
@@ -17273,6 +19446,31 @@ class Solution {
 - **Time Complexity**: $O(n + E)$
 - **Space Complexity**: $O(n + E)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findOrder(self, numCourses, prerequisites):
+        graph = [[] for _ in range(numCourses)]
+        indegree = [0] * numCourses
+        for a,b in prerequisites: graph[b].append(a); indegree[a] += 1
+        q = deque(i for i,d in enumerate(indegree) if d == 0); order = []
+        while q:
+            u=q.popleft(); order.append(u)
+            for v in graph[u]:
+                indegree[v]-=1
+                if indegree[v]==0: q.append(v)
+        return order if len(order)==numCourses else []
+```
+
+
 ---
 
 ### 11.13 Redundant Connection
@@ -17477,6 +19675,29 @@ class Solution {
 
 Dynamic programming solves a problem by combining solutions to smaller subproblems. For each problem below, three approaches are shown in the same order: a plain recursive formulation (Brute Force), the same recursion with results cached (Better), and a bottom-up version that keeps only the values it needs (Optimised).
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findRedundantConnection(self, edges):
+        parent = list(range(len(edges) + 1))
+        def find(x):
+            if parent[x] != x: parent[x] = find(parent[x])
+            return parent[x]
+        for a,b in edges:
+            ra,rb=find(a),find(b)
+            if ra == rb: return [a,b]
+            parent[ra]=rb
+```
+
+
 ### 12.1 Climbing Stairs
 - **Difficulty**: Easy
 - **LeetCode**: [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
@@ -17619,6 +19840,24 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        a = b = 1
+        for _ in range(n - 1): a, b = b, a + b
+        return b
+```
+
 
 ---
 
@@ -17775,6 +20014,25 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def minCostClimbingStairs(self, cost):
+        a = b = 0
+        for x in reversed(cost):
+            a, b = x + min(a, b), a
+        return min(a, b)
+```
+
+
 ---
 
 ### 12.3 House Robber
@@ -17926,6 +20184,24 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def rob(self, nums):
+        prev2 = prev1 = 0
+        for x in nums: prev2, prev1 = prev1, max(prev1, prev2 + x)
+        return prev1
+```
+
 
 ---
 
@@ -18093,6 +20369,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def rob(self, nums):
+        if len(nums) == 1: return nums[0]
+        def linear(arr):
+            a = b = 0
+            for x in arr: a, b = b, max(b, a + x)
+            return b
+        return max(linear(nums[:-1]), linear(nums[1:]))
+```
+
 
 ---
 
@@ -18276,6 +20573,28 @@ class Solution {
 - **Time Complexity**: $O(n^2)$ worst case, $O(n)$ typical
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def longestPalindrome(self, s):
+        best = ""
+        for i in range(len(s)):
+            for l, r in ((i,i),(i,i+1)):
+                while l >= 0 and r < len(s) and s[l] == s[r]:
+                    if r-l+1 > len(best): best = s[l:r+1]
+                    l -= 1; r += 1
+        return best
+```
+
+
 ---
 
 ### 12.6 Palindromic Substrings
@@ -18434,6 +20753,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n^2)$ worst case
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def countSubstrings(self, s):
+        count = 0
+        for i in range(len(s)):
+            for l,r in ((i,i),(i,i+1)):
+                while l>=0 and r<len(s) and s[l]==s[r]:
+                    count += 1; l-=1; r+=1
+        return count
+```
+
 
 ---
 
@@ -18623,6 +20963,29 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def numDecodings(self, s):
+        if not s or s[0] == "0": return 0
+        prev2, prev1 = 1, 1
+        for i in range(1, len(s)):
+            cur = 0
+            if s[i] != "0": cur += prev1
+            if 10 <= int(s[i-1:i+1]) <= 26: cur += prev2
+            prev2, prev1 = prev1, cur
+        return prev1
+```
+
+
 ---
 
 ### 12.8 Coin Change
@@ -18800,6 +21163,26 @@ class Solution {
 - **Time Complexity**: $O(A \cdot n)$
 - **Space Complexity**: $O(A)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def coinChange(self, coins, amount):
+        dp = [amount + 1] * (amount + 1); dp[0] = 0
+        for total in range(1, amount + 1):
+            for coin in coins:
+                if coin <= total: dp[total] = min(dp[total], dp[total-coin] + 1)
+        return dp[amount] if dp[amount] <= amount else -1
+```
+
+
 ---
 
 ### 12.9 Maximum Product Subarray
@@ -18953,6 +21336,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxProduct(self, nums):
+        cur_min = cur_max = answer = nums[0]
+        for x in nums[1:]:
+            if x < 0: cur_min, cur_max = cur_max, cur_min
+            cur_max = max(x, cur_max * x); cur_min = min(x, cur_min * x)
+            answer = max(answer, cur_max)
+        return answer
+```
+
 
 ---
 
@@ -19138,6 +21542,25 @@ class Solution {
 - **Time Complexity**: $O(n \cdot \text{maxLen})$ substring checks
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def wordBreak(self, s, wordDict):
+        words = set(wordDict); dp = [False] * (len(s)+1); dp[0] = True
+        for end in range(1, len(s)+1):
+            dp[end] = any(dp[start] and s[start:end] in words for start in range(end))
+        return dp[-1]
+```
+
+
 ---
 
 ### 12.11 Longest Increasing Subsequence
@@ -19310,6 +21733,27 @@ class Solution {
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def lengthOfLIS(self, nums):
+        tails = []
+        for x in nums:
+            i = bisect_left(tails, x)
+            if i == len(tails): tails.append(x)
+            else: tails[i] = x
+        return len(tails)
+```
+
+
 ---
 
 ### 12.12 Partition Equal Subset Sum
@@ -19480,6 +21924,26 @@ class Solution {
 
 Two-dimensional DP states usually depend on two indices, such as a position in a grid, or positions in two strings. Each problem shows the same progression: a plain recursive formulation, the same recursion with memoisation, and a bottom-up version that keeps only the rows it needs.
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def canPartition(self, nums):
+        total = sum(nums)
+        if total % 2: return False
+        target = total // 2; possible = {0}
+        for x in nums: possible |= {v+x for v in possible if v+x <= target}
+        return target in possible
+```
+
+
 ### 13.1 Unique Paths
 - **Difficulty**: Medium
 - **LeetCode**: [62. Unique Paths](https://leetcode.com/problems/unique-paths/)
@@ -19633,6 +22097,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def uniquePaths(self, m, n):
+        dp = [1] * n
+        for _ in range(1, m):
+            for c in range(1, n): dp[c] += dp[c-1]
+        return dp[-1]
+```
+
 
 ---
 
@@ -19810,6 +22293,29 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def longestCommonSubsequence(self, text1, text2):
+        dp = [0] * (len(text2)+1)
+        for a in text1:
+            prev = 0
+            for j,b in enumerate(text2, 1):
+                old = dp[j]
+                dp[j] = prev + 1 if a == b else max(dp[j], dp[j-1])
+                prev = old
+        return dp[-1]
+```
+
+
 ---
 
 ### 13.3 Best Time to Buy and Sell Stock with Cooldown
@@ -19985,6 +22491,25 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxProfit(self, prices):
+        hold, sold, rest = float("-inf"), 0, 0
+        for p in prices:
+            hold, sold, rest = max(hold, rest-p), hold+p, max(rest, sold)
+        return max(sold, rest)
+```
+
+
 ---
 
 ### 13.4 Coin Change II
@@ -20144,6 +22669,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \cdot \text{amount})$
 - **Space Complexity**: $O(\text{amount})$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def change(self, amount, coins):
+        dp = [0] * (amount+1); dp[0] = 1
+        for coin in coins:
+            for x in range(coin, amount+1): dp[x] += dp[x-coin]
+        return dp[amount]
+```
+
 
 ---
 
@@ -20310,6 +22854,28 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \cdot P)$
 - **Space Complexity**: $O(P)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findTargetSumWays(self, nums, target):
+        dp = {0: 1}
+        for x in nums:
+            nxt = defaultdict(int)
+            for total, count in dp.items():
+                nxt[total+x] += count; nxt[total-x] += count
+            dp = nxt
+        return dp[target]
+```
+
 
 ---
 
@@ -20495,6 +23061,30 @@ class Solution {
 ```
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isInterleave(self, s1, s2, s3):
+        if len(s1)+len(s2) != len(s3): return False
+        dp = [False] * (len(s2)+1); dp[0] = True
+        for j in range(1, len(s2)+1): dp[j] = dp[j-1] and s2[j-1] == s3[j-1]
+        for i in range(1, len(s1)+1):
+            dp[0] = dp[0] and s1[i-1] == s3[i-1]
+            for j in range(1, len(s2)+1):
+                ch = s3[i+j-1]
+                dp[j] = (dp[j] and s1[i-1] == ch) or (dp[j-1] and s2[j-1] == ch)
+        return dp[-1]
+```
+
 
 ---
 
@@ -20711,6 +23301,43 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(mn)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def longestIncreasingPath(self, matrix):
+        rows, cols = len(matrix), len(matrix[0])
+        outdegree = [[0]*cols for _ in range(rows)]
+        q = deque()
+        directions = ((1,0),(-1,0),(0,1),(0,-1))
+        for r in range(rows):
+            for c in range(cols):
+                for dr,dc in directions:
+                    nr,nc=r+dr,c+dc
+                    if 0<=nr<rows and 0<=nc<cols and matrix[nr][nc]>matrix[r][c]:
+                        outdegree[r][c]+=1
+                if outdegree[r][c]==0: q.append((r,c))
+        length=0
+        while q:
+            length+=1
+            for _ in range(len(q)):
+                r,c=q.popleft()
+                for dr,dc in directions:
+                    nr,nc=r+dr,c+dc
+                    if 0<=nr<rows and 0<=nc<cols and matrix[nr][nc]<matrix[r][c]:
+                        outdegree[nr][nc]-=1
+                        if outdegree[nr][nc]==0: q.append((nr,nc))
+        return length
+```
+
+
 ---
 
 ### 13.8 Distinct Subsequences
@@ -20872,6 +23499,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(nm)$
 - **Space Complexity**: $O(m)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def numDistinct(self, s, t):
+        dp = [0] * (len(t)+1); dp[0] = 1
+        for ch in s:
+            for j in range(len(t)-1, -1, -1):
+                if ch == t[j]: dp[j+1] += dp[j]
+        return dp[-1]
+```
+
 
 ---
 
@@ -21051,6 +23698,28 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def minDistance(self, word1, word2):
+        dp = list(range(len(word2)+1))
+        for i,a in enumerate(word1, 1):
+            new = [i] + [0] * len(word2)
+            for j,b in enumerate(word2, 1):
+                new[j] = dp[j-1] if a == b else 1 + min(dp[j], new[j-1], dp[j-1])
+            dp = new
+        return dp[-1]
+```
+
+
 ---
 
 ### 13.10 Burst Balloons
@@ -21229,6 +23898,28 @@ class Solution {
 ```
 - **Time Complexity**: $O(n^3)$
 - **Space Complexity**: $O(n^2)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxCoins(self, nums):
+        arr = [1] + nums + [1]
+        n = len(nums); dp = [[0]*(n+2) for _ in range(n+2)]
+        for length in range(1, n+1):
+            for l in range(1, n-length+2):
+                r = l + length - 1
+                dp[l][r] = max(arr[l-1]*arr[k]*arr[r+1] + dp[l][k-1] + dp[k+1][r] for k in range(l,r+1))
+        return dp[1][n]
+```
+
 
 ---
 
@@ -21423,6 +24114,29 @@ class Solution {
 
 Greedy algorithms make the locally best choice at each step and never revisit it. They are correct for a problem only when a local choice can be shown to lead to a global optimum. Each problem below shows a more exhaustive approach first, then the greedy insight that removes the search.
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isMatch(self, s, p):
+        @lru_cache(None)
+        def dp(i,j):
+            if j == len(p): return i == len(s)
+            first = i < len(s) and p[j] in (s[i], ".")
+            if j+1 < len(p) and p[j+1] == "*":
+                return dp(i,j+2) or (first and dp(i+1,j))
+            return first and dp(i+1,j+1)
+        return dp(0,0)
+```
+
+
 ### 14.1 Maximum Subarray
 - **Difficulty**: Medium
 - **LeetCode**: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
@@ -21574,6 +24288,24 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def maxSubArray(self, nums):
+        best = cur = nums[0]
+        for x in nums[1:]: cur = max(x, cur+x); best = max(best, cur)
+        return best
+```
+
 
 ---
 
@@ -21735,6 +24467,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def canJump(self, nums):
+        goal = len(nums)-1
+        for i in range(len(nums)-1, -1, -1):
+            if i + nums[i] >= goal: goal = i
+        return goal == 0
+```
+
 
 ---
 
@@ -21900,6 +24651,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def jump(self, nums):
+        jumps = end = farthest = 0
+        for i in range(len(nums)-1):
+            farthest = max(farthest, i+nums[i])
+            if i == end: jumps += 1; end = farthest
+        return jumps
+```
+
 
 ---
 
@@ -22073,6 +24844,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def canCompleteCircuit(self, gas, cost):
+        if sum(gas) < sum(cost): return -1
+        start = tank = 0
+        for i, (g,c) in enumerate(zip(gas,cost)):
+            tank += g-c
+            if tank < 0: start = i+1; tank = 0
+        return start
+```
+
 
 ---
 
@@ -22261,6 +25053,29 @@ class Solution {
 - **Time Complexity**: $O(n \log n)$ for the sort, plus $O(n \cdot \text{groupSize})$ for the greedy
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isNStraightHand(self, hand, groupSize):
+        if len(hand) % groupSize: return False
+        counts = Counter(hand)
+        for x in sorted(counts):
+            while counts[x]:
+                for v in range(x, x+groupSize):
+                    if counts[v] == 0: return False
+                    counts[v] -= 1
+        return True
+```
+
+
 ---
 
 ### 14.6 Merge Triplets to Form Target Triplet
@@ -22387,6 +25202,28 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def mergeTriplets(self, triplets, target):
+        good = [False, False, False]
+        for a,b,c in triplets:
+            if a<=target[0] and b<=target[1] and c<=target[2]:
+                if a==target[0]: good[0]=True
+                if b==target[1]: good[1]=True
+                if c==target[2]: good[2]=True
+        return all(good)
+```
+
+
 ---
 
 ### 14.7 Partition Labels
@@ -22508,6 +25345,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$ extra, excluding output
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def partitionLabels(self, s):
+        last = {ch:i for i,ch in enumerate(s)}
+        result=[]; start=end=0
+        for i,ch in enumerate(s):
+            end=max(end,last[ch])
+            if i==end: result.append(end-start+1); start=i+1
+        return result
+```
+
 
 ---
 
@@ -22698,6 +25556,29 @@ class Solution {
 
 Interval problems are about ordering and overlap. Most solutions start by sorting intervals by start time, or by end time, and then making one linear pass.
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def checkValidString(self, s):
+        low = high = 0
+        for ch in s:
+            if ch == "(": low+=1; high+=1
+            elif ch == ")": low-=1; high-=1
+            else: low-=1; high+=1
+            if high < 0: return False
+            low=max(low,0)
+        return low == 0
+```
+
+
 ### 15.1 Insert Interval
 - **Difficulty**: Medium
 - **LeetCode**: [57. Insert Interval](https://leetcode.com/problems/insert-interval/)
@@ -22881,6 +25762,28 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$ for the output
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def insert(self, intervals, newInterval):
+        result=[]; i=0; n=len(intervals)
+        while i<n and intervals[i][1]<newInterval[0]:
+            result.append(intervals[i]); i+=1
+        while i<n and intervals[i][0]<=newInterval[1]:
+            newInterval[0]=min(newInterval[0],intervals[i][0])
+            newInterval[1]=max(newInterval[1],intervals[i][1]); i+=1
+        result.append(newInterval); return result+intervals[i:]
+```
+
+
 ---
 
 ### 15.2 Merge Intervals
@@ -23016,6 +25919,26 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def merge(self, intervals):
+        intervals.sort(); result=[]
+        for start,end in intervals:
+            if not result or start>result[-1][1]: result.append([start,end])
+            else: result[-1][1]=max(result[-1][1],end)
+        return result
+```
+
 
 ---
 
@@ -23196,6 +26119,27 @@ class Solution {
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(1)$ extra, excluding the sort
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def eraseOverlapIntervals(self, intervals):
+        intervals.sort(key=lambda x:x[1])
+        end=float("-inf"); removed=0
+        for start,finish in intervals:
+            if start<end: removed+=1
+            else: end=finish
+        return removed
+```
+
+
 ---
 
 ### 15.4 Meeting Rooms
@@ -23303,6 +26247,23 @@ class Solution {
 ```
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(1)$ extra, excluding the sort
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def canAttendMeetings(self, intervals):
+        intervals.sort()
+        return all(intervals[i][0]>=intervals[i-1][1] for i in range(1,len(intervals)))
+```
+
 
 ---
 
@@ -23476,6 +26437,27 @@ class Solution {
 - **Time Complexity**: $O(n \log n)$
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def minMeetingRooms(self, intervals):
+        starts=sorted(x[0] for x in intervals); ends=sorted(x[1] for x in intervals)
+        rooms=end_i=0
+        for start in starts:
+            if start>=ends[end_i]: end_i+=1
+            else: rooms+=1
+        return rooms
+```
+
+
 ---
 
 ### 15.6 Minimum Interval to Include Each Query
@@ -23617,6 +26599,29 @@ class Solution {
 ---
 
 ## 16. Math & Geometry
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def minInterval(self, intervals, queries):
+        intervals.sort(); indexed=sorted((q,i) for i,q in enumerate(queries))
+        heap=[]; result=[-1]*len(queries); j=0
+        for q,i in indexed:
+            while j<len(intervals) and intervals[j][0]<=q:
+                l,r=intervals[j]; heappush(heap,(r-l+1,r)); j+=1
+            while heap and heap[0][1]<q: heappop(heap)
+            if heap: result[i]=heap[0][0]
+        return result
+```
+
 
 ### 16.1 Rotate Image
 - **Difficulty**: Medium
@@ -23776,6 +26781,25 @@ class Solution {
 - **Time Complexity**: $O(n^2)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def rotate(self, matrix):
+        n=len(matrix)
+        for r in range(n):
+            for c in range(r+1,n): matrix[r][c],matrix[c][r]=matrix[c][r],matrix[r][c]
+        for row in matrix: row.reverse()
+```
+
+
 ---
 
 ### 16.2 Spiral Matrix
@@ -23910,6 +26934,32 @@ class Solution {
 ```
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(1)$ extra, excluding output
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def spiralOrder(self, matrix):
+        top,bottom,left,right=0,len(matrix)-1,0,len(matrix[0])-1
+        result=[]
+        while top<=bottom and left<=right:
+            result.extend(matrix[top][left:right+1]); top+=1
+            for r in range(top,bottom+1): result.append(matrix[r][right])
+            right-=1
+            if top<=bottom: result.extend(matrix[bottom][left:right+1][::-1]); bottom-=1
+            if left<=right:
+                for r in range(bottom,top-1,-1): result.append(matrix[r][left])
+                left+=1
+        return result
+```
+
 
 ---
 
@@ -24091,6 +27141,33 @@ class Solution {
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def setZeroes(self, matrix):
+        rows,cols=len(matrix),len(matrix[0])
+        first_row=any(matrix[0][c]==0 for c in range(cols))
+        first_col=any(matrix[r][0]==0 for r in range(rows))
+        for r in range(1,rows):
+            for c in range(1,cols):
+                if matrix[r][c]==0: matrix[r][0]=matrix[0][c]=0
+        for r in range(1,rows):
+            for c in range(1,cols):
+                if matrix[r][0]==0 or matrix[0][c]==0: matrix[r][c]=0
+        if first_row: matrix[0]=[0]*cols
+        if first_col:
+            for r in range(rows): matrix[r][0]=0
+```
+
+
 ---
 
 ### 16.4 Happy Number
@@ -24266,6 +27343,26 @@ class Solution {
 - **Time Complexity**: $O(\log n)$ per step, with a small number of steps
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def isHappy(self, n):
+        def nxt(x): return sum(int(c)**2 for c in str(x))
+        slow,fast=n,nxt(n)
+        while fast!=1 and slow!=fast:
+            slow=nxt(slow); fast=nxt(nxt(fast))
+        return fast==1
+```
+
+
 ---
 
 ### 16.5 Plus One
@@ -24377,6 +27474,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$ extra, except when the array grows
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def plusOne(self, digits):
+        for i in range(len(digits)-1,-1,-1):
+            if digits[i]<9: digits[i]+=1; return digits
+            digits[i]=0
+        return [1]+digits
+```
+
 
 ---
 
@@ -24551,6 +27667,27 @@ class Solution {
 - **Time Complexity**: $O(\log n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def myPow(self, x, n):
+        if n<0: x,n=1/x,-n
+        result=1
+        while n:
+            if n&1: result*=x
+            x*=x; n>>=1
+        return result
+```
+
+
 ---
 
 ### 16.7 Multiply Strings
@@ -24667,6 +27804,29 @@ class Solution {
 ```
 - **Time Complexity**: $O(mn)$
 - **Space Complexity**: $O(m + n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def multiply(self, num1, num2):
+        if num1=="0" or num2=="0": return "0"
+        a,b=len(num1),len(num2); result=[0]*(a+b)
+        for i in range(a-1,-1,-1):
+            for j in range(b-1,-1,-1):
+                product=int(num1[i])*int(num2[j])+result[i+j+1]
+                result[i+j+1]=product%10
+                result[i+j]+=product//10
+        return "".join(map(str,result)).lstrip("0")
+```
+
 
 ---
 
@@ -24867,6 +28027,33 @@ class DetectSquares {
 
 ## 17. Bit Manipulation
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class DetectSquares:
+    def __init__(self):
+        self.points=Counter()
+
+    def add(self, point):
+        self.points[tuple(point)]+=1
+
+    def count(self, point):
+        x,y=point; total=0
+        for (x2,y2),freq in self.points.items():
+            if abs(x2-x)==0 or abs(x2-x)!=abs(y2-y): continue
+            side=abs(x2-x)
+            total += freq*self.points[(x,y2)]*self.points[(x2,y)]
+        return total
+```
+
+
 ### 17.1 Single Number
 - **Difficulty**: Easy
 - **LeetCode**: [136. Single Number](https://leetcode.com/problems/single-number/)
@@ -25011,6 +28198,24 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def singleNumber(self, nums):
+        result=0
+        for x in nums: result^=x
+        return result
+```
+
+
 ---
 
 ### 17.2 Number of 1 Bits
@@ -25152,6 +28357,24 @@ class Solution {
 - **Time Complexity**: $O(k)$, where $k$ is the number of set bits
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def hammingWeight(self, n):
+        count=0
+        while n: n &= n-1; count+=1
+        return count
+```
+
+
 ---
 
 ### 17.3 Counting Bits
@@ -25286,6 +28509,24 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(n)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def countBits(self, n):
+        dp=[0]*(n+1)
+        for i in range(1,n+1): dp[i]=dp[i>>1]+(i&1)
+        return dp
+```
+
 
 ---
 
@@ -25436,6 +28677,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(1)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def reverseBits(self, n):
+        result=0
+        for _ in range(32):
+            result=(result<<1)|(n&1); n>>=1
+        return result
+```
+
 
 ---
 
@@ -25589,6 +28849,24 @@ class Solution {
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def missingNumber(self, nums):
+        result=len(nums)
+        for i,x in enumerate(nums): result ^= i ^ x
+        return result
+```
+
+
 ---
 
 ### 17.6 Sum of Two Integers
@@ -25720,6 +28998,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(32)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def getSum(self, a, b):
+        mask=0xffffffff
+        while b:
+            a,b=(a^b)&mask,((a&b)<<1)&mask
+        return a if a<0x80000000 else ~(a^mask)
+```
+
 
 ---
 
@@ -25890,6 +29187,24 @@ class Solution {
 ---
 
 ## 18. Advanced Graphs
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def reverse(self, x):
+        sign=-1 if x<0 else 1
+        value=sign*int(str(abs(x))[::-1])
+        return value if -2**31<=value<=2**31-1 else 0
+```
+
 
 ### 18.1 Reconstruct Itinerary
 - **Difficulty**: Hard
@@ -26099,6 +29414,29 @@ class Solution {
 - **Time Complexity**: $O(E \log E)$ for sorting, plus $O(E)$ for traversal
 - **Space Complexity**: $O(E)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findItinerary(self, tickets):
+        graph=defaultdict(list)
+        for a,b in tickets: heappush(graph[a],b)
+        route=[]
+        def visit(airport):
+            while graph[airport]: visit(heappop(graph[airport]))
+            route.append(airport)
+        visit("JFK")
+        return route[::-1]
+```
+
+
 ---
 
 ### 18.2 Min Cost to Connect All Points
@@ -26302,6 +29640,30 @@ class Solution {
 - **Time Complexity**: $O(n^2)$
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def minCostConnectPoints(self, points):
+        n=len(points); visited=set(); min_dist=[float("inf")]*n; min_dist[0]=0
+        total=0
+        for _ in range(n):
+            u=min((i for i in range(n) if i not in visited),key=lambda i:min_dist[i])
+            visited.add(u); total+=min_dist[u]
+            x1,y1=points[u]
+            for v,(x2,y2) in enumerate(points):
+                if v not in visited: min_dist[v]=min(min_dist[v],abs(x1-x2)+abs(y1-y2))
+        return total
+```
+
+
 ---
 
 ### 18.3 Network Delay Time
@@ -26457,6 +29819,32 @@ class Solution {
 ```
 - **Time Complexity**: $O(E \log V)$
 - **Space Complexity**: $O(V + E)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def networkDelayTime(self, times, n, k):
+        graph=defaultdict(list)
+        for u,v,w in times: graph[u].append((v,w))
+        dist={k:0}; heap=[(0,k)]
+        while heap:
+            d,u=heappop(heap)
+            if d>dist[u]: continue
+            for v,w in graph[u]:
+                nd=d+w
+                if nd<dist.get(v,float("inf")):
+                    dist[v]=nd; heappush(heap,(nd,v))
+        return max(dist.values()) if len(dist)==n else -1
+```
+
 
 ---
 
@@ -26676,6 +30064,29 @@ class Solution {
 ```
 - **Time Complexity**: $O(n^2 \log(n^2))$
 - **Space Complexity**: $O(n^2)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def swimInWater(self, grid):
+        n=len(grid); heap=[(grid[0][0],0,0)]; seen={(0,0)}
+        while heap:
+            t,r,c=heappop(heap)
+            if (r,c)==(n-1,n-1): return t
+            for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):
+                nr,nc=r+dr,c+dc
+                if 0<=nr<n and 0<=nc<n and (nr,nc) not in seen:
+                    seen.add((nr,nc)); heappush(heap,(max(t,grid[nr][nc]),nr,nc))
+```
+
 
 ---
 
@@ -26944,6 +30355,36 @@ class Solution {
 - **Time Complexity**: $O(26^2 + \text{total length})$
 - **Space Complexity**: $O(26^2)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def alienOrder(self, words):
+        graph={c:set() for w in words for c in w}
+        indegree={c:0 for c in graph}
+        for a,b in zip(words,words[1:]):
+            if len(a)>len(b) and a.startswith(b): return ""
+            for x,y in zip(a,b):
+                if x!=y:
+                    if y not in graph[x]: graph[x].add(y); indegree[y]+=1
+                    break
+        q=deque(c for c,d in indegree.items() if d==0); order=[]
+        while q:
+            c=q.popleft(); order.append(c)
+            for nxt in graph[c]:
+                indegree[nxt]-=1
+                if indegree[nxt]==0: q.append(nxt)
+        return "".join(order) if len(order)==len(graph) else ""
+```
+
+
 ---
 
 ### 18.6 Cheapest Flights Within K Stops
@@ -27090,6 +30531,28 @@ class Solution {
 
 ## 19. Extras
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def findCheapestPrice(self, n, flights, src, dst, k):
+        prices=[float("inf")]*n; prices[src]=0
+        for _ in range(k+1):
+            temp=prices[:]
+            for u,v,w in flights:
+                if prices[u]!=float("inf"): temp[v]=min(temp[v],prices[u]+w)
+            prices=temp
+        return -1 if prices[dst]==float("inf") else prices[dst]
+```
+
+
 ### 19.1 Move Zeroes
 - **Difficulty**: Easy
 - **LeetCode**: [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/)
@@ -27235,6 +30698,25 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def moveZeroes(self, nums):
+        write=0
+        for x in nums:
+            if x!=0: nums[write]=x; write+=1
+        for i in range(write,len(nums)): nums[i]=0
+```
+
 
 ---
 
@@ -27385,6 +30867,27 @@ class Solution {
 ```
 - **Time Complexity**: $O(n)$
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def removeDuplicates(self, nums):
+        if not nums: return 0
+        write=1
+        for i in range(1,len(nums)):
+            if nums[i]!=nums[write-1]:
+                nums[write]=nums[i]; write+=1
+        return write
+```
+
 
 ---
 
@@ -27541,6 +31044,26 @@ class Solution {
 ## 20. Concurrency & Companion Design
 
 The problems in this section are about coordinating threads and designing classes that other threads call. Each problem first shows a baseline that is either wasteful or unsafe, then the standard coordination primitive that fixes it. Brute-force approaches are labelled as baselines, and they are not meant for production use.
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Solution:
+    def majorityElement(self, nums):
+        candidate=count=0
+        for x in nums:
+            if count==0: candidate=x
+            count += 1 if x==candidate else -1
+        return candidate
+```
+
 
 ### 20.1 Print in Order
 - **Difficulty**: Easy
@@ -27729,6 +31252,31 @@ class Foo {
 - **Time Complexity**: Waiting threads block, with $O(1)$ work per step
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class Foo:
+    def __init__(self):
+        self.second = Semaphore(0); self.third = Semaphore(0)
+
+    def first(self, printFirst):
+        printFirst(); self.second.release()
+
+    def second(self, printSecond):
+        self.second.acquire(); printSecond(); self.third.release()
+
+    def third(self, printThird):
+        self.third.acquire(); printThird()
+```
+
+
 ---
 
 ### 20.2 Print FooBar Alternately
@@ -27867,6 +31415,30 @@ class FooBar {
 ```
 - **Time Complexity**: $O(n)$ prints, with blocking waits
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class FooBar:
+    def __init__(self, n):
+        self.n=n; self.foo_sem=Semaphore(1); self.bar_sem=Semaphore(0)
+
+    def foo(self, printFoo):
+        for _ in range(self.n):
+            self.foo_sem.acquire(); printFoo(); self.bar_sem.release()
+
+    def bar(self, printBar):
+        for _ in range(self.n):
+            self.bar_sem.acquire(); printBar(); self.foo_sem.release()
+```
+
 
 ---
 
@@ -28036,6 +31608,36 @@ class ZeroEvenOdd {
 - **Time Complexity**: $O(n)$ prints, with blocking waits
 - **Space Complexity**: $O(1)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class ZeroEvenOdd:
+    def __init__(self, n):
+        self.n=n
+        self.zero_sem=Semaphore(1); self.even_sem=Semaphore(0); self.odd_sem=Semaphore(0)
+
+    def zero(self, printNumber):
+        for i in range(1,self.n+1):
+            self.zero_sem.acquire(); printNumber(0)
+            (self.odd_sem if i%2 else self.even_sem).release()
+
+    def even(self, printNumber):
+        for i in range(2,self.n+1,2):
+            self.even_sem.acquire(); printNumber(i); self.zero_sem.release()
+
+    def odd(self, printNumber):
+        for i in range(1,self.n+1,2):
+            self.odd_sem.acquire(); printNumber(i); self.zero_sem.release()
+```
+
+
 ---
 
 ### 20.4 Building H2O
@@ -28117,6 +31719,37 @@ class H2O {
 ```
 - **Time Complexity**: Each molecule waits for three threads, with $O(1)$ work per thread
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class H2O:
+    def __init__(self):
+        self.h_sem=Semaphore(2); self.o_sem=Semaphore(0)
+        self.lock=Lock(); self.h_count=0
+
+    def hydrogen(self, releaseHydrogen):
+        self.h_sem.acquire()
+        releaseHydrogen()
+        with self.lock:
+            self.h_count+=1
+            if self.h_count==2: self.o_sem.release()
+
+    def oxygen(self, releaseOxygen):
+        self.o_sem.acquire()
+        releaseOxygen()
+        with self.lock:
+            self.h_count=0
+            self.h_sem.release(2)
+```
+
 
 ---
 
@@ -28261,6 +31894,34 @@ class FizzBuzz {
 ```
 - **Time Complexity**: $O(n)$ prints, with blocking waits
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class FizzBuzz:
+    def __init__(self, n):
+        self.n=n; self.current=1; self.condition=Condition()
+
+    def _run(self, predicate, action):
+        while True:
+            with self.condition:
+                self.condition.wait_for(lambda: self.current>self.n or predicate(self.current))
+                if self.current>self.n: self.condition.notify_all(); return
+                action(self.current); self.current+=1; self.condition.notify_all()
+
+    def fizz(self, printFizz): self._run(lambda x:x%3==0 and x%5!=0, lambda _:printFizz())
+    def buzz(self, printBuzz): self._run(lambda x:x%5==0 and x%3!=0, lambda _:printBuzz())
+    def fizzbuzz(self, printFizzBuzz): self._run(lambda x:x%15==0, lambda _:printFizzBuzz())
+    def number(self, printNumber): self._run(lambda x:x%3!=0 and x%5!=0, printNumber)
+```
+
 
 ---
 
@@ -28421,6 +32082,32 @@ class DiningPhilosophers {
 ```
 - **Time Complexity**: $O(1)$ per meal, with blocking waits
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class DiningPhilosophers:
+    def __init__(self):
+        self.forks=[Lock() for _ in range(5)]
+        self.room=Semaphore(4)
+
+    def wantsToEat(self, philosopher, pickLeftFork, pickRightFork, eat, putLeftFork, putRightFork):
+        left=philosopher; right=(philosopher+1)%5
+        with self.room:
+            with self.forks[left]:
+                pickLeftFork()
+                with self.forks[right]:
+                    pickRightFork(); eat(); putLeftFork()
+                putRightFork()
+```
+
 
 ---
 
@@ -28652,6 +32339,39 @@ class BoundedBlockingQueue {
 - **Time Complexity**: $O(1)$ per operation, with blocking waits
 - **Space Complexity**: $O(\text{capacity})$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class BoundedBlockingQueue:
+    def __init__(self, capacity):
+        self.q=deque(); self.capacity=capacity
+        self.condition=Condition()
+
+    def enqueue(self, element):
+        with self.condition:
+            self.condition.wait_for(lambda:len(self.q)<self.capacity)
+            self.q.append(element)
+            self.condition.notify_all()
+
+    def dequeue(self):
+        with self.condition:
+            self.condition.wait_for(lambda:bool(self.q))
+            value=self.q.popleft()
+            self.condition.notify_all()
+            return value
+
+    def size(self):
+        with self.condition: return len(self.q)
+```
+
+
 ---
 
 ### 20.8 Traffic Light Controlled Intersection
@@ -28778,6 +32498,29 @@ class TrafficLight {
 ```
 - **Time Complexity**: $O(1)$ per car, plus the time spent holding the lock
 - **Space Complexity**: $O(1)$
+
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class TrafficLight:
+    def __init__(self):
+        self.road=1
+        self.lock=Lock()
+
+    def carArrived(self, carId, roadId, direction, turnGreen, crossCar):
+        with self.lock:
+            if self.road!=roadId:
+                turnGreen(); self.road=roadId
+            crossCar()
+```
+
 
 ---
 
@@ -28974,6 +32717,41 @@ class LFUCache {
 - **Time Complexity**: $O(1)$ average per operation
 - **Space Complexity**: $O(n)$
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class LFUCache:
+    def __init__(self, capacity):
+        self.capacity=capacity; self.min_freq=0
+        self.values={}; self.freq=defaultdict(OrderedDict)
+
+    def _touch(self, key):
+        value,f=self.values[key]
+        del self.freq[f][key]
+        if not self.freq[f] and self.min_freq==f: self.min_freq+=1
+        self.values[key]=(value,f+1); self.freq[f+1][key]=None
+
+    def get(self, key):
+        if key not in self.values: return -1
+        self._touch(key); return self.values[key][0]
+
+    def put(self, key, value):
+        if self.capacity==0: return
+        if key in self.values:
+            self.values[key]=(value,self.values[key][1]); self._touch(key); return
+        if len(self.values)==self.capacity:
+            old,_=self.freq[self.min_freq].popitem(last=False); del self.values[old]
+        self.values[key]=(value,1); self.freq[1][key]=None; self.min_freq=1
+```
+
+
 ---
 
 ### 20.10 Design Hit Counter
@@ -29151,4 +32929,30 @@ class HitCounter {
 - **Time Complexity**: $O(1)$ per `hit`, and $O(300)$ per `getHits`, which is constant
 - **Space Complexity**: $O(300)$, which is constant
 
+#### Python Solution (Optimal Approach)
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque, OrderedDict
+from heapq import heappush, heappop, heapify, heapreplace, nsmallest
+from bisect import bisect_left
+from functools import lru_cache
+from threading import Semaphore, Lock, Condition
+
+class HitCounter:
+    def __init__(self):
+        self.times=[0]*300; self.counts=[0]*300
+
+    def hit(self, timestamp):
+        i=timestamp%300
+        if self.times[i]!=timestamp:
+            self.times[i]=timestamp; self.counts[i]=0
+        self.counts[i]+=1
+
+    def getHits(self, timestamp):
+        return sum(c for t,c in zip(self.times,self.counts) if timestamp-t<300)
+```
+
+
 ---
+

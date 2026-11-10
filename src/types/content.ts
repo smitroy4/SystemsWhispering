@@ -139,8 +139,12 @@ export interface ProblemSolution {
   correctnessCheck?: string;
   /** Idiomatic Java solution. */
   code: string;
+  /** Idiomatic Python solution (optimal approach). */
+  pythonCode?: string;
   /** Complexity summary displayed under the code block. */
   complexity: { time: string; space: string };
+  /** Python complexity summary. */
+  pythonComplexity?: { time: string; space: string };
 }
 
 /** One input/output example from the problem statement. */

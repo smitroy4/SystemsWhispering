@@ -161,6 +161,58 @@
   color: var(--color-text-muted);
 }
 
+.pd-language-tabs {
+  display: inline-flex;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  margin-bottom: var(--space-3);
+}
+
+.pd-lang-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-right: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.pd-lang-tab:last-child {
+  border-right: none;
+}
+
+.pd-lang-tab:hover {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.pd-lang-tab.is-active {
+  color: var(--color-primary);
+  background: var(--color-accent-soft);
+  border-bottom: 2px solid var(--color-primary);
+  border-right: 1px solid var(--color-border);
+}
+
+.pd-lang-tab.is-active:last-child {
+  border-right: none;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* Hide the code block language indicator since the language tabs handle it */
+.ui-codeblock__lang {
+  display: none;
+}
+
 .pd-solution__desc {
   margin: 0 0 var(--space-2) 0;
   color: var(--color-text-muted);
