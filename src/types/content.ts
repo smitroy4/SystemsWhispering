@@ -145,6 +145,12 @@ export interface ProblemSolution {
   complexity: { time: string; space: string };
   /** Python complexity summary. */
   pythonComplexity?: { time: string; space: string };
+  /** Python-specific intuition for the approach. */
+  pythonIntuition?: string;
+  /** Python-specific step-by-step algorithm description, one line per step. */
+  pythonAlgorithm?: string[];
+  /** Python-specific detailed walkthrough explaining why each step matters. */
+  pythonDetailedWalkthrough?: string[];
 }
 
 /** One input/output example from the problem statement. */

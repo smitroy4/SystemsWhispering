@@ -30,6 +30,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean containsDuplicate(int[] nums) {\n        for (int i = 0; i < nums.length; i++) {\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] == nums[j]) {\n                    return true;\n                }\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -41,6 +44,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean containsDuplicate(int[] nums) {\n        Arrays.sort(nums);\n        for (int i = 1; i < nums.length; i++) {\n            if (nums[i] == nums[i - 1]) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -52,6 +58,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public boolean containsDuplicate(int[] nums) {\n        Set<Integer> set = new HashSet<>();\n        for (int x : nums) {\n            set.add(x);\n        }\n        return set.size() != nums.length;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -63,6 +72,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public boolean containsDuplicate(int[] nums) {\n        Set<Integer> seen = new HashSet<>();\n        for (int x : nums) {\n            if (!seen.add(x)) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def containsDuplicate(self, nums: List[int]) -> bool:\n        return len(nums) != len(set(nums))",
+      pythonIntuition: '`Set.add` returns `False` when the element is already present. So the duplicate can be detected during insertion, and we can stop immediately.',
+      pythonAlgorithm: ['For each `x` in `nums`, if `seen.add(x)` returns `False`, return `True`.','Return `False`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each `x` in `nums`, if `seen.add(x)` returns `False`, return `True`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `False`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -96,6 +108,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean isAnagram(String s, String t) {\n        if (s.length() != t.length()) {\n            return false;\n        }\n        char[] a = s.toCharArray();\n        char[] b = t.toCharArray();\n        Arrays.sort(a);\n        Arrays.sort(b);\n        return Arrays.equals(a, b);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -107,6 +122,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public boolean isAnagram(String s, String t) {\n        if (s.length() != t.length()) {\n            return false;\n        }\n        Map<Character, Integer> counts = new HashMap<>();\n        for (char c : s.toCharArray()) {\n            counts.merge(c, 1, Integer::sum);\n        }\n        for (char c : t.toCharArray()) {\n            int remaining = counts.getOrDefault(c, 0) - 1;\n            if (remaining < 0) {\n                return false;\n            }\n            counts.put(c, remaining);\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(k)' },
       pythonComplexity: undefined
     },
@@ -118,6 +136,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isAnagram(String s, String t) {\n        if (s.length() != t.length()) {\n            return false;\n        }\n        int[] counts = new int[26];\n        for (int i = 0; i < s.length(); i++) {\n            counts[s.charAt(i) - 'a']++;\n        }\n        for (int i = 0; i < t.length(); i++) {\n            if (--counts[t.charAt(i) - 'a'] < 0) {\n                return false;\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -129,6 +150,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isAnagram(String s, String t) {\n        if (s.length() != t.length()) {\n            return false;\n        }\n        int[] counts = new int[26];\n        for (int i = 0; i < s.length(); i++) {\n            counts[s.charAt(i) - 'a']++;\n            counts[t.charAt(i) - 'a']--;\n        }\n        for (int c : counts) {\n            if (c != 0) {\n                return false;\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isAnagram(self, s: str, t: str) -> bool:\n        return Counter(s) == Counter(t)",
+      pythonIntuition: 'Since the lengths are equal, if no count ever goes negative, every count must end at zero. So one array can be incremented for `s` and decremented for `t`, and the result is determined by whether all slots are zero at the end.',
+      pythonAlgorithm: ['If lengths differ, return `False`.','For each index `i`, do `counts[s[i]-\'a\']++` and `counts[t[i]-\'a\']--`.','Scan the 26 slots. If any is non-zero, return `False`.','Return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','If lengths differ, return `False`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','For each index `i`, do `counts[s[i]-\'a\']++` and `counts[t[i]-\'a\']--`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Scan the 26 slots. If any is non-zero, return `False`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `True`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n + 26) = O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -162,6 +186,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        int n = nums.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (nums[i] + nums[j] == target) {\n                    return new int[]{i, j};\n                }\n            }\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -173,6 +200,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        int n = nums.length;\n        Integer[] idx = new Integer[n];\n        for (int i = 0; i < n; i++) {\n            idx[i] = i;\n        }\n        Arrays.sort(idx, (a, b) -> Integer.compare(nums[a], nums[b]));\n\n        int lo = 0, hi = n - 1;\n        while (lo < hi) {\n            long sum = (long) nums[idx[lo]] + nums[idx[hi]];\n            if (sum == target) {\n                return new int[]{idx[lo], idx[hi]};\n            }\n            if (sum < target) {\n                lo++;\n            } else {\n                hi--;\n            }\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -184,6 +214,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> indexOf = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            indexOf.put(nums[i], i);\n        }\n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            Integer j = indexOf.get(complement);\n            if (j != null && j != i) {\n                return new int[]{i, j};\n            }\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -195,6 +228,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> seen = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            if (seen.containsKey(complement)) {\n                return new int[]{seen.get(complement), i};\n            }\n            seen.put(nums[i], i);\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        seen = {}\n        for i, x in enumerate(nums):\n            if target - x in seen:\n                return [seen[target - x], i]\n            seen[x] = i",
+      pythonIntuition: 'The two-pass version is unnecessary. When processing index `i`, every earlier element is already in the map. So either the complement is among those earlier elements (we have our pair), or we store the current element for future lookups. Checking before inserting also guarantees the same element is never paired with itself.',
+      pythonAlgorithm: ['Create an empty map `seen: value -> index`.','For each `i` from `0` to `n-1`:','- `complement = target - nums[i]`.','- If `seen` contains `complement`, return `{seen.get(complement), i}`.','- Otherwise, store `seen[] = nums[i], i)`.','Return an empty array.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Create an empty map `seen: value -> index`.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','For each `i` from `0` to `n-1`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return an empty array.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -228,6 +264,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        List<List<String>> groups = new ArrayList<>();\n        for (String s : strs) {\n            String key = sorted(s);\n            boolean placed = false;\n            for (List<String> group : groups) {\n                if (sorted(group.get(0)).equals(key)) {\n                    group.add(s);\n                    placed = true;\n                    break;\n                }\n            }\n            if (!placed) {\n                List<String> fresh = new ArrayList<>();\n                fresh.add(s);\n                groups.add(fresh);\n            }\n        }\n        return groups;\n    }\n\n    private String sorted(String s) {\n        char[] chars = s.toCharArray();\n        Arrays.sort(chars);\n        return new String(chars);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2 \\cdot k \\log k)', space: 'O(n \\cdot k)' },
       pythonComplexity: undefined
     },
@@ -239,6 +278,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        Map<String, List<String>> map = new HashMap<>();\n        for (String s : strs) {\n            char[] chars = s.toCharArray();\n            Arrays.sort(chars);\n            map.computeIfAbsent(new String(chars), k -> new ArrayList<>()).add(s);\n        }\n        return new ArrayList<>(map.values());\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot k \\log k)', space: 'O(n \\cdot k)' },
       pythonComplexity: undefined
     },
@@ -250,6 +292,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        Map<String, List<String>> map = new HashMap<>();\n        for (String s : strs) {\n            int[] count = new int[26];\n            for (char c : s.toCharArray()) {\n                count[c - 'a']++;\n            }\n            StringBuilder key = new StringBuilder();\n            for (int c : count) {\n                key.append('#').append(c);\n            }\n            map.computeIfAbsent(key.toString(), k -> new ArrayList<>()).add(s);\n        }\n        return new ArrayList<>(map.values());\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        groups = defaultdict(list)\n        for word in strs:\n            key = tuple(sorted(word))\n            groups[key].append(word)\n        return list(groups.values())",
+      pythonIntuition: 'Sorting costs $O(k \\log k)$ per word, but counting letters costs $O(k)$. A 26-slot count vector identifies the anagram class just as well, so encode it as a string key such as `"a1b0c0...t1..."`. The key does not depend on letter order, so anagrams still collide.',
+      pythonAlgorithm: ['For each string, build `int[26] count` by incrementing `count[c - \'a\']`.','Build a key by appending each count with a separator, for example `"#1#0#0..."`.','Group by key with a `dict`.','Return the map\'s values.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each string, build `int[26] count` by incrementing `count[c - \'a\']`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Build a key by appending each count with a separator, for example `"#1#0#0..."`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Group by key with a `dict`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return the map\'s values.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\cdot (k + 26))', space: 'O(n \\cdot k)' },
       pythonComplexity: undefined
     }
@@ -283,6 +328,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> freq = new HashMap<>();\n        for (int x : nums) {\n            freq.merge(x, 1, Integer::sum);\n        }\n        List<Map.Entry<Integer, Integer>> entries = new ArrayList<>(freq.entrySet());\n        entries.sort((a, b) -> b.getValue() - a.getValue());\n        int[] result = new int[k];\n        for (int i = 0; i < k; i++) {\n            result[i] = entries.get(i).getKey();\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n + d \\log d)', space: 'O(d)' },
       pythonComplexity: undefined
     },
@@ -294,6 +342,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\nimport java.util.PriorityQueue;\n\nclass Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> freq = new HashMap<>();\n        for (int x : nums) {\n            freq.merge(x, 1, Integer::sum);\n        }\n        PriorityQueue<Map.Entry<Integer, Integer>> minHeap =\n            new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());\n        for (Map.Entry<Integer, Integer> e : freq.entrySet()) {\n            minHeap.offer(e);\n            if (minHeap.size() > k) {\n                minHeap.poll();\n            }\n        }\n        int[] result = new int[k];\n        for (int i = 0; i < k; i++) {\n            result[i] = minHeap.poll().getKey();\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n + d \\log k)', space: 'O(d + k)' },
       pythonComplexity: undefined
     },
@@ -305,6 +356,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> freq = new HashMap<>();\n        for (int x : nums) {\n            freq.merge(x, 1, Integer::sum);\n        }\n        int n = nums.length;\n        List<List<Integer>> buckets = new ArrayList<>();\n        for (int i = 0; i <= n; i++) {\n            buckets.add(new ArrayList<>());\n        }\n        for (Map.Entry<Integer, Integer> e : freq.entrySet()) {\n            buckets.get(e.getValue()).add(e.getKey());\n        }\n        int[] result = new int[k];\n        int idx = 0;\n        for (int f = n; f >= 1 && idx < k; f--) {\n            for (int value : buckets.get(f)) {\n                result[idx++] = value;\n                if (idx == k) {\n                    break;\n                }\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def topKFrequent(self, nums: List[int], k: int) -> List[int]:\n        return [x for x, _ in Counter(nums).most_common(k)]",
+      pythonIntuition: 'A value\'s frequency is between 1 and `n`. Create `n+1` buckets, where bucket `f` holds all values with frequency `f`. Walk the buckets from highest frequency downward and collect until you have `k` values. No comparisons are needed.',
+      pythonAlgorithm: ['Count frequencies.','Create `buckets[0..n]`, each an empty list.','For each `(value, f)`, add `value` to `buckets[f]`.','Iterate `f` from `n` down to `1`, appending values from each bucket until the result has `k` items.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Count frequencies.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Create `buckets[0..n]`, each an empty list.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','For each `(value, f)`, add `value` to `buckets[f]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Iterate `f` from `n` down to `1`, appending values from each bucket until the result has `k` items.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -338,6 +392,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        int n = nums.length;\n        int[] answer = new int[n];\n        for (int i = 0; i < n; i++) {\n            int prod = 1;\n            for (int j = 0; j < n; j++) {\n                if (j != i) {\n                    prod *= nums[j];\n                }\n            }\n            answer[i] = prod;\n        }\n        return answer;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -349,6 +406,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        int n = nums.length;\n        int[] prefix = new int[n];\n        int[] suffix = new int[n];\n        prefix[0] = 1;\n        for (int i = 1; i < n; i++) {\n            prefix[i] = prefix[i - 1] * nums[i - 1];\n        }\n        suffix[n - 1] = 1;\n        for (int i = n - 2; i >= 0; i--) {\n            suffix[i] = suffix[i + 1] * nums[i + 1];\n        }\n        int[] answer = new int[n];\n        for (int i = 0; i < n; i++) {\n            answer[i] = prefix[i] * suffix[i];\n        }\n        return answer;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -360,6 +420,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        int n = nums.length;\n        int[] answer = new int[n];\n        int left = 1;\n        for (int i = 0; i < n; i++) {\n            answer[i] = left;\n            left *= nums[i];\n        }\n        int right = 1;\n        for (int i = n - 1; i >= 0; i--) {\n            answer[i] *= right;\n            right *= nums[i];\n        }\n        return answer;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def productExceptSelf(self, nums: List[int]) -> List[int]:\n        result = [1] * len(nums)\n        prefix = 1\n        for i, x in enumerate(nums):\n            result[i] = prefix\n            prefix *= x\n        suffix = 1\n        for i in range(len(nums) - 1, -1, -1):\n            result[i] *= suffix\n            suffix *= nums[i]\n        return result",
+      pythonIntuition: 'The output array can hold the prefix products. Then a single right-to-left pass with one running variable multiplies in the suffix product, so the separate suffix array is unnecessary.',
+      pythonAlgorithm: ['Pass left to right: `answer[i] = product of nums[0..i-1]`, tracked with a running `left`.','Pass right to left with a running `right = 1`: `answer[i] *= right`, then `right *= nums[i]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Pass left to right: `answer[i] = product of nums[0..i-1]`, tracked with a running `left`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Pass right to left with a running `right = 1`: `answer[i] *= right`, then `right *= nums[i]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -393,6 +456,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isValidSudoku(char[][] board) {\n        for (int r = 0; r < 9; r++) {\n            for (int c = 0; c < 9; c++) {\n                char d = board[r][c];\n                if (d == '.') continue;\n                for (int k = 0; k < 9; k++) {\n                    if (k != c && board[r][k] == d) return false;\n                    if (k != r && board[k][c] == d) return false;\n                }\n                int br = (r / 3) * 3, bc = (c / 3) * 3;\n                for (int i = br; i < br + 3; i++) {\n                    for (int j = bc; j < bc + 3; j++) {\n                        if ((i != r || j != c) && board[i][j] == d) return false;\n                    }\n                }\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(81 \\cdot 27) = O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -404,6 +470,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public boolean isValidSudoku(char[][] board) {\n        Set<String> seen = new HashSet<>();\n        for (int r = 0; r < 9; r++) {\n            for (int c = 0; c < 9; c++) {\n                char d = board[r][c];\n                if (d == '.') continue;\n                int box = (r / 3) * 3 + (c / 3);\n                if (!seen.add(d + \" in row \" + r)) return false;\n                if (!seen.add(d + \" in col \" + c)) return false;\n                if (!seen.add(d + \" in box \" + box)) return false;\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -415,6 +484,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isValidSudoku(char[][] board) {\n        boolean[][] rows = new boolean[9][9];\n        boolean[][] cols = new boolean[9][9];\n        boolean[][] boxes = new boolean[9][9];\n        for (int r = 0; r < 9; r++) {\n            for (int c = 0; c < 9; c++) {\n                char ch = board[r][c];\n                if (ch == '.') continue;\n                int d = ch - '1';\n                int box = (r / 3) * 3 + (c / 3);\n                if (rows[r][d] || cols[c][d] || boxes[box][d]) {\n                    return false;\n                }\n                rows[r][d] = cols[c][d] = boxes[box][d] = true;\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -426,6 +498,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isValidSudoku(char[][] board) {\n        int[] rows = new int[9];\n        int[] cols = new int[9];\n        int[] boxes = new int[9];\n        for (int r = 0; r < 9; r++) {\n            for (int c = 0; c < 9; c++) {\n                char ch = board[r][c];\n                if (ch == '.') continue;\n                int bit = 1 << (ch - '1');\n                int box = (r / 3) * 3 + (c / 3);\n                if ((rows[r] & bit) != 0 || (cols[c] & bit) != 0 || (boxes[box] & bit) != 0) {\n                    return false;\n                }\n                rows[r] |= bit;\n                cols[c] |= bit;\n                boxes[box] |= bit;\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isValidSudoku(self, board: List[List[str]]) -> bool:\n        rows, cols, boxes = set(), set(), set()\n        for r in range(9):\n            for c in range(9):\n                v = board[r][c]\n                if v == \".\":\n                    continue\n                b = (r // 3, c // 3, v)\n                if (r, v) in rows or (c, v) in cols or b in boxes:\n                    return False\n                rows.add((r, v)); cols.add((c, v)); boxes.add(b)\n        return True",
+      pythonIntuition: 'Each group needs only 9 bits, one per digit. Store each row, column, and box as a single `int` bitmask. Setting bit `d` marks digit `d` as used, and `(mask >> d) & 1` checks it. This uses the least memory and fewest memory accesses.',
+      pythonAlgorithm: ['Keep `List[int] rows = new int[9]`, `cols`, and `boxes`.','For digit `d` (as `0..8`), let `bit = 1 << d`.','If `rows[r] & bit`, `cols[c] & bit`, or `boxes[box] & bit` is set, return `False`.','Otherwise OR the bit into all three masks.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Keep `List[int] rows = new int[9]`, `cols`, and `boxes`.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','For digit `d` (as `0..8`), let `bit = 1 << d`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','If `rows[r] & bit`, `cols[c] & bit`, or `boxes[box] & bit` is set, return `False`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','Otherwise OR the bit into all three masks.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.'],
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -459,6 +534,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int longestConsecutive(int[] nums) {\n        int best = 0;\n        for (int x : nums) {\n            int cur = x, len = 1;\n            while (contains(nums, cur + 1)) {\n                cur++;\n                len++;\n            }\n            best = Math.max(best, len);\n        }\n        return best;\n    }\n\n    private boolean contains(int[] nums, int target) {\n        for (int v : nums) {\n            if (v == target) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^3)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -470,6 +548,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int longestConsecutive(int[] nums) {\n        if (nums.length == 0) return 0;\n        Arrays.sort(nums);\n        int best = 1, cur = 1;\n        for (int i = 1; i < nums.length; i++) {\n            if (nums[i] == nums[i - 1]) continue;\n            if (nums[i] == nums[i - 1] + 1) {\n                cur++;\n            } else {\n                cur = 1;\n            }\n            best = Math.max(best, cur);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -481,6 +562,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int longestConsecutive(int[] nums) {\n        Set<Integer> set = new HashSet<>();\n        for (int x : nums) {\n            set.add(x);\n        }\n        int best = 0;\n        for (int x : set) {\n            if (set.contains(x - 1)) continue;\n            int len = 1;\n            while (set.contains(x + len)) {\n                len++;\n            }\n            best = Math.max(best, len);\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        values = set(nums)\n        best = 0\n        for x in values:\n            if x - 1 not in values:\n                y = x\n                while y in values:\n                    y += 1\n                best = max(best, y - x)\n        return best",
+      pythonIntuition: 'Put all numbers in a set. Start counting only from `x` where `x - 1` is absent, which guarantees each run is walked exactly once. Every element is touched at most twice (once as a candidate start, once inside a run), so the total work is linear.',
+      pythonAlgorithm: ['Insert all numbers into `set`.','For each `x` in `set`: if `set` contains `x - 1`, skip it.','Otherwise, count `len` by checking `x+1`, `x+2`, ... in the set.','Track the maximum length.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Insert all numbers into `set`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','For each `x` in `set`: if `set` contains `x - 1`, skip it.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Otherwise, count `len` by checking `x+1`, `x+2`, ... in the set.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','Track the maximum length.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -514,6 +598,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public String encode(List<String> strs) {\n        StringBuilder sb = new StringBuilder();\n        for (String s : strs) {\n            for (char c : s.toCharArray()) {\n                if (c == ',' || c == '\\\\') sb.append('\\\\');\n                sb.append(c);\n            }\n            sb.append(',');\n        }\n        return sb.toString();\n    }\n\n    public List<String> decode(String str) {\n        List<String> result = new ArrayList<>();\n        StringBuilder cur = new StringBuilder();\n        for (int i = 0; i < str.length(); i++) {\n            char c = str.charAt(i);\n            if (c == '\\\\') {\n                cur.append(str.charAt(++i));\n            } else if (c == ',') {\n                result.add(cur.toString());\n                cur.setLength(0);\n            } else {\n                cur.append(c);\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(T)', space: 'O(T)' },
       pythonComplexity: undefined
     },
@@ -525,6 +612,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public String encode(List<String> strs) {\n        StringBuilder sb = new StringBuilder();\n        for (String s : strs) {\n            sb.append(s.length()).append('#').append(s);\n        }\n        return sb.toString();\n    }\n\n    public List<String> decode(String str) {\n        List<String> result = new ArrayList<>();\n        int i = 0;\n        while (i < str.length()) {\n            int j = str.indexOf('#', i);\n            int len = Integer.parseInt(str.substring(i, j));\n            result.add(str.substring(j + 1, j + 1 + len));\n            i = j + 1 + len;\n        }\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Codec:\n    def encode(self, strs: List[str]) -> str:\n        return \"\".join(f\"{len(s)}#{s}\" for s in strs)\n\n    def decode(self, s: str) -> List[str]:\n        result, i = [], 0\n        while i < len(s):\n            j = s.index(\"#\", i)\n            length = int(s[i:j])\n            i = j + 1\n            result.append(s[i:i + length])\n            i += length\n        return result",
+      pythonIntuition: 'Write each string as `length#content`. The decoder reads digits up to `#`, knows exactly how many characters follow, and jumps there. It never inspects the content, so any character, including `#` and digits, is safe.',
+      pythonAlgorithm: ['Encode: for each `s`, append `slen()()`, then `#`, then `s`.','Decode: keep index `i`. Find the next `#` at `j`. Parse `len = str[i..j)`. Take `str[j+1 .. j+1+len)`. Set `i = j + 1 + len`.','Repeat until the end of the string.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Encode: for each `s`, append `slen()()`, then `#`, then `s`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Decode: keep index `i`. Find the next `#` at `j`. Parse `len = str[i..j)`. Take `str[j+1 .. j+1+len)`. Set `i = j + 1 + len`.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','Repeat until the end of the string.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(T)', space: 'O(T)' },
       pythonComplexity: undefined
     }
@@ -558,6 +648,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isPalindrome(String s) {\n        StringBuilder sb = new StringBuilder();\n        for (char c : s.toCharArray()) {\n            if (Character.isLetterOrDigit(c)) {\n                sb.append(Character.toLowerCase(c));\n            }\n        }\n        String cleaned = sb.toString();\n        return cleaned.equals(sb.reverse().toString());\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -569,6 +662,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isPalindrome(String s) {\n        char[] chars = new char[s.length()];\n        int len = 0;\n        for (char c : s.toCharArray()) {\n            if (Character.isLetterOrDigit(c)) {\n                chars[len++] = Character.toLowerCase(c);\n            }\n        }\n        int l = 0, r = len - 1;\n        while (l < r) {\n            if (chars[l] != chars[r]) {\n                return false;\n            }\n            l++;\n            r--;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -580,6 +676,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isPalindrome(String s) {\n        int l = 0, r = s.length() - 1;\n        while (l < r) {\n            while (l < r && !Character.isLetterOrDigit(s.charAt(l))) l++;\n            while (l < r && !Character.isLetterOrDigit(s.charAt(r))) r--;\n            if (Character.toLowerCase(s.charAt(l)) != Character.toLowerCase(s.charAt(r))) {\n                return false;\n            }\n            l++;\n            r--;\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isPalindrome(self, s: str) -> bool:\n        left, right = 0, len(s) - 1\n        while left < right:\n            while left < right and not s[left].isalnum(): left += 1\n            while left < right and not s[right].isalnum(): right -= 1\n            if s[left].lower() != s[right].lower(): return False\n            left += 1; right -= 1\n        return True",
+      pythonIntuition: 'Skip non-alphanumeric characters with the pointers themselves. No copy is needed, so extra memory is constant.',
+      pythonAlgorithm: ['`l = 0`, `r = n - 1`.','While `l < r`:','- Advance `l` while `s[l]` is not alphanumeric.','- Retreat `r` while `s[r]` is not alphanumeric.','- If `toLowerCase(s[l]) != toLowerCase(s[r])`, return `False`.','- Move both pointers inward.','Return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`l = 0`, `r = n - 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `l < r`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `True`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -613,6 +712,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int n = numbers.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (numbers[i] + numbers[j] == target) {\n                    return new int[]{i + 1, j + 1};\n                }\n            }\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -624,6 +726,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int n = numbers.length;\n        for (int i = 0; i < n; i++) {\n            int comp = target - numbers[i];\n            int j = Arrays.binarySearch(numbers, i + 1, n, comp);\n            if (j >= 0) {\n                return new int[]{i + 1, j + 1};\n            }\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -635,6 +740,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        Map<Integer, Integer> seen = new HashMap<>();\n        for (int i = 0; i < numbers.length; i++) {\n            Integer j = seen.get(target - numbers[i]);\n            if (j != null) {\n                return new int[]{j + 1, i + 1};\n            }\n            seen.put(numbers[i], i);\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -646,6 +754,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int l = 0, r = numbers.length - 1;\n        while (l < r) {\n            int sum = numbers[l] + numbers[r];\n            if (sum == target) {\n                return new int[]{l + 1, r + 1};\n            } else if (sum < target) {\n                l++;\n            } else {\n                r--;\n            }\n        }\n        return new int[]{};\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def twoSum(self, numbers: List[int], target: int) -> List[int]:\n        l, r = 0, len(numbers) - 1\n        while l < r:\n            total = numbers[l] + numbers[r]\n            if total == target: return [l + 1, r + 1]\n            if total < target: l += 1\n            else: r -= 1",
+      pythonIntuition: 'Start at both ends. If the sum is too small, the only way to increase it is to move `l` right, because `r` is already the largest remaining value. If too large, move `r` left. The first match is the answer, and no extra memory is needed.',
+      pythonAlgorithm: ['`l = 0`, `r = n - 1`.','While `l < r`:','- `sum = numbers[l] + numbers[r]`.','- If `sum == target`, return `{l+1, r+1}`.','- If `sum < target`, `l++`. Otherwise `r--`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`l = 0`, `r = n - 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `l < r`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -679,6 +790,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        Set<List<Integer>> result = new HashSet<>();\n        int n = nums.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                for (int k = j + 1; k < n; k++) {\n                    if (nums[i] + nums[j] + nums[k] == 0) {\n                        int[] t = {nums[i], nums[j], nums[k]};\n                        Arrays.sort(t);\n                        result.add(List.of(t[0], t[1], t[2]));\n                    }\n                }\n            }\n        }\n        return new ArrayList<>(result);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^3)', space: 'O(u)' },
       pythonComplexity: undefined
     },
@@ -690,6 +804,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        Set<List<Integer>> result = new HashSet<>();\n        int n = nums.length;\n        for (int i = 0; i < n; i++) {\n            Set<Integer> seen = new HashSet<>();\n            for (int j = i + 1; j < n; j++) {\n                int comp = -nums[i] - nums[j];\n                if (seen.contains(comp)) {\n                    List<Integer> triplet = new ArrayList<>(List.of(nums[i], nums[j], comp));\n                    Collections.sort(triplet);\n                    result.add(triplet);\n                }\n                seen.add(nums[j]);\n            }\n        }\n        return new ArrayList<>(result);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -701,6 +818,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        Arrays.sort(nums);\n        List<List<Integer>> result = new ArrayList<>();\n        int n = nums.length;\n        for (int i = 0; i < n - 2; i++) {\n            if (nums[i] > 0) break;\n            if (i > 0 && nums[i] == nums[i - 1]) continue;\n            int l = i + 1, r = n - 1;\n            while (l < r) {\n                int sum = nums[i] + nums[l] + nums[r];\n                if (sum < 0) {\n                    l++;\n                } else if (sum > 0) {\n                    r--;\n                } else {\n                    result.add(List.of(nums[i], nums[l], nums[r]));\n                    l++;\n                    r--;\n                    while (l < r && nums[l] == nums[l - 1]) l++;\n                    while (l < r && nums[r] == nums[r + 1]) r--;\n                }\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def threeSum(self, nums: List[int]) -> List[List[int]]:\n        nums.sort()\n        result = []\n        for i in range(len(nums) - 2):\n            if i and nums[i] == nums[i - 1]: continue\n            l, r = i + 1, len(nums) - 1\n            while l < r:\n                total = nums[i] + nums[l] + nums[r]\n                if total < 0: l += 1\n                elif total > 0: r -= 1\n                else:\n                    result.append([nums[i], nums[l], nums[r]])\n                    l += 1; r -= 1\n                    while l < r and nums[l] == nums[l - 1]: l += 1\n                    while l < r and nums[r] == nums[r + 1]: r -= 1\n        return result",
+      pythonIntuition: 'After sorting, for a fixed `i` the remaining problem is 2Sum on a sorted subarray, solvable with two pointers. Duplicates are skipped at three points: the fixed `i`, and both pointers after a match. Since the array is sorted, a positive `nums[i]` means no later triplet can sum to zero, so the loop can stop early.',
+      pythonAlgorithm: ['Sort `nums`.','For each `i` from `0` to `n-3`:','- If `nums[i] > 0`, break.','- If `i > 0` and `nums[i] == nums[i-1]`, continue (skip duplicate fixed value).','- Set `l = i+1`, `r = n-1`. While `l < r`:','- `sum = nums[i] + nums[l] + nums[r]`.','- If `sum < 0`, `l++`. If `sum > 0`, `r--`.','- If `sum == 0`, record the triplet, move both pointers inward, and skip equal values on each side.','Return the result.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort `nums`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','For each `i` from `0` to `n-3`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return the result.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -734,6 +854,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxArea(int[] height) {\n        int best = 0;\n        for (int i = 0; i < height.length; i++) {\n            for (int j = i + 1; j < height.length; j++) {\n                int area = Math.min(height[i], height[j]) * (j - i);\n                best = Math.max(best, area);\n            }\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -745,6 +868,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxArea(int[] height) {\n        int l = 0, r = height.length - 1;\n        int best = 0;\n        while (l < r) {\n            int area = Math.min(height[l], height[r]) * (r - l);\n            best = Math.max(best, area);\n            if (height[l] < height[r]) {\n                l++;\n            } else {\n                r--;\n            }\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxArea(self, height: List[int]) -> int:\n        l, r, best = 0, len(height) - 1, 0\n        while l < r:\n            best = max(best, min(height[l], height[r]) * (r - l))\n            if height[l] < height[r]: l += 1\n            else: r -= 1\n        return best",
+      pythonIntuition: 'A container\'s height is limited by its shorter wall. Moving the taller wall inward keeps the same limiting height but reduces the width, so it can never produce a larger area. Therefore, the shorter wall is the only one worth moving.',
+      pythonAlgorithm: ['`l = 0`, `r = n - 1`, `best = 0`.','While `l < r`:','- `best = max(best, min(height[l], height[r]) * (r - l))`.','- If `height[l] < height[r]`, `l++`. Otherwise `r--`.','Return `best`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`l = 0`, `r = n - 1`, `best = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `l < r`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `best`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -778,6 +904,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int trap(int[] height) {\n        int n = height.length, total = 0;\n        for (int i = 0; i < n; i++) {\n            int maxL = 0, maxR = 0;\n            for (int j = 0; j <= i; j++) maxL = Math.max(maxL, height[j]);\n            for (int j = i; j < n; j++) maxR = Math.max(maxR, height[j]);\n            total += Math.min(maxL, maxR) - height[i];\n        }\n        return total;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -789,6 +918,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int trap(int[] height) {\n        int n = height.length;\n        int[] maxL = new int[n], maxR = new int[n];\n        maxL[0] = height[0];\n        for (int i = 1; i < n; i++) {\n            maxL[i] = Math.max(maxL[i - 1], height[i]);\n        }\n        maxR[n - 1] = height[n - 1];\n        for (int i = n - 2; i >= 0; i--) {\n            maxR[i] = Math.max(maxR[i + 1], height[i]);\n        }\n        int total = 0;\n        for (int i = 0; i < n; i++) {\n            total += Math.min(maxL[i], maxR[i]) - height[i];\n        }\n        return total;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -800,6 +932,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int trap(int[] height) {\n        int l = 0, r = height.length - 1;\n        int lMax = 0, rMax = 0, total = 0;\n        while (l < r) {\n            if (height[l] < height[r]) {\n                if (height[l] >= lMax) {\n                    lMax = height[l];\n                } else {\n                    total += lMax - height[l];\n                }\n                l++;\n            } else {\n                if (height[r] >= rMax) {\n                    rMax = height[r];\n                } else {\n                    total += rMax - height[r];\n                }\n                r--;\n            }\n        }\n        return total;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def trap(self, height: List[int]) -> int:\n        l, r = 0, len(height) - 1\n        left_max = right_max = water = 0\n        while l < r:\n            if height[l] < height[r]:\n                left_max = max(left_max, height[l])\n                water += left_max - height[l]\n                l += 1\n            else:\n                right_max = max(right_max, height[r])\n                water += right_max - height[r]\n                r -= 1\n        return water",
+      pythonIntuition: 'At any point, the side whose current bar is shorter determines the water level. If `height[l] < height[r]`, then `maxLeft` is the binding constraint on the left, because a taller bar exists on the right, so `maxLeft` is safe to use. Process the left side and advance `l`. Otherwise do the same on the right. This achieves the prefix/suffix result without arrays.',
+      pythonAlgorithm: ['`l = 0`, `r = n-1`, `lMax = 0`, `rMax = 0`, `total = 0`.','While `l < r`:','- If `height[l] < height[r]`:','- If `height[l] >= lMax`, update `lMax`. Otherwise add `lMax - height[l]`.','- `l++`.','- Else:','- If `height[r] >= rMax`, update `rMax`. Otherwise add `rMax - height[r]`.','- `r--`.','Return `total`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`l = 0`, `r = n-1`, `lMax = 0`, `rMax = 0`, `total = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `l < r`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `total`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -833,6 +968,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int best = 0;\n        for (int i = 0; i < prices.length; i++) {\n            for (int j = i + 1; j < prices.length; j++) {\n                best = Math.max(best, prices[j] - prices[i]);\n            }\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -844,6 +982,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int n = prices.length;\n        int[] minSoFar = new int[n];\n        minSoFar[0] = prices[0];\n        for (int i = 1; i < n; i++) {\n            minSoFar[i] = Math.min(minSoFar[i - 1], prices[i]);\n        }\n        int best = 0;\n        for (int i = 1; i < n; i++) {\n            best = Math.max(best, prices[i] - minSoFar[i - 1]);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -855,6 +996,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int minPrice = prices[0], best = 0;\n        for (int price : prices) {\n            best = Math.max(best, price - minPrice);\n            minPrice = Math.min(minPrice, price);\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        low, best = float(\"inf\"), 0\n        for price in prices:\n            low = min(low, price)\n            best = max(best, price - low)\n        return best",
+      pythonIntuition: 'The prefix array is unnecessary. Keep only the minimum price seen so far, and update the best profit as you go.',
+      pythonAlgorithm: ['`minPrice = prices[0]`, `best = 0`.','For each price: `best = max(best, price - minPrice)`, then `minPrice = min(minPrice, price)`.','Return `best`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`minPrice = prices[0]`, `best = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each price: `best = max(best, price - minPrice)`, then `minPrice = min(minPrice, price)`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `best`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -888,6 +1032,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        int best = 0, n = s.length();\n        for (int i = 0; i < n; i++) {\n            Set<Character> seen = new HashSet<>();\n            int j = i;\n            while (j < n && seen.add(s.charAt(j))) {\n                j++;\n            }\n            best = Math.max(best, j - i);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(\\min(n, m))' },
       pythonComplexity: undefined
     },
@@ -899,6 +1046,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        Set<Character> window = new HashSet<>();\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            while (window.contains(c)) {\n                window.remove(s.charAt(left++));\n            }\n            window.add(c);\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(\\min(n, m))' },
       pythonComplexity: undefined
     },
@@ -910,6 +1060,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastSeen = new HashMap<>();\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            Integer p = lastSeen.get(c);\n            if (p != null && p >= left) {\n                left = p + 1;\n            }\n            lastSeen.put(c, right);\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(\\min(n, m))' },
       pythonComplexity: undefined
     },
@@ -921,6 +1074,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        int[] next = new int[256];\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            left = Math.max(left, next[c]);\n            next[c] = right + 1;\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        last, left, best = {}, 0, 0\n        for right, ch in enumerate(s):\n            if ch in last: left = max(left, last[ch] + 1)\n            last[ch] = right\n            best = max(best, right - left + 1)\n        return best",
+      pythonIntuition: 'The character set is bounded (ASCII), so a plain array indexed by character code replaces the hash map. Storing `index + 1` lets a zero mean "never seen".',
+      pythonAlgorithm: ['`next[c]` holds one past the last index where `c` appeared (0 if never).','For each `right`, set `left = max(left, next[c])`.','Set `next[c] = right + 1`.','Update the best length.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`next[c]` holds one past the last index where `c` appeared (0 if never).','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `right`, set `left = max(left, next[c])`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Set `next[c] = right + 1`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Update the best length.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -954,6 +1110,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int characterReplacement(String s, int k) {\n        int n = s.length(), best = 0;\n        for (int i = 0; i < n; i++) {\n            int[] count = new int[26];\n            int maxF = 0;\n            for (int j = i; j < n; j++) {\n                count[s.charAt(j) - 'A']++;\n                maxF = Math.max(maxF, count[s.charAt(j) - 'A']);\n                if ((j - i + 1) - maxF <= k) {\n                    best = Math.max(best, j - i + 1);\n                }\n            }\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -965,6 +1124,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int characterReplacement(String s, int k) {\n        int[] count = new int[26];\n        int left = 0, best = 0;\n        for (int right = 0; right < s.length(); right++) {\n            count[s.charAt(right) - 'A']++;\n            while ((right - left + 1) - maxFreq(count) > k) {\n                count[s.charAt(left) - 'A']--;\n                left++;\n            }\n            best = Math.max(best, right - left + 1);\n        }\n        return best;\n    }\n\n    private int maxFreq(int[] count) {\n        int m = 0;\n        for (int c : count) m = Math.max(m, c);\n        return m;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(26 \\cdot n) = O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -976,6 +1138,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int characterReplacement(String s, int k) {\n        int[] count = new int[26];\n        int left = 0, maxF = 0;\n        for (int right = 0; right < s.length(); right++) {\n            count[s.charAt(right) - 'A']++;\n            maxF = Math.max(maxF, count[s.charAt(right) - 'A']);\n            if ((right - left + 1) - maxF > k) {\n                count[s.charAt(left) - 'A']--;\n                left++;\n            }\n        }\n        return s.length() - left;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def characterReplacement(self, s: str, k: int) -> int:\n        counts = defaultdict(int)\n        left = max_freq = best = 0\n        for right, ch in enumerate(s):\n            counts[ch] += 1\n            max_freq = max(max_freq, counts[ch])\n            while right - left + 1 - max_freq > k:\n                counts[s[left]] -= 1\n                left += 1\n            best = max(best, right - left + 1)\n        return best",
+      pythonIntuition: 'The answer only grows when a new window exceeds the best length so far. So the window never needs to shrink; it only slides. Keep `maxF` as the largest frequency ever seen in any window. A stale `maxF` can only overstate validity, but a window longer than the best answer requires a genuinely larger `maxF` to appear, and that is exactly what updates it. The window size therefore never decreases in a way that changes the answer.',
+      pythonAlgorithm: ['For each `right`, increment `count[s[right]]`, and update `maxF = max(maxF, count[s[right]])`.','If `(right - left + 1) - maxF > k`, decrement `count[s[left]]` and `left++`. The window slides rather than shrinks.','Return `slen()() - left` at the end (the final window size).'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each `right`, increment `count[s[right]]`, and update `maxF = max(maxF, count[s[right]])`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','If `(right - left + 1) - maxF > k`, decrement `count[s[left]]` and `left++`. The window slides rather than shrinks.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','Return `slen()() - left` at the end (the final window size).','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1009,6 +1174,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        int m = s1.length(), n = s2.length();\n        if (m > n) return false;\n        char[] target = s1.toCharArray();\n        Arrays.sort(target);\n        for (int i = 0; i + m <= n; i++) {\n            char[] window = s2.substring(i, i + m).toCharArray();\n            Arrays.sort(window);\n            if (Arrays.equals(window, target)) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot m \\log m)', space: 'O(m)' },
       pythonComplexity: undefined
     },
@@ -1020,6 +1188,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        int m = s1.length(), n = s2.length();\n        if (m > n) return false;\n        int[] need = new int[26], have = new int[26];\n        for (char c : s1.toCharArray()) need[c - 'a']++;\n        for (int i = 0; i < n; i++) {\n            have[s2.charAt(i) - 'a']++;\n            if (i >= m) {\n                have[s2.charAt(i - m) - 'a']--;\n            }\n            if (i >= m - 1 && Arrays.equals(need, have)) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(26 \\cdot n) = O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1031,6 +1202,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        int m = s1.length(), n = s2.length();\n        if (m > n) return false;\n        int[] diff = new int[26];\n        for (char c : s1.toCharArray()) diff[c - 'a']--;\n        int nonZero = 0;\n        for (int d : diff) if (d != 0) nonZero++;\n\n        for (int i = 0; i < n; i++) {\n            int add = s2.charAt(i) - 'a';\n            if (diff[add] == 0) nonZero++;\n            diff[add]++;\n            if (diff[add] == 0) nonZero--;\n\n            if (i >= m) {\n                int rem = s2.charAt(i - m) - 'a';\n                if (diff[rem] == 0) nonZero++;\n                diff[rem]--;\n                if (diff[rem] == 0) nonZero--;\n            }\n            if (i >= m - 1 && nonZero == 0) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def checkInclusion(self, s1: str, s2: str) -> bool:\n        if len(s1) > len(s2): return False\n        need = Counter(s1)\n        window = Counter(s2[:len(s1)])\n        if window == need: return True\n        for i in range(len(s1), len(s2)):\n            window[s2[i]] += 1\n            old = s2[i - len(s1)]\n            window[old] -= 1\n            if window[old] == 0: del window[old]\n            if window == need: return True\n        return False",
+      pythonIntuition: 'Rather than comparing all 26 slots on every step, track `diff = have - need` per letter, and a counter `nonZero` of letters where `diff != 0`. The window matches exactly when `nonZero == 0`. Updates touch only one or two slots, so each step is O(1).',
+      pythonAlgorithm: ['For each character of `s1`, decrement `diff`. Count the non-zero entries into `nonZero`.','For each index `i` in `s2`:','- Add `s2[i]`: if `diff` was `0` before, `nonZero++`. Increment. If it is now `0`, `nonZero--`.','- If `i >= m`, remove `s2[i-m]` with the mirror logic.','- If `i >= m - 1` and `nonZero == 0`, return `True`.','Return `False`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each character of `s1`, decrement `diff`. Count the non-zero entries into `nonZero`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For each index `i` in `s2`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `False`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n + 26) = O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1064,6 +1238,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public String minWindow(String s, String t) {\n        int[] need = new int[128];\n        for (char c : t.toCharArray()) need[c]++;\n        int n = s.length(), bestLen = Integer.MAX_VALUE, bestStart = 0;\n        for (int i = 0; i < n; i++) {\n            int[] win = new int[128];\n            for (int j = i; j < n; j++) {\n                win[s.charAt(j)]++;\n                if (covers(win, need) && j - i + 1 < bestLen) {\n                    bestLen = j - i + 1;\n                    bestStart = i;\n                }\n            }\n        }\n        return bestLen == Integer.MAX_VALUE ? \"\" : s.substring(bestStart, bestStart + bestLen);\n    }\n\n    private boolean covers(int[] win, int[] need) {\n        for (int c = 0; c < 128; c++) {\n            if (win[c] < need[c]) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2 \\cdot 128)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1075,6 +1252,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public String minWindow(String s, String t) {\n        Map<Character, Integer> need = new HashMap<>();\n        for (char c : t.toCharArray()) need.merge(c, 1, Integer::sum);\n        int required = need.size(), formed = 0;\n        Map<Character, Integer> win = new HashMap<>();\n        int left = 0, bestLen = Integer.MAX_VALUE, bestStart = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            win.merge(c, 1, Integer::sum);\n            if (need.containsKey(c) && win.get(c).intValue() == need.get(c).intValue()) {\n                formed++;\n            }\n            while (formed == required) {\n                if (right - left + 1 < bestLen) {\n                    bestLen = right - left + 1;\n                    bestStart = left;\n                }\n                char o = s.charAt(left);\n                win.put(o, win.get(o) - 1);\n                if (need.containsKey(o) && win.get(o) < need.get(o)) {\n                    formed--;\n                }\n                left++;\n            }\n        }\n        return bestLen == Integer.MAX_VALUE ? \"\" : s.substring(bestStart, bestStart + bestLen);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m + n)', space: 'O(\\sigma)' },
       pythonComplexity: undefined
     },
@@ -1086,6 +1266,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public String minWindow(String s, String t) {\n        int[] need = new int[128], win = new int[128];\n        int required = 0;\n        for (char c : t.toCharArray()) {\n            if (need[c] == 0) required++;\n            need[c]++;\n        }\n        int formed = 0, left = 0, bestLen = Integer.MAX_VALUE, bestStart = 0;\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            win[c]++;\n            if (need[c] > 0 && win[c] == need[c]) formed++;\n            while (formed == required) {\n                if (right - left + 1 < bestLen) {\n                    bestLen = right - left + 1;\n                    bestStart = left;\n                }\n                char o = s.charAt(left);\n                win[o]--;\n                if (need[o] > 0 && win[o] < need[o]) formed--;\n                left++;\n            }\n        }\n        return bestLen == Integer.MAX_VALUE ? \"\" : s.substring(bestStart, bestStart + bestLen);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def minWindow(self, s: str, t: str) -> str:\n        if not t: return \"\"\n        need = Counter(t)\n        missing = len(t)\n        left = start = 0\n        best = float(\"inf\")\n        for right, ch in enumerate(s):\n            if need[ch] > 0: missing -= 1\n            need[ch] -= 1\n            while missing == 0:\n                if right - left + 1 < best:\n                    start, best = left, right - left + 1\n                need[s[left]] += 1\n                if need[s[left]] > 0: missing += 1\n                left += 1\n        return \"\" if best == float(\"inf\") else s[start:start + best]",
+      pythonIntuition: 'Same logic as the map version, with fixed 128-slot arrays in place of hash maps. Arrays are faster and avoid boxing. A character with `need[c] == 0` does not contribute to `formed`, so only required characters are checked.',
+      pythonAlgorithm: ['`need[c]` counts `t`. `required` counts distinct characters with `need > 0`.','Slide the window as in the map version, using `win[c]` and comparing against `need[c]`.','Return the minimal window.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`need[c]` counts `t`. `required` counts distinct characters with `need > 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Slide the window as in the map version, using `win[c]` and comparing against `need[c]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return the minimal window.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(m + n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1119,6 +1302,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] result = new int[n - k + 1];\n        for (int i = 0; i + k <= n; i++) {\n            int m = Integer.MIN_VALUE;\n            for (int j = i; j < i + k; j++) {\n                m = Math.max(m, nums[j]);\n            }\n            result[i] = m;\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot k)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1130,6 +1316,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] result = new int[n - k + 1];\n        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> b[0] - a[0]);\n        for (int i = 0; i < n; i++) {\n            maxHeap.offer(new int[]{nums[i], i});\n            while (maxHeap.peek()[1] <= i - k) {\n                maxHeap.poll();\n            }\n            if (i >= k - 1) {\n                result[i - k + 1] = maxHeap.peek()[0];\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1141,6 +1330,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] result = new int[n - k + 1];\n        Deque<Integer> dq = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) {\n            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {\n                dq.pollFirst();\n            }\n            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {\n                dq.pollLast();\n            }\n            dq.offerLast(i);\n            if (i >= k - 1) {\n                result[i - k + 1] = nums[dq.peekFirst()];\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:\n        dq, result = deque(), []\n        for i, x in enumerate(nums):\n            while dq and dq[0] <= i - k: dq.popleft()\n            while dq and nums[dq[-1]] <= x: dq.pop()\n            dq.append(i)\n            if i >= k - 1: result.append(nums[dq[0]])\n        return result",
+      pythonIntuition: 'Keep a deque of indices whose values are in decreasing order from front to back. Before adding index `i`, drop any indices at the back with smaller values, because `i` is larger and outlasts them. Drop the front index once it leaves the window. The front is always the current maximum. Each index enters and leaves the deque at most once.',
+      pythonAlgorithm: ['For each `i`:','- Remove the front index if it is `<= i - k` (out of the window).','- Remove from the back while `nums[back] <= nums[i]`.','- Push `i` to the back.','If `i >= k - 1`, `nums[front]` is the window maximum. Record it.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each `i`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','If `i >= k - 1`, `nums[front]` is the window maximum. Record it.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.'],
       complexity: { time: 'O(n)', space: 'O(k)' },
       pythonComplexity: undefined
     }
@@ -1174,6 +1366,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isValid(String s) {\n        while (true) {\n            String t = s.replace(\"()\", \"\").replace(\"[]\", \"\").replace(\"{}\", \"\");\n            if (t.equals(s)) break;\n            s = t;\n        }\n        return s.isEmpty();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1185,6 +1380,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\nimport java.util.Map;\n\nclass Solution {\n    public boolean isValid(String s) {\n        Map<Character, Character> match = Map.of(')', '(', ']', '[', '}', '{');\n        Deque<Character> stack = new ArrayDeque<>();\n        for (char c : s.toCharArray()) {\n            if (match.containsKey(c)) {\n                if (stack.isEmpty() || stack.pop() != match.get(c)) {\n                    return false;\n                }\n            } else {\n                stack.push(c);\n            }\n        }\n        return stack.isEmpty();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1196,6 +1394,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isValid(String s) {\n        char[] stack = new char[s.length()];\n        int top = -1;\n        for (int i = 0; i < s.length(); i++) {\n            char c = s.charAt(i);\n            if (c == '(' || c == '[' || c == '{') {\n                stack[++top] = c;\n            } else {\n                char expected = c == ')' ? '(' : c == ']' ? '[' : '{';\n                if (top < 0 || stack[top] != expected) {\n                    return false;\n                }\n                top--;\n            }\n        }\n        return top == -1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isValid(self, s: str) -> bool:\n        stack, pairs = [], {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n        for ch in s:\n            if ch in pairs:\n                if not stack or stack.pop() != pairs[ch]: return False\n            else: stack.append(ch)\n        return not stack",
+      pythonIntuition: 'The stack never holds more than `n` items, so a fixed `char[]` with an index pointer avoids boxing `Character` objects and the map lookups. The matching check becomes a direct character comparison.',
+      pythonAlgorithm: ['`stack = new char[n]`, `top = -1`.','For each `c`:','- If `c` is an opener, `stack[++top] = c`.','- Otherwise, if `top < 0` or the expected opener (`(`, `[`, or `{` for `)`, `]`, `}`) is not `stack[top]`, return `False`. Else `top--`.','Return `top == -1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`stack = new char[n]`, `top = -1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `c`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `top == -1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -1229,6 +1430,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass MinStack {\n    private final Deque<Integer> stack = new ArrayDeque<>();\n\n    public void push(int val) { stack.push(val); }\n    public void pop() { stack.pop(); }\n    public int top() { return stack.peek(); }\n\n    public int getMin() {\n        int min = Integer.MAX_VALUE;\n        for (int v : stack) {\n            min = Math.min(min, v);\n        }\n        return min;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`getMin` is O(n); other operations are O(1)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1240,6 +1444,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass MinStack {\n    private final Deque<Integer> stack = new ArrayDeque<>();\n    private final Deque<Integer> minStack = new ArrayDeque<>();\n\n    public void push(int val) {\n        stack.push(val);\n        if (minStack.isEmpty() || val <= minStack.peek()) {\n            minStack.push(val);\n        }\n    }\n\n    public void pop() {\n        int v = stack.pop();\n        if (v == minStack.peek()) {\n            minStack.pop();\n        }\n    }\n\n    public int top() { return stack.peek(); }\n    public int getMin() { return minStack.peek(); }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1251,6 +1458,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass MinStack {\n    private final Deque<int[]> stack = new ArrayDeque<>();\n\n    public void push(int val) {\n        int m = stack.isEmpty() ? val : Math.min(val, stack.peek()[1]);\n        stack.push(new int[]{val, m});\n    }\n\n    public void pop() { stack.pop(); }\n    public int top() { return stack.peek()[0]; }\n    public int getMin() { return stack.peek()[1]; }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass MinStack:\n    def __init__(self):\n        self.stack, self.mins = [], []\n\n    def push(self, val: int) -> None:\n        self.stack.append(val)\n        self.mins.append(val if not self.mins else min(val, self.mins[-1]))\n\n    def pop(self) -> None:\n        self.stack.pop(); self.mins.pop()\n\n    def top(self) -> int:\n        return self.stack[-1]\n\n    def getMin(self) -> int:\n        return self.mins[-1]",
+      pythonIntuition: 'Store each value alongside the minimum of the stack at the time it was pushed. The pair is self-contained, so pops need no synchronisation with a second stack. The minimum of the stack is always the minimum stored at the top.',
+      pythonAlgorithm: ['`push(v)`: `m = stacknot  ? v : min(v, stack.peek()[1])`. Push `{v, m}`.','`pop()`: remove the top pair.','`top()`: `stack.peek()[0]`.','`getMin()`: `stack.peek()[1]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`push(v)`: `m = stacknot  ? v : min(v, stack.peek()[1])`. Push `{v, m}`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`pop()`: remove the top pair.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`top()`: `stack.peek()[0]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`getMin()`: `stack.peek()[1]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(1)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -1284,6 +1494,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int pos;\n    private String[] tokens;\n\n    public int evalRPN(String[] tokens) {\n        this.tokens = tokens;\n        this.pos = tokens.length - 1;\n        return eval();\n    }\n\n    private int eval() {\n        String tok = tokens[pos--];\n        if (!isOperator(tok)) {\n            return Integer.parseInt(tok);\n        }\n        int right = eval();\n        int left = eval();\n        return apply(left, tok, right);\n    }\n\n    private boolean isOperator(String tok) {\n        return tok.length() == 1 && \"+-*/\".indexOf(tok.charAt(0)) >= 0;\n    }\n\n    private int apply(int a, String op, int b) {\n        switch (op) {\n            case \"+\": return a + b;\n            case \"-\": return a - b;\n            case \"*\": return a * b;\n            default:  return a / b;\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1295,6 +1508,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int evalRPN(String[] tokens) {\n        Deque<Integer> stack = new ArrayDeque<>();\n        for (String tok : tokens) {\n            switch (tok) {\n                case \"+\" -> stack.push(stack.pop() + stack.pop());\n                case \"-\" -> {\n                    int b = stack.pop(), a = stack.pop();\n                    stack.push(a - b);\n                }\n                case \"*\" -> stack.push(stack.pop() * stack.pop());\n                case \"/\" -> {\n                    int b = stack.pop(), a = stack.pop();\n                    stack.push(a / b);\n                }\n                default -> stack.push(Integer.parseInt(tok));\n            }\n        }\n        return stack.pop();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1306,6 +1522,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int evalRPN(String[] tokens) {\n        int[] st = new int[tokens.length];\n        int top = -1;\n        for (String tok : tokens) {\n            if (tok.length() == 1) {\n                char c = tok.charAt(0);\n                if (c == '+' || c == '-' || c == '*' || c == '/') {\n                    int b = st[top--];\n                    int a = st[top];\n                    st[top] = switch (c) {\n                        case '+' -> a + b;\n                        case '-' -> a - b;\n                        case '*' -> a * b;\n                        default -> a / b;\n                    };\n                    continue;\n                }\n            }\n            st[++top] = Integer.parseInt(tok);\n        }\n        return st[0];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def evalRPN(self, tokens: List[str]) -> int:\n        stack = []\n        for token in tokens:\n            if token in {\"+\", \"-\", \"*\", \"/\"}:\n                b, a = stack.pop(), stack.pop()\n                if token == \"+\": value = a + b\n                elif token == \"-\": value = a - b\n                elif token == \"*\": value = a * b\n                else:\n                    value = (abs(a) // abs(b)) * (-1 if (a < 0) != (b < 0) else 1)\n                stack.append(value)\n            else:\n                stack.append(int(token))\n        return stack[-1]",
+      pythonIntuition: 'The same algorithm with a primitive `List[int]` stack. This removes boxing and the per-element cost of `Deque`, which matters on large inputs.',
+      pythonAlgorithm: ['`st = new int[n]`, `top = -1`.','For each token: if it is `+`, `-`, `*`, or `/`, compute `st[top-1] op st[top]` and decrement `top`. Otherwise push the number.','Return `st[0]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`st = new int[n]`, `top = -1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each token: if it is `+`, `-`, `*`, or `/`, compute `st[top-1] op st[top]` and decrement `top`. Otherwise push the number.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `st[0]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -1339,6 +1558,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<String> generateParenthesis(int n) {\n        List<String> result = new ArrayList<>();\n        int len = 2 * n;\n        for (int mask = 0; mask < (1 << len); mask++) {\n            StringBuilder sb = new StringBuilder();\n            int balance = 0;\n            boolean valid = true;\n            for (int i = 0; i < len; i++) {\n                char c = ((mask >> i) & 1) == 1 ? '(' : ')';\n                sb.append(c);\n                balance += c == '(' ? 1 : -1;\n                if (balance < 0) {\n                    valid = false;\n                    break;\n                }\n            }\n            if (valid && balance == 0) {\n                result.add(sb.toString());\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(4^n \\cdot n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1350,6 +1572,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<String> generateParenthesis(int n) {\n        List<String> result = new ArrayList<>();\n        backtrack(new StringBuilder(), 0, 0, n, result);\n        return result;\n    }\n\n    private void backtrack(StringBuilder sb, int open, int close, int n, List<String> result) {\n        if (sb.length() == 2 * n) {\n            result.add(sb.toString());\n            return;\n        }\n        if (open < n) {\n            sb.append('(');\n            backtrack(sb, open + 1, close, n, result);\n            sb.deleteCharAt(sb.length() - 1);\n        }\n        if (close < open) {\n            sb.append(')');\n            backtrack(sb, open, close + 1, n, result);\n            sb.deleteCharAt(sb.length() - 1);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(4^n / \\sqrt{n})', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1361,6 +1586,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<String> generateParenthesis(int n) {\n        List<String> result = new ArrayList<>();\n        dfs(new char[2 * n], 0, 0, 0, n, result);\n        return result;\n    }\n\n    private void dfs(char[] buf, int pos, int open, int close, int n, List<String> result) {\n        if (pos == buf.length) {\n            result.add(new String(buf));\n            return;\n        }\n        if (open < n) {\n            buf[pos] = '(';\n            dfs(buf, pos + 1, open + 1, close, n, result);\n        }\n        if (close < open) {\n            buf[pos] = ')';\n            dfs(buf, pos + 1, open, close + 1, n, result);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def generateParenthesis(self, n: int) -> List[str]:\n        result, path = [], []\n        def backtrack(opened, closed):\n            if len(path) == 2 * n:\n                result.append(\"\".join(path)); return\n            if opened < n:\n                path.append(\"(\"); backtrack(opened + 1, closed); path.pop()\n            if closed < opened:\n                path.append(\")\"); backtrack(opened, closed + 1); path.pop()\n        backtrack(0, 0)\n        return result",
+      pythonIntuition: 'Write into a pre-sized `char[]` at position `pos`. Each recursive call overwrites the slot it owns, so no undo step is needed, and the final copy happens only for complete strings.',
+      pythonAlgorithm: ['`buf = new char[2n]`.','`dfs(pos, open, close)`:','- If `pos == 2n`, add `new str(buf)`.','- If `open < n`: `buf[pos] = \'(\'`, recurse with `open + 1`.','- If `close < open`: `buf[pos] = \')\'`, recurse with `close + 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`buf = new char[2n]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`dfs(pos, open, close)`:','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(4^n / \\sqrt{n})', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -1394,6 +1622,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] dailyTemperatures(int[] temperatures) {\n        int n = temperatures.length;\n        int[] answer = new int[n];\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (temperatures[j] > temperatures[i]) {\n                    answer[i] = j - i;\n                    break;\n                }\n            }\n        }\n        return answer;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1405,6 +1636,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] dailyTemperatures(int[] temperatures) {\n        int n = temperatures.length;\n        int[] answer = new int[n];\n        int[] nextIdx = new int[101];\n        java.util.Arrays.fill(nextIdx, -1);\n        for (int i = n - 1; i >= 0; i--) {\n            int t0 = temperatures[i];\n            int best = Integer.MAX_VALUE;\n            for (int t = t0 + 1; t <= 100; t++) {\n                if (nextIdx[t] != -1) {\n                    best = Math.min(best, nextIdx[t]);\n                }\n            }\n            if (best != Integer.MAX_VALUE) {\n                answer[i] = best - i;\n            }\n            nextIdx[t0] = i;\n        }\n        return answer;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(100 \\cdot n) = O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1416,6 +1650,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int[] dailyTemperatures(int[] temperatures) {\n        int n = temperatures.length;\n        int[] answer = new int[n];\n        Deque<Integer> stack = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) {\n            while (!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]) {\n                int j = stack.pop();\n                answer[j] = i - j;\n            }\n            stack.push(i);\n        }\n        return answer;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:\n        result = [0] * len(temperatures)\n        stack = []\n        for i, temp in enumerate(temperatures):\n            while stack and temperatures[stack[-1]] < temp:\n                j = stack.pop(); result[j] = i - j\n            stack.append(i)\n        return result",
+      pythonIntuition: 'Maintain a stack of indices whose temperatures are in decreasing order, all still waiting for a warmer day. When day `i` is warmer than the top, pop that index and set its answer to `i - index`. Repeat, since `i` may resolve several days. Then push `i`. Every index is pushed and popped once.',
+      pythonAlgorithm: ['For each `i`:','- While the stack is not empty and `temperatures[stack.peek()] < temperatures[i]`:','- Pop `j`, set `answer[j] = i - j`.','- Push `i`.','Indices left on the stack keep `answer = 0`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each `i`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Indices left on the stack keep `answer = 0`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -1449,6 +1686,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int carFleet(int target, int[] position, int[] speed) {\n        int n = position.length;\n        double[] time = new double[n];\n        for (int i = 0; i < n; i++) {\n            time[i] = (double) (target - position[i]) / speed[i];\n        }\n        int fleets = 0;\n        for (int i = 0; i < n; i++) {\n            boolean head = true;\n            for (int j = 0; j < n; j++) {\n                if (position[j] > position[i] && time[j] >= time[i]) {\n                    head = false;\n                    break;\n                }\n            }\n            if (head) fleets++;\n        }\n        return fleets;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1460,6 +1700,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Arrays;\nimport java.util.Deque;\n\nclass Solution {\n    public int carFleet(int target, int[] position, int[] speed) {\n        int n = position.length;\n        int[][] cars = new int[n][2];\n        for (int i = 0; i < n; i++) {\n            cars[i][0] = position[i];\n            cars[i][1] = speed[i];\n        }\n        Arrays.sort(cars, (a, b) -> b[0] - a[0]);\n        Deque<Double> stack = new ArrayDeque<>();\n        for (int[] car : cars) {\n            double t = (double) (target - car[0]) / car[1];\n            if (stack.isEmpty() || t > stack.peek()) {\n                stack.push(t);\n            }\n        }\n        return stack.size();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1471,6 +1714,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int carFleet(int target, int[] position, int[] speed) {\n        int n = position.length;\n        int[][] cars = new int[n][2];\n        for (int i = 0; i < n; i++) {\n            cars[i][0] = position[i];\n            cars[i][1] = speed[i];\n        }\n        Arrays.sort(cars, (a, b) -> b[0] - a[0]);\n        double lastTime = -1;\n        int fleets = 0;\n        for (int[] car : cars) {\n            double t = (double) (target - car[0]) / car[1];\n            if (t > lastTime) {\n                fleets++;\n                lastTime = t;\n            }\n        }\n        return fleets;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:\n        cars = sorted(zip(position, speed), reverse=True)\n        fleets, last_time = 0, 0\n        for pos, spd in cars:\n            arrival = (target - pos) / spd\n            if arrival > last_time:\n                fleets += 1; last_time = arrival\n        return fleets",
+      pythonIntuition: 'The stack is only ever read at its top, which is the arrival time of the most recent fleet head. A single variable holding that value is enough. Whenever a car arrives later than it, a new fleet starts and the variable updates.',
+      pythonAlgorithm: ['Sort by position, descending.','`lastTime = -1`, `fleets = 0`.','For each car with time `t`: if `t > lastTime`, `fleets++` and `lastTime = t`.','Return `fleets`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort by position, descending.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`lastTime = -1`, `fleets = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each car with time `t`: if `t > lastTime`, `fleets++` and `lastTime = t`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `fleets`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -1504,6 +1750,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int largestRectangleArea(int[] heights) {\n        int n = heights.length, best = 0;\n        for (int i = 0; i < n; i++) {\n            int l = i, r = i;\n            while (l > 0 && heights[l - 1] >= heights[i]) l--;\n            while (r < n - 1 && heights[r + 1] >= heights[i]) r++;\n            best = Math.max(best, heights[i] * (r - l + 1));\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1515,6 +1764,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int largestRectangleArea(int[] heights) {\n        int n = heights.length;\n        int[] left = new int[n], right = new int[n];\n        Deque<Integer> st = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) {\n            while (!st.isEmpty() && heights[st.peek()] >= heights[i]) st.pop();\n            left[i] = st.isEmpty() ? -1 : st.peek();\n            st.push(i);\n        }\n        st.clear();\n        for (int i = n - 1; i >= 0; i--) {\n            while (!st.isEmpty() && heights[st.peek()] >= heights[i]) st.pop();\n            right[i] = st.isEmpty() ? n : st.peek();\n            st.push(i);\n        }\n        int best = 0;\n        for (int i = 0; i < n; i++) {\n            best = Math.max(best, heights[i] * (right[i] - left[i] - 1));\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1526,6 +1778,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int largestRectangleArea(int[] heights) {\n        int n = heights.length, best = 0;\n        Deque<Integer> st = new ArrayDeque<>();\n        for (int i = 0; i <= n; i++) {\n            int cur = (i == n) ? 0 : heights[i];\n            while (!st.isEmpty() && heights[st.peek()] >= cur) {\n                int h = heights[st.pop()];\n                int left = st.isEmpty() ? -1 : st.peek();\n                best = Math.max(best, h * (i - left - 1));\n            }\n            st.push(i);\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        stack, best = [], 0\n        for i, h in enumerate(heights + [0]):\n            start = i\n            while stack and stack[-1][1] > h:\n                idx, height = stack.pop()\n                best = max(best, height * (i - idx))\n                start = idx\n            stack.append((start, h))\n        return best",
+      pythonIntuition: 'The right boundary of a bar is found exactly when a shorter bar arrives, and that is when the bar is popped. So the area can be computed at pop time, using the index now on top of the stack as the left boundary. A sentinel height `0` at the end flushes the stack.',
+      pythonAlgorithm: ['For `i` from `0` to `n` inclusive, let `cur = (i == n) ? 0 : heights[i]`.','While the stack is not empty and `heights[top] >= cur`:','- Pop `top`, and let `h = heights[top]`.','- Left boundary: the new top, or `-1` if empty.','- Area is `h * (i - left - 1)`.','Push `i`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For `i` from `0` to `n` inclusive, let `cur = (i == n) ? 0 : heights[i]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','While the stack is not empty and `heights[top] >= cur`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Push `i`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -1559,6 +1814,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        for (int i = 0; i < nums.length; i++) {\n            if (nums[i] == target) return i;\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1570,6 +1828,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        return search(nums, target, 0, nums.length - 1);\n    }\n\n    private int search(int[] nums, int target, int lo, int hi) {\n        if (lo > hi) return -1;\n        int mid = lo + (hi - lo) / 2;\n        if (nums[mid] == target) return mid;\n        if (nums[mid] < target) return search(nums, target, mid + 1, hi);\n        return search(nums, target, lo, mid - 1);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\log n)', space: 'O(\\log n)' },
       pythonComplexity: undefined
     },
@@ -1581,6 +1842,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        int lo = 0, hi = nums.length - 1;\n        while (lo <= hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (nums[mid] == target) {\n                return mid;\n            } else if (nums[mid] < target) {\n                lo = mid + 1;\n            } else {\n                hi = mid - 1;\n            }\n        }\n        return -1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        l, r = 0, len(nums) - 1\n        while l <= r:\n            m = (l + r) // 2\n            if nums[m] == target: return m\n            if nums[m] < target: l = m + 1\n            else: r = m - 1\n        return -1",
+      pythonIntuition: 'The same halving, written as a loop. This avoids recursion overhead. `lo + (hi - lo) / 2` avoids integer overflow that `(lo + hi) / 2` can cause on large indices.',
+      pythonAlgorithm: ['`lo = 0`, `hi = n - 1`.','While `lo <= hi`: compute `mid`. Return `mid` on a match. Move `lo` or `hi` past `mid`.','Return `-1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`lo = 0`, `hi = n - 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `lo <= hi`: compute `mid`. Return `mid` on a match. Move `lo` or `hi` past `mid`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `-1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1614,6 +1878,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n        for (int[] row : matrix) {\n            for (int v : row) {\n                if (v == target) return true;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m \\cdot n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1625,6 +1892,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n        int m = matrix.length, n = matrix[0].length;\n        int top = 0, bottom = m - 1;\n        while (top <= bottom) {\n            int mid = top + (bottom - top) / 2;\n            if (matrix[mid][0] <= target && target <= matrix[mid][n - 1]) {\n                int lo = 0, hi = n - 1;\n                while (lo <= hi) {\n                    int c = lo + (hi - lo) / 2;\n                    if (matrix[mid][c] == target) return true;\n                    if (matrix[mid][c] < target) lo = c + 1;\n                    else hi = c - 1;\n                }\n                return false;\n            } else if (target < matrix[mid][0]) {\n                bottom = mid - 1;\n            } else {\n                top = mid + 1;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\log m + \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1636,6 +1906,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n        int m = matrix.length, n = matrix[0].length;\n        int lo = 0, hi = m * n - 1;\n        while (lo <= hi) {\n            int mid = lo + (hi - lo) / 2;\n            int val = matrix[mid / n][mid % n];\n            if (val == target) return true;\n            if (val < target) lo = mid + 1;\n            else hi = mid - 1;\n        }\n        return false;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\n        rows, cols = len(matrix), len(matrix[0])\n        l, r = 0, rows * cols - 1\n        while l <= r:\n            m = (l + r) // 2\n            value = matrix[m // cols][m % cols]\n            if value == target: return True\n            if value < target: l = m + 1\n            else: r = m - 1\n        return False",
+      pythonIntuition: 'Treat the matrix as a sorted array of length `m*n`. A flattened index `k` maps to `matrix[k / n][k % n]`. One binary search covers both dimensions.',
+      pythonAlgorithm: ['`lo = 0`, `hi = m*n - 1`.','`mid = lo + (hi - lo) / 2`, and `val = matrix[mid / n][mid % n]`.','Compare `val` with `target` and halve the range as usual.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`lo = 0`, `hi = m*n - 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`mid = lo + (hi - lo) / 2`, and `val = matrix[mid / n][mid % n]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Compare `val` with `target` and halve the range as usual.','This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.'],
       complexity: { time: 'O(\\log(m \\cdot n))', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1669,6 +1942,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minEatingSpeed(int[] piles, int h) {\n        int maxPile = 0;\n        for (int p : piles) maxPile = Math.max(maxPile, p);\n        for (int k = 1; k <= maxPile; k++) {\n            long hours = 0;\n            for (int p : piles) {\n                hours += (p + k - 1) / k;\n            }\n            if (hours <= h) return k;\n        }\n        return maxPile;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot \\max(\\text{piles}))', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1680,6 +1956,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minEatingSpeed(int[] piles, int h) {\n        int lo = 1, hi = 0;\n        for (int p : piles) hi = Math.max(hi, p);\n        while (lo < hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (hoursFor(piles, mid) <= h) {\n                hi = mid;\n            } else {\n                lo = mid + 1;\n            }\n        }\n        return lo;\n    }\n\n    private long hoursFor(int[] piles, int k) {\n        long hours = 0;\n        for (int p : piles) {\n            hours += (p + k - 1) / k;\n        }\n        return hours;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def minEatingSpeed(self, piles: List[int], h: int) -> int:\n        l, r = 1, max(piles)\n        while l < r:\n            speed = (l + r) // 2\n            hours = sum((p + speed - 1) // speed for p in piles)\n            if hours <= h: r = speed\n            else: l = speed + 1\n        return l",
+      pythonIntuition: 'Feasibility is monotone in `k`, so binary search for the smallest feasible value. Each probe costs $O(n)$. Since the range is at most $10^9$, that is about 30 probes. `hours` is accumulated in a `long` because the sum can exceed the `int` range.',
+      pythonAlgorithm: ['`lo = 1`, `hi = max(piles)`.','While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `hoursFor(mid) <= h`, set `hi = mid`. Otherwise set `lo = mid + 1`.','Return `lo`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`lo = 1`, `hi = max(piles)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `hoursFor(mid) <= h`, set `hi = mid`. Otherwise set `lo = mid + 1`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `lo`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log(\\max(\\text{piles})))', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1713,6 +1992,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findMin(int[] nums) {\n        int min = nums[0];\n        for (int v : nums) {\n            min = Math.min(min, v);\n        }\n        return min;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1724,6 +2006,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findMin(int[] nums) {\n        int lo = 0, hi = nums.length - 1;\n        while (lo < hi) {\n            if (nums[lo] < nums[hi]) {\n                return nums[lo];\n            }\n            int mid = lo + (hi - lo) / 2;\n            if (nums[mid] > nums[hi]) {\n                lo = mid + 1;\n            } else {\n                hi = mid;\n            }\n        }\n        return nums[lo];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1735,6 +2020,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findMin(int[] nums) {\n        int lo = 0, hi = nums.length - 1;\n        while (lo < hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (nums[mid] > nums[hi]) {\n                lo = mid + 1;\n            } else {\n                hi = mid;\n            }\n        }\n        return nums[lo];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findMin(self, nums: List[int]) -> int:\n        l, r = 0, len(nums) - 1\n        while l < r:\n            m = (l + r) // 2\n            if nums[m] > nums[r]: l = m + 1\n            else: r = m\n        return nums[l]",
+      pythonIntuition: 'The standard form. It always keeps the candidate pivot inside `[lo, hi]` and never needs the early exit. Since the elements are unique, `nums[mid] > nums[hi]` means the minimum is strictly right of `mid`, and `nums[mid] <= nums[hi]` means `mid` could be the minimum, so `hi = mid` keeps it.',
+      pythonAlgorithm: ['`lo = 0`, `hi = n - 1`.','While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `nums[mid] > nums[hi]`, `lo = mid + 1`; else `hi = mid`.','Return `nums[lo]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`lo = 0`, `hi = n - 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `lo < hi`: `mid = lo + (hi - lo) / 2`. If `nums[mid] > nums[hi]`, `lo = mid + 1`; else `hi = mid`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `nums[lo]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1768,6 +2056,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        for (int i = 0; i < nums.length; i++) {\n            if (nums[i] == target) return i;\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1779,6 +2070,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        int n = nums.length;\n        int lo = 0, hi = n - 1;\n        while (lo < hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (nums[mid] > nums[hi]) lo = mid + 1;\n            else hi = mid;\n        }\n        int p = lo;\n\n        if (p != 0) {\n            if (target >= nums[0]) {\n                lo = 0;\n                hi = p - 1;\n            } else {\n                lo = p;\n                hi = n - 1;\n            }\n        } else {\n            lo = 0;\n            hi = n - 1;\n        }\n\n        while (lo <= hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (nums[mid] == target) return mid;\n            if (nums[mid] < target) lo = mid + 1;\n            else hi = mid - 1;\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1790,6 +2084,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int search(int[] nums, int target) {\n        int lo = 0, hi = nums.length - 1;\n        while (lo <= hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (nums[mid] == target) return mid;\n            if (nums[lo] <= nums[mid]) {\n                if (nums[lo] <= target && target < nums[mid]) {\n                    hi = mid - 1;\n                } else {\n                    lo = mid + 1;\n                }\n            } else {\n                if (nums[mid] < target && target <= nums[hi]) {\n                    lo = mid + 1;\n                } else {\n                    hi = mid - 1;\n                }\n            }\n        }\n        return -1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        l, r = 0, len(nums) - 1\n        while l <= r:\n            m = (l + r) // 2\n            if nums[m] == target: return m\n            if nums[l] <= nums[m]:\n                if nums[l] <= target < nums[m]: r = m - 1\n                else: l = m + 1\n            else:\n                if nums[m] < target <= nums[r]: l = m + 1\n                else: r = m - 1\n        return -1",
+      pythonIntuition: 'One pass suffices. At each `mid`, determine which side is sorted, using `nums[lo] <= nums[mid]`. If the left side is sorted and `target` lies in `[nums[lo], nums[mid])`, keep the left. Otherwise keep the right. If the right side is sorted, apply the mirror test with `(nums[mid], nums[hi]]`.',
+      pythonAlgorithm: ['`lo = 0`, `hi = n - 1`. While `lo <= hi`:','- If `nums[mid] == target`, return `mid`.','- If `nums[lo] <= nums[mid]` (left sorted):','- If `nums[lo] <= target < nums[mid]`, `hi = mid - 1`. Else `lo = mid + 1`.','- Else (right sorted):','- If `nums[mid] < target <= nums[hi]`, `lo = mid + 1`. Else `hi = mid - 1`.','Return `-1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`lo = 0`, `hi = n - 1`. While `lo <= hi`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `-1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1823,6 +2120,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass TimeMap {\n    private record Pair(int ts, String val) {}\n    private final Map<String, List<Pair>> store = new HashMap<>();\n\n    public void set(String key, String value, int timestamp) {\n        store.computeIfAbsent(key, k -> new ArrayList<>()).add(new Pair(timestamp, value));\n    }\n\n    public String get(String key, int timestamp) {\n        List<Pair> list = store.get(key);\n        if (list == null) return \"\";\n        for (int i = list.size() - 1; i >= 0; i--) {\n            if (list.get(i).ts() <= timestamp) {\n                return list.get(i).val();\n            }\n        }\n        return \"\";\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`set` is O(1) amortised; `get` is O(k), where k is the number of entries for that key', space: 'O(N)' },
       pythonComplexity: undefined
     },
@@ -1834,6 +2134,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\nimport java.util.TreeMap;\n\nclass TimeMap {\n    private final Map<String, TreeMap<Integer, String>> store = new HashMap<>();\n\n    public void set(String key, String value, int timestamp) {\n        store.computeIfAbsent(key, k -> new TreeMap<>()).put(timestamp, value);\n    }\n\n    public String get(String key, int timestamp) {\n        TreeMap<Integer, String> tm = store.get(key);\n        if (tm == null) return \"\";\n        Map.Entry<Integer, String> e = tm.floorEntry(timestamp);\n        return e == null ? \"\" : e.getValue();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\log N)', space: 'O(N)' },
       pythonComplexity: undefined
     },
@@ -1845,6 +2148,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass TimeMap {\n    private final Map<String, List<Integer>> times = new HashMap<>();\n    private final Map<String, List<String>> values = new HashMap<>();\n\n    public void set(String key, String value, int timestamp) {\n        times.computeIfAbsent(key, k -> new ArrayList<>()).add(timestamp);\n        values.computeIfAbsent(key, k -> new ArrayList<>()).add(value);\n    }\n\n    public String get(String key, int timestamp) {\n        List<Integer> ts = times.get(key);\n        if (ts == null) return \"\";\n        List<String> vs = values.get(key);\n        int lo = 0, hi = ts.size() - 1;\n        String ans = \"\";\n        while (lo <= hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (ts.get(mid) <= timestamp) {\n                ans = vs.get(mid);\n                lo = mid + 1;\n            } else {\n                hi = mid - 1;\n            }\n        }\n        return ans;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass TimeMap:\n    def __init__(self):\n        self.store = defaultdict(list)\n\n    def set(self, key: str, value: str, timestamp: int) -> None:\n        self.store[key].append((timestamp, value))\n\n    def get(self, key: str, timestamp: int) -> str:\n        values = self.store.get(key, [])\n        l, r, answer = 0, len(values) - 1, \"\"\n        while l <= r:\n            m = (l + r) // 2\n            if values[m][0] <= timestamp:\n                answer = values[m][1]; l = m + 1\n            else: r = m - 1\n        return answer",
+      pythonIntuition: 'Timestamps are appended in increasing order, so each key\'s timestamp list is already sorted, and a plain `list` suffices. Use binary search for the last index with `ts <= timestamp`. This avoids the tree-node overhead of `dict` and is cache-friendlier.',
+      pythonAlgorithm: ['Each key maps to two parallel lists: `times` and `values`.','`set` appends to both.','`get`: binary search for the largest index `m` with `times[m] <= timestamp`. Track the best candidate found so far. Return `values[m]` or `""`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Each key maps to two parallel lists: `times` and `values`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`set` appends to both.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`get`: binary search for the largest index `m` with `times[m] <= timestamp`. Track the best candidate found so far. Return `values[m]` or `""`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\log N)', space: 'O(N)' },
       pythonComplexity: undefined
     }
@@ -1878,6 +2184,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        int m = nums1.length, n = nums2.length;\n        int[] merged = new int[m + n];\n        int i = 0, j = 0, k = 0;\n        while (i < m && j < n) {\n            merged[k++] = nums1[i] <= nums2[j] ? nums1[i++] : nums2[j++];\n        }\n        while (i < m) merged[k++] = nums1[i++];\n        while (j < n) merged[k++] = nums2[j++];\n        int total = m + n;\n        if (total % 2 == 1) {\n            return merged[total / 2];\n        }\n        return (merged[total / 2 - 1] + merged[total / 2]) / 2.0;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m + n)', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -1889,6 +2198,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        int m = nums1.length, n = nums2.length, total = m + n;\n        int i = 0, j = 0, prev = 0, curr = 0;\n        for (int k = 0; k <= total / 2; k++) {\n            prev = curr;\n            if (i < m && (j >= n || nums1[i] <= nums2[j])) {\n                curr = nums1[i++];\n            } else {\n                curr = nums2[j++];\n            }\n        }\n        if (total % 2 == 1) return curr;\n        return (prev + curr) / 2.0;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m + n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -1900,6 +2212,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        int[] A = nums1, B = nums2;\n        if (A.length > B.length) {\n            int[] tmp = A; A = B; B = tmp;\n        }\n        int m = A.length, n = B.length;\n        int half = (m + n + 1) / 2;\n        int lo = 0, hi = m;\n        while (lo <= hi) {\n            int i = lo + (hi - lo) / 2;\n            int j = half - i;\n            double aLeft = i == 0 ? Double.NEGATIVE_INFINITY : A[i - 1];\n            double aRight = i == m ? Double.POSITIVE_INFINITY : A[i];\n            double bLeft = j == 0 ? Double.NEGATIVE_INFINITY : B[j - 1];\n            double bRight = j == n ? Double.POSITIVE_INFINITY : B[j];\n\n            if (aLeft <= bRight && bLeft <= aRight) {\n                if ((m + n) % 2 == 1) {\n                    return Math.max(aLeft, bLeft);\n                }\n                return (Math.max(aLeft, bLeft) + Math.min(aRight, bRight)) / 2.0;\n            } else if (aLeft > bRight) {\n                hi = i - 1;\n            } else {\n                lo = i + 1;\n            }\n        }\n        return 0.0;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:\n        a, b = nums1, nums2\n        if len(a) > len(b): a, b = b, a\n        m, n = len(a), len(b)\n        half = (m + n + 1) // 2\n        l, r = 0, m\n        while l <= r:\n            i = (l + r) // 2; j = half - i\n            al = a[i - 1] if i else float(\"-inf\")\n            ar = a[i] if i < m else float(\"inf\")\n            bl = b[j - 1] if j else float(\"-inf\")\n            br = b[j] if j < n else float(\"inf\")\n            if al <= br and bl <= ar:\n                if (m + n) % 2: return float(max(al, bl))\n                return (max(al, bl) + min(ar, br)) / 2\n            if al > br: r = i - 1\n            else: l = i + 1",
+      pythonIntuition: 'Partition `A` (the smaller array) at index `i` and `B` at index `j = half - i`, where `half` is the size of the left half. The partition is valid when every left element is at most every right element, which means `A[i-1] <= B[j]` and `B[j-1] <= A[i]`. Binary search on `i` in `A`. If `A[i-1] > B[j]`, the cut in `A` is too far right. If `B[j-1] > A[i]`, it is too far left. Sentinels `±infinity` handle empty sides.',
+      pythonAlgorithm: ['Ensure `m <= n` by swapping if needed.','`half = (m + n + 1) / 2`. Binary search `i` in `[0, m]`:','- `j = half - i`.','- `aLeft = i == 0 ? -inf : A[i-1]`, `aRight = i == m ? +inf : A[i]`.','- `bLeft = j == 0 ? -inf : B[j-1]`, `bRight = j == n ? +inf : B[j]`.','- If `aLeft <= bRight` and `bLeft <= aRight`: this is the partition. Return the median from the boundary values.','- If `aLeft > bRight`, `hi = i - 1`. Otherwise `lo = i + 1`.','For odd total, return `max(aLeft, bLeft)`. For even total, return `(max(aLeft, bLeft) + min(aRight, bRight)) / 2.0`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Ensure `m <= n` by swapping if needed.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`half = (m + n + 1) / 2`. Binary search `i` in `[0, m]`:','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For odd total, return `max(aLeft, bLeft)`. For even total, return `(max(aLeft, bLeft) + min(aRight, bRight)) / 2.0`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\log \\min(m, n))', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1933,6 +2248,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public ListNode reverseList(ListNode head) {\n        List<Integer> vals = new ArrayList<>();\n        for (ListNode c = head; c != null; c = c.next) {\n            vals.add(c.val);\n        }\n        int i = vals.size() - 1;\n        for (ListNode c = head; c != null; c = c.next) {\n            c.val = vals.get(i--);\n        }\n        return head;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1944,6 +2262,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode reverseList(ListNode head) {\n        if (head == null || head.next == null) {\n            return head;\n        }\n        ListNode newHead = reverseList(head.next);\n        head.next.next = head;\n        head.next = null;\n        return newHead;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -1955,6 +2276,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode reverseList(ListNode head) {\n        ListNode prev = null, cur = head;\n        while (cur != null) {\n            ListNode next = cur.next;\n            cur.next = prev;\n            prev = cur;\n            cur = next;\n        }\n        return prev;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        prev, cur = None, head\n        while cur:\n            nxt = cur.next; cur.next = prev\n            prev, cur = cur, nxt\n        return prev",
+      pythonIntuition: 'Keep `prev` (already reversed part) and `cur` (next node to process). Each step saves `cur.next`, points `cur` backward at `prev`, and advances both pointers. No recursion is used.',
+      pythonAlgorithm: ['`prev = None`, `cur = head`.','While `cur != None`:','- `next = cur.next`.','- `cur.next = prev`.','- `prev = cur`, `cur = next`.','Return `prev`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`prev = None`, `cur = head`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `cur != None`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `prev`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -1988,6 +2312,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        List<Integer> vals = new ArrayList<>();\n        for (ListNode c = list1; c != null; c = c.next) vals.add(c.val);\n        for (ListNode c = list2; c != null; c = c.next) vals.add(c.val);\n        Collections.sort(vals);\n        ListNode dummy = new ListNode(), tail = dummy;\n        for (int v : vals) {\n            tail.next = new ListNode(v);\n            tail = tail.next;\n        }\n        return dummy.next;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O((m+n)\\log(m+n))', space: 'O(m+n)' },
       pythonComplexity: undefined
     },
@@ -1999,6 +2326,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        if (list1 == null) return list2;\n        if (list2 == null) return list1;\n        if (list1.val <= list2.val) {\n            list1.next = mergeTwoLists(list1.next, list2);\n            return list1;\n        }\n        list2.next = mergeTwoLists(list1, list2.next);\n        return list2;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m+n)', space: 'O(m+n)' },
       pythonComplexity: undefined
     },
@@ -2010,6 +2340,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        ListNode dummy = new ListNode(), tail = dummy;\n        while (list1 != null && list2 != null) {\n            if (list1.val <= list2.val) {\n                tail.next = list1;\n                list1 = list1.next;\n            } else {\n                tail.next = list2;\n                list2 = list2.next;\n            }\n            tail = tail.next;\n        }\n        tail.next = (list1 != null) ? list1 : list2;\n        return dummy.next;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def mergeTwoLists(self, list1, list2):\n        dummy = tail = ListNode()\n        while list1 and list2:\n            if list1.val <= list2.val:\n                tail.next, list1 = list1, list1.next\n            else:\n                tail.next, list2 = list2, list2.next\n            tail = tail.next\n        tail.next = list1 or list2\n        return dummy.next",
+      pythonIntuition: 'Use a dummy node as a fixed starting point so the first node needs no special case. Append whichever head is smaller to `tail`, then advance. Attach the leftover list at the end.',
+      pythonAlgorithm: ['`dummy`, `tail = dummy`.','While both lists are non-None, append the smaller head to `tail` and advance that list. Advance `tail`.','Attach the non-empty remainder: `tail.next = (list1 != None) ? list1 : list2`.','Return `dummy.next`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dummy`, `tail = dummy`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While both lists are non-None, append the smaller head to `tail` and advance that list. Advance `tail`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Attach the non-empty remainder: `tail.next = (list1 != None) ? list1 : list2`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return `dummy.next`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(m+n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2043,6 +2376,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public void reorderList(ListNode head) {\n        List<ListNode> nodes = new ArrayList<>();\n        for (ListNode c = head; c != null; c = c.next) nodes.add(c);\n        int i = 0, j = nodes.size() - 1;\n        while (i < j) {\n            nodes.get(i).next = nodes.get(j);\n            i++;\n            if (i == j) break;\n            nodes.get(j).next = nodes.get(i);\n            j--;\n        }\n        nodes.get(i).next = null;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -2054,6 +2390,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public void reorderList(ListNode head) {\n        int n = 0;\n        for (ListNode c = head; c != null; c = c.next) n++;\n        int mid = (n + 1) / 2;\n\n        ListNode cur = head;\n        for (int i = 0; i < mid - 1; i++) cur = cur.next;\n        ListNode second = cur.next;\n        cur.next = null;\n\n        Deque<ListNode> stack = new ArrayDeque<>();\n        for (ListNode c = second; c != null; c = c.next) stack.push(c);\n\n        cur = head;\n        while (!stack.isEmpty()) {\n            ListNode next = cur.next;\n            ListNode top = stack.pop();\n            cur.next = top;\n            top.next = next;\n            cur = next;\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -2065,6 +2404,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void reorderList(ListNode head) {\n        ListNode slow = head, fast = head;\n        while (fast.next != null && fast.next.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n        }\n        ListNode second = reverse(slow.next);\n        slow.next = null;\n\n        ListNode first = head;\n        while (second != null) {\n            ListNode t1 = first.next, t2 = second.next;\n            first.next = second;\n            second.next = t1;\n            first = t1;\n            second = t2;\n        }\n    }\n\n    private ListNode reverse(ListNode head) {\n        ListNode prev = null, cur = head;\n        while (cur != null) {\n            ListNode next = cur.next;\n            cur.next = prev;\n            prev = cur;\n            cur = next;\n        }\n        return prev;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def reorderList(self, head: Optional[ListNode]) -> None:\n        if not head or not head.next: return\n        slow, fast = head, head.next\n        while fast and fast.next:\n            slow = slow.next; fast = fast.next.next\n        second, slow.next = slow.next, None\n        prev = None\n        while second:\n            nxt = second.next; second.next = prev\n            prev, second = second, nxt\n        first, second = head, prev\n        while second:\n            n1, n2 = first.next, second.next\n            first.next = second; second.next = n1\n            first, second = n1, n2",
+      pythonIntuition: 'Three well-known steps, all in place. A slow/fast pointer finds the middle. Reversing the second half gives the nodes in tail-to-middle order. Then merge the two halves by alternating, which is exactly the required output order.',
+      pythonAlgorithm: ['Find the middle with `slow` and `fast`. `slow` ends at the last node of the first half.','`second = reverse(slow.next)`, and set `slow.next = None`.','Merge: alternately take a node from the first half and from `second`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Find the middle with `slow` and `fast`. `slow` ends at the last node of the first half.','This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.','`second = reverse(slow.next)`, and set `slow.next = None`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Merge: alternately take a node from the first half and from `second`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2098,6 +2440,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        ListNode dummy = new ListNode(0, head);\n        List<ListNode> nodes = new ArrayList<>();\n        for (ListNode c = dummy; c != null; c = c.next) nodes.add(c);\n        ListNode prev = nodes.get(nodes.size() - n - 1);\n        prev.next = prev.next.next;\n        return dummy.next;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(L)', space: 'O(L)' },
       pythonComplexity: undefined
     },
@@ -2109,6 +2454,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        int L = 0;\n        for (ListNode c = head; c != null; c = c.next) L++;\n        ListNode dummy = new ListNode(0, head);\n        ListNode cur = dummy;\n        for (int i = 0; i < L - n; i++) cur = cur.next;\n        cur.next = cur.next.next;\n        return dummy.next;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(L)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -2120,6 +2468,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        ListNode dummy = new ListNode(0, head);\n        ListNode slow = dummy, fast = dummy;\n        for (int i = 0; i <= n; i++) {\n            fast = fast.next;\n        }\n        while (fast != null) {\n            slow = slow.next;\n            fast = fast.next;\n        }\n        slow.next = slow.next.next;\n        return dummy.next;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def removeNthFromEnd(self, head, n):\n        dummy = ListNode(0, head)\n        slow = fast = dummy\n        for _ in range(n): fast = fast.next\n        while fast.next:\n            slow = slow.next; fast = fast.next\n        slow.next = slow.next.next\n        return dummy.next",
+      pythonIntuition: 'Keep two pointers with a gap of `n` between them. Advance `fast` by `n+1` steps from the dummy first. Then advance both until `fast` is `None`. At that point `slow` is the predecessor of the target. The `+1` ensures `slow` stops one node before the target, not on it.',
+      pythonAlgorithm: ['`dummy`, `slow = fast = dummy`.','Move `fast` forward `n + 1` times.','While `fast != None`, move both `slow` and `fast`.','`slow.next = slow.next.next`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dummy`, `slow = fast = dummy`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Move `fast` forward `n + 1` times.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','While `fast != None`, move both `slow` and `fast`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`slow.next = slow.next.next`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(L)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2153,6 +2504,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public Node copyRandomList(Node head) {\n        if (head == null) return null;\n        Node dummy = new Node(0), tail = dummy;\n        for (Node c = head; c != null; c = c.next) {\n            tail.next = new Node(c.val);\n            tail = tail.next;\n        }\n        Node o = head, cp = dummy.next;\n        while (o != null) {\n            if (o.random != null) {\n                int idx = 0;\n                for (Node t = head; t != o.random; t = t.next) idx++;\n                Node r = dummy.next;\n                for (int i = 0; i < idx; i++) r = r.next;\n                cp.random = r;\n            }\n            o = o.next;\n            cp = cp.next;\n        }\n        return dummy.next;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -2164,6 +2518,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public Node copyRandomList(Node head) {\n        if (head == null) return null;\n        Map<Node, Node> map = new HashMap<>();\n        for (Node c = head; c != null; c = c.next) {\n            map.put(c, new Node(c.val));\n        }\n        for (Node c = head; c != null; c = c.next) {\n            Node copy = map.get(c);\n            copy.next = map.get(c.next);\n            copy.random = map.get(c.random);\n        }\n        return map.get(head);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -2175,6 +2532,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public Node copyRandomList(Node head) {\n        if (head == null) return null;\n\n        for (Node c = head; c != null; ) {\n            Node copy = new Node(c.val);\n            copy.next = c.next;\n            c.next = copy;\n            c = copy.next;\n        }\n\n        for (Node c = head; c != null; c = c.next.next) {\n            if (c.random != null) {\n                c.next.random = c.random.next;\n            }\n        }\n\n        Node dummy = new Node(0), tail = dummy;\n        Node c = head;\n        while (c != null) {\n            Node copy = c.next;\n            tail.next = copy;\n            tail = copy;\n            c.next = copy.next;\n            c = c.next;\n        }\n        return dummy.next;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def copyRandomList(self, head):\n        copies = {None: None}\n        cur = head\n        while cur:\n            copies[cur] = Node(cur.val); cur = cur.next\n        cur = head\n        while cur:\n            copies[cur].next = copies[cur.next]\n            copies[cur].random = copies[cur.random]\n            cur = cur.next\n        return copies[head]",
+      pythonIntuition: 'Insert each copy directly after its original, so `original.next` is its copy. Then `original.random.next` is the copy of `original.random`, with no map. Finally split the interleaved list into the two lists.',
+      pythonAlgorithm: ['For each original `c`, insert `copy` between `c` and `c.next`.','For each original `c` with `random != None`, set `c.next.random = c.random.next`.','Walk the interleaved list, detaching the copies and restoring the originals\' `next` pointers.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each original `c`, insert `copy` between `c` and `c.next`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For each original `c` with `random != None`, set `c.next.random = c.random.next`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Walk the interleaved list, detaching the copies and restoring the originals\' `next` pointers.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2208,6 +2568,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.math.BigInteger;\n\nclass Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        BigInteger a = toNumber(l1), b = toNumber(l2);\n        String s = a.add(b).toString();\n        ListNode dummy = new ListNode(), tail = dummy;\n        for (int i = s.length() - 1; i >= 0; i--) {\n            tail.next = new ListNode(s.charAt(i) - '0');\n            tail = tail.next;\n        }\n        return dummy.next;\n    }\n\n    private BigInteger toNumber(ListNode head) {\n        StringBuilder sb = new StringBuilder();\n        for (ListNode c = head; c != null; c = c.next) {\n            sb.append(c.val);\n        }\n        return new BigInteger(sb.reverse().toString());\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m+n)', space: 'O(m+n)' },
       pythonComplexity: undefined
     },
@@ -2219,6 +2582,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        return add(l1, l2, 0);\n    }\n\n    private ListNode add(ListNode a, ListNode b, int carry) {\n        if (a == null && b == null && carry == 0) return null;\n        int sum = carry + (a != null ? a.val : 0) + (b != null ? b.val : 0);\n        ListNode node = new ListNode(sum % 10);\n        node.next = add(a != null ? a.next : null, b != null ? b.next : null, sum / 10);\n        return node;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\max(m, n))', space: 'O(\\max(m, n))' },
       pythonComplexity: undefined
     },
@@ -2230,6 +2596,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        ListNode dummy = new ListNode(), tail = dummy;\n        int carry = 0;\n        while (l1 != null || l2 != null || carry != 0) {\n            int sum = carry;\n            if (l1 != null) { sum += l1.val; l1 = l1.next; }\n            if (l2 != null) { sum += l2.val; l2 = l2.next; }\n            tail.next = new ListNode(sum % 10);\n            tail = tail.next;\n            carry = sum / 10;\n        }\n        return dummy.next;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def addTwoNumbers(self, l1, l2):\n        dummy = tail = ListNode()\n        carry = 0\n        while l1 or l2 or carry:\n            total = carry\n            if l1: total += l1.val; l1 = l1.next\n            if l2: total += l2.val; l2 = l2.next\n            carry, digit = divmod(total, 10)\n            tail.next = ListNode(digit); tail = tail.next\n        return dummy.next",
+      pythonIntuition: 'The same digit-by-digit addition, written as a loop. A dummy head simplifies the first node, and the loop continues while either list has digits or a carry remains.',
+      pythonAlgorithm: ['`dummy`, `tail = dummy`, `carry = 0`.','While `l1 != None || l2 != None || carry != 0`:','- `sum = carry + (l1 val or 0) + (l2 val or 0)`.','- Append `sum % 10`, set `carry = sum / 10`.','- Advance `l1` and `l2` if non-None.','Return `dummy.next`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dummy`, `tail = dummy`, `carry = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `l1 != None || l2 != None || carry != 0`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dummy.next`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\max(m, n))', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2263,6 +2632,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public boolean hasCycle(ListNode head) {\n        Set<ListNode> seen = new HashSet<>();\n        for (ListNode c = head; c != null; c = c.next) {\n            if (!seen.add(c)) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -2274,6 +2646,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean hasCycle(ListNode head) {\n        ListNode slow = head, fast = head;\n        while (fast != null && fast.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n            if (slow == fast) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def hasCycle(self, head: Optional[ListNode]) -> bool:\n        slow = fast = head\n        while fast and fast.next:\n            slow = slow.next; fast = fast.next.next\n            if slow is fast: return True\n        return False",
+      pythonIntuition: 'Move `slow` one step and `fast` two steps each iteration. Outside a cycle, `fast` reaches `None`. Inside a cycle, `fast` gains one node on `slow` per iteration, so they must meet.',
+      pythonAlgorithm: ['`slow = fast = head`.','While `fast != None && fast.next != None`: move `slow` one step, `fast` two steps. If they are equal, return `True`.','Return `False`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`slow = fast = head`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `fast != None && fast.next != None`: move `slow` one step, `fast` two steps. If they are equal, return `True`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `False`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2307,6 +2682,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findDuplicate(int[] nums) {\n        for (int i = 0; i < nums.length; i++) {\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] == nums[j]) return nums[i];\n            }\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -2318,6 +2696,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int findDuplicate(int[] nums) {\n        Set<Integer> seen = new HashSet<>();\n        for (int x : nums) {\n            if (!seen.add(x)) return x;\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -2329,6 +2710,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findDuplicate(int[] nums) {\n        int lo = 1, hi = nums.length - 1;\n        while (lo < hi) {\n            int mid = lo + (hi - lo) / 2;\n            int count = 0;\n            for (int x : nums) {\n                if (x <= mid) count++;\n            }\n            if (count > mid) {\n                hi = mid;\n            } else {\n                lo = mid + 1;\n            }\n        }\n        return lo;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -2340,6 +2724,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findDuplicate(int[] nums) {\n        int slow = nums[0], fast = nums[0];\n        do {\n            slow = nums[slow];\n            fast = nums[nums[fast]];\n        } while (slow != fast);\n\n        slow = nums[0];\n        while (slow != fast) {\n            slow = nums[slow];\n            fast = nums[fast];\n        }\n        return slow;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findDuplicate(self, nums: List[int]) -> int:\n        slow = fast = nums[0]\n        while True:\n            slow = nums[slow]; fast = nums[nums[fast]]\n            if slow == fast: break\n        slow = nums[0]\n        while slow != fast:\n            slow = nums[slow]; fast = nums[fast]\n        return slow",
+      pythonIntuition: 'Treat each index as a node, with `i -> nums[i]` as its next pointer. Values lie in `[1, n]` and there are `n+1` indices, so the walk starting at index `0` must enter a cycle. The duplicate is the entry point of that cycle, because two indices map to it. Floyd\'s algorithm finds the entry point in two phases: first detect the meeting point, then restart one pointer from the head and advance both one step at a time until they meet.',
+      pythonAlgorithm: ['Phase 1: `slow = fast = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[nums[fast]]` until they are equal.','Phase 2: `slow = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[fast]` until they are equal.','Return `slow`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Phase 1: `slow = fast = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[nums[fast]]` until they are equal.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Phase 2: `slow = nums[0]`. Repeat `slow = nums[slow]`, `fast = nums[fast]` until they are equal.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `slow`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2373,6 +2760,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass LRUCache {\n    private final int capacity;\n    private final Map<Integer, Integer> values = new HashMap<>();\n    private final List<Integer> order = new ArrayList<>();\n\n    public LRUCache(int capacity) {\n        this.capacity = capacity;\n    }\n\n    public int get(int key) {\n        if (!values.containsKey(key)) return -1;\n        touch(key);\n        return values.get(key);\n    }\n\n    public void put(int key, int value) {\n        if (values.containsKey(key)) {\n            values.put(key, value);\n            touch(key);\n            return;\n        }\n        if (values.size() == capacity) {\n            int evict = order.remove(0);\n            values.remove(evict);\n        }\n        values.put(key, value);\n        order.add(key);\n    }\n\n    private void touch(int key) {\n        order.remove(Integer.valueOf(key));\n        order.add(key);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(capacity)', space: 'O(capacity)' },
       pythonComplexity: undefined
     },
@@ -2384,6 +2774,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.LinkedHashMap;\nimport java.util.Map;\n\nclass LRUCache extends LinkedHashMap<Integer, Integer> {\n    private final int capacity;\n\n    public LRUCache(int capacity) {\n        super(capacity, 0.75f, true);\n        this.capacity = capacity;\n    }\n\n    public int get(int key) {\n        return super.getOrDefault(key, -1);\n    }\n\n    public void put(int key, int value) {\n        super.put(key, value);\n    }\n\n    @Override\n    protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {\n        return size() > capacity;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(capacity)' },
       pythonComplexity: undefined
     },
@@ -2395,6 +2788,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass LRUCache {\n    private static class Node {\n        int key, val;\n        Node prev, next;\n        Node(int key, int val) { this.key = key; this.val = val; }\n    }\n\n    private final int capacity;\n    private final Map<Integer, Node> map = new HashMap<>();\n    private final Node head = new Node(0, 0), tail = new Node(0, 0);\n\n    public LRUCache(int capacity) {\n        this.capacity = capacity;\n        head.next = tail;\n        tail.prev = head;\n    }\n\n    public int get(int key) {\n        Node node = map.get(key);\n        if (node == null) return -1;\n        remove(node);\n        addToTail(node);\n        return node.val;\n    }\n\n    public void put(int key, int value) {\n        Node node = map.get(key);\n        if (node != null) {\n            node.val = value;\n            remove(node);\n            addToTail(node);\n            return;\n        }\n        if (map.size() == capacity) {\n            Node lru = head.next;\n            remove(lru);\n            map.remove(lru.key);\n        }\n        Node fresh = new Node(key, value);\n        map.put(key, fresh);\n        addToTail(fresh);\n    }\n\n    private void remove(Node node) {\n        node.prev.next = node.next;\n        node.next.prev = node.prev;\n    }\n\n    private void addToTail(Node node) {\n        node.prev = tail.prev;\n        node.next = tail;\n        tail.prev.next = node;\n        tail.prev = node;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = OrderedDict()\n\n    def get(self, key: int) -> int:\n        if key not in self.cache: return -1\n        self.cache.move_to_end(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        self.cache[key] = value\n        self.cache.move_to_end(key)\n        if len(self.cache) > self.capacity: self.cache.popitem(last=False)",
+      pythonIntuition: 'Implement what `LinkedHashMap` does explicitly. The map stores key to node. The list runs from `head` (least recent, after the sentinel) to `tail` (most recent, before the sentinel). Two sentinel nodes remove all edge cases at the ends. Moving a node is four pointer updates.',
+      pythonAlgorithm: ['`remove(node)`: unlink from its neighbours.','`addToTail(node)`: insert before the tail sentinel.','`get(key)`: if present, `remove` then `addToTail`, and return the value.','`put(key, value)`: if present, update the value, then move to tail. Otherwise, if full, remove `head.next` (evict) and its map entry. Then create, insert, and map the new node.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`remove(node)`: unlink from its neighbours.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`addToTail(node)`: insert before the tail sentinel.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`get(key)`: if present, `remove` then `addToTail`, and return the value.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`put(key, value)`: if present, update the value, then move to tail. Otherwise, if full, remove `head.next` (evict) and its map entry. Then create, insert, and map the new node.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.'],
       complexity: { time: 'O(1)', space: 'O(capacity)' },
       pythonComplexity: undefined
     }
@@ -2428,6 +2824,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        List<Integer> vals = new ArrayList<>();\n        for (ListNode head : lists) {\n            for (ListNode c = head; c != null; c = c.next) vals.add(c.val);\n        }\n        Collections.sort(vals);\n        ListNode dummy = new ListNode(), tail = dummy;\n        for (int v : vals) {\n            tail.next = new ListNode(v);\n            tail = tail.next;\n        }\n        return dummy.next;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(N \\log N)', space: 'O(N)' },
       pythonComplexity: undefined
     },
@@ -2439,6 +2838,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        ListNode result = null;\n        for (ListNode list : lists) {\n            result = mergeTwo(result, list);\n        }\n        return result;\n    }\n\n    private ListNode mergeTwo(ListNode a, ListNode b) {\n        ListNode dummy = new ListNode(), tail = dummy;\n        while (a != null && b != null) {\n            if (a.val <= b.val) {\n                tail.next = a;\n                a = a.next;\n            } else {\n                tail.next = b;\n                b = b.next;\n            }\n            tail = tail.next;\n        }\n        tail.next = (a != null) ? a : b;\n        return dummy.next;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(k \\cdot N)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -2450,6 +2852,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        PriorityQueue<ListNode> heap = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));\n        for (ListNode head : lists) {\n            if (head != null) heap.offer(head);\n        }\n        ListNode dummy = new ListNode(), tail = dummy;\n        while (!heap.isEmpty()) {\n            ListNode node = heap.poll();\n            tail.next = node;\n            tail = node;\n            if (node.next != null) heap.offer(node.next);\n        }\n        return dummy.next;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(N \\log k)', space: 'O(k)' },
       pythonComplexity: undefined
     },
@@ -2461,6 +2866,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        if (lists.length == 0) return null;\n        return solve(lists, 0, lists.length - 1);\n    }\n\n    private ListNode solve(ListNode[] lists, int lo, int hi) {\n        if (lo == hi) return lists[lo];\n        int mid = lo + (hi - lo) / 2;\n        return mergeTwo(solve(lists, lo, mid), solve(lists, mid + 1, hi));\n    }\n\n    private ListNode mergeTwo(ListNode a, ListNode b) {\n        ListNode dummy = new ListNode(), tail = dummy;\n        while (a != null && b != null) {\n            if (a.val <= b.val) {\n                tail.next = a;\n                a = a.next;\n            } else {\n                tail.next = b;\n                b = b.next;\n            }\n            tail = tail.next;\n        }\n        tail.next = (a != null) ? a : b;\n        return dummy.next;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def mergeKLists(self, lists):\n        heap = []\n        for i, node in enumerate(lists):\n            if node: heappush(heap, (node.val, i, node))\n        dummy = tail = ListNode()\n        while heap:\n            _, i, node = heappop(heap)\n            tail.next = node; tail = node\n            if node.next: heappush(heap, (node.next.val, i, node.next))\n        return dummy.next",
+      pythonIntuition: 'Repeatedly merge pairs of lists. Each round halves the number of lists, and each round touches every node once, so there are $\\log k$ rounds costing $O(N)$ each. No heap is needed, and the extra memory is only recursion depth.',
+      pythonAlgorithm: ['`solve(lists, lo, hi)`: if `lo > hi`, return `None`. If `lo == hi`, return `lists[lo]`.','`mid = (lo + hi) / 2`.','Return `mergeTwo(solve(lo, mid), solve(mid+1, hi))`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`solve(lists, lo, hi)`: if `lo > hi`, return `None`. If `lo == hi`, return `lists[lo]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`mid = (lo + hi) / 2`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return `mergeTwo(solve(lo, mid), solve(mid+1, hi))`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(N \\log k)', space: 'O(\\log k)' },
       pythonComplexity: undefined
     }
@@ -2494,6 +2902,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass Solution {\n    public ListNode reverseKGroup(ListNode head, int k) {\n        List<Integer> vals = new ArrayList<>();\n        for (ListNode c = head; c != null; c = c.next) vals.add(c.val);\n        for (int start = 0; start + k <= vals.size(); start += k) {\n            Collections.reverse(vals.subList(start, start + k));\n        }\n        int i = 0;\n        for (ListNode c = head; c != null; c = c.next) {\n            c.val = vals.get(i++);\n        }\n        return head;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -2505,6 +2916,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode reverseKGroup(ListNode head, int k) {\n        ListNode cur = head;\n        for (int i = 0; i < k; i++) {\n            if (cur == null) return head;\n            cur = cur.next;\n        }\n        ListNode prev = reverseKGroup(cur, k);\n        ListNode c = head;\n        for (int i = 0; i < k; i++) {\n            ListNode next = c.next;\n            c.next = prev;\n            prev = c;\n            c = next;\n        }\n        return prev;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n / k)' },
       pythonComplexity: undefined
     },
@@ -2516,6 +2930,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public ListNode reverseKGroup(ListNode head, int k) {\n        ListNode dummy = new ListNode(0, head);\n        ListNode groupPrev = dummy;\n\n        while (true) {\n            ListNode kth = groupPrev;\n            for (int i = 0; i < k && kth != null; i++) {\n                kth = kth.next;\n            }\n            if (kth == null) break;\n\n            ListNode groupNext = kth.next;\n            ListNode first = groupPrev.next;\n            ListNode prev = groupNext, cur = first;\n            while (cur != groupNext) {\n                ListNode next = cur.next;\n                cur.next = prev;\n                prev = cur;\n                cur = next;\n            }\n            groupPrev.next = kth;\n            groupPrev = first;\n        }\n        return dummy.next;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def reverseKGroup(self, head, k):\n        dummy = ListNode(0, head)\n        group_prev = dummy\n        while True:\n            kth = group_prev\n            for _ in range(k):\n                kth = kth.next\n                if not kth: return dummy.next\n            group_next = kth.next\n            prev, cur = group_next, group_prev.next\n            while cur != group_next:\n                nxt = cur.next; cur.next = prev\n                prev, cur = cur, nxt\n            old_start = group_prev.next\n            group_prev.next = kth\n            group_prev = old_start",
+      pythonIntuition: 'Keep a pointer `groupPrev` to the node before the current group. For each group, find the `k`-th node. If it does not exist, stop. Otherwise reverse the group between `groupPrev.next` and the `k`-th node, reconnect, and advance `groupPrev` to the old first node, which is now the tail of the reversed group.',
+      pythonAlgorithm: ['`dummy.next = head`, `groupPrev = dummy`.','Loop:','- `kth = groupPrev` advanced `k` times. If `kth == None`, stop.','- `groupNext = kth.next`.','- Reverse the nodes from `first = groupPrev.next` up to `kth`, with `prev` starting at `groupNext`.','- `groupPrev.next = kth` (the new head). `groupPrev = first` (the new tail).','Return `dummy.next`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dummy.next = head`, `groupPrev = dummy`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Loop:','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return `dummy.next`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2549,6 +2966,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    public TreeNode invertTree(TreeNode root) {\n        if (root == null) return null;\n        Queue<TreeNode> queue = new ArrayDeque<>();\n        queue.offer(root);\n        while (!queue.isEmpty()) {\n            TreeNode n = queue.poll();\n            TreeNode tmp = n.left;\n            n.left = n.right;\n            n.right = tmp;\n            if (n.left != null) queue.offer(n.left);\n            if (n.right != null) queue.offer(n.right);\n        }\n        return root;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(w)' },
       pythonComplexity: undefined
     },
@@ -2560,6 +2980,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public TreeNode invertTree(TreeNode root) {\n        if (root == null) return null;\n        TreeNode left = invertTree(root.left);\n        TreeNode right = invertTree(root.right);\n        root.left = right;\n        root.right = left;\n        return root;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2571,6 +2994,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public TreeNode invertTree(TreeNode root) {\n        if (root == null) return null;\n        Deque<TreeNode> stack = new ArrayDeque<>();\n        stack.push(root);\n        while (!stack.isEmpty()) {\n            TreeNode n = stack.pop();\n            TreeNode tmp = n.left;\n            n.left = n.right;\n            n.right = tmp;\n            if (n.left != null) stack.push(n.left);\n            if (n.right != null) stack.push(n.right);\n        }\n        return root;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def invertTree(self, root):\n        if root:\n            root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)\n        return root",
+      pythonIntuition: 'The same swap-at-every-node idea, driven by an explicit stack instead of recursion. This avoids stack overflow on deep, skewed trees.',
+      pythonAlgorithm: ['Push `root` onto a stack.','While the stack is not empty: pop `n`, swap its children, and push any non-None child.','Return `root`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Push `root` onto a stack.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','While the stack is not empty: pop `n`, swap its children, and push any non-None child.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `root`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -2604,6 +3030,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    public int maxDepth(TreeNode root) {\n        if (root == null) return 0;\n        Queue<TreeNode> queue = new ArrayDeque<>();\n        queue.offer(root);\n        int depth = 0;\n        while (!queue.isEmpty()) {\n            for (int size = queue.size(); size > 0; size--) {\n                TreeNode n = queue.poll();\n                if (n.left != null) queue.offer(n.left);\n                if (n.right != null) queue.offer(n.right);\n            }\n            depth++;\n        }\n        return depth;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(w)' },
       pythonComplexity: undefined
     },
@@ -2615,6 +3044,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxDepth(TreeNode root) {\n        if (root == null) return 0;\n        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2626,6 +3058,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int maxDepth(TreeNode root) {\n        if (root == null) return 0;\n        Deque<TreeNode> nodes = new ArrayDeque<>();\n        Deque<Integer> depths = new ArrayDeque<>();\n        nodes.push(root);\n        depths.push(1);\n        int best = 0;\n        while (!nodes.isEmpty()) {\n            TreeNode n = nodes.pop();\n            int d = depths.pop();\n            best = Math.max(best, d);\n            if (n.left != null) { nodes.push(n.left); depths.push(d + 1); }\n            if (n.right != null) { nodes.push(n.right); depths.push(d + 1); }\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxDepth(self, root):\n        return 0 if not root else 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))",
+      pythonIntuition: 'Walk the tree with a stack of `(node, depth)` pairs, and record the largest depth seen. This has the same complexity as recursion but avoids deep call stacks.',
+      pythonAlgorithm: ['Push `(root, 1)`.','Pop `(n, d)`, update `best = max(best, d)`, and push each non-None child with `d + 1`.','Return `best`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Push `(root, 1)`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Pop `(n, d)`, update `best = max(best, d)`, and push each non-None child with `d + 1`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Return `best`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -2659,6 +3094,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int diameterOfBinaryTree(TreeNode root) {\n        return dfs(root, 0);\n    }\n\n    private int dfs(TreeNode node, int best) {\n        if (node == null) return best;\n        int through = height(node.left) + height(node.right);\n        best = Math.max(best, through);\n        best = Math.max(best, dfs(node.left, 0));\n        best = Math.max(best, dfs(node.right, 0));\n        return best;\n    }\n\n    private int height(TreeNode node) {\n        if (node == null) return 0;\n        return 1 + Math.max(height(node.left), height(node.right));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2670,6 +3108,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int diameter = 0;\n\n    public int diameterOfBinaryTree(TreeNode root) {\n        height(root);\n        return diameter;\n    }\n\n    private int height(TreeNode node) {\n        if (node == null) return 0;\n        int l = height(node.left);\n        int r = height(node.right);\n        diameter = Math.max(diameter, l + r);\n        return 1 + Math.max(l, r);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def diameterOfBinaryTree(self, root):\n        self.best = 0\n        def depth(node):\n            if not node: return 0\n            left, right = depth(node.left), depth(node.right)\n            self.best = max(self.best, left + right)\n            return 1 + max(left, right)\n        depth(root)\n        return self.best",
+      pythonIntuition: 'Compute each node\'s height bottom-up, and at each node record `left + right` as a candidate diameter. Heights are reused, so every node is visited once.',
+      pythonAlgorithm: ['`height(node)`: return `0` for `None`. Otherwise compute `l` and `r` for the children.','Update `diameter = max(diameter, l + r)`.','Return `1 + max(l, r)`.','Call `height(root)` and return `diameter`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`height(node)`: return `0` for `None`. Otherwise compute `l` and `r` for the children.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Update `diameter = max(diameter, l + r)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return `1 + max(l, r)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Call `height(root)` and return `diameter`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -2703,6 +3144,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isBalanced(TreeNode root) {\n        if (root == null) return true;\n        if (Math.abs(height(root.left) - height(root.right)) > 1) return false;\n        return isBalanced(root.left) && isBalanced(root.right);\n    }\n\n    private int height(TreeNode node) {\n        if (node == null) return 0;\n        return 1 + Math.max(height(node.left), height(node.right));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2714,6 +3158,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isBalanced(TreeNode root) {\n        return check(root) != -1;\n    }\n\n    private int check(TreeNode node) {\n        if (node == null) return 0;\n        int l = check(node.left);\n        if (l == -1) return -1;\n        int r = check(node.right);\n        if (r == -1) return -1;\n        if (Math.abs(l - r) > 1) return -1;\n        return 1 + Math.max(l, r);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isBalanced(self, root):\n        def height(node):\n            if not node: return 0\n            left, right = height(node.left), height(node.right)\n            if left == -1 or right == -1 or abs(left - right) > 1: return -1\n            return 1 + max(left, right)\n        return height(root) != -1",
+      pythonIntuition: 'Return the height from `height()`, or `-1` when the subtree is unbalanced. Once any child returns `-1`, the answer is already determined, so propagate `-1` upward. Each node is visited once.',
+      pythonAlgorithm: ['`check(node)`: return `0` for `None`.','`l = check(left)`, `r = check(right)`. If either is `-1`, or `|l - r| > 1`, return `-1`.','Otherwise return `1 + max(l, r)`.','The tree is balanced if `check(root) != -1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`check(node)`: return `0` for `None`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`l = check(left)`, `r = check(right)`. If either is `-1`, or `|l - r| > 1`, return `-1`.','This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.','Otherwise return `1 + max(l, r)`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','The tree is balanced if `check(root) != -1`.','This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -2747,6 +3194,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isSameTree(TreeNode p, TreeNode q) {\n        return serialize(p).equals(serialize(q));\n    }\n\n    private String serialize(TreeNode node) {\n        StringBuilder sb = new StringBuilder();\n        build(node, sb);\n        return sb.toString();\n    }\n\n    private void build(TreeNode node, StringBuilder sb) {\n        if (node == null) {\n            sb.append(\"#,\");\n            return;\n        }\n        sb.append(node.val).append(',');\n        build(node.left, sb);\n        build(node.right, sb);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m + n)', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -2758,6 +3208,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isSameTree(TreeNode p, TreeNode q) {\n        if (p == null && q == null) return true;\n        if (p == null || q == null) return false;\n        if (p.val != q.val) return false;\n        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\min(m, n))', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2769,6 +3222,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public boolean isSameTree(TreeNode p, TreeNode q) {\n        Deque<TreeNode[]> queue = new ArrayDeque<>();\n        queue.offer(new TreeNode[]{p, q});\n        while (!queue.isEmpty()) {\n            TreeNode[] pair = queue.poll();\n            TreeNode a = pair[0], b = pair[1];\n            if (a == null && b == null) continue;\n            if (a == null || b == null || a.val != b.val) return false;\n            queue.offer(new TreeNode[]{a.left, b.left});\n            queue.offer(new TreeNode[]{a.right, b.right});\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isSameTree(self, p, q):\n        if not p or not q: return p is q\n        return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)",
+      pythonIntuition: 'Keep a queue of node pairs, one from each tree at the same position. Process pairs level by level. This avoids recursion and makes the parallel nature explicit.',
+      pythonAlgorithm: ['Enqueue `{p, q}`.','Dequeue a pair. If both are `None`, continue. If exactly one is `None`, or the values differ, return `False`.','Enqueue `{p.left, q.left}` and `{p.right, q.right}`.','If the queue empties, return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Enqueue `{p, q}`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Dequeue a pair. If both are `None`, continue. If exactly one is `None`, or the values differ, return `False`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Enqueue `{p.left, q.left}` and `{p.right, q.right}`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','If the queue empties, return `True`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.'],
       complexity: { time: 'O(\\min(m, n))', space: 'O(w)' },
       pythonComplexity: undefined
     }
@@ -2802,6 +3258,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isSubtree(TreeNode root, TreeNode subRoot) {\n        if (root == null) return false;\n        if (isSame(root, subRoot)) return true;\n        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);\n    }\n\n    private boolean isSame(TreeNode p, TreeNode q) {\n        if (p == null && q == null) return true;\n        if (p == null || q == null || p.val != q.val) return false;\n        return isSame(p.left, q.left) && isSame(p.right, q.right);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m \\cdot n)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2813,6 +3272,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isSubtree(TreeNode root, TreeNode subRoot) {\n        return serialize(root).contains(serialize(subRoot));\n    }\n\n    private String serialize(TreeNode node) {\n        StringBuilder sb = new StringBuilder();\n        build(node, sb);\n        return sb.toString();\n    }\n\n    private void build(TreeNode node, StringBuilder sb) {\n        if (node == null) {\n            sb.append(\"[#]\");\n            return;\n        }\n        sb.append('[').append(node.val).append(']');\n        build(node.left, sb);\n        build(node.right, sb);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m + n)', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -2824,6 +3286,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public boolean isSubtree(TreeNode root, TreeNode subRoot) {\n        List<String> text = new ArrayList<>();\n        List<String> pattern = new ArrayList<>();\n        serialize(root, text);\n        serialize(subRoot, pattern);\n        return kmpContains(text, pattern);\n    }\n\n    private void serialize(TreeNode node, List<String> out) {\n        if (node == null) {\n            out.add(\"#\");\n            return;\n        }\n        out.add(\"^\" + node.val);\n        serialize(node.left, out);\n        serialize(node.right, out);\n    }\n\n    private boolean kmpContains(List<String> text, List<String> pat) {\n        int m = pat.size();\n        int[] lps = new int[m];\n        for (int i = 1, len = 0; i < m; i++) {\n            while (len > 0 && !pat.get(i).equals(pat.get(len))) len = lps[len - 1];\n            if (pat.get(i).equals(pat.get(len))) len++;\n            lps[i] = len;\n        }\n        int j = 0;\n        for (String t : text) {\n            while (j > 0 && !t.equals(pat.get(j))) j = lps[j - 1];\n            if (t.equals(pat.get(j))) j++;\n            if (j == m) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isSubtree(self, root, subRoot):\n        def same(a, b):\n            if not a or not b: return a is b\n            return a.val == b.val and same(a.left, b.left) and same(a.right, b.right)\n        if not subRoot: return True\n        if not root: return False\n        return same(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)",
+      pythonIntuition: 'Represent each serialization as a list of tokens. Matching is then a sequence search over tokens, where each token is compared with `equals`, so there is no string-boundary ambiguity. KMP\'s prefix table lets the search never backtrack in `root`, which gives linear time.',
+      pythonAlgorithm: ['Serialize both trees into token lists in preorder, with `#` for None.','Build the KMP prefix table (`lps`) for the pattern (`subRoot`\'s tokens).','Scan the text (`root`\'s tokens). On a mismatch, fall back using `lps`. When the full pattern matches, return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Serialize both trees into token lists in preorder, with `#` for None.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Build the KMP prefix table (`lps`) for the pattern (`subRoot`\'s tokens).','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Scan the text (`root`\'s tokens). On a mismatch, fall back using `lps`. When the full pattern matches, return `True`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(m + n)', space: 'O(m + n)' },
       pythonComplexity: undefined
     }
@@ -2857,6 +3322,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        List<TreeNode> pathP = new ArrayList<>(), pathQ = new ArrayList<>();\n        findPath(root, p, pathP);\n        findPath(root, q, pathQ);\n        TreeNode lca = null;\n        for (int i = 0; i < Math.min(pathP.size(), pathQ.size()); i++) {\n            if (pathP.get(i) != pathQ.get(i)) break;\n            lca = pathP.get(i);\n        }\n        return lca;\n    }\n\n    private boolean findPath(TreeNode node, TreeNode target, List<TreeNode> path) {\n        if (node == null) return false;\n        path.add(node);\n        if (node == target) return true;\n        if (findPath(node.left, target, path) || findPath(node.right, target, path)) return true;\n        path.remove(path.size() - 1);\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2868,6 +3336,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        if (root == null || root == p || root == q) return root;\n        TreeNode l = lowestCommonAncestor(root.left, p, q);\n        TreeNode r = lowestCommonAncestor(root.right, p, q);\n        if (l != null && r != null) return root;\n        return l != null ? l : r;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2879,6 +3350,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        TreeNode cur = root;\n        while (cur != null) {\n            if (p.val < cur.val && q.val < cur.val) {\n                cur = cur.left;\n            } else if (p.val > cur.val && q.val > cur.val) {\n                cur = cur.right;\n            } else {\n                return cur;\n            }\n        }\n        return null;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def lowestCommonAncestor(self, root, p, q):\n        cur = root\n        while cur:\n            if p.val < cur.val and q.val < cur.val: cur = cur.left\n            elif p.val > cur.val and q.val > cur.val: cur = cur.right\n            else: return cur",
+      pythonIntuition: 'Use the BST ordering to decide direction at each step, so only one path is followed and no recursion is needed. The walk stops at the first node that lies between `p` and `q`, or equals one of them.',
+      pythonAlgorithm: ['While `root` is not `None`:','- If both `p.val` and `q.val` are less than `root.val`, move to `root.left`.','- Else if both are greater, move to `root.right`.','- Else return `root`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','While `root` is not `None`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(h)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -2912,6 +3386,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        List<List<Integer>> result = new ArrayList<>();\n        int h = height(root);\n        for (int d = 0; d < h; d++) {\n            List<Integer> level = new ArrayList<>();\n            collect(root, d, level);\n            result.add(level);\n        }\n        return result;\n    }\n\n    private void collect(TreeNode node, int depth, List<Integer> level) {\n        if (node == null) return;\n        if (depth == 0) {\n            level.add(node.val);\n            return;\n        }\n        collect(node.left, depth - 1, level);\n        collect(node.right, depth - 1, level);\n    }\n\n    private int height(TreeNode node) {\n        if (node == null) return 0;\n        return 1 + Math.max(height(node.left), height(node.right));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot h)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -2923,6 +3400,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Queue;\n\nclass Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        List<List<Integer>> result = new ArrayList<>();\n        if (root == null) return result;\n        Queue<TreeNode> queue = new ArrayDeque<>();\n        queue.offer(root);\n        while (!queue.isEmpty()) {\n            List<Integer> level = new ArrayList<>();\n            for (int size = queue.size(); size > 0; size--) {\n                TreeNode n = queue.poll();\n                level.add(n.val);\n                if (n.left != null) queue.offer(n.left);\n                if (n.right != null) queue.offer(n.right);\n            }\n            result.add(level);\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(w)' },
       pythonComplexity: undefined
     },
@@ -2934,6 +3414,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(root, 0, result);\n        return result;\n    }\n\n    private void dfs(TreeNode node, int depth, List<List<Integer>> result) {\n        if (node == null) return;\n        if (result.size() == depth) {\n            result.add(new ArrayList<>());\n        }\n        result.get(depth).add(node.val);\n        dfs(node.left, depth + 1, result);\n        dfs(node.right, depth + 1, result);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def levelOrder(self, root):\n        if not root: return []\n        result, queue = [], deque([root])\n        while queue:\n            level = []\n            for _ in range(len(queue)):\n                node = queue.popleft(); level.append(node.val)\n                if node.left: queue.append(node.left)\n                if node.right: queue.append(node.right)\n            result.append(level)\n        return result",
+      pythonIntuition: 'Pass the depth down the recursion. When a depth is reached for the first time, create its list. Then append each node\'s value to the list at its depth. Nodes are visited once, in pre-order, and each level\'s list fills left to right, which is exactly level order.',
+      pythonAlgorithm: ['`dfs(node, depth)`: if `None`, return.','If `resultlen() == depth`, append a new list.','`result.get(depth).add(node.val)`.','Recurse on left and right with `depth + 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dfs(node, depth)`: if `None`, return.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','If `resultlen() == depth`, append a new list.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','`result.get(depth).add(node.val)`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Recurse on left and right with `depth + 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -2967,6 +3450,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Queue;\n\nclass Solution {\n    public List<Integer> rightSideView(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        if (root == null) return result;\n        List<List<Integer>> levels = new ArrayList<>();\n        Queue<TreeNode> queue = new ArrayDeque<>();\n        queue.offer(root);\n        while (!queue.isEmpty()) {\n            List<Integer> level = new ArrayList<>();\n            for (int size = queue.size(); size > 0; size--) {\n                TreeNode n = queue.poll();\n                level.add(n.val);\n                if (n.left != null) queue.offer(n.left);\n                if (n.right != null) queue.offer(n.right);\n            }\n            levels.add(level);\n        }\n        for (List<Integer> level : levels) {\n            result.add(level.get(level.size() - 1));\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -2978,6 +3464,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Queue;\n\nclass Solution {\n    public List<Integer> rightSideView(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        if (root == null) return result;\n        Queue<TreeNode> queue = new ArrayDeque<>();\n        queue.offer(root);\n        while (!queue.isEmpty()) {\n            TreeNode last = null;\n            for (int size = queue.size(); size > 0; size--) {\n                TreeNode n = queue.poll();\n                last = n;\n                if (n.left != null) queue.offer(n.left);\n                if (n.right != null) queue.offer(n.right);\n            }\n            result.add(last.val);\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(w)' },
       pythonComplexity: undefined
     },
@@ -2989,6 +3478,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<Integer> rightSideView(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        dfs(root, 0, result);\n        return result;\n    }\n\n    private void dfs(TreeNode node, int depth, List<Integer> result) {\n        if (node == null) return;\n        if (result.size() == depth) {\n            result.add(node.val);\n        }\n        dfs(node.right, depth + 1, result);\n        dfs(node.left, depth + 1, result);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def rightSideView(self, root):\n        if not root: return []\n        result, queue = [], deque([root])\n        while queue:\n            for i in range(len(queue)):\n                node = queue.popleft()\n                if node.left: queue.append(node.left)\n                if node.right: queue.append(node.right)\n                if i == 0: rightmost = node.val\n            result.append(rightmost)\n        return result",
+      pythonIntuition: 'Visit the right child before the left. The first node reached at each depth is the rightmost node at that depth, because the right subtree is always explored first. Record a node only if its depth has not been recorded yet. No queue is needed.',
+      pythonAlgorithm: ['`dfs(node, depth)`: if `None`, return.','If `resultlen() == depth`, add `node.val`.','Recurse on `right`, then on `left`, with `depth + 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dfs(node, depth)`: if `None`, return.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','If `resultlen() == depth`, add `node.val`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','Recurse on `right`, then on `left`, with `depth + 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -3022,6 +3514,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int goodNodes(TreeNode root) {\n        return dfs(root, new ArrayList<>());\n    }\n\n    private int dfs(TreeNode node, List<Integer> path) {\n        if (node == null) return 0;\n        path.add(node.val);\n        int max = Integer.MIN_VALUE;\n        for (int v : path) max = Math.max(max, v);\n        int count = (node.val >= max) ? 1 : 0;\n        count += dfs(node.left, path);\n        count += dfs(node.right, path);\n        path.remove(path.size() - 1);\n        return count;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot h)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -3033,6 +3528,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int goodNodes(TreeNode root) {\n        return dfs(root, Integer.MIN_VALUE);\n    }\n\n    private int dfs(TreeNode node, int maxSoFar) {\n        if (node == null) return 0;\n        int good = node.val >= maxSoFar ? 1 : 0;\n        int newMax = Math.max(maxSoFar, node.val);\n        return good + dfs(node.left, newMax) + dfs(node.right, newMax);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -3044,6 +3542,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int goodNodes(TreeNode root) {\n        if (root == null) return 0;\n        Deque<TreeNode> nodes = new ArrayDeque<>();\n        Deque<Integer> maxes = new ArrayDeque<>();\n        nodes.push(root);\n        maxes.push(Integer.MIN_VALUE);\n        int count = 0;\n        while (!nodes.isEmpty()) {\n            TreeNode n = nodes.pop();\n            int m = maxes.pop();\n            if (n.val >= m) count++;\n            int newMax = Math.max(m, n.val);\n            if (n.left != null) { nodes.push(n.left); maxes.push(newMax); }\n            if (n.right != null) { nodes.push(n.right); maxes.push(newMax); }\n        }\n        return count;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def goodNodes(self, root):\n        def dfs(node, maximum):\n            if not node: return 0\n            good = int(node.val >= maximum)\n            maximum = max(maximum, node.val)\n            return good + dfs(node.left, maximum) + dfs(node.right, maximum)\n        return dfs(root, float(\"-inf\"))",
+      pythonIntuition: 'The same propagation, driven by an explicit stack of `(node, maxSoFar)` pairs. This avoids deep recursion on skewed trees.',
+      pythonAlgorithm: ['Push `(root, MIN_VALUE)`.','Pop `(n, m)`. If `n.val >= m`, increment the count. Push each non-None child with `max(m, n.val)`.','Return the count.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Push `(root, MIN_VALUE)`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Pop `(n, m)`. If `n.val >= m`, increment the count. Push each non-None child with `max(m, n.val)`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Return the count.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -3077,6 +3578,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isValidBST(TreeNode root) {\n        if (root == null) return true;\n        if (!allLess(root.left, root.val) || !allGreater(root.right, root.val)) return false;\n        return isValidBST(root.left) && isValidBST(root.right);\n    }\n\n    private boolean allLess(TreeNode node, long bound) {\n        if (node == null) return true;\n        return node.val < bound && allLess(node.left, bound) && allLess(node.right, bound);\n    }\n\n    private boolean allGreater(TreeNode node, long bound) {\n        if (node == null) return true;\n        return node.val > bound && allGreater(node.left, bound) && allGreater(node.right, bound);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -3088,6 +3592,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public boolean isValidBST(TreeNode root) {\n        List<Integer> vals = new ArrayList<>();\n        inorder(root, vals);\n        for (int i = 1; i < vals.size(); i++) {\n            if (vals.get(i) <= vals.get(i - 1)) return false;\n        }\n        return true;\n    }\n\n    private void inorder(TreeNode node, List<Integer> vals) {\n        if (node == null) return;\n        inorder(node.left, vals);\n        vals.add(node.val);\n        inorder(node.right, vals);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3099,6 +3606,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isValidBST(TreeNode root) {\n        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);\n    }\n\n    private boolean validate(TreeNode node, long lo, long hi) {\n        if (node == null) return true;\n        if (node.val <= lo || node.val >= hi) return false;\n        return validate(node.left, lo, node.val) && validate(node.right, node.val, hi);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isValidBST(self, root):\n        def valid(node, low, high):\n            if not node: return True\n            if not low < node.val < high: return False\n            return valid(node.left, low, node.val) and valid(node.right, node.val, high)\n        return valid(root, float(\"-inf\"), float(\"inf\"))",
+      pythonIntuition: 'Each node has an open interval `(lo, hi)` derived from its ancestors. The root\'s interval is unbounded. Going left tightens `hi` to the current value, and going right tightens `lo`. A node is valid if its value lies strictly within its interval. Use `long` bounds so that `int.MIN_VALUE` and `int.MAX_VALUE` node values are handled correctly.',
+      pythonAlgorithm: ['`validate(node, lo, hi)`: if `None`, True.','If `node.val <= lo` or `node.val >= hi`, return `False`.','Return `validate(left, lo, node.val) && validate(right, node.val, hi)`.','Call with `Long.MIN_VALUE` and `Long.MAX_VALUE`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`validate(node, lo, hi)`: if `None`, True.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','If `node.val <= lo` or `node.val >= hi`, return `False`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','Return `validate(left, lo, node.val) && validate(right, node.val, hi)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Call with `Long.MIN_VALUE` and `Long.MAX_VALUE`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -3132,6 +3642,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int kthSmallest(TreeNode root, int k) {\n        List<Integer> vals = new ArrayList<>();\n        inorder(root, vals);\n        return vals.get(k - 1);\n    }\n\n    private void inorder(TreeNode node, List<Integer> vals) {\n        if (node == null) return;\n        inorder(node.left, vals);\n        vals.add(node.val);\n        inorder(node.right, vals);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3143,6 +3656,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int count = 0;\n    private int answer = -1;\n\n    public int kthSmallest(TreeNode root, int k) {\n        inorder(root, k);\n        return answer;\n    }\n\n    private void inorder(TreeNode node, int k) {\n        if (node == null || answer != -1) return;\n        inorder(node.left, k);\n        if (++count == k) {\n            answer = node.val;\n            return;\n        }\n        inorder(node.right, k);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(h + k)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -3154,6 +3670,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass Solution {\n    public int kthSmallest(TreeNode root, int k) {\n        Deque<TreeNode> stack = new ArrayDeque<>();\n        TreeNode cur = root;\n        int count = 0;\n        while (cur != null || !stack.isEmpty()) {\n            while (cur != null) {\n                stack.push(cur);\n                cur = cur.left;\n            }\n            cur = stack.pop();\n            if (++count == k) return cur.val;\n            cur = cur.right;\n        }\n        return -1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def kthSmallest(self, root, k):\n        stack, node = [], root\n        while True:\n            while node: stack.append(node); node = node.left\n            node = stack.pop(); k -= 1\n            if k == 0: return node.val\n            node = node.right",
+      pythonIntuition: 'Simulate the in-order traversal with an explicit stack. Push the left spine, pop a node, and count it. When the count reaches `k`, return the value. This is the same early exit without recursion.',
+      pythonAlgorithm: ['`cur = root`. While `cur != None` or the stack is not empty:','- Push `cur` and all its left descendants.','- Pop a node. Increment `count`. If `count == k`, return its value.','- Set `cur` to the popped node\'s right child.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`cur = root`. While `cur != None` or the stack is not empty:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(h + k)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -3187,6 +3706,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public TreeNode buildTree(int[] preorder, int[] inorder) {\n        if (preorder.length == 0) return null;\n        TreeNode root = new TreeNode(preorder[0]);\n        int m = 0;\n        while (inorder[m] != preorder[0]) m++;\n        root.left = buildTree(\n            Arrays.copyOfRange(preorder, 1, m + 1),\n            Arrays.copyOfRange(inorder, 0, m));\n        root.right = buildTree(\n            Arrays.copyOfRange(preorder, m + 1, preorder.length),\n            Arrays.copyOfRange(inorder, m + 1, inorder.length));\n        return root;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -3198,6 +3720,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public TreeNode buildTree(int[] preorder, int[] inorder) {\n        return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);\n    }\n\n    private TreeNode build(int[] pre, int ps, int pe, int[] in, int is, int ie) {\n        if (ps > pe) return null;\n        TreeNode root = new TreeNode(pre[ps]);\n        int m = is;\n        while (in[m] != pre[ps]) m++;\n        int leftSize = m - is;\n        root.left = build(pre, ps + 1, ps + leftSize, in, is, m - 1);\n        root.right = build(pre, ps + leftSize + 1, pe, in, m + 1, ie);\n        return root;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -3209,6 +3734,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    private int preIdx = 0;\n    private int[] preorder;\n    private Map<Integer, Integer> idx = new HashMap<>();\n\n    public TreeNode buildTree(int[] preorder, int[] inorder) {\n        this.preorder = preorder;\n        for (int i = 0; i < inorder.length; i++) {\n            idx.put(inorder[i], i);\n        }\n        return build(0, inorder.length - 1);\n    }\n\n    private TreeNode build(int is, int ie) {\n        if (is > ie) return null;\n        int rootVal = preorder[preIdx++];\n        TreeNode root = new TreeNode(rootVal);\n        int m = idx.get(rootVal);\n        root.left = build(is, m - 1);\n        root.right = build(m + 1, ie);\n        return root;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def buildTree(self, preorder, inorder):\n        positions = {v: i for i, v in enumerate(inorder)}\n        self.pre = 0\n        def build(left, right):\n            if left > right: return None\n            value = preorder[self.pre]; self.pre += 1\n            node = TreeNode(value)\n            mid = positions[value]\n            node.left = build(left, mid - 1)\n            node.right = build(mid + 1, right)\n            return node\n        return build(0, len(inorder) - 1)",
+      pythonIntuition: 'The only expensive step is finding the root\'s position in inorder. Precompute a map from value to inorder index, so every root lookup is $O(1)$. Each node is created once, and the total work is linear.',
+      pythonAlgorithm: ['Build `idx: value -> index in inorder`.','`build(is, ie)` uses a shared pointer `preIdx` into `preorder`. The root is `preorder[preIdx++]`.','`m = idx.get(root)`. Build the left subtree on `[is, m-1]` and the right on `[m+1, ie]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Build `idx: value -> index in inorder`.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','`build(is, ie)` uses a shared pointer `preIdx` into `preorder`. The root is `preorder[preIdx++]`.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','`m = idx.get(root)`. Build the left subtree on `[is, m-1]` and the right on `[m+1, ie]`.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -3242,6 +3770,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxPathSum(TreeNode root) {\n        if (root == null) return Integer.MIN_VALUE;\n        int best = Integer.MIN_VALUE;\n        best = Math.max(best, candidate(root));\n        best = Math.max(best, maxPathSum(root.left));\n        best = Math.max(best, maxPathSum(root.right));\n        return best;\n    }\n\n    private int candidate(TreeNode v) {\n        return v.val + Math.max(0, down(v.left)) + Math.max(0, down(v.right));\n    }\n\n    private int down(TreeNode x) {\n        if (x == null) return 0;\n        return x.val + Math.max(0, Math.max(down(x.left), down(x.right)));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(h)' },
       pythonComplexity: undefined
     },
@@ -3253,6 +3784,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int best = Integer.MIN_VALUE;\n\n    public int maxPathSum(TreeNode root) {\n        gain(root);\n        return best;\n    }\n\n    private int gain(TreeNode node) {\n        if (node == null) return 0;\n        int l = Math.max(0, gain(node.left));\n        int r = Math.max(0, gain(node.right));\n        best = Math.max(best, node.val + l + r);\n        return node.val + Math.max(l, r);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxPathSum(self, root):\n        self.best = float(\"-inf\")\n        def gain(node):\n            if not node: return 0\n            left = max(0, gain(node.left)); right = max(0, gain(node.right))\n            self.best = max(self.best, node.val + left + right)\n            return node.val + max(left, right)\n        gain(root)\n        return self.best",
+      pythonIntuition: 'Compute each node\'s best downward gain once, bottom-up. At each node, the path using both branches is a candidate for the global answer. Only the single-branch gain is returned to the parent, since a path cannot fork above its apex.',
+      pythonAlgorithm: ['`gain(node)`: return `0` for `None`.','`l = max(0, gain(left))`, `r = max(0, gain(right))`.','Update `best = max(best, node.val + l + r)`.','Return `node.val + max(l, r)`.','Initialise `best` to `int.MIN_VALUE`, and return it after `gain(root)`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`gain(node)`: return `0` for `None`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`l = max(0, gain(left))`, `r = max(0, gain(right))`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Update `best = max(best, node.val + l + r)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return `node.val + max(l, r)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Initialise `best` to `int.MIN_VALUE`, and return it after `gain(root)`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(h)' },
       pythonComplexity: undefined
     }
@@ -3286,6 +3820,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Queue;\n\nclass Codec {\n    public String serialize(TreeNode root) {\n        if (root == null) return \"#\";\n        List<String> tokens = new ArrayList<>();\n        Queue<TreeNode> queue = new ArrayDeque<>();\n        queue.offer(root);\n        tokens.add(String.valueOf(root.val));\n        while (!queue.isEmpty()) {\n            TreeNode n = queue.poll();\n            for (TreeNode child : new TreeNode[]{n.left, n.right}) {\n                if (child == null) {\n                    tokens.add(\"#\");\n                } else {\n                    tokens.add(String.valueOf(child.val));\n                    queue.offer(child);\n                }\n            }\n        }\n        return String.join(\",\", tokens);\n    }\n\n    public TreeNode deserialize(String data) {\n        String[] t = data.split(\",\");\n        if (t[0].equals(\"#\")) return null;\n        TreeNode root = new TreeNode(Integer.parseInt(t[0]));\n        Queue<TreeNode> queue = new ArrayDeque<>();\n        queue.offer(root);\n        int i = 1;\n        while (!queue.isEmpty()) {\n            TreeNode n = queue.poll();\n            if (!t[i].equals(\"#\")) {\n                n.left = new TreeNode(Integer.parseInt(t[i]));\n                queue.offer(n.left);\n            }\n            i++;\n            if (!t[i].equals(\"#\")) {\n                n.right = new TreeNode(Integer.parseInt(t[i]));\n                queue.offer(n.right);\n            }\n            i++;\n        }\n        return root;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3297,6 +3834,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Arrays;\nimport java.util.Deque;\n\nclass Codec {\n    public String serialize(TreeNode root) {\n        StringBuilder sb = new StringBuilder();\n        build(root, sb);\n        return sb.toString();\n    }\n\n    private void build(TreeNode node, StringBuilder sb) {\n        if (node == null) {\n            sb.append(\"#,\");\n            return;\n        }\n        sb.append(node.val).append(',');\n        build(node.left, sb);\n        build(node.right, sb);\n    }\n\n    public TreeNode deserialize(String data) {\n        Deque<String> tokens = new ArrayDeque<>(Arrays.asList(data.split(\",\")));\n        return decode(tokens);\n    }\n\n    private TreeNode decode(Deque<String> tokens) {\n        String t = tokens.poll();\n        if (t.equals(\"#\")) return null;\n        TreeNode node = new TreeNode(Integer.parseInt(t));\n        node.left = decode(tokens);\n        node.right = decode(tokens);\n        return node;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Codec:\n    def serialize(self, root):\n        values = []\n        def dfs(node):\n            if not node: values.append(\"#\"); return\n            values.append(str(node.val)); dfs(node.left); dfs(node.right)\n        dfs(root)\n        return \",\".join(values)\n\n    def deserialize(self, data):\n        values = iter(data.split(\",\"))\n        def dfs():\n            value = next(values)\n            if value == \"#\": return None\n            node = TreeNode(int(value))\n            node.left = dfs(); node.right = dfs()\n            return node\n        return dfs()",
+      pythonIntuition: 'Pre-order serialization writes each node before its subtrees, with `#` for None. To decode, read tokens from the front. The current token is the next node in pre-order, so decode it, then recursively decode its left subtree and then its right subtree. The recursion consumes tokens in exactly the order they were written, so no index bookkeeping is needed beyond the shared queue.',
+      pythonAlgorithm: ['Serialize: `build(node)`. If `None`, append `#`. Otherwise append the value, then build left, then build right.','Deserialize: put the tokens in a deque. `decode()`: poll a token. If it is `#`, return `None`. Otherwise create the node, set `left = decode()`, then `right = decode()`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Serialize: `build(node)`. If `None`, append `#`. Otherwise append the value, then build left, then build right.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','Deserialize: put the tokens in a deque. `decode()`: poll a token. If it is `#`, return `None`. Otherwise create the node, set `left = decode()`, then `right = decode()`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -3330,6 +3870,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass KthLargest {\n    private final int k;\n    private final List<Integer> all = new ArrayList<>();\n\n    public KthLargest(int k, int[] nums) {\n        this.k = k;\n        for (int x : nums) all.add(x);\n    }\n\n    public int add(int val) {\n        all.add(val);\n        Collections.sort(all);\n        return all.get(all.size() - k);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`add` is O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3341,6 +3884,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass KthLargest {\n    private final int k;\n    private final List<Integer> sorted = new ArrayList<>();\n\n    public KthLargest(int k, int[] nums) {\n        this.k = k;\n        for (int x : nums) sorted.add(x);\n        Collections.sort(sorted);\n    }\n\n    public int add(int val) {\n        int pos = Collections.binarySearch(sorted, val);\n        if (pos < 0) pos = -pos - 1;\n        sorted.add(pos, val);\n        return sorted.get(sorted.size() - k);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`add` is O(n) because of shifting', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3352,6 +3898,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.PriorityQueue;\n\nclass KthLargest {\n    private final int k;\n    private final PriorityQueue<Integer> minHeap = new PriorityQueue<>();\n\n    public KthLargest(int k, int[] nums) {\n        this.k = k;\n        for (int x : nums) push(x);\n    }\n\n    public int add(int val) {\n        push(val);\n        return minHeap.peek();\n    }\n\n    private void push(int val) {\n        if (minHeap.size() < k) {\n            minHeap.offer(val);\n        } else if (val > minHeap.peek()) {\n            minHeap.poll();\n            minHeap.offer(val);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass KthLargest:\n    def __init__(self, k: int, nums: List[int]):\n        self.k = k\n        self.heap = nums[:]\n        heapify(self.heap)\n        while len(self.heap) > k: heappop(self.heap)\n\n    def add(self, val: int) -> int:\n        heappush(self.heap, val)\n        if len(self.heap) > self.k: heappop(self.heap)\n        return self.heap[0]",
+      pythonIntuition: 'Only the `k` largest values matter. Keep a min-heap of exactly `k` elements. Its root is the `k`-th largest. A new value larger than the root replaces the root. A smaller value is ignored.',
+      pythonAlgorithm: ['`push(val)`: if the heap has fewer than `k` items, offer `val`. Otherwise, if `val > peek()`, poll and offer `val`.','Construct by pushing every initial value.','`add(val)`: push, and return `heap.peek()`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`push(val)`: if the heap has fewer than `k` items, offer `val`. Otherwise, if `val > peek()`, poll and offer `val`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Construct by pushing every initial value.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`add(val)`: push, and return `heap.peek()`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: '`add` is O(\\log k)', space: 'O(k)' },
       pythonComplexity: undefined
     }
@@ -3385,6 +3934,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass Solution {\n    public int lastStoneWeight(int[] stones) {\n        List<Integer> list = new ArrayList<>();\n        for (int s : stones) list.add(s);\n        while (list.size() > 1) {\n            Collections.sort(list);\n            int y = list.remove(list.size() - 1);\n            int x = list.remove(list.size() - 1);\n            if (y != x) list.add(y - x);\n        }\n        return list.isEmpty() ? 0 : list.get(0);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2 \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3396,6 +3948,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Collections;\nimport java.util.PriorityQueue;\n\nclass Solution {\n    public int lastStoneWeight(int[] stones) {\n        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());\n        for (int s : stones) maxHeap.offer(s);\n        while (maxHeap.size() > 1) {\n            int y = maxHeap.poll();\n            int x = maxHeap.poll();\n            if (y != x) maxHeap.offer(y - x);\n        }\n        return maxHeap.isEmpty() ? 0 : maxHeap.peek();\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def lastStoneWeight(self, stones: List[int]) -> int:\n        heap = [-x for x in stones]; heapify(heap)\n        while len(heap) > 1:\n            a, b = -heappop(heap), -heappop(heap)\n            if a != b: heappush(heap, -(a - b))\n        return -heap[0] if heap else 0",
+      pythonIntuition: 'A max-heap yields the two heaviest stones in $O(\\log n)$ each. The surviving difference is pushed back, so each smash costs logarithmic time instead of a full sort.',
+      pythonAlgorithm: ['Offer every stone into a max-heap.','While the heap has at least two elements: poll `y` and `x`. If `y != x`, offer `y - x`.','Return the heap\'s peek, or `0` if empty.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Offer every stone into a max-heap.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','While the heap has at least two elements: poll `y` and `x`. If `y != x`, offer `y - x`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return the heap\'s peek, or `0` if empty.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -3429,6 +3984,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        Arrays.sort(points, (a, b) -> Long.compare(dist(a), dist(b)));\n        return Arrays.copyOf(points, k);\n    }\n\n    private long dist(int[] p) {\n        return (long) p[0] * p[0] + (long) p[1] * p[1];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(\\log n)' },
       pythonComplexity: undefined
     },
@@ -3440,6 +3998,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> Long.compare(dist(b), dist(a)));\n        for (int[] p : points) {\n            maxHeap.offer(p);\n            if (maxHeap.size() > k) maxHeap.poll();\n        }\n        int[][] result = new int[k][];\n        for (int i = 0; i < k; i++) result[i] = maxHeap.poll();\n        return result;\n    }\n\n    private long dist(int[] p) {\n        return (long) p[0] * p[0] + (long) p[1] * p[1];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log k)', space: 'O(k)' },
       pythonComplexity: undefined
     },
@@ -3451,6 +4012,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\nimport java.util.Random;\n\nclass Solution {\n    private final Random rnd = new Random();\n\n    public int[][] kClosest(int[][] points, int k) {\n        select(points, 0, points.length - 1, k);\n        return Arrays.copyOf(points, k);\n    }\n\n    private void select(int[][] pts, int lo, int hi, int k) {\n        while (lo < hi) {\n            int r = lo + rnd.nextInt(hi - lo + 1);\n            swap(pts, r, hi);\n            int pivot = dist(pts[hi]);\n            int i = lo;\n            for (int j = lo; j < hi; j++) {\n                if (dist(pts[j]) < pivot) {\n                    swap(pts, i, j);\n                    i++;\n                }\n            }\n            swap(pts, i, hi);\n            if (i == k) return;\n            if (i < k) lo = i + 1;\n            else hi = i - 1;\n        }\n    }\n\n    private long dist(int[] p) {\n        return (long) p[0] * p[0] + (long) p[1] * p[1];\n    }\n\n    private void swap(int[][] a, int i, int j) {\n        int[] t = a[i];\n        a[i] = a[j];\n        a[j] = t;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:\n        return nsmallest(k, points, key=lambda p: p[0] * p[0] + p[1] * p[1])",
+      pythonIntuition: 'Quickselect partitions the array around a pivot in $O(n)$ expected time, and then recurses into only one side. After the process, the first `k` positions hold the `k` closest points, in any order. Random pivots keep the expected time linear.',
+      pythonAlgorithm: ['`select(lo, hi)`: pick a random pivot in `[lo, hi]`, swap it to `hi`, and partition by distance (Lomuto).','If the pivot\'s final index `p` equals `k`, stop. If `p < k`, search `[p+1, hi]`. Otherwise search `[lo, p-1]`.','Return the first `k` points.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`select(lo, hi)`: pick a random pivot in `[lo, hi]`, swap it to `hi`, and partition by distance (Lomuto).','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','If the pivot\'s final index `p` equals `k`, stop. If `p < k`, search `[p+1, hi]`. Otherwise search `[lo, p-1]`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','Return the first `k` points.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -3484,6 +4048,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int findKthLargest(int[] nums, int k) {\n        Arrays.sort(nums);\n        return nums[nums.length - k];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(\\log n)' },
       pythonComplexity: undefined
     },
@@ -3495,6 +4062,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int findKthLargest(int[] nums, int k) {\n        PriorityQueue<Integer> minHeap = new PriorityQueue<>();\n        for (int x : nums) {\n            minHeap.offer(x);\n            if (minHeap.size() > k) minHeap.poll();\n        }\n        return minHeap.peek();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log k)', space: 'O(k)' },
       pythonComplexity: undefined
     },
@@ -3506,6 +4076,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Random;\n\nclass Solution {\n    private final Random rnd = new Random();\n\n    public int findKthLargest(int[] nums, int k) {\n        int target = nums.length - k;\n        int lo = 0, hi = nums.length - 1;\n        while (true) {\n            int r = lo + rnd.nextInt(hi - lo + 1);\n            swap(nums, r, hi);\n            int p = partition(nums, lo, hi);\n            if (p == target) return nums[p];\n            if (p < target) lo = p + 1;\n            else hi = p - 1;\n        }\n    }\n\n    private int partition(int[] a, int lo, int hi) {\n        int pivot = a[hi], i = lo;\n        for (int j = lo; j < hi; j++) {\n            if (a[j] < pivot) {\n                swap(a, i, j);\n                i++;\n            }\n        }\n        swap(a, i, hi);\n        return i;\n    }\n\n    private void swap(int[] a, int i, int j) {\n        int t = a[i];\n        a[i] = a[j];\n        a[j] = t;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findKthLargest(self, nums: List[int], k: int) -> int:\n        heap = nums[:k]; heapify(heap)\n        for x in nums[k:]:\n            if x > heap[0]: heapreplace(heap, x)\n        return heap[0]",
+      pythonIntuition: 'Partition around a random pivot so that all smaller values are on the left and all larger on the right. If the pivot lands at the target index `n - k`, it is the answer. Otherwise recurse into only the side containing the target.',
+      pythonAlgorithm: ['`target = n - k`. `lo = 0`, `hi = n - 1`.','Loop: choose a random pivot in `[lo, hi]`, swap it to `hi`, and partition (Lomuto). Let `p` be its final index.','If `p == target`, return `nums[p]`. If `p < target`, `lo = p + 1`. Otherwise `hi = p - 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`target = n - k`. `lo = 0`, `hi = n - 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Loop: choose a random pivot in `[lo, hi]`, swap it to `hi`, and partition (Lomuto). Let `p` be its final index.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','If `p == target`, return `nums[p]`. If `p < target`, `lo = p + 1`. Otherwise `hi = p - 1`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -3539,6 +4112,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int leastInterval(char[] tasks, int n) {\n        int[] cnt = new int[26], readyAt = new int[26];\n        for (char t : tasks) cnt[t - 'A']++;\n        int remaining = tasks.length, time = 0;\n        while (remaining > 0) {\n            int best = -1;\n            for (int c = 0; c < 26; c++) {\n                if (cnt[c] > 0 && readyAt[c] <= time && (best == -1 || cnt[c] > cnt[best])) {\n                    best = c;\n                }\n            }\n            if (best != -1) {\n                cnt[best]--;\n                readyAt[best] = time + n + 1;\n                remaining--;\n            }\n            time++;\n        }\n        return time;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(T \\cdot 26)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -3550,6 +4126,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Collections;\nimport java.util.Deque;\nimport java.util.PriorityQueue;\n\nclass Solution {\n    public int leastInterval(char[] tasks, int n) {\n        int[] cnt = new int[26];\n        for (char t : tasks) cnt[t - 'A']++;\n        PriorityQueue<Integer> heap = new PriorityQueue<>(Collections.reverseOrder());\n        for (int c : cnt) if (c > 0) heap.offer(c);\n        Deque<int[]> cooldown = new ArrayDeque<>();\n        int time = 0;\n        while (!heap.isEmpty() || !cooldown.isEmpty()) {\n            time++;\n            if (!heap.isEmpty()) {\n                int c = heap.poll() - 1;\n                if (c > 0) cooldown.offer(new int[]{c, time + n});\n            }\n            if (!cooldown.isEmpty() && cooldown.peek()[1] == time) {\n                heap.offer(cooldown.poll()[0]);\n            }\n        }\n        return time;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(T \\log 26)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -3561,6 +4140,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int leastInterval(char[] tasks, int n) {\n        int[] freq = new int[26];\n        for (char t : tasks) freq[t - 'A']++;\n        int maxF = 0;\n        for (int f : freq) maxF = Math.max(maxF, f);\n        int m = 0;\n        for (int f : freq) if (f == maxF) m++;\n        int idle = (maxF - 1) * (n + 1) + m;\n        return Math.max(tasks.length, idle);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def leastInterval(self, tasks: List[str], n: int) -> int:\n        counts = Counter(tasks)\n        maximum = max(counts.values())\n        most = sum(v == maximum for v in counts.values())\n        return max(len(tasks), (maximum - 1) * (n + 1) + most)",
+      pythonIntuition: 'Let `maxF` be the highest frequency, and `m` the number of tasks that have that frequency. The most frequent tasks form `maxF` rows with `m` tasks in the last row. The first `maxF - 1` rows each have `n + 1` slots, so the total is `(maxF - 1) * (n + 1) + m`. If the other tasks are so numerous that every slot is filled, no idle time exists, and the answer is the number of tasks.',
+      pythonAlgorithm: ['Count frequencies. Let `maxF` be the maximum, and `m` the number of letters with that count.','`idle = (maxF - 1) * (n + 1) + m`.','Return `max(taskslen(), idle)`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Count frequencies. Let `maxF` be the maximum, and `m` the number of letters with that count.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`idle = (maxF - 1) * (n + 1) + m`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return `max(taskslen(), idle)`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(T)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -3594,6 +4176,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.Set;\n\nclass Twitter {\n    private record Tweet(int author, int id, int time) {}\n    private int clock = 0;\n    private final List<Tweet> all = new ArrayList<>();\n    private final Map<Integer, Set<Integer>> follows = new HashMap<>();\n\n    public void postTweet(int userId, int tweetId) {\n        all.add(new Tweet(userId, tweetId, clock++));\n    }\n\n    public List<Integer> getNewsFeed(int userId) {\n        Set<Integer> users = new HashSet<>(follows.getOrDefault(userId, Set.of()));\n        users.add(userId);\n        List<Tweet> feed = new ArrayList<>();\n        for (Tweet t : all) {\n            if (users.contains(t.author())) feed.add(t);\n        }\n        feed.sort((a, b) -> Integer.compare(b.time(), a.time()));\n        List<Integer> result = new ArrayList<>();\n        for (int i = 0; i < Math.min(10, feed.size()); i++) {\n            result.add(feed.get(i).id());\n        }\n        return result;\n    }\n\n    public void follow(int followerId, int followeeId) {\n        if (followerId != followeeId) {\n            follows.computeIfAbsent(followerId, k -> new HashSet<>()).add(followeeId);\n        }\n    }\n\n    public void unfollow(int followerId, int followeeId) {\n        Set<Integer> s = follows.get(followerId);\n        if (s != null) s.remove(followeeId);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`getNewsFeed` is O(T \\log T), where T is the total number of tweets', space: 'O(T)' },
       pythonComplexity: undefined
     },
@@ -3605,6 +4190,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.Set;\n\nclass Twitter {\n    private record Tweet(int id, int time) {}\n    private int clock = 0;\n    private final Map<Integer, List<Tweet>> tweets = new HashMap<>();\n    private final Map<Integer, Set<Integer>> follows = new HashMap<>();\n\n    public void postTweet(int userId, int tweetId) {\n        tweets.computeIfAbsent(userId, k -> new ArrayList<>()).add(new Tweet(tweetId, clock++));\n    }\n\n    public List<Integer> getNewsFeed(int userId) {\n        Set<Integer> users = new HashSet<>(follows.getOrDefault(userId, Set.of()));\n        users.add(userId);\n        List<Tweet> feed = new ArrayList<>();\n        for (int u : users) {\n            feed.addAll(tweets.getOrDefault(u, List.of()));\n        }\n        feed.sort((a, b) -> Integer.compare(b.time(), a.time()));\n        List<Integer> result = new ArrayList<>();\n        for (int i = 0; i < Math.min(10, feed.size()); i++) {\n            result.add(feed.get(i).id());\n        }\n        return result;\n    }\n\n    public void follow(int followerId, int followeeId) {\n        if (followerId != followeeId) {\n            follows.computeIfAbsent(followerId, k -> new HashSet<>()).add(followeeId);\n        }\n    }\n\n    public void unfollow(int followerId, int followeeId) {\n        Set<Integer> s = follows.get(followerId);\n        if (s != null) s.remove(followeeId);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`getNewsFeed` is O(F \\cdot T_u \\log(F \\cdot T_u)), where F is the number of relevant users', space: 'O(T)' },
       pythonComplexity: undefined
     },
@@ -3616,6 +4204,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.PriorityQueue;\nimport java.util.Set;\n\nclass Twitter {\n    private record Tweet(int id, int time) {}\n    private int clock = 0;\n    private final Map<Integer, List<Tweet>> tweets = new HashMap<>();\n    private final Map<Integer, Set<Integer>> follows = new HashMap<>();\n\n    public void postTweet(int userId, int tweetId) {\n        tweets.computeIfAbsent(userId, k -> new ArrayList<>()).add(new Tweet(tweetId, clock++));\n    }\n\n    public List<Integer> getNewsFeed(int userId) {\n        Set<Integer> users = new HashSet<>(follows.getOrDefault(userId, Set.of()));\n        users.add(userId);\n\n        // Entry: {time, userId, index into that user's tweet list}\n        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));\n        for (int u : users) {\n            List<Tweet> list = tweets.get(u);\n            if (list != null && !list.isEmpty()) {\n                int last = list.size() - 1;\n                heap.offer(new int[]{list.get(last).time(), u, last});\n            }\n        }\n\n        List<Integer> result = new ArrayList<>();\n        while (!heap.isEmpty() && result.size() < 10) {\n            int[] top = heap.poll();\n            int u = top[1], idx = top[2];\n            result.add(tweets.get(u).get(idx).id());\n            if (idx > 0) {\n                int prev = idx - 1;\n                heap.offer(new int[]{tweets.get(u).get(prev).time(), u, prev});\n            }\n        }\n        return result;\n    }\n\n    public void follow(int followerId, int followeeId) {\n        if (followerId != followeeId) {\n            follows.computeIfAbsent(followerId, k -> new HashSet<>()).add(followeeId);\n        }\n    }\n\n    public void unfollow(int followerId, int followeeId) {\n        Set<Integer> s = follows.get(followerId);\n        if (s != null) s.remove(followeeId);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Twitter:\n    def __init__(self):\n        self.time = 0\n        self.tweets = defaultdict(list)\n        self.following = defaultdict(set)\n\n    def postTweet(self, userId: int, tweetId: int) -> None:\n        self.tweets[userId].append((self.time, tweetId)); self.time += 1\n\n    def getNewsFeed(self, userId: int) -> List[int]:\n        users = self.following[userId] | {userId}\n        heap = []\n        for uid in users:\n            for item in self.tweets[uid][-10:]:\n                heappush(heap, (-item[0], item[1]))\n        return [heappop(heap)[1] for _ in range(min(10, len(heap)))]\n\n    def follow(self, followerId: int, followeeId: int) -> None:\n        if followerId != followeeId: self.following[followerId].add(followeeId)\n\n    def unfollow(self, followerId: int, followeeId: int) -> None:\n        self.following[followerId].discard(followeeId)",
+      pythonIntuition: 'Each user\'s list is sorted by time. The feed is a merge of those lists, and only the top 10 items are needed. Put the most recent tweet of each relevant user into a max-heap by time. Pop the largest, and push the previous tweet from that same user. Ten pops produce the feed, and each pop costs $O(\\log F)$.',
+      pythonAlgorithm: ['Let `users` be the user and their followees.','For each user with tweets, push `(time, user, index)` for their last tweet.','Repeat up to 10 times: pop the largest time, record its tweet ID, and if the index is greater than 0, push the previous tweet of that user.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Let `users` be the user and their followees.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each user with tweets, push `(time, user, index)` for their last tweet.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Repeat up to 10 times: pop the largest time, record its tweet ID, and if the index is greater than 0, push the previous tweet of that user.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: '`getNewsFeed` is O(F + 10 \\log F)', space: 'O(F)' },
       pythonComplexity: undefined
     }
@@ -3649,6 +4240,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass MedianFinder {\n    private final List<Integer> nums = new ArrayList<>();\n\n    public void addNum(int num) {\n        nums.add(num);\n    }\n\n    public double findMedian() {\n        List<Integer> copy = new ArrayList<>(nums);\n        Collections.sort(copy);\n        int n = copy.size();\n        if (n % 2 == 1) return copy.get(n / 2);\n        return (copy.get(n / 2 - 1) + copy.get(n / 2)) / 2.0;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`addNum` is O(1), `findMedian` is O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3660,6 +4254,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.List;\n\nclass MedianFinder {\n    private final List<Integer> sorted = new ArrayList<>();\n\n    public void addNum(int num) {\n        int pos = Collections.binarySearch(sorted, num);\n        if (pos < 0) pos = -pos - 1;\n        sorted.add(pos, num);\n    }\n\n    public double findMedian() {\n        int n = sorted.size();\n        if (n % 2 == 1) return sorted.get(n / 2);\n        return (sorted.get(n / 2 - 1) + sorted.get(n / 2)) / 2.0;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`addNum` is O(n) because of shifting, `findMedian` is O(1)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3671,6 +4268,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Collections;\nimport java.util.PriorityQueue;\n\nclass MedianFinder {\n    private final PriorityQueue<Integer> lo = new PriorityQueue<>(Collections.reverseOrder());\n    private final PriorityQueue<Integer> hi = new PriorityQueue<>();\n\n    public void addNum(int num) {\n        lo.offer(num);\n        hi.offer(lo.poll());\n        if (hi.size() > lo.size()) {\n            lo.offer(hi.poll());\n        }\n    }\n\n    public double findMedian() {\n        if (lo.size() > hi.size()) return lo.peek();\n        return (lo.peek() + hi.peek()) / 2.0;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass MedianFinder:\n    def __init__(self):\n        self.small, self.large = [], []\n\n    def addNum(self, num: int) -> None:\n        heappush(self.small, -num)\n        if self.large and -self.small[0] > self.large[0]:\n            heappush(self.large, -heappop(self.small))\n        if len(self.small) > len(self.large) + 1:\n            heappush(self.large, -heappop(self.small))\n        elif len(self.large) > len(self.small):\n            heappush(self.small, -heappop(self.large))\n\n    def findMedian(self) -> float:\n        if len(self.small) > len(self.large): return float(-self.small[0])\n        return (-self.small[0] + self.large[0]) / 2",
+      pythonIntuition: 'Keep a max-heap `lo` holding the smaller half and a min-heap `hi` holding the larger half. Maintain the invariant that `lo` has the same size as `hi` or one more element, and that every value in `lo` is at most every value in `hi`. Then the median is `lo.peek()` when `lo` is larger, or the average of both tops when sizes are equal.',
+      pythonAlgorithm: ['`addNum(x)`: push `x` into `lo`. Move `lo`\'s maximum into `hi`. If `hi` is larger than `lo`, move `hi`\'s minimum back to `lo`.','`findMedian()`: if `lo` has more elements, return `lo.peek()`. Otherwise return `(lo.peek() + hi.peek()) / 2.0`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`addNum(x)`: push `x` into `lo`. Move `lo`\'s maximum into `hi`. If `hi` is larger than `lo`, move `hi`\'s minimum back to `lo`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`findMedian()`: if `lo` has more elements, return `lo.peek()`. Otherwise return `(lo.peek() + hi.peek()) / 2.0`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: '`addNum` is O(\\log n), `findMedian` is O(1)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -3704,6 +4304,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n        int n = nums.length;\n        List<List<Integer>> result = new ArrayList<>();\n        for (int mask = 0; mask < (1 << n); mask++) {\n            List<Integer> subset = new ArrayList<>();\n            for (int i = 0; i < n; i++) {\n                if (((mask >> i) & 1) == 1) subset.add(nums[i]);\n            }\n            result.add(subset);\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot 2^n)', space: 'O(n \\cdot 2^n)' },
       pythonComplexity: undefined
     },
@@ -3715,6 +4318,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n        List<List<Integer>> result = new ArrayList<>();\n        result.add(new ArrayList<>());\n        for (int x : nums) {\n            int size = result.size();\n            for (int i = 0; i < size; i++) {\n                List<Integer> copy = new ArrayList<>(result.get(i));\n                copy.add(x);\n                result.add(copy);\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot 2^n)', space: 'O(n \\cdot 2^n)' },
       pythonComplexity: undefined
     },
@@ -3726,6 +4332,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(nums, 0, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(int[] nums, int start, List<Integer> path, List<List<Integer>> result) {\n        result.add(new ArrayList<>(path));\n        for (int i = start; i < nums.length; i++) {\n            path.add(nums[i]);\n            dfs(nums, i + 1, path, result);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def subsets(self, nums: List[int]) -> List[List[int]]:\n        result = [[]]\n        for x in nums: result += [subset + [x] for subset in result]\n        return result",
+      pythonIntuition: 'Record the current path as a subset at every node of the recursion. To avoid permutations of the same set, only extend the path with elements at or after the current index. Each subset is generated exactly once.',
+      pythonAlgorithm: ['`dfs(start, path)`: add a copy of `path` to the result.','For `i` from `start` to `n-1`: append `nums[i]`, recurse with `i + 1`, then remove the last element.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dfs(start, path)`: add a copy of `path` to the result.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','For `i` from `start` to `n-1`: append `nums[i]`, recurse with `i + 1`, then remove the last element.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n \\cdot 2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -3759,6 +4368,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n        Set<List<Integer>> found = new HashSet<>();\n        gen(candidates, target, 0, new ArrayList<>(), found);\n        return new ArrayList<>(found);\n    }\n\n    private void gen(int[] c, int target, int sum, List<Integer> path, Set<List<Integer>> found) {\n        if (sum == target) {\n            List<Integer> key = new ArrayList<>(path);\n            Collections.sort(key);\n            found.add(key);\n            return;\n        }\n        if (sum > target) return;\n        for (int x : c) {\n            path.add(x);\n            gen(c, target, sum + x, path, found);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential, bounded by the number of sequences with sum at most `target`', space: 'Exponential for the set of results' },
       pythonComplexity: undefined
     },
@@ -3770,6 +4382,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(candidates, 0, target, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(int[] c, int start, int remaining, List<Integer> path, List<List<Integer>> result) {\n        if (remaining == 0) {\n            result.add(new ArrayList<>(path));\n            return;\n        }\n        for (int i = start; i < c.length; i++) {\n            if (c[i] <= remaining) {\n                path.add(c[i]);\n                dfs(c, i, remaining - c[i], path, result);\n                path.remove(path.size() - 1);\n            }\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case, bounded by the number of valid combinations', space: 'O(\\text{target})' },
       pythonComplexity: undefined
     },
@@ -3781,6 +4396,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n        Arrays.sort(candidates);\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(candidates, 0, target, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(int[] c, int start, int remaining, List<Integer> path, List<List<Integer>> result) {\n        if (remaining == 0) {\n            result.add(new ArrayList<>(path));\n            return;\n        }\n        for (int i = start; i < c.length; i++) {\n            if (c[i] > remaining) break;\n            path.add(c[i]);\n            dfs(c, i, remaining - c[i], path, result);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def combinationSum(self, candidates, target):\n        result = []\n        def dfs(start, remaining, path):\n            if remaining == 0: result.append(path[:]); return\n            for i in range(start, len(candidates)):\n                if candidates[i] > remaining: continue\n                dfs(i, remaining - candidates[i], path + [candidates[i]])\n        dfs(0, target, [])\n        return result",
+      pythonIntuition: 'Sort the candidates. Once a candidate exceeds the remaining sum, every later candidate does too, so the loop can `break` instead of `continue`. This prunes a whole suffix of the search at once.',
+      pythonAlgorithm: ['Sort `candidates`.','`dfs(start, remaining)`: if `remaining == 0`, record a copy. For `i` from `start`, if `candidates[i] > remaining`, `break`. Otherwise append, recurse with `(i, remaining - candidates[i])`, and remove.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort `candidates`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`dfs(start, remaining)`: if `remaining == 0`, record a copy. For `i` from `start`, if `candidates[i] > remaining`, `break`. Otherwise append, recurse with `(i, remaining - candidates[i])`, and remove.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'Exponential in the worst case, with pruning that cuts whole branches', space: 'O(\\text{target})' },
       pythonComplexity: undefined
     }
@@ -3814,6 +4432,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\n        Set<List<Integer>> found = new HashSet<>();\n        gen(candidates, target, 0, 0, new ArrayList<>(), found);\n        return new ArrayList<>(found);\n    }\n\n    private void gen(int[] c, int target, int i, int sum, List<Integer> path, Set<List<Integer>> found) {\n        if (sum == target) {\n            List<Integer> key = new ArrayList<>(path);\n            Collections.sort(key);\n            found.add(key);\n            return;\n        }\n        if (i == c.length || sum > target) return;\n        gen(c, target, i + 1, sum, path, found);\n        path.add(c[i]);\n        gen(c, target, i + 1, sum + c[i], path, found);\n        path.remove(path.size() - 1);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n \\cdot n)', space: 'O(2^n)' },
       pythonComplexity: undefined
     },
@@ -3825,6 +4446,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\n        Set<List<Integer>> found = new HashSet<>();\n        dfs(candidates, 0, target, new ArrayList<>(), found);\n        return new ArrayList<>(found);\n    }\n\n    private void dfs(int[] c, int start, int remaining, List<Integer> path, Set<List<Integer>> found) {\n        if (remaining == 0) {\n            List<Integer> key = new ArrayList<>(path);\n            Collections.sort(key);\n            found.add(key);\n            return;\n        }\n        for (int i = start; i < c.length; i++) {\n            if (c[i] > remaining) continue;\n            path.add(c[i]);\n            dfs(c, i + 1, remaining - c[i], path, found);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case, with set overhead', space: 'O(\\text{target})' },
       pythonComplexity: undefined
     },
@@ -3836,6 +4460,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\n        Arrays.sort(candidates);\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(candidates, 0, target, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(int[] c, int start, int remaining, List<Integer> path, List<List<Integer>> result) {\n        if (remaining == 0) {\n            result.add(new ArrayList<>(path));\n            return;\n        }\n        for (int i = start; i < c.length; i++) {\n            if (c[i] > remaining) break;\n            if (i > start && c[i] == c[i - 1]) continue;\n            path.add(c[i]);\n            dfs(c, i + 1, remaining - c[i], path, result);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def combinationSum2(self, candidates, target):\n        candidates.sort(); result = []\n        def dfs(start, remain, path):\n            if remain == 0: result.append(path[:]); return\n            for i in range(start, len(candidates)):\n                if i > start and candidates[i] == candidates[i - 1]: continue\n                if candidates[i] > remain: break\n                dfs(i + 1, remain - candidates[i], path + [candidates[i]])\n        dfs(0, target, [])\n        return result",
+      pythonIntuition: 'Sort the candidates so equal values are adjacent. Within one loop, if `c[i]` equals `c[i-1]` and `i > start`, skip it. The earlier copy already explored every combination that would start with that value at this depth. Sorting also allows an early break once a candidate exceeds the remaining sum. No set is needed, because duplicates are never generated.',
+      pythonAlgorithm: ['Sort `candidates`.','`dfs(start, remaining)`: if `remaining == 0`, record a copy of the path.','For `i` from `start`:','- If `c[i] > remaining`, `break`.','- If `i > start` and `c[i] == c[i-1]`, `continue`.','- Append `c[i]`, recurse with `i + 1`, and remove.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort `candidates`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`dfs(start, remaining)`: if `remaining == 0`, record a copy of the path.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `start`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'Exponential in the worst case, with pruning', space: 'O(\\text{target})' },
       pythonComplexity: undefined
     }
@@ -3869,6 +4496,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> permute(int[] nums) {\n        List<List<Integer>> result = new ArrayList<>();\n        gen(nums, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void gen(int[] nums, List<Integer> path, List<List<Integer>> result) {\n        if (path.size() == nums.length) {\n            if (new HashSet<>(path).size() == nums.length) {\n                result.add(new ArrayList<>(path));\n            }\n            return;\n        }\n        for (int x : nums) {\n            path.add(x);\n            gen(nums, path, result);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^n \\cdot n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3880,6 +4510,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> permute(int[] nums) {\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(nums, new boolean[nums.length], new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(int[] nums, boolean[] used, List<Integer> path, List<List<Integer>> result) {\n        if (path.size() == nums.length) {\n            result.add(new ArrayList<>(path));\n            return;\n        }\n        for (int i = 0; i < nums.length; i++) {\n            if (used[i]) continue;\n            used[i] = true;\n            path.add(nums[i]);\n            dfs(nums, used, path, result);\n            path.remove(path.size() - 1);\n            used[i] = false;\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot n!)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -3891,6 +4524,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> permute(int[] nums) {\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(nums, 0, result);\n        return result;\n    }\n\n    private void dfs(int[] nums, int first, List<List<Integer>> result) {\n        if (first == nums.length) {\n            List<Integer> perm = new ArrayList<>();\n            for (int x : nums) perm.add(x);\n            result.add(perm);\n            return;\n        }\n        for (int i = first; i < nums.length; i++) {\n            swap(nums, first, i);\n            dfs(nums, first + 1, result);\n            swap(nums, first, i);\n        }\n    }\n\n    private void swap(int[] a, int i, int j) {\n        int t = a[i];\n        a[i] = a[j];\n        a[j] = t;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def permute(self, nums):\n        result = []\n        def dfs(path, remaining):\n            if not remaining: result.append(path); return\n            for i, x in enumerate(remaining):\n                dfs(path + [x], remaining[:i] + remaining[i + 1:])\n        dfs([], nums)\n        return result",
+      pythonIntuition: 'Permute the array in place. At position `first`, try swapping each element from `first` onward into that position, recurse on the next position, then swap back. The prefix `[0, first)` is fixed, and the suffix holds the remaining elements, so no used array or path list is needed.',
+      pythonAlgorithm: ['`dfs(first)`: if `first == n`, record a copy of `nums`.','For `i` from `first` to `n-1`: swap `nums[first]` and `nums[i]`, recurse with `first + 1`, then swap back.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dfs(first)`: if `first == n`, record a copy of `nums`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `first` to `n-1`: swap `nums[first]` and `nums[i]`, recurse with `first + 1`, then swap back.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n \\cdot n!)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -3924,6 +4560,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> subsetsWithDup(int[] nums) {\n        int n = nums.length;\n        Set<List<Integer>> found = new HashSet<>();\n        for (int mask = 0; mask < (1 << n); mask++) {\n            List<Integer> subset = new ArrayList<>();\n            for (int i = 0; i < n; i++) {\n                if (((mask >> i) & 1) == 1) subset.add(nums[i]);\n            }\n            subset.sort(null);\n            found.add(subset);\n        }\n        return new ArrayList<>(found);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot 2^n \\cdot \\log n)', space: 'O(n \\cdot 2^n)' },
       pythonComplexity: undefined
     },
@@ -3935,6 +4574,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public List<List<Integer>> subsetsWithDup(int[] nums) {\n        Set<List<Integer>> found = new HashSet<>();\n        dfs(nums, 0, new ArrayList<>(), found);\n        return new ArrayList<>(found);\n    }\n\n    private void dfs(int[] nums, int start, List<Integer> path, Set<List<Integer>> found) {\n        List<Integer> key = new ArrayList<>(path);\n        key.sort(null);\n        found.add(key);\n        for (int i = start; i < nums.length; i++) {\n            path.add(nums[i]);\n            dfs(nums, i + 1, path, found);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot 2^n \\cdot \\log n)', space: 'O(n \\cdot 2^n)' },
       pythonComplexity: undefined
     },
@@ -3946,6 +4588,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public List<List<Integer>> subsetsWithDup(int[] nums) {\n        Arrays.sort(nums);\n        List<List<Integer>> result = new ArrayList<>();\n        dfs(nums, 0, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(int[] nums, int start, List<Integer> path, List<List<Integer>> result) {\n        result.add(new ArrayList<>(path));\n        for (int i = start; i < nums.length; i++) {\n            if (i > start && nums[i] == nums[i - 1]) continue;\n            path.add(nums[i]);\n            dfs(nums, i + 1, path, result);\n            path.remove(path.size() - 1);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def subsetsWithDup(self, nums):\n        nums.sort(); result = []\n        def dfs(start, path):\n            result.append(path[:])\n            for i in range(start, len(nums)):\n                if i > start and nums[i] == nums[i - 1]: continue\n                dfs(i + 1, path + [nums[i]])\n        dfs(0, [])\n        return result",
+      pythonIntuition: 'Sort first. In the loop at each depth, skip `nums[i]` when `i > start` and `nums[i] == nums[i-1]`. The earlier sibling already produced every subset that begins with this value at this depth. No set is needed, and each subset is generated exactly once.',
+      pythonAlgorithm: ['Sort `nums`.','`dfs(start, path)`: record a copy of `path`.','For `i` from `start`: if `i > start` and `nums[i] == nums[i-1]`, `continue`. Otherwise append, recurse with `i + 1`, and remove.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort `nums`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`dfs(start, path)`: record a copy of `path`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `start`: if `i > start` and `nums[i] == nums[i-1]`, `continue`. Otherwise append, recurse with `i + 1`, and remove.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n \\cdot 2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -3979,6 +4624,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public boolean exist(char[][] board, String word) {\n        for (int r = 0; r < board.length; r++) {\n            for (int c = 0; c < board[0].length; c++) {\n                if (dfs(board, r, c, word, 0, new HashSet<>())) return true;\n            }\n        }\n        return false;\n    }\n\n    private boolean dfs(char[][] b, int r, int c, String word, int idx, Set<String> visited) {\n        if (idx == word.length()) return true;\n        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;\n        String key = r + \",\" + c;\n        if (visited.contains(key) || b[r][c] != word.charAt(idx)) return false;\n        Set<String> next = new HashSet<>(visited);\n        next.add(key);\n        for (int[] d : DIRS) {\n            if (dfs(b, r + d[0], c + d[1], word, idx + 1, next)) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m \\cdot n \\cdot 4^L)', space: 'O(L^2)' },
       pythonComplexity: undefined
     },
@@ -3990,6 +4638,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public boolean exist(char[][] board, String word) {\n        boolean[][] visited = new boolean[board.length][board[0].length];\n        for (int r = 0; r < board.length; r++) {\n            for (int c = 0; c < board[0].length; c++) {\n                if (dfs(board, visited, r, c, word, 0)) return true;\n            }\n        }\n        return false;\n    }\n\n    private boolean dfs(char[][] b, boolean[][] vis, int r, int c, String word, int idx) {\n        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;\n        if (vis[r][c] || b[r][c] != word.charAt(idx)) return false;\n        if (idx == word.length() - 1) return true;\n        vis[r][c] = true;\n        for (int[] d : DIRS) {\n            if (dfs(b, vis, r + d[0], c + d[1], word, idx + 1)) {\n                vis[r][c] = false;\n                return true;\n            }\n        }\n        vis[r][c] = false;\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m \\cdot n \\cdot 4^L)', space: 'O(m \\cdot n + L)' },
       pythonComplexity: undefined
     },
@@ -4001,6 +4652,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public boolean exist(char[][] board, String word) {\n        for (int r = 0; r < board.length; r++) {\n            for (int c = 0; c < board[0].length; c++) {\n                if (dfs(board, r, c, word, 0)) return true;\n            }\n        }\n        return false;\n    }\n\n    private boolean dfs(char[][] b, int r, int c, String word, int idx) {\n        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;\n        if (b[r][c] != word.charAt(idx)) return false;\n        if (idx == word.length() - 1) return true;\n        char saved = b[r][c];\n        b[r][c] = '#';\n        for (int[] d : DIRS) {\n            if (dfs(b, r + d[0], c + d[1], word, idx + 1)) {\n                b[r][c] = saved;\n                return true;\n            }\n        }\n        b[r][c] = saved;\n        return false;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def exist(self, board, word):\n        rows, cols = len(board), len(board[0])\n        def dfs(r, c, i):\n            if i == len(word): return True\n            if r < 0 or c < 0 or r == rows or c == cols or board[r][c] != word[i]: return False\n            ch = board[r][c]; board[r][c] = \"#\"\n            found = any(dfs(r + dr, c + dc, i + 1) for dr, dc in ((1,0),(-1,0),(0,1),(0,-1)))\n            board[r][c] = ch\n            return found\n        return any(dfs(r, c, 0) for r in range(rows) for c in range(cols))",
+      pythonIntuition: 'The board is ours to modify temporarily. Overwrite a visited cell with a sentinel character such as `#` while exploring, then restore it on return. This removes the separate visited array, so each cell check is a single comparison.',
+      pythonAlgorithm: ['For every start cell, run `dfs`.','`dfs`: return `False` if out of bounds or the cell does not match. If `idx` is the last character, return `True`.','Save `ch = board[r][c]`, set `board[r][c] = \'#\'`, explore the four neighbours, and restore `board[r][c] = ch`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For every start cell, run `dfs`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`dfs`: return `False` if out of bounds or the cell does not match. If `idx` is the last character, return `True`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Save `ch = board[r][c]`, set `board[r][c] = \'#\'`, explore the four neighbours, and restore `board[r][c] = ch`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.'],
       complexity: { time: 'O(m \\cdot n \\cdot 4^L)', space: 'O(L)' },
       pythonComplexity: undefined
     }
@@ -4034,6 +4688,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<String>> partition(String s) {\n        int n = s.length();\n        List<List<String>> result = new ArrayList<>();\n        for (int mask = 0; mask < (1 << (n - 1)); mask++) {\n            List<String> parts = new ArrayList<>();\n            int start = 0;\n            boolean valid = true;\n            for (int i = 0; i < n; i++) {\n                boolean cutHere = (i == n - 1) || ((mask >> i) & 1) == 1;\n                if (cutHere) {\n                    String piece = s.substring(start, i + 1);\n                    if (!isPal(piece)) {\n                        valid = false;\n                        break;\n                    }\n                    parts.add(piece);\n                    start = i + 1;\n                }\n            }\n            if (valid) result.add(parts);\n        }\n        return result;\n    }\n\n    private boolean isPal(String t) {\n        int l = 0, r = t.length() - 1;\n        while (l < r) {\n            if (t.charAt(l++) != t.charAt(r--)) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n \\cdot n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -4045,6 +4702,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<String>> partition(String s) {\n        List<List<String>> result = new ArrayList<>();\n        dfs(s, 0, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(String s, int start, List<String> parts, List<List<String>> result) {\n        if (start == s.length()) {\n            result.add(new ArrayList<>(parts));\n            return;\n        }\n        for (int end = start; end < s.length(); end++) {\n            if (isPal(s, start, end)) {\n                parts.add(s.substring(start, end + 1));\n                dfs(s, end + 1, parts, result);\n                parts.remove(parts.size() - 1);\n            }\n        }\n    }\n\n    private boolean isPal(String s, int l, int r) {\n        while (l < r) {\n            if (s.charAt(l++) != s.charAt(r--)) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot 2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -4056,6 +4716,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private boolean[][] isPal;\n\n    public List<List<String>> partition(String s) {\n        int n = s.length();\n        isPal = new boolean[n][n];\n        for (int j = 0; j < n; j++) {\n            for (int i = 0; i <= j; i++) {\n                isPal[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 2 || isPal[i + 1][j - 1]);\n            }\n        }\n        List<List<String>> result = new ArrayList<>();\n        dfs(s, 0, new ArrayList<>(), result);\n        return result;\n    }\n\n    private void dfs(String s, int start, List<String> parts, List<List<String>> result) {\n        if (start == s.length()) {\n            result.add(new ArrayList<>(parts));\n            return;\n        }\n        for (int end = start; end < s.length(); end++) {\n            if (isPal[start][end]) {\n                parts.add(s.substring(start, end + 1));\n                dfs(s, end + 1, parts, result);\n                parts.remove(parts.size() - 1);\n            }\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def partition(self, s: str) -> List[List[str]]:\n        result = []\n        def dfs(start, path):\n            if start == len(s): result.append(path[:]); return\n            for end in range(start + 1, len(s) + 1):\n                part = s[start:end]\n                if part == part[::-1]: dfs(end, path + [part])\n        dfs(0, [])\n        return result",
+      pythonIntuition: 'A substring `s[i..j]` is a palindrome when `s[i] == s[j]` and `s[i+1..j-1]` is a palindrome. Fill a table `isPal[i][j]` in increasing order of length. Backtracking then checks each piece in $O(1)$.',
+      pythonAlgorithm: ['For `j` from `0` to `n-1`, and `i` from `0` to `j`: `isPal[i][j] = s[i] == s[j] && (j - i < 2 || isPal[i+1][j-1])`.','`dfs(start)`: as in Approach 2, but test `isPal[start][end]` instead of recomputing.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For `j` from `0` to `n-1`, and `i` from `0` to `j`: `isPal[i][j] = s[i] == s[j] && (j - i < 2 || isPal[i+1][j-1])`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`dfs(start)`: as in Approach 2, but test `isPal[start][end]` instead of recomputing.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     }
@@ -4089,6 +4752,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static final String[] MAP = {\"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"};\n\n    public List<String> letterCombinations(String digits) {\n        List<String> result = new ArrayList<>();\n        int n = digits.length();\n        if (n == 0) return result;\n        int total = 1;\n        for (char d : digits.toCharArray()) total *= MAP[d - '0'].length();\n        for (int idx = 0; idx < total; idx++) {\n            char[] buf = new char[n];\n            int x = idx;\n            for (int pos = n - 1; pos >= 0; pos--) {\n                String letters = MAP[digits.charAt(pos) - '0'];\n                buf[pos] = letters.charAt(x % letters.length());\n                x /= letters.length();\n            }\n            result.add(new String(buf));\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot 4^n)', space: 'O(n \\cdot 4^n)' },
       pythonComplexity: undefined
     },
@@ -4100,6 +4766,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static final String[] MAP = {\"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"};\n\n    public List<String> letterCombinations(String digits) {\n        List<String> result = new ArrayList<>();\n        if (digits.isEmpty()) return result;\n        result.add(\"\");\n        for (char d : digits.toCharArray()) {\n            List<String> next = new ArrayList<>();\n            for (String prefix : result) {\n                for (char ch : MAP[d - '0'].toCharArray()) {\n                    next.add(prefix + ch);\n                }\n            }\n            result = next;\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot 4^n)', space: 'O(n \\cdot 4^n)' },
       pythonComplexity: undefined
     },
@@ -4111,6 +4780,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static final String[] MAP = {\"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"};\n\n    public List<String> letterCombinations(String digits) {\n        List<String> result = new ArrayList<>();\n        if (digits.isEmpty()) return result;\n        dfs(digits, 0, new StringBuilder(), result);\n        return result;\n    }\n\n    private void dfs(String digits, int i, StringBuilder sb, List<String> result) {\n        if (i == digits.length()) {\n            result.add(sb.toString());\n            return;\n        }\n        for (char ch : MAP[digits.charAt(i) - '0'].toCharArray()) {\n            sb.append(ch);\n            dfs(digits, i + 1, sb, result);\n            sb.deleteCharAt(sb.length() - 1);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def letterCombinations(self, digits: str) -> List[str]:\n        if not digits: return []\n        mapping = [\"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"]\n        result = [\"\"]\n        for digit in digits:\n            result = [prefix + ch for prefix in result for ch in mapping[int(digit)]]\n        return result",
+      pythonIntuition: 'Recurse through the digits. At each level, try every letter for the current digit, append it, recurse to the next digit, and remove it. A single `StringBuilder` is reused, so no intermediate lists are built.',
+      pythonAlgorithm: ['`dfs(i, sb)`: if `i == n`, record `sb.toString()`.','Otherwise, for each letter of `digits[i]`: append, recurse with `i + 1`, and delete the last character.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dfs(i, sb)`: if `i == n`, record `sb.toString()`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Otherwise, for each letter of `digits[i]`: append, recurse with `i + 1`, and delete the last character.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.'],
       complexity: { time: 'O(n \\cdot 4^n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -4144,6 +4816,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<List<String>> solveNQueens(int n) {\n        List<List<String>> result = new ArrayList<>();\n        int[] perm = new int[n];\n        boolean[] usedCol = new boolean[n];\n        gen(0, n, perm, usedCol, result);\n        return result;\n    }\n\n    private void gen(int row, int n, int[] perm, boolean[] usedCol, List<List<String>> result) {\n        if (row == n) {\n            if (valid(perm, n)) result.add(build(perm, n));\n            return;\n        }\n        for (int c = 0; c < n; c++) {\n            if (usedCol[c]) continue;\n            usedCol[c] = true;\n            perm[row] = c;\n            gen(row + 1, n, perm, usedCol, result);\n            usedCol[c] = false;\n        }\n    }\n\n    private boolean valid(int[] perm, int n) {\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (Math.abs(i - j) == Math.abs(perm[i] - perm[j])) return false;\n            }\n        }\n        return true;\n    }\n\n    private List<String> build(int[] perm, int n) {\n        List<String> board = new ArrayList<>();\n        for (int r = 0; r < n; r++) {\n            char[] row = new char[n];\n            java.util.Arrays.fill(row, '.');\n            row[perm[r]] = 'Q';\n            board.add(new String(row));\n        }\n        return board;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n! \\cdot n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -4155,6 +4830,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    private char[][] board;\n    private List<List<String>> result;\n\n    public List<List<String>> solveNQueens(int n) {\n        board = new char[n][n];\n        for (char[] row : board) Arrays.fill(row, '.');\n        result = new ArrayList<>();\n        solve(0);\n        return result;\n    }\n\n    private void solve(int r) {\n        int n = board.length;\n        if (r == n) {\n            List<String> snapshot = new ArrayList<>();\n            for (char[] row : board) snapshot.add(new String(row));\n            result.add(snapshot);\n            return;\n        }\n        for (int c = 0; c < n; c++) {\n            if (isSafe(r, c)) {\n                board[r][c] = 'Q';\n                solve(r + 1);\n                board[r][c] = '.';\n            }\n        }\n    }\n\n    private boolean isSafe(int r, int c) {\n        for (int i = 0; i < r; i++) {\n            if (board[i][c] == 'Q') return false;\n        }\n        for (int i = r - 1, j = c - 1; i >= 0 && j >= 0; i--, j--) {\n            if (board[i][j] == 'Q') return false;\n        }\n        for (int i = r - 1, j = c + 1; i >= 0 && j < board.length; i--, j++) {\n            if (board[i][j] == 'Q') return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n!)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -4166,6 +4844,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    private int n;\n    private boolean[] cols, d1, d2;\n    private int[] queenCol;\n    private List<List<String>> result;\n\n    public List<List<String>> solveNQueens(int n) {\n        this.n = n;\n        cols = new boolean[n];\n        d1 = new boolean[2 * n];\n        d2 = new boolean[2 * n];\n        queenCol = new int[n];\n        result = new ArrayList<>();\n        solve(0);\n        return result;\n    }\n\n    private void solve(int r) {\n        if (r == n) {\n            List<String> board = new ArrayList<>();\n            for (int i = 0; i < n; i++) {\n                char[] row = new char[n];\n                Arrays.fill(row, '.');\n                row[queenCol[i]] = 'Q';\n                board.add(new String(row));\n            }\n            result.add(board);\n            return;\n        }\n        for (int c = 0; c < n; c++) {\n            if (cols[c] || d1[r + c] || d2[r - c + n - 1]) continue;\n            cols[c] = d1[r + c] = d2[r - c + n - 1] = true;\n            queenCol[r] = c;\n            solve(r + 1);\n            cols[c] = d1[r + c] = d2[r - c + n - 1] = false;\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def solveNQueens(self, n: int) -> List[List[str]]:\n        result, cols, diag1, diag2 = [], set(), set(), set()\n        board = [[\".\"] * n for _ in range(n)]\n        def dfs(r):\n            if r == n:\n                result.append([\"\".join(row) for row in board]); return\n            for c in range(n):\n                if c in cols or r-c in diag1 or r+c in diag2: continue\n                cols.add(c); diag1.add(r-c); diag2.add(r+c); board[r][c] = \"Q\"\n                dfs(r + 1)\n                board[r][c] = \".\"; cols.remove(c); diag1.remove(r-c); diag2.remove(r+c)\n        dfs(0)\n        return result",
+      pythonIntuition: 'Keep three bool arrays: `cols[c]`, `diag1[r + c]` for anti-diagonals, and `diag2[r - c + n - 1]` for diagonals. A square is safe when all three are free, which takes $O(1)$. Marking and unmarking are constant time, so the search does no scanning.',
+      pythonAlgorithm: ['`solve(r)`: if `r == n`, build the board from the `queenCol` array and record it.','For each column `c`, if `!cols[c] && !d1[r+c] && !d2[r-c+n-1]`:','- Set `queenCol[r] = c`, mark all three arrays.','- Recurse with `r + 1`, then unmark.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`solve(r)`: if `r == n`, build the board from the `queenCol` array and record it.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','For each column `c`, if `!cols[c] && !d1[r+c] && !d2[r-c+n-1]`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n!)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -4199,6 +4880,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Trie {\n    private final List<String> words = new ArrayList<>();\n\n    public void insert(String word) {\n        words.add(word);\n    }\n\n    public boolean search(String word) {\n        return words.contains(word);\n    }\n\n    public boolean startsWith(String prefix) {\n        for (String w : words) {\n            if (w.startsWith(prefix)) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`insert` is O(1), `search` and `startsWith` are O(N \\cdot L)', space: 'O(N \\cdot L)' },
       pythonComplexity: undefined
     },
@@ -4210,6 +4894,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Trie {\n    private final Set<String> words = new HashSet<>();\n    private final Set<String> prefixes = new HashSet<>();\n\n    public void insert(String word) {\n        words.add(word);\n        for (int i = 1; i <= word.length(); i++) {\n            prefixes.add(word.substring(0, i));\n        }\n    }\n\n    public boolean search(String word) {\n        return words.contains(word);\n    }\n\n    public boolean startsWith(String prefix) {\n        return prefixes.contains(prefix);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`insert` is O(L^2) for substring building, `search` and `startsWith` are O(L) for hashing', space: 'O(N \\cdot L^2)' },
       pythonComplexity: undefined
     },
@@ -4221,6 +4908,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Trie {\n    private static class Node {\n        Node[] children = new Node[26];\n        boolean isEnd;\n    }\n\n    private final Node root = new Node();\n\n    public void insert(String word) {\n        Node cur = root;\n        for (char ch : word.toCharArray()) {\n            int i = ch - 'a';\n            if (cur.children[i] == null) cur.children[i] = new Node();\n            cur = cur.children[i];\n        }\n        cur.isEnd = true;\n    }\n\n    public boolean search(String word) {\n        Node node = find(word);\n        return node != null && node.isEnd;\n    }\n\n    public boolean startsWith(String prefix) {\n        return find(prefix) != null;\n    }\n\n    private Node find(String s) {\n        Node cur = root;\n        for (char ch : s.toCharArray()) {\n            cur = cur.children[ch - 'a'];\n            if (cur == null) return null;\n        }\n        return cur;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Trie:\n    def __init__(self):\n        self.root = {}\n\n    def insert(self, word: str) -> None:\n        node = self.root\n        for ch in word: node = node.setdefault(ch, {})\n        node[\"#\"] = True\n\n    def search(self, word: str) -> bool:\n        node = self.root\n        for ch in word:\n            if ch not in node: return False\n            node = node[ch]\n        return \"#\" in node\n\n    def startsWith(self, prefix: str) -> bool:\n        node = self.root\n        for ch in prefix:\n            if ch not in node: return False\n            node = node[ch]\n        return True",
+      pythonIntuition: 'Build the actual tree. Each node has up to 26 children, indexed by letter, and a flag marking the end of a word. Insertion and lookup each walk the characters once, sharing storage across common prefixes.',
+      pythonAlgorithm: ['`insert`: from the root, for each character, create the child if missing and descend. Set `isEnd` at the last node.','`search`: descend; return `isEnd` of the final node, or `False` if a child is missing.','`startsWith`: descend; return `True` if the path exists.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`insert`: from the root, for each character, create the child if missing and descend. Set `isEnd` at the last node.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`search`: descend; return `isEnd` of the final node, or `False` if a child is missing.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`startsWith`: descend; return `True` if the path exists.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(L)', space: 'O(N \\cdot L \\cdot 26)' },
       pythonComplexity: undefined
     }
@@ -4254,6 +4944,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass WordDictionary {\n    private final List<String> words = new ArrayList<>();\n\n    public void addWord(String word) {\n        words.add(word);\n    }\n\n    public boolean search(String pattern) {\n        for (String w : words) {\n            if (w.length() == pattern.length() && matches(w, pattern)) return true;\n        }\n        return false;\n    }\n\n    private boolean matches(String w, String p) {\n        for (int i = 0; i < p.length(); i++) {\n            if (p.charAt(i) != '.' && p.charAt(i) != w.charAt(i)) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`search` is O(N \\cdot L)', space: 'O(N \\cdot L)' },
       pythonComplexity: undefined
     },
@@ -4265,6 +4958,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass WordDictionary {\n    private final Map<Integer, List<String>> buckets = new HashMap<>();\n\n    public void addWord(String word) {\n        buckets.computeIfAbsent(word.length(), k -> new ArrayList<>()).add(word);\n    }\n\n    public boolean search(String pattern) {\n        for (String w : buckets.getOrDefault(pattern.length(), List.of())) {\n            if (matches(w, pattern)) return true;\n        }\n        return false;\n    }\n\n    private boolean matches(String w, String p) {\n        for (int i = 0; i < p.length(); i++) {\n            if (p.charAt(i) != '.' && p.charAt(i) != w.charAt(i)) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`search` is O(N_L \\cdot L), where N_L is the number of words of length L', space: 'O(N \\cdot L)' },
       pythonComplexity: undefined
     },
@@ -4276,6 +4972,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class WordDictionary {\n    private static class Node {\n        Node[] children = new Node[26];\n        boolean isEnd;\n    }\n\n    private final Node root = new Node();\n\n    public void addWord(String word) {\n        Node cur = root;\n        for (char ch : word.toCharArray()) {\n            int i = ch - 'a';\n            if (cur.children[i] == null) cur.children[i] = new Node();\n            cur = cur.children[i];\n        }\n        cur.isEnd = true;\n    }\n\n    public boolean search(String word) {\n        return dfs(root, word, 0);\n    }\n\n    private boolean dfs(Node node, String word, int idx) {\n        if (idx == word.length()) return node.isEnd;\n        char ch = word.charAt(idx);\n        if (ch == '.') {\n            for (Node child : node.children) {\n                if (child != null && dfs(child, word, idx + 1)) return true;\n            }\n            return false;\n        }\n        Node next = node.children[ch - 'a'];\n        return next != null && dfs(next, word, idx + 1);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass WordDictionary:\n    def __init__(self):\n        self.root = {}\n\n    def addWord(self, word: str) -> None:\n        node = self.root\n        for ch in word: node = node.setdefault(ch, {})\n        node[\"#\"] = True\n\n    def search(self, word: str) -> bool:\n        def dfs(node, i):\n            if i == len(word): return \"#\" in node\n            ch = word[i]\n            if ch == \".\": return any(dfs(child, i + 1) for key, child in node.items() if key != \"#\")\n            return ch in node and dfs(node[ch], i + 1)\n        return dfs(self.root, 0)",
+      pythonIntuition: 'Store words in a trie. For a normal letter, follow one child. For a `.`, try every existing child and succeed if any branch matches the rest of the pattern. Branches that do not exist are pruned immediately.',
+      pythonAlgorithm: ['`addWord`: insert into the trie, marking `isEnd` at the last node.','`search(word, idx, node)`: if `idx` is past the end, return `node.isEnd`. If the character is a letter, descend into that child if it exists. If it is `.`, return `True` if any non-None child matches from `idx + 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`addWord`: insert into the trie, marking `isEnd` at the last node.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`search(word, idx, node)`: if `idx` is past the end, return `node.isEnd`. If the character is a letter, descend into that child if it exists. If it is `.`, return `True` if any non-None child matches from `idx + 1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(L)', space: 'O(N \\cdot L \\cdot 26)' },
       pythonComplexity: undefined
     }
@@ -4309,6 +5008,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public List<String> findWords(char[][] board, String[] words) {\n        List<String> result = new ArrayList<>();\n        for (String w : words) {\n            if (exist(board, w)) result.add(w);\n        }\n        return result;\n    }\n\n    private boolean exist(char[][] board, String word) {\n        for (int r = 0; r < board.length; r++) {\n            for (int c = 0; c < board[0].length; c++) {\n                if (dfs(board, r, c, word, 0)) return true;\n            }\n        }\n        return false;\n    }\n\n    private boolean dfs(char[][] b, int r, int c, String word, int idx) {\n        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return false;\n        if (b[r][c] != word.charAt(idx)) return false;\n        if (idx == word.length() - 1) return true;\n        char saved = b[r][c];\n        b[r][c] = '#';\n        for (int[] d : DIRS) {\n            if (dfs(b, r + d[0], c + d[1], word, idx + 1)) {\n                b[r][c] = saved;\n                return true;\n            }\n        }\n        b[r][c] = saved;\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(W \\cdot m \\cdot n \\cdot 4^L)', space: 'O(L)' },
       pythonComplexity: undefined
     },
@@ -4320,6 +5022,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static class Node {\n        Node[] children = new Node[26];\n        String word;\n    }\n\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public List<String> findWords(char[][] board, String[] words) {\n        Node root = new Node();\n        for (String w : words) {\n            Node cur = root;\n            for (char ch : w.toCharArray()) {\n                int i = ch - 'a';\n                if (cur.children[i] == null) cur.children[i] = new Node();\n                cur = cur.children[i];\n            }\n            cur.word = w;\n        }\n        List<String> result = new ArrayList<>();\n        for (int r = 0; r < board.length; r++) {\n            for (int c = 0; c < board[0].length; c++) {\n                dfs(board, r, c, root, result);\n            }\n        }\n        return result;\n    }\n\n    private void dfs(char[][] b, int r, int c, Node parent, List<String> result) {\n        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return;\n        char ch = b[r][c];\n        if (ch == '#') return;\n        Node next = parent.children[ch - 'a'];\n        if (next == null) return;\n        if (next.word != null) {\n            result.add(next.word);\n            next.word = null;\n        }\n        b[r][c] = '#';\n        for (int[] d : DIRS) {\n            dfs(b, r + d[0], c + d[1], next, result);\n        }\n        b[r][c] = ch;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(m \\cdot n \\cdot 4^L)', space: 'O(W \\cdot L \\cdot 26)' },
       pythonComplexity: undefined
     },
@@ -4331,6 +5036,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static class Node {\n        Node[] children = new Node[26];\n        String word;\n    }\n\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public List<String> findWords(char[][] board, String[] words) {\n        Node root = new Node();\n        for (String w : words) {\n            Node cur = root;\n            for (char ch : w.toCharArray()) {\n                int i = ch - 'a';\n                if (cur.children[i] == null) cur.children[i] = new Node();\n                cur = cur.children[i];\n            }\n            cur.word = w;\n        }\n        List<String> result = new ArrayList<>();\n        for (int r = 0; r < board.length; r++) {\n            for (int c = 0; c < board[0].length; c++) {\n                dfs(board, r, c, root, result);\n            }\n        }\n        return result;\n    }\n\n    private void dfs(char[][] b, int r, int c, Node parent, List<String> result) {\n        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return;\n        char ch = b[r][c];\n        if (ch == '#') return;\n        Node next = parent.children[ch - 'a'];\n        if (next == null) return;\n        if (next.word != null) {\n            result.add(next.word);\n            next.word = null;\n        }\n        b[r][c] = '#';\n        for (int[] d : DIRS) {\n            dfs(b, r + d[0], c + d[1], next, result);\n        }\n        b[r][c] = ch;\n        if (isEmpty(next)) {\n            parent.children[ch - 'a'] = null;\n        }\n    }\n\n    private boolean isEmpty(Node n) {\n        if (n.word != null) return false;\n        for (Node child : n.children) {\n            if (child != null) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findWords(self, board, words):\n        root = {}\n        for word in words:\n            node = root\n            for ch in word: node = node.setdefault(ch, {})\n            node[\"$\"] = word\n        rows, cols, result = len(board), len(board[0]), []\n        def dfs(r, c, node):\n            ch = board[r][c]\n            if ch not in node: return\n            nxt = node[ch]\n            word = nxt.pop(\"$\", None)\n            if word: result.append(word)\n            board[r][c] = \"#\"\n            for dr, dc in ((1,0),(-1,0),(0,1),(0,-1)):\n                nr, nc = r + dr, c + dc\n                if 0 <= nr < rows and 0 <= nc < cols and board[nr][nc] != \"#\":\n                    dfs(nr, nc, nxt)\n            board[r][c] = ch\n            if not nxt: node.pop(ch)\n        for r in range(rows):\n            for c in range(cols): dfs(r, c, root)\n        return result",
+      pythonIntuition: 'Once every word below a trie node is found, that node is dead weight, and the DFS would keep visiting it. After returning from a child, remove the child from the trie if it has no children and no pending word. This shrinks the trie as the search runs, so later cells explore less. Clearing the word marker still prevents duplicates.',
+      pythonAlgorithm: ['Build the trie as in Approach 2.','In `dfs`, after exploring the neighbours, restore the cell. If `next` has no children and `next.word == None`, set `parent.children[ch - \'a\'] = None`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Build the trie as in Approach 2.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','In `dfs`, after exploring the neighbours, restore the cell. If `next` has no children and `next.word == None`, set `parent.children[ch - \'a\'] = None`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.'],
       complexity: { time: 'O(m \\cdot n \\cdot 4^L)', space: 'O(W \\cdot L \\cdot 26)' },
       pythonComplexity: undefined
     }
@@ -4364,6 +5072,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int numIslands(char[][] grid) {\n        Set<String> seen = new HashSet<>();\n        int count = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                if (grid[r][c] == '1' && !seen.contains(r + \",\" + c)) {\n                    count++;\n                    fill(grid, r, c, seen);\n                }\n            }\n        }\n        return count;\n    }\n\n    private void fill(char[][] g, int r, int c, Set<String> seen) {\n        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return;\n        String key = r + \",\" + c;\n        if (g[r][c] != '1' || seen.contains(key)) return;\n        seen.add(key);\n        fill(g, r + 1, c, seen);\n        fill(g, r - 1, c, seen);\n        fill(g, r, c + 1, seen);\n        fill(g, r, c - 1, seen);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4375,6 +5086,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int numIslands(char[][] grid) {\n        boolean[][] visited = new boolean[grid.length][grid[0].length];\n        int count = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                if (grid[r][c] == '1' && !visited[r][c]) {\n                    count++;\n                    dfs(grid, visited, r, c);\n                }\n            }\n        }\n        return count;\n    }\n\n    private void dfs(char[][] g, boolean[][] vis, int r, int c) {\n        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return;\n        if (g[r][c] != '1' || vis[r][c]) return;\n        vis[r][c] = true;\n        dfs(g, vis, r + 1, c);\n        dfs(g, vis, r - 1, c);\n        dfs(g, vis, r, c + 1);\n        dfs(g, vis, r, c - 1);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4386,6 +5100,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int numIslands(char[][] grid) {\n        int count = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                if (grid[r][c] == '1') {\n                    count++;\n                    sink(grid, r, c);\n                }\n            }\n        }\n        return count;\n    }\n\n    private void sink(char[][] g, int r, int c) {\n        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length || g[r][c] != '1') return;\n        g[r][c] = '0';\n        sink(g, r + 1, c);\n        sink(g, r - 1, c);\n        sink(g, r, c + 1);\n        sink(g, r, c - 1);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def numIslands(self, grid):\n        rows, cols, count = len(grid), len(grid[0]), 0\n        for r in range(rows):\n            for c in range(cols):\n                if grid[r][c] != \"1\": continue\n                count += 1\n                stack = [(r, c)]; grid[r][c] = \"0\"\n                while stack:\n                    x, y = stack.pop()\n                    for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                        nx, ny = x+dx, y+dy\n                        if 0 <= nx < rows and 0 <= ny < cols and grid[nx][ny] == \"1\":\n                            grid[nx][ny] = \"0\"; stack.append((nx,ny))\n        return count",
+      pythonIntuition: 'Once a land cell is part of a counted island, change it to water. Then the grid itself records visited cells, and no extra structure is needed.',
+      pythonAlgorithm: ['For each `\'1\'` cell, increment the count and sink the island: set the cell to `\'0\'` and recurse into land neighbours.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each `\'1\'` cell, increment the count and sink the island: set the cell to `\'0\'` and recurse into land neighbours.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -4419,6 +5136,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        Set<String> seen = new HashSet<>();\n        int best = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                if (grid[r][c] == 1 && !seen.contains(r + \",\" + c)) {\n                    best = Math.max(best, fill(grid, r, c, seen));\n                }\n            }\n        }\n        return best;\n    }\n\n    private int fill(int[][] g, int r, int c, Set<String> seen) {\n        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return 0;\n        String key = r + \",\" + c;\n        if (g[r][c] != 1 || seen.contains(key)) return 0;\n        seen.add(key);\n        return 1 + fill(g, r + 1, c, seen) + fill(g, r - 1, c, seen)\n                 + fill(g, r, c + 1, seen) + fill(g, r, c - 1, seen);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4430,6 +5150,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        boolean[][] visited = new boolean[grid.length][grid[0].length];\n        int best = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                if (grid[r][c] == 1 && !visited[r][c]) {\n                    best = Math.max(best, dfs(grid, visited, r, c));\n                }\n            }\n        }\n        return best;\n    }\n\n    private int dfs(int[][] g, boolean[][] vis, int r, int c) {\n        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return 0;\n        if (g[r][c] != 1 || vis[r][c]) return 0;\n        vis[r][c] = true;\n        return 1 + dfs(g, vis, r + 1, c) + dfs(g, vis, r - 1, c)\n                 + dfs(g, vis, r, c + 1) + dfs(g, vis, r, c - 1);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4441,6 +5164,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        int best = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                best = Math.max(best, sink(grid, r, c));\n            }\n        }\n        return best;\n    }\n\n    private int sink(int[][] g, int r, int c) {\n        if (r < 0 || c < 0 || r >= g.length || c >= g[0].length || g[r][c] != 1) return 0;\n        g[r][c] = 0;\n        return 1 + sink(g, r + 1, c) + sink(g, r - 1, c) + sink(g, r, c + 1) + sink(g, r, c - 1);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxAreaOfIsland(self, grid):\n        rows, cols, best = len(grid), len(grid[0]), 0\n        for r in range(rows):\n            for c in range(cols):\n                if grid[r][c] != 1: continue\n                area = 0; stack = [(r,c)]; grid[r][c] = 0\n                while stack:\n                    x,y=stack.pop(); area+=1\n                    for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                        nx,ny=x+dx,y+dy\n                        if 0<=nx<rows and 0<=ny<cols and grid[nx][ny]==1:\n                            grid[nx][ny]=0; stack.append((nx,ny))\n                best=max(best,area)\n        return best",
+      pythonIntuition: 'Sink each visited land cell to water, so the grid records visited cells. The DFS returns the area directly, with no extra memory beyond the recursion stack.',
+      pythonAlgorithm: ['For each `1`, compute the area by sinking the island and summing the returned counts.','Return the maximum.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each `1`, compute the area by sinking the island and summing the returned counts.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return the maximum.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -4474,6 +5200,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public Node cloneGraph(Node node) {\n        if (node == null) return null;\n        List<Node> nodes = new ArrayList<>();\n        collect(node, nodes);\n        List<Node> clones = new ArrayList<>();\n        for (Node n : nodes) clones.add(new Node(n.val));\n        for (int i = 0; i < nodes.size(); i++) {\n            for (Node nb : nodes.get(i).neighbors) {\n                int j = 0;\n                while (nodes.get(j) != nb) j++;\n                clones.get(i).neighbors.add(clones.get(j));\n            }\n        }\n        return clones.get(0);\n    }\n\n    private void collect(Node n, List<Node> nodes) {\n        if (nodes.contains(n)) return;\n        nodes.add(n);\n        for (Node nb : n.neighbors) collect(nb, nodes);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(V^2 + E \\cdot V)', space: 'O(V)' },
       pythonComplexity: undefined
     },
@@ -4485,6 +5214,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    private final Map<Node, Node> map = new HashMap<>();\n\n    public Node cloneGraph(Node node) {\n        if (node == null) return null;\n        if (map.containsKey(node)) return map.get(node);\n        Node copy = new Node(node.val, new ArrayList<>());\n        map.put(node, copy);\n        for (Node nb : node.neighbors) {\n            copy.neighbors.add(cloneGraph(nb));\n        }\n        return copy;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(V + E)', space: 'O(V)' },
       pythonComplexity: undefined
     },
@@ -4496,6 +5228,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.Map;\nimport java.util.Queue;\n\nclass Solution {\n    public Node cloneGraph(Node node) {\n        if (node == null) return null;\n        Map<Node, Node> map = new HashMap<>();\n        Queue<Node> queue = new ArrayDeque<>();\n        map.put(node, new Node(node.val, new ArrayList<>()));\n        queue.offer(node);\n        while (!queue.isEmpty()) {\n            Node n = queue.poll();\n            for (Node nb : n.neighbors) {\n                if (!map.containsKey(nb)) {\n                    map.put(nb, new Node(nb.val, new ArrayList<>()));\n                    queue.offer(nb);\n                }\n                map.get(n).neighbors.add(map.get(nb));\n            }\n        }\n        return map.get(node);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def cloneGraph(self, node):\n        if not node: return None\n        copies = {node: Node(node.val)}\n        queue = deque([node])\n        while queue:\n            cur = queue.popleft()\n            for nei in cur.neighbors:\n                if nei not in copies:\n                    copies[nei] = Node(nei.val); queue.append(nei)\n                copies[cur].neighbors.append(copies[nei])\n        return copies[node]",
+      pythonIntuition: 'The same mapping, driven by a queue instead of recursion. Clone each node when it is first discovered, and wire its neighbours as the queue drains. This avoids deep recursion on large graphs.',
+      pythonAlgorithm: ['Create the clone of `node`, map it, and enqueue the original.','While the queue is non-empty: dequeue `n`. For each neighbour `nb`, if it has no clone, create one, map it, and enqueue `nb`. Add `map.get(nb)` to `map.get(n).neighbors`.','Return `map.get(node)`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Create the clone of `node`, map it, and enqueue the original.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','While the queue is non-empty: dequeue `n`. For each neighbour `nb`, if it has no clone, create one, map it, and enqueue `nb`. Add `map.get(nb)` to `map.get(n).neighbors`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `map.get(node)`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(V + E)', space: 'O(V)' },
       pythonComplexity: undefined
     }
@@ -4529,6 +5264,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    private static final int INF = 2147483647;\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public void wallsAndGates(int[][] rooms) {\n        for (int r = 0; r < rooms.length; r++) {\n            for (int c = 0; c < rooms[0].length; c++) {\n                if (rooms[r][c] == INF) {\n                    rooms[r][c] = nearestGate(rooms, r, c);\n                }\n            }\n        }\n    }\n\n    private int nearestGate(int[][] rooms, int sr, int sc) {\n        int m = rooms.length, n = rooms[0].length;\n        boolean[][] seen = new boolean[m][n];\n        Queue<int[]> q = new ArrayDeque<>();\n        q.offer(new int[]{sr, sc, 0});\n        seen[sr][sc] = true;\n        while (!q.isEmpty()) {\n            int[] cur = q.poll();\n            if (rooms[cur[0]][cur[1]] == 0) return cur[2];\n            for (int[] d : DIRS) {\n                int nr = cur[0] + d[0], nc = cur[1] + d[1];\n                if (nr < 0 || nc < 0 || nr >= m || nc >= n) continue;\n                if (seen[nr][nc] || rooms[nr][nc] == -1) continue;\n                seen[nr][nc] = true;\n                q.offer(new int[]{nr, nc, cur[2] + 1});\n            }\n        }\n        return INF;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O((mn)^2)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4540,6 +5278,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public void wallsAndGates(int[][] rooms) {\n        for (int r = 0; r < rooms.length; r++) {\n            for (int c = 0; c < rooms[0].length; c++) {\n                if (rooms[r][c] == 0) dfs(rooms, r, c, 0);\n            }\n        }\n    }\n\n    private void dfs(int[][] rooms, int r, int c, int d) {\n        if (r < 0 || c < 0 || r >= rooms.length || c >= rooms[0].length) return;\n        if (rooms[r][c] < d) return;\n        rooms[r][c] = d;\n        for (int[] dir : DIRS) {\n            dfs(rooms, r + dir[0], c + dir[1], d + 1);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(G \\cdot mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4551,6 +5292,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    private static final int INF = 2147483647;\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public void wallsAndGates(int[][] rooms) {\n        Queue<int[]> q = new ArrayDeque<>();\n        for (int r = 0; r < rooms.length; r++) {\n            for (int c = 0; c < rooms[0].length; c++) {\n                if (rooms[r][c] == 0) q.offer(new int[]{r, c});\n            }\n        }\n        while (!q.isEmpty()) {\n            int[] cur = q.poll();\n            for (int[] d : DIRS) {\n                int nr = cur[0] + d[0], nc = cur[1] + d[1];\n                if (nr < 0 || nc < 0 || nr >= rooms.length || nc >= rooms[0].length) continue;\n                if (rooms[nr][nc] != INF) continue;\n                rooms[nr][nc] = rooms[cur[0]][cur[1]] + 1;\n                q.offer(new int[]{nr, nc});\n            }\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def wallsAndGates(self, rooms):\n        rows, cols = len(rooms), len(rooms[0])\n        q = deque((r,c) for r in range(rows) for c in range(cols) if rooms[r][c] == 0)\n        while q:\n            r,c = q.popleft()\n            for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):\n                nr,nc = r+dr,c+dc\n                if 0 <= nr < rows and 0 <= nc < cols and rooms[nr][nc] == 2147483647:\n                    rooms[nr][nc] = rooms[r][c] + 1; q.append((nr,nc))",
+      pythonIntuition: 'Push every gate into the queue at once, at distance 0. BFS then expands all gates in parallel, one layer per step. The first time a room is reached is its shortest distance to any gate, so each room is visited exactly once.',
+      pythonAlgorithm: ['Enqueue every gate.','Dequeue `(r, c)`. For each neighbour that is an empty room (`INF`), set it to `rooms[r][c] + 1` and enqueue it.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Enqueue every gate.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Dequeue `(r, c)`. For each neighbour that is an empty room (`INF`), set it to `rooms[r][c] + 1` and enqueue it.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -4584,6 +5328,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int orangesRotting(int[][] grid) {\n        int m = grid.length, n = grid[0].length, minutes = 0;\n        int[][] g = new int[m][];\n        for (int r = 0; r < m; r++) g[r] = grid[r].clone();\n        while (true) {\n            int[][] next = new int[m][];\n            for (int r = 0; r < m; r++) next[r] = g[r].clone();\n            boolean changed = false;\n            for (int r = 0; r < m; r++) {\n                for (int c = 0; c < n; c++) {\n                    if (g[r][c] == 1 && hasRottenNeighbour(g, r, c)) {\n                        next[r][c] = 2;\n                        changed = true;\n                    }\n                }\n            }\n            if (!changed) break;\n            g = next;\n            minutes++;\n        }\n        for (int[] row : g) {\n            for (int v : row) {\n                if (v == 1) return -1;\n            }\n        }\n        return minutes;\n    }\n\n    private boolean hasRottenNeighbour(int[][] g, int r, int c) {\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        for (int[] d : dirs) {\n            int nr = r + d[0], nc = c + d[1];\n            if (nr >= 0 && nc >= 0 && nr < g.length && nc < g[0].length && g[nr][nc] == 2) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O((mn)^2)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4595,6 +5342,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int orangesRotting(int[][] grid) {\n        int m = grid.length, n = grid[0].length, fresh = 0, minutes = 0;\n        Queue<int[]> q = new ArrayDeque<>();\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (grid[r][c] == 2) q.offer(new int[]{r, c});\n                else if (grid[r][c] == 1) fresh++;\n            }\n        }\n        while (!q.isEmpty() && fresh > 0) {\n            minutes++;\n            for (int size = q.size(); size > 0; size--) {\n                int[] cur = q.poll();\n                for (int[] d : DIRS) {\n                    int nr = cur[0] + d[0], nc = cur[1] + d[1];\n                    if (nr < 0 || nc < 0 || nr >= m || nc >= n) continue;\n                    if (grid[nr][nc] != 1) continue;\n                    grid[nr][nc] = 2;\n                    fresh--;\n                    q.offer(new int[]{nr, nc});\n                }\n            }\n        }\n        return fresh == 0 ? minutes : -1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def orangesRotting(self, grid):\n        rows, cols = len(grid), len(grid[0])\n        q = deque((r,c) for r in range(rows) for c in range(cols) if grid[r][c] == 2)\n        fresh = sum(v == 1 for row in grid for v in row); minutes = 0\n        while q and fresh:\n            for _ in range(len(q)):\n                r,c = q.popleft()\n                for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):\n                    nr,nc = r+dr,c+dc\n                    if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:\n                        grid[nr][nc] = 2; fresh -= 1; q.append((nr,nc))\n            minutes += 1\n        return minutes if fresh == 0 else -1",
+      pythonIntuition: 'Start with all rotten oranges in the queue. Process one layer at a time, and each completed layer is one minute. Track the count of fresh oranges, decrementing as they rot. If any remain at the end, they were unreachable.',
+      pythonAlgorithm: ['Enqueue every rotten orange, and count the fresh ones.','While the queue is non-empty and fresh oranges remain: process the current layer, rotting adjacent fresh oranges and enqueuing them. Increment `minutes`.','Return `minutes` if `fresh == 0`, else `-1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Enqueue every rotten orange, and count the fresh ones.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While the queue is non-empty and fresh oranges remain: process the current layer, rotting adjacent fresh oranges and enqueuing them. Increment `minutes`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `minutes` if `fresh == 0`, else `-1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -4628,6 +5378,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public List<List<Integer>> pacificAtlantic(int[][] heights) {\n        List<List<Integer>> result = new ArrayList<>();\n        int m = heights.length, n = heights[0].length;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                boolean[][] seen = new boolean[m][n];\n                boolean pac = reaches(heights, r, c, seen, true);\n                seen = new boolean[m][n];\n                boolean atl = reaches(heights, r, c, seen, false);\n                if (pac && atl) result.add(List.of(r, c));\n            }\n        }\n        return result;\n    }\n\n    private boolean reaches(int[][] h, int r, int c, boolean[][] seen, boolean pacific) {\n        int m = h.length, n = h[0].length;\n        if (pacific && (r == 0 || c == 0)) return true;\n        if (!pacific && (r == m - 1 || c == n - 1)) return true;\n        seen[r][c] = true;\n        for (int[] d : DIRS) {\n            int nr = r + d[0], nc = c + d[1];\n            if (nr < 0 || nc < 0 || nr >= m || nc >= n || seen[nr][nc]) continue;\n            if (h[nr][nc] <= h[r][c] && reaches(h, nr, nc, seen, pacific)) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O((mn)^2)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4639,6 +5392,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public List<List<Integer>> pacificAtlantic(int[][] heights) {\n        int m = heights.length, n = heights[0].length;\n        boolean[][] pac = new boolean[m][n], atl = new boolean[m][n];\n        for (int r = 0; r < m; r++) {\n            dfs(heights, pac, r, 0);\n            dfs(heights, atl, r, n - 1);\n        }\n        for (int c = 0; c < n; c++) {\n            dfs(heights, pac, 0, c);\n            dfs(heights, atl, m - 1, c);\n        }\n        List<List<Integer>> result = new ArrayList<>();\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (pac[r][c] && atl[r][c]) result.add(List.of(r, c));\n            }\n        }\n        return result;\n    }\n\n    private void dfs(int[][] h, boolean[][] reach, int r, int c) {\n        if (reach[r][c]) return;\n        reach[r][c] = true;\n        for (int[] d : DIRS) {\n            int nr = r + d[0], nc = c + d[1];\n            if (nr < 0 || nc < 0 || nr >= h.length || nc >= h[0].length) continue;\n            if (h[nr][nc] >= h[r][c]) dfs(h, reach, nr, nc);\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def pacificAtlantic(self, heights):\n        rows, cols = len(heights), len(heights[0])\n        def reachable(starts):\n            seen=set(starts); stack=list(starts)\n            while stack:\n                r,c=stack.pop()\n                for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):\n                    nr,nc=r+dr,c+dc\n                    if (0<=nr<rows and 0<=nc<cols and (nr,nc) not in seen\n                            and heights[nr][nc]>=heights[r][c]):\n                        seen.add((nr,nc)); stack.append((nr,nc))\n            return seen\n        pac=reachable([(r,0) for r in range(rows)]+[(0,c) for c in range(cols)])\n        atl=reachable([(r,cols-1) for r in range(rows)]+[(rows-1,c) for c in range(cols)])\n        return [list(p) for p in pac & atl]",
+      pythonIntuition: 'Seed a DFS from every Pacific-border cell, moving only to neighbours with height `>=` the current one (the reverse of water flow). Do the same from Atlantic-border cells. Each traversal marks every cell that can reach its ocean. Two linear passes replace the per-cell searches.',
+      pythonAlgorithm: ['`pac` and `atl` are bool grids.','For each top and left cell, `dfs(pac, r, c)`. For each bottom and right cell, `dfs(atl, r, c)`.','`dfs(reach, r, c)`: mark the cell. For each unmarked neighbour with height `>=` current, recurse.','Collect cells where both are `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`pac` and `atl` are bool grids.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each top and left cell, `dfs(pac, r, c)`. For each bottom and right cell, `dfs(atl, r, c)`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`dfs(reach, r, c)`: mark the cell. For each unmarked neighbour with height `>=` current, recurse.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Collect cells where both are `True`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -4672,6 +5428,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public void solve(char[][] board) {\n        int m = board.length, n = board[0].length;\n        boolean[][] visited = new boolean[m][n];\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (board[r][c] == 'O' && !visited[r][c]) {\n                    List<int[]> region = new ArrayList<>();\n                    boolean touchesBorder = collect(board, visited, r, c, region);\n                    if (!touchesBorder) {\n                        for (int[] cell : region) board[cell[0]][cell[1]] = 'X';\n                    }\n                }\n            }\n        }\n    }\n\n    private boolean collect(char[][] b, boolean[][] vis, int r, int c, List<int[]> region) {\n        int m = b.length, n = b[0].length;\n        if (r < 0 || c < 0 || r >= m || c >= n) return false;\n        if (b[r][c] != 'O' || vis[r][c]) return false;\n        vis[r][c] = true;\n        region.add(new int[]{r, c});\n        boolean border = (r == 0 || c == 0 || r == m - 1 || c == n - 1);\n        for (int[] d : DIRS) {\n            border |= collect(b, vis, r + d[0], c + d[1], region);\n        }\n        return border;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -4683,6 +5442,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void solve(char[][] board) {\n        int m = board.length, n = board[0].length;\n        for (int r = 0; r < m; r++) {\n            mark(board, r, 0);\n            mark(board, r, n - 1);\n        }\n        for (int c = 0; c < n; c++) {\n            mark(board, 0, c);\n            mark(board, m - 1, c);\n        }\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (board[r][c] == 'O') board[r][c] = 'X';\n                else if (board[r][c] == 'S') board[r][c] = 'O';\n            }\n        }\n    }\n\n    private void mark(char[][] b, int r, int c) {\n        if (r < 0 || c < 0 || r >= b.length || c >= b[0].length) return;\n        if (b[r][c] != 'O') return;\n        b[r][c] = 'S';\n        mark(b, r + 1, c);\n        mark(b, r - 1, c);\n        mark(b, r, c + 1);\n        mark(b, r, c - 1);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def solve(self, board):\n        if not board: return\n        rows, cols = len(board), len(board[0])\n        stack = [(r,c) for r in range(rows) for c in (0,cols-1)]\n        stack += [(r,c) for c in range(cols) for r in (0,rows-1)]\n        while stack:\n            r,c=stack.pop()\n            if 0<=r<rows and 0<=c<cols and board[r][c]==\"O\":\n                board[r][c]=\"#\"\n                stack.extend(((r+1,c),(r-1,c),(r,c+1),(r,c-1)))\n        for r in range(rows):\n            for c in range(cols):\n                board[r][c]=\"O\" if board[r][c]==\"#\" else \"X\"",
+      pythonIntuition: 'Flood fill from every border `O`, marking reached cells as `S` (safe). Afterwards, every remaining `O` is enclosed, so flip it to `X`. Then restore `S` to `O`. Only two linear passes are needed, and no region list is built.',
+      pythonAlgorithm: ['For each border cell that is `O`, DFS and set reached `O`s to `S`.','Scan the board: `O` becomes `X`, and `S` becomes `O`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each border cell that is `O`, DFS and set reached `O`s to `S`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Scan the board: `O` becomes `X`, and `S` becomes `O`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -4716,6 +5478,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int countComponents(int n, int[][] edges) {\n        boolean[][] adj = new boolean[n][n];\n        for (int[] e : edges) {\n            adj[e[0]][e[1]] = true;\n            adj[e[1]][e[0]] = true;\n        }\n        boolean[] visited = new boolean[n];\n        int count = 0;\n        for (int i = 0; i < n; i++) {\n            if (!visited[i]) {\n                count++;\n                dfs(adj, visited, i);\n            }\n        }\n        return count;\n    }\n\n    private void dfs(boolean[][] adj, boolean[] visited, int u) {\n        visited[u] = true;\n        for (int v = 0; v < adj.length; v++) {\n            if (adj[u][v] && !visited[v]) dfs(adj, visited, v);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -4727,6 +5492,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int countComponents(int n, int[][] edges) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());\n        for (int[] e : edges) {\n            adj.get(e[0]).add(e[1]);\n            adj.get(e[1]).add(e[0]);\n        }\n        boolean[] visited = new boolean[n];\n        int count = 0;\n        for (int i = 0; i < n; i++) {\n            if (!visited[i]) {\n                count++;\n                dfs(adj, visited, i);\n            }\n        }\n        return count;\n    }\n\n    private void dfs(List<List<Integer>> adj, boolean[] visited, int u) {\n        visited[u] = true;\n        for (int v : adj.get(u)) {\n            if (!visited[v]) dfs(adj, visited, v);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n + E)', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -4738,6 +5506,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int[] parent, size;\n\n    public int countComponents(int n, int[][] edges) {\n        parent = new int[n];\n        size = new int[n];\n        for (int i = 0; i < n; i++) {\n            parent[i] = i;\n            size[i] = 1;\n        }\n        int components = n;\n        for (int[] e : edges) {\n            int a = find(e[0]), b = find(e[1]);\n            if (a != b) {\n                if (size[a] < size[b]) { int t = a; a = b; b = t; }\n                parent[b] = a;\n                size[a] += size[b];\n                components--;\n            }\n        }\n        return components;\n    }\n\n    private int find(int x) {\n        while (parent[x] != x) {\n            parent[x] = parent[parent[x]];\n            x = parent[x];\n        }\n        return x;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def countComponents(self, n, edges):\n        parent = list(range(n))\n        def find(x):\n            while parent[x] != x:\n                parent[x] = parent[parent[x]]; x = parent[x]\n            return x\n        count = n\n        for a,b in edges:\n            ra,rb=find(a),find(b)\n            if ra != rb: parent[ra]=rb; count-=1\n        return count",
+      pythonIntuition: 'Every node starts as its own component. Each edge that joins two different components merges them and reduces the count by one. Path compression and union by size keep the structure nearly constant-time per operation.',
+      pythonAlgorithm: ['`parent[i] = i`, `components = n`.','For each edge `(a, b)`: if `find(a) != find(b)`, union them and decrement `components`.','Return `components`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`parent[i] = i`, `components = n`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each edge `(a, b)`: if `find(a) != find(b)`, union them and decrement `components`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `components`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(E \\cdot \\alpha(n))', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -4771,6 +5542,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean validTree(int n, int[][] edges) {\n        if (edges.length != n - 1) return false;\n        boolean[][] adj = new boolean[n][n];\n        for (int[] e : edges) {\n            adj[e[0]][e[1]] = true;\n            adj[e[1]][e[0]] = true;\n        }\n        boolean[] visited = new boolean[n];\n        dfs(adj, visited, 0);\n        for (boolean v : visited) {\n            if (!v) return false;\n        }\n        return true;\n    }\n\n    private void dfs(boolean[][] adj, boolean[] visited, int u) {\n        visited[u] = true;\n        for (int v = 0; v < adj.length; v++) {\n            if (adj[u][v] && !visited[v]) dfs(adj, visited, v);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -4782,6 +5556,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public boolean validTree(int n, int[][] edges) {\n        if (edges.length != n - 1) return false;\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());\n        for (int[] e : edges) {\n            adj.get(e[0]).add(e[1]);\n            adj.get(e[1]).add(e[0]);\n        }\n        boolean[] visited = new boolean[n];\n        if (!dfs(adj, visited, 0, -1)) return false;\n        for (boolean v : visited) {\n            if (!v) return false;\n        }\n        return true;\n    }\n\n    private boolean dfs(List<List<Integer>> adj, boolean[] visited, int u, int parent) {\n        visited[u] = true;\n        for (int v : adj.get(u)) {\n            if (v == parent) continue;\n            if (visited[v]) return false;\n            if (!dfs(adj, visited, v, u)) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n + E)', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -4793,6 +5570,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int[] parent;\n\n    public boolean validTree(int n, int[][] edges) {\n        if (edges.length != n - 1) return false;\n        parent = new int[n];\n        for (int i = 0; i < n; i++) parent[i] = i;\n        for (int[] e : edges) {\n            int a = find(e[0]), b = find(e[1]);\n            if (a == b) return false;\n            parent[a] = b;\n        }\n        return true;\n    }\n\n    private int find(int x) {\n        while (parent[x] != x) {\n            parent[x] = parent[parent[x]];\n            x = parent[x];\n        }\n        return x;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def validTree(self, n, edges):\n        if len(edges) != n - 1: return False\n        parent = list(range(n))\n        def find(x):\n            if parent[x] != x: parent[x] = find(parent[x])\n            return parent[x]\n        for a,b in edges:\n            ra,rb=find(a),find(b)\n            if ra == rb: return False\n            parent[ra]=rb\n        return True",
+      pythonIntuition: 'Process the edges with DSU. If an edge connects two nodes already in the same set, it creates a cycle, so the graph is not a tree. If no cycle appears among `n - 1` edges, the graph must be a single connected component, which is a tree.',
+      pythonAlgorithm: ['If `edgeslen() != n - 1`, return `False`.','For each edge `(a, b)`: if `find(a) == find(b)`, return `False`. Otherwise union them.','Return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','If `edgeslen() != n - 1`, return `False`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','For each edge `(a, b)`: if `find(a) == find(b)`, return `False`. Otherwise union them.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `True`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(E \\cdot \\alpha(n))', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -4826,6 +5606,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Queue;\nimport java.util.Set;\n\nclass Solution {\n    public int ladderLength(String beginWord, String endWord, List<String> wordList) {\n        Set<String> words = new HashSet<>(wordList);\n        if (!words.contains(endWord)) return 0;\n        Queue<String> q = new ArrayDeque<>();\n        Set<String> seen = new HashSet<>();\n        q.offer(beginWord);\n        seen.add(beginWord);\n        int level = 1;\n        while (!q.isEmpty()) {\n            for (int size = q.size(); size > 0; size--) {\n                String cur = q.poll();\n                if (cur.equals(endWord)) return level;\n                for (String w : words) {\n                    if (!seen.contains(w) && oneDiff(cur, w)) {\n                        seen.add(w);\n                        q.offer(w);\n                    }\n                }\n            }\n            level++;\n        }\n        return 0;\n    }\n\n    private boolean oneDiff(String a, String b) {\n        int diff = 0;\n        for (int i = 0; i < a.length(); i++) {\n            if (a.charAt(i) != b.charAt(i) && ++diff > 1) return false;\n        }\n        return diff == 1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(N^2 \\cdot L)', space: 'O(N \\cdot L)' },
       pythonComplexity: undefined
     },
@@ -4837,6 +5620,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.Queue;\nimport java.util.Set;\n\nclass Solution {\n    public int ladderLength(String beginWord, String endWord, List<String> wordList) {\n        Map<String, List<String>> buckets = new HashMap<>();\n        for (String w : wordList) {\n            for (int i = 0; i < w.length(); i++) {\n                String key = w.substring(0, i) + \"*\" + w.substring(i + 1);\n                buckets.computeIfAbsent(key, k -> new ArrayList<>()).add(w);\n            }\n        }\n        Queue<String> q = new ArrayDeque<>();\n        Set<String> seen = new HashSet<>();\n        q.offer(beginWord);\n        seen.add(beginWord);\n        int level = 1;\n        while (!q.isEmpty()) {\n            for (int size = q.size(); size > 0; size--) {\n                String cur = q.poll();\n                if (cur.equals(endWord)) return level;\n                for (int i = 0; i < cur.length(); i++) {\n                    String key = cur.substring(0, i) + \"*\" + cur.substring(i + 1);\n                    for (String nb : buckets.getOrDefault(key, List.of())) {\n                        if (seen.add(nb)) q.offer(nb);\n                    }\n                }\n            }\n            level++;\n        }\n        return 0;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(N \\cdot L^2)', space: 'O(N \\cdot L^2)' },
       pythonComplexity: undefined
     },
@@ -4848,6 +5634,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.Set;\n\nclass Solution {\n    public int ladderLength(String beginWord, String endWord, List<String> wordList) {\n        Set<String> words = new HashSet<>(wordList);\n        if (!words.contains(endWord)) return 0;\n        Map<String, List<String>> buckets = new HashMap<>();\n        for (String w : wordList) {\n            for (int i = 0; i < w.length(); i++) {\n                String key = w.substring(0, i) + \"*\" + w.substring(i + 1);\n                buckets.computeIfAbsent(key, k -> new ArrayList<>()).add(w);\n            }\n        }\n        Set<String> beginSet = new HashSet<>(Set.of(beginWord));\n        Set<String> endSet = new HashSet<>(Set.of(endWord));\n        Set<String> visited = new HashSet<>(Set.of(beginWord, endWord));\n        int level = 1;\n        while (!beginSet.isEmpty() && !endSet.isEmpty()) {\n            if (beginSet.size() > endSet.size()) {\n                Set<String> tmp = beginSet;\n                beginSet = endSet;\n                endSet = tmp;\n            }\n            Set<String> next = new HashSet<>();\n            for (String cur : beginSet) {\n                for (int i = 0; i < cur.length(); i++) {\n                    String key = cur.substring(0, i) + \"*\" + cur.substring(i + 1);\n                    for (String nb : buckets.getOrDefault(key, List.of())) {\n                        if (endSet.contains(nb)) return level + 1;\n                        if (visited.add(nb)) next.add(nb);\n                    }\n                }\n            }\n            beginSet = next;\n            level++;\n        }\n        return 0;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def ladderLength(self, beginWord, endWord, wordList):\n        words = set(wordList)\n        if endWord not in words: return 0\n        q, steps = deque([beginWord]), 1\n        while q:\n            for _ in range(len(q)):\n                word = q.popleft()\n                if word == endWord: return steps\n                for i in range(len(word)):\n                    for ch in \"abcdefghijklmnopqrstuvwxyz\":\n                        nxt = word[:i] + ch + word[i+1:]\n                        if nxt in words: words.remove(nxt); q.append(nxt)\n            steps += 1\n        return 0",
+      pythonIntuition: 'BFS from both ends simultaneously, and always expand the smaller frontier. The search stops as soon as the two frontiers touch. In wide graphs this reduces the explored nodes dramatically, since the two frontiers grow more slowly than one large one.',
+      pythonAlgorithm: ['Build the wildcard buckets as in Approach 2.','`beginSet = {beginWord}`, `endSet = {endWord}`, `visited` holds both, `level = 1`.','While both sets are non-empty: swap so `beginSet` is the smaller. Expand each word in `beginSet` through its buckets. If a neighbour is in `endSet`, return `level + 1`. Otherwise add unvisited neighbours to a new frontier, which replaces `beginSet`. Increment `level`.','Return `0`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Build the wildcard buckets as in Approach 2.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','`beginSet = {beginWord}`, `endSet = {endWord}`, `visited` holds both, `level = 1`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','While both sets are non-empty: swap so `beginSet` is the smaller. Expand each word in `beginSet` through its buckets. If a neighbour is in `endSet`, return `level + 1`. Otherwise add unvisited neighbours to a new frontier, which replaces `beginSet`. Increment `level`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `0`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(N \\cdot L^2)', space: 'O(N \\cdot L^2)' },
       pythonComplexity: undefined
     }
@@ -4881,6 +5670,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        boolean[][] adj = new boolean[numCourses][numCourses];\n        for (int[] p : prerequisites) adj[p[1]][p[0]] = true;\n        int[] state = new int[numCourses];\n        for (int i = 0; i < numCourses; i++) {\n            if (state[i] == 0 && hasCycle(adj, state, i)) return false;\n        }\n        return true;\n    }\n\n    private boolean hasCycle(boolean[][] adj, int[] state, int u) {\n        state[u] = 1;\n        for (int v = 0; v < adj.length; v++) {\n            if (!adj[u][v]) continue;\n            if (state[v] == 1) return true;\n            if (state[v] == 0 && hasCycle(adj, state, v)) return true;\n        }\n        state[u] = 2;\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -4892,6 +5684,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n        for (int[] p : prerequisites) adj.get(p[1]).add(p[0]);\n        int[] state = new int[numCourses];\n        for (int i = 0; i < numCourses; i++) {\n            if (state[i] == 0 && hasCycle(adj, state, i)) return false;\n        }\n        return true;\n    }\n\n    private boolean hasCycle(List<List<Integer>> adj, int[] state, int u) {\n        state[u] = 1;\n        for (int v : adj.get(u)) {\n            if (state[v] == 1) return true;\n            if (state[v] == 0 && hasCycle(adj, state, v)) return true;\n        }\n        state[u] = 2;\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n + E)', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -4903,6 +5698,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Queue;\n\nclass Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n        int[] indegree = new int[numCourses];\n        for (int[] p : prerequisites) {\n            adj.get(p[1]).add(p[0]);\n            indegree[p[0]]++;\n        }\n        Queue<Integer> q = new ArrayDeque<>();\n        for (int i = 0; i < numCourses; i++) {\n            if (indegree[i] == 0) q.offer(i);\n        }\n        int processed = 0;\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            processed++;\n            for (int v : adj.get(u)) {\n                if (--indegree[v] == 0) q.offer(v);\n            }\n        }\n        return processed == numCourses;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def canFinish(self, numCourses, prerequisites):\n        graph = [[] for _ in range(numCourses)]\n        indegree = [0] * numCourses\n        for course, pre in prerequisites:\n            graph[pre].append(course); indegree[course] += 1\n        q = deque(i for i, d in enumerate(indegree) if d == 0)\n        done = 0\n        while q:\n            u = q.popleft(); done += 1\n            for v in graph[u]:\n                indegree[v] -= 1\n                if indegree[v] == 0: q.append(v)\n        return done == numCourses",
+      pythonIntuition: 'Repeatedly remove courses with no remaining prerequisites. These are the nodes with indegree zero. If every course can be removed, the graph is acyclic. If some remain, each of them waits on another, so a cycle must exist. This algorithm is iterative and needs no recursion.',
+      pythonAlgorithm: ['Compute `indegree[a]` for each course, and build the adjacency list.','Enqueue every course with indegree zero. Dequeue `u`, count it, and decrement the indegree of each dependent. Enqueue those that reach zero.','Return `processed == numCourses`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Compute `indegree[a]` for each course, and build the adjacency list.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Enqueue every course with indegree zero. Dequeue `u`, count it, and decrement the indegree of each dependent. Enqueue those that reach zero.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','Return `processed == numCourses`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n + E)', space: 'O(n + E)' },
       pythonComplexity: undefined
     }
@@ -4936,6 +5734,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> prereqs = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) prereqs.add(new ArrayList<>());\n        for (int[] p : prerequisites) prereqs.get(p[0]).add(p[1]);\n\n        boolean[] done = new boolean[numCourses];\n        int[] order = new int[numCourses];\n        int count = 0;\n        while (count < numCourses) {\n            boolean progress = false;\n            for (int c = 0; c < numCourses; c++) {\n                if (done[c]) continue;\n                boolean ready = true;\n                for (int p : prereqs.get(c)) {\n                    if (!done[p]) {\n                        ready = false;\n                        break;\n                    }\n                }\n                if (ready) {\n                    done[c] = true;\n                    order[count++] = c;\n                    progress = true;\n                }\n            }\n            if (!progress) return new int[0];\n        }\n        return order;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot (n + E))', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -4947,6 +5748,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private List<List<Integer>> adj;\n    private int[] state;\n    private int[] order;\n    private int idx;\n    private boolean cycle;\n\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n        for (int[] p : prerequisites) adj.get(p[1]).add(p[0]);\n        state = new int[numCourses];\n        order = new int[numCourses];\n        idx = numCourses - 1;\n        for (int i = 0; i < numCourses && !cycle; i++) {\n            if (state[i] == 0) dfs(i);\n        }\n        return cycle ? new int[0] : order;\n    }\n\n    private void dfs(int u) {\n        state[u] = 1;\n        for (int v : adj.get(u)) {\n            if (cycle) return;\n            if (state[v] == 1) {\n                cycle = true;\n                return;\n            }\n            if (state[v] == 0) dfs(v);\n        }\n        state[u] = 2;\n        order[idx--] = u;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n + E)', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -4958,6 +5762,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Queue;\n\nclass Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n        int[] indegree = new int[numCourses];\n        for (int[] p : prerequisites) {\n            adj.get(p[1]).add(p[0]);\n            indegree[p[0]]++;\n        }\n        Queue<Integer> q = new ArrayDeque<>();\n        for (int i = 0; i < numCourses; i++) {\n            if (indegree[i] == 0) q.offer(i);\n        }\n        int[] order = new int[numCourses];\n        int count = 0;\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            order[count++] = u;\n            for (int v : adj.get(u)) {\n                if (--indegree[v] == 0) q.offer(v);\n            }\n        }\n        return count == numCourses ? order : new int[0];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findOrder(self, numCourses, prerequisites):\n        graph = [[] for _ in range(numCourses)]\n        indegree = [0] * numCourses\n        for a,b in prerequisites: graph[b].append(a); indegree[a] += 1\n        q = deque(i for i,d in enumerate(indegree) if d == 0); order = []\n        while q:\n            u=q.popleft(); order.append(u)\n            for v in graph[u]:\n                indegree[v]-=1\n                if indegree[v]==0: q.append(v)\n        return order if len(order)==numCourses else []",
+      pythonIntuition: 'Start from courses with no prerequisites. Each time a course is taken, decrement the indegree of its dependents, and enqueue any that reach zero. The order in which they are dequeued is a valid topological order. If fewer than `n` courses are dequeued, a cycle blocks the rest.',
+      pythonAlgorithm: ['Build `adj` and `indegree`.','Enqueue all zero-indegree courses. Dequeue `u`, append it to `order`, and decrement its dependents.','Return `order` if its length is `n`, else an empty array.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Build `adj` and `indegree`.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','Enqueue all zero-indegree courses. Dequeue `u`, append it to `order`, and decrement its dependents.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Return `order` if its length is `n`, else an empty array.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n + E)', space: 'O(n + E)' },
       pythonComplexity: undefined
     }
@@ -4991,6 +5798,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int[] findRedundantConnection(int[][] edges) {\n        int n = edges.length;\n        for (int skip = n - 1; skip >= 0; skip--) {\n            List<List<Integer>> adj = new ArrayList<>();\n            for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());\n            for (int i = 0; i < n; i++) {\n                if (i == skip) continue;\n                adj.get(edges[i][0]).add(edges[i][1]);\n                adj.get(edges[i][1]).add(edges[i][0]);\n            }\n            boolean[] visited = new boolean[n + 1];\n            dfs(adj, visited, 1);\n            boolean connected = true;\n            for (int i = 1; i <= n; i++) {\n                if (!visited[i]) {\n                    connected = false;\n                    break;\n                }\n            }\n            if (connected) return edges[skip];\n        }\n        return new int[0];\n    }\n\n    private void dfs(List<List<Integer>> adj, boolean[] visited, int u) {\n        visited[u] = true;\n        for (int v : adj.get(u)) {\n            if (!visited[v]) dfs(adj, visited, v);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot (n + E))', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -5002,6 +5812,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int[] findRedundantConnection(int[][] edges) {\n        int n = edges.length;\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());\n        for (int[] e : edges) {\n            if (reachable(adj, new boolean[n + 1], e[0], e[1])) return e;\n            adj.get(e[0]).add(e[1]);\n            adj.get(e[1]).add(e[0]);\n        }\n        return new int[0];\n    }\n\n    private boolean reachable(List<List<Integer>> adj, boolean[] visited, int u, int target) {\n        if (u == target) return true;\n        visited[u] = true;\n        for (int v : adj.get(u)) {\n            if (!visited[v] && reachable(adj, visited, v, target)) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot (n + E))', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -5013,6 +5826,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int[] parent;\n\n    public int[] findRedundantConnection(int[][] edges) {\n        int n = edges.length;\n        parent = new int[n + 1];\n        for (int i = 0; i <= n; i++) parent[i] = i;\n        for (int[] e : edges) {\n            int a = find(e[0]), b = find(e[1]);\n            if (a == b) return e;\n            parent[a] = b;\n        }\n        return new int[0];\n    }\n\n    private int find(int x) {\n        while (parent[x] != x) {\n            parent[x] = parent[parent[x]];\n            x = parent[x];\n        }\n        return x;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findRedundantConnection(self, edges):\n        parent = list(range(len(edges) + 1))\n        def find(x):\n            if parent[x] != x: parent[x] = find(parent[x])\n            return parent[x]\n        for a,b in edges:\n            ra,rb=find(a),find(b)\n            if ra == rb: return [a,b]\n            parent[ra]=rb",
+      pythonIntuition: 'DSU answers "are these two nodes already connected?" in near-constant time. The first edge whose endpoints share a set closes the cycle, and this is the answer because edges are processed in input order.',
+      pythonAlgorithm: ['Initialise `parent[i] = i` for `i` in `1..n`.','For each edge `(u, v)`: if `find(u) == find(v)`, return `[u, v]`. Otherwise union them.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Initialise `parent[i] = i` for `i` in `1..n`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For each edge `(u, v)`: if `find(u) == find(v)`, return `[u, v]`. Otherwise union them.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\cdot \\alpha(n))', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -5046,6 +5862,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int climbStairs(int n) {\n        if (n <= 2) return n;\n        return climbStairs(n - 1) + climbStairs(n - 2);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\phi^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5057,6 +5876,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int climbStairs(int n) {\n        int[] memo = new int[n + 1];\n        return solve(n, memo);\n    }\n\n    private int solve(int n, int[] memo) {\n        if (n <= 2) return n;\n        if (memo[n] != 0) return memo[n];\n        memo[n] = solve(n - 1, memo) + solve(n - 2, memo);\n        return memo[n];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5068,6 +5890,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int climbStairs(int n) {\n        if (n <= 2) return n;\n        int a = 1, b = 2;\n        for (int i = 3; i <= n; i++) {\n            int c = a + b;\n            a = b;\n            b = c;\n        }\n        return b;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def climbStairs(self, n: int) -> int:\n        a = b = 1\n        for _ in range(n - 1): a, b = b, a + b\n        return b",
+      pythonIntuition: 'Each value depends only on the previous two. Keep just those two values and roll them forward.',
+      pythonAlgorithm: ['If `n <= 2`, return `n`.','`a = 1`, `b = 2`. For `i` from `3` to `n`: `c = a + b`, `a = b`, `b = c`.','Return `b`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','If `n <= 2`, return `n`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','`a = 1`, `b = 2`. For `i` from `3` to `n`: `c = a + b`, `a = b`, `b = c`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `b`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5101,6 +5926,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minCostClimbingStairs(int[] cost) {\n        return Math.min(f(cost, 0), f(cost, 1));\n    }\n\n    private int f(int[] cost, int i) {\n        if (i >= cost.length) return 0;\n        return cost[i] + Math.min(f(cost, i + 1), f(cost, i + 2));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5112,6 +5940,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int minCostClimbingStairs(int[] cost) {\n        int[] memo = new int[cost.length];\n        Arrays.fill(memo, -1);\n        return Math.min(f(cost, 0, memo), f(cost, 1, memo));\n    }\n\n    private int f(int[] cost, int i, int[] memo) {\n        if (i >= cost.length) return 0;\n        if (memo[i] != -1) return memo[i];\n        memo[i] = cost[i] + Math.min(f(cost, i + 1, memo), f(cost, i + 2, memo));\n        return memo[i];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5123,6 +5954,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minCostClimbingStairs(int[] cost) {\n        int a = 0, b = 0;\n        for (int i = cost.length - 1; i >= 0; i--) {\n            int cur = cost[i] + Math.min(a, b);\n            b = a;\n            a = cur;\n        }\n        return Math.min(a, b);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def minCostClimbingStairs(self, cost):\n        a = b = 0\n        for x in reversed(cost):\n            a, b = x + min(a, b), a\n        return min(a, b)",
+      pythonIntuition: 'Compute from the end. Each `f(i)` needs only `f(i+1)` and `f(i+2)`, so two variables suffice.',
+      pythonAlgorithm: ['`a = f(n) = 0`, `b = f(n+1) = 0`.','For `i` from `n-1` down to `0`: `cur = cost[i] + min(a, b)`, then `b = a`, `a = cur`.','Return `min(a, b)`, which is `min(f(0), f(1))`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`a = f(n) = 0`, `b = f(n+1) = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `n-1` down to `0`: `cur = cost[i] + min(a, b)`, then `b = a`, `a = cur`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `min(a, b)`, which is `min(f(0), f(1))`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5156,6 +5990,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int rob(int[] nums) {\n        return solve(nums, 0);\n    }\n\n    private int solve(int[] nums, int i) {\n        if (i >= nums.length) return 0;\n        return Math.max(solve(nums, i + 1), nums[i] + solve(nums, i + 2));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5167,6 +6004,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int rob(int[] nums) {\n        int[] memo = new int[nums.length];\n        Arrays.fill(memo, -1);\n        return solve(nums, 0, memo);\n    }\n\n    private int solve(int[] nums, int i, int[] memo) {\n        if (i >= nums.length) return 0;\n        if (memo[i] != -1) return memo[i];\n        memo[i] = Math.max(solve(nums, i + 1, memo), nums[i] + solve(nums, i + 2, memo));\n        return memo[i];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5178,6 +6018,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int rob(int[] nums) {\n        int prev2 = 0, prev1 = 0;\n        for (int x : nums) {\n            int cur = Math.max(prev1, prev2 + x);\n            prev2 = prev1;\n            prev1 = cur;\n        }\n        return prev1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def rob(self, nums):\n        prev2 = prev1 = 0\n        for x in nums: prev2, prev1 = prev1, max(prev1, prev2 + x)\n        return prev1",
+      pythonIntuition: 'Process houses left to right. Keep the best total up to the previous house and up to the house before it.',
+      pythonAlgorithm: ['`prev2 = 0`, `prev1 = 0`.','For each `x` in `nums`: `cur = max(prev1, prev2 + x)`, then `prev2 = prev1`, `prev1 = cur`.','Return `prev1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`prev2 = 0`, `prev1 = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `x` in `nums`: `cur = max(prev1, prev2 + x)`, then `prev2 = prev1`, `prev1 = cur`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `prev1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5211,6 +6054,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int rob(int[] nums) {\n        int n = nums.length;\n        if (n == 1) return nums[0];\n        return Math.max(solve(nums, 0, n - 2), solve(nums, 1, n - 1));\n    }\n\n    private int solve(int[] nums, int i, int end) {\n        if (i > end) return 0;\n        return Math.max(solve(nums, i + 1, end), nums[i] + solve(nums, i + 2, end));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5222,6 +6068,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int rob(int[] nums) {\n        int n = nums.length;\n        if (n == 1) return nums[0];\n        return Math.max(solve(nums, 0, n - 2), solve(nums, 1, n - 1));\n    }\n\n    private int solve(int[] nums, int lo, int hi) {\n        int[] memo = new int[nums.length];\n        Arrays.fill(memo, -1);\n        return dfs(nums, lo, hi, memo);\n    }\n\n    private int dfs(int[] nums, int i, int end, int[] memo) {\n        if (i > end) return 0;\n        if (memo[i] != -1) return memo[i];\n        memo[i] = Math.max(dfs(nums, i + 1, end, memo), nums[i] + dfs(nums, i + 2, end, memo));\n        return memo[i];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5233,6 +6082,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int rob(int[] nums) {\n        int n = nums.length;\n        if (n == 1) return nums[0];\n        return Math.max(robLinear(nums, 0, n - 2), robLinear(nums, 1, n - 1));\n    }\n\n    private int robLinear(int[] nums, int lo, int hi) {\n        int prev2 = 0, prev1 = 0;\n        for (int i = lo; i <= hi; i++) {\n            int cur = Math.max(prev1, prev2 + nums[i]);\n            prev2 = prev1;\n            prev1 = cur;\n        }\n        return prev1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def rob(self, nums):\n        if len(nums) == 1: return nums[0]\n        def linear(arr):\n            a = b = 0\n            for x in arr: a, b = b, max(b, a + x)\n            return b\n        return max(linear(nums[:-1]), linear(nums[1:]))",
+      pythonIntuition: 'Apply the rolling House Robber to each range directly. No arrays are needed.',
+      pythonAlgorithm: ['Handle `n == 1`.','`robLinear(nums, 0, n-2)` and `robLinear(nums, 1, n-1)`, each with rolling variables. Return the maximum.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Handle `n == 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`robLinear(nums, 0, n-2)` and `robLinear(nums, 1, n-1)`, each with rolling variables. Return the maximum.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5266,6 +6118,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public String longestPalindrome(String s) {\n        int bestL = 0, bestLen = 1;\n        int n = s.length();\n        for (int i = 0; i < n; i++) {\n            for (int j = i; j < n; j++) {\n                if (j - i + 1 > bestLen && isPal(s, i, j)) {\n                    bestL = i;\n                    bestLen = j - i + 1;\n                }\n            }\n        }\n        return s.substring(bestL, bestL + bestLen);\n    }\n\n    private boolean isPal(String s, int l, int r) {\n        while (l < r) {\n            if (s.charAt(l++) != s.charAt(r--)) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^3)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -5277,6 +6132,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public String longestPalindrome(String s) {\n        int n = s.length();\n        boolean[][] dp = new boolean[n][n];\n        int bestL = 0, bestLen = 1;\n        for (int len = 1; len <= n; len++) {\n            for (int i = 0; i + len - 1 < n; i++) {\n                int j = i + len - 1;\n                if (s.charAt(i) == s.charAt(j) && (len <= 2 || dp[i + 1][j - 1])) {\n                    dp[i][j] = true;\n                    if (len > bestLen) {\n                        bestL = i;\n                        bestLen = len;\n                    }\n                }\n            }\n        }\n        return s.substring(bestL, bestL + bestLen);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -5288,6 +6146,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int start = 0, maxLen = 1;\n\n    public String longestPalindrome(String s) {\n        for (int i = 0; i < s.length(); i++) {\n            expand(s, i, i);\n            expand(s, i, i + 1);\n        }\n        return s.substring(start, start + maxLen);\n    }\n\n    private void expand(String s, int l, int r) {\n        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {\n            l--;\n            r++;\n        }\n        int len = r - l - 1;\n        if (len > maxLen) {\n            maxLen = len;\n            start = l + 1;\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def longestPalindrome(self, s):\n        best = \"\"\n        for i in range(len(s)):\n            for l, r in ((i,i),(i,i+1)):\n                while l >= 0 and r < len(s) and s[l] == s[r]:\n                    if r-l+1 > len(best): best = s[l:r+1]\n                    l -= 1; r += 1\n        return best",
+      pythonIntuition: 'Each palindrome has a centre. Expand from each of the `2n - 1` centres while the ends match, and keep the longest. No table is needed.',
+      pythonAlgorithm: ['For each centre `i`, expand `(i, i)` for odd length and `(i, i+1)` for even length.','Each expansion moves `l` left and `r` right while `s[l] == s[r]`.','Keep the longest range found.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each centre `i`, expand `(i, i)` for odd length and `(i, i+1)` for even length.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Each expansion moves `l` left and `r` right while `s[l] == s[r]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Keep the longest range found.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.'],
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5321,6 +6182,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int countSubstrings(String s) {\n        int count = 0, n = s.length();\n        for (int i = 0; i < n; i++) {\n            for (int j = i; j < n; j++) {\n                if (isPal(s, i, j)) count++;\n            }\n        }\n        return count;\n    }\n\n    private boolean isPal(String s, int l, int r) {\n        while (l < r) {\n            if (s.charAt(l++) != s.charAt(r--)) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^3)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -5332,6 +6196,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int countSubstrings(String s) {\n        int n = s.length(), count = 0;\n        boolean[][] dp = new boolean[n][n];\n        for (int len = 1; len <= n; len++) {\n            for (int i = 0; i + len - 1 < n; i++) {\n                int j = i + len - 1;\n                if (s.charAt(i) == s.charAt(j) && (len <= 2 || dp[i + 1][j - 1])) {\n                    dp[i][j] = true;\n                    count++;\n                }\n            }\n        }\n        return count;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -5343,6 +6210,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private int count = 0;\n\n    public int countSubstrings(String s) {\n        for (int i = 0; i < s.length(); i++) {\n            expand(s, i, i);\n            expand(s, i, i + 1);\n        }\n        return count;\n    }\n\n    private void expand(String s, int l, int r) {\n        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {\n            count++;\n            l--;\n            r++;\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def countSubstrings(self, s):\n        count = 0\n        for i in range(len(s)):\n            for l,r in ((i,i),(i,i+1)):\n                while l>=0 and r<len(s) and s[l]==s[r]:\n                    count += 1; l-=1; r+=1\n        return count",
+      pythonIntuition: 'Each centre contributes one palindrome for each successful expansion step. Count those steps directly.',
+      pythonAlgorithm: ['For each centre, expand for odd and even lengths. Each successful step increments the count.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each centre, expand for odd and even lengths. Each successful step increments the count.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5376,6 +6246,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int numDecodings(String s) {\n        return ways(s, 0);\n    }\n\n    private int ways(String s, int i) {\n        if (i == s.length()) return 1;\n        if (s.charAt(i) == '0') return 0;\n        int res = ways(s, i + 1);\n        if (i + 1 < s.length() && valid2(s, i)) {\n            res += ways(s, i + 2);\n        }\n        return res;\n    }\n\n    private boolean valid2(String s, int i) {\n        char a = s.charAt(i), b = s.charAt(i + 1);\n        return a == '1' || (a == '2' && b <= '6');\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5387,6 +6260,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int numDecodings(String s) {\n        int[] memo = new int[s.length()];\n        Arrays.fill(memo, -1);\n        return ways(s, 0, memo);\n    }\n\n    private int ways(String s, int i, int[] memo) {\n        if (i == s.length()) return 1;\n        if (s.charAt(i) == '0') return 0;\n        if (memo[i] != -1) return memo[i];\n        int res = ways(s, i + 1, memo);\n        if (i + 1 < s.length() && valid2(s, i)) {\n            res += ways(s, i + 2, memo);\n        }\n        memo[i] = res;\n        return res;\n    }\n\n    private boolean valid2(String s, int i) {\n        char a = s.charAt(i), b = s.charAt(i + 1);\n        return a == '1' || (a == '2' && b <= '6');\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5398,6 +6274,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int numDecodings(String s) {\n        int n = s.length();\n        int next1 = 1, next2 = 0;\n        for (int i = n - 1; i >= 0; i--) {\n            int cur = 0;\n            if (s.charAt(i) != '0') {\n                cur = next1;\n                if (i + 1 < n) {\n                    char a = s.charAt(i), b = s.charAt(i + 1);\n                    if (a == '1' || (a == '2' && b <= '6')) cur += next2;\n                }\n            }\n            next2 = next1;\n            next1 = cur;\n        }\n        return next1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def numDecodings(self, s):\n        if not s or s[0] == \"0\": return 0\n        prev2, prev1 = 1, 1\n        for i in range(1, len(s)):\n            cur = 0\n            if s[i] != \"0\": cur += prev1\n            if 10 <= int(s[i-1:i+1]) <= 26: cur += prev2\n            prev2, prev1 = prev1, cur\n        return prev1",
+      pythonIntuition: 'Compute from the end. Each step needs only the next two values, so keep two variables.',
+      pythonAlgorithm: ['`next1 = 1` (ways from `n`), `next2 = 0` (ways from `n+1`).','For `i` from `n-1` down to `0`: if `s[i] == \'0\'`, `cur = 0`. Otherwise `cur = next1`, and add `next2` if the two-digit group is valid. Then shift the variables.','Return `next1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`next1 = 1` (ways from `n`), `next2 = 0` (ways from `n+1`).','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `n-1` down to `0`: if `s[i] == \'0\'`, `cur = 0`. Otherwise `cur = next1`, and add `next2` if the two-digit group is valid. Then shift the variables.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `next1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5431,6 +6310,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        return solve(coins, amount);\n    }\n\n    private int solve(int[] coins, int rem) {\n        if (rem == 0) return 0;\n        if (rem < 0) return -1;\n        int best = Integer.MAX_VALUE;\n        for (int c : coins) {\n            int r = solve(coins, rem - c);\n            if (r >= 0) best = Math.min(best, r + 1);\n        }\n        return best == Integer.MAX_VALUE ? -1 : best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^{A/c_{\\min}})', space: 'O(A / c_{\\min})' },
       pythonComplexity: undefined
     },
@@ -5442,6 +6324,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int coinChange(int[] coins, int amount) {\n        int[] memo = new int[amount + 1];\n        Arrays.fill(memo, -2);\n        return solve(coins, amount, memo);\n    }\n\n    private int solve(int[] coins, int rem, int[] memo) {\n        if (rem == 0) return 0;\n        if (rem < 0) return -1;\n        if (memo[rem] != -2) return memo[rem];\n        int best = Integer.MAX_VALUE;\n        for (int c : coins) {\n            int r = solve(coins, rem - c, memo);\n            if (r >= 0) best = Math.min(best, r + 1);\n        }\n        memo[rem] = best == Integer.MAX_VALUE ? -1 : best;\n        return memo[rem];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(A \\cdot n)', space: 'O(A)' },
       pythonComplexity: undefined
     },
@@ -5453,6 +6338,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int coinChange(int[] coins, int amount) {\n        int inf = amount + 1;\n        int[] dp = new int[amount + 1];\n        Arrays.fill(dp, inf);\n        dp[0] = 0;\n        for (int a = 1; a <= amount; a++) {\n            for (int c : coins) {\n                if (c <= a) dp[a] = Math.min(dp[a], dp[a - c] + 1);\n            }\n        }\n        return dp[amount] > amount ? -1 : dp[amount];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def coinChange(self, coins, amount):\n        dp = [amount + 1] * (amount + 1); dp[0] = 0\n        for total in range(1, amount + 1):\n            for coin in coins:\n                if coin <= total: dp[total] = min(dp[total], dp[total-coin] + 1)\n        return dp[amount] if dp[amount] <= amount else -1",
+      pythonIntuition: 'Fill `dp[a]` for `a` from `1` to `amount`, using only smaller amounts already computed. Use `amount + 1` as an infinity sentinel, since no valid answer can exceed `amount`.',
+      pythonAlgorithm: ['`dp[0] = 0`, others `amount + 1`.','For each `a` from `1` to `amount`, for each coin `c <= a`, set `dp[a] = min(dp[a], dp[a-c] + 1)`.','Return `dp[amount]` if it is at most `amount`, else `-1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[0] = 0`, others `amount + 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `a` from `1` to `amount`, for each coin `c <= a`, set `dp[a] = min(dp[a], dp[a-c] + 1)`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[amount]` if it is at most `amount`, else `-1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(A \\cdot n)', space: 'O(A)' },
       pythonComplexity: undefined
     }
@@ -5486,6 +6374,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProduct(int[] nums) {\n        int best = Integer.MIN_VALUE;\n        for (int i = 0; i < nums.length; i++) {\n            int prod = 1;\n            for (int j = i; j < nums.length; j++) {\n                prod *= nums[j];\n                best = Math.max(best, prod);\n            }\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -5497,6 +6388,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProduct(int[] nums) {\n        int n = nums.length;\n        int[] maxEnd = new int[n], minEnd = new int[n];\n        maxEnd[0] = minEnd[0] = nums[0];\n        int best = nums[0];\n        for (int i = 1; i < n; i++) {\n            int x = nums[i];\n            maxEnd[i] = Math.max(x, Math.max(x * maxEnd[i - 1], x * minEnd[i - 1]));\n            minEnd[i] = Math.min(x, Math.min(x * maxEnd[i - 1], x * minEnd[i - 1]));\n            best = Math.max(best, maxEnd[i]);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5508,6 +6402,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProduct(int[] nums) {\n        int curMax = nums[0], curMin = nums[0], best = nums[0];\n        for (int i = 1; i < nums.length; i++) {\n            int x = nums[i];\n            int a = x * curMax, b = x * curMin;\n            curMax = Math.max(x, Math.max(a, b));\n            curMin = Math.min(x, Math.min(a, b));\n            best = Math.max(best, curMax);\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxProduct(self, nums):\n        cur_min = cur_max = answer = nums[0]\n        for x in nums[1:]:\n            if x < 0: cur_min, cur_max = cur_max, cur_min\n            cur_max = max(x, cur_max * x); cur_min = min(x, cur_min * x)\n            answer = max(answer, cur_max)\n        return answer",
+      pythonIntuition: 'Each step needs only the previous max and min, so keep two running values.',
+      pythonAlgorithm: ['`curMax = curMin = best = nums[0]`.','For each `x` from index `1`: compute new max and min from `x`, `x*curMax`, `x*curMin`, then update `best`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`curMax = curMin = best = nums[0]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `x` from index `1`: compute new max and min from `x`, `x*curMax`, `x*curMin`, then update `best`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5541,6 +6438,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Set;\nimport java.util.HashSet;\nimport java.util.List;\n\nclass Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        Set<String> dict = new HashSet<>(wordDict);\n        return solve(s, 0, dict);\n    }\n\n    private boolean solve(String s, int start, Set<String> dict) {\n        if (start == s.length()) return true;\n        for (int end = start + 1; end <= s.length(); end++) {\n            if (dict.contains(s.substring(start, end)) && solve(s, end, dict)) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5552,6 +6452,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        Set<String> dict = new HashSet<>(wordDict);\n        Boolean[] memo = new Boolean[s.length()];\n        return solve(s, 0, dict, memo);\n    }\n\n    private boolean solve(String s, int start, Set<String> dict, Boolean[] memo) {\n        if (start == s.length()) return true;\n        if (memo[start] != null) return memo[start];\n        boolean ok = false;\n        for (int end = start + 1; end <= s.length() && !ok; end++) {\n            if (dict.contains(s.substring(start, end)) && solve(s, end, dict, memo)) ok = true;\n        }\n        memo[start] = ok;\n        return ok;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5563,6 +6466,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\n\nclass Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        Set<String> dict = new HashSet<>(wordDict);\n        int maxLen = 0;\n        for (String w : wordDict) maxLen = Math.max(maxLen, w.length());\n        int n = s.length();\n        boolean[] dp = new boolean[n + 1];\n        dp[0] = true;\n        for (int i = 1; i <= n; i++) {\n            for (int j = i - 1; j >= Math.max(0, i - maxLen); j--) {\n                if (dp[j] && dict.contains(s.substring(j, i))) {\n                    dp[i] = true;\n                    break;\n                }\n            }\n        }\n        return dp[n];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def wordBreak(self, s, wordDict):\n        words = set(wordDict); dp = [False] * (len(s)+1); dp[0] = True\n        for end in range(1, len(s)+1):\n            dp[end] = any(dp[start] and s[start:end] in words for start in range(end))\n        return dp[-1]",
+      pythonIntuition: 'Build `dp[i]`, True when `s[0..i)` can be segmented. Only substrings no longer than the longest word can be words, so each `i` checks at most `maxLen` candidates.',
+      pythonAlgorithm: ['`dp[0] = True`. Compute `maxLen` from the dictionary.','For `i` from `1` to `n`, for `j` from `i - 1` down to `max(0, i - maxLen)`: if `dp[j]` and `s[j..i)` is a word, set `dp[i] = True` and stop.','Return `dp[n]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[0] = True`. Compute `maxLen` from the dictionary.','This extracts the information needed to decide what to do next. The check connects the current input to the condition the problem asks us to satisfy.','For `i` from `1` to `n`, for `j` from `i - 1` down to `max(0, i - maxLen)`: if `dp[j]` and `s[j..i)` is a word, set `dp[i] = True` and stop.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[n]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\cdot \\text{maxLen})', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -5596,6 +6502,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int lengthOfLIS(int[] nums) {\n        return solve(nums, 0, -1);\n    }\n\n    private int solve(int[] nums, int i, int prev) {\n        if (i == nums.length) return 0;\n        int skip = solve(nums, i + 1, prev);\n        int take = 0;\n        if (prev == -1 || nums[i] > nums[prev]) {\n            take = 1 + solve(nums, i + 1, i);\n        }\n        return Math.max(skip, take);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5607,6 +6516,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int lengthOfLIS(int[] nums) {\n        int n = nums.length, best = 1;\n        int[] dp = new int[n];\n        for (int i = 0; i < n; i++) {\n            dp[i] = 1;\n            for (int j = 0; j < i; j++) {\n                if (nums[j] < nums[i]) dp[i] = Math.max(dp[i], dp[j] + 1);\n            }\n            best = Math.max(best, dp[i]);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5618,6 +6530,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int lengthOfLIS(int[] nums) {\n        int[] tails = new int[nums.length];\n        int size = 0;\n        for (int x : nums) {\n            int lo = 0, hi = size;\n            while (lo < hi) {\n                int mid = lo + (hi - lo) / 2;\n                if (tails[mid] < x) lo = mid + 1;\n                else hi = mid;\n            }\n            tails[lo] = x;\n            if (lo == size) size++;\n        }\n        return size;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def lengthOfLIS(self, nums):\n        tails = []\n        for x in nums:\n            i = bisect_left(tails, x)\n            if i == len(tails): tails.append(x)\n            else: tails[i] = x\n        return len(tails)",
+      pythonIntuition: 'Maintain `tails`, where `tails[k]` is the smallest tail of any increasing subsequence of length `k+1`. For each number, binary search for the first tail that is `>=` it. Replace that tail with the number, or extend the list if none is found. The list length is the answer, even though `tails` itself is not a valid subsequence.',
+      pythonAlgorithm: ['`size = 0`, `tails = new int[n]`.','For each `x`: find `pos`, the first index in `[0, size)` with `tails[pos] >= x`. Set `tails[pos] = x`. If `pos == size`, increment `size`.','Return `size`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`size = 0`, `tails = new int[n]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `x`: find `pos`, the first index in `[0, size)` with `tails[pos] >= x`. Set `tails[pos] = x`. If `pos == size`, increment `size`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `size`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -5651,6 +6566,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canPartition(int[] nums) {\n        int total = 0;\n        for (int x : nums) total += x;\n        if (total % 2 != 0) return false;\n        return solve(nums, 0, total / 2);\n    }\n\n    private boolean solve(int[] nums, int i, int rem) {\n        if (rem == 0) return true;\n        if (i == nums.length || rem < 0) return false;\n        return solve(nums, i + 1, rem - nums[i]) || solve(nums, i + 1, rem);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5662,6 +6580,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canPartition(int[] nums) {\n        int total = 0;\n        for (int x : nums) total += x;\n        if (total % 2 != 0) return false;\n        int target = total / 2;\n        Boolean[][] memo = new Boolean[nums.length + 1][target + 1];\n        return solve(nums, 0, target, memo);\n    }\n\n    private boolean solve(int[] nums, int i, int rem, Boolean[][] memo) {\n        if (rem == 0) return true;\n        if (i == nums.length || rem < 0) return false;\n        if (memo[i][rem] != null) return memo[i][rem];\n        boolean ok = solve(nums, i + 1, rem - nums[i], memo) || solve(nums, i + 1, rem, memo);\n        memo[i][rem] = ok;\n        return ok;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot \\text{target})', space: 'O(n \\cdot \\text{target})' },
       pythonComplexity: undefined
     },
@@ -5673,6 +6594,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canPartition(int[] nums) {\n        int total = 0;\n        for (int x : nums) total += x;\n        if (total % 2 != 0) return false;\n        int target = total / 2;\n        boolean[] dp = new boolean[target + 1];\n        dp[0] = true;\n        for (int x : nums) {\n            for (int s = target; s >= x; s--) {\n                dp[s] = dp[s] || dp[s - x];\n            }\n        }\n        return dp[target];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def canPartition(self, nums):\n        total = sum(nums)\n        if total % 2: return False\n        target = total // 2; possible = {0}\n        for x in nums: possible |= {v+x for v in possible if v+x <= target}\n        return target in possible",
+      pythonIntuition: '`dp[s]` means some subset so far sums to `s`. Process each number and update `dp` from high sums to low, so that each number is used at most once. Then `dp[target]` is the answer.',
+      pythonAlgorithm: ['`dp[0] = True`, others `False`.','For each `x`, for `s` from `target` down to `x`: `dp[s] |= dp[s - x]`.','Return `dp[target]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[0] = True`, others `False`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `x`, for `s` from `target` down to `x`: `dp[s] |= dp[s - x]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[target]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\cdot \\text{target})', space: 'O(\\text{target})' },
       pythonComplexity: undefined
     }
@@ -5706,6 +6630,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int uniquePaths(int m, int n) {\n        return paths(0, 0, m, n);\n    }\n\n    private int paths(int r, int c, int m, int n) {\n        if (r >= m || c >= n) return 0;\n        if (r == m - 1 && c == n - 1) return 1;\n        return paths(r + 1, c, m, n) + paths(r, c + 1, m, n);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^{m+n})', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -5717,6 +6644,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int uniquePaths(int m, int n) {\n        int[][] memo = new int[m][n];\n        for (int[] row : memo) Arrays.fill(row, -1);\n        return paths(0, 0, m, n, memo);\n    }\n\n    private int paths(int r, int c, int m, int n, int[][] memo) {\n        if (r >= m || c >= n) return 0;\n        if (r == m - 1 && c == n - 1) return 1;\n        if (memo[r][c] != -1) return memo[r][c];\n        memo[r][c] = paths(r + 1, c, m, n, memo) + paths(r, c + 1, m, n, memo);\n        return memo[r][c];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -5728,6 +6658,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int uniquePaths(int m, int n) {\n        int[] dp = new int[n];\n        java.util.Arrays.fill(dp, 1);\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                dp[j] += dp[j - 1];\n            }\n        }\n        return dp[n - 1];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def uniquePaths(self, m, n):\n        dp = [1] * n\n        for _ in range(1, m):\n            for c in range(1, n): dp[c] += dp[c-1]\n        return dp[-1]",
+      pythonIntuition: 'Each row depends only on the row above and the cell to its left. A single array representing the current row, updated left to right, is enough.',
+      pythonAlgorithm: ['`dp[j] = 1` for all `j` (the first row).','For each subsequent row, for `j` from `1` to `n-1`: `dp[j] += dp[j-1]`.','Return `dp[n-1]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[j] = 1` for all `j` (the first row).','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For each subsequent row, for `j` from `1` to `n-1`: `dp[j] += dp[j-1]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[n-1]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -5761,6 +6694,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int longestCommonSubsequence(String text1, String text2) {\n        return lcs(text1, text2, 0, 0);\n    }\n\n    private int lcs(String a, String b, int i, int j) {\n        if (i == a.length() || j == b.length()) return 0;\n        if (a.charAt(i) == b.charAt(j)) return 1 + lcs(a, b, i + 1, j + 1);\n        return Math.max(lcs(a, b, i + 1, j), lcs(a, b, i, j + 1));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^{m+n})', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -5772,6 +6708,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int longestCommonSubsequence(String text1, String text2) {\n        int[][] memo = new int[text1.length()][text2.length()];\n        for (int[] row : memo) Arrays.fill(row, -1);\n        return lcs(text1, text2, 0, 0, memo);\n    }\n\n    private int lcs(String a, String b, int i, int j, int[][] memo) {\n        if (i == a.length() || j == b.length()) return 0;\n        if (memo[i][j] != -1) return memo[i][j];\n        if (a.charAt(i) == b.charAt(j)) {\n            memo[i][j] = 1 + lcs(a, b, i + 1, j + 1, memo);\n        } else {\n            memo[i][j] = Math.max(lcs(a, b, i + 1, j, memo), lcs(a, b, i, j + 1, memo));\n        }\n        return memo[i][j];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -5783,6 +6722,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int longestCommonSubsequence(String text1, String text2) {\n        int m = text1.length(), n = text2.length();\n        int[] prev = new int[n + 1], cur = new int[n + 1];\n        for (int i = m - 1; i >= 0; i--) {\n            for (int j = n - 1; j >= 0; j--) {\n                if (text1.charAt(i) == text2.charAt(j)) {\n                    cur[j] = 1 + prev[j + 1];\n                } else {\n                    cur[j] = Math.max(prev[j], cur[j + 1]);\n                }\n            }\n            int[] tmp = prev;\n            prev = cur;\n            cur = tmp;\n        }\n        return prev[0];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def longestCommonSubsequence(self, text1, text2):\n        dp = [0] * (len(text2)+1)\n        for a in text1:\n            prev = 0\n            for j,b in enumerate(text2, 1):\n                old = dp[j]\n                dp[j] = prev + 1 if a == b else max(dp[j], dp[j-1])\n                prev = old\n        return dp[-1]",
+      pythonIntuition: 'Row `i` of the table depends only on row `i+1` and the current row. Keep two rows of length `n+1`, and roll them.',
+      pythonAlgorithm: ['`prev` and `cur` are arrays of length `n + 1`, all zero.','For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:','- If `a[i] == b[j]`, `cur[j] = 1 + prev[j+1]`.','- Otherwise `cur[j] = max(prev[j], cur[j+1])`.','Swap `prev` and `cur` after each row.','Return `prev[0]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`prev` and `cur` are arrays of length `n + 1`, all zero.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Swap `prev` and `cur` after each row.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','Return `prev[0]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -5816,6 +6758,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProfit(int[] prices) {\n        return f(prices, 0, 0);\n    }\n\n    private int f(int[] p, int i, int state) {\n        if (i >= p.length) return 0;\n        if (state == 0) return Math.max(f(p, i + 1, 0), -p[i] + f(p, i + 1, 1));\n        if (state == 1) return Math.max(f(p, i + 1, 1), p[i] + f(p, i + 1, 2));\n        return f(p, i + 1, 0);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5827,6 +6772,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int maxProfit(int[] prices) {\n        int[][] memo = new int[prices.length][3];\n        for (int[] row : memo) Arrays.fill(row, -1);\n        return f(prices, 0, 0, memo);\n    }\n\n    private int f(int[] p, int i, int state, int[][] memo) {\n        if (i >= p.length) return 0;\n        if (memo[i][state] != -1) return memo[i][state];\n        int res;\n        if (state == 0) {\n            res = Math.max(f(p, i + 1, 0, memo), -p[i] + f(p, i + 1, 1, memo));\n        } else if (state == 1) {\n            res = Math.max(f(p, i + 1, 1, memo), p[i] + f(p, i + 1, 2, memo));\n        } else {\n            res = f(p, i + 1, 0, memo);\n        }\n        memo[i][state] = res;\n        return res;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5838,6 +6786,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxProfit(int[] prices) {\n        int hold = -prices[0], sold = 0, rest = 0;\n        for (int i = 1; i < prices.length; i++) {\n            int x = prices[i];\n            int newHold = Math.max(hold, rest - x);\n            int newSold = hold + x;\n            int newRest = Math.max(rest, sold);\n            hold = newHold;\n            sold = newSold;\n            rest = newRest;\n        }\n        return Math.max(sold, rest);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxProfit(self, prices):\n        hold, sold, rest = float(\"-inf\"), 0, 0\n        for p in prices:\n            hold, sold, rest = max(hold, rest-p), hold+p, max(rest, sold)\n        return max(sold, rest)",
+      pythonIntuition: 'Process days forward. Each day needs only the previous day\'s three state values, so three variables suffice.',
+      pythonAlgorithm: ['`hold = -p[0]`, `sold = 0`, `rest = 0`.','For each later day with price `x`:','- `newHold = max(hold, rest - x)`','- `newSold = hold + x`','- `newRest = max(rest, sold)`','Return `max(sold, rest)`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`hold = -p[0]`, `sold = 0`, `rest = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each later day with price `x`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `max(sold, rest)`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -5871,6 +6822,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int change(int amount, int[] coins) {\n        return ways(coins, 0, amount);\n    }\n\n    private int ways(int[] coins, int i, int rem) {\n        if (rem == 0) return 1;\n        if (i == coins.length || rem < 0) return 0;\n        return ways(coins, i, rem - coins[i]) + ways(coins, i + 1, rem);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(\\text{amount})' },
       pythonComplexity: undefined
     },
@@ -5882,6 +6836,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int change(int amount, int[] coins) {\n        int[][] memo = new int[coins.length + 1][amount + 1];\n        for (int[] row : memo) Arrays.fill(row, -1);\n        return ways(coins, 0, amount, memo);\n    }\n\n    private int ways(int[] coins, int i, int rem, int[][] memo) {\n        if (rem == 0) return 1;\n        if (i == coins.length || rem < 0) return 0;\n        if (memo[i][rem] != -1) return memo[i][rem];\n        memo[i][rem] = ways(coins, i, rem - coins[i], memo) + ways(coins, i + 1, rem, memo);\n        return memo[i][rem];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot \\text{amount})', space: 'O(n \\cdot \\text{amount})' },
       pythonComplexity: undefined
     },
@@ -5893,6 +6850,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int change(int amount, int[] coins) {\n        int[] dp = new int[amount + 1];\n        dp[0] = 1;\n        for (int c : coins) {\n            for (int s = c; s <= amount; s++) {\n                dp[s] += dp[s - c];\n            }\n        }\n        return dp[amount];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def change(self, amount, coins):\n        dp = [0] * (amount+1); dp[0] = 1\n        for coin in coins:\n            for x in range(coin, amount+1): dp[x] += dp[x-coin]\n        return dp[amount]",
+      pythonIntuition: 'Process coins one at a time. For each coin, iterate amounts upward, so `dp[s - c]` already includes uses of coin `c`. This allows unlimited reuse. The order of loops means each combination is counted once, regardless of order.',
+      pythonAlgorithm: ['`dp[0] = 1`, others `0`.','For each coin `c`, for `s` from `c` to `amount`: `dp[s] += dp[s - c]`.','Return `dp[amount]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[0] = 1`, others `0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each coin `c`, for `s` from `c` to `amount`: `dp[s] += dp[s - c]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[amount]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\cdot \\text{amount})', space: 'O(\\text{amount})' },
       pythonComplexity: undefined
     }
@@ -5926,6 +6886,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        return count(nums, 0, 0, target);\n    }\n\n    private int count(int[] nums, int i, int sum, int target) {\n        if (i == nums.length) return sum == target ? 1 : 0;\n        return count(nums, i + 1, sum + nums[i], target) + count(nums, i + 1, sum - nums[i], target);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -5937,6 +6900,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        int total = 0;\n        for (int x : nums) total += x;\n        if (Math.abs(target) > total) return 0;\n        int[][] memo = new int[nums.length][2 * total + 1];\n        for (int[] row : memo) Arrays.fill(row, -1);\n        return count(nums, 0, 0, target, total, memo);\n    }\n\n    private int count(int[] nums, int i, int sum, int target, int total, int[][] memo) {\n        if (i == nums.length) return sum == target ? 1 : 0;\n        int idx = sum + total;\n        if (memo[i][idx] != -1) return memo[i][idx];\n        memo[i][idx] = count(nums, i + 1, sum + nums[i], target, total, memo)\n                     + count(nums, i + 1, sum - nums[i], target, total, memo);\n        return memo[i][idx];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot \\text{total})', space: 'O(n \\cdot \\text{total})' },
       pythonComplexity: undefined
     },
@@ -5948,6 +6914,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        int total = 0;\n        for (int x : nums) total += x;\n        if (Math.abs(target) > total || (total + target) % 2 != 0) return 0;\n        int P = (total + target) / 2;\n        int[] dp = new int[P + 1];\n        dp[0] = 1;\n        for (int x : nums) {\n            for (int s = P; s >= x; s--) {\n                dp[s] += dp[s - x];\n            }\n        }\n        return dp[P];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findTargetSumWays(self, nums, target):\n        dp = {0: 1}\n        for x in nums:\n            nxt = defaultdict(int)\n            for total, count in dp.items():\n                nxt[total+x] += count; nxt[total-x] += count\n            dp = nxt\n        return dp[target]",
+      pythonIntuition: 'Reduce to counting subsets that sum to `P = (total + target) / 2`. Use a 1-D table where `dp[s]` is the number of subsets with sum `s`. Iterate sums downward so each number is used at most once. A zero value doubles the count at `dp[s]` for each `s`, correctly handling both choices for that zero.',
+      pythonAlgorithm: ['If `|target| > total` or `(total + target)` is odd, return `0`.','`P = (total + target) / 2`. `dp[0] = 1`.','For each `x`, for `s` from `P` down to `x`: `dp[s] += dp[s - x]`.','Return `dp[P]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','If `|target| > total` or `(total + target)` is odd, return `0`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','`P = (total + target) / 2`. `dp[0] = 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `x`, for `s` from `P` down to `x`: `dp[s] += dp[s - x]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[P]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\cdot P)', space: 'O(P)' },
       pythonComplexity: undefined
     }
@@ -5981,6 +6950,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        if (s1.length() + s2.length() != s3.length()) return false;\n        return solve(s1, s2, s3, 0, 0);\n    }\n\n    private boolean solve(String s1, String s2, String s3, int i, int j) {\n        if (i == s1.length() && j == s2.length()) return true;\n        int k = i + j;\n        if (i < s1.length() && s1.charAt(i) == s3.charAt(k) && solve(s1, s2, s3, i + 1, j)) return true;\n        if (j < s2.length() && s2.charAt(j) == s3.charAt(k) && solve(s1, s2, s3, i, j + 1)) return true;\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^{m+n})', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -5992,6 +6964,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        if (s1.length() + s2.length() != s3.length()) return false;\n        Boolean[][] memo = new Boolean[s1.length() + 1][s2.length() + 1];\n        return solve(s1, s2, s3, 0, 0, memo);\n    }\n\n    private boolean solve(String s1, String s2, String s3, int i, int j, Boolean[][] memo) {\n        if (i == s1.length() && j == s2.length()) return true;\n        if (memo[i][j] != null) return memo[i][j];\n        int k = i + j;\n        boolean ok = false;\n        if (i < s1.length() && s1.charAt(i) == s3.charAt(k)) {\n            ok = solve(s1, s2, s3, i + 1, j, memo);\n        }\n        if (!ok && j < s2.length() && s2.charAt(j) == s3.charAt(k)) {\n            ok = solve(s1, s2, s3, i, j + 1, memo);\n        }\n        memo[i][j] = ok;\n        return ok;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -6003,6 +6978,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        int m = s1.length(), n = s2.length();\n        if (m + n != s3.length()) return false;\n        boolean[] dp = new boolean[n + 1];\n        for (int i = 0; i <= m; i++) {\n            for (int j = 0; j <= n; j++) {\n                if (i == 0 && j == 0) {\n                    dp[0] = true;\n                    continue;\n                }\n                int k = i + j - 1;\n                boolean fromTop = i > 0 && dp[j] && s1.charAt(i - 1) == s3.charAt(k);\n                boolean fromLeft = j > 0 && dp[j - 1] && s2.charAt(j - 1) == s3.charAt(k);\n                dp[j] = fromTop || fromLeft;\n            }\n        }\n        return dp[n];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isInterleave(self, s1, s2, s3):\n        if len(s1)+len(s2) != len(s3): return False\n        dp = [False] * (len(s2)+1); dp[0] = True\n        for j in range(1, len(s2)+1): dp[j] = dp[j-1] and s2[j-1] == s3[j-1]\n        for i in range(1, len(s1)+1):\n            dp[0] = dp[0] and s1[i-1] == s3[i-1]\n            for j in range(1, len(s2)+1):\n                ch = s3[i+j-1]\n                dp[j] = (dp[j] and s1[i-1] == ch) or (dp[j-1] and s2[j-1] == ch)\n        return dp[-1]",
+      pythonIntuition: '`dp[i][j]` depends on `dp[i-1][j]` and `dp[i][j-1]`. Process rows in order and keep only one array, which is updated in place as `j` increases.',
+      pythonAlgorithm: ['If the lengths do not add up, return `False`.','`dp[j]` is `True` if the first `i` characters of `s1` and `j` characters of `s2` interleave to form `s3[0..i+j)`.','For each `i` from `0` to `m`, and `j` from `0` to `n`:','- `dp[0]` for `i == 0` is `True`.','- `dp[j] = (i > 0 && dp[j] && s1[i-1] == s3[i+j-1]) || (j > 0 && dp[j-1] && s2[j-1] == s3[i+j-1])`.','Return `dp[n]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','If the lengths do not add up, return `False`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','`dp[j]` is `True` if the first `i` characters of `s1` and `j` characters of `s2` interleave to form `s3[0..i+j)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `i` from `0` to `m`, and `j` from `0` to `n`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[n]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -6036,6 +7014,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int longestIncreasingPath(int[][] matrix) {\n        int best = 0;\n        for (int r = 0; r < matrix.length; r++) {\n            for (int c = 0; c < matrix[0].length; c++) {\n                best = Math.max(best, dfs(matrix, r, c));\n            }\n        }\n        return best;\n    }\n\n    private int dfs(int[][] mat, int r, int c) {\n        int best = 1;\n        for (int[] d : DIRS) {\n            int nr = r + d[0], nc = c + d[1];\n            if (nr < 0 || nc < 0 || nr >= mat.length || nc >= mat[0].length) continue;\n            if (mat[nr][nc] > mat[r][c]) {\n                best = Math.max(best, 1 + dfs(mat, nr, nc));\n            }\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -6047,6 +7028,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int longestIncreasingPath(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        int[][] memo = new int[m][n];\n        int best = 0;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                best = Math.max(best, dfs(matrix, r, c, memo));\n            }\n        }\n        return best;\n    }\n\n    private int dfs(int[][] mat, int r, int c, int[][] memo) {\n        if (memo[r][c] != 0) return memo[r][c];\n        int best = 1;\n        for (int[] d : DIRS) {\n            int nr = r + d[0], nc = c + d[1];\n            if (nr < 0 || nc < 0 || nr >= mat.length || nc >= mat[0].length) continue;\n            if (mat[nr][nc] > mat[r][c]) {\n                best = Math.max(best, 1 + dfs(mat, nr, nc, memo));\n            }\n        }\n        memo[r][c] = best;\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -6058,6 +7042,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int longestIncreasingPath(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        int[][] indeg = new int[m][n];\n        Queue<int[]> q = new ArrayDeque<>();\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                for (int[] d : DIRS) {\n                    int nr = r + d[0], nc = c + d[1];\n                    if (nr >= 0 && nc >= 0 && nr < m && nc < n && matrix[nr][nc] < matrix[r][c]) {\n                        indeg[r][c]++;\n                    }\n                }\n                if (indeg[r][c] == 0) q.offer(new int[]{r, c});\n            }\n        }\n        int layers = 0;\n        while (!q.isEmpty()) {\n            layers++;\n            for (int size = q.size(); size > 0; size--) {\n                int[] cur = q.poll();\n                for (int[] d : DIRS) {\n                    int nr = cur[0] + d[0], nc = cur[1] + d[1];\n                    if (nr < 0 || nc < 0 || nr >= m || nc >= n) continue;\n                    if (matrix[nr][nc] > matrix[cur[0]][cur[1]] && --indeg[nr][nc] == 0) {\n                        q.offer(new int[]{nr, nc});\n                    }\n                }\n            }\n        }\n        return layers;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def longestIncreasingPath(self, matrix):\n        rows, cols = len(matrix), len(matrix[0])\n        outdegree = [[0]*cols for _ in range(rows)]\n        q = deque()\n        directions = ((1,0),(-1,0),(0,1),(0,-1))\n        for r in range(rows):\n            for c in range(cols):\n                for dr,dc in directions:\n                    nr,nc=r+dr,c+dc\n                    if 0<=nr<rows and 0<=nc<cols and matrix[nr][nc]>matrix[r][c]:\n                        outdegree[r][c]+=1\n                if outdegree[r][c]==0: q.append((r,c))\n        length=0\n        while q:\n            length+=1\n            for _ in range(len(q)):\n                r,c=q.popleft()\n                for dr,dc in directions:\n                    nr,nc=r+dr,c+dc\n                    if 0<=nr<rows and 0<=nc<cols and matrix[nr][nc]<matrix[r][c]:\n                        outdegree[nr][nc]-=1\n                        if outdegree[nr][nc]==0: q.append((nr,nc))\n        return length",
+      pythonIntuition: 'Treat each edge as pointing from a smaller cell to a larger neighbour. A cell\'s indegree is the number of smaller neighbours. Cells with indegree zero are local minima. Remove them layer by layer, as in a topological sort. The number of layers equals the longest increasing path length.',
+      pythonAlgorithm: ['For each cell, `indeg` = number of neighbours with a smaller value.','Enqueue all cells with `indeg == 0`.','While the queue is non-empty: count one layer. Process the current layer, and for each larger neighbour, decrement its indegree and enqueue it when it reaches zero.','Return the number of layers.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each cell, `indeg` = number of neighbours with a smaller value.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Enqueue all cells with `indeg == 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While the queue is non-empty: count one layer. Process the current layer, and for each larger neighbour, decrement its indegree and enqueue it when it reaches zero.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return the number of layers.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -6091,6 +7078,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int numDistinct(String s, String t) {\n        return count(s, t, 0, 0);\n    }\n\n    private int count(String s, String t, int i, int j) {\n        if (j == t.length()) return 1;\n        if (i == s.length()) return 0;\n        int res = count(s, t, i + 1, j);\n        if (s.charAt(i) == t.charAt(j)) res += count(s, t, i + 1, j + 1);\n        return res;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(n + m)' },
       pythonComplexity: undefined
     },
@@ -6102,6 +7092,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int numDistinct(String s, String t) {\n        int[][] memo = new int[s.length() + 1][t.length() + 1];\n        for (int[] row : memo) Arrays.fill(row, -1);\n        return count(s, t, 0, 0, memo);\n    }\n\n    private int count(String s, String t, int i, int j, int[][] memo) {\n        if (j == t.length()) return 1;\n        if (i == s.length()) return 0;\n        if (memo[i][j] != -1) return memo[i][j];\n        int res = count(s, t, i + 1, j, memo);\n        if (s.charAt(i) == t.charAt(j)) res += count(s, t, i + 1, j + 1, memo);\n        memo[i][j] = res;\n        return res;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(nm)', space: 'O(nm)' },
       pythonComplexity: undefined
     },
@@ -6113,6 +7106,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int numDistinct(String s, String t) {\n        int m = t.length();\n        int[] dp = new int[m + 1];\n        dp[0] = 1;\n        for (char c : s.toCharArray()) {\n            for (int j = m; j >= 1; j--) {\n                if (c == t.charAt(j - 1)) dp[j] += dp[j - 1];\n            }\n        }\n        return dp[m];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def numDistinct(self, s, t):\n        dp = [0] * (len(t)+1); dp[0] = 1\n        for ch in s:\n            for j in range(len(t)-1, -1, -1):\n                if ch == t[j]: dp[j+1] += dp[j]\n        return dp[-1]",
+      pythonIntuition: 'Let `dp[j]` be the number of ways to form `t[0..j)` from the characters of `s` processed so far. When a character `c` of `s` is read, it can extend every prefix of `t` that ends in `c`. Iterate `j` downward so each character of `s` is used at most once per update.',
+      pythonAlgorithm: ['`dp[0] = 1`, others `0`.','For each `c` in `s`, for `j` from `m` down to `1`: if `c == t[j-1]`, `dp[j] += dp[j-1]`.','Return `dp[m]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[0] = 1`, others `0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `c` in `s`, for `j` from `m` down to `1`: if `c == t[j-1]`, `dp[j] += dp[j-1]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[m]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(nm)', space: 'O(m)' },
       pythonComplexity: undefined
     }
@@ -6146,6 +7142,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minDistance(String word1, String word2) {\n        return solve(word1, word2, 0, 0);\n    }\n\n    private int solve(String a, String b, int i, int j) {\n        if (i == a.length()) return b.length() - j;\n        if (j == b.length()) return a.length() - i;\n        if (a.charAt(i) == b.charAt(j)) return solve(a, b, i + 1, j + 1);\n        return 1 + Math.min(solve(a, b, i + 1, j + 1),\n                   Math.min(solve(a, b, i + 1, j), solve(a, b, i, j + 1)));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential, about O(3^{m+n})', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -6157,6 +7156,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int minDistance(String word1, String word2) {\n        int[][] memo = new int[word1.length() + 1][word2.length() + 1];\n        for (int[] row : memo) Arrays.fill(row, -1);\n        return solve(word1, word2, 0, 0, memo);\n    }\n\n    private int solve(String a, String b, int i, int j, int[][] memo) {\n        if (i == a.length()) return b.length() - j;\n        if (j == b.length()) return a.length() - i;\n        if (memo[i][j] != -1) return memo[i][j];\n        int res;\n        if (a.charAt(i) == b.charAt(j)) {\n            res = solve(a, b, i + 1, j + 1, memo);\n        } else {\n            res = 1 + Math.min(solve(a, b, i + 1, j + 1, memo),\n                      Math.min(solve(a, b, i + 1, j, memo), solve(a, b, i, j + 1, memo)));\n        }\n        memo[i][j] = res;\n        return res;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -6168,6 +7170,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minDistance(String word1, String word2) {\n        int m = word1.length(), n = word2.length();\n        int[] dp = new int[n + 1];\n        for (int j = 0; j <= n; j++) dp[j] = n - j;\n        for (int i = m - 1; i >= 0; i--) {\n            int diag = dp[n];\n            dp[n] = m - i;\n            for (int j = n - 1; j >= 0; j--) {\n                int temp = dp[j];\n                if (word1.charAt(i) == word2.charAt(j)) {\n                    dp[j] = diag;\n                } else {\n                    dp[j] = 1 + Math.min(diag, Math.min(dp[j], dp[j + 1]));\n                }\n                diag = temp;\n            }\n        }\n        return dp[0];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def minDistance(self, word1, word2):\n        dp = list(range(len(word2)+1))\n        for i,a in enumerate(word1, 1):\n            new = [i] + [0] * len(word2)\n            for j,b in enumerate(word2, 1):\n                new[j] = dp[j-1] if a == b else 1 + min(dp[j], new[j-1], dp[j-1])\n            dp = new\n        return dp[-1]",
+      pythonIntuition: 'Each row depends only on the row below it and the current row. Keep one row, and track the diagonal value that the in-place update overwrites.',
+      pythonAlgorithm: ['`dp[j]` holds the distance from the suffix `word1[i..]` to `word2[j..]`, for the current `i`. Start with the row for `i = m`: `dp[j] = n - j`.','For `i` from `m-1` down to `0`:','- Keep `diag = dp[n]` (the value from the row below, at column `n`) before the row changes.','- Set `dp[n] = m - i`.','- For `j` from `n-1` down to `0`: `temp = dp[j]`. If equal, `dp[j] = diag`. Otherwise `dp[j] = 1 + min(diag, dp[j], dp[j+1])`. Then `diag = temp`.','Return `dp[0]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[j]` holds the distance from the suffix `word1[i..]` to `word2[j..]`, for the current `i`. Start with the row for `i = m`: `dp[j] = n - j`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For `i` from `m-1` down to `0`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[0]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -6201,6 +7206,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxCoins(int[] nums) {\n        int n = nums.length;\n        int[] arr = new int[n + 2];\n        arr[0] = arr[n + 1] = 1;\n        for (int i = 0; i < n; i++) arr[i + 1] = nums[i];\n        return solve(arr, 0, n + 1);\n    }\n\n    private int solve(int[] arr, int l, int r) {\n        if (r - l < 2) return 0;\n        int best = 0;\n        for (int k = l + 1; k < r; k++) {\n            int cand = solve(arr, l, k) + solve(arr, k, r) + arr[l] * arr[k] * arr[r];\n            best = Math.max(best, cand);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6212,6 +7220,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxCoins(int[] nums) {\n        int n = nums.length;\n        int[] arr = new int[n + 2];\n        arr[0] = arr[n + 1] = 1;\n        for (int i = 0; i < n; i++) arr[i + 1] = nums[i];\n        int[][] memo = new int[n + 2][n + 2];\n        return solve(arr, 0, n + 1, memo);\n    }\n\n    private int solve(int[] arr, int l, int r, int[][] memo) {\n        if (r - l < 2) return 0;\n        if (memo[l][r] != 0) return memo[l][r];\n        int best = 0;\n        for (int k = l + 1; k < r; k++) {\n            int cand = solve(arr, l, k, memo) + solve(arr, k, r, memo) + arr[l] * arr[k] * arr[r];\n            best = Math.max(best, cand);\n        }\n        memo[l][r] = best;\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^3)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -6223,6 +7234,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxCoins(int[] nums) {\n        int n = nums.length;\n        int N = n + 2;\n        int[] arr = new int[N];\n        arr[0] = arr[N - 1] = 1;\n        for (int i = 0; i < n; i++) arr[i + 1] = nums[i];\n        int[][] dp = new int[N][N];\n        for (int len = 2; len < N; len++) {\n            for (int l = 0; l + len < N; l++) {\n                int r = l + len;\n                for (int k = l + 1; k < r; k++) {\n                    int cand = dp[l][k] + dp[k][r] + arr[l] * arr[k] * arr[r];\n                    dp[l][r] = Math.max(dp[l][r], cand);\n                }\n            }\n        }\n        return dp[0][N - 1];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxCoins(self, nums):\n        arr = [1] + nums + [1]\n        n = len(nums); dp = [[0]*(n+2) for _ in range(n+2)]\n        for length in range(1, n+1):\n            for l in range(1, n-length+2):\n                r = l + length - 1\n                dp[l][r] = max(arr[l-1]*arr[k]*arr[r+1] + dp[l][k-1] + dp[k+1][r] for k in range(l,r+1))\n        return dp[1][n]",
+      pythonIntuition: 'The subproblems for `(l, r)` only need intervals strictly shorter than `r - l`. So fill the table by increasing interval length.',
+      pythonAlgorithm: ['Pad `nums` as before. `dp[l][r]` is zero for `r - l < 2`.','For `len` from `2` to `N - 1`, for each `l` with `r = l + len < N`: `dp[l][r] = max over k in (l, r) of dp[l][k] + dp[k][r] + arr[l]*arr[k]*arr[r]`.','Return `dp[0][N-1]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Pad `nums` as before. `dp[l][r]` is zero for `r - l < 2`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For `len` from `2` to `N - 1`, for each `l` with `r = l + len < N`: `dp[l][r] = max over k in (l, r) of dp[l][k] + dp[k][r] + arr[l]*arr[k]*arr[r]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[0][N-1]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n^3)', space: 'O(n^2)' },
       pythonComplexity: undefined
     }
@@ -6256,6 +7270,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isMatch(String s, String p) {\n        return match(s, p, 0, 0);\n    }\n\n    private boolean match(String s, String p, int i, int j) {\n        if (j == p.length()) return i == s.length();\n        boolean first = i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');\n        if (j + 1 < p.length() && p.charAt(j + 1) == '*') {\n            return match(s, p, i, j + 2) || (first && match(s, p, i + 1, j));\n        }\n        return first && match(s, p, i + 1, j + 1);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -6267,6 +7284,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isMatch(String s, String p) {\n        Boolean[][] memo = new Boolean[s.length() + 1][p.length() + 1];\n        return match(s, p, 0, 0, memo);\n    }\n\n    private boolean match(String s, String p, int i, int j, Boolean[][] memo) {\n        if (j == p.length()) return i == s.length();\n        if (memo[i][j] != null) return memo[i][j];\n        boolean first = i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');\n        boolean res;\n        if (j + 1 < p.length() && p.charAt(j + 1) == '*') {\n            res = match(s, p, i, j + 2, memo) || (first && match(s, p, i + 1, j, memo));\n        } else {\n            res = first && match(s, p, i + 1, j + 1, memo);\n        }\n        memo[i][j] = res;\n        return res;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -6278,6 +7298,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isMatch(String s, String p) {\n        int n = s.length(), m = p.length();\n        boolean[][] dp = new boolean[n + 1][m + 1];\n        dp[n][m] = true;\n        for (int i = n; i >= 0; i--) {\n            for (int j = m - 1; j >= 0; j--) {\n                boolean first = i < n && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');\n                if (j + 1 < m && p.charAt(j + 1) == '*') {\n                    dp[i][j] = dp[i][j + 2] || (first && dp[i + 1][j]);\n                } else {\n                    dp[i][j] = first && dp[i + 1][j + 1];\n                }\n            }\n        }\n        return dp[0][0];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isMatch(self, s, p):\n        @lru_cache(None)\n        def dp(i,j):\n            if j == len(p): return i == len(s)\n            first = i < len(s) and p[j] in (s[i], \".\")\n            if j+1 < len(p) and p[j+1] == \"*\":\n                return dp(i,j+2) or (first and dp(i+1,j))\n            return first and dp(i+1,j+1)\n        return dp(0,0)",
+      pythonIntuition: '`dp[i][j]` means `s[i..]` matches `p[j..]`. Each entry depends only on entries with larger `i` or larger `j`, so fill the table from the end. Base case: the empty suffix of the string matches the empty pattern.',
+      pythonAlgorithm: ['`dp[n][m] = True`.','For `i` from `n` down to `0`, and `j` from `m-1` down to `0`:','- `first = i < n && (p[j] matches s[i])`.','- If `p[j+1] == \'*\'`: `dp[i][j] = dp[i][j+2] || (first && dp[i+1][j])`.','- Otherwise `dp[i][j] = first && dp[i+1][j+1]`.','Return `dp[0][0]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`dp[n][m] = True`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `n` down to `0`, and `j` from `m-1` down to `0`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `dp[0][0]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     }
@@ -6311,6 +7334,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxSubArray(int[] nums) {\n        int best = Integer.MIN_VALUE;\n        for (int i = 0; i < nums.length; i++) {\n            int sum = 0;\n            for (int j = i; j < nums.length; j++) {\n                sum += nums[j];\n                best = Math.max(best, sum);\n            }\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6322,6 +7348,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxSubArray(int[] nums) {\n        int prefix = 0, minPrefix = 0;\n        int best = Integer.MIN_VALUE;\n        for (int x : nums) {\n            prefix += x;\n            best = Math.max(best, prefix - minPrefix);\n            minPrefix = Math.min(minPrefix, prefix);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6333,6 +7362,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int maxSubArray(int[] nums) {\n        int cur = nums[0], best = nums[0];\n        for (int i = 1; i < nums.length; i++) {\n            cur = Math.max(nums[i], cur + nums[i]);\n            best = Math.max(best, cur);\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def maxSubArray(self, nums):\n        best = cur = nums[0]\n        for x in nums[1:]: cur = max(x, cur+x); best = max(best, cur)\n        return best",
+      pythonIntuition: 'If the best subarray ending at `i-1` has a negative sum, it only hurts anything that extends it, so start over at `nums[i]`. Otherwise extend it.',
+      pythonAlgorithm: ['`cur = best = nums[0]`.','For each later `x`: `cur = max(x, cur + x)`, then `best = max(best, cur)`.','Return `best`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`cur = best = nums[0]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each later `x`: `cur = max(x, cur + x)`, then `best = max(best, cur)`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `best`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6366,6 +7398,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canJump(int[] nums) {\n        return solve(nums, 0);\n    }\n\n    private boolean solve(int[] nums, int i) {\n        if (i >= nums.length - 1) return true;\n        for (int step = 1; step <= nums[i]; step++) {\n            if (solve(nums, i + step)) return true;\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6377,6 +7412,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canJump(int[] nums) {\n        int n = nums.length;\n        boolean[] good = new boolean[n];\n        good[n - 1] = true;\n        for (int i = n - 2; i >= 0; i--) {\n            int far = Math.min(n - 1, i + nums[i]);\n            for (int j = i + 1; j <= far; j++) {\n                if (good[j]) {\n                    good[i] = true;\n                    break;\n                }\n            }\n        }\n        return good[0];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6388,6 +7426,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canJump(int[] nums) {\n        int maxReach = 0;\n        for (int i = 0; i < nums.length; i++) {\n            if (i > maxReach) return false;\n            maxReach = Math.max(maxReach, i + nums[i]);\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def canJump(self, nums):\n        goal = len(nums)-1\n        for i in range(len(nums)-1, -1, -1):\n            if i + nums[i] >= goal: goal = i\n        return goal == 0",
+      pythonIntuition: 'Keep `maxReach`, the farthest index reachable from the indices scanned so far. If the current index is beyond `maxReach`, it cannot be reached. Otherwise update `maxReach` from this index\'s jump.',
+      pythonAlgorithm: ['`maxReach = 0`.','For each `i`: if `i > maxReach`, return `False`. Set `maxReach = max(maxReach, i + nums[i])`.','Return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`maxReach = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `i`: if `i > maxReach`, return `False`. Set `maxReach = max(maxReach, i + nums[i])`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `True`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6421,6 +7462,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int jump(int[] nums) {\n        return solve(nums, 0);\n    }\n\n    private int solve(int[] nums, int i) {\n        if (i >= nums.length - 1) return 0;\n        int best = Integer.MAX_VALUE;\n        for (int step = 1; step <= nums[i]; step++) {\n            int r = solve(nums, i + step);\n            if (r != Integer.MAX_VALUE) best = Math.min(best, 1 + r);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6432,6 +7476,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int jump(int[] nums) {\n        int n = nums.length;\n        int[] dp = new int[n];\n        Arrays.fill(dp, Integer.MAX_VALUE);\n        dp[n - 1] = 0;\n        for (int i = n - 2; i >= 0; i--) {\n            int far = Math.min(n - 1, i + nums[i]);\n            for (int j = i + 1; j <= far; j++) {\n                if (dp[j] != Integer.MAX_VALUE) dp[i] = Math.min(dp[i], dp[j] + 1);\n            }\n        }\n        return dp[0];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6443,6 +7490,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int jump(int[] nums) {\n        int jumps = 0, curEnd = 0, farthest = 0;\n        for (int i = 0; i < nums.length - 1; i++) {\n            farthest = Math.max(farthest, i + nums[i]);\n            if (i == curEnd) {\n                jumps++;\n                curEnd = farthest;\n            }\n        }\n        return jumps;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def jump(self, nums):\n        jumps = end = farthest = 0\n        for i in range(len(nums)-1):\n            farthest = max(farthest, i+nums[i])\n            if i == end: jumps += 1; end = farthest\n        return jumps",
+      pythonIntuition: 'Track the end of the current level (`curEnd`) and the farthest index reachable from anywhere in the current level (`farthest`). When the scan reaches `curEnd`, a jump is needed, and the next level ends at `farthest`.',
+      pythonAlgorithm: ['`jumps = 0`, `curEnd = 0`, `farthest = 0`.','For `i` from `0` to `n-2`:','- `farthest = max(farthest, i + nums[i])`.','- If `i == curEnd`, increment `jumps` and set `curEnd = farthest`.','Return `jumps`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`jumps = 0`, `curEnd = 0`, `farthest = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `0` to `n-2`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `jumps`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6476,6 +7526,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int canCompleteCircuit(int[] gas, int[] cost) {\n        int n = gas.length;\n        for (int start = 0; start < n; start++) {\n            int tank = 0;\n            boolean ok = true;\n            for (int k = 0; k < n; k++) {\n                int idx = (start + k) % n;\n                tank += gas[idx] - cost[idx];\n                if (tank < 0) {\n                    ok = false;\n                    break;\n                }\n            }\n            if (ok) return start;\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6487,6 +7540,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int canCompleteCircuit(int[] gas, int[] cost) {\n        int n = gas.length;\n        long total = 0, running = 0, minPrefix = Long.MAX_VALUE;\n        int start = 0;\n        for (int i = 0; i < n; i++) {\n            long diff = gas[i] - cost[i];\n            total += diff;\n            running += diff;\n            if (running < minPrefix) {\n                minPrefix = running;\n                start = i + 1;\n            }\n        }\n        return total < 0 ? -1 : start % n;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6498,6 +7554,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int canCompleteCircuit(int[] gas, int[] cost) {\n        int total = 0, tank = 0, start = 0;\n        for (int i = 0; i < gas.length; i++) {\n            int diff = gas[i] - cost[i];\n            total += diff;\n            tank += diff;\n            if (tank < 0) {\n                start = i + 1;\n                tank = 0;\n            }\n        }\n        return total < 0 ? -1 : start;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def canCompleteCircuit(self, gas, cost):\n        if sum(gas) < sum(cost): return -1\n        start = tank = 0\n        for i, (g,c) in enumerate(zip(gas,cost)):\n            tank += g-c\n            if tank < 0: start = i+1; tank = 0\n        return start",
+      pythonIntuition: 'Track the tank from a candidate start. When it goes negative at `i`, no start from the candidate through `i` works, so reset the candidate to `i + 1` and the tank to zero. Feasibility is then decided by whether the total fuel covers the total cost.',
+      pythonAlgorithm: ['`total = 0`, `tank = 0`, `start = 0`.','For each `i`: `diff = gas[i] - cost[i]`. Add to `total` and `tank`. If `tank < 0`, set `start = i + 1` and `tank = 0`.','Return `total < 0 ? -1 : start`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`total = 0`, `tank = 0`, `start = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `i`: `diff = gas[i] - cost[i]`. Add to `total` and `tank`. If `tank < 0`, set `start = i + 1` and `tank = 0`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `total < 0 ? -1 : start`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6531,6 +7590,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public boolean isNStraightHand(int[] hand, int groupSize) {\n        if (hand.length % groupSize != 0) return false;\n        List<Integer> list = new ArrayList<>();\n        for (int x : hand) list.add(x);\n        list.sort(null);\n        while (!list.isEmpty()) {\n            int first = list.get(0);\n            for (int k = 0; k < groupSize; k++) {\n                int idx = list.indexOf(first + k);\n                if (idx == -1) return false;\n                list.remove(idx);\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6542,6 +7604,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Map;\nimport java.util.TreeMap;\n\nclass Solution {\n    public boolean isNStraightHand(int[] hand, int groupSize) {\n        if (hand.length % groupSize != 0) return false;\n        TreeMap<Integer, Integer> counts = new TreeMap<>();\n        for (int x : hand) counts.merge(x, 1, Integer::sum);\n        while (!counts.isEmpty()) {\n            int first = counts.firstKey();\n            for (int k = 0; k < groupSize; k++) {\n                int v = first + k;\n                Integer c = counts.get(v);\n                if (c == null) return false;\n                if (c == 1) counts.remove(v);\n                else counts.put(v, c - 1);\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6553,6 +7618,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\nimport java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public boolean isNStraightHand(int[] hand, int groupSize) {\n        if (hand.length % groupSize != 0) return false;\n        Arrays.sort(hand);\n        Map<Integer, Integer> cnt = new HashMap<>();\n        for (int x : hand) cnt.merge(x, 1, Integer::sum);\n        for (int x : hand) {\n            int need = cnt.getOrDefault(x, 0);\n            if (need == 0) continue;\n            for (int k = 0; k < groupSize; k++) {\n                int v = x + k;\n                int c = cnt.getOrDefault(v, 0) - need;\n                if (c < 0) return false;\n                cnt.put(v, c);\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isNStraightHand(self, hand, groupSize):\n        if len(hand) % groupSize: return False\n        counts = Counter(hand)\n        for x in sorted(counts):\n            while counts[x]:\n                for v in range(x, x+groupSize):\n                    if counts[v] == 0: return False\n                    counts[v] -= 1\n        return True",
+      pythonIntuition: 'Sort the cards once. Walking the sorted distinct values, each value with a remaining count must start that many groups. Decrement the counts of the following `groupSize - 1` consecutive values. Because the values are processed in order, a hash map is enough, and no ordered structure is needed during the process.',
+      pythonAlgorithm: ['If `n % groupSize != 0`, return `False`.','Sort `hand`. Build `cnt` as a hash map of counts.','For each `x` in sorted order: if `cnt[x]` is zero, skip it. Otherwise, let `need = cnt[x]`. For `k` from `0` to `groupSize-1`, subtract `need` from `cnt[x + k]`, and return `False` if it goes negative.','Return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','If `n % groupSize != 0`, return `False`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','Sort `hand`. Build `cnt` as a hash map of counts.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','For each `x` in sorted order: if `cnt[x]` is zero, skip it. Otherwise, let `need = cnt[x]`. For `k` from `0` to `groupSize-1`, subtract `need` from `cnt[x + k]`, and return `False` if it goes negative.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `True`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -6586,6 +7654,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean mergeTriplets(int[][] triplets, int[] target) {\n        int n = triplets.length;\n        for (int mask = 1; mask < (1 << n); mask++) {\n            int[] merged = new int[3];\n            boolean valid = true;\n            for (int i = 0; i < n && valid; i++) {\n                if (((mask >> i) & 1) == 1) {\n                    for (int k = 0; k < 3; k++) {\n                        if (triplets[i][k] > target[k]) valid = false;\n                        merged[k] = Math.max(merged[k], triplets[i][k]);\n                    }\n                }\n            }\n            if (valid && merged[0] == target[0] && merged[1] == target[1] && merged[2] == target[2]) {\n                return true;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(2^n \\cdot n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6597,6 +7668,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean mergeTriplets(int[][] triplets, int[] target) {\n        boolean[] found = new boolean[3];\n        for (int[] t : triplets) {\n            if (t[0] > target[0] || t[1] > target[1] || t[2] > target[2]) continue;\n            for (int k = 0; k < 3; k++) {\n                if (t[k] == target[k]) found[k] = true;\n            }\n        }\n        return found[0] && found[1] && found[2];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def mergeTriplets(self, triplets, target):\n        good = [False, False, False]\n        for a,b,c in triplets:\n            if a<=target[0] and b<=target[1] and c<=target[2]:\n                if a==target[0]: good[0]=True\n                if b==target[1]: good[1]=True\n                if c==target[2]: good[2]=True\n        return all(good)",
+      pythonIntuition: 'Skip any triplet that exceeds the target anywhere. Among the rest, mark each coordinate as covered when some triplet matches the target there. Taking all usable triplets gives the best possible merge, so checking coverage is enough.',
+      pythonAlgorithm: ['`found = [False, False, False]`.','For each triplet: if any coordinate exceeds the target, skip it. Otherwise, mark `found[k]` for each coordinate where it equals the target.','Return `found[0] && found[1] && found[2]`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`found = [False, False, False]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each triplet: if any coordinate exceeds the target, skip it. Otherwise, mark `found[k]` for each coordinate where it equals the target.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `found[0] && found[1] && found[2]`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6630,6 +7704,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<Integer> partitionLabels(String s) {\n        List<Integer> sizes = new ArrayList<>();\n        int start = 0, n = s.length();\n        while (start < n) {\n            int end = start;\n            for (int j = start; j <= end; j++) {\n                end = Math.max(end, s.lastIndexOf(s.charAt(j)));\n            }\n            sizes.add(end - start + 1);\n            start = end + 1;\n        }\n        return sizes;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6641,6 +7718,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<Integer> partitionLabels(String s) {\n        int[] last = new int[26];\n        for (int i = 0; i < s.length(); i++) {\n            last[s.charAt(i) - 'a'] = i;\n        }\n        List<Integer> sizes = new ArrayList<>();\n        int start = 0, end = 0;\n        for (int i = 0; i < s.length(); i++) {\n            end = Math.max(end, last[s.charAt(i) - 'a']);\n            if (i == end) {\n                sizes.add(end - start + 1);\n                start = i + 1;\n            }\n        }\n        return sizes;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def partitionLabels(self, s):\n        last = {ch:i for i,ch in enumerate(s)}\n        result=[]; start=end=0\n        for i,ch in enumerate(s):\n            end=max(end,last[ch])\n            if i==end: result.append(end-start+1); start=i+1\n        return result",
+      pythonIntuition: 'Record the last index of each letter once. Then scan left to right, extending the current part\'s end with each letter\'s last occurrence. When the scan index reaches the end, the part is complete.',
+      pythonAlgorithm: ['`last[c]` is the last index of letter `c`.','`start = 0`, `end = 0`. For each `i`: `end = max(end, last[s[i]])`. If `i == end`, record `end - start + 1`, and set `start = i + 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`last[c]` is the last index of letter `c`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`start = 0`, `end = 0`. For each `i`: `end = max(end, last[s[i]])`. If `i == end`, record `end - start + 1`, and set `start = i + 1`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6674,6 +7754,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean checkValidString(String s) {\n        return check(s, 0, 0);\n    }\n\n    private boolean check(String s, int i, int bal) {\n        if (bal < 0) return false;\n        if (i == s.length()) return bal == 0;\n        char c = s.charAt(i);\n        if (c == '(') return check(s, i + 1, bal + 1);\n        if (c == ')') return check(s, i + 1, bal - 1);\n        return check(s, i + 1, bal + 1) || check(s, i + 1, bal - 1) || check(s, i + 1, bal);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(3^n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6685,6 +7768,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean checkValidString(String s) {\n        Boolean[][] memo = new Boolean[s.length() + 1][s.length() + 2];\n        return check(s, 0, 0, memo);\n    }\n\n    private boolean check(String s, int i, int bal, Boolean[][] memo) {\n        if (bal < 0) return false;\n        if (i == s.length()) return bal == 0;\n        if (memo[i][bal] != null) return memo[i][bal];\n        char c = s.charAt(i);\n        boolean res;\n        if (c == '(') {\n            res = check(s, i + 1, bal + 1, memo);\n        } else if (c == ')') {\n            res = check(s, i + 1, bal - 1, memo);\n        } else {\n            res = check(s, i + 1, bal + 1, memo) || check(s, i + 1, bal - 1, memo) || check(s, i + 1, bal, memo);\n        }\n        memo[i][bal] = res;\n        return res;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -6696,6 +7782,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean checkValidString(String s) {\n        int lo = 0, hi = 0;\n        for (char c : s.toCharArray()) {\n            if (c == '(') {\n                lo++;\n                hi++;\n            } else if (c == ')') {\n                lo--;\n                hi--;\n            } else {\n                lo--;\n                hi++;\n            }\n            if (hi < 0) return false;\n            lo = Math.max(lo, 0);\n        }\n        return lo == 0;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def checkValidString(self, s):\n        low = high = 0\n        for ch in s:\n            if ch == \"(\": low+=1; high+=1\n            elif ch == \")\": low-=1; high-=1\n            else: low-=1; high+=1\n            if high < 0: return False\n            low=max(low,0)\n        return low == 0",
+      pythonIntuition: 'Replace the search with the range `[lo, hi]` described above. `lo` is the fewest unmatched opens possible, and `hi` the most. Whenever `hi` becomes negative, even the most generous assignment fails. Clamp `lo` at zero, since it cannot go below zero. At the end, the string is valid when `lo == 0`.',
+      pythonAlgorithm: ['`lo = 0`, `hi = 0`.','For each character:','- `\'(\'`: `lo++`, `hi++`.','- `\')\'`: `lo--`, `hi--`.','- `\'*\'`: `lo--`, `hi++`.','- If `hi < 0`, return `False`. Set `lo = max(lo, 0)`.','Return `lo == 0`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`lo = 0`, `hi = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each character:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `lo == 0`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6729,6 +7818,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public int[][] insert(int[][] intervals, int[] newInterval) {\n        List<int[]> all = new ArrayList<>(Arrays.asList(intervals));\n        all.add(newInterval);\n        all.sort((a, b) -> Integer.compare(a[0], b[0]));\n        List<int[]> merged = new ArrayList<>();\n        for (int[] cur : all) {\n            if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < cur[0]) {\n                merged.add(new int[]{cur[0], cur[1]});\n            } else {\n                int[] last = merged.get(merged.size() - 1);\n                last[1] = Math.max(last[1], cur[1]);\n            }\n        }\n        return merged.toArray(new int[0][]);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6740,6 +7832,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public int[][] insert(int[][] intervals, int[] newInterval) {\n        List<int[]> all = new ArrayList<>(Arrays.asList(intervals));\n        int pos = 0;\n        while (pos < all.size() && all.get(pos)[0] <= newInterval[0]) pos++;\n        all.add(pos, newInterval);\n        List<int[]> merged = new ArrayList<>();\n        for (int[] cur : all) {\n            if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < cur[0]) {\n                merged.add(new int[]{cur[0], cur[1]});\n            } else {\n                int[] last = merged.get(merged.size() - 1);\n                last[1] = Math.max(last[1], cur[1]);\n            }\n        }\n        return merged.toArray(new int[0][]);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6751,6 +7846,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int[][] insert(int[][] intervals, int[] newInterval) {\n        List<int[]> result = new ArrayList<>();\n        int i = 0, n = intervals.length;\n        int start = newInterval[0], end = newInterval[1];\n        while (i < n && intervals[i][1] < start) {\n            result.add(intervals[i++]);\n        }\n        while (i < n && intervals[i][0] <= end) {\n            start = Math.min(start, intervals[i][0]);\n            end = Math.max(end, intervals[i][1]);\n            i++;\n        }\n        result.add(new int[]{start, end});\n        while (i < n) {\n            result.add(intervals[i++]);\n        }\n        return result.toArray(new int[0][]);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def insert(self, intervals, newInterval):\n        result=[]; i=0; n=len(intervals)\n        while i<n and intervals[i][1]<newInterval[0]:\n            result.append(intervals[i]); i+=1\n        while i<n and intervals[i][0]<=newInterval[1]:\n            newInterval[0]=min(newInterval[0],intervals[i][0])\n            newInterval[1]=max(newInterval[1],intervals[i][1]); i+=1\n        result.append(newInterval); return result+intervals[i:]",
+      pythonIntuition: 'Process the sorted list in three phases. First, copy intervals that end before the new one starts. Second, merge every interval that overlaps the new one into it, widening it as needed. Third, copy the rest. No sorting or insertion is required.',
+      pythonAlgorithm: ['Phase 1: while `intervals[i][1] < newInterval[0]`, add `intervals[i]`.','Phase 2: while `intervals[i][0] <= newInterval[1]`, widen `newInterval` to cover `intervals[i]`.','Add the widened `newInterval`, then add the remaining intervals.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Phase 1: while `intervals[i][1] < newInterval[0]`, add `intervals[i]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Phase 2: while `intervals[i][0] <= newInterval[1]`, widen `newInterval` to cover `intervals[i]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Add the widened `newInterval`, then add the remaining intervals.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -6784,6 +7882,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int[][] merge(int[][] intervals) {\n        List<int[]> list = new ArrayList<>();\n        for (int[] iv : intervals) list.add(new int[]{iv[0], iv[1]});\n        boolean changed = true;\n        while (changed) {\n            changed = false;\n            outer:\n            for (int i = 0; i < list.size(); i++) {\n                for (int j = i + 1; j < list.size(); j++) {\n                    int[] a = list.get(i), b = list.get(j);\n                    if (a[0] <= b[1] && b[0] <= a[1]) {\n                        a[0] = Math.min(a[0], b[0]);\n                        a[1] = Math.max(a[1], b[1]);\n                        list.remove(j);\n                        changed = true;\n                        break outer;\n                    }\n                }\n            }\n        }\n        list.sort((x, y) -> Integer.compare(x[0], y[0]));\n        return list.toArray(new int[0][]);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^3)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6795,6 +7896,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public int[][] merge(int[][] intervals) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        List<int[]> result = new ArrayList<>();\n        for (int[] iv : intervals) {\n            if (result.isEmpty() || result.get(result.size() - 1)[1] < iv[0]) {\n                result.add(new int[]{iv[0], iv[1]});\n            } else {\n                int[] last = result.get(result.size() - 1);\n                last[1] = Math.max(last[1], iv[1]);\n            }\n        }\n        return result.toArray(new int[0][]);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def merge(self, intervals):\n        intervals.sort(); result=[]\n        for start,end in intervals:\n            if not result or start>result[-1][1]: result.append([start,end])\n            else: result[-1][1]=max(result[-1][1],end)\n        return result",
+      pythonIntuition: 'After sorting by start, each interval either overlaps the last merged block (extend its end) or begins a new block.',
+      pythonAlgorithm: ['Sort by start.','For each interval: if the result is empty or its start is greater than the last block\'s end, append it. Otherwise set the last block\'s end to the maximum of both ends.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort by start.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','For each interval: if the result is empty or its start is greater than the last block\'s end, append it. Otherwise set the last block\'s end to the maximum of both ends.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -6828,6 +7932,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int eraseOverlapIntervals(int[][] intervals) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        return intervals.length - best(intervals, 0, Integer.MIN_VALUE);\n    }\n\n    private int best(int[][] iv, int i, int prevEnd) {\n        if (i == iv.length) return 0;\n        int skip = best(iv, i + 1, prevEnd);\n        int take = 0;\n        if (iv[i][0] >= prevEnd) {\n            take = 1 + best(iv, i + 1, iv[i][1]);\n        }\n        return Math.max(skip, take);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6839,6 +7946,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int eraseOverlapIntervals(int[][] intervals) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        int n = intervals.length, kept = 1;\n        int[] dp = new int[n];\n        for (int i = 0; i < n; i++) {\n            dp[i] = 1;\n            for (int j = 0; j < i; j++) {\n                if (intervals[j][1] <= intervals[i][0]) dp[i] = Math.max(dp[i], dp[j] + 1);\n            }\n            kept = Math.max(kept, dp[i]);\n        }\n        return n - kept;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6850,6 +7960,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int eraseOverlapIntervals(int[][] intervals) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1]));\n        int prevEnd = Integer.MIN_VALUE, kept = 0;\n        for (int[] iv : intervals) {\n            if (iv[0] >= prevEnd) {\n                kept++;\n                prevEnd = iv[1];\n            }\n        }\n        return intervals.length - kept;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def eraseOverlapIntervals(self, intervals):\n        intervals.sort(key=lambda x:x[1])\n        end=float(\"-inf\"); removed=0\n        for start,finish in intervals:\n            if start<end: removed+=1\n            else: end=finish\n        return removed",
+      pythonIntuition: 'Sort by end time. Keep each interval whose start is at or after the last kept end. An interval that ends earliest leaves the most room for later intervals, so this greedy choice is always optimal.',
+      pythonAlgorithm: ['Sort by end.','`prevEnd = -inf`, `kept = 0`.','For each interval: if `start >= prevEnd`, keep it and set `prevEnd = end`.','Return `n - kept`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort by end.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`prevEnd = -inf`, `kept = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each interval: if `start >= prevEnd`, keep it and set `prevEnd = end`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `n - kept`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6883,6 +7996,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean canAttendMeetings(int[][] intervals) {\n        for (int i = 0; i < intervals.length; i++) {\n            for (int j = i + 1; j < intervals.length; j++) {\n                int[] a = intervals[i], b = intervals[j];\n                if (a[0] < b[1] && b[0] < a[1]) return false;\n            }\n        }\n        return true;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6894,6 +8010,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public boolean canAttendMeetings(int[][] intervals) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        for (int i = 1; i < intervals.length; i++) {\n            if (intervals[i][0] < intervals[i - 1][1]) return false;\n        }\n        return true;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def canAttendMeetings(self, intervals):\n        intervals.sort()\n        return all(intervals[i][0]>=intervals[i-1][1] for i in range(1,len(intervals)))",
+      pythonIntuition: 'After sorting by start, a meeting can only conflict with the one before it, since any earlier meeting ends no later than that one\'s start, unless the previous one overlaps it.',
+      pythonAlgorithm: ['Sort by start.','For each `i >= 1`, if `intervals[i][0] < intervals[i-1][1]`, return `False`.','Return `True`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort by start.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','For each `i >= 1`, if `intervals[i][0] < intervals[i-1][1]`, return `False`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `True`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -6927,6 +8046,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minMeetingRooms(int[][] intervals) {\n        int best = 0;\n        for (int[] a : intervals) {\n            int count = 0;\n            for (int[] b : intervals) {\n                if (b[0] <= a[0] && a[0] < b[1]) count++;\n            }\n            best = Math.max(best, count);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6938,6 +8060,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\nimport java.util.PriorityQueue;\n\nclass Solution {\n    public int minMeetingRooms(int[][] intervals) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        PriorityQueue<Integer> ends = new PriorityQueue<>();\n        int best = 0;\n        for (int[] iv : intervals) {\n            if (!ends.isEmpty() && ends.peek() <= iv[0]) ends.poll();\n            ends.offer(iv[1]);\n            best = Math.max(best, ends.size());\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -6949,6 +8074,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int minMeetingRooms(int[][] intervals) {\n        int n = intervals.length;\n        int[] starts = new int[n], ends = new int[n];\n        for (int i = 0; i < n; i++) {\n            starts[i] = intervals[i][0];\n            ends[i] = intervals[i][1];\n        }\n        Arrays.sort(starts);\n        Arrays.sort(ends);\n        int rooms = 0, best = 0, j = 0;\n        for (int i = 0; i < n; i++) {\n            if (starts[i] < ends[j]) {\n                rooms++;\n            } else {\n                j++;\n            }\n            best = Math.max(best, rooms);\n        }\n        return best;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def minMeetingRooms(self, intervals):\n        starts=sorted(x[0] for x in intervals); ends=sorted(x[1] for x in intervals)\n        rooms=end_i=0\n        for start in starts:\n            if start>=ends[end_i]: end_i+=1\n            else: rooms+=1\n        return rooms",
+      pythonIntuition: 'Separate starts and ends into two sorted arrays. Walk through the starts. Each start either needs a new room (if no meeting has ended yet) or reuses one freed by an earlier end. Advancing the end pointer frees a room without changing the count, so the room count changes only at starts.',
+      pythonAlgorithm: ['Sort `starts` and `ends` separately.','`j = 0`, `rooms = 0`, `best = 0`.','For each `i`: if `starts[i] < ends[j]`, `rooms++`. Otherwise `j++`. Set `best = max(best, rooms)`.','Return `best`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort `starts` and `ends` separately.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`j = 0`, `rooms = 0`, `best = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `i`: if `starts[i] < ends[j]`, `rooms++`. Otherwise `j++`. Set `best = max(best, rooms)`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `best`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -6982,6 +8110,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] minInterval(int[][] intervals, int[] queries) {\n        int[] ans = new int[queries.length];\n        for (int qi = 0; qi < queries.length; qi++) {\n            int q = queries[qi], best = -1;\n            for (int[] iv : intervals) {\n                if (iv[0] <= q && q <= iv[1]) {\n                    int len = iv[1] - iv[0] + 1;\n                    if (best == -1 || len < best) best = len;\n                }\n            }\n            ans[qi] = best;\n        }\n        return ans;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot m)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -6993,6 +8124,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\nimport java.util.PriorityQueue;\n\nclass Solution {\n    public int[] minInterval(int[][] intervals, int[] queries) {\n        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));\n        Integer[] order = new Integer[queries.length];\n        for (int i = 0; i < order.length; i++) order[i] = i;\n        Arrays.sort(order, (a, b) -> Integer.compare(queries[a], queries[b]));\n\n        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));\n        int[] ans = new int[queries.length];\n        int i = 0;\n        for (int idx : order) {\n            int q = queries[idx];\n            while (i < intervals.length && intervals[i][0] <= q) {\n                int[] iv = intervals[i++];\n                heap.offer(new int[]{iv[1] - iv[0] + 1, iv[1]});\n            }\n            while (!heap.isEmpty() && heap.peek()[1] < q) {\n                heap.poll();\n            }\n            ans[idx] = heap.isEmpty() ? -1 : heap.peek()[0];\n        }\n        return ans;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def minInterval(self, intervals, queries):\n        intervals.sort(); indexed=sorted((q,i) for i,q in enumerate(queries))\n        heap=[]; result=[-1]*len(queries); j=0\n        for q,i in indexed:\n            while j<len(intervals) and intervals[j][0]<=q:\n                l,r=intervals[j]; heappush(heap,(r-l+1,r)); j+=1\n            while heap and heap[0][1]<q: heappop(heap)\n            if heap: result[i]=heap[0][0]\n        return result",
+      pythonIntuition: 'Sort the intervals by start, and the query indices by query value. Process queries in increasing order. Push every interval whose start is `<=` the query into a min-heap of `(length, end)`. Before answering, pop heap entries whose end is less than the query, since those intervals cannot contain this query or any later one. The remaining top is the smallest containing interval.',
+      pythonAlgorithm: ['Sort `intervals` by start. Sort query indices by `queries[index]`.','For each query `q` in sorted order:','- Push all intervals with `start <= q` as `{length, end}`.','- While the heap top\'s `end < q`, poll it.','- Answer is the top\'s `length`, or `-1` if the heap is empty.','Return answers in original order.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort `intervals` by start. Sort query indices by `queries[index]`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','For each query `q` in sorted order:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return answers in original order.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O((n + m) \\log n)', space: 'O(n + m)' },
       pythonComplexity: undefined
     }
@@ -7026,6 +8160,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void rotate(int[][] matrix) {\n        int n = matrix.length;\n        int[][] res = new int[n][n];\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                res[j][n - 1 - i] = matrix[i][j];\n            }\n        }\n        for (int i = 0; i < n; i++) {\n            matrix[i] = res[i];\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -7037,6 +8174,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void rotate(int[][] matrix) {\n        int n = matrix.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                int t = matrix[i][j];\n                matrix[i][j] = matrix[j][i];\n                matrix[j][i] = t;\n            }\n        }\n        for (int[] row : matrix) {\n            for (int l = 0, r = n - 1; l < r; l++, r--) {\n                int t = row[l];\n                row[l] = row[r];\n                row[r] = t;\n            }\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7048,6 +8188,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void rotate(int[][] matrix) {\n        int n = matrix.length;\n        for (int l = 0; l < n / 2; l++) {\n            for (int i = l; i < n - l - 1; i++) {\n                int top = matrix[l][i];\n                matrix[l][i] = matrix[n - 1 - i][l];\n                matrix[n - 1 - i][l] = matrix[n - 1 - l][n - 1 - i];\n                matrix[n - 1 - l][n - 1 - i] = matrix[i][n - 1 - l];\n                matrix[i][n - 1 - l] = top;\n            }\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def rotate(self, matrix):\n        n=len(matrix)\n        for r in range(n):\n            for c in range(r+1,n): matrix[r][c],matrix[c][r]=matrix[c][r],matrix[r][c]\n        for row in matrix: row.reverse()",
+      pythonIntuition: 'Each concentric layer is a ring. Rotating it moves four elements at a time: top to right, right to bottom, bottom to left, left to top. Walk along the top edge of each layer and rotate each group of four in one step.',
+      pythonAlgorithm: ['For each layer `l` from `0` to `n/2 - 1`, and each offset `i` from `l` to `n - l - 2`:','- Save `top = matrix[l][i]`.','- `matrix[l][i] = matrix[n-1-i][l]` (left to top).','- `matrix[n-1-i][l] = matrix[n-1-l][n-1-i]` (bottom to left).','- `matrix[n-1-l][n-1-i] = matrix[i][n-1-l]` (right to bottom).','- `matrix[i][n-1-l] = top` (saved top to right).'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For each layer `l` from `0` to `n/2 - 1`, and each offset `i` from `l` to `n - l - 2`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7081,6 +8224,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<Integer> spiralOrder(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        boolean[][] visited = new boolean[m][n];\n        int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};\n        List<Integer> result = new ArrayList<>();\n        int r = 0, c = 0, d = 0;\n        for (int k = 0; k < m * n; k++) {\n            result.add(matrix[r][c]);\n            visited[r][c] = true;\n            int nr = r + dirs[d][0], nc = c + dirs[d][1];\n            if (nr < 0 || nc < 0 || nr >= m || nc >= n || visited[nr][nc]) {\n                d = (d + 1) % 4;\n                nr = r + dirs[d][0];\n                nc = c + dirs[d][1];\n            }\n            r = nr;\n            c = nc;\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -7092,6 +8238,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<Integer> spiralOrder(int[][] matrix) {\n        List<Integer> result = new ArrayList<>();\n        int top = 0, bottom = matrix.length - 1;\n        int left = 0, right = matrix[0].length - 1;\n        while (top <= bottom && left <= right) {\n            for (int c = left; c <= right; c++) result.add(matrix[top][c]);\n            top++;\n            for (int r = top; r <= bottom; r++) result.add(matrix[r][right]);\n            right--;\n            if (top <= bottom) {\n                for (int c = right; c >= left; c--) result.add(matrix[bottom][c]);\n                bottom--;\n            }\n            if (left <= right) {\n                for (int r = bottom; r >= top; r--) result.add(matrix[r][left]);\n                left++;\n            }\n        }\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def spiralOrder(self, matrix):\n        top,bottom,left,right=0,len(matrix)-1,0,len(matrix[0])-1\n        result=[]\n        while top<=bottom and left<=right:\n            result.extend(matrix[top][left:right+1]); top+=1\n            for r in range(top,bottom+1): result.append(matrix[r][right])\n            right-=1\n            if top<=bottom: result.extend(matrix[bottom][left:right+1][::-1]); bottom-=1\n            if left<=right:\n                for r in range(bottom,top-1,-1): result.append(matrix[r][left])\n                left+=1\n        return result",
+      pythonIntuition: 'Maintain `top`, `bottom`, `left`, and `right`. Traverse one full side, then move that boundary inward. Repeat until the boundaries cross. Each side is handled in one loop, with no visited tracking.',
+      pythonAlgorithm: ['While `top <= bottom` and `left <= right`:','- Traverse the top row from `left` to `right`, then `top++`.','- Traverse the right column from `top` to `bottom`, then `right--`.','- If `top <= bottom`, traverse the bottom row from `right` to `left`, then `bottom--`.','- If `left <= right`, traverse the left column from `bottom` to `top`, then `left++`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','While `top <= bottom` and `left <= right`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(mn)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7125,6 +8274,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void setZeroes(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        int[][] copy = new int[m][];\n        for (int i = 0; i < m; i++) copy[i] = matrix[i].clone();\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (matrix[i][j] == 0) {\n                    for (int k = 0; k < n; k++) copy[i][k] = 0;\n                    for (int k = 0; k < m; k++) copy[k][j] = 0;\n                }\n            }\n        }\n        for (int i = 0; i < m; i++) matrix[i] = copy[i];\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn \\cdot (m + n))', space: 'O(mn)' },
       pythonComplexity: undefined
     },
@@ -7136,6 +8288,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void setZeroes(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        boolean[] rows = new boolean[m], cols = new boolean[n];\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (matrix[i][j] == 0) {\n                    rows[i] = true;\n                    cols[j] = true;\n                }\n            }\n        }\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (rows[i] || cols[j]) matrix[i][j] = 0;\n            }\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(mn)', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -7147,6 +8302,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void setZeroes(int[][] matrix) {\n        int m = matrix.length, n = matrix[0].length;\n        boolean firstRowZero = false, firstColZero = false;\n        for (int j = 0; j < n; j++) if (matrix[0][j] == 0) firstRowZero = true;\n        for (int i = 0; i < m; i++) if (matrix[i][0] == 0) firstColZero = true;\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                if (matrix[i][j] == 0) {\n                    matrix[i][0] = 0;\n                    matrix[0][j] = 0;\n                }\n            }\n        }\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                if (matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;\n            }\n        }\n        if (firstRowZero) for (int j = 0; j < n; j++) matrix[0][j] = 0;\n        if (firstColZero) for (int i = 0; i < m; i++) matrix[i][0] = 0;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def setZeroes(self, matrix):\n        rows,cols=len(matrix),len(matrix[0])\n        first_row=any(matrix[0][c]==0 for c in range(cols))\n        first_col=any(matrix[r][0]==0 for r in range(rows))\n        for r in range(1,rows):\n            for c in range(1,cols):\n                if matrix[r][c]==0: matrix[r][0]=matrix[0][c]=0\n        for r in range(1,rows):\n            for c in range(1,cols):\n                if matrix[r][0]==0 or matrix[0][c]==0: matrix[r][c]=0\n        if first_row: matrix[0]=[0]*cols\n        if first_col:\n            for r in range(rows): matrix[r][0]=0",
+      pythonIntuition: 'Use the matrix\'s own first row and first column to store the markers, which avoids the extra arrays. Two flags record whether the first row and first column originally contained zeros, since those cells are overwritten as markers.',
+      pythonAlgorithm: ['`firstRowZero` and `firstColZero` record whether row `0` or column `0` contains a zero.','For each inner cell `(i, j)` with `i, j >= 1`, if it is zero, set `matrix[i][0] = 0` and `matrix[0][j] = 0`.','For each inner cell, if `matrix[i][0] == 0` or `matrix[0][j] == 0`, set it to zero.','Zero the first row if `firstRowZero`, and the first column if `firstColZero`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`firstRowZero` and `firstColZero` record whether row `0` or column `0` contains a zero.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each inner cell `(i, j)` with `i, j >= 1`, if it is zero, set `matrix[i][0] = 0` and `matrix[0][j] = 0`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For each inner cell, if `matrix[i][0] == 0` or `matrix[0][j] == 0`, set it to zero.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Zero the first row if `firstRowZero`, and the first column if `firstColZero`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(mn)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7180,6 +8338,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isHappy(int n) {\n        for (int step = 0; step < 1000; step++) {\n            if (n == 1) return true;\n            n = next(n);\n        }\n        return n == 1;\n    }\n\n    private int next(int n) {\n        int sum = 0;\n        while (n > 0) {\n            int d = n % 10;\n            sum += d * d;\n            n /= 10;\n        }\n        return sum;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7191,6 +8352,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public boolean isHappy(int n) {\n        Set<Integer> seen = new HashSet<>();\n        while (n != 1) {\n            if (!seen.add(n)) return false;\n            n = next(n);\n        }\n        return true;\n    }\n\n    private int next(int n) {\n        int sum = 0;\n        while (n > 0) {\n            int d = n % 10;\n            sum += d * d;\n            n /= 10;\n        }\n        return sum;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\log n)', space: 'O(\\text{number of steps})' },
       pythonComplexity: undefined
     },
@@ -7202,6 +8366,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public boolean isHappy(int n) {\n        int slow = n, fast = next(n);\n        while (fast != 1 && slow != fast) {\n            slow = next(slow);\n            fast = next(next(fast));\n        }\n        return fast == 1;\n    }\n\n    private int next(int n) {\n        int sum = 0;\n        while (n > 0) {\n            int d = n % 10;\n            sum += d * d;\n            n /= 10;\n        }\n        return sum;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def isHappy(self, n):\n        def nxt(x): return sum(int(c)**2 for c in str(x))\n        slow,fast=n,nxt(n)\n        while fast!=1 and slow!=fast:\n            slow=nxt(slow); fast=nxt(nxt(fast))\n        return fast==1",
+      pythonIntuition: 'The sequence is a functional graph, so it is a path that enters a cycle. Floyd\'s tortoise and hare detects the cycle in constant space. If the cycle contains `1`, it is the fixed point `1 -> 1`, and both pointers meet there.',
+      pythonAlgorithm: ['`slow = n`, `fast = next(n)`.','While `fast != 1` and `slow != fast`: `slow = next(slow)`, `fast = next(next(fast))`.','Return `fast == 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`slow = n`, `fast = next(n)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','While `fast != 1` and `slow != fast`: `slow = next(slow)`, `fast = next(next(fast))`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `fast == 1`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7235,6 +8402,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.math.BigInteger;\n\nclass Solution {\n    public int[] plusOne(int[] digits) {\n        StringBuilder sb = new StringBuilder();\n        for (int d : digits) sb.append(d);\n        String s = new BigInteger(sb.toString()).add(BigInteger.ONE).toString();\n        int[] result = new int[s.length()];\n        for (int i = 0; i < s.length(); i++) {\n            result[i] = s.charAt(i) - '0';\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7246,6 +8416,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] plusOne(int[] digits) {\n        for (int i = digits.length - 1; i >= 0; i--) {\n            if (digits[i] < 9) {\n                digits[i]++;\n                return digits;\n            }\n            digits[i] = 0;\n        }\n        int[] result = new int[digits.length + 1];\n        result[0] = 1;\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def plusOne(self, digits):\n        for i in range(len(digits)-1,-1,-1):\n            if digits[i]<9: digits[i]+=1; return digits\n            digits[i]=0\n        return [1]+digits",
+      pythonIntuition: 'Walk from the least significant digit. Each digit that is less than nine absorbs the carry and stops the propagation, so you can return immediately. Only trailing nines become zero, and only if every digit is nine does the array need to grow by one.',
+      pythonAlgorithm: ['For `i` from the last index down to `0`: if `digits[i] < 9`, increment it and return `digits`. Otherwise set `digits[i] = 0`.','If the loop finishes, all digits were nine. Return an array of length `n + 1` with a leading `1` and zeros.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','For `i` from the last index down to `0`: if `digits[i] < 9`, increment it and return `digits`. Otherwise set `digits[i] = 0`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','If the loop finishes, all digits were nine. Return an array of length `n + 1` with a leading `1` and zeros.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7279,6 +8452,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public double myPow(double x, int n) {\n        long N = n;\n        boolean neg = N < 0;\n        if (neg) N = -N;\n        double result = 1;\n        for (long i = 0; i < N; i++) {\n            result *= x;\n        }\n        return neg ? 1 / result : result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(|n|)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7290,6 +8466,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public double myPow(double x, int n) {\n        long N = n;\n        if (N < 0) {\n            x = 1 / x;\n            N = -N;\n        }\n        return helper(x, N);\n    }\n\n    private double helper(double x, long n) {\n        if (n == 0) return 1;\n        double half = helper(x, n / 2);\n        return (n % 2 == 0) ? half * half : half * half * x;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(\\log n)', space: 'O(\\log n)' },
       pythonComplexity: undefined
     },
@@ -7301,6 +8480,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public double myPow(double x, int n) {\n        long N = n;\n        if (N < 0) {\n            x = 1 / x;\n            N = -N;\n        }\n        double result = 1;\n        while (N > 0) {\n            if ((N & 1) == 1) result *= x;\n            x *= x;\n            N >>= 1;\n        }\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def myPow(self, x, n):\n        if n<0: x,n=1/x,-n\n        result=1\n        while n:\n            if n&1: result*=x\n            x*=x; n>>=1\n        return result",
+      pythonIntuition: 'Process the bits of `n` from least significant upward. Keep `x` as the current power `x^(2^k)`. When bit `k` is set, multiply the result by that power. Then square the power and shift `n`. No recursion is needed.',
+      pythonAlgorithm: ['`N = |n|` as a `long`. If `n < 0`, set `x = 1 / x`.','`result = 1`. While `N > 0`: if `N` is odd, `result *= x`. Then `x *= x`, and `N >>= 1`.','Return `result`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`N = |n|` as a `long`. If `n < 0`, set `x = 1 / x`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`result = 1`. While `N > 0`: if `N` is odd, `result *= x`. Then `x *= x`, and `N >>= 1`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `result`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(\\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7334,6 +8516,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.math.BigInteger;\n\nclass Solution {\n    public String multiply(String num1, String num2) {\n        return new BigInteger(num1).multiply(new BigInteger(num2)).toString();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Implementation-dependent, roughly O(mn)', space: 'O(m + n)' },
       pythonComplexity: undefined
     },
@@ -7345,6 +8530,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public String multiply(String num1, String num2) {\n        int m = num1.length(), n = num2.length();\n        int[] pos = new int[m + n];\n        for (int i = m - 1; i >= 0; i--) {\n            for (int j = n - 1; j >= 0; j--) {\n                int sum = (num1.charAt(i) - '0') * (num2.charAt(j) - '0') + pos[i + j + 1];\n                pos[i + j + 1] = sum % 10;\n                pos[i + j] += sum / 10;\n            }\n        }\n        StringBuilder sb = new StringBuilder();\n        int idx = 0;\n        while (idx < pos.length - 1 && pos[idx] == 0) idx++;\n        for (; idx < pos.length; idx++) sb.append(pos[idx]);\n        return sb.toString();\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def multiply(self, num1, num2):\n        if num1==\"0\" or num2==\"0\": return \"0\"\n        a,b=len(num1),len(num2); result=[0]*(a+b)\n        for i in range(a-1,-1,-1):\n            for j in range(b-1,-1,-1):\n                product=int(num1[i])*int(num2[j])+result[i+j+1]\n                result[i+j+1]=product%10\n                result[i+j]+=product//10\n        return \"\".join(map(str,result)).lstrip(\"0\")",
+      pythonIntuition: 'Multiply every pair of digits, and add the product into the two result positions that it affects. Process digits from the right, so each position is settled once its contributions are complete. Carries are folded into the next position as you go.',
+      pythonAlgorithm: ['`pos` is an int array of length `m + n`, zeroed.','For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:','- `sum = digit(i) * digit(j) + pos[i + j + 1]`.','- `pos[i + j + 1] = sum % 10`.','- `pos[i + j] += sum / 10`.','Skip leading zeros in `pos`. If all are zero, return `"0"`.','Build the string from the remaining digits.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`pos` is an int array of length `m + n`, zeroed.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `m-1` down to `0`, and `j` from `n-1` down to `0`:','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Skip leading zeros in `pos`. If all are zero, return `"0"`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Build the string from the remaining digits.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.'],
       complexity: { time: 'O(mn)', space: 'O(m + n)' },
       pythonComplexity: undefined
     }
@@ -7378,6 +8566,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass DetectSquares {\n    private final List<int[]> pts = new ArrayList<>();\n\n    public void add(int[] point) {\n        pts.add(new int[]{point[0], point[1]});\n    }\n\n    public int count(int[] q) {\n        int res = 0;\n        for (int[] p : pts) {\n            int dx = Math.abs(p[0] - q[0]), dy = Math.abs(p[1] - q[1]);\n            if (dx == 0 || dx != dy) continue;\n            res += countAt(p[0], q[1]) * countAt(q[0], p[1]);\n        }\n        return res;\n    }\n\n    private int countAt(int x, int y) {\n        int c = 0;\n        for (int[] p : pts) {\n            if (p[0] == x && p[1] == y) c++;\n        }\n        return c;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`add` is O(1), `count` is O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7389,6 +8580,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass DetectSquares {\n    private final List<int[]> pts = new ArrayList<>();\n    private final Map<Integer, Integer> freq = new HashMap<>();\n\n    private int key(int x, int y) {\n        return x * 1001 + y;\n    }\n\n    public void add(int[] point) {\n        pts.add(new int[]{point[0], point[1]});\n        freq.merge(key(point[0], point[1]), 1, Integer::sum);\n    }\n\n    public int count(int[] q) {\n        int res = 0;\n        for (int[] p : pts) {\n            int dx = Math.abs(p[0] - q[0]), dy = Math.abs(p[1] - q[1]);\n            if (dx == 0 || dx != dy) continue;\n            res += freq.getOrDefault(key(p[0], q[1]), 0) * freq.getOrDefault(key(q[0], p[1]), 0);\n        }\n        return res;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`add` is O(1), `count` is O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7400,6 +8594,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass DetectSquares {\n    private final Map<Integer, Integer> freq = new HashMap<>();\n\n    private int key(int x, int y) {\n        return x * 1001 + y;\n    }\n\n    public void add(int[] point) {\n        freq.merge(key(point[0], point[1]), 1, Integer::sum);\n    }\n\n    public int count(int[] q) {\n        int res = 0;\n        for (Map.Entry<Integer, Integer> e : freq.entrySet()) {\n            int px = e.getKey() / 1001, py = e.getKey() % 1001;\n            int dx = Math.abs(px - q[0]), dy = Math.abs(py - q[1]);\n            if (dx == 0 || dx != dy) continue;\n            res += e.getValue()\n                 * freq.getOrDefault(key(px, q[1]), 0)\n                 * freq.getOrDefault(key(q[0], py), 0);\n        }\n        return res;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass DetectSquares:\n    def __init__(self):\n        self.points=Counter()\n\n    def add(self, point):\n        self.points[tuple(point)]+=1\n\n    def count(self, point):\n        x,y=point; total=0\n        for (x2,y2),freq in self.points.items():\n            if abs(x2-x)==0 or abs(x2-x)!=abs(y2-y): continue\n            side=abs(x2-x)\n            total += freq*self.points[(x,y2)]*self.points[(x2,y)]\n        return total",
+      pythonIntuition: 'Many stored points are duplicates. Iterate over the distinct points only, and multiply each one\'s count by the corner frequencies. The result is the same, with fewer iterations when duplicates are common.',
+      pythonAlgorithm: ['`freq` maps each coordinate key to its count.','`count(q)`: for each entry `(p, cnt)` in `freq` where `p` forms a valid diagonal with `q`, add `cnt * freq(p.x, q.y) * freq(q.x, p.y)`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`freq` maps each coordinate key to its count.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`count(q)`: for each entry `(p, cnt)` in `freq` where `p` forms a valid diagonal with `q`, add `cnt * freq(p.x, q.y) * freq(q.x, p.y)`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: '`add` is O(1), `count` is O(d) where d is the number of distinct points', space: 'O(d)' },
       pythonComplexity: undefined
     }
@@ -7433,6 +8630,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int singleNumber(int[] nums) {\n        for (int i = 0; i < nums.length; i++) {\n            int count = 0;\n            for (int j = 0; j < nums.length; j++) {\n                if (nums[i] == nums[j]) count++;\n            }\n            if (count == 1) return nums[i];\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7444,6 +8644,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int singleNumber(int[] nums) {\n        Map<Integer, Integer> counts = new HashMap<>();\n        for (int x : nums) counts.merge(x, 1, Integer::sum);\n        for (Map.Entry<Integer, Integer> e : counts.entrySet()) {\n            if (e.getValue() == 1) return e.getKey();\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7455,6 +8658,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int singleNumber(int[] nums) {\n        int result = 0;\n        for (int x : nums) result ^= x;\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def singleNumber(self, nums):\n        result=0\n        for x in nums: result^=x\n        return result",
+      pythonIntuition: 'XOR every element together. Paired values cancel, and the result is the single element.',
+      pythonAlgorithm: ['`result = 0`.','For each `x`, `result ^= x`.','Return `result`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`result = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `x`, `result ^= x`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `result`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7488,6 +8694,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int hammingWeight(int n) {\n        String bits = Integer.toBinaryString(n);\n        int count = 0;\n        for (char c : bits.toCharArray()) {\n            if (c == '1') count++;\n        }\n        return count;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(32)', space: 'O(32)' },
       pythonComplexity: undefined
     },
@@ -7499,6 +8708,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int hammingWeight(int n) {\n        int count = 0;\n        for (int i = 0; i < 32; i++) {\n            count += (n >>> i) & 1;\n        }\n        return count;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(32)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7510,6 +8722,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int hammingWeight(int n) {\n        int count = 0;\n        while (n != 0) {\n            n &= n - 1;\n            count++;\n        }\n        return count;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def hammingWeight(self, n):\n        count=0\n        while n: n &= n-1; count+=1\n        return count",
+      pythonIntuition: '`n & (n - 1)` clears the lowest set bit. Repeat until the value is zero, counting the iterations. The loop runs once per set bit, not once per bit position.',
+      pythonAlgorithm: ['While `n != 0`: `n &= n - 1`, and increment the count.','Return the count.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','While `n != 0`: `n &= n - 1`, and increment the count.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return the count.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(k)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7543,6 +8758,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] countBits(int n) {\n        int[] ans = new int[n + 1];\n        for (int i = 0; i <= n; i++) {\n            ans[i] = Integer.bitCount(i);\n        }\n        return ans;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7554,6 +8772,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] countBits(int n) {\n        int[] ans = new int[n + 1];\n        for (int i = 0; i <= n; i++) {\n            int x = i, count = 0;\n            while (x != 0) {\n                x &= x - 1;\n                count++;\n            }\n            ans[i] = count;\n        }\n        return ans;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7565,6 +8786,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int[] countBits(int n) {\n        int[] ans = new int[n + 1];\n        for (int i = 1; i <= n; i++) {\n            ans[i] = ans[i >> 1] + (i & 1);\n        }\n        return ans;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def countBits(self, n):\n        dp=[0]*(n+1)\n        for i in range(1,n+1): dp[i]=dp[i>>1]+(i&1)\n        return dp",
+      pythonIntuition: '`bits[i] = bits[i >> 1] + (i & 1)`. Index `i >> 1` was computed earlier, so each value is one lookup and one addition.',
+      pythonAlgorithm: ['`ans[0] = 0`.','For `i` from `1` to `n`: `ans[i] = ans[i >> 1] + (i & 1)`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`ans[0] = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For `i` from `1` to `n`: `ans[i] = ans[i >> 1] + (i & 1)`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -7598,6 +8822,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int reverseBits(int n) {\n        String s = String.format(\"%32s\", Integer.toBinaryString(n)).replace(' ', '0');\n        String reversed = new StringBuilder(s).reverse().toString();\n        return (int) Long.parseLong(reversed, 2);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(32)', space: 'O(32)' },
       pythonComplexity: undefined
     },
@@ -7609,6 +8836,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int reverseBits(int n) {\n        int result = 0;\n        for (int i = 0; i < 32; i++) {\n            result = (result << 1) | (n & 1);\n            n >>>= 1;\n        }\n        return result;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(32)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7620,6 +8850,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int reverseBits(int n) {\n        n = (n >>> 16) | (n << 16);\n        n = ((n & 0xff00ff00) >>> 8) | ((n & 0x00ff00ff) << 8);\n        n = ((n & 0xf0f0f0f0) >>> 4) | ((n & 0x0f0f0f0f) << 4);\n        n = ((n & 0xcccccccc) >>> 2) | ((n & 0x33333333) << 2);\n        n = ((n & 0xaaaaaaaa) >>> 1) | ((n & 0x55555555) << 1);\n        return n;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def reverseBits(self, n):\n        result=0\n        for _ in range(32):\n            result=(result<<1)|(n&1); n>>=1\n        return result",
+      pythonIntuition: 'Swap the two 16-bit halves. Within each half, swap the 8-bit blocks, then 4-bit, 2-bit, and 1-bit blocks. Each stage uses a mask to select one group and a shift to move it. Five stages replace 32 steps.',
+      pythonAlgorithm: ['Swap halves: `n = (n >>> 16) | (n << 16)`.','Swap bytes within halves: `n = ((n & 0xff00ff00) >>> 8) | ((n & 0x00ff00ff) << 8)`.','Swap nibbles: `n = ((n & 0xf0f0f0f0) >>> 4) | ((n & 0x0f0f0f0f) << 4)`.','Swap pairs: `n = ((n & 0xcccccccc) >>> 2) | ((n & 0x33333333) << 2)`.','Swap bits: `n = ((n & 0xaaaaaaaa) >>> 1) | ((n & 0x55555555) << 1)`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Swap halves: `n = (n >>> 16) | (n << 16)`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','Swap bytes within halves: `n = ((n & 0xff00ff00) >>> 8) | ((n & 0x00ff00ff) << 8)`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','Swap nibbles: `n = ((n & 0xf0f0f0f0) >>> 4) | ((n & 0x0f0f0f0f) << 4)`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','Swap pairs: `n = ((n & 0xcccccccc) >>> 2) | ((n & 0x33333333) << 2)`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','Swap bits: `n = ((n & 0xaaaaaaaa) >>> 1) | ((n & 0x55555555) << 1)`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.'],
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7653,6 +8886,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int missingNumber(int[] nums) {\n        Arrays.sort(nums);\n        for (int i = 0; i < nums.length; i++) {\n            if (nums[i] != i) return i;\n        }\n        return nums.length;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\log n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7664,6 +8900,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int missingNumber(int[] nums) {\n        Set<Integer> set = new HashSet<>();\n        for (int x : nums) set.add(x);\n        for (int i = 0; i <= nums.length; i++) {\n            if (!set.contains(i)) return i;\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7675,6 +8914,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int missingNumber(int[] nums) {\n        int result = nums.length;\n        for (int i = 0; i < nums.length; i++) {\n            result ^= i ^ nums[i];\n        }\n        return result;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def missingNumber(self, nums):\n        result=len(nums)\n        for i,x in enumerate(nums): result ^= i ^ x\n        return result",
+      pythonIntuition: 'XOR the indices `0..n` with the values. Every value present cancels with its matching index, leaving the missing number.',
+      pythonAlgorithm: ['`result = n`.','For each `i` in `[0, n)`, `result ^= i ^ nums[i]`.','Return `result`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`result = n`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `i` in `[0, n)`, `result ^= i ^ nums[i]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `result`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7708,6 +8950,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int getSum(int a, int b) {\n        if (b > 0) {\n            for (int i = 0; i < b; i++) a++;\n        } else {\n            for (int i = 0; i < -b; i++) a--;\n        }\n        return a;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(|b|)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7719,6 +8964,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int getSum(int a, int b) {\n        if (b == 0) return a;\n        return getSum(a ^ b, (a & b) << 1);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(32)', space: 'O(32)' },
       pythonComplexity: undefined
     },
@@ -7730,6 +8978,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int getSum(int a, int b) {\n        while (b != 0) {\n            int carry = (a & b) << 1;\n            a = a ^ b;\n            b = carry;\n        }\n        return a;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def getSum(self, a, b):\n        mask=0xffffffff\n        while b:\n            a,b=(a^b)&mask,((a&b)<<1)&mask\n        return a if a<0x80000000 else ~(a^mask)",
+      pythonIntuition: 'The same carry propagation as Approach 2, written as a loop. No recursion is needed.',
+      pythonAlgorithm: ['While `b != 0`: `carry = (a & b) << 1`, `a = a ^ b`, `b = carry`.','Return `a`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','While `b != 0`: `carry = (a & b) << 1`, `a = a ^ b`, `b = carry`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `a`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(32)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7763,6 +9014,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int reverse(int x) {\n        long abs = Math.abs((long) x);\n        long rev = Long.parseLong(new StringBuilder(Long.toString(abs)).reverse().toString());\n        if (x < 0) rev = -rev;\n        if (rev < Integer.MIN_VALUE || rev > Integer.MAX_VALUE) return 0;\n        return (int) rev;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(d)', space: 'O(d)' },
       pythonComplexity: undefined
     },
@@ -7774,6 +9028,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int reverse(int x) {\n        long rev = 0;\n        while (x != 0) {\n            rev = rev * 10 + x % 10;\n            x /= 10;\n        }\n        if (rev < Integer.MIN_VALUE || rev > Integer.MAX_VALUE) return 0;\n        return (int) rev;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(d)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -7785,6 +9042,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int reverse(int x) {\n        int rev = 0;\n        while (x != 0) {\n            int digit = x % 10;\n            x /= 10;\n            if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && digit > 7)) return 0;\n            if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && digit < -8)) return 0;\n            rev = rev * 10 + digit;\n        }\n        return rev;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def reverse(self, x):\n        sign=-1 if x<0 else 1\n        value=sign*int(str(abs(x))[::-1])\n        return value if -2**31<=value<=2**31-1 else 0",
+      pythonIntuition: 'Stay within `int` the entire time. Before computing `rev * 10 + digit`, test whether `rev` is already past the limit that would overflow. Checking `rev` against `MAX / 10` and `MIN / 10` catches the overflow before it happens. On the boundary, the final digit decides.',
+      pythonAlgorithm: ['While `x != 0`: `digit = x % 10`, `x /= 10`.','If `rev > MAX / 10`, or `rev == MAX / 10` and `digit > 7`, return `0`.','If `rev < MIN / 10`, or `rev == MIN / 10` and `digit < -8`, return `0`.','`rev = rev * 10 + digit`.','Return `rev`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','While `x != 0`: `digit = x % 10`, `x /= 10`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','If `rev > MAX / 10`, or `rev == MAX / 10` and `digit > 7`, return `0`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','If `rev < MIN / 10`, or `rev == MIN / 10` and `digit < -8`, return `0`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','`rev = rev * 10 + digit`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Return `rev`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(d)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -7818,6 +9078,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public List<String> findItinerary(List<List<String>> tickets) {\n        tickets.sort((a, b) -> {\n            int c = a.get(0).compareTo(b.get(0));\n            return c != 0 ? c : a.get(1).compareTo(b.get(1));\n        });\n        boolean[] used = new boolean[tickets.size()];\n        List<String> path = new ArrayList<>();\n        path.add(\"JFK\");\n        dfs(tickets, used, path);\n        return path;\n    }\n\n    private boolean dfs(List<List<String>> tickets, boolean[] used, List<String> path) {\n        if (path.size() == tickets.size() + 1) return true;\n        String cur = path.get(path.size() - 1);\n        for (int i = 0; i < tickets.size(); i++) {\n            if (!used[i] && tickets.get(i).get(0).equals(cur)) {\n                used[i] = true;\n                path.add(tickets.get(i).get(1));\n                if (dfs(tickets, used, path)) return true;\n                path.remove(path.size() - 1);\n                used[i] = false;\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -7829,6 +9092,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.LinkedList;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.PriorityQueue;\n\nclass Solution {\n    private final Map<String, PriorityQueue<String>> adj = new HashMap<>();\n    private final LinkedList<String> route = new LinkedList<>();\n\n    public List<String> findItinerary(List<List<String>> tickets) {\n        for (List<String> t : tickets) {\n            adj.computeIfAbsent(t.get(0), k -> new PriorityQueue<>()).offer(t.get(1));\n        }\n        dfs(\"JFK\");\n        return route;\n    }\n\n    private void dfs(String u) {\n        PriorityQueue<String> pq = adj.get(u);\n        while (pq != null && !pq.isEmpty()) {\n            dfs(pq.poll());\n        }\n        route.addFirst(u);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(E \\log E)', space: 'O(E)' },
       pythonComplexity: undefined
     },
@@ -7840,6 +9106,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.ArrayList;\nimport java.util.Deque;\nimport java.util.HashMap;\nimport java.util.LinkedList;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public List<String> findItinerary(List<List<String>> tickets) {\n        tickets.sort((a, b) -> {\n            int c = a.get(0).compareTo(b.get(0));\n            return c != 0 ? c : a.get(1).compareTo(b.get(1));\n        });\n        Map<String, Deque<String>> adj = new HashMap<>();\n        for (List<String> t : tickets) {\n            adj.computeIfAbsent(t.get(0), k -> new ArrayDeque<>()).offerLast(t.get(1));\n        }\n        LinkedList<String> route = new LinkedList<>();\n        Deque<String> stack = new ArrayDeque<>();\n        stack.push(\"JFK\");\n        while (!stack.isEmpty()) {\n            String top = stack.peek();\n            Deque<String> exits = adj.get(top);\n            if (exits != null && !exits.isEmpty()) {\n                stack.push(exits.pollFirst());\n            } else {\n                route.addFirst(stack.pop());\n            }\n        }\n        return route;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findItinerary(self, tickets):\n        graph=defaultdict(list)\n        for a,b in tickets: heappush(graph[a],b)\n        route=[]\n        def visit(airport):\n            while graph[airport]: visit(heappop(graph[airport]))\n            route.append(airport)\n        visit(\"JFK\")\n        return route[::-1]",
+      pythonIntuition: 'The same algorithm with an explicit stack, which avoids recursion depth limits. Sorted adjacency lists are consumed from the front. When the top of the stack has no unused exits, pop it onto the route.',
+      pythonAlgorithm: ['Sort tickets, and build `adj[from]` as a deque of destinations in lexical order.','Push `JFK`. While the stack is non-empty: if the top has an unused exit, push the next destination. Otherwise pop the top and add it to the front of the route.','Return the route.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Sort tickets, and build `adj[from]` as a deque of destinations in lexical order.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','Push `JFK`. While the stack is non-empty: if the top has an unused exit, push the next destination. Otherwise pop the top and add it to the front of the route.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return the route.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(E \\log E)', space: 'O(E)' },
       pythonComplexity: undefined
     }
@@ -7873,6 +9142,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private int[] parent;\n\n    public int minCostConnectPoints(int[][] points) {\n        int n = points.length;\n        List<int[]> edges = new ArrayList<>();\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                int w = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);\n                edges.add(new int[]{w, i, j});\n            }\n        }\n        edges.sort((a, b) -> Integer.compare(a[0], b[0]));\n        parent = new int[n];\n        for (int i = 0; i < n; i++) parent[i] = i;\n        int total = 0, used = 0;\n        for (int[] e : edges) {\n            int a = find(e[1]), b = find(e[2]);\n            if (a != b) {\n                parent[a] = b;\n                total += e[0];\n                if (++used == n - 1) break;\n            }\n        }\n        return total;\n    }\n\n    private int find(int x) {\n        while (parent[x] != x) {\n            parent[x] = parent[parent[x]];\n            x = parent[x];\n        }\n        return x;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2 \\log n)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -7884,6 +9156,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    public int minCostConnectPoints(int[][] points) {\n        int n = points.length;\n        boolean[] inTree = new boolean[n];\n        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));\n        pq.offer(new int[]{0, 0});\n        int total = 0, count = 0;\n        while (count < n) {\n            int[] top = pq.poll();\n            int d = top[0], u = top[1];\n            if (inTree[u]) continue;\n            inTree[u] = true;\n            total += d;\n            count++;\n            for (int v = 0; v < n; v++) {\n                if (!inTree[v]) {\n                    int w = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);\n                    pq.offer(new int[]{w, v});\n                }\n            }\n        }\n        return total;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2 \\log n)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -7895,6 +9170,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int minCostConnectPoints(int[][] points) {\n        int n = points.length;\n        int[] minDist = new int[n];\n        boolean[] visited = new boolean[n];\n        java.util.Arrays.fill(minDist, Integer.MAX_VALUE);\n        minDist[0] = 0;\n        int total = 0;\n        for (int iter = 0; iter < n; iter++) {\n            int u = -1;\n            for (int v = 0; v < n; v++) {\n                if (!visited[v] && (u == -1 || minDist[v] < minDist[u])) u = v;\n            }\n            visited[u] = true;\n            total += minDist[u];\n            for (int v = 0; v < n; v++) {\n                if (!visited[v]) {\n                    int w = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);\n                    minDist[v] = Math.min(minDist[v], w);\n                }\n            }\n        }\n        return total;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def minCostConnectPoints(self, points):\n        n=len(points); visited=set(); min_dist=[float(\"inf\")]*n; min_dist[0]=0\n        total=0\n        for _ in range(n):\n            u=min((i for i in range(n) if i not in visited),key=lambda i:min_dist[i])\n            visited.add(u); total+=min_dist[u]\n            x1,y1=points[u]\n            for v,(x2,y2) in enumerate(points):\n                if v not in visited: min_dist[v]=min(min_dist[v],abs(x1-x2)+abs(y1-y2))\n        return total",
+      pythonIntuition: 'The graph is complete, so every point is a candidate at every step. Keep `minDist[v]`, the cheapest edge from the tree to each point. Each round, pick the point with the smallest `minDist` that is not yet in the tree, add it, and update the distances of the rest. This needs no heap and is $O(n^2)$ overall.',
+      pythonAlgorithm: ['`minDist` filled with infinity, except `minDist[0] = 0`.','Repeat `n` times: pick the unvisited `u` with the smallest `minDist[u]`. Mark it visited and add its distance to the total. For each unvisited `v`, set `minDist[v] = min(minDist[v], dist(u, v))`.','Return the total.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`minDist` filled with infinity, except `minDist[0] = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Repeat `n` times: pick the unvisited `u` with the smallest `minDist[u]`. Mark it visited and add its distance to the total. For each unvisited `v`, set `minDist[v] = min(minDist[v], dist(u, v))`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return the total.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -7928,6 +9206,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        int INF = Integer.MAX_VALUE / 2;\n        int[] dist = new int[n + 1];\n        Arrays.fill(dist, INF);\n        dist[k] = 0;\n        for (int round = 0; round < n - 1; round++) {\n            for (int[] e : times) {\n                int u = e[0], v = e[1], w = e[2];\n                if (dist[u] != INF && dist[u] + w < dist[v]) {\n                    dist[v] = dist[u] + w;\n                }\n            }\n        }\n        int best = 0;\n        for (int i = 1; i <= n; i++) {\n            if (dist[i] == INF) return -1;\n            best = Math.max(best, dist[i]);\n        }\n        return best;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n \\cdot E)', space: 'O(n + E)' },
       pythonComplexity: undefined
     },
@@ -7939,6 +9220,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.PriorityQueue;\n\nclass Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        List<List<int[]>> adj = new ArrayList<>();\n        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());\n        for (int[] e : times) adj.get(e[0]).add(new int[]{e[1], e[2]});\n\n        int[] dist = new int[n + 1];\n        java.util.Arrays.fill(dist, Integer.MAX_VALUE);\n        dist[k] = 0;\n        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));\n        pq.offer(new int[]{0, k});\n        boolean[] settled = new boolean[n + 1];\n        int settledCount = 0, best = 0;\n        while (!pq.isEmpty()) {\n            int[] top = pq.poll();\n            int d = top[0], u = top[1];\n            if (settled[u]) continue;\n            settled[u] = true;\n            settledCount++;\n            best = Math.max(best, d);\n            for (int[] edge : adj.get(u)) {\n                int v = edge[0], w = edge[1];\n                if (!settled[v] && d + w < dist[v]) {\n                    dist[v] = d + w;\n                    pq.offer(new int[]{dist[v], v});\n                }\n            }\n        }\n        return settledCount == n ? best : -1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def networkDelayTime(self, times, n, k):\n        graph=defaultdict(list)\n        for u,v,w in times: graph[u].append((v,w))\n        dist={k:0}; heap=[(0,k)]\n        while heap:\n            d,u=heappop(heap)\n            if d>dist[u]: continue\n            for v,w in graph[u]:\n                nd=d+w\n                if nd<dist.get(v,float(\"inf\")):\n                    dist[v]=nd; heappush(heap,(nd,v))\n        return max(dist.values()) if len(dist)==n else -1",
+      pythonIntuition: 'Always settle the unsettled node with the smallest tentative distance. Non-negative weights guarantee that its distance is final. Relax its outgoing edges, and repeat. A min-heap gives the next node in logarithmic time.',
+      pythonAlgorithm: ['Build the adjacency list.','Push `(0, k)`. While the heap is non-empty: pop `(d, u)`. If `u` is already settled, skip it. Otherwise settle `u`, and for each edge `(u, v, w)`, if `d + w` improves `dist[v]`, update it and push.','If fewer than `n` nodes are settled, return `-1`. Otherwise return the largest settled distance.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Build the adjacency list.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','Push `(0, k)`. While the heap is non-empty: pop `(d, u)`. If `u` is already settled, skip it. Otherwise settle `u`, and for each edge `(u, v, w)`, if `d + w` improves `dist[v]`, update it and push.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','If fewer than `n` nodes are settled, return `-1`. Otherwise return the largest settled distance.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.'],
       complexity: { time: 'O(E \\log V)', space: 'O(V + E)' },
       pythonComplexity: undefined
     }
@@ -7972,6 +9256,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int swimInWater(int[][] grid) {\n        int n = grid.length;\n        for (int t = grid[0][0]; t < n * n; t++) {\n            if (reachable(grid, t)) return t;\n        }\n        return n * n - 1;\n    }\n\n    private boolean reachable(int[][] g, int t) {\n        int n = g.length;\n        if (g[0][0] > t) return false;\n        boolean[][] seen = new boolean[n][n];\n        Queue<int[]> q = new ArrayDeque<>();\n        q.offer(new int[]{0, 0});\n        seen[0][0] = true;\n        while (!q.isEmpty()) {\n            int[] cur = q.poll();\n            if (cur[0] == n - 1 && cur[1] == n - 1) return true;\n            for (int[] d : DIRS) {\n                int nr = cur[0] + d[0], nc = cur[1] + d[1];\n                if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;\n                if (seen[nr][nc] || g[nr][nc] > t) continue;\n                seen[nr][nc] = true;\n                q.offer(new int[]{nr, nc});\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^4)', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -7983,6 +9270,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int swimInWater(int[][] grid) {\n        int n = grid.length;\n        int lo = grid[0][0], hi = n * n - 1;\n        while (lo < hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (reachable(grid, mid)) hi = mid;\n            else lo = mid + 1;\n        }\n        return lo;\n    }\n\n    private boolean reachable(int[][] g, int t) {\n        int n = g.length;\n        if (g[0][0] > t) return false;\n        boolean[][] seen = new boolean[n][n];\n        Queue<int[]> q = new ArrayDeque<>();\n        q.offer(new int[]{0, 0});\n        seen[0][0] = true;\n        while (!q.isEmpty()) {\n            int[] cur = q.poll();\n            if (cur[0] == n - 1 && cur[1] == n - 1) return true;\n            for (int[] d : DIRS) {\n                int nr = cur[0] + d[0], nc = cur[1] + d[1];\n                if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;\n                if (seen[nr][nc] || g[nr][nc] > t) continue;\n                seen[nr][nc] = true;\n                q.offer(new int[]{nr, nc});\n            }\n        }\n        return false;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2 \\log(n^2))', space: 'O(n^2)' },
       pythonComplexity: undefined
     },
@@ -7994,6 +9284,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.PriorityQueue;\n\nclass Solution {\n    private static final int[][] DIRS = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    public int swimInWater(int[][] grid) {\n        int n = grid.length;\n        int[][] best = new int[n][n];\n        for (int[] row : best) java.util.Arrays.fill(row, Integer.MAX_VALUE);\n        best[0][0] = grid[0][0];\n        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));\n        pq.offer(new int[]{grid[0][0], 0, 0});\n        while (!pq.isEmpty()) {\n            int[] top = pq.poll();\n            int cost = top[0], r = top[1], c = top[2];\n            if (r == n - 1 && c == n - 1) return cost;\n            if (cost > best[r][c]) continue;\n            for (int[] d : DIRS) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;\n                int next = Math.max(cost, grid[nr][nc]);\n                if (next < best[nr][nc]) {\n                    best[nr][nc] = next;\n                    pq.offer(new int[]{next, nr, nc});\n                }\n            }\n        }\n        return -1;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def swimInWater(self, grid):\n        n=len(grid); heap=[(grid[0][0],0,0)]; seen={(0,0)}\n        while heap:\n            t,r,c=heappop(heap)\n            if (r,c)==(n-1,n-1): return t\n            for dr,dc in ((1,0),(-1,0),(0,1),(0,-1)):\n                nr,nc=r+dr,c+dc\n                if 0<=nr<n and 0<=nc<n and (nr,nc) not in seen:\n                    seen.add((nr,nc)); heappush(heap,(max(t,grid[nr][nc]),nr,nc))",
+      pythonIntuition: 'Define a path\'s cost as the largest elevation on it. Run Dijkstra with cost `max(cost so far, elevation of the next cell)`, and relax only when this improves the best known cost. The first time the corner is settled, its cost is the answer.',
+      pythonAlgorithm: ['`best[r][c] = infinity`, except `best[0][0] = grid[0][0]`.','Push `(grid[0][0], 0, 0)`. While the heap is non-empty: pop `(cost, r, c)`. If `(r, c)` is the corner, return `cost`. For each neighbour, `nc = max(cost, grid[nr][nc])`. If `nc < best[nr][nc]`, update and push.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`best[r][c] = infinity`, except `best[0][0] = grid[0][0]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Push `(grid[0][0], 0, 0)`. While the heap is non-empty: pop `(cost, r, c)`. If `(r, c)` is the corner, return `cost`. For each neighbour, `nc = max(cost, grid[nr][nc])`. If `nc < best[nr][nc]`, update and push.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n^2 \\log(n^2))', space: 'O(n^2)' },
       pythonComplexity: undefined
     }
@@ -8027,6 +9320,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public String foreignDictionary(String[] words) {\n        boolean[] present = new boolean[26];\n        for (String w : words) for (char c : w.toCharArray()) present[c - 'a'] = true;\n        boolean[][] adj = new boolean[26][26];\n        for (int i = 0; i + 1 < words.length; i++) {\n            String a = words[i], b = words[i + 1];\n            int len = Math.min(a.length(), b.length());\n            boolean differs = false;\n            for (int j = 0; j < len; j++) {\n                if (a.charAt(j) != b.charAt(j)) {\n                    adj[a.charAt(j) - 'a'][b.charAt(j) - 'a'] = true;\n                    differs = true;\n                    break;\n                }\n            }\n            if (!differs && a.length() > b.length()) return \"\";\n        }\n        boolean[] placed = new boolean[26];\n        StringBuilder sb = new StringBuilder();\n        int total = 0;\n        for (boolean p : present) if (p) total++;\n        while (true) {\n            int pick = -1;\n            for (int c = 0; c < 26 && pick == -1; c++) {\n                if (!present[c] || placed[c]) continue;\n                boolean free = true;\n                for (int d = 0; d < 26; d++) {\n                    if (!placed[d] && adj[d][c]) {\n                        free = false;\n                        break;\n                    }\n                }\n                if (free) pick = c;\n            }\n            if (pick == -1) break;\n            placed[pick] = true;\n            sb.append((char) ('a' + pick));\n        }\n        return sb.length() == total ? sb.toString() : \"\";\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(26^3)', space: 'O(26^2)' },
       pythonComplexity: undefined
     },
@@ -8038,6 +9334,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    private boolean[][] adj;\n    private int[] state;\n    private StringBuilder sb;\n    private boolean cycle;\n\n    public String foreignDictionary(String[] words) {\n        boolean[] present = new boolean[26];\n        for (String w : words) for (char c : w.toCharArray()) present[c - 'a'] = true;\n        adj = new boolean[26][26];\n        for (int i = 0; i + 1 < words.length; i++) {\n            String a = words[i], b = words[i + 1];\n            int len = Math.min(a.length(), b.length());\n            boolean differs = false;\n            for (int j = 0; j < len; j++) {\n                if (a.charAt(j) != b.charAt(j)) {\n                    adj[a.charAt(j) - 'a'][b.charAt(j) - 'a'] = true;\n                    differs = true;\n                    break;\n                }\n            }\n            if (!differs && a.length() > b.length()) return \"\";\n        }\n        state = new int[26];\n        sb = new StringBuilder();\n        for (int c = 0; c < 26 && !cycle; c++) {\n            if (present[c] && state[c] == 0) dfs(c);\n        }\n        return cycle ? \"\" : sb.reverse().toString();\n    }\n\n    private void dfs(int c) {\n        state[c] = 1;\n        for (int d = 0; d < 26 && !cycle; d++) {\n            if (!adj[c][d]) continue;\n            if (state[d] == 1) {\n                cycle = true;\n                return;\n            }\n            if (state[d] == 0) dfs(d);\n        }\n        state[c] = 2;\n        sb.append((char) ('a' + c));\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(26^2 + \\text{total length})', space: 'O(26^2)' },
       pythonComplexity: undefined
     },
@@ -8049,6 +9348,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Queue;\n\nclass Solution {\n    public String foreignDictionary(String[] words) {\n        boolean[] present = new boolean[26];\n        for (String w : words) for (char c : w.toCharArray()) present[c - 'a'] = true;\n        boolean[][] adj = new boolean[26][26];\n        int[] indeg = new int[26];\n        for (int i = 0; i + 1 < words.length; i++) {\n            String a = words[i], b = words[i + 1];\n            int len = Math.min(a.length(), b.length());\n            boolean differs = false;\n            for (int j = 0; j < len; j++) {\n                if (a.charAt(j) != b.charAt(j)) {\n                    int u = a.charAt(j) - 'a', v = b.charAt(j) - 'a';\n                    if (!adj[u][v]) {\n                        adj[u][v] = true;\n                        indeg[v]++;\n                    }\n                    differs = true;\n                    break;\n                }\n            }\n            if (!differs && a.length() > b.length()) return \"\";\n        }\n        Queue<Integer> q = new ArrayDeque<>();\n        int total = 0;\n        for (int c = 0; c < 26; c++) {\n            if (present[c]) {\n                total++;\n                if (indeg[c] == 0) q.offer(c);\n            }\n        }\n        StringBuilder sb = new StringBuilder();\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            sb.append((char) ('a' + u));\n            for (int v = 0; v < 26; v++) {\n                if (adj[u][v] && --indeg[v] == 0) q.offer(v);\n            }\n        }\n        return sb.length() == total ? sb.toString() : \"\";\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def alienOrder(self, words):\n        graph={c:set() for w in words for c in w}\n        indegree={c:0 for c in graph}\n        for a,b in zip(words,words[1:]):\n            if len(a)>len(b) and a.startswith(b): return \"\"\n            for x,y in zip(a,b):\n                if x!=y:\n                    if y not in graph[x]: graph[x].add(y); indegree[y]+=1\n                    break\n        q=deque(c for c,d in indegree.items() if d==0); order=[]\n        while q:\n            c=q.popleft(); order.append(c)\n            for nxt in graph[c]:\n                indegree[nxt]-=1\n                if indegree[nxt]==0: q.append(nxt)\n        return \"\".join(order) if len(order)==len(graph) else \"\"",
+      pythonIntuition: 'Track each letter\'s indegree (the number of distinct letters that must come before it). Letters with indegree zero are ready. Remove them one at a time, decrementing the indegree of their successors. If every present letter is removed, the order is valid.',
+      pythonAlgorithm: ['Build the graph and count indegrees over distinct edges only.','Enqueue present letters with indegree zero. Dequeue `c`, append it, and decrement the indegree of each successor `d`, enqueuing those that reach zero.','Return the order if its length equals the number of present letters, otherwise `""`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Build the graph and count indegrees over distinct edges only.','This prepares the data structure or state needed by later operations. Its initial value is important: it represents the fact that no elements or decisions have been processed yet.','Enqueue present letters with indegree zero. Dequeue `c`, append it, and decrement the indegree of each successor `d`, enqueuing those that reach zero.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Return the order if its length equals the number of present letters, otherwise `""`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(26^2 + \\text{total length})', space: 'O(26^2)' },
       pythonComplexity: undefined
     }
@@ -8082,6 +9384,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    private long best = Long.MAX_VALUE;\n\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        List<List<int[]>> adj = new ArrayList<>();\n        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());\n        for (int[] f : flights) adj.get(f[0]).add(new int[]{f[1], f[2]});\n        dfs(adj, src, dst, 0, 0L, k);\n        return best == Long.MAX_VALUE ? -1 : (int) best;\n    }\n\n    private void dfs(List<List<int[]>> adj, int node, int dst, int used, long cost, int k) {\n        if (node == dst) {\n            best = Math.min(best, cost);\n            return;\n        }\n        if (used == k + 1) return;\n        for (int[] edge : adj.get(node)) {\n            dfs(adj, edge[0], dst, used + 1, cost + edge[1], k);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Exponential in the worst case', space: 'O(k)' },
       pythonComplexity: undefined
     },
@@ -8093,6 +9398,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.Arrays;\n\nclass Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        final long INF = Long.MAX_VALUE / 4;\n        long[] prices = new long[n];\n        Arrays.fill(prices, INF);\n        prices[src] = 0;\n        for (int round = 0; round <= k; round++) {\n            long[] next = prices.clone();\n            for (int[] f : flights) {\n                int u = f[0], v = f[1];\n                long w = f[2];\n                if (prices[u] != INF && prices[u] + w < next[v]) {\n                    next[v] = prices[u] + w;\n                }\n            }\n            prices = next;\n        }\n        return prices[dst] == INF ? -1 : (int) prices[dst];\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def findCheapestPrice(self, n, flights, src, dst, k):\n        prices=[float(\"inf\")]*n; prices[src]=0\n        for _ in range(k+1):\n            temp=prices[:]\n            for u,v,w in flights:\n                if prices[u]!=float(\"inf\"): temp[v]=min(temp[v],prices[u]+w)\n            prices=temp\n        return -1 if prices[dst]==float(\"inf\") else prices[dst]",
+      pythonIntuition: 'Run `k + 1` rounds of relaxation. Each round uses only prices from the previous round, so the path gains at most one flight per round. Copying the previous round\'s prices prevents chaining several flights in one round.',
+      pythonAlgorithm: ['`prices[src] = 0`, others infinity.','Repeat `k + 1` times: copy `prices` into `next`. For each flight `(u, v, w)`, if `prices[u]` is finite and `prices[u] + w < next[v]`, set `next[v]`. Then `prices = next`.','Return `prices[dst]`, or `-1` if it is infinite.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`prices[src] = 0`, others infinity.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Repeat `k + 1` times: copy `prices` into `next`. For each flight `(u, v, w)`, if `prices[u]` is finite and `prices[u] + w < next[v]`, set `next[v]`. Then `prices = next`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `prices[dst]`, or `-1` if it is infinite.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O((k + 1) \\cdot E)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -8126,6 +9434,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public void moveZeroes(int[] nums) {\n        List<Integer> list = new ArrayList<>();\n        for (int x : nums) {\n            if (x != 0) list.add(x);\n        }\n        int i = 0;\n        for (int x : list) nums[i++] = x;\n        while (i < nums.length) nums[i++] = 0;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -8137,6 +9448,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void moveZeroes(int[] nums) {\n        int j = 0;\n        for (int i = 0; i < nums.length; i++) {\n            if (nums[i] != 0) {\n                int t = nums[i];\n                nums[i] = nums[j];\n                nums[j] = t;\n                j++;\n            }\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8148,6 +9462,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public void moveZeroes(int[] nums) {\n        int j = 0;\n        for (int x : nums) {\n            if (x != 0) nums[j++] = x;\n        }\n        for (int k = j; k < nums.length; k++) {\n            nums[k] = 0;\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def moveZeroes(self, nums):\n        write=0\n        for x in nums:\n            if x!=0: nums[write]=x; write+=1\n        for i in range(write,len(nums)): nums[i]=0",
+      pythonIntuition: 'Write each non-zero value once, in order, at the write position. Then fill everything from the write position onward with zeros. This makes at most one write per element, with no swaps.',
+      pythonAlgorithm: ['`j = 0`. For each non-zero `nums[i]`, set `nums[j++] = nums[i]`.','For `k` from `j` to `n - 1`, set `nums[k] = 0`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`j = 0`. For each non-zero `nums[i]`, set `nums[j++] = nums[i]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','For `k` from `j` to `n - 1`, set `nums[k] = 0`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8181,6 +9498,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int removeDuplicates(int[] nums) {\n        List<Integer> unique = new ArrayList<>();\n        for (int x : nums) {\n            if (!unique.contains(x)) unique.add(x);\n        }\n        for (int i = 0; i < unique.size(); i++) nums[i] = unique.get(i);\n        return unique.size();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -8192,6 +9512,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.LinkedHashSet;\n\nclass Solution {\n    public int removeDuplicates(int[] nums) {\n        LinkedHashSet<Integer> set = new LinkedHashSet<>();\n        for (int x : nums) set.add(x);\n        int i = 0;\n        for (int x : set) nums[i++] = x;\n        return set.size();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -8203,6 +9526,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int removeDuplicates(int[] nums) {\n        if (nums.length == 0) return 0;\n        int k = 1;\n        for (int i = 1; i < nums.length; i++) {\n            if (nums[i] != nums[k - 1]) {\n                nums[k++] = nums[i];\n            }\n        }\n        return k;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def removeDuplicates(self, nums):\n        if not nums: return 0\n        write=1\n        for i in range(1,len(nums)):\n            if nums[i]!=nums[write-1]:\n                nums[write]=nums[i]; write+=1\n        return write",
+      pythonIntuition: 'Keep a write pointer `k` for the position of the next unique value. Scan with a read pointer. Whenever the read value differs from `nums[k - 1]`, the last kept unique value, write it at `k` and advance `k`.',
+      pythonAlgorithm: ['If `nums` is empty, return `0`. Set `k = 1`.','For `i` from `1` to `n-1`: if `nums[i] != nums[k - 1]`, set `nums[k++] = nums[i]`.','Return `k`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','If `nums` is empty, return `0`. Set `k = 1`.','This is the decision point: evaluate the condition using the state built so far. Taking the correct branch prevents invalid work and keeps the algorithm aligned with the problem\'s constraints.','For `i` from `1` to `n-1`: if `nums[i] != nums[k - 1]`, set `nums[k++] = nums[i]`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `k`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8236,6 +9562,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int majorityElement(int[] nums) {\n        for (int i = 0; i < nums.length; i++) {\n            int count = 0;\n            for (int x : nums) {\n                if (x == nums[i]) count++;\n            }\n            if (count > nums.length / 2) return nums[i];\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n^2)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8247,6 +9576,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int majorityElement(int[] nums) {\n        Map<Integer, Integer> counts = new HashMap<>();\n        for (int x : nums) counts.merge(x, 1, Integer::sum);\n        for (Map.Entry<Integer, Integer> e : counts.entrySet()) {\n            if (e.getValue() > nums.length / 2) return e.getKey();\n        }\n        return -1;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -8258,6 +9590,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Solution {\n    public int majorityElement(int[] nums) {\n        int candidate = 0, count = 0;\n        for (int x : nums) {\n            if (count == 0) candidate = x;\n            count += (x == candidate) ? 1 : -1;\n        }\n        return candidate;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Solution:\n    def majorityElement(self, nums):\n        candidate=count=0\n        for x in nums:\n            if count==0: candidate=x\n            count += 1 if x==candidate else -1\n        return candidate",
+      pythonIntuition: 'Track a candidate and a count. A matching element increases the count, and a different one decreases it. When the count reaches zero, the next element becomes the candidate. The majority element always survives, because it outnumbers all other values combined.',
+      pythonAlgorithm: ['`candidate = nums[0]`, `count = 0`.','For each `x`: if `count == 0`, set `candidate = x`. Then `count += (x == candidate) ? 1 : -1`.','Return `candidate`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`candidate = nums[0]`, `count = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','For each `x`: if `count == 0`, set `candidate = x`. Then `count += (x == candidate) ? 1 : -1`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','Return `candidate`.','This produces the result after the required condition has been established. If the problem guarantees a solution, this final fallback may be unreachable; otherwise it represents the appropriate no-solution case.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8291,6 +9626,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Foo {\n    private volatile int step = 1;\n\n    public void first(Runnable printFirst) {\n        printFirst.run();\n        step = 2;\n    }\n\n    public void second(Runnable printSecond) {\n        while (step != 2) Thread.onSpinWait();\n        printSecond.run();\n        step = 3;\n    }\n\n    public void third(Runnable printThird) {\n        while (step != 3) Thread.onSpinWait();\n        printThird.run();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Wait time is spent spinning, with O(1) work per step', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8302,6 +9640,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class Foo {\n    private int step = 1;\n\n    public synchronized void first(Runnable printFirst) {\n        printFirst.run();\n        step = 2;\n        notifyAll();\n    }\n\n    public synchronized void second(Runnable printSecond) throws InterruptedException {\n        while (step != 2) wait();\n        printSecond.run();\n        step = 3;\n        notifyAll();\n    }\n\n    public synchronized void third(Runnable printThird) throws InterruptedException {\n        while (step != 3) wait();\n        printThird.run();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Waiting threads block, with O(1) work per step', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8313,6 +9654,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.CountDownLatch;\n\nclass Foo {\n    private final CountDownLatch latch1 = new CountDownLatch(1);\n    private final CountDownLatch latch2 = new CountDownLatch(1);\n\n    public void first(Runnable printFirst) {\n        printFirst.run();\n        latch1.countDown();\n    }\n\n    public void second(Runnable printSecond) throws InterruptedException {\n        latch1.await();\n        printSecond.run();\n        latch2.countDown();\n    }\n\n    public void third(Runnable printThird) throws InterruptedException {\n        latch2.await();\n        printThird.run();\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass Foo:\n    def __init__(self):\n        self.second = Semaphore(0); self.third = Semaphore(0)\n\n    def first(self, printFirst):\n        printFirst(); self.second.release()\n\n    def second(self, printSecond):\n        self.second.acquire(); printSecond(); self.third.release()\n\n    def third(self, printThird):\n        self.third.acquire(); printThird()",
+      pythonIntuition: 'Each step is a one-time event, which is exactly what a latch models. `first` counts down `latch1` after printing. `second` awaits `latch1`, prints, and counts down `latch2`. `third` awaits `latch2`. No shared state and no manual notification are needed.',
+      pythonAlgorithm: ['Two latches, each with count `1`.','`first`: print, then count down `latch1`.','`second`: await `latch1`, print, then count down `latch2`.','`third`: await `latch2`, then print.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Two latches, each with count `1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`first`: print, then count down `latch1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`second`: await `latch1`, print, then count down `latch2`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`third`: await `latch2`, then print.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'Waiting threads block, with O(1) work per step', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8346,6 +9690,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class FooBar {\n    private final int n;\n    private volatile boolean fooTurn = true;\n\n    public FooBar(int n) {\n        this.n = n;\n    }\n\n    public void foo(Runnable printFoo) {\n        for (int i = 0; i < n; i++) {\n            while (!fooTurn) Thread.onSpinWait();\n            printFoo.run();\n            fooTurn = false;\n        }\n    }\n\n    public void bar(Runnable printBar) {\n        for (int i = 0; i < n; i++) {\n            while (fooTurn) Thread.onSpinWait();\n            printBar.run();\n            fooTurn = true;\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8357,6 +9704,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.Semaphore;\n\nclass FooBar {\n    private final int n;\n    private final Semaphore fooSem = new Semaphore(1);\n    private final Semaphore barSem = new Semaphore(0);\n\n    public FooBar(int n) {\n        this.n = n;\n    }\n\n    public void foo(Runnable printFoo) throws InterruptedException {\n        for (int i = 0; i < n; i++) {\n            fooSem.acquire();\n            printFoo.run();\n            barSem.release();\n        }\n    }\n\n    public void bar(Runnable printBar) throws InterruptedException {\n        for (int i = 0; i < n; i++) {\n            barSem.acquire();\n            printBar.run();\n            fooSem.release();\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass FooBar:\n    def __init__(self, n):\n        self.n=n; self.foo_sem=Semaphore(1); self.bar_sem=Semaphore(0)\n\n    def foo(self, printFoo):\n        for _ in range(self.n):\n            self.foo_sem.acquire(); printFoo(); self.bar_sem.release()\n\n    def bar(self, printBar):\n        for _ in range(self.n):\n            self.bar_sem.acquire(); printBar(); self.foo_sem.release()",
+      pythonIntuition: 'A `Semaphore` with one permit holds the token. `fooSem` starts with one permit, and `barSem` starts with none. `foo` acquires `fooSem`, prints, and releases `barSem`. `bar` does the reverse. Each acquire blocks until the other thread has released.',
+      pythonAlgorithm: ['`fooSem = new Semaphore(1)`, `barSem = new Semaphore(0)`.','`foo`: `n` times: acquire `fooSem`, print, release `barSem`.','`bar`: `n` times: acquire `barSem`, print, release `fooSem`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`fooSem = new Semaphore(1)`, `barSem = new Semaphore(0)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`foo`: `n` times: acquire `fooSem`, print, release `barSem`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`bar`: `n` times: acquire `barSem`, print, release `fooSem`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8390,6 +9740,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.function.IntConsumer;\n\nclass ZeroEvenOdd {\n    private final int n;\n    private volatile int cur = 1;\n    private volatile boolean zeroTurn = true;\n\n    public ZeroEvenOdd(int n) {\n        this.n = n;\n    }\n\n    public void zero(IntConsumer printNumber) {\n        for (int i = 1; i <= n; i++) {\n            while (!zeroTurn) Thread.onSpinWait();\n            printNumber.accept(0);\n            zeroTurn = false;\n        }\n    }\n\n    public void even(IntConsumer printNumber) {\n        for (int i = 2; i <= n; i += 2) {\n            while (zeroTurn || cur != i) Thread.onSpinWait();\n            printNumber.accept(i);\n            cur = i + 1;\n            zeroTurn = true;\n        }\n    }\n\n    public void odd(IntConsumer printNumber) {\n        for (int i = 1; i <= n; i += 2) {\n            while (zeroTurn || cur != i) Thread.onSpinWait();\n            printNumber.accept(i);\n            cur = i + 1;\n            zeroTurn = true;\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8401,6 +9754,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.Semaphore;\nimport java.util.function.IntConsumer;\n\nclass ZeroEvenOdd {\n    private final int n;\n    private final Semaphore zeroSem = new Semaphore(1);\n    private final Semaphore evenSem = new Semaphore(0);\n    private final Semaphore oddSem = new Semaphore(0);\n\n    public ZeroEvenOdd(int n) {\n        this.n = n;\n    }\n\n    public void zero(IntConsumer printNumber) throws InterruptedException {\n        for (int i = 1; i <= n; i++) {\n            zeroSem.acquire();\n            printNumber.accept(0);\n            if (i % 2 == 1) oddSem.release();\n            else evenSem.release();\n        }\n    }\n\n    public void even(IntConsumer printNumber) throws InterruptedException {\n        for (int i = 2; i <= n; i += 2) {\n            evenSem.acquire();\n            printNumber.accept(i);\n            zeroSem.release();\n        }\n    }\n\n    public void odd(IntConsumer printNumber) throws InterruptedException {\n        for (int i = 1; i <= n; i += 2) {\n            oddSem.acquire();\n            printNumber.accept(i);\n            zeroSem.release();\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass ZeroEvenOdd:\n    def __init__(self, n):\n        self.n=n\n        self.zero_sem=Semaphore(1); self.even_sem=Semaphore(0); self.odd_sem=Semaphore(0)\n\n    def zero(self, printNumber):\n        for i in range(1,self.n+1):\n            self.zero_sem.acquire(); printNumber(0)\n            (self.odd_sem if i%2 else self.even_sem).release()\n\n    def even(self, printNumber):\n        for i in range(2,self.n+1,2):\n            self.even_sem.acquire(); printNumber(i); self.zero_sem.release()\n\n    def odd(self, printNumber):\n        for i in range(1,self.n+1,2):\n            self.odd_sem.acquire(); printNumber(i); self.zero_sem.release()",
+      pythonIntuition: 'Give each role its own semaphore. `zero` starts with a permit, and the others start with none. After printing `0`, `zero` releases the odd or even semaphore based on the next number\'s parity. After printing a number, that thread releases `zero`. The ring makes the order correct with no shared counter.',
+      pythonAlgorithm: ['`zeroSem = 1`, `oddSem = 0`, `evenSem = 0`.','`zero`: for `i` from `1` to `n`: acquire `zeroSem`, print `0`, release `oddSem` if `i` is odd, else `evenSem`.','`odd`: for each odd `i`: acquire `oddSem`, print `i`, release `zeroSem`.','`even`: for each even `i`: acquire `evenSem`, print `i`, release `zeroSem`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`zeroSem = 1`, `oddSem = 0`, `evenSem = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`zero`: for `i` from `1` to `n`: acquire `zeroSem`, print `0`, release `oddSem` if `i` is odd, else `evenSem`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`odd`: for each odd `i`: acquire `oddSem`, print `i`, release `zeroSem`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`even`: for each even `i`: acquire `evenSem`, print `i`, release `zeroSem`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8434,6 +9790,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.BrokenBarrierException;\nimport java.util.concurrent.CyclicBarrier;\nimport java.util.concurrent.Semaphore;\n\nclass H2O {\n    private final Semaphore hSem = new Semaphore(2);\n    private final Semaphore oSem = new Semaphore(1);\n    private final CyclicBarrier barrier = new CyclicBarrier(3);\n\n    public void hydrogen(Runnable releaseHydrogen) throws InterruptedException, BrokenBarrierException {\n        hSem.acquire();\n        barrier.await();\n        releaseHydrogen.run();\n        hSem.release();\n    }\n\n    public void oxygen(Runnable releaseOxygen) throws InterruptedException, BrokenBarrierException {\n        oSem.acquire();\n        barrier.await();\n        releaseOxygen.run();\n        oSem.release();\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass H2O:\n    def __init__(self):\n        self.h_sem=Semaphore(2); self.o_sem=Semaphore(0)\n        self.lock=Lock(); self.h_count=0\n\n    def hydrogen(self, releaseHydrogen):\n        self.h_sem.acquire()\n        releaseHydrogen()\n        with self.lock:\n            self.h_count+=1\n            if self.h_count==2: self.o_sem.release()\n\n    def oxygen(self, releaseOxygen):\n        self.o_sem.acquire()\n        releaseOxygen()\n        with self.lock:\n            self.h_count=0\n            self.h_sem.release(2)",
+      pythonIntuition: 'Each hydrogen thread acquires a hydrogen permit, and each oxygen thread acquires the oxygen permit. All three then wait at the barrier. Once the third arrives, the barrier trips, and all three release their element and return their permits, so the next molecule can begin.',
+      pythonAlgorithm: ['`hSem = new Semaphore(2)`, `oSem = new Semaphore(1)`, `barrier = new CyclicBarrier(3)`.','`hydrogen`: acquire `hSem`, await the barrier, call `releaseHydrogen.run()`, release `hSem`.','`oxygen`: acquire `oSem`, await the barrier, call `releaseOxygen.run()`, release `oSem`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`hSem = new Semaphore(2)`, `oSem = new Semaphore(1)`, `barrier = new CyclicBarrier(3)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`hydrogen`: acquire `hSem`, await the barrier, call `releaseHydrogen.run()`, release `hSem`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`oxygen`: acquire `oSem`, await the barrier, call `releaseOxygen.run()`, release `oSem`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'Each molecule waits for three threads, with O(1) work per thread', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8467,6 +9826,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.function.IntConsumer;\n\nclass FizzBuzz {\n    private final int n;\n\n    public FizzBuzz(int n) {\n        this.n = n;\n    }\n\n    public void sequential(Runnable printFizz, Runnable printBuzz, Runnable printFizzBuzz, IntConsumer printNumber) {\n        for (int i = 1; i <= n; i++) {\n            if (i % 15 == 0) printFizzBuzz.run();\n            else if (i % 3 == 0) printFizz.run();\n            else if (i % 5 == 0) printBuzz.run();\n            else printNumber.accept(i);\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8478,6 +9840,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.function.IntConsumer;\nimport java.util.function.IntPredicate;\n\nclass FizzBuzz {\n    private final int n;\n    private int cur = 1;\n\n    public FizzBuzz(int n) {\n        this.n = n;\n    }\n\n    public void fizz(Runnable printFizz) throws InterruptedException {\n        turn(x -> x % 3 == 0 && x % 5 != 0, x -> printFizz.run());\n    }\n\n    public void buzz(Runnable printBuzz) throws InterruptedException {\n        turn(x -> x % 5 == 0 && x % 3 != 0, x -> printBuzz.run());\n    }\n\n    public void fizzbuzz(Runnable printFizzBuzz) throws InterruptedException {\n        turn(x -> x % 15 == 0, x -> printFizzBuzz.run());\n    }\n\n    public void number(IntConsumer printNumber) throws InterruptedException {\n        turn(x -> x % 3 != 0 && x % 5 != 0, printNumber);\n    }\n\n    private synchronized void turn(IntPredicate mine, IntConsumer print) throws InterruptedException {\n        while (cur <= n) {\n            while (cur <= n && !mine.test(cur)) wait();\n            if (cur > n) break;\n            print.accept(cur);\n            cur++;\n            notifyAll();\n        }\n        notifyAll();\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass FizzBuzz:\n    def __init__(self, n):\n        self.n=n; self.current=1; self.condition=Condition()\n\n    def _run(self, predicate, action):\n        while True:\n            with self.condition:\n                self.condition.wait_for(lambda: self.current>self.n or predicate(self.current))\n                if self.current>self.n: self.condition.notify_all(); return\n                action(self.current); self.current+=1; self.condition.notify_all()\n\n    def fizz(self, printFizz): self._run(lambda x:x%3==0 and x%5!=0, lambda _:printFizz())\n    def buzz(self, printBuzz): self._run(lambda x:x%5==0 and x%3!=0, lambda _:printBuzz())\n    def fizzbuzz(self, printFizzBuzz): self._run(lambda x:x%15==0, lambda _:printFizzBuzz())\n    def number(self, printNumber): self._run(lambda x:x%3!=0 and x%5!=0, printNumber)",
+      pythonIntuition: 'A shared `cur` holds the next number. Each thread\'s `turn` predicate says whether it owns `cur`. A thread waits until its predicate holds, prints, advances `cur`, and calls `notifyAll()`. The thread that finds `cur > n` returns, and the last print wakes any remaining waiters so they can exit too.',
+      pythonAlgorithm: ['`cur = 1`.','Each thread loops: under the lock, wait while `cur <= n` and its predicate fails. If `cur > n`, notify and return. Otherwise print, advance `cur`, and notify.','The predicates are: fizz when `cur % 3 == 0 && cur % 5 != 0`; buzz when `cur % 5 == 0 && cur % 3 != 0`; fizzbuzz when `cur % 15 == 0`; number otherwise.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`cur = 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Each thread loops: under the lock, wait while `cur <= n` and its predicate fails. If `cur > n`, notify and return. Otherwise print, advance `cur`, and notify.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','The predicates are: fizz when `cur % 3 == 0 && cur % 5 != 0`; buzz when `cur % 5 == 0 && cur % 3 != 0`; fizzbuzz when `cur % 15 == 0`; number otherwise.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(n)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8511,6 +9876,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class DiningPhilosophers {\n    public void wantsToEat(int philosopher,\n                           Runnable pickLeftFork, Runnable pickRightFork,\n                           Runnable eat, Runnable putLeftFork, Runnable putRightFork) {\n        pickLeftFork.run();\n        pickRightFork.run();\n        eat.run();\n        putRightFork.run();\n        putLeftFork.run();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Not applicable. This approach can deadlock.', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8522,6 +9890,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class DiningPhilosophers {\n    public void wantsToEat(int philosopher,\n                           Runnable pickLeftFork, Runnable pickRightFork,\n                           Runnable eat, Runnable putLeftFork, Runnable putRightFork) {\n        if (philosopher == 4) {\n            pickRightFork.run();\n            pickLeftFork.run();\n        } else {\n            pickLeftFork.run();\n            pickRightFork.run();\n        }\n        eat.run();\n        if (philosopher == 4) {\n            putLeftFork.run();\n            putRightFork.run();\n        } else {\n            putRightFork.run();\n            putLeftFork.run();\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8533,6 +9904,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.Semaphore;\n\nclass DiningPhilosophers {\n    private final Semaphore room = new Semaphore(4);\n\n    public void wantsToEat(int philosopher,\n                           Runnable pickLeftFork, Runnable pickRightFork,\n                           Runnable eat, Runnable putLeftFork, Runnable putRightFork) throws InterruptedException {\n        room.acquire();\n        try {\n            pickLeftFork.run();\n            pickRightFork.run();\n            eat.run();\n            putRightFork.run();\n            putLeftFork.run();\n        } finally {\n            room.release();\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass DiningPhilosophers:\n    def __init__(self):\n        self.forks=[Lock() for _ in range(5)]\n        self.room=Semaphore(4)\n\n    def wantsToEat(self, philosopher, pickLeftFork, pickRightFork, eat, putLeftFork, putRightFork):\n        left=philosopher; right=(philosopher+1)%5\n        with self.room:\n            with self.forks[left]:\n                pickLeftFork()\n                with self.forks[right]:\n                    pickRightFork(); eat(); putLeftFork()\n                putRightFork()",
+      pythonIntuition: 'At most four philosophers may try to eat at once. With four attempting, at least one of the five forks is free, so the all-hold-one cycle cannot form. A `Semaphore(4)` enforces this. Inside the limit, philosophers pick up forks in the natural left-then-right order.',
+      pythonAlgorithm: ['`room = new Semaphore(4)`.','`wantsToEat`: acquire `room`, pick left, pick right, eat, put right, put left, then release `room`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`room = new Semaphore(4)`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`wantsToEat`: acquire `room`, pick left, pick right, eat, put right, put left, then release `room`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8566,6 +9940,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass BoundedBlockingQueue {\n    private final int capacity;\n    private final Deque<Integer> items = new ArrayDeque<>();\n\n    public BoundedBlockingQueue(int capacity) {\n        this.capacity = capacity;\n    }\n\n    public void enqueue(int element) throws InterruptedException {\n        while (true) {\n            synchronized (this) {\n                if (items.size() < capacity) {\n                    items.offerLast(element);\n                    return;\n                }\n            }\n            Thread.onSpinWait();\n        }\n    }\n\n    public int dequeue() throws InterruptedException {\n        while (true) {\n            synchronized (this) {\n                if (!items.isEmpty()) return items.pollFirst();\n            }\n            Thread.onSpinWait();\n        }\n    }\n\n    public synchronized int size() {\n        return items.size();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'Spin time while blocked, O(1) work per attempt', space: 'O(\\text{capacity})' },
       pythonComplexity: undefined
     },
@@ -8577,6 +9954,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayDeque;\nimport java.util.Deque;\n\nclass BoundedBlockingQueue {\n    private final int capacity;\n    private final Deque<Integer> items = new ArrayDeque<>();\n\n    public BoundedBlockingQueue(int capacity) {\n        this.capacity = capacity;\n    }\n\n    public synchronized void enqueue(int element) throws InterruptedException {\n        while (items.size() == capacity) wait();\n        items.offerLast(element);\n        notifyAll();\n    }\n\n    public synchronized int dequeue() throws InterruptedException {\n        while (items.isEmpty()) wait();\n        int v = items.pollFirst();\n        notifyAll();\n        return v;\n    }\n\n    public synchronized int size() {\n        return items.size();\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(\\text{capacity})' },
       pythonComplexity: undefined
     },
@@ -8588,6 +9968,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.locks.Condition;\nimport java.util.concurrent.locks.ReentrantLock;\n\nclass BoundedBlockingQueue {\n    private final int[] buf;\n    private int head = 0, tail = 0, count = 0;\n    private final ReentrantLock lock = new ReentrantLock();\n    private final Condition notFull = lock.newCondition();\n    private final Condition notEmpty = lock.newCondition();\n\n    public BoundedBlockingQueue(int capacity) {\n        this.buf = new int[capacity];\n    }\n\n    public void enqueue(int element) throws InterruptedException {\n        lock.lock();\n        try {\n            while (count == buf.length) notFull.await();\n            buf[tail] = element;\n            tail = (tail + 1) % buf.length;\n            count++;\n            notEmpty.signal();\n        } finally {\n            lock.unlock();\n        }\n    }\n\n    public int dequeue() throws InterruptedException {\n        lock.lock();\n        try {\n            while (count == 0) notEmpty.await();\n            int v = buf[head];\n            head = (head + 1) % buf.length;\n            count--;\n            notFull.signal();\n            return v;\n        } finally {\n            lock.unlock();\n        }\n    }\n\n    public int size() {\n        lock.lock();\n        try {\n            return count;\n        } finally {\n            lock.unlock();\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass BoundedBlockingQueue:\n    def __init__(self, capacity):\n        self.q=deque(); self.capacity=capacity\n        self.condition=Condition()\n\n    def enqueue(self, element):\n        with self.condition:\n            self.condition.wait_for(lambda:len(self.q)<self.capacity)\n            self.q.append(element)\n            self.condition.notify_all()\n\n    def dequeue(self):\n        with self.condition:\n            self.condition.wait_for(lambda:bool(self.q))\n            value=self.q.popleft()\n            self.condition.notify_all()\n            return value\n\n    def size(self):\n        with self.condition: return len(self.q)",
+      pythonIntuition: 'Separate the waiting by role. `notFull` wakes only producers, and `notEmpty` wakes only consumers. A fixed-size ring buffer avoids allocation during operation. Each signal wakes exactly one thread that can make progress.',
+      pythonAlgorithm: ['A `ReentrantLock`, with `notFull` and `notEmpty` conditions, and an `List[int]` ring buffer with `head`, `tail`, and `count`.','`enqueue`: lock, `while (count == capacity) notFull.await()`, write at `tail`, advance `tail` modulo capacity, increment `count`, `notEmpty.signal()`, unlock.','`dequeue`: lock, `while (count == 0) notEmpty.await()`, read at `head`, advance `head`, decrement `count`, `notFull.signal()`, unlock.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','A `ReentrantLock`, with `notFull` and `notEmpty` conditions, and an `List[int]` ring buffer with `head`, `tail`, and `count`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`enqueue`: lock, `while (count == capacity) notFull.await()`, write at `tail`, advance `tail` modulo capacity, increment `count`, `notEmpty.signal()`, unlock.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.','`dequeue`: lock, `while (count == 0) notEmpty.await()`, read at `head`, advance `head`, decrement `count`, `notFull.signal()`, unlock.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(1)', space: 'O(\\text{capacity})' },
       pythonComplexity: undefined
     }
@@ -8621,6 +10004,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.locks.ReentrantLock;\n\nclass TrafficLight {\n    private final ReentrantLock lock = new ReentrantLock();\n\n    public void carArrived(int carId, int roadId, int direction, Runnable turnGreen, Runnable crossCar) {\n        lock.lock();\n        try {\n            turnGreen.run();\n            crossCar.run();\n        } finally {\n            lock.unlock();\n        }\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     },
@@ -8632,6 +10018,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.concurrent.locks.ReentrantLock;\n\nclass TrafficLight {\n    private final ReentrantLock lock = new ReentrantLock();\n    private int currentRoad = 1;\n\n    public void carArrived(int carId, int roadId, int direction, Runnable turnGreen, Runnable crossCar) {\n        lock.lock();\n        try {\n            if (roadId != currentRoad) {\n                turnGreen.run();\n                currentRoad = roadId;\n            }\n            crossCar.run();\n        } finally {\n            lock.unlock();\n        }\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass TrafficLight:\n    def __init__(self):\n        self.road=1\n        self.lock=Lock()\n\n    def carArrived(self, carId, roadId, direction, turnGreen, crossCar):\n        with self.lock:\n            if self.road!=roadId:\n                turnGreen(); self.road=roadId\n            crossCar()",
+      pythonIntuition: 'Track which road is currently green. A car on that road crosses without any light change. A car on the other road first switches the light, then crosses. The lock keeps the state and the crossings consistent.',
+      pythonAlgorithm: ['`currentRoad = 1`.','Lock. If `roadId != currentRoad`, call `turnGreen.run()` and set `currentRoad = roadId`. Then call `crossCar.run()`.','Unlock.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`currentRoad = 1`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','Lock. If `roadId != currentRoad`, call `turnGreen.run()` and set `currentRoad = roadId`. Then call `crossCar.run()`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','Unlock.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.'],
       complexity: { time: 'O(1)', space: 'O(1)' },
       pythonComplexity: undefined
     }
@@ -8665,6 +10054,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.Map;\n\nclass LFUCache {\n    private final int capacity;\n    private int clock = 0;\n    private final Map<Integer, Integer> values = new HashMap<>();\n    private final Map<Integer, Integer> freq = new HashMap<>();\n    private final Map<Integer, Integer> lastUse = new HashMap<>();\n\n    public LFUCache(int capacity) {\n        this.capacity = capacity;\n    }\n\n    public int get(int key) {\n        if (!values.containsKey(key)) return -1;\n        touch(key);\n        return values.get(key);\n    }\n\n    public void put(int key, int value) {\n        if (capacity == 0) return;\n        if (values.containsKey(key)) {\n            values.put(key, value);\n            touch(key);\n            return;\n        }\n        if (values.size() == capacity) {\n            int evict = -1;\n            for (int k : values.keySet()) {\n                if (evict == -1\n                        || freq.get(k) < freq.get(evict)\n                        || (freq.get(k).equals(freq.get(evict)) && lastUse.get(k) < lastUse.get(evict))) {\n                    evict = k;\n                }\n            }\n            values.remove(evict);\n            freq.remove(evict);\n            lastUse.remove(evict);\n        }\n        values.put(key, value);\n        freq.put(key, 1);\n        lastUse.put(key, clock++);\n    }\n\n    private void touch(int key) {\n        freq.merge(key, 1, Integer::sum);\n        lastUse.put(key, clock++);\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: 'O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -8676,6 +10068,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.HashMap;\nimport java.util.LinkedHashSet;\nimport java.util.Map;\n\nclass LFUCache {\n    private final int capacity;\n    private int minFreq = 0;\n    private final Map<Integer, Integer> values = new HashMap<>();\n    private final Map<Integer, Integer> freq = new HashMap<>();\n    private final Map<Integer, LinkedHashSet<Integer>> buckets = new HashMap<>();\n\n    public LFUCache(int capacity) {\n        this.capacity = capacity;\n    }\n\n    public int get(int key) {\n        if (!values.containsKey(key)) return -1;\n        increment(key);\n        return values.get(key);\n    }\n\n    public void put(int key, int value) {\n        if (capacity == 0) return;\n        if (values.containsKey(key)) {\n            values.put(key, value);\n            increment(key);\n            return;\n        }\n        if (values.size() == capacity) {\n            LinkedHashSet<Integer> lowest = buckets.get(minFreq);\n            int evict = lowest.iterator().next();\n            lowest.remove(evict);\n            values.remove(evict);\n            freq.remove(evict);\n        }\n        values.put(key, value);\n        freq.put(key, 1);\n        buckets.computeIfAbsent(1, k -> new LinkedHashSet<>()).add(key);\n        minFreq = 1;\n    }\n\n    private void increment(int key) {\n        int f = freq.get(key);\n        LinkedHashSet<Integer> bucket = buckets.get(f);\n        bucket.remove(key);\n        if (bucket.isEmpty() && f == minFreq) minFreq = f + 1;\n        freq.put(key, f + 1);\n        buckets.computeIfAbsent(f + 1, k -> new LinkedHashSet<>()).add(key);\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass LFUCache:\n    def __init__(self, capacity):\n        self.capacity=capacity; self.min_freq=0\n        self.values={}; self.freq=defaultdict(OrderedDict)\n\n    def _touch(self, key):\n        value,f=self.values[key]\n        del self.freq[f][key]\n        if not self.freq[f] and self.min_freq==f: self.min_freq+=1\n        self.values[key]=(value,f+1); self.freq[f+1][key]=None\n\n    def get(self, key):\n        if key not in self.values: return -1\n        self._touch(key); return self.values[key][0]\n\n    def put(self, key, value):\n        if self.capacity==0: return\n        if key in self.values:\n            self.values[key]=(value,self.values[key][1]); self._touch(key); return\n        if len(self.values)==self.capacity:\n            old,_=self.freq[self.min_freq].popitem(last=False); del self.values[old]\n        self.values[key]=(value,1); self.freq[1][key]=None; self.min_freq=1",
+      pythonIntuition: 'Map each frequency to a `LinkedHashSet` of keys, in the order they were last used. Insertion order within a set is recency order, so the first element is the least recently used at that frequency. Track `minFreq`. When a key is accessed, move it from its bucket to the next frequency\'s bucket. If its bucket empties and it was the minimum, `minFreq` increases by one. A new key always starts at frequency `1`, which becomes the minimum.',
+      pythonAlgorithm: ['`values`, `freq`, and `buckets: frequency -> LinkedHashSet<key>`. `minFreq = 0`.','`increment(key)`: remove it from `buckets[f]`. If that bucket is now empty and `f == minFreq`, set `minFreq = f + 1`. Set `freq[key] = f + 1`, and add it to `buckets[f + 1]`.','`get`: if the key exists, increment it and return its value. Otherwise `-1`.','`put`: if the key exists, update the value and increment. Otherwise, if full, evict the first key in `buckets[minFreq]`. Then insert the new key with frequency `1`, and set `minFreq = 1`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','`values`, `freq`, and `buckets: frequency -> LinkedHashSet<key>`. `minFreq = 0`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`increment(key)`: remove it from `buckets[f]`. If that bucket is now empty and `f == minFreq`, set `minFreq = f + 1`. Set `freq[key] = f + 1`, and add it to `buckets[f + 1]`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`get`: if the key exists, increment it and return its value. Otherwise `-1`.','This changes the order or position of the data in a controlled way. That change makes the next operation simpler while preserving the information needed for the final answer.','`put`: if the key exists, update the value and increment. Otherwise, if full, evict the first key in `buckets[minFreq]`. Then insert the new key with frequency `1`, and set `minFreq = 1`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.'],
       complexity: { time: 'O(1)', space: 'O(n)' },
       pythonComplexity: undefined
     }
@@ -8709,6 +10104,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass HitCounter {\n    private final List<Integer> hits = new ArrayList<>();\n\n    public void hit(int timestamp) {\n        hits.add(timestamp);\n    }\n\n    public int getHits(int timestamp) {\n        int count = 0;\n        for (int ts : hits) {\n            if (ts > timestamp - 300 && ts <= timestamp) count++;\n        }\n        return count;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`hit` is O(1), `getHits` is O(n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -8720,6 +10118,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "import java.util.ArrayList;\nimport java.util.List;\n\nclass HitCounter {\n    private final List<Integer> hits = new ArrayList<>();\n\n    public void hit(int timestamp) {\n        hits.add(timestamp);\n    }\n\n    public int getHits(int timestamp) {\n        int threshold = timestamp - 300;\n        int lo = 0, hi = hits.size();\n        while (lo < hi) {\n            int mid = lo + (hi - lo) / 2;\n            if (hits.get(mid) > threshold) hi = mid;\n            else lo = mid + 1;\n        }\n        return hits.size() - lo;\n    }\n}",
       pythonCode: undefined,
+      pythonIntuition: undefined,
+      pythonAlgorithm: undefined,
+      pythonDetailedWalkthrough: undefined,
       complexity: { time: '`hit` is O(1), `getHits` is O(\\log n)', space: 'O(n)' },
       pythonComplexity: undefined
     },
@@ -8731,6 +10132,9 @@ export const problemContents: ProblemContent[] = [
       correctnessCheck: 'The solution is correct when the maintained state contains exactly the information required by the problem and every processed element has been handled according to the stated rule. The final step reads or constructs the answer from that state.',
       code: "class HitCounter {\n    private final int[] times = new int[300];\n    private final int[] counts = new int[300];\n\n    public void hit(int timestamp) {\n        int idx = timestamp % 300;\n        if (times[idx] != timestamp) {\n            times[idx] = timestamp;\n            counts[idx] = 0;\n        }\n        counts[idx]++;\n    }\n\n    public int getHits(int timestamp) {\n        int total = 0;\n        for (int i = 0; i < 300; i++) {\n            if (timestamp - times[i] < 300) total += counts[i];\n        }\n        return total;\n    }\n}",
       pythonCode: "from typing import List, Optional\nfrom collections import Counter, defaultdict, deque, OrderedDict\nfrom heapq import heappush, heappop, heapify, heapreplace, nsmallest\nfrom bisect import bisect_left\nfrom functools import lru_cache\nfrom threading import Semaphore, Lock, Condition\n\nclass HitCounter:\n    def __init__(self):\n        self.times=[0]*300; self.counts=[0]*300\n\n    def hit(self, timestamp):\n        i=timestamp%300\n        if self.times[i]!=timestamp:\n            self.times[i]=timestamp; self.counts[i]=0\n        self.counts[i]+=1\n\n    def getHits(self, timestamp):\n        return sum(c for t,c in zip(self.times,self.counts) if timestamp-t<300)",
+      pythonIntuition: 'Only the last 300 seconds matter, so keep one slot per second, indexed by `timestamp % 300`. Each slot stores the timestamp it was last written for and its hit count. A write to a slot holding an older timestamp resets it. A query sums the slots whose timestamp falls inside the window. Memory is fixed, and both operations take constant time.',
+      pythonAlgorithm: ['Arrays `times[300]` and `counts[300]`.','`hit(ts)`: `idx = ts % 300`. If `times[idx] != ts`, set `times[idx] = ts` and `counts[idx] = 0`. Then increment `counts[idx]`.','`getHits(ts)`: sum `counts[i]` for slots where `ts - times[i] < 300`.'],
+      pythonDetailedWalkthrough: ['The key is to follow the state of the algorithm from initialization to the final result. The steps below explain not only what to do, but why each operation is useful.','Arrays `times[300]` and `counts[300]`.','This step performs one part of the overall transformation. It prepares the state required by the following step and contributes to the final result.','`hit(ts)`: `idx = ts % 300`. If `times[idx] != ts`, set `times[idx] = ts` and `counts[idx] = 0`. Then increment `counts[idx]`.','This updates the maintained state to include the current element or decision. Future iterations can then use that information instead of recomputing it.','`getHits(ts)`: sum `counts[i]` for slots where `ts - times[i] < 300`.','The traversal systematically processes the relevant elements or states. Each iteration advances the search or updates the maintained state, so the same work is not needlessly repeated.'],
       complexity: { time: 'O(1)', space: 'O(300)' },
       pythonComplexity: undefined
     }

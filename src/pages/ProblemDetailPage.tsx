@@ -196,27 +196,27 @@ export default function ProblemDetailPage() {
           </>
         ) : (
           <>
-            {lastSolution.intuition && (
+            {lastSolution.pythonIntuition && (
               <>
                 <h4 className="pd-solution__label">Intuition</h4>
-                <p className="pd-solution__desc">{lastSolution.intuition}</p>
+                <p className="pd-solution__desc">{lastSolution.pythonIntuition}</p>
               </>
             )}
-            {lastSolution.algorithm && lastSolution.algorithm.length > 0 && (
+            {lastSolution.pythonAlgorithm && lastSolution.pythonAlgorithm.length > 0 && (
               <>
                 <h4 className="pd-solution__label">Algorithm</h4>
                 <ol className="pd-algorithm">
-                  {lastSolution.algorithm.map((step, si) => (
+                  {lastSolution.pythonAlgorithm.map((step, si) => (
                     <li key={si}>{step.replace(/^\d+\.\s*/, '')}</li>
                   ))}
                 </ol>
               </>
             )}
-            {lastSolution.detailedWalkthrough && lastSolution.detailedWalkthrough.length > 0 && (
+            {lastSolution.pythonDetailedWalkthrough && lastSolution.pythonDetailedWalkthrough.length > 0 && (
               <>
                 <h4 className="pd-solution__label">Detailed Walkthrough</h4>
                 <ol className="pd-algorithm">
-                  {lastSolution.detailedWalkthrough.map((step, si) => (
+                  {lastSolution.pythonDetailedWalkthrough.map((step, si) => (
                     <li key={si}>{step.replace(/^\d+\.\s*\*\*[^*]+\*\*\s*/, '').replace(/^\d+\.\s*/, '')}</li>
                   ))}
                 </ol>
@@ -227,6 +227,9 @@ export default function ProblemDetailPage() {
                 <h4 className="pd-solution__label">Correctness Check</h4>
                 <p className="pd-solution__desc">{lastSolution.correctnessCheck}</p>
               </>
+            )}
+            {!lastSolution.pythonIntuition && !lastSolution.pythonAlgorithm && !lastSolution.pythonDetailedWalkthrough && !lastSolution.correctnessCheck && (
+              <p className="pd-solution__desc">Optimal Python solution.</p>
             )}
             <CodeBlock title="Python — Optimal" description="Optimal Python solution" code={lastSolution.pythonCode ?? ''} />
             <ComplexityTable
