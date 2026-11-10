@@ -1,4 +1,4 @@
-import type { ProblemContent } from '../../types/content.ts';
+﻿import type { ProblemContent } from '../../types/content.ts';
 
 /** Auto-generated problem content from content/problems/problems.md (NeetCode 150 + companions). */
 export const problemContents: ProblemContent[] = [
@@ -10145,4 +10145,7685 @@ export const problemContents: ProblemContent[] = [
     }
   ]
   },
-];
+  {
+    slug: '01-matrix',
+    title: '01 Matrix',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for 01-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: '132-pattern',
+    title: '132 Pattern',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for 132-pattern\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: '3sum-closest',
+    title: '3Sum Closest',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for 3sum-closest\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: '4sum',
+    title: '4Sum',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for 4sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'accounts-merge',
+    title: 'Accounts Merge',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for accounts-merge\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'add-binary',
+    title: 'Add Binary',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for add-binary\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'all-nodes-distance-k-in-binary-tree',
+    title: 'All Nodes Distance K in Binary Tree',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for all-nodes-distance-k-in-binary-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'ant-on-the-boundary',
+    title: 'Ant on the Boundary',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for ant-on-the-boundary\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'apply-operations-to-an-array',
+    title: 'Apply Operations to an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for apply-operations-to-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'armstrong-number',
+    title: 'Armstrong Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for armstrong-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'assign-cookies',
+    title: 'Assign Cookies',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for assign-cookies\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'asteroid-collision',
+    title: 'Asteroid Collision',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for asteroid-collision\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'available-captures-for-rook',
+    title: 'Available Captures for Rook',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for available-captures-for-rook\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'average-salary-excluding-the-minimum-and-maximum-salary',
+    title: 'Average Salary Excluding the Minimum and Maximum Salary',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for average-salary-excluding-the-minimum-and-maximum-salary\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'average-value-of-even-numbers-that-are-divisible-by-three',
+    title: 'Average Value of Even Numbers That Are Divisible by Three',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for average-value-of-even-numbers-that-are-divisible-by-three\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'baseball-game',
+    title: 'Baseball Game',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for baseball-game\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'beautiful-arrangement-ii',
+    title: 'Beautiful Arrangement II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for beautiful-arrangement-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'best-poker-hand',
+    title: 'Best Poker Hand',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for best-poker-hand\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'best-sightseeing-pair',
+    title: 'Best Sightseeing Pair',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for best-sightseeing-pair\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'best-time-to-buy-and-sell-stock-ii',
+    title: 'Best Time to Buy and Sell Stock II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for best-time-to-buy-and-sell-stock-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'best-time-to-buy-and-sell-stock-iii',
+    title: 'Best Time to Buy and Sell Stock III',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for best-time-to-buy-and-sell-stock-iii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'best-time-to-buy-and-sell-stock-iv',
+    title: 'Best Time to Buy and Sell Stock IV',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for best-time-to-buy-and-sell-stock-iv\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'best-time-to-buy-and-sell-stock-with-transaction-fee',
+    title: 'Best Time to Buy and Sell Stock with Transaction Fee',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for best-time-to-buy-and-sell-stock-with-transaction-fee\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'binary-search-tree-iterator',
+    title: 'Binary Search Tree Iterator',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for binary-search-tree-iterator\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'binary-subarrays-with-sum',
+    title: 'Binary Subarrays With Sum',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for binary-subarrays-with-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'binary-tree-inorder-traversal',
+    title: 'Binary Tree Inorder Traversal',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for binary-tree-inorder-traversal\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'binary-tree-postorder-traversal',
+    title: 'Binary Tree Postorder Traversal',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for binary-tree-postorder-traversal\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'binary-tree-preorder-traversal',
+    title: 'Binary Tree Preorder Traversal',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for binary-tree-preorder-traversal\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'binary-tree-zigzag-level-order-traversal',
+    title: 'Binary Tree Zigzag Level Order Traversal',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for binary-tree-zigzag-level-order-traversal\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'bitwise-and-of-numbers-range',
+    title: 'Bitwise AND of Numbers Range',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for bitwise-and-of-numbers-range\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'boats-to-save-people',
+    title: 'Boats to Save People',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for boats-to-save-people\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'boundary-of-binary-tree',
+    title: 'Boundary of Binary Tree',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for boundary-of-binary-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'build-a-matrix-with-conditions',
+    title: 'Build a Matrix With Conditions',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for build-a-matrix-with-conditions\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'buy-two-chocolates',
+    title: 'Buy Two Chocolates',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for buy-two-chocolates\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'calculate-money-in-leetcode-bank',
+    title: 'Calculate Money in Leetcode Bank',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for calculate-money-in-leetcode-bank\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'candy',
+    title: 'Candy',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for candy\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'can-place-flowers',
+    title: 'Can Place Flowers',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for can-place-flowers\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'capacity-to-ship-packages-within-d-days',
+    title: 'Capacity To Ship Packages Within D Days',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for capacity-to-ship-packages-within-d-days\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'car-pooling',
+    title: 'Car Pooling',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for car-pooling\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'cells-with-odd-values-in-a-matrix',
+    title: 'Cells with Odd Values in a Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for cells-with-odd-values-in-a-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'check-if-array-is-good',
+    title: 'Check if Array is Good',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for check-if-array-is-good\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'check-if-array-is-sorted-and-rotated',
+    title: 'Check if Array Is Sorted and Rotated',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for check-if-array-is-sorted-and-rotated\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'check-if-matrix-is-x-matrix',
+    title: 'Check if Matrix Is X-Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for check-if-matrix-is-x-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'check-if-n-and-its-double-exist',
+    title: 'Check If N and Its Double Exist',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for check-if-n-and-its-double-exist\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'combinations',
+    title: 'Combinations',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for combinations\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'combination-sum-iii',
+    title: 'Combination Sum III',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for combination-sum-iii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'combination-sum-iv',
+    title: 'Combination Sum IV',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for combination-sum-iv\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'concatenation-of-array',
+    title: 'Concatenation of Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for concatenation-of-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'construct-binary-search-tree-from-preorder-traversal',
+    title: 'Construct Binary Search Tree from Preorder Traversal',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for construct-binary-search-tree-from-preorder-traversal\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'construct-binary-tree-from-inorder-and-postorder-traversal',
+    title: 'Construct Binary Tree from Inorder and Postorder Traversal',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for construct-binary-tree-from-inorder-and-postorder-traversal\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'construct-quad-tree',
+    title: 'Construct Quad Tree',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for construct-quad-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'contains-duplicate-ii',
+    title: 'Contains Duplicate II',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for contains-duplicate-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'continuous-subarray-sum',
+    title: 'Continuous Subarray Sum',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for continuous-subarray-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'corporate-flight-bookings',
+    title: 'Corporate Flight Bookings',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for corporate-flight-bookings\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-and-say',
+    title: 'Count and Say',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-and-say\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-complete-tree-nodes',
+    title: 'Count Complete Tree Nodes',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-complete-tree-nodes\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-elements-with-maximum-frequency',
+    title: 'Count Elements With Maximum Frequency',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-elements-with-maximum-frequency\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-elements-with-strictly-smaller-and-greater-elements',
+    title: 'Count Elements With Strictly Smaller and Greater Elements',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-elements-with-strictly-smaller-and-greater-elements\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-equal-and-divisible-pairs-in-an-array',
+    title: 'Count Equal and Divisible Pairs in an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-equal-and-divisible-pairs-in-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-items-matching-a-rule',
+    title: 'Count Items Matching a Rule',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-items-matching-a-rule\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-negative-numbers-in-a-sorted-matrix',
+    title: 'Count Negative Numbers in a Sorted Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-negative-numbers-in-a-sorted-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-number-of-nice-subarrays',
+    title: 'Count Number of Nice Subarrays',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-number-of-nice-subarrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-of-smaller-numbers-after-self',
+    title: 'Count of Smaller Numbers After Self',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-of-smaller-numbers-after-self\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-pairs-whose-sum-is-less-than-target',
+    title: 'Count Pairs Whose Sum is Less than Target',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-pairs-whose-sum-is-less-than-target\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-primes',
+    title: 'Count Primes',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-primes\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-subarrays-with-fixed-bounds',
+    title: 'Count Subarrays With Fixed Bounds',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-subarrays-with-fixed-bounds\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'count-tested-devices-after-test-operations',
+    title: 'Count Tested Devices After Test Operations',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for count-tested-devices-after-test-operations\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'course-schedule-iv',
+    title: 'Course Schedule IV',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for course-schedule-iv\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'create-target-array-in-the-given-order',
+    title: 'Create Target Array in the Given Order',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for create-target-array-in-the-given-order\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'critical-connections-in-a-network',
+    title: 'Critical Connections in a Network',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for critical-connections-in-a-network\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'decode-string',
+    title: 'Decode String',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for decode-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'decompress-run-length-encoded-list',
+    title: 'Decompress Run-Length Encoded List',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for decompress-run-length-encoded-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'degree-of-an-array',
+    title: 'Degree of an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for degree-of-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'delete-greatest-value-in-each-row',
+    title: 'Delete Greatest Value in Each Row',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for delete-greatest-value-in-each-row\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'delete-leaves-with-a-given-value',
+    title: 'Delete Leaves With a Given Value',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for delete-leaves-with-a-given-value\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'delete-node-in-a-bst',
+    title: 'Delete Node in a BST',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for delete-node-in-a-bst\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'delete-node-in-a-linked-list',
+    title: 'Delete Node in a Linked List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for delete-node-in-a-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'delete-operation-for-two-strings',
+    title: 'Delete Operation for Two Strings',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for delete-operation-for-two-strings\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'delete-the-middle-node-of-a-linked-list',
+    title: 'Delete the Middle Node of a Linked List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for delete-the-middle-node-of-a-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'design-browser-history',
+    title: 'Design Browser History',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for design-browser-history\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'design-circular-queue',
+    title: 'Design Circular Queue',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for design-circular-queue\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'design-hashmap',
+    title: 'Design HashMap',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for design-hashmap\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'design-hashset',
+    title: 'Design HashSet',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for design-hashset\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'design-linked-list',
+    title: 'Design Linked List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for design-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'determine-the-winner-of-a-bowling-game',
+    title: 'Determine the Winner of a Bowling Game',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for determine-the-winner-of-a-bowling-game\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'difference-between-element-sum-and-digit-sum-of-an-array',
+    title: 'Difference Between Element Sum and Digit Sum of an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for difference-between-element-sum-and-digit-sum-of-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'di-string-match',
+    title: 'DI String Match',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for di-string-match\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'divide-an-array-into-subarrays-with-minimum-cost-i',
+    title: 'Divide an Array Into Subarrays With Minimum Cost I',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for divide-an-array-into-subarrays-with-minimum-cost-i\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'divide-array-into-equal-pairs',
+    title: 'Divide Array Into Equal Pairs',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for divide-array-into-equal-pairs\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'divide-two-integers',
+    title: 'Divide Two Integers',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for divide-two-integers\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'dota2-senate',
+    title: 'Dota2 Senate',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for dota2-senate\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'duplicate-zeros',
+    title: 'Duplicate Zeros',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for duplicate-zeros\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'evaluate-division',
+    title: 'Evaluate Division',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for evaluate-division\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'excel-sheet-column-title',
+    title: 'Excel Sheet Column Title',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for excel-sheet-column-title\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'extra-characters-in-a-string',
+    title: 'Extra Characters in a String',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for extra-characters-in-a-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'fair-candy-swap',
+    title: 'Fair Candy Swap',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for fair-candy-swap\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'fibonacci-number',
+    title: 'Fibonacci Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for fibonacci-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'final-value-of-variable-after-performing-operations',
+    title: 'Final Value of Variable After Performing Operations',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for final-value-of-variable-after-performing-operations\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-all-duplicates-in-an-array',
+    title: 'Find All Duplicates in an Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-all-duplicates-in-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-all-numbers-disappeared-in-an-array',
+    title: 'Find All Numbers Disappeared in an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-all-numbers-disappeared-in-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-a-peak-element-ii',
+    title: 'Find a Peak Element II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-a-peak-element-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-a-value-of-a-mysterious-function-closest-to-target',
+    title: 'Find a Value of a Mysterious Function Closest to Target',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-a-value-of-a-mysterious-function-closest-to-target\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-champion-i',
+    title: 'Find Champion I',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-champion-i\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-closest-number-to-zero',
+    title: 'Find Closest Number to Zero',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-closest-number-to-zero\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-common-elements-between-two-arrays',
+    title: 'Find Common Elements Between Two Arrays',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-common-elements-between-two-arrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree',
+    title: 'Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-eventual-safe-states',
+    title: 'Find Eventual Safe States',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-eventual-safe-states\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-first-and-last-position-of-element-in-sorted-array',
+    title: 'Find First and Last Position of Element in Sorted Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-first-and-last-position-of-element-in-sorted-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-indices-with-index-and-value-difference-i',
+    title: 'Find Indices With Index and Value Difference I',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-indices-with-index-and-value-difference-i\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'finding-3-digit-even-numbers',
+    title: 'Finding 3-Digit Even Numbers',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for finding-3-digit-even-numbers\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-in-mountain-array',
+    title: 'Find in Mountain Array',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-in-mountain-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-k-closest-elements',
+    title: 'Find K Closest Elements',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-k-closest-elements\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-k-th-smallest-pair-distance',
+    title: 'Find K-th Smallest Pair Distance',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-k-th-smallest-pair-distance\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-missing-and-repeated-values',
+    title: 'Find Missing and Repeated Values',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-missing-and-repeated-values\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-numbers-with-even-number-of-digits',
+    title: 'Find Numbers with Even Number of Digits',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-numbers-with-even-number-of-digits\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-n-unique-integers-sum-up-to-zero',
+    title: 'Find N Unique Integers Sum up to Zero',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-n-unique-integers-sum-up-to-zero\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-peak-element',
+    title: 'Find Peak Element',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-peak-element\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-pivot-index',
+    title: 'Find Pivot Index',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-pivot-index\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-subarrays-with-equal-sum',
+    title: 'Find Subarrays With Equal Sum',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-subarrays-with-equal-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-target-indices-after-sorting-array',
+    title: 'Find Target Indices After Sorting Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-target-indices-after-sorting-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-array-concatenation-value',
+    title: 'Find the Array Concatenation Value',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-array-concatenation-value\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-celebrity',
+    title: 'Find the Celebrity',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-celebrity\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance',
+    title: 'Find the City With the Smallest Number of Neighbors at a Threshold Distance',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-difference-of-two-arrays',
+    title: 'Find the Difference of Two Arrays',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-difference-of-two-arrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-highest-altitude',
+    title: 'Find the Highest Altitude',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-highest-altitude\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-losers-of-the-circular-game',
+    title: 'Find the Losers of the Circular Game',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-losers-of-the-circular-game\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-peaks',
+    title: 'Find the Peaks',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-peaks\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-pivot-integer',
+    title: 'Find the Pivot Integer',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-pivot-integer\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-prefix-common-array-of-two-arrays',
+    title: 'Find the Prefix Common Array of Two Arrays',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-prefix-common-array-of-two-arrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-smallest-divisor-given-a-threshold',
+    title: 'Find the Smallest Divisor Given a Threshold',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-smallest-divisor-given-a-threshold\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-town-judge',
+    title: 'Find the Town Judge',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-town-judge\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'find-the-width-of-columns-of-a-grid',
+    title: 'Find the Width of Columns of a Grid',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for find-the-width-of-columns-of-a-grid\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'first-bad-version',
+    title: 'First Bad Version',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for first-bad-version\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'first-missing-positive',
+    title: 'First Missing Positive',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for first-missing-positive\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'flatten-binary-tree-to-linked-list',
+    title: 'Flatten Binary Tree to Linked List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for flatten-binary-tree-to-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'flipping-an-image',
+    title: 'Flipping an Image',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for flipping-an-image\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'flood-fill',
+    title: 'Flood Fill',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for flood-fill\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'frequency-of-the-most-frequent-element',
+    title: 'Frequency of the Most Frequent Element',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for frequency-of-the-most-frequent-element\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'fruit-into-baskets',
+    title: 'Fruit Into Baskets',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for fruit-into-baskets\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'furthest-point-from-origin',
+    title: 'Furthest Point From Origin',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for furthest-point-from-origin\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'game-of-life',
+    title: 'Game of Life',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for game-of-life\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'get-equal-substrings-within-budget',
+    title: 'Get Equal Substrings Within Budget',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for get-equal-substrings-within-budget\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'greatest-common-divisor-of-strings',
+    title: 'Greatest Common Divisor of Strings',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for greatest-common-divisor-of-strings\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'greatest-common-divisor-traversal',
+    title: 'Greatest Common Divisor Traversal',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for greatest-common-divisor-traversal\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'guess-number-higher-or-lower',
+    title: 'Guess Number Higher or Lower',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for guess-number-higher-or-lower\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'height-checker',
+    title: 'Height Checker',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for height-checker\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'h-index',
+    title: 'H-Index',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for h-index\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'house-robber-iii',
+    title: 'House Robber III',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for house-robber-iii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'how-many-numbers-are-smaller-than-the-current-number',
+    title: 'How Many Numbers Are Smaller Than the Current Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for how-many-numbers-are-smaller-than-the-current-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'image-smoother',
+    title: 'Image Smoother',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for image-smoother\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'implement-queue-using-stacks',
+    title: 'Implement Queue using Stacks',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for implement-queue-using-stacks\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'implement-stack-using-queues',
+    title: 'Implement Stack using Queues',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for implement-stack-using-queues\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'increasing-triplet-subsequence',
+    title: 'Increasing Triplet Subsequence',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for increasing-triplet-subsequence\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'inorder-successor-in-bst',
+    title: 'Inorder Successor in BST',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for inorder-successor-in-bst\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'insert-greatest-common-divisors-in-linked-list',
+    title: 'Insert Greatest Common Divisors in Linked List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for insert-greatest-common-divisors-in-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'insert-into-a-binary-search-tree',
+    title: 'Insert into a Binary Search Tree',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for insert-into-a-binary-search-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'integer-break',
+    title: 'Integer Break',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for integer-break\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'intersection-of-multiple-arrays',
+    title: 'Intersection of Multiple Arrays',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for intersection-of-multiple-arrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'intersection-of-two-arrays',
+    title: 'Intersection of Two Arrays',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for intersection-of-two-arrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'intersection-of-two-arrays-ii',
+    title: 'Intersection of Two Arrays II',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for intersection-of-two-arrays-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'intersection-of-two-linked-lists',
+    title: 'Intersection of Two Linked Lists',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for intersection-of-two-linked-lists\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'ipo',
+    title: 'IPO',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for ipo\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'is-graph-bipartite',
+    title: 'Is Graph Bipartite?',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for is-graph-bipartite\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'island-perimeter',
+    title: 'Island Perimeter',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for island-perimeter\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'isomorphic-strings',
+    title: 'Isomorphic Strings',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for isomorphic-strings\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'jump-game-vii',
+    title: 'Jump Game VII',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for jump-game-vii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'keep-multiplying-found-values-by-two',
+    title: 'Keep Multiplying Found Values by Two',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for keep-multiplying-found-values-by-two\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'kids-with-the-greatest-number-of-candies',
+    title: 'Kids With the Greatest Number of Candies',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for kids-with-the-greatest-number-of-candies\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'kth-missing-positive-number',
+    title: 'Kth Missing Positive Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for kth-missing-positive-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'k-th-smallest-prime-fraction',
+    title: 'K-th Smallest Prime Fraction',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for k-th-smallest-prime-fraction\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'largest-divisible-subset',
+    title: 'Largest Divisible Subset',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for largest-divisible-subset\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'largest-odd-number-in-string',
+    title: 'Largest Odd Number in String',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for largest-odd-number-in-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'largest-positive-integer-that-exists-with-its-negative',
+    title: 'Largest Positive Integer That Exists With Its Negative',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for largest-positive-integer-that-exists-with-its-negative\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'last-stone-weight-ii',
+    title: 'Last Stone Weight II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for last-stone-weight-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'last-visited-integers',
+    title: 'Last Visited Integers',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for last-visited-integers\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'left-and-right-sum-differences',
+    title: 'Left and Right Sum Differences',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for left-and-right-sum-differences\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'lemonade-change',
+    title: 'Lemonade Change',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for lemonade-change\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'linked-list-cycle-ii',
+    title: 'Linked List Cycle II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for linked-list-cycle-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-alternating-subarray',
+    title: 'Longest Alternating Subarray',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-alternating-subarray\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-common-prefix',
+    title: 'Longest Common Prefix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-common-prefix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-continuous-increasing-subsequence',
+    title: 'Longest Continuous Increasing Subsequence',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-continuous-increasing-subsequence\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-even-odd-subarray-with-threshold',
+    title: 'Longest Even Odd Subarray With Threshold',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-even-odd-subarray-with-threshold\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-happy-prefix',
+    title: 'Longest Happy Prefix',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-happy-prefix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-happy-string',
+    title: 'Longest Happy String',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-happy-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-mountain-in-array',
+    title: 'Longest Mountain in Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-mountain-in-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-palindromic-subsequence',
+    title: 'Longest Palindromic Subsequence',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-palindromic-subsequence\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-string-chain',
+    title: 'Longest String Chain',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-string-chain\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-subsequence-with-limited-sum',
+    title: 'Longest Subsequence With Limited Sum',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-subsequence-with-limited-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-substring-with-at-most-k-distinct-characters',
+    title: 'Longest Substring with At Most K Distinct Characters',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-substring-with-at-most-k-distinct-characters\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'longest-turbulent-subarray',
+    title: 'Longest Turbulent Subarray',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for longest-turbulent-subarray\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'lowest-common-ancestor-of-a-binary-tree',
+    title: 'Lowest Common Ancestor of a Binary Tree',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for lowest-common-ancestor-of-a-binary-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'lucky-numbers-in-a-matrix',
+    title: 'Lucky Numbers in a Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for lucky-numbers-in-a-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'majority-element-ii',
+    title: 'Majority Element II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for majority-element-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'make-array-zero-by-subtracting-equal-amounts',
+    title: 'Make Array Zero by Subtracting Equal Amounts',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for make-array-zero-by-subtracting-equal-amounts\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'making-a-large-island',
+    title: 'Making A Large Island',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for making-a-large-island\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'matchsticks-to-square',
+    title: 'Matchsticks to Square',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for matchsticks-to-square\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'matrix-diagonal-sum',
+    title: 'Matrix Diagonal Sum',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for matrix-diagonal-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'matrix-similarity-after-cyclic-shifts',
+    title: 'Matrix Similarity After Cyclic Shifts',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for matrix-similarity-after-cyclic-shifts\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'max-chunks-to-make-sorted',
+    title: 'Max Chunks To Make Sorted',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for max-chunks-to-make-sorted\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'max-chunks-to-make-sorted-ii',
+    title: 'Max Chunks To Make Sorted II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for max-chunks-to-make-sorted-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'max-consecutive-ones',
+    title: 'Max Consecutive Ones',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for max-consecutive-ones\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'max-consecutive-ones-iii',
+    title: 'Max Consecutive Ones III',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for max-consecutive-ones-iii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximal-rectangle',
+    title: 'Maximal Rectangle',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximal-rectangle\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximize-distance-to-closest-person',
+    title: 'Maximize Distance to Closest Person',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximize-distance-to-closest-person\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-absolute-sum-of-any-subarray',
+    title: 'Maximum Absolute Sum of Any Subarray',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-absolute-sum-of-any-subarray\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-area-of-longest-diagonal-rectangle',
+    title: 'Maximum Area of Longest Diagonal Rectangle',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-area-of-longest-diagonal-rectangle\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-ascending-subarray-sum',
+    title: 'Maximum Ascending Subarray Sum',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-ascending-subarray-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-average-subarray-i',
+    title: 'Maximum Average Subarray I',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-average-subarray-i\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-count-of-positive-integer-and-negative-integer',
+    title: 'Maximum Count of Positive Integer and Negative Integer',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-count-of-positive-integer-and-negative-integer\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-distance-in-arrays',
+    title: 'Maximum Distance in Arrays',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-distance-in-arrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-enemy-forts-that-can-be-captured',
+    title: 'Maximum Enemy Forts That Can Be Captured',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-enemy-forts-that-can-be-captured\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-frequency-stack',
+    title: 'Maximum Frequency Stack',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-frequency-stack\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-fruits-harvested-after-at-most-k-steps',
+    title: 'Maximum Fruits Harvested After at Most K Steps',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-fruits-harvested-after-at-most-k-steps\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-number-of-non-overlapping-substrings',
+    title: 'Maximum Number of Non-Overlapping Substrings',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-number-of-non-overlapping-substrings\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-number-of-pairs-in-array',
+    title: 'Maximum Number of Pairs in Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-number-of-pairs-in-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-points-you-can-obtain-from-cards',
+    title: 'Maximum Points You Can Obtain from Cards',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-points-you-can-obtain-from-cards\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-product-of-three-numbers',
+    title: 'Maximum Product of Three Numbers',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-product-of-three-numbers\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-subarray-min-product',
+    title: 'Maximum Subarray Min-Product',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-subarray-min-product\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-sum-bst-in-binary-tree',
+    title: 'Maximum Sum BST in Binary Tree',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-sum-bst-in-binary-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-sum-circular-subarray',
+    title: 'Maximum Sum Circular Subarray',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-sum-circular-subarray\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-sum-with-exactly-k-elements',
+    title: 'Maximum Sum With Exactly K Elements',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-sum-with-exactly-k-elements\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-swap',
+    title: 'Maximum Swap',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-swap\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-value-of-an-ordered-triplet-i',
+    title: 'Maximum Value of an Ordered Triplet I',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-value-of-an-ordered-triplet-i\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-width-of-binary-tree',
+    title: 'Maximum Width of Binary Tree',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-width-of-binary-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-xor-of-two-numbers-in-an-array',
+    title: 'Maximum XOR of Two Numbers in an Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-xor-of-two-numbers-in-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'maximum-xor-with-an-element-from-array',
+    title: 'Maximum XOR With an Element From Array',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for maximum-xor-with-an-element-from-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'max-pair-sum-in-an-array',
+    title: 'Max Pair Sum in an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for max-pair-sum-in-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'meeting-rooms-iii',
+    title: 'Meeting Rooms III',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for meeting-rooms-iii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'merge-sorted-array',
+    title: 'Merge Sorted Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for merge-sorted-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'merge-strings-alternately',
+    title: 'Merge Strings Alternately',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for merge-strings-alternately\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'merge-two-2d-arrays-by-summing-values',
+    title: 'Merge Two 2D Arrays by Summing Values',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for merge-two-2d-arrays-by-summing-values\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'middle-of-the-linked-list',
+    title: 'Middle of the Linked List',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for middle-of-the-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimize-max-distance-to-gas-station',
+    title: 'Minimize Max Distance to Gas Station',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimize-max-distance-to-gas-station\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-add-to-make-parentheses-valid',
+    title: 'Minimum Add to Make Parentheses Valid',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-add-to-make-parentheses-valid\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-amount-of-time-to-fill-cups',
+    title: 'Minimum Amount of Time to Fill Cups',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-amount-of-time-to-fill-cups\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-array-end',
+    title: 'Minimum Array End',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-array-end\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-bit-flips-to-convert-number',
+    title: 'Minimum Bit Flips to Convert Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-bit-flips-to-convert-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-common-value',
+    title: 'Minimum Common Value',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-common-value\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-cost-of-buying-candies-with-discount',
+    title: 'Minimum Cost of Buying Candies With Discount',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-cost-of-buying-candies-with-discount\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-height-trees',
+    title: 'Minimum Height Trees',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-height-trees\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-hours-of-training-to-win-a-competition',
+    title: 'Minimum Hours of Training to Win a Competition',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-hours-of-training-to-win-a-competition\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-insertion-steps-to-make-a-string-palindrome',
+    title: 'Minimum Insertion Steps to Make a String Palindrome',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-insertion-steps-to-make-a-string-palindrome\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-number-game',
+    title: 'Minimum Number Game',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-number-game\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-number-of-days-to-make-m-bouquets',
+    title: 'Minimum Number of Days to Make m Bouquets',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-number-of-days-to-make-m-bouquets\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-number-of-k-consecutive-bit-flips',
+    title: 'Minimum Number of K Consecutive Bit Flips',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-number-of-k-consecutive-bit-flips\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-number-of-moves-to-seat-everyone',
+    title: 'Minimum Number of Moves to Seat Everyone',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-number-of-moves-to-seat-everyone\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-number-of-operations-to-move-all-balls-to-each-box',
+    title: 'Minimum Number of Operations to Move All Balls to Each Box',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-number-of-operations-to-move-all-balls-to-each-box\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-operations-to-collect-elements',
+    title: 'Minimum Operations to Collect Elements',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-operations-to-collect-elements\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-operations-to-make-the-array-increasing',
+    title: 'Minimum Operations to Make the Array Increasing',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-operations-to-make-the-array-increasing\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-operations-to-reduce-x-to-zero',
+    title: 'Minimum Operations to Reduce X to Zero',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-operations-to-reduce-x-to-zero\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-path-sum',
+    title: 'Minimum Path Sum',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-path-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-right-shifts-to-sort-the-array',
+    title: 'Minimum Right Shifts to Sort the Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-right-shifts-to-sort-the-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'minimum-size-subarray-sum',
+    title: 'Minimum Size Subarray Sum',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for minimum-size-subarray-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'modify-the-matrix',
+    title: 'Modify the Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for modify-the-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'monotonic-array',
+    title: 'Monotonic Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for monotonic-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'most-frequent-even-element',
+    title: 'Most Frequent Even Element',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for most-frequent-even-element\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'most-frequent-number-following-key-in-an-array',
+    title: 'Most Frequent Number Following Key In an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for most-frequent-number-following-key-in-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'most-stones-removed-with-same-row-or-column',
+    title: 'Most Stones Removed with Same Row or Column',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for most-stones-removed-with-same-row-or-column\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'neither-minimum-nor-maximum',
+    title: 'Neither Minimum nor Maximum',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for neither-minimum-nor-maximum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'next-greater-element-i',
+    title: 'Next Greater Element I',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for next-greater-element-i\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'next-greater-element-ii',
+    title: 'Next Greater Element II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for next-greater-element-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'next-permutation',
+    title: 'Next Permutation',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for next-permutation\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'non-decreasing-array',
+    title: 'Non-decreasing Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for non-decreasing-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'n-queens-ii',
+    title: 'N-Queens II',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for n-queens-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'nth-magical-number',
+    title: 'Nth Magical Number',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for nth-magical-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'n-th-tribonacci-number',
+    title: 'N-th Tribonacci Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for n-th-tribonacci-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-arithmetic-triplets',
+    title: 'Number of Arithmetic Triplets',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-arithmetic-triplets\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-distinct-averages',
+    title: 'Number of Distinct Averages',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-distinct-averages\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-employees-who-met-the-target',
+    title: 'Number of Employees Who Met the Target',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-employees-who-met-the-target\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-enclaves',
+    title: 'Number of Enclaves',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-enclaves\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-good-pairs',
+    title: 'Number of Good Pairs',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-good-pairs\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-islands-ii',
+    title: 'Number of Islands II',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-islands-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-longest-increasing-subsequence',
+    title: 'Number of Longest Increasing Subsequence',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-longest-increasing-subsequence\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-operations-to-make-network-connected',
+    title: 'Number of Operations to Make Network Connected',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-operations-to-make-network-connected\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-provinces',
+    title: 'Number of Provinces',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-provinces\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-recent-calls',
+    title: 'Number of Recent Calls',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-recent-calls\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-senior-citizens',
+    title: 'Number of Senior Citizens',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-senior-citizens\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-subarrays-of-size-k-and-average-greater-than-or-equal-to-threshold',
+    title: 'Number of Subarrays of Size K and Average Greater than or Equal to Threshold',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-subarrays-of-size-k-and-average-greater-than-or-equal-to-threshold\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-substrings-containing-all-three-characters',
+    title: 'Number of Substrings Containing All Three Characters',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-substrings-containing-all-three-characters\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-unequal-triplets-in-array',
+    title: 'Number of Unequal Triplets in Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-unequal-triplets-in-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'number-of-ways-to-arrive-at-destination',
+    title: 'Number of Ways to Arrive at Destination',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for number-of-ways-to-arrive-at-destination\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'odd-even-linked-list',
+    title: 'Odd Even Linked List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for odd-even-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'ones-and-zeroes',
+    title: 'Ones and Zeroes',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for ones-and-zeroes\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'online-stock-span',
+    title: 'Online Stock Span',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for online-stock-span\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'open-the-lock',
+    title: 'Open the Lock',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for open-the-lock\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'palindrome-linked-list',
+    title: 'Palindrome Linked List',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for palindrome-linked-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'palindrome-number',
+    title: 'Palindrome Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for palindrome-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'palindrome-partitioning-ii',
+    title: 'Palindrome Partitioning II',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for palindrome-partitioning-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'parsing-a-boolean-expression',
+    title: 'Parsing A Boolean Expression',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for parsing-a-boolean-expression\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'partition-array-for-maximum-sum',
+    title: 'Partition Array for Maximum Sum',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for partition-array-for-maximum-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'partition-array-into-disjoint-intervals',
+    title: 'Partition Array into Disjoint Intervals',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for partition-array-into-disjoint-intervals\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'partition-array-into-two-arrays-to-minimize-sum-difference',
+    title: 'Partition Array Into Two Arrays to Minimize Sum Difference',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for partition-array-into-two-arrays-to-minimize-sum-difference\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'partition-to-k-equal-sum-subsets',
+    title: 'Partition to K Equal Sum Subsets',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for partition-to-k-equal-sum-subsets\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'pascals-triangle',
+    title: 'Pascal\'s Triangle',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for pascals-triangle\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'pascals-triangle-ii',
+    title: 'Pascal\'s Triangle II',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for pascals-triangle-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'pass-the-pillow',
+    title: 'Pass the Pillow',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for pass-the-pillow\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'patching-array',
+    title: 'Patching Array',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for patching-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'path-with-minimum-effort',
+    title: 'Path With Minimum Effort',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for path-with-minimum-effort\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'perfect-squares',
+    title: 'Perfect Squares',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for perfect-squares\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'permutations-ii',
+    title: 'Permutations II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for permutations-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'positions-of-large-groups',
+    title: 'Positions of Large Groups',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for positions-of-large-groups\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'range-sum-query-2d-immutable',
+    title: 'Range Sum Query 2D - Immutable',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for range-sum-query-2d-immutable\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'range-sum-query-immutable',
+    title: 'Range Sum Query - Immutable',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for range-sum-query-immutable\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'range-sum-query-mutable',
+    title: 'Range Sum Query - Mutable',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for range-sum-query-mutable\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'rearrange-array-elements-by-sign',
+    title: 'Rearrange Array Elements by Sign',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for rearrange-array-elements-by-sign\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'recover-binary-search-tree',
+    title: 'Recover Binary Search Tree',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for recover-binary-search-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'relative-sort-array',
+    title: 'Relative Sort Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for relative-sort-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'remove-element',
+    title: 'Remove Element',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for remove-element\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'remove-k-digits',
+    title: 'Remove K Digits',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for remove-k-digits\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'reorganize-string',
+    title: 'Reorganize String',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for reorganize-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'repeated-string-match',
+    title: 'Repeated String Match',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for repeated-string-match\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'replace-elements-with-greatest-element-on-right-side',
+    title: 'Replace Elements with Greatest Element on Right Side',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for replace-elements-with-greatest-element-on-right-side\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'reshape-the-matrix',
+    title: 'Reshape the Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for reshape-the-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'reverse-linked-list-ii',
+    title: 'Reverse Linked List II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for reverse-linked-list-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'reverse-pairs',
+    title: 'Reverse Pairs',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for reverse-pairs\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'reverse-string',
+    title: 'Reverse String',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for reverse-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'reverse-words-in-a-string',
+    title: 'Reverse Words in a String',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for reverse-words-in-a-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'richest-customer-wealth',
+    title: 'Richest Customer Wealth',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for richest-customer-wealth\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'roman-to-integer',
+    title: 'Roman to Integer',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for roman-to-integer\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'rotate-array',
+    title: 'Rotate Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for rotate-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'rotate-list',
+    title: 'Rotate List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for rotate-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'rotate-string',
+    title: 'Rotate String',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for rotate-string\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'row-with-maximum-ones',
+    title: 'Row With Maximum Ones',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for row-with-maximum-ones\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'running-sum-of-1d-array',
+    title: 'Running Sum of 1d Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for running-sum-of-1d-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'search-a-2d-matrix-ii',
+    title: 'Search a 2D Matrix II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for search-a-2d-matrix-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'search-in-a-binary-search-tree',
+    title: 'Search in a Binary Search Tree',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for search-in-a-binary-search-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'search-in-rotated-sorted-array-ii',
+    title: 'Search in Rotated Sorted Array II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for search-in-rotated-sorted-array-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'search-insert-position',
+    title: 'Search Insert Position',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for search-insert-position\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'separate-the-digits-in-an-array',
+    title: 'Separate the Digits in an Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for separate-the-digits-in-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'shortest-common-supersequence',
+    title: 'Shortest Common Supersequence ',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for shortest-common-supersequence\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'shortest-distance-to-target-string-in-a-circular-array',
+    title: 'Shortest Distance to Target String in a Circular Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for shortest-distance-to-target-string-in-a-circular-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'shortest-path-in-binary-matrix',
+    title: 'Shortest Path in Binary Matrix',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for shortest-path-in-binary-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'shortest-unsorted-continuous-subarray',
+    title: 'Shortest Unsorted Continuous Subarray',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for shortest-unsorted-continuous-subarray\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'shuffle-the-array',
+    title: 'Shuffle the Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for shuffle-the-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'simplify-path',
+    title: 'Simplify Path',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for simplify-path\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'single-element-in-a-sorted-array',
+    title: 'Single Element in a Sorted Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for single-element-in-a-sorted-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'single-threaded-cpu',
+    title: 'Single-Threaded CPU',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for single-threaded-cpu\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sort-an-array',
+    title: 'Sort an Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sort-an-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sort-array-by-parity',
+    title: 'Sort Array By Parity',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sort-array-by-parity\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sort-array-by-parity-ii',
+    title: 'Sort Array By Parity II',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sort-array-by-parity-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sort-characters-by-frequency',
+    title: 'Sort Characters By Frequency',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sort-characters-by-frequency\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sort-colors',
+    title: 'Sort Colors',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sort-colors\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sort-list',
+    title: 'Sort List',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sort-list\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sort-the-people',
+    title: 'Sort the People',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sort-the-people\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'special-positions-in-a-binary-matrix',
+    title: 'Special Positions in a Binary Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for special-positions-in-a-binary-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'spiral-matrix-ii',
+    title: 'Spiral Matrix II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for spiral-matrix-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'spiral-matrix-iii',
+    title: 'Spiral Matrix III',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for spiral-matrix-iii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'split-array-largest-sum',
+    title: 'Split Array Largest Sum',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for split-array-largest-sum\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'split-the-array',
+    title: 'Split the Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for split-the-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sqrtx',
+    title: 'Sqrt(x)',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sqrtx\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'squares-of-a-sorted-array',
+    title: 'Squares of a Sorted Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for squares-of-a-sorted-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'stamping-the-sequence',
+    title: 'Stamping The Sequence',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for stamping-the-sequence\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'stone-game',
+    title: 'Stone Game',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for stone-game\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'stone-game-ii',
+    title: 'Stone Game II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for stone-game-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'stone-game-iii',
+    title: 'Stone Game III',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for stone-game-iii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'subarray-sum-equals-k',
+    title: 'Subarray Sum Equals K',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for subarray-sum-equals-k\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'subarray-sums-divisible-by-k',
+    title: 'Subarray Sums Divisible by K',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for subarray-sums-divisible-by-k\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'subarrays-with-k-different-integers',
+    title: 'Subarrays with K Different Integers',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for subarrays-with-k-different-integers\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sudoku-solver',
+    title: 'Sudoku Solver',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sudoku-solver\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'summary-ranges',
+    title: 'Summary Ranges',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for summary-ranges\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sum-of-absolute-differences-in-a-sorted-array',
+    title: 'Sum of Absolute Differences in a Sorted Array',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sum-of-absolute-differences-in-a-sorted-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sum-of-all-odd-length-subarrays',
+    title: 'Sum of All Odd Length Subarrays',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sum-of-all-odd-length-subarrays\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sum-of-all-subset-xor-totals',
+    title: 'Sum of All Subset XOR Totals',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sum-of-all-subset-xor-totals\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sum-of-squares-of-special-elements',
+    title: 'Sum of Squares of Special Elements',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sum-of-squares-of-special-elements\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sum-of-subarray-minimums',
+    title: 'Sum of Subarray Minimums',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sum-of-subarray-minimums\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'sum-of-subarray-ranges',
+    title: 'Sum of Subarray Ranges',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for sum-of-subarray-ranges\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'symmetric-tree',
+    title: 'Symmetric Tree',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for symmetric-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'teemo-attacking',
+    title: 'Teemo Attacking',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for teemo-attacking\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'the-employee-that-worked-on-the-longest-task',
+    title: 'The Employee That Worked on the Longest Task',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for the-employee-that-worked-on-the-longest-task\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'the-k-weakest-rows-in-a-matrix',
+    title: 'The K Weakest Rows in a Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for the-k-weakest-rows-in-a-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'third-maximum-number',
+    title: 'Third Maximum Number',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for third-maximum-number\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'toeplitz-matrix',
+    title: 'Toeplitz Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for toeplitz-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'transpose-matrix',
+    title: 'Transpose Matrix',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for transpose-matrix\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'triangle',
+    title: 'Triangle',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for triangle\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'two-sum-iv-input-is-a-bst',
+    title: 'Two Sum IV - Input is a BST',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for two-sum-iv-input-is-a-bst\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'unique-paths-ii',
+    title: 'Unique Paths II',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for unique-paths-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'valid-mountain-array',
+    title: 'Valid Mountain Array',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for valid-mountain-array\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'valid-palindrome-ii',
+    title: 'Valid Palindrome II',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for valid-palindrome-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'verifying-an-alien-dictionary',
+    title: 'Verifying an Alien Dictionary',
+    difficulty: 'Easy',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for verifying-an-alien-dictionary\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'vertical-order-traversal-of-a-binary-tree',
+    title: 'Vertical Order Traversal of a Binary Tree',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for vertical-order-traversal-of-a-binary-tree\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'wildcard-matching',
+    title: 'Wildcard Matching',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for wildcard-matching\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'word-break-ii',
+    title: 'Word Break II',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for word-break-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'word-ladder-ii',
+    title: 'Word Ladder II',
+    difficulty: 'Hard',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for word-ladder-ii\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  {
+    slug: 'xor-queries-of-a-subarray',
+    title: 'XOR Queries of a Subarray',
+    difficulty: 'Medium',
+    description: 'See LeetCode for the full problem statement.',
+    examples: [
+      {
+        input: '',
+        output: '',
+        explanation: ''
+      }
+    ],
+    solutions: [
+      {
+        label: 'Solution',
+        code: 'class Solution {\n    // TODO: implement solution for xor-queries-of-a-subarray\n    return 0;\n}',
+        complexity: { time: 'O(n)', space: 'O(1)' }
+      }
+    ]
+  },
+  ]
+;
