@@ -88,14 +88,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Two strings are anagrams exactly when they have the same character frequencies. Lengths must match first. Then you need a way to compare multisets of characters. Since the alphabet is fixed at 26 lowercase letters, a 26-slot count array is the natural tool.',
     examples: [
     {
-      input: 's = "anagram"',
+      input: 's = "anagram", t = "nagaram"',
       output: 'true',
       explanation: ''
     },
     {
-      input: 's = "rat"',
+      input: 's = "rat", t = "car"',
       output: 'false',
-      explanation: 't'
+      explanation: ''
     }
   ],
     constraints: '`1 <= s.length, t.length <= 5 * 10^4` - `s` and `t` consist of lowercase English letters.',
@@ -166,14 +166,19 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'For every element `x` you visit, the only partner that completes the pair is `target - x`. The question becomes: *have I already seen `target - x` earlier in the array?* A hash map answers that membership question in O(1), which turns a search problem over pairs into a single lookup per element. Every approach below is a different way of answering that question, or of avoiding it.',
     examples: [
     {
-      input: 'nums = [2,7,11,15]',
+      input: 'nums = [2,7,11,15], target = 9',
       output: '[0,1]',
-      explanation: 'nums[0] + nums[1] = 2 + 7 = 9'
+      explanation: '2 + 7 = 9.'
     },
     {
-      input: 'nums = [3,2,4]',
+      input: 'nums = [3,2,4], target = 6',
       output: '[1,2]',
-      explanation: 'nums[1] + nums[2] = 2 + 4 = 6'
+      explanation: '2 + 4 = 6.'
+    },
+    {
+      input: 'nums = [3,3], target = 6',
+      output: '[0,1]',
+      explanation: 'Duplicate values are valid at different indices.'
     }
   ],
     constraints: '`2 <= nums.length <= 10^4` - `-10^9 <= nums[i] <= 10^9` - `-10^9 <= target <= 10^9` - Exactly one valid answer exists.',
@@ -246,12 +251,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'strs = ["eat","tea","tan","ate","nat","bat"]',
       output: '[["bat"],["nat","tan"],["ate","eat","tea"]]',
-      explanation: '"eat"'
+      explanation: 'Words are grouped by their sorted letters.'
     },
     {
       input: 'strs = [""]',
       output: '[[""]]',
-      explanation: ''
+      explanation: 'Empty string forms its own group.'
     }
   ],
     constraints: '`1 <= strs.length <= 10^4` - `0 <= strs[i].length <= 100` - `strs[i]` consists of lowercase English letters.',
@@ -308,14 +313,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Two steps: count frequencies, then select the top `k`. Selecting by sorting costs $O(d \\log d)$ for $d$ distinct values. A min-heap of size `k` keeps only the best `k` seen so far. Since a frequency is never larger than `n`, bucket sort can index frequencies directly and avoid comparisons entirely.',
     examples: [
     {
-      input: 'nums = [1,1,1,2,2,3]',
+      input: 'nums = [1,1,1,2,2,3], k = 2',
       output: '[1,2]',
-      explanation: '1'
+      explanation: '1 appears 3 times and 2 appears 2 times.'
     },
     {
-      input: 'nums = [1]',
+      input: 'nums = [1], k = 1',
       output: '[1]',
-      explanation: ''
+      explanation: 'Only one value.'
     }
   ],
     constraints: '`1 <= nums.length <= 10^5` - `-10^4 <= nums[i] <= 10^4` - `1 <= k <= number of distinct elements in nums` - The answer is unique.',
@@ -436,14 +441,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Each cell belongs to exactly three groups: its row, its column, and its box. The board is valid if no group has a repeated digit. So for every filled cell, check whether its digit has already appeared in any of those three groups. Each group has 9 cells, so the work is bounded and constant. Box index for cell `(r, c)`: `(r / 3) * 3 + (c / 3)`, which runs from `0` to `8`.',
     examples: [
     {
-      input: 'board',
+      input: 'board = [["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", ".", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]',
       output: 'true',
-      explanation: ''
+      explanation: 'Every row, column, and 3x3 box contains each digit at most once.'
     },
     {
-      input: 'Same as Example 1, but `board[0][0] = "8"`.',
+      input: 'board = [["8", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", ".", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]',
       output: 'false',
-      explanation: ''
+      explanation: 'board[0][0] = "8" conflicts with the 8 at board[2][2] inside the same 3x3 box.'
     }
   ],
     constraints: '`board.length == 9`, `board[i].length == 9` - `board[i][j]` is a digit `\'1\'`-`\'9\'` or `\'.\'`.',
@@ -692,14 +697,19 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Sorting is a gift. If the sum is too small, the left value must increase, so move the left pointer. If too large, move the right pointer. Each step eliminates an entire row or column of candidate pairs. Sortedness also enables binary search for each complement, and a hash map works too, though it ignores the sorted property.',
     examples: [
     {
-      input: 'numbers = [2,7,11,15]',
+      input: 'numbers = [2,7,11,15], target = 9',
       output: '[1,2]',
-      explanation: '2 + 7 = 9'
+      explanation: '1-indexed positions of 2 and 7.'
     },
     {
-      input: 'numbers = [2,3,4]',
+      input: 'numbers = [2,3,4], target = 6',
       output: '[1,3]',
-      explanation: '2 + 4 = 6'
+      explanation: '1-indexed positions of 2 and 4.'
+    },
+    {
+      input: 'numbers = [-1,0], target = -1',
+      output: '[1,2]',
+      explanation: 'Negative values are allowed.'
     }
   ],
     constraints: '`2 <= numbers.length <= 3 * 10^4` - `-1000 <= numbers[i] <= 1000` - `numbers` is sorted in non-decreasing order. - `-1000 <= target <= 1000` - Exactly one solution exists.',
@@ -1154,14 +1164,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'A permutation has the same length and the same letter counts. So scan `s2` with a window of length `m = s1.length()`, and check whether the window\'s letter counts match `s1`\'s. The window has fixed size, so each step removes one character and adds one.',
     examples: [
     {
-      input: 's1 = "ab"',
+      input: 's1 = "ab", s2 = "eidbaooo"',
       output: 'true',
-      explanation: 's2'
+      explanation: 's2 contains "ba", a permutation of s1.'
     },
     {
-      input: 's1 = "ab"',
+      input: 's1 = "ab", s2 = "eidboaoo"',
       output: 'false',
-      explanation: ''
+      explanation: 'No substring of s2 of length 2 is a permutation of "ab".'
     }
   ],
     constraints: '`1 <= s1.length, s2.length <= 10^4` - `s1` and `s2` consist of lowercase English letters.',
@@ -1218,14 +1228,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Expand the right edge until the window covers `t`. Then shrink from the left as far as coverage holds, recording each valid window. Coverage is tracked by counting how many distinct characters have met their required count, so the validity check is O(1) instead of a full comparison.',
     examples: [
     {
-      input: 's = "ADOBECODEBANC"',
+      input: 's = "ADOBECODEBANC", t = "ABC"',
       output: '"BANC"',
-      explanation: '"BANC"'
+      explanation: 'Smallest window containing A, B, and C.'
     },
     {
-      input: 's = "a"',
+      input: 's = "a", t = "a"',
       output: '"a"',
-      explanation: ''
+      explanation: 'Single character matches.'
     }
   ],
     constraints: '`1 <= m, n <= 10^5` - `s` and `t` consist of uppercase and lowercase English letters.',
@@ -1348,12 +1358,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 's = "()[]{}"',
       output: 'true',
-      explanation: ''
+      explanation: 'Each bracket closes in the correct order.'
     },
     {
       input: 's = "([)]"',
       output: 'false',
-      explanation: '['
+      explanation: ') closes while [ is still open, which breaks nesting.'
     }
   ],
     constraints: '`1 <= s.length <= 10^4` - `s` consists only of `()[]{}`.',
@@ -1666,14 +1676,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Each car has an arrival time if unobstructed: `(target - position) / speed`. Process cars from the one closest to the destination backward. A car forms a new fleet only if its arrival time is strictly greater than the arrival time of the fleet ahead. If it is less than or equal, it catches up and merges, so its effective arrival time stays the same.',
     examples: [
     {
-      input: 'target = 12',
+      input: 'target = 12, position = [10,8,0,5,3], speed = [2,4,1,1,3]',
       output: '3',
-      explanation: ''
+      explanation: 'Three fleets form; the cars at 10 and 8 merge at 12.'
     },
     {
-      input: 'target = 10',
+      input: 'target = 10, position = [3], speed = [3]',
       output: '1',
-      explanation: ''
+      explanation: 'Single car forms one fleet.'
     }
   ],
     constraints: '`n == position.length == speed.length` - `1 <= n <= 10^5` - `0 < target <= 10^6` - `0 <= position[i] < target`, and all positions are unique. - `0 < speed[i] <= 10^6`',
@@ -1794,14 +1804,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Sorted order means that comparing `target` with the middle element tells you which half could contain it. Each comparison discards half the remaining range.',
     examples: [
     {
-      input: 'nums = [-1,0,3,5,9,12]',
+      input: 'nums = [-1,0,3,5,9,12], target = 9',
       output: '4',
-      explanation: '9'
+      explanation: '9 is at index 4.'
     },
     {
-      input: 'nums = [-1,0,3,5,9,12]',
+      input: 'nums = [-1,0,3,5,9,12], target = 2',
       output: '-1',
-      explanation: '2'
+      explanation: '2 is not in the array.'
     }
   ],
     constraints: '`1 <= nums.length <= 10^4` - `-10^4 < nums[i], target < 10^4` - All integers in `nums` are unique and sorted in ascending order.',
@@ -1858,14 +1868,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The matrix properties mean it is effectively one sorted array of length `m*n`, laid out in rows. So one binary search over indices `0..m*n-1` works, mapping each index back to `(index / n, index % n)`.',
     examples: [
     {
-      input: 'matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]',
+      input: 'matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3',
       output: 'true',
-      explanation: '3'
+      explanation: '3 is in the first row.'
     },
     {
-      input: 'matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]',
+      input: 'matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13',
       output: 'false',
-      explanation: '13'
+      explanation: '13 falls between 11 and 16 and is not present.'
     }
   ],
     constraints: '`1 <= m, n <= 100` - `-10^4 <= matrix[i][j], target <= 10^4`',
@@ -1922,14 +1932,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Feasibility is monotone. If speed `k` finishes in time, every speed greater than `k` also does. So the answer is the smallest feasible `k`, which is a classic "first true" search. The speed lies in `[1, max(piles)]`. For a given `k`, hours needed is `sum(ceil(piles[i] / k))`, computed in linear time.',
     examples: [
     {
-      input: 'piles = [3,6,7,11]',
+      input: 'piles = [3,6,7,11], h = 8',
       output: '4',
-      explanation: ''
+      explanation: 'At speed 4: 1+2+2+3 = 8 hours.'
     },
     {
-      input: 'piles = [30,11,23,4,20]',
+      input: 'piles = [30,11,23,4,20], h = 5',
       output: '30',
-      explanation: ''
+      explanation: 'Five hours, one pile per hour, so speed must cover the largest pile.'
     }
   ],
     constraints: '`1 <= piles.length <= 10^4` - `piles.length <= h <= 10^9` - `1 <= piles[i] <= 10^9`',
@@ -2036,14 +2046,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'At any midpoint, at least one of the two halves is sorted. Identify which half is sorted by comparing endpoints. If `target` lies within the sorted half\'s range, search there. Otherwise search the other half. This keeps the halving property.',
     examples: [
     {
-      input: 'nums = [4,5,6,7,0,1,2]',
+      input: 'nums = [4,5,6,7,0,1,2], target = 0',
       output: '4',
-      explanation: '0'
+      explanation: '0 is at index 4.'
     },
     {
-      input: 'nums = [4,5,6,7,0,1,2]',
+      input: 'nums = [4,5,6,7,0,1,2], target = 3',
       output: '-1',
-      explanation: '3'
+      explanation: '3 is not in the array.'
     }
   ],
     constraints: '`1 <= nums.length <= 5000` - `-10^4 <= nums[i], target <= 10^4` - All values in `nums` are unique. - `nums` is sorted ascending and possibly rotated.',
@@ -2100,14 +2110,19 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Each key holds a timeline of `(timestamp, value)` pairs in increasing order of timestamp, since `set` calls arrive in order. `get` is therefore a "floor" query: find the last entry whose timestamp is at most the target. That is a binary search over a sorted list.',
     examples: [
     {
-      input: 'set("foo","bar",1)',
+      input: 'set("foo","bar",1), get("foo",1)',
       output: '"bar"',
-      explanation: ''
+      explanation: 'Timestamp 1 matches exactly.'
     },
     {
-      input: 'set("love","high",10)',
+      input: 'set("foo","bar",1), get("foo",3)',
+      output: '"bar"',
+      explanation: 'Returns the latest value with timestamp <= 3.'
+    },
+    {
+      input: 'set("love","high",10), get("love",5)',
       output: '""',
-      explanation: ''
+      explanation: 'No value stored at or before timestamp 5.'
     }
   ],
     constraints: '`1 <= key.length, value.length <= 100` - `1 <= timestamp <= 10^7` - Timestamps in `set` are strictly increasing for each key. - At most `2 * 10^5` calls in total.',
@@ -2164,14 +2179,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The median splits the combined sorted sequence into two halves of (nearly) equal size, where every element on the left is `<=` every element on the right. Instead of merging, find a split point in each array such that the left parts together hold half the elements and the boundary condition holds. Binary searching over the split point of the smaller array gives $O(\\log \\min(m, n))$.',
     examples: [
     {
-      input: 'nums1 = [1,3]',
+      input: 'nums1 = [1,3], nums2 = [2]',
       output: '2.0',
-      explanation: ''
+      explanation: 'Merged array [1,2,3] has median 2.'
     },
     {
-      input: 'nums1 = [1,2]',
+      input: 'nums1 = [1,2], nums2 = [3,4]',
       output: '2.5',
-      explanation: ''
+      explanation: 'Merged array [1,2,3,4] has median (2+3)/2.'
     }
   ],
     constraints: '`0 <= m, n <= 1000` - `1 <= m + n <= 2000` - `-10^6 <= nums1[i], nums2[i] <= 10^6`',
@@ -2292,14 +2307,19 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Both inputs are already sorted, so the smallest unprocessed node is always the head of one of the two lists. Repeatedly take the smaller head. Once one list is exhausted, the other is already sorted and can be attached directly.',
     examples: [
     {
-      input: 'list1 = [1,2,4]',
+      input: 'list1 = [1,2,4], list2 = [1,3,4]',
       output: '[1,1,2,3,4,4]',
-      explanation: ''
+      explanation: 'Standard merge of two sorted lists.'
     },
     {
-      input: 'list1 = []',
+      input: 'list1 = [], list2 = []',
       output: '[]',
-      explanation: ''
+      explanation: 'Both lists empty.'
+    },
+    {
+      input: 'list1 = [], list2 = [0]',
+      output: '[0]',
+      explanation: 'One list empty.'
     }
   ],
     constraints: 'The number of nodes in both lists is in the range `[0, 50]`. - `-100 <= Node.val <= 100` - Both lists are sorted in non-decreasing order.',
@@ -2420,14 +2440,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Removing a node requires its predecessor. The predecessor of the `n`-th node from the end is the `(L - n)`-th node from the start, where `L` is the length. A dummy node in front of the head makes removing the first node uniform with the rest.',
     examples: [
     {
-      input: 'head = [1,2,3,4,5]',
+      input: 'head = [1,2,3,4,5], n = 2',
       output: '[1,2,3,5]',
-      explanation: ''
+      explanation: 'Removes the 2nd node from the end (value 4).'
     },
     {
-      input: 'head = [1]',
+      input: 'head = [1], n = 1',
       output: '[]',
-      explanation: ''
+      explanation: 'Removing the only node.'
     }
   ],
     constraints: 'The number of nodes is `sz`, with `1 <= sz <= 30`. - `0 <= Node.val <= 100` - `1 <= n <= sz`',
@@ -2548,14 +2568,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Digits are stored least-significant first, so the lists can be added in the same order as grade-school addition: sum the digits in each position, add the carry from the previous position, keep the last digit, and carry the rest. Don\'t forget the final carry.',
     examples: [
     {
-      input: 'l1 = [2,4,3]',
+      input: 'l1 = [2,4,3], l2 = [5,6,4]',
       output: '[7,0,8]',
-      explanation: '342 + 465 = 807'
+      explanation: '342 + 465 = 807.'
     },
     {
-      input: 'l1 = [9,9,9,9,9,9,9]',
+      input: 'l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]',
       output: '[8,9,9,9,0,0,0,1]',
-      explanation: '9999999 + 9999 = 10009998'
+      explanation: 'Carry propagates through the full length.'
     }
   ],
     constraints: 'The number of nodes in each list is in the range `[1, 100]`. - `0 <= Node.val <= 9` - No leading zeros, except the number `0` itself.',
@@ -2612,14 +2632,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'If there is no cycle, a traversal ends at `null`. If there is a cycle, a traversal never ends. Detection needs a way to recognise a node already seen. Either remember every visited node, or use two pointers moving at different speeds: in a cycle, the faster one must eventually meet the slower one.',
     examples: [
     {
-      input: 'head = [3,2,0,-4]',
+      input: 'head = [3,2,0,-4], pos = 1',
       output: 'true',
-      explanation: ''
+      explanation: 'Tail connects back to index 1.'
     },
     {
-      input: 'head = [1]',
+      input: 'head = [1], pos = -1',
       output: 'false',
-      explanation: ''
+      explanation: 'No cycle.'
     }
   ],
     constraints: 'The number of nodes is in the range `[0, 10^4]`. - `-10^5 <= Node.val <= 10^5` - `pos` is `-1` or a valid index.',
@@ -2740,14 +2760,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Two requirements: fast lookup by key, and fast reordering by recency. A hash map gives the first. For the second, a doubly linked list keeps items in recency order, with the most recent at one end and the least recent at the other. Moving a node is $O(1)$ when you already hold a reference to it, which the map provides.',
     examples: [
     {
-      input: 'capacity `2`. `put(1,1)`, `put(2,2)`, `get(1)`, `put(3,3)`, `get(2)`, `put(4,4)`, `get(1)`, `get(3)`, `get(4)',
+      input: 'capacity = 2; put(1,1), put(2,2), get(1), put(3,3), get(2), put(4,4), get(1), get(3), get(4)',
       output: '1, -1, -1, 3, 4',
-      explanation: ''
+      explanation: 'put(3,3) evicts key 2; put(4,4) evicts key 1.'
     },
     {
-      input: 'capacity `1`. `put(2,1)`, `get(2)`, `put(3,2)`, `get(2)`, `get(3)',
+      input: 'capacity = 1; put(2,1), get(2), put(3,2), get(2), get(3)',
       output: '1, -1, 2',
-      explanation: ''
+      explanation: 'Capacity 1 means each put evicts the previous key.'
     }
   ],
     constraints: '`1 <= capacity <= 3000` - `0 <= key <= 10^4` - `0 <= value <= 10^5` - At most `2 * 10^5` calls to `get` and `put`.',
@@ -2882,14 +2902,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Process the list in blocks of `k`. Before reversing a block, verify that it contains `k` nodes. If it does not, leave it unchanged and stop. Each full block is reversed in place using the same pointer reversal from 6.1, and then its tail is connected to the reversed result of the next block.',
     examples: [
     {
-      input: 'head = [1,2,3,4,5]',
+      input: 'head = [1,2,3,4,5], k = 2',
       output: '[2,1,4,3,5]',
-      explanation: ''
+      explanation: 'Reverse each group of 2; leftover node stays.'
     },
     {
-      input: 'head = [1,2,3,4,5]',
+      input: 'head = [1,2,3,4,5], k = 3',
       output: '[3,2,1,4,5]',
-      explanation: ''
+      explanation: 'Reverse the first group of 3; leftover pair stays.'
     }
   ],
     constraints: 'The number of nodes is `n`, with `1 <= k <= n <= 5000`. - `0 <= Node.val <= 1000`',
@@ -3174,14 +3194,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Two trees match exactly when their roots match and their left subtrees match and their right subtrees match. Walk both trees in lockstep, comparing positions as you go. Any difference, including a null on one side only, means not the same.',
     examples: [
     {
-      input: 'p = [1,2,3]',
+      input: 'p = [1,2,3], q = [1,2,3]',
       output: 'true',
-      explanation: ''
+      explanation: 'Identical structure and values.'
     },
     {
-      input: 'p = [1,2]',
+      input: 'p = [1,2], q = [1,null,2]',
       output: 'false',
-      explanation: ''
+      explanation: 'Same values, different structure.'
     }
   ],
     constraints: 'The number of nodes in each tree is in the range `[0, 100]`. - `-10^4 <= Node.val <= 10^4`',
@@ -3238,14 +3258,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'At each node of `root`, test whether the subtree rooted there equals `subRoot`, which is the "Same Tree" check from 7.5. That is correct but can be slow. Serializing both trees turns the problem into substring search: `subRoot`\'s serialization must appear inside `root`\'s. Using a linear-time pattern matcher such as KMP on tokens makes this $O(m + n)$.',
     examples: [
     {
-      input: 'root = [3,4,5,1,2]',
+      input: 'root = [3,4,5,1,2], subRoot = [4,1,2]',
       output: 'true',
-      explanation: ''
+      explanation: 'The left subtree matches subRoot.'
     },
     {
-      input: 'root = [3,4,5,1,2,null,null,null,null,0]',
+      input: 'root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]',
       output: 'false',
-      explanation: ''
+      explanation: 'Matching subtree has an extra child (0).'
     }
   ],
     constraints: 'The number of nodes in `root` is in the range `[1, 2000]`. - The number of nodes in `subRoot` is in the range `[1, 1000]`. - `-10^4 <= root.val, subRoot.val <= 10^4`',
@@ -3302,14 +3322,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'In a BST, the values determine direction. If both `p` and `q` are smaller than the current node, the LCA is in the left subtree. If both are larger, it is in the right subtree. Otherwise the current node splits them, so it is the LCA. This uses the BST property and needs no path bookkeeping.',
     examples: [
     {
-      input: 'root = [6,2,8,0,4,7,9,null,null,3,5]',
+      input: 'root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8',
       output: '6',
-      explanation: '2'
+      explanation: '2 and 8 are on opposite sides of the root.'
     },
     {
-      input: 'root = [6,2,8,0,4,7,9,null,null,3,5]',
+      input: 'root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4',
       output: '2',
-      explanation: '2'
+      explanation: 'A node is its own ancestor, so 2 is the LCA.'
     }
   ],
     constraints: 'The number of nodes is in the range `[2, 10^5]`. - `-10^9 <= Node.val <= 10^9` - All `Node.val` are unique. - `p != q`, and both exist in the BST.',
@@ -3622,14 +3642,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'An in-order traversal of a BST yields values in sorted order. So the `k`-th smallest is the `k`-th node visited in-order. The traversal can stop as soon as that node is reached, so no further work is needed.',
     examples: [
     {
-      input: 'root = [3,1,4,null,2]',
+      input: 'root = [3,1,4,null,2], k = 1',
       output: '1',
-      explanation: ''
+      explanation: 'Smallest value in the tree.'
     },
     {
-      input: 'root = [5,3,6,2,4,null,null,1]',
+      input: 'root = [5,3,6,2,4,null,null,1], k = 3',
       output: '3',
-      explanation: ''
+      explanation: 'In-order: 1,2,3,4,5,6.'
     }
   ],
     constraints: 'The number of nodes is `n`, with `1 <= k <= n <= 10^4`. - `0 <= Node.val <= 10^4`',
@@ -3686,14 +3706,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The first value in preorder is always the root. Its position in inorder splits the tree: everything to its left is the left subtree, everything to its right is the right subtree. Both traversals are then split into the same two parts, and the same logic applies recursively. The only costly step is finding the root\'s position in inorder, and that can be made $O(1)$.',
     examples: [
     {
-      input: 'preorder = [3,9,20,15,7]',
+      input: 'preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]',
       output: '[3,9,20,null,null,15,7]',
-      explanation: '3'
+      explanation: '3 is root; 9 is left of it, the rest is right.'
     },
     {
-      input: 'preorder = [-1]',
+      input: 'preorder = [-1], inorder = [-1]',
       output: '[-1]',
-      explanation: ''
+      explanation: 'Single node.'
     }
   ],
     constraints: '`1 <= preorder.length <= 3000` - `inorder.length == preorder.length` - `-3000 <= preorder[i], inorder[i] <= 3000` - `preorder` and `inorder` consist of unique values and are valid traversals of the same tree.',
@@ -3801,13 +3821,13 @@ export const problemContents: ProblemContent[] = [
     examples: [
     {
       input: 'root = [1,2,3,null,null,4,5]',
-      output: 'deserialize(serialize(root))',
-      explanation: ''
+      output: '[1,2,3,null,null,4,5]',
+      explanation: 'Serialize then deserialize returns an equivalent tree.'
     },
     {
       input: 'root = []',
-      output: 'deserialize(serialize(root))',
-      explanation: ''
+      output: '[]',
+      explanation: 'Empty tree round-trips to empty.'
     }
   ],
     constraints: 'The number of nodes is in the range `[0, 10^4]`. - `-1000 <= Node.val <= 1000`',
@@ -3850,14 +3870,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The `k`-th largest value is the root of a min-heap that keeps only the `k` largest values seen so far. Anything smaller than the heap\'s minimum can never affect the answer, so it can be discarded. Keeping the heap at size `k` makes each `add` $O(\\log k)$.',
     examples: [
     {
-      input: 'k = 3',
+      input: 'KthLargest(3, [4,5,8,2]), add(3), add(5), add(10), add(9), add(4)',
       output: '4, 5, 5, 8, 8',
-      explanation: ''
+      explanation: 'Each add returns the 3rd largest value so far.'
     },
     {
-      input: 'k = 1',
+      input: 'KthLargest(1, []), add(-3), add(-2)',
       output: '-3, -2',
-      explanation: ''
+      explanation: 'With k = 1, the answer is the current maximum.'
     }
   ],
     constraints: '`1 <= k <= 10^4` - `0 <= nums.length <= 10^4` - `-10^4 <= nums[i], val <= 10^4` - At least `k` elements exist in the stream when `add` is called. - At most `10^4` calls to `add`.',
@@ -3964,14 +3984,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Comparing Euclidean distances is the same as comparing squared distances, so avoid the square root. Once points are keyed by `x^2 + y^2`, the problem becomes "find the `k` smallest keys". Three standard tools answer that: sort everything, keep a bounded max-heap of the `k` best, or use quickselect to partition around the `k`-th smallest without fully sorting.',
     examples: [
     {
-      input: 'points = [[1,3],[-2,2]]',
+      input: 'points = [[1,3],[-2,2]], k = 1',
       output: '[[-2,2]]',
-      explanation: ''
+      explanation: '(-2,2) has distance sqrt(8), closer than sqrt(10).'
     },
     {
-      input: 'points = [[3,3],[5,-1],[-2,4]]',
+      input: 'points = [[3,3],[5,-1],[-2,4]], k = 2',
       output: '[[3,3],[-2,4]]',
-      explanation: ''
+      explanation: 'Distances: 18, 26, 20. Two smallest kept.'
     }
   ],
     constraints: '`1 <= k <= points.length <= 10^4` - `-10^4 <= xi, yi <= 10^4`',
@@ -4028,14 +4048,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The answer is the element at index `n - k` in ascending order. Sorting finds it in $O(n \\log n)$. A min-heap of the `k` largest finds it in $O(n \\log k)$. Quickselect finds it in $O(n)$ expected by partitioning around pivots and recursing into one side only.',
     examples: [
     {
-      input: 'nums = [3,2,1,5,6,4]',
+      input: 'nums = [3,2,1,5,6,4], k = 2',
       output: '5',
-      explanation: ''
+      explanation: 'Sorted descending: 6,5,4,3,2,1.'
     },
     {
-      input: 'nums = [3,2,3,1,2,4,5,5,6]',
+      input: 'nums = [3,2,3,1,2,4,5,5,6], k = 4',
       output: '4',
-      explanation: ''
+      explanation: 'Sorted descending: 6,5,5,4,...'
     }
   ],
     constraints: '`1 <= k <= nums.length <= 10^5` - `-10^4 <= nums[i] <= 10^4`',
@@ -4092,14 +4112,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The most frequent task dictates the schedule. If task `A` appears `f` times, it creates `f - 1` gaps, each of length `n`. Other tasks fill those gaps. The final frame may contain several tasks tied for the highest frequency. So the minimum length is `(f - 1) * (n + 1) + (number of tasks tied at f)`, unless there are enough distinct tasks that no idle time is needed, in which case the answer is simply the number of tasks.',
     examples: [
     {
-      input: 'tasks = ["A","A","A","B","B","B"]',
+      input: 'tasks = ["A","A","A","B","B","B"], n = 2',
       output: '8',
-      explanation: 'A -> B -> idle -> A -> B -> idle -> A -> B'
+      explanation: 'A B idle A B idle A B.'
     },
     {
-      input: 'tasks = ["A","A","A","B","B","B"]',
+      input: 'tasks = ["A","A","A","B","B","B"], n = 0',
       output: '6',
-      explanation: ''
+      explanation: 'No cooldown, so tasks run back to back.'
     }
   ],
     constraints: '`1 <= tasks.length <= 10^4` - `tasks[i]` is an uppercase English letter. - `0 <= n <= 100`',
@@ -4156,14 +4176,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Each tweet needs a global timestamp so that ordering across users is possible. Each user\'s tweets form a list in posting order. The feed is the 10 most recent tweets across the user and their followees, which is a merge of several sorted lists. A max-heap over the list tails performs that merge and stops after ten pops.',
     examples: [
     {
-      input: 'postTweet(1,5)',
-      output: '[5]',
-      explanation: ''
+      input: 'Twitter(); postTweet(1,5); getNewsFeed(1); follow(1,2); postTweet(2,6); getNewsFeed(1); unfollow(1,2); getNewsFeed(1)',
+      output: 'null, null, [5], null, null, [6,5], null, [5]',
+      explanation: 'Feed includes followed users; unfollow removes them.'
     },
     {
-      input: '1',
-      output: 'true',
-      explanation: 'Only one element.'
+      input: 'postTweet(1,5); postTweet(1,3); getNewsFeed(1)',
+      output: 'null, null, [3,5]',
+      explanation: 'Newest tweet first.'
     }
   ],
     constraints: '`1 <= userId, followerId, followeeId <= 500` - `0 <= tweetId <= 10^4` - At most `3 * 10^4` calls in total. - All tweet IDs are unique.',
@@ -4222,12 +4242,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'addNum(1), addNum(2), findMedian(), addNum(3), findMedian()',
       output: '1.5, 2.0',
-      explanation: ''
+      explanation: 'Median of [1,2] is 1.5; median of [1,2,3] is 2.'
     },
     {
-      input: '1',
-      output: 'true',
-      explanation: 'Only one element.'
+      input: 'addNum(-1), addNum(-2), findMedian()',
+      output: '-1.5',
+      explanation: 'Median of [-1,-2] is their average.'
     }
   ],
     constraints: '`-10^5 <= num <= 10^5` - At least one element exists before `findMedian` is called. - At most `5 * 10^4` calls to `addNum` and `findMedian`.',
@@ -4604,14 +4624,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Start a DFS from every cell that matches the first letter. At each step, move to a neighbour that matches the next letter and has not been used on the current path. Before exploring a neighbour, mark the current cell as used, and unmark it when the branch fails. The visited state is exactly the current path, so marking must be undone on backtrack.',
     examples: [
     {
-      input: 'board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]',
+      input: 'board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"',
       output: 'true',
-      explanation: ''
+      explanation: 'Path A-B-C-C-E-D exists.'
     },
     {
-      input: 'Same board, `word = "ABCB"',
+      input: 'Same board, word = "ABCB"',
       output: 'false',
-      explanation: ''
+      explanation: 'The second B would need to reuse a cell.'
     }
   ],
     constraints: '`1 <= m, n <= 6` - `1 <= word.length <= 15` - `board` and `word` consist of uppercase and lowercase English letters.',
@@ -4734,12 +4754,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'digits = "23"',
       output: '["ad","ae","af","bd","be","bf","cd","ce","cf"]',
-      explanation: '2'
+      explanation: '2 maps to abc, 3 maps to def.'
     },
     {
       input: 'digits = ""',
       output: '[]',
-      explanation: ''
+      explanation: 'No digits, no combinations.'
     }
   ],
     constraints: '`0 <= digits.length <= 4` - `digits[i]` is in the range `[\'2\', \'9\']`.',
@@ -4860,14 +4880,9 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'A trie stores strings by sharing common prefixes. Each node represents a prefix, and an end-of-word flag marks inserted words. `search` and `startsWith` walk the characters one at a time, so each costs time proportional to the query length, independent of how many words are stored.',
     examples: [
     {
-      input: 'insert("apple")',
-      output: 'null, true, false, true, null, true',
-      explanation: '"app"'
-    },
-    {
-      input: '"a"',
-      output: 'true',
-      explanation: 'Single character string.'
+      input: 'Trie(); insert("apple"); search("apple"); search("app"); startsWith("app"); insert("app"); search("app")',
+      output: 'null, null, true, false, true, null, true',
+      explanation: '"app" is not a full word until it is inserted.'
     }
   ],
     constraints: '`1 <= word.length, prefix.length <= 2000` - `word` and `prefix` consist of lowercase English letters. - At most `3 * 10^4` calls in total.',
@@ -4924,14 +4939,9 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Exact-match search is the trie problem from 10.1. The only difference is the `.`, which can match any letter. A trie handles that naturally: at a `.`, explore every child. Without a trie, the search can instead compare each stored word against the pattern.',
     examples: [
     {
-      input: 'addWord("bad")',
-      output: 'false, true, true, true',
-      explanation: 'pad'
-    },
-    {
-      input: '"a"',
-      output: 'true',
-      explanation: 'Single character string.'
+      input: 'WordDictionary(); addWord("bad"); addWord("dad"); addWord("mad"); search("pad"); search("bad"); search(".ad"); search("b..")',
+      output: 'null, null, null, null, false, true, true, true',
+      explanation: '"." matches any single letter.'
     }
   ],
     constraints: '`1 <= word.length <= 25` - `word` in `addWord` consists of lowercase English letters. - `word` in `search` consists of `\'.\'` or lowercase English letters. - At most `10^4` calls to `addWord` and `search`.',
@@ -4988,14 +4998,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Running Word Search (9.6) once per word repeats almost the same grid exploration many times. Instead, put all words into a trie and run one DFS per grid cell. The trie tells the DFS which prefixes are worth extending, so a branch dies the moment no word starts with the current path.',
     examples: [
     {
-      input: 'board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]',
+      input: 'board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]',
       output: '["eat","oath"]',
-      explanation: 'oath'
+      explanation: '"oath" and "eat" can both be traced on the board.'
     },
     {
-      input: 'board = [["a","b"],["c","d"]]',
+      input: 'board = [["a","b"],["c","d"]], words = ["abcb"]',
       output: '[]',
-      explanation: ''
+      explanation: '"abcb" reuses a cell, so it cannot be formed.'
     }
   ],
     constraints: '`m == board.length`, `n == board[i].length` - `1 <= m, n <= 12` - `board` consists of lowercase English letters. - `1 <= words.length <= 3 * 10^4` - `1 <= words[i].length <= 10` - All strings in `words` are unique.',
@@ -5244,14 +5254,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The distance from a room to its nearest gate is a shortest-path distance in an unweighted grid, so BFS gives it. Starting a separate BFS from every room is wasteful. Starting one BFS from all gates simultaneously finds every room\'s nearest gate in a single pass.',
     examples: [
     {
-      input: '[[INF,-1,0,INF],[INF,INF,INF,-1],[INF,-1,INF,-1],[0,-1,INF,INF]]',
+      input: 'rooms = [[INF,-1,0,INF],[INF,INF,INF,-1],[INF,-1,INF,-1],[0,-1,INF,INF]]',
       output: '[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]',
-      explanation: ''
+      explanation: 'Each empty room gets distance to nearest gate.'
     },
     {
-      input: '[[-1]]',
+      input: 'rooms = [[-1]]',
       output: '[[-1]]',
-      explanation: ''
+      explanation: 'No empty rooms.'
     }
   ],
     constraints: '`m == rooms.length`, `n == rooms[i].length` - `1 <= m, n <= 250` - `rooms[i][j]` is `-1`, `0`, or `2147483647`.',
@@ -5458,14 +5468,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Each connected component is counted once. Either traverse each unvisited node\'s component, or merge nodes into groups as edges are read, and count the groups that remain. The second view is the disjoint set union (DSU) structure, which is the most efficient.',
     examples: [
     {
-      input: 'n = 5',
+      input: 'n = 5, edges = [[0,1],[1,2],[3,4]]',
       output: '2',
-      explanation: ''
+      explanation: 'Components: {0,1,2} and {3,4}.'
     },
     {
-      input: 'n = 5',
+      input: 'n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]',
       output: '1',
-      explanation: ''
+      explanation: 'All nodes connected.'
     }
   ],
     constraints: '`1 <= n <= 2000` - `1 <= edges.length <= 5000` - `edges[i].length == 2`, `0 <= ai, bi < n`, `ai != bi` - No repeated edges.',
@@ -5522,14 +5532,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'A tree on `n` nodes has exactly `n - 1` edges, is connected, and has no cycles. Any two of these conditions together imply the third for a finite graph, so checking the count and either connectivity or acyclicity is enough. DSU detects a cycle directly: an edge joining two nodes already in the same set closes a cycle.',
     examples: [
     {
-      input: 'n = 5',
+      input: 'n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]',
       output: 'true',
-      explanation: ''
+      explanation: 'Connected and acyclic.'
     },
     {
-      input: 'n = 5',
+      input: 'n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]',
       output: 'false',
-      explanation: ''
+      explanation: 'Edges 1-2-3-1 form a cycle.'
     }
   ],
     constraints: '`1 <= n <= 2000` - `0 <= edges.length <= 5000` - `edges[i].length == 2`, `0 <= ai, bi < n`, `ai != bi` - No self-loops or repeated edges.',
@@ -5586,14 +5596,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Words are nodes, and an edge joins two words that differ in one letter. The shortest transformation is a shortest path, so BFS applies. The brute force problem is finding neighbours efficiently. Replacing one letter with `*` creates a wildcard key, and words sharing a key are neighbours. Bidirectional BFS, growing from both ends, explores far fewer words when the search space is wide.',
     examples: [
     {
-      input: 'beginWord = "hit"',
+      input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]',
       output: '5',
-      explanation: 'hit -> hot -> dot -> dog -> cog'
+      explanation: 'hit -> hot -> dot -> dog -> cog.'
     },
     {
-      input: 'beginWord = "hit"',
+      input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log"]',
       output: '0',
-      explanation: 'endWord'
+      explanation: 'endWord is not in wordList.'
     }
   ],
     constraints: '`1 <= beginWord.length <= 10` - `endWord.length == beginWord.length` - `1 <= wordList.length <= 5000` - All words have the same length and consist of lowercase English letters. - `beginWord != endWord`, and all words in `wordList` are unique.',
@@ -5650,14 +5660,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The question is whether the directed graph (edge `b -> a`) has a cycle. A cycle means some course depends, directly or indirectly, on itself. Equivalently, the courses can be ordered topologically exactly when there is no cycle.',
     examples: [
     {
-      input: 'numCourses = 2',
+      input: 'numCourses = 2, prerequisites = [[1,0]]',
       output: 'true',
-      explanation: ''
+      explanation: 'Take 0, then 1.'
     },
     {
-      input: 'numCourses = 2',
+      input: 'numCourses = 2, prerequisites = [[1,0],[0,1]]',
       output: 'false',
-      explanation: ''
+      explanation: 'Cycle: 0 and 1 require each other.'
     }
   ],
     constraints: '`1 <= numCourses <= 2000` - `0 <= prerequisites.length <= 5000` - `prerequisites[i].length == 2` - `0 <= ai, bi < numCourses` - `prerequisites[i]` values are unique.',
@@ -5714,14 +5724,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'A valid order is a topological order of the prerequisite graph, and one exists exactly when the graph is acyclic. The three standard ways to produce one: repeatedly pick courses whose prerequisites are done (brute force), take DFS finishing order and reverse it, or run Kahn\'s algorithm.',
     examples: [
     {
-      input: 'numCourses = 2',
+      input: 'numCourses = 2, prerequisites = [[1,0]]',
       output: '[0,1]',
-      explanation: ''
+      explanation: 'Course 0 must come before 1.'
     },
     {
-      input: 'numCourses = 4',
+      input: 'numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]',
       output: '[0,1,2,3]',
-      explanation: ''
+      explanation: 'Any valid topological order is accepted, e.g. [0,2,1,3].'
     }
   ],
     constraints: '`1 <= numCourses <= 2000` - `0 <= prerequisites.length <= numCourses * (numCourses - 1)` - `prerequisites[i].length == 2` - `0 <= ai, bi < numCourses` - `ai != bi`, and all pairs are distinct.',
@@ -6100,12 +6110,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 's = "babad"',
       output: '"bab"',
-      explanation: '"aba"'
+      explanation: '"aba" is equally valid; either answer is accepted.'
     },
     {
       input: 's = "cbbd"',
       output: '"bb"',
-      explanation: ''
+      explanation: 'Even-length palindrome.'
     }
   ],
     constraints: '`1 <= s.length <= 1000` - `s` consists of only digits and English letters.',
@@ -6164,12 +6174,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 's = "abc"',
       output: '3',
-      explanation: '"a"'
+      explanation: '"a", "b", "c".'
     },
     {
       input: 's = "aaa"',
       output: '6',
-      explanation: '"a"'
+      explanation: '"a", "a", "a", "aa", "aa", "aaa".'
     }
   ],
     constraints: '`1 <= s.length <= 1000` - `s` consists of lowercase English letters.',
@@ -6290,14 +6300,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Let `f(a)` be the fewest coins for amount `a`. The last coin used is some denomination `c`, so `f(a) = 1 + min over c of f(a - c)`, with `f(0) = 0` and invalid choices ignored.',
     examples: [
     {
-      input: 'coins = [1,2,5]',
+      input: 'coins = [1,2,5], amount = 11',
       output: '3',
-      explanation: '11 = 5 + 5 + 1'
+      explanation: '5 + 5 + 1.'
     },
     {
-      input: 'coins = [2]',
+      input: 'coins = [2], amount = 3',
       output: '-1',
-      explanation: ''
+      explanation: 'Odd amount cannot be formed.'
     }
   ],
     constraints: '`1 <= coins.length <= 12` - `1 <= coins[i] <= 2^31 - 1` - `0 <= amount <= 10^4`',
@@ -6418,14 +6428,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: '`canBreak(i)` means the suffix `s[i..]` can be segmented. It holds if some dictionary word starts at `i` and the rest can be segmented. Equivalently, using prefixes: `dp[i]` is true if some `j < i` has `dp[j]` true and `s[j..i)` is a word.',
     examples: [
     {
-      input: 's = "leetcode"',
+      input: 's = "leetcode", wordDict = ["leet","code"]',
       output: 'true',
-      explanation: 'leet code'
+      explanation: '"leet" + "code".'
     },
     {
-      input: 's = "applepenapple"',
+      input: 's = "applepenapple", wordDict = ["apple","pen"]',
       output: 'true',
-      explanation: 'apple pen apple'
+      explanation: '"apple" + "pen" + "apple".'
     }
   ],
     constraints: '`1 <= s.length <= 300` - `1 <= wordDict.length <= 1000` - `1 <= wordDict[i].length <= 20` - `s` and `wordDict[i]` consist of lowercase English letters.',
@@ -6484,12 +6494,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'nums = [10,9,2,5,3,7,101,18]',
       output: '4',
-      explanation: '[2,3,7,101]'
+      explanation: '2, 3, 7, 101 is one LIS.'
     },
     {
       input: 'nums = [0,1,0,3,2,3]',
       output: '4',
-      explanation: '[0,1,2,3]'
+      explanation: '0, 1, 2, 3 is one LIS.'
     }
   ],
     constraints: '`1 <= nums.length <= 2500` - `-10^4 <= nums[i] <= 10^4`',
@@ -6548,12 +6558,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'nums = [1,5,11,5]',
       output: 'true',
-      explanation: '[1,5,5]'
+      explanation: '[1,5,5] and [11] each sum to 11.'
     },
     {
       input: 'nums = [1,2,3,5]',
       output: 'false',
-      explanation: ''
+      explanation: 'Total is odd, so no equal split exists.'
     }
   ],
     constraints: '`1 <= nums.length <= 200` - `1 <= nums[i] <= 100`',
@@ -6610,14 +6620,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The number of paths to a cell is the number of paths to the cell above plus the number to the cell on its left. Boundary cells have one way. Computing this over the grid fills the table.',
     examples: [
     {
-      input: 'm = 3',
+      input: 'm = 3, n = 7',
       output: '28',
-      explanation: ''
+      explanation: 'Grid is 3 rows by 7 columns.'
     },
     {
-      input: 'm = 3',
+      input: 'm = 3, n = 2',
       output: '3',
-      explanation: 'Right, Down, Down'
+      explanation: 'Three paths in a 3x2 grid.'
     }
   ],
     constraints: '`1 <= m, n <= 100`',
@@ -6674,14 +6684,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Compare the first characters. If they match, that character belongs to an optimal subsequence, so take it and solve the rest. If not, one of them must be skipped, so take the better of the two options. The state is a pair of indices.',
     examples: [
     {
-      input: 'text1 = "abcde"',
+      input: 'text1 = "abcde", text2 = "ace"',
       output: '3',
-      explanation: '"ace"'
+      explanation: 'Common subsequence "ace".'
     },
     {
-      input: 'text1 = "abc"',
+      input: 'text1 = "abc", text2 = "abc"',
       output: '3',
-      explanation: ''
+      explanation: 'Identical strings.'
     }
   ],
     constraints: '`1 <= text1.length, text2.length <= 1000` - Both strings consist of lowercase English letters.',
@@ -6802,14 +6812,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Order does not matter, so the coins must be considered in a fixed sequence. For each coin index `i` and remaining amount, either use coin `i` again (staying at index `i`), or move on to the next coin. Counting these paths gives the number of combinations.',
     examples: [
     {
-      input: 'amount = 5',
+      input: 'amount = 5, coins = [1,2,5]',
       output: '4',
-      explanation: '5'
+      explanation: '5; 2+2+1; 2+1+1+1; 1+1+1+1+1.'
     },
     {
-      input: 'amount = 3',
+      input: 'amount = 3, coins = [2]',
       output: '0',
-      explanation: ''
+      explanation: 'Cannot form 3 with only 2s.'
     }
   ],
     constraints: '`1 <= coins.length <= 300` - `1 <= coins[i] <= 5000` - All coin values are unique. - `0 <= amount <= 5000`',
@@ -6866,14 +6876,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Let `P` be the set of numbers with `+` and `N` the rest. Then `sum(P) - sum(N) = target`, and `sum(P) + sum(N) = total`. Adding gives `sum(P) = (total + target) / 2`. So the problem becomes counting subsets that sum to `(total + target) / 2`, which is a knapsack count. If the value is not a non-negative integer, the answer is `0`.',
     examples: [
     {
-      input: 'nums = [1,1,1,1,1]',
+      input: 'nums = [1,1,1,1,1], target = 3',
       output: '5',
-      explanation: ''
+      explanation: 'Five ways to place signs for sum 3.'
     },
     {
-      input: 'nums = [1]',
+      input: 'nums = [1], target = 1',
       output: '1',
-      explanation: ''
+      explanation: '+1 only.'
     }
   ],
     constraints: '`1 <= nums.length <= 20` - `0 <= nums[i] <= 1000` - `0 <= sum(nums) <= 1000` - `-1000 <= target <= 1000`',
@@ -6930,14 +6940,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Let `(i, j)` be how many characters of `s1` and `s2` have been used. Then `i + j` characters of `s3` have been matched. The next character of `s3` must come from `s1[i]` or `s2[j]`. This is a reachability question over the grid of `(i, j)` states.',
     examples: [
     {
-      input: 's1 = "aabcc"',
+      input: 's1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"',
       output: 'true',
-      explanation: ''
+      explanation: 'Interleave the two strings in order.'
     },
     {
-      input: 's1 = "aabcc"',
+      input: 's1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"',
       output: 'false',
-      explanation: ''
+      explanation: 'Letter counts match, but no interleaving preserves the order of s1 and s2.'
     }
   ],
     constraints: '`0 <= s1.length, s2.length <= 100` - `0 <= s3.length <= 200` - All strings consist of lowercase English letters.',
@@ -6996,12 +7006,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'matrix = [[9,9,4],[6,6,8],[2,1,1]]',
       output: '4',
-      explanation: '[1, 2, 6, 9]'
+      explanation: 'Path 1 -> 2 -> 6 -> 9.'
     },
     {
       input: 'matrix = [[3,4,5],[3,2,6],[2,2,1]]',
       output: '4',
-      explanation: '[3, 4, 5, 6]'
+      explanation: 'Path 3 -> 4 -> 5 -> 6.'
     }
   ],
     constraints: '`m == matrix.length`, `n == matrix[i].length` - `1 <= m, n <= 200` - `0 <= matrix[i][j] <= 2^31 - 1`',
@@ -7058,14 +7068,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Count the ways `t[j..]` can be formed from `s[i..]`. If `s[i] == t[j]`, you may match them (moving both forward) or skip `s[i]` (moving only `i`). If they differ, you must skip `s[i]`. Counting these choices gives the answer.',
     examples: [
     {
-      input: 's = "rabbbit"',
+      input: 's = "rabbbit", t = "rabbit"',
       output: '3',
-      explanation: ''
+      explanation: 'Three ways to pick "rabbit" from s.'
     },
     {
-      input: 's = "babgbag"',
+      input: 's = "babgbag", t = "bag"',
       output: '5',
-      explanation: ''
+      explanation: 'Five ways to pick "bag".'
     }
   ],
     constraints: '`1 <= s.length, t.length <= 1000` - `s` and `t` consist of English letters.',
@@ -7122,14 +7132,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Compare the last characters. If they match, no operation is needed for them, so solve the prefixes. If not, one operation fixes the last position: insert (advance `word2`), delete (advance `word1`), or replace (advance both). Take the cheapest. Base cases: converting an empty prefix costs the length of the other.',
     examples: [
     {
-      input: 'word1 = "horse"',
+      input: 'word1 = "horse", word2 = "ros"',
       output: '3',
-      explanation: 'horse -> rorse -> rose -> ros'
+      explanation: 'horse -> rorse -> rose -> ros.'
     },
     {
-      input: 'word1 = "intention"',
+      input: 'word1 = "intention", word2 = "execution"',
       output: '5',
-      explanation: ''
+      explanation: 'Five operations.'
     }
   ],
     constraints: '`0 <= word1.length, word2.length <= 500` - Both strings consist of lowercase English letters.',
@@ -7250,14 +7260,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Process both strings from the left. At a pattern position, look at the next character. If it is `*`, the current element can match zero copies (skip two pattern characters) or one more copy (consume a string character and keep the same pattern position). Otherwise the current character must match directly. The state is the pair of positions, so DP over `(i, j)` works.',
     examples: [
     {
-      input: 's = "aa"',
+      input: 's = "aa", p = "a"',
       output: 'false',
-      explanation: '"a"'
+      explanation: '"a" matches only one character.'
     },
     {
-      input: 's = "aa"',
+      input: 's = "aa", p = "a*"',
       output: 'true',
-      explanation: '*'
+      explanation: '"a*" matches zero or more a.'
     }
   ],
     constraints: '`1 <= s.length <= 20` - `1 <= p.length <= 20` - `s` contains only lowercase English letters. - `p` contains lowercase letters, `.`, and `*`. - Every `*` is preceded by a valid character.',
@@ -7506,14 +7516,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'If total gas is less than total cost, no start works. Otherwise, a valid start exists. If starting at `s` leads the tank negative at station `k`, then no start between `s` and `k` can work either, because each of them would arrive at `k` with less fuel. So the next candidate start is `k + 1`.',
     examples: [
     {
-      input: 'gas = [1,2,3,4,5]',
+      input: 'gas = [1,2,3,4,5], cost = [3,4,5,1,2]',
       output: '3',
-      explanation: ''
+      explanation: 'Starting at index 3 completes the loop.'
     },
     {
-      input: 'gas = [2,3,4]',
+      input: 'gas = [2,3,4], cost = [3,4,3]',
       output: '-1',
-      explanation: ''
+      explanation: 'Total gas is less than total cost.'
     }
   ],
     constraints: '`n == gas.length == cost.length` - `1 <= n <= 10^5` - `0 <= gas[i], cost[i] <= 10^4`',
@@ -7570,14 +7580,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The smallest remaining card must start a group, because no other group can supply it. So always start a group at the smallest card, and remove the consecutive cards it needs. If any is missing, the answer is `false`.',
     examples: [
     {
-      input: 'hand = [1,2,3,6,2,3,4,7,8]',
+      input: 'hand = [1,2,3,6,2,3,4,7,8], groupSize = 3',
       output: 'true',
-      explanation: ''
+      explanation: '[1,2,3], [2,3,4], [6,7,8].'
     },
     {
-      input: 'hand = [1,2,3,4,5]',
+      input: 'hand = [1,2,3,4,5], groupSize = 4',
       output: 'false',
-      explanation: ''
+      explanation: '5 cards cannot split into groups of 4.'
     }
   ],
     constraints: '`1 <= hand.length <= 10^4` - `0 <= hand[i] <= 10^9` - `1 <= groupSize <= hand.length`',
@@ -7634,14 +7644,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Merging only increases coordinates, so a triplet that exceeds the target in any coordinate can never be used. Discard those. Among the rest, use every triplet that matches the target exactly in a coordinate, since using more usable triplets never hurts. The target is reachable exactly when each coordinate is matched by some usable triplet.',
     examples: [
     {
-      input: 'triplets = [[2,5,3],[1,8,4],[1,7,5]]',
+      input: 'triplets = [[2,5,3],[1,8,4],[1,7,5]], target = [2,7,5]',
       output: 'true',
-      explanation: ''
+      explanation: 'Use [2,5,3] and [1,7,5] to reach [2,7,5].'
     },
     {
-      input: 'triplets = [[3,4,5],[4,5,6]]',
+      input: 'triplets = [[3,4,5],[4,5,6]], target = [3,2,5]',
       output: 'false',
-      explanation: ''
+      explanation: 'No triplet has a second value at most 2 with first at most 3.'
     }
   ],
     constraints: '`1 <= triplets.length <= 10^5` - `triplets[i].length == target.length == 3` - `1 <= ai, bi, ci, x, y, z <= 1000`',
@@ -7798,14 +7808,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Because the list is already sorted and non-overlapping, the new interval affects a contiguous block. Intervals that end before it are unaffected and go first. Intervals that overlap it are merged into it. Intervals that start after it go last.',
     examples: [
     {
-      input: 'intervals = [[1,3],[6,9]]',
+      input: 'intervals = [[1,3],[6,9]], newInterval = [2,5]',
       output: '[[1,5],[6,9]]',
-      explanation: ''
+      explanation: '[2,5] overlaps [1,3].'
     },
     {
-      input: 'intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]',
+      input: 'intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]',
       output: '[[1,2],[3,10],[12,16]]',
-      explanation: '[4,8]'
+      explanation: '[4,8] merges several intervals.'
     }
   ],
     constraints: '`0 <= intervals.length <= 10^4` - `intervals[i].length == 2` - `0 <= starti <= endi <= 10^5` - `intervals` is sorted by `starti` and has no overlaps.',
@@ -7864,12 +7874,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'intervals = [[1,3],[2,6],[8,10],[15,18]]',
       output: '[[1,6],[8,10],[15,18]]',
-      explanation: '[1,3]'
+      explanation: '[1,3] and [2,6] overlap and merge into [1,6].'
     },
     {
       input: 'intervals = [[1,4],[4,5]]',
       output: '[[1,5]]',
-      explanation: ''
+      explanation: 'Touching intervals merge.'
     }
   ],
     constraints: '`1 <= intervals.length <= 10^4` - `intervals[i].length == 2` - `0 <= starti <= endi <= 10^4`',
@@ -8090,14 +8100,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'For a single query, the candidates are the intervals containing it. Processing every query against every interval is quadratic. Instead, sort the queries and the intervals together. Add intervals as their start is reached, into a min-heap keyed by length. Discard intervals that end before the current query, since they can never contain later queries either. The heap top is then the answer.',
     examples: [
     {
-      input: 'intervals = [[1,4],[2,4],[3,6],[4,4]]',
+      input: 'intervals = [[1,4],[2,4],[3,6],[4,4]], queries = [2,3,4,5]',
       output: '[3,3,1,4]',
-      explanation: ''
+      explanation: 'Smallest interval containing each query.'
     },
     {
-      input: 'intervals = [[2,3],[2,5],[1,8],[20,25]]',
+      input: 'intervals = [[2,3],[2,5],[1,8],[20,25]], queries = [2,19,5,22]',
       output: '[2,-1,4,6]',
-      explanation: ''
+      explanation: '19 is in no interval, so -1.'
     }
   ],
     constraints: '`1 <= intervals.length <= 10^5` - `1 <= queries.length <= 10^5` - `intervals[i].length == 2` - `1 <= lefti <= righti <= 10^7` - `1 <= queries[j] <= 10^7`',
@@ -8432,14 +8442,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Multiplying `x` by itself `n` times is linear in `n`, which is far too slow for `n` near `2^31`. Squaring halves the exponent at each step. Writing `n` in binary, each set bit contributes one factor of a precomputed power of `x`, so `O(log n)` multiplications are enough. Negative exponents invert the base. Use a `long` for `n` so that `-2^31` negates safely.',
     examples: [
     {
-      input: 'x = 2.00000',
+      input: 'x = 2.00000, n = 10',
       output: '1024.00000',
-      explanation: ''
+      explanation: '2^10.'
     },
     {
-      input: 'x = 2.10000',
+      input: 'x = 2.10000, n = 3',
       output: '9.26100',
-      explanation: ''
+      explanation: '2.1^3.'
     }
   ],
     constraints: '`-100.0 < x < 100.0` - `-2^31 <= n <= 2^31 - 1` - `n` is an integer. - `x^n` fits in a 32-bit floating-point range (as in LeetCode\'s test cases).',
@@ -8496,14 +8506,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The product of an `m`-digit and an `n`-digit number has at most `m + n` digits. The digit at position `i` in `num1` and `j` in `num2` contributes to positions `i + j` and `i + j + 1` of the result. Accumulate every contribution into those positions, and carry afterwards.',
     examples: [
     {
-      input: 'num1 = "2"',
+      input: 'num1 = "2", num2 = "3"',
       output: '"6"',
-      explanation: ''
+      explanation: 'Single digits.'
     },
     {
-      input: 'num1 = "123"',
+      input: 'num1 = "123", num2 = "456"',
       output: '"56088"',
-      explanation: ''
+      explanation: 'Long multiplication.'
     }
   ],
     constraints: '`1 <= num1.length, num2.length <= 200` - Both numbers contain only digits and do not have leading zeros, except the number `0` itself.',
@@ -8546,14 +8556,9 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'An axis-aligned square is fixed by two opposite corners. Given the query point `q`, any stored point `p` with `|p.x - q.x| == |p.y - q.y|` and `p.x != q.x` is a diagonal partner. The other two corners are `(p.x, q.y)` and `(q.x, p.y)`. The number of squares is the sum over partners of how many copies of each of the two corners exist.',
     examples: [
     {
-      input: 'add([3,10])',
-      output: '1, 0, 2',
-      explanation: ''
-    },
-    {
-      input: '[1]',
-      output: 'true',
-      explanation: 'Only one element, so no duplicates.'
+      input: 'DetectSquares(); add([3,10]); add([11,2]); add([3,2]); count([11,10]); count([14,8]); add([11,2]); count([11,10])',
+      output: 'null, null, null, null, 1, 0, null, 2',
+      explanation: 'Axis-aligned squares formed with query point as corner.'
     }
   ],
     constraints: '`point.length == 2` - `0 <= x, y <= 1000` - At most `3000` calls in total to `add` and `count`.',
@@ -8930,14 +8935,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Binary addition is XOR for the sum digit without carries, and AND shifted left for the carries. Repeat until no carries remain. Each round moves carries one position further, so the loop ends after at most 32 rounds.',
     examples: [
     {
-      input: 'a = 1',
+      input: 'a = 1, b = 2',
       output: '3',
-      explanation: ''
+      explanation: '1 + 2.'
     },
     {
-      input: 'a = 2',
+      input: 'a = 2, b = 3',
       output: '5',
-      explanation: ''
+      explanation: '2 + 3.'
     }
   ],
     constraints: '`-1000 <= a, b <= 1000`',
@@ -9060,12 +9065,12 @@ export const problemContents: ProblemContent[] = [
     {
       input: 'tickets = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]',
       output: '["JFK","MUC","LHR","SFO","SJC"]',
-      explanation: ''
+      explanation: 'Single valid path from JFK.'
     },
     {
       input: 'tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]',
       output: '["JFK","ATL","JFK","SFO","ATL","SFO"]',
-      explanation: ''
+      explanation: 'Lexically smallest valid itinerary.'
     }
   ],
     constraints: '`1 <= tickets.length <= 300` - `tickets[i].length == 2` - `fromi` and `toi` are three-letter uppercase airport codes. - A valid itinerary is guaranteed to exist.',
@@ -9186,14 +9191,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The answer is the largest shortest-path distance from `k` to any node. Edge weights are non-negative, so Dijkstra\'s algorithm applies. Bellman-Ford also works, at a higher cost, and serves as the brute-force baseline.',
     examples: [
     {
-      input: 'times = [[2,1,1],[2,3,1],[3,4,1]]',
+      input: 'times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2',
       output: '2',
-      explanation: ''
+      explanation: 'Signal reaches 3 at t=1, and 4 at t=2.'
     },
     {
-      input: 'times = [[1,2,1]]',
+      input: 'times = [[1,2,1]], n = 2, k = 1',
       output: '1',
-      explanation: ''
+      explanation: 'Single edge.'
     }
   ],
     constraints: '`1 <= k <= n <= 100` - `1 <= times.length <= 6000` - `times[i].length == 3` - `1 <= ui, vi <= n`, with `ui != vi` - `0 <= wi <= 100` - All pairs `(ui, vi)` are unique.',
@@ -9364,14 +9369,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'A route with `k` stops uses at most `k + 1` flights. The cheapest route must be found among routes of bounded length, so unbounded Dijkstra can return a route that uses too many flights. Limiting the number of rounds fixes that. Bellman-Ford naturally does this: after round `i`, the best price for each city using at most `i` flights is known.',
     examples: [
     {
-      input: 'n = 4',
+      input: 'n = 4, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 0, dst = 3, k = 1',
       output: '700',
-      explanation: ''
+      explanation: '0 -> 1 -> 3 with one stop.'
     },
     {
-      input: 'n = 3',
+      input: 'n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1',
       output: '200',
-      explanation: ''
+      explanation: '0 -> 1 -> 2 with one stop.'
     }
   ],
     constraints: '`2 <= n <= 100` - `0 <= flights.length <= (n * (n - 1) / 2)` - `flights[i].length == 3` - `0 <= fromi, toi < n`, with `fromi != toi` - `1 <= pricei <= 10^4` - No duplicate flights. - `0 <= src, dst, k < n`, with `src != dst`',
@@ -9606,14 +9611,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Each method must wait until the previous step is complete. A one-shot signal per step expresses that directly. A `CountDownLatch` is the natural signal: a waiting thread blocks until the latch reaches zero, and the previous step counts it down when it finishes.',
     examples: [
     {
-      input: 'nums = [1,2,3]',
-      output: '"firstsecondthird"',
-      explanation: ''
+      input: 'calls: second(), third(), first()',
+      output: 'firstsecondthird',
+      explanation: 'Synchronisation forces first before second and third.'
     },
     {
-      input: 'nums = [1,3,2]',
-      output: '"firstsecondthird"',
-      explanation: ''
+      input: 'calls: third(), second(), first()',
+      output: 'firstsecondthird',
+      explanation: 'Output order is fixed regardless of call order.'
     }
   ],
     constraints: '`nums` is a permutation of `[1, 2, 3]`.',
@@ -9856,14 +9861,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Deadlock arises when every philosopher holds their left fork and waits for their right fork. That cycle needs all five forks to be held at once. Remove the cycle by ordering, or by allowing at most four philosophers to compete for forks at a time. Either guarantees that at least one fork is always free to finish a meal.',
     examples: [
     {
-      input: 'Each of five philosophers eats once.',
-      output: 'All five complete. No two neighbours eat at the same time.',
-      explanation: ''
+      input: 'n = 5, each philosopher eats once',
+      output: 'All five eat; no deadlock',
+      explanation: 'Fork ordering prevents circular wait.'
     },
     {
-      input: '[1]',
-      output: 'true',
-      explanation: 'Simple case.'
+      input: 'n = 1, one philosopher eats once',
+      output: 'Philosopher eats',
+      explanation: 'No contention with one philosopher.'
     }
   ],
     constraints: 'Five philosophers and five forks. - Each philosopher calls `wantsToEat` repeatedly.',
@@ -9920,14 +9925,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Producers wait for space and consumers wait for items. These are two distinct conditions, and it is clearer to signal them separately. A single lock protects the state, and two condition variables let a producer wake a consumer, and a consumer wake a producer, without waking the wrong kind of thread.',
     examples: [
     {
-      input: 'capacity = 2',
-      output: '1',
-      explanation: ''
+      input: 'capacity = 2; enqueue(1), enqueue(2), dequeue(), dequeue()',
+      output: '1, 2',
+      explanation: 'FIFO order is preserved.'
     },
     {
-      input: '1',
-      output: 'true',
-      explanation: 'Only one element.'
+      input: 'capacity = 1; enqueue(1), dequeue()',
+      output: '1',
+      explanation: 'Queue of size one.'
     }
   ],
     constraints: '`1 <= capacity <= 1000` - At most `10^5` calls in total.',
@@ -9984,14 +9989,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'The intersection is a shared resource, and at any moment only one road may cross. Mutual exclusion around the crossing is enough to prevent collisions. The remaining question is how often to switch the light. Switching on every car is correct but wasteful, and switching only when the road changes avoids unnecessary light changes.',
     examples: [
     {
-      input: 'Cars `1` on road `1`, `2` on road `2`, and `3` on road `1` arrive in order.',
-      output: 'The crossings occur as `1`, then `2` (after the light switches to road `2`), then `3` (after the light switches back to road `1`).',
-      explanation: ''
+      input: 'cars 1 and 3 on road 1, car 2 on road 2, arriving in that order',
+      output: 'crossing order: 1, 2, 3',
+      explanation: 'Light switches to road 2 for car 2, then back to road 1 for car 3.'
     },
     {
-      input: '1',
-      output: 'true',
-      explanation: 'Only one element.'
+      input: 'single car 1 on road 1',
+      output: 'crossing order: 1',
+      explanation: 'Car crosses on green.'
     }
   ],
     constraints: '`1 <= carId <= 100` - `roadId` is `1` or `2`. - `direction` is `1`, `2`, or `3` (straight, left, right), and does not affect the light logic.',
@@ -10034,14 +10039,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Eviction needs two things: the minimum frequency, and among keys at that frequency, the least recently used. Group keys into buckets by frequency. Each bucket is ordered by recency, so its head is the eviction candidate. Track the current minimum frequency. Then every operation is constant time.',
     examples: [
     {
-      input: 'capacity = 2',
+      input: 'capacity = 2; put(1,1), put(2,2), get(1), put(3,3), get(2), get(3), put(4,4), get(1), get(3), get(4)',
       output: '1, -1, 3, -1, 3, 4',
-      explanation: ''
+      explanation: 'put(3,3) evicts key 2 (least frequent). put(4,4) evicts key 1 (least frequent, least recent).'
     },
     {
-      input: '1',
-      output: 'true',
-      explanation: 'Only one element.'
+      input: 'capacity = 1; put(1,1), get(1), put(2,2), get(1)',
+      output: '1, -1',
+      explanation: 'put(2,2) evicts key 1.'
     }
   ],
     constraints: '`1 <= capacity <= 10^4` - `0 <= key <= 10^5` - `0 <= value <= 10^9` - At most `2 * 10^5` calls to `get` and `put`.',
@@ -10084,14 +10089,14 @@ export const problemContents: ProblemContent[] = [
     problemIntuition: 'Only hits within the last 300 seconds count, so older hits can be discarded. Because timestamps are non-decreasing, the hits form a sorted list, and the window is a contiguous suffix of it. Alternatively, a fixed circular buffer of 300 slots, one per second, stores counts without keeping every hit.',
     examples: [
     {
-      input: 'hit(1)',
+      input: 'hit(1), hit(2), hit(3), getHits(4), hit(300), getHits(300), getHits(301)',
       output: '3, 4, 3',
-      explanation: ''
+      explanation: 'Window is (t-300, t]. At 301 the hit at 1 has expired.'
     },
     {
-      input: '1',
-      output: 'true',
-      explanation: 'Only one element.'
+      input: 'hit(1), getHits(1000)',
+      output: '0',
+      explanation: 'The only hit is outside the 300-second window.'
     }
   ],
     constraints: '`1 <= timestamp <= 2 * 10^9` - Calls are made in chronological order. - At most `300` calls to `hit` and `getHits`.',
