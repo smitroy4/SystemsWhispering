@@ -160,9 +160,10 @@ export const roadmap: RoadmapPhase[] = [
     id: 'ai-ml',
     title: 'AI/ML for Backend',
     order: 9,
-    goal: 'Learn ML fundamentals, LLM APIs, prompt engineering, RAG, embeddings and vector DBs, Spring AI/LangChain4j, agents and tool use, model serving, and evaluation.',
+    goal: 'Get Started with Python, Learn ML fundamentals, LLM APIs, prompt engineering, RAG, embeddings and vector DBs, Spring AI/LangChain4j, agents and tool use, model serving, and evaluation.',
     duration: '5–7 weeks',
     topics: [
+      { title: 'Python Essentials', description: 'Get started with Python prior to diving deep into the ocean of AI and ML.' },
       { title: 'ML fundamentals', description: 'Supervised/unsupervised learning, regression, classification, and model evaluation.' },
       { title: 'LLM APIs', description: 'Chat completions, token usage, system/user/assistant roles, and function calling.' },
       { title: 'Prompt engineering', description: 'Zero-shot/few-shot prompting, chain-of-thought, and prompt structure.' },
