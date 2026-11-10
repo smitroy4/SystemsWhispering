@@ -88,5 +88,48 @@ public class LeakyStack {
     'Static collections as caches: they pin everything forever — bound them or use WeakHashMap.',
     'Forgetting to null popped slots: "removed" elements stay reachable and leak.',
   ],
+  pythonCode: [
+    {
+      title: 'References share objects',
+      description: 'Two names, one heap object.',
+      code: `a = ["x"]
+b = a           # copies the reference, not the list
+b.append("y")
+print(a)        # ['x', 'y']: shared heap object
+print(a is b)   # True: same object
+
+c = list(a)     # real copy (shallow)
+c.append("z")
+print(a)        # ['x', 'y']: untouched
+print(a == c)   # False: contents differ
+`,
+    },
+    {
+      title: 'Nulling slots avoids leaks',
+      description: 'The stack-pop pattern every array structure needs.',
+      code: `class LeakyStack:
+    def __init__(self, capacity=4):
+        self.data = [None] * capacity
+        self.size = 0
+
+    def push(self, s):
+        self.data[self.size] = s
+        self.size += 1
+
+    def pop(self):
+        self.size -= 1
+        s = self.data[self.size]
+        self.data[self.size] = None  # without this, popped items stay reachable
+        return s
+
+
+# Demo
+st = LeakyStack()
+st.push("hello")
+print(st.pop())                    # hello
+print(st.data)                     # [None, None, None, None]
+`,
+    },
+  ],
   problemIds: ['reverse-linked-list', 'copy-list-with-random-pointer'],
 };

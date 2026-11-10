@@ -76,6 +76,43 @@ public class InsertionSortBuiltIn {
     'Losing the key: overwriting `a[i]` before saving it destroys the value being inserted.',
     'Starting the outer loop at 0: a one-element prefix is trivially sorted — start at 1.',
   ],
+  pythonCode: [
+    {
+      title: 'Insertion sort from scratch',
+      description: 'Key-hold with rightward shifts.',
+      code: `def insertion_sort(a):
+    # O(n) best (sorted), O(n^2) average/worst; O(1) space; stable
+    for i in range(1, len(a)):
+        key = a[i]
+        j = i - 1
+        while j >= 0 and a[j] > key:
+            a[j + 1] = a[j]
+            j -= 1
+        a[j + 1] = key
+    return a
+
+
+# Demo
+scores = [5, 3, 8, 4, 2]
+insertion_sort(scores)
+print(scores)  # [2, 3, 4, 5, 8]
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`list.sort()`: Timsort delegates to insertion on tiny runs.',
+      code: `scores = [5, 3, 8, 4, 2]
+scores.sort()
+print(scores)  # [2, 3, 4, 5, 8]
+
+# sorted() returns a new list, leaving the original untouched
+original = [5, 3, 8, 4, 2]
+copy = sorted(original)
+print(copy)    # [2, 3, 4, 5, 8]
+print(original)  # [5, 3, 8, 4, 2]
+`,
+    },
+  ],
   vizId: 'insertion-sort-steps',
   problemIds: ['sort-an-array', 'squares-of-a-sorted-array', 'merge-sorted-array'],
 };

@@ -61,9 +61,19 @@ import { blockingQueueTopic } from './blockingQueue.ts';
 import { concurrentSkipListTopic } from './concurrentSkipList.ts';
 import { synchronizedWrappersTopic } from './synchronizedWrappers.ts';
 import { producerConsumerTopic } from './producerConsumer.ts';
+/** Python data structures */
+import { pythonArrayTopic } from './python-array.ts';
+import { pythonLinkedListTopic } from './python-linked-list.ts';
+import { pythonStackTopic } from './python-stack.ts';
+import { pythonQueueTopic } from './python-queue.ts';
+import { pythonHashTableTopic } from './python-hash-table.ts';
+import { pythonBinaryTreeTopic } from './python-binary-tree.ts';
+import { pythonBSTTopic } from './python-bst.ts';
+import { pythonHeapTopic } from './python-heap.ts';
+import { pythonGraphTopic } from './python-graph.ts';
 
 /** Data-structure topics. Stub entries (status 'draft') land fully in Steps 15b–15e. */
-export const dataStructures: Topic[] = [arrayTopic, dynamicArrayTopic, stringTopic, singlyLinkedListTopic, doublyLinkedListTopic, stackTopic, queueDequeTopic, hashTableTopic, hashSetTopic, binaryTreeTopic, bstTopic, heapTopic, trieTopic, segmentTreeTopic, fenwickTreeTopic, unionFindTopic, graphRepresentationsTopic, weightedGraphTopic, advancedGraphsTopic, circularLinkedListTopic, circularQueueTopic, skipListTopic, sparseTableTopic, matrix2dArraysTopic, bitsetTopic, avlTreeTopic, redBlackTreeTopic, bTreeTopic, minMaxHeapTopic, suffixArrayTopic, lruLfuCacheTopic, bloomFilterTopic, monotonicStructuresTopic, sqrtDecompositionTopic, collectionsFrameworkMapTopic, iterableIteratorTopic, arrayListTopic, linkedListTopic, vectorStackLegacyTopic, arrayDequeTopic, priorityQueueTopic, hashMapInternalsTopic, linkedHashMapTopic, treeMapTopic, hashSetClassTopic, linkedHashSetTopic, treeSetTopic, enumMapEnumSetTopic, identityWeakHashMapTopic, collectionsUtilityTopic, arraysUtilityTopic, immutableCollectionsTopic, streamsWithCollectionsTopic, failFastFailSafeTopic, concurrentOverviewTopic, concurrentHashMapTopic, copyOnWriteTopic, concurrentLinkedQueueTopic, blockingQueueTopic, concurrentSkipListTopic, synchronizedWrappersTopic, producerConsumerTopic];
+export const dataStructures: Topic[] = [arrayTopic, dynamicArrayTopic, stringTopic, singlyLinkedListTopic, doublyLinkedListTopic, stackTopic, queueDequeTopic, hashTableTopic, hashSetTopic, binaryTreeTopic, bstTopic, heapTopic, trieTopic, segmentTreeTopic, fenwickTreeTopic, unionFindTopic, graphRepresentationsTopic, weightedGraphTopic, advancedGraphsTopic, circularLinkedListTopic, circularQueueTopic, skipListTopic, sparseTableTopic, matrix2dArraysTopic, bitsetTopic, avlTreeTopic, redBlackTreeTopic, bTreeTopic, minMaxHeapTopic, suffixArrayTopic, lruLfuCacheTopic, bloomFilterTopic, monotonicStructuresTopic, sqrtDecompositionTopic, collectionsFrameworkMapTopic, iterableIteratorTopic, arrayListTopic, linkedListTopic, vectorStackLegacyTopic, arrayDequeTopic, priorityQueueTopic, hashMapInternalsTopic, linkedHashMapTopic, treeMapTopic, hashSetClassTopic, linkedHashSetTopic, treeSetTopic, enumMapEnumSetTopic, identityWeakHashMapTopic, collectionsUtilityTopic, arraysUtilityTopic, immutableCollectionsTopic, streamsWithCollectionsTopic, failFastFailSafeTopic, concurrentOverviewTopic, concurrentHashMapTopic, copyOnWriteTopic, concurrentLinkedQueueTopic, blockingQueueTopic, concurrentSkipListTopic, synchronizedWrappersTopic, producerConsumerTopic, pythonArrayTopic, pythonLinkedListTopic, pythonStackTopic, pythonQueueTopic, pythonHashTableTopic, pythonBinaryTreeTopic, pythonBSTTopic, pythonHeapTopic, pythonGraphTopic];
 
 export function getDataStructure(slug: string): Topic | undefined {
   return dataStructures.find((t) => t.slug === slug);

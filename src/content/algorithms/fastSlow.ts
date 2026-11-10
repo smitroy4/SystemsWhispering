@@ -100,6 +100,50 @@ public class CycleDetect {
     'Stopping at the first meeting for cycle start: reset to head and walk at equal speed to find the entrance.',
     'Off-by-one middle on even lists: define first-vs-second middle up front and test both.',
   ],
+  pythonCode: [
+    {
+      title: 'Cycle detection from scratch',
+      description: "Floyd's two-speed walk with null guards.",
+      code: `class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+
+def has_cycle(head):
+    # O(n) time, O(1) space
+    slow = head
+    fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            return True
+    return False
+
+
+def middle_node(head):
+    # Same speeds, different question: slow lands at middle
+    slow = head
+    fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+
+
+# Demo
+a = ListNode(0)
+b = ListNode(1)
+c = ListNode(2)
+a.next = b
+b.next = c
+print(has_cycle(a))     # False: straight road
+c.next = b              # cycle: 1 <-> 2
+print(has_cycle(a))     # True
+`,
+    },
+  ],
   vizId: 'fast-slow-steps',
   problemIds: ['linked-list-cycle', 'middle-of-the-linked-list', 'happy-number'],
 };

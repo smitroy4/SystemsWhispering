@@ -84,5 +84,41 @@ public class Optimized {
     'No test pass: hand-trace your example plus empty/single/duplicate cases before finishing.',
     'Memorizing solutions: frameworks transfer, scripts do not — practice the loop, not the answers.',
   ],
+  pythonCode: [
+    {
+      title: 'Brute force, stated honestly',
+      description: 'The baseline: every pair, O(n²).',
+      code: `def two_sum_brute(a, target):
+    # O(n^2) time, O(1) space
+    for i in range(len(a)):
+        for j in range(i + 1, len(a)):
+            if a[i] + a[j] == target:
+                return [i, j]
+    return [-1, -1]
+
+
+# Demo
+print(two_sum_brute([2, 7, 11, 15], 9))  # [0, 1]
+`,
+    },
+    {
+      title: 'Optimized after BUD',
+      description: 'Trade space for time: one pass with a dict.',
+      code: `def two_sum_fast(a, target):
+    # O(n) time, O(n) space
+    seen = {}  # value -> index
+    for i, x in enumerate(a):
+        need = target - x
+        if need in seen:
+            return [seen[need], i]
+        seen[x] = i
+    return [-1, -1]
+
+
+# Demo
+print(two_sum_fast([2, 7, 11, 15], 9))  # [0, 1]
+`,
+    },
+  ],
   problemIds: ['two-sum', 'valid-palindrome'],
 };

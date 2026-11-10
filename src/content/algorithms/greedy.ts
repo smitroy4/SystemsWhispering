@@ -88,6 +88,49 @@ public class ActivitySelection {
     'Sorting activities by start time: earliest *finish* is the key that frees the room soonest.',
     'Using `int` reach on huge jumps: `i + nums[i]` can overflow — promote to long when constraints allow.',
   ],
+  pythonCode: [
+    {
+      title: 'Jump Game II from scratch',
+      description: 'Farthest-reach tracking with jump-on-exhaustion.',
+      code: `def min_jumps(nums):
+    # O(n) time, O(1) space
+    jumps = 0
+    end = 0
+    farthest = 0
+    for i in range(len(nums) - 1):  # no jump needed from the last index
+        farthest = max(farthest, i + nums[i])
+        if i == end:  # exhausted the current leap
+            jumps += 1
+            end = farthest
+    return jumps
+
+
+# Demo
+print(min_jumps([2, 3, 1, 1, 4]))  # 2
+print(min_jumps([2, 3, 0, 1, 4]))  # 2
+`,
+    },
+    {
+      title: 'Activity selection variant',
+      description: 'Same greed, different key: earliest finish first.',
+      code: `def max_activities(meetings):
+    # O(n log n) for sorting, O(n) scan; O(1) extra
+    meetings.sort(key=lambda m: m[1])  # earliest finish first
+    count = 0
+    last_end = float('-inf')
+    for start, end in meetings:
+        if start >= last_end:
+            count += 1
+            last_end = end
+    return count
+
+
+# Demo
+meetings = [[1, 3], [2, 4], [3, 5], [0, 6]]
+print(max_activities(meetings))  # 2
+`,
+    },
+  ],
   vizId: 'greedy-steps',
   problemIds: ['jump-game', 'jump-game-ii', 'assign-cookies'],
 };

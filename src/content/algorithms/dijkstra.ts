@@ -115,6 +115,88 @@ public class DijkstraPath {
     'Forgetting reverse edges on undirected graphs: half the roads vanish from the map.',
     'Reconstructing without parents: record parent[v] = u on every successful relax.',
   ],
+  pythonCode: [
+    {
+      title: "Dijkstra from scratch",
+      description: 'Heap frontier with stale-entry skipping.',
+      code: `import heapq
+
+
+def dijkstra(adj, source):
+    # O((V + E) log V) time, O(V + E) space
+    n = len(adj)
+    dist = [float('inf')] * n
+    dist[source] = 0
+    pq = [(0, source)]  # (distance, vertex)
+    while pq:
+        d, u = heapq.heappop(pq)
+        if d != dist[u]:
+            continue  # stale entry
+        for v, w in adj[u]:
+            nd = dist[u] + w
+            if nd < dist[v]:
+                dist[v] = nd
+                heapq.heappush(pq, (nd, v))
+    return dist
+
+
+# Demo
+adj = [
+    [(1, 4), (2, 2)],   # 0
+    [(0, 4), (2, 1), (3, 5)],  # 1
+    [(0, 2), (1, 1), (3, 8), (4, 10)],  # 2
+    [(1, 5), (2, 8), (4, 2)],  # 3
+    [(2, 10), (3, 2)],  # 4
+]
+print(dijkstra(adj, 0))  # [0, 3, 2, 8, 10]
+`,
+    },
+    {
+      title: 'Path reconstruction variant',
+      description: 'Parent pointers turn distances into routes.',
+      code: `import heapq
+
+
+def dijkstra_path(adj, source, target):
+    # O((V + E) log V) time, O(V + E) space
+    n = len(adj)
+    dist = [float('inf')] * n
+    parent = [-1] * n
+    dist[source] = 0
+    pq = [(0, source)]
+    while pq:
+        d, u = heapq.heappop(pq)
+        if d != dist[u]:
+            continue
+        for v, w in adj[u]:
+            nd = dist[u] + w
+            if nd < dist[v]:
+                dist[v] = nd
+                parent[v] = u
+                heapq.heappush(pq, (nd, v))
+
+    # Reconstruct path
+    path = []
+    v = target
+    while v != -1:
+        path.append(v)
+        v = parent[v]
+    path.reverse()
+    return path
+
+
+# Demo
+adj = [
+    [(1, 4), (2, 2)],
+    [(0, 4), (2, 1), (3, 5)],
+    [(0, 2), (1, 1), (3, 8), (4, 10)],
+    [(1, 5), (2, 8), (4, 2)],
+    [(2, 10), (3, 2)],
+]
+print(dijkstra_path(adj, 0, 4))  # [0, 2, 1, 3, 4] (0->2->1->3->4)
+`,
+    },
+  ],
   vizId: 'dijkstra-algo-steps',
   problemIds: ['network-delay-time', 'path-with-minimum-effort', 'cheapest-flights-within-k-stops'],
 };

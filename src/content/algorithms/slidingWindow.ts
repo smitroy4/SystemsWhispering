@@ -89,6 +89,47 @@ public class LongestUnique {
     'Off-by-one window length: size is `right - left + 1` with inclusive ends — verify on k = 1.',
     'Using substring/collections copies per step: O(k) hidden work per slide breaks the O(n) promise.',
   ],
+  pythonCode: [
+    {
+      title: 'Max sum window from scratch',
+      description: 'Fixed-size window with a running sum.',
+      code: `def max_sum_window(a, k):
+    # O(n) time, O(1) space
+    window = sum(a[:k])
+    best = window
+    for right in range(k, len(a)):
+        window += a[right] - a[right - k]
+        best = max(best, window)
+    return best
+
+
+# Demo
+nums = [2, 1, 5, 1, 3, 2]
+print(max_sum_window(nums, 3))  # 9
+`,
+    },
+    {
+      title: 'Flexible window template',
+      description: 'Expand right, shrink left while invalid (longest substring without repeats).',
+      code: `def length_of_longest_substring(s):
+    # O(n) time, O(min(n, charset)) space
+    seen = set()
+    left = 0
+    best = 0
+    for right in range(len(s)):
+        while s[right] in seen:
+            seen.remove(s[left])
+            left += 1
+        seen.add(s[right])
+        best = max(best, right - left + 1)
+    return best
+
+
+# Demo
+print(length_of_longest_substring("abcabcbb"))  # 3
+`,
+    },
+  ],
   vizId: 'sliding-window-steps',
   problemIds: ['best-time-to-buy-and-sell-stock', 'longest-substring-without-repeating-characters', 'minimum-window-substring'],
 };

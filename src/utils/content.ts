@@ -32,7 +32,7 @@ export function getProblem(id: string): Problem | undefined {
 }
 
 /** Display order of data-structure groups on index + sidebar. */
-export const TOPIC_GROUP_ORDER: TopicGroup[] = ['linear', 'non-linear', 'collections', 'concurrent'];
+export const TOPIC_GROUP_ORDER: TopicGroup[] = ['linear', 'non-linear', 'collections', 'concurrent', 'python'];
 
 /** Heading + short description for each data-structure group. */
 export const TOPIC_GROUP_META: Record<TopicGroup, { title: string; description: string }> = {
@@ -51,6 +51,10 @@ export const TOPIC_GROUP_META: Record<TopicGroup, { title: string; description: 
   concurrent: {
     title: 'Concurrent Collections',
     description: 'Thread-safe structures — ConcurrentHashMap, queues and more for many threads.',
+  },
+  python: {
+    title: 'Python Data Structures',
+    description: 'The same essential structures, written in idiomatic Python — lists, linked lists, stacks, queues, dicts, trees, heaps and graphs.',
   },
 };
 

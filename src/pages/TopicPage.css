@@ -117,6 +117,20 @@
   border-radius: var(--radius-md);
 }
 
+/* Code snippets per language (Java + Python on data-structure topics). */
+.code-language {
+  margin-bottom: var(--space-6);
+}
+
+.code-language__label {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
 /* Choose/avoid box under the topic header (Collections + Concurrent). */
 .topic-choicebox {
   display: grid;

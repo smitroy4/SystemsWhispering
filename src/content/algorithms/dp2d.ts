@@ -87,6 +87,51 @@ export const dp2dTopic: Topic = {
     'int overflow on path counts: grids explode combinatorially — use long or modulo.',
     'Recomputing instead of tabulating: recursion without memo on grids re-solves exponentially many overlaps.',
   ],
+  pythonCode: [
+    {
+      title: 'Unique paths from scratch',
+      description: 'Border seeding plus top+left combine.',
+      code: `def unique_paths(rows, cols):
+    # O(rows * cols) time, O(rows * cols) space
+    dp = [[0] * cols for _ in range(rows)]
+    for r in range(rows):
+        dp[r][0] = 1
+    for c in range(cols):
+        dp[0][c] = 1
+    for r in range(1, rows):
+        for c in range(1, cols):
+            dp[r][c] = dp[r - 1][c] + dp[r][c - 1]
+    return dp[rows - 1][cols - 1]
+
+
+# Demo
+print(unique_paths(3, 3))  # 6
+print(unique_paths(3, 7))  # 28
+`,
+    },
+    {
+      title: 'LCS variant',
+      description: 'Same skeleton, diagonal-match combine.',
+      code: `def lcs_length(a, b):
+    # O(len(a) * len(b)) time and space
+    m, n = len(a), len(b)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if a[i - 1] == b[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+    return dp[m][n]
+
+
+# Demo
+print(lcs_length("abcde", "ace"))  # 3
+print(lcs_length("abc", "abc"))    # 3
+print(lcs_length("abc", "def"))    # 0
+`,
+    },
+  ],
   vizId: 'dp-2d-steps',
   problemIds: ['unique-paths', 'longest-common-subsequence', 'edit-distance', 'minimum-path-sum'],
 };

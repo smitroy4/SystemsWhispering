@@ -110,6 +110,67 @@ public class BoundedBellmanFord {
     'Forgetting the Vth detection pass: V−1 rounds assume no negative cycle; verify when negatives exist.',
     'Using it by default: O(VE) loses to Dijkstra whenever weights are non-negative.',
   ],
+  pythonCode: [
+    {
+      title: 'Bellman-Ford from scratch',
+      description: 'V−1 relaxation rounds plus the detection pass.',
+      code: `import math
+
+
+def bellman_ford(n, edges, source):
+    # O(VE) time, O(V) space
+    dist = [math.inf] * n
+    dist[source] = 0
+    for _ in range(n - 1):
+        changed = False
+        for u, v, w in edges:
+            if dist[u] != math.inf and dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                changed = True
+        if not changed:
+            break
+    return dist
+
+
+def has_negative_cycle(n, edges, dist):
+    for u, v, w in edges:
+        if dist[u] != math.inf and dist[u] + w < dist[v]:
+            return True
+    return False
+
+
+# Demo
+edges = [(0, 1, 4), (0, 2, 2), (1, 2, -3), (1, 3, 5), (2, 3, 8)]
+dist = bellman_ford(4, edges, 0)
+print(dist)        # [0, 4, 1, 9]
+print(has_negative_cycle(4, edges, dist))  # False
+`,
+    },
+    {
+      title: 'K-stop variant (cheapest flights)',
+      description: 'Snapshot-per-round limits every route to k edges.',
+      code: `import math
+
+
+def cheapest_flight(n, flights, src, dst, k):
+    # O(k * E) time, O(V) space — one edge added per route per round
+    dist = [math.inf] * n
+    dist[src] = 0
+    for _ in range(k + 1):
+        prev = dist.copy()  # freeze the round
+        for u, v, w in flights:
+            if prev[u] != math.inf and prev[u] + w < dist[v]:
+                dist[v] = prev[u] + w
+    return dist[dst] if dist[dst] != math.inf else -1
+
+
+# Demo
+flights = [(0, 1, 100), (1, 2, 100), (0, 2, 500)]
+print(cheapest_flight(3, flights, 0, 2, 1))  # 200
+print(cheapest_flight(3, flights, 0, 2, 0))  # 500
+`,
+    },
+  ],
   vizId: 'bellman-ford-steps',
   problemIds: ['cheapest-flights-within-k-stops', 'network-delay-time'],
 };

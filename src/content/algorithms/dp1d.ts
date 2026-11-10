@@ -95,6 +95,44 @@ export const dp1dTopic: Topic = {
     'Memoizing without a sentinel: re-solving "unknown vs computed zero" needs -1/boolean guards, not null hopes.',
     'Compressing space too early: keep the full table until the recurrence is proven, then roll variables.',
   ],
+  pythonCode: [
+    {
+      title: 'Climbing stairs from scratch',
+      description: 'Bottom-up table with O(1) space form.',
+      code: `def climb_stairs(n):
+    # O(n) time, O(1) space
+    if n <= 2:
+        return n
+    prev2, prev1 = 1, 2
+    for _ in range(3, n + 1):
+        cur = prev1 + prev2
+        prev2, prev1 = prev1, cur
+    return prev1
+
+
+# Demo
+print(climb_stairs(5))  # 8
+print(climb_stairs(10)) # 89
+`,
+    },
+    {
+      title: 'House robber variant',
+      description: 'Same skeleton, max-transition instead of sum.',
+      code: `def rob(nums):
+    # O(n) time, O(1) space
+    prev2 = prev1 = 0
+    for x in nums:
+        cur = max(prev1, prev2 + x)
+        prev2, prev1 = prev1, cur
+    return prev1
+
+
+# Demo
+print(rob([2, 7, 9, 3, 1]))  # 12
+print(rob([1, 2, 3, 1]))     # 4
+`,
+    },
+  ],
   vizId: 'dp-1d-steps',
   problemIds: ['climbing-stairs', 'house-robber', 'coin-change', 'fibonacci-number'],
 };

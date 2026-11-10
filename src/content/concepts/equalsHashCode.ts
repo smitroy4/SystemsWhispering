@@ -93,5 +93,48 @@ public class PointRecord {
     'Mutating hashed fields of live keys: entries strand in wrong buckets; keep keys immutable.',
     'Returning constant hashCodes "to be safe": legal but degrades every map to a linked list.',
   ],
+  pythonCode: [
+    {
+      title: 'A correct value type',
+      description: '__eq__ and __hash__ over the same fields.',
+      code: `class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __eq__(self, other):
+        if not isinstance(other, Point):
+            return NotImplemented
+        return self.x == other.x and self.y == other.y
+
+    def __hash__(self):
+        return hash((self.x, self.y))
+
+
+# Demo
+grid = {}
+grid[Point(1, 2)] = "start"
+print(grid[Point(1, 2)])  # start
+`,
+    },
+    {
+      title: 'Dataclass: contract for free',
+      description: 'Frozen dataclasses generate __eq__ and __hash__.',
+      code: `from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Point:
+    x: int
+    y: int
+
+
+# Demo
+seen = set()
+seen.add(Point(1, 2))
+print(Point(1, 2) in seen)  # True
+`,
+    },
+  ],
   problemIds: ['contains-duplicate', 'valid-anagram', 'group-anagrams'],
 };

@@ -93,6 +93,57 @@ export const bitTopic: Topic = {
     'Shifting by ≥ 32: counts mask to 5 bits, so << 33 is << 1, silently.',
     'Hand-rolling popcount loops: Integer.bitCount is one instruction — use the intrinsic.',
   ],
+  pythonCode: [
+    {
+      title: 'Masks and tests from scratch',
+      description: 'Test, set, clear, and toggle single bits.',
+      code: `def test(x, k):
+    return (x & (1 << k)) != 0
+
+
+def set_bit(x, k):
+    return x | (1 << k)
+
+
+def clear_bit(x, k):
+    return x & ~(1 << k)
+
+
+def toggle(x, k):
+    return x ^ (1 << k)
+
+
+# Demo
+x = 12  # 1100
+print(test(x, 3))            # True
+print(bin(set_bit(x, 0)))    # 0b1101
+print(bin(clear_bit(x, 3)))  # 0b100
+print(bin(toggle(x, 2)))     # 0b1000
+`,
+    },
+    {
+      title: 'Classic tricks, compiled',
+      description: 'Loner XOR, power-of-two test, popcount.',
+      code: `def single_number(a):
+    # XOR cancels pairs: a ^ a = 0
+    xor = 0
+    for x in a:
+        xor ^= x
+    return xor
+
+
+def is_power_of_two(x):
+    return x > 0 and (x & (x - 1)) == 0
+
+
+# Demo
+print(single_number([4, 1, 2, 1, 2]))  # 4
+print(is_power_of_two(16))             # True
+print(is_power_of_two(18))             # False
+print(bin(12).count('1'))              # 2 (popcount equivalent)
+`,
+    },
+  ],
   vizId: 'bit-operations',
   problemIds: ['single-number', 'number-of-1-bits', 'counting-bits', 'missing-number'],
 };

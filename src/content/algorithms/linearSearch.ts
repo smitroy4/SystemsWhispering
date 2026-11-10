@@ -76,6 +76,44 @@ public class LinearSearchBuiltIn {
     'Forgetting the not-found path: every caller must handle -1 before indexing with the result.',
     'Scanning a sorted array linearly out of habit: binary search turns O(n) into O(log n) for free.',
   ],
+  pythonCode: [
+    {
+      title: 'Linear search from scratch',
+      description: 'The baseline scan with early exit.',
+      code: `def linear_search(a, target):
+    # O(n) time, O(1) space
+    for i in range(len(a)):
+        if a[i] == target:
+            return i
+    return -1
+
+
+# Demo
+scores = [7, 2, 9, 4, 6]
+print(linear_search(scores, 4))  # 3
+print(linear_search(scores, 5))  # -1
+`,
+    },
+    {
+      title: 'Python built-in equivalents',
+      description: '`in`, `.index()`, and a generator one-liner.',
+      code: `scores = [7, 2, 9, 4, 6]
+
+# Membership: O(n)
+print(4 in scores)   # True
+print(5 in scores)   # False
+
+# Index: O(n), raises ValueError when absent unless guarded
+try:
+    print(scores.index(4))   # 3
+except ValueError:
+    print("not found")
+
+# any() short-circuits like Java anyMatch
+print(any(x == 4 for x in scores))  # True
+`,
+    },
+  ],
   vizId: 'linear-search-steps',
   problemIds: ['two-sum', 'contains-duplicate', 'missing-number'],
 };

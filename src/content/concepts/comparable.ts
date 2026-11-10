@@ -98,5 +98,61 @@ public class CustomOrders {
     'Sorting with nulls unguarded: NullPointerException — wrap with nullsFirst/nullsLast.',
     'Implementing Comparable for multiple orders: one natural order only — the rest are Comparators.',
   ],
+  pythonCode: [
+    {
+      title: 'Natural order with __lt__',
+      description: 'One canonical ordering inside the class.',
+      code: `from functools import total_ordering
+
+
+@total_ordering
+class Player:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def __eq__(self, other):
+        if not isinstance(other, Player):
+            return NotImplemented
+        return self.score == other.score
+
+    def __lt__(self, other):
+        if not isinstance(other, Player):
+            return NotImplemented
+        return self.score < other.score
+
+    def __repr__(self):
+        return f"{self.name}:{self.score}"
+
+
+# Demo
+team = [Player("bob", 30), Player("ada", 50), Player("cid", 40)]
+team.sort()  # uses __lt__ (ascending by score)
+print(team)  # [bob:30, cid:40, ada:50]
+`,
+    },
+    {
+      title: 'Custom orders with key functions',
+      description: 'Sorted key, reverse, and multi-field sorting.',
+      code: `team = [
+    ("bob", 30),
+    ("ada", 50),
+    ("cid", 40),
+]
+
+# Score descending
+print(sorted(team, key=lambda p: p[1], reverse=True))
+# [('ada', 50), ('cid', 40), ('bob', 30)]
+
+# Name ascending
+print(sorted(team, key=lambda p: p[0]))
+# [('ada', 50), ('bob', 30), ('cid', 40)]
+
+# Multi-field: score desc, then name asc
+print(sorted(team, key=lambda p: (-p[1], p[0])))
+# [('ada', 50), ('cid', 40), ('bob', 30)]
+`,
+    },
+  ],
   problemIds: ['sort-an-array', 'merge-intervals', 'sort-colors'],
 };

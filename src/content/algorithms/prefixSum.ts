@@ -78,6 +78,40 @@ public class PrefixSumBuiltIn {
     'Rebuilding per query: the whole point is building once; per-query scans defeat it.',
     'Mixing inclusive/exclusive ends: `sum(l, r)` inclusive needs `P[r + 1] − P[l]` — test on single-element ranges.',
   ],
+  pythonCode: [
+    {
+      title: 'Prefix sums from scratch',
+      description: 'Build once, query forever.',
+      code: `class PrefixSum:
+    def __init__(self, a):
+        # P[0] = 0; P[i+1] = P[i] + a[i]
+        self.pref = [0] * (len(a) + 1)
+        for i in range(len(a)):
+            self.pref[i + 1] = self.pref[i] + a[i]
+
+    def range_sum(self, left, right):
+        # inclusive [left, right]
+        return self.pref[right + 1] - self.pref[left]
+
+
+# Demo
+ps = PrefixSum([1, 2, 3, 4])
+print(ps.range_sum(1, 3))  # 2 + 3 + 4 = 9
+print(ps.range_sum(0, 3))  # 10
+`,
+    },
+    {
+      title: 'Python built-in equivalents',
+      description: '`itertools.accumulate` builds prefix sums in one pass.',
+      code: `from itertools import accumulate
+
+a = [1, 2, 3, 4]
+pref = [0] + list(accumulate(a))  # [0, 1, 3, 6, 10]
+print(pref)
+print(pref[4] - pref[1])          # sum(1, 3) = 9
+`,
+    },
+  ],
   vizId: 'prefix-sum-steps',
   problemIds: ['range-sum-query-immutable', 'subarray-sum-equals-k', 'find-pivot-index'],
 };

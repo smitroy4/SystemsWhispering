@@ -90,6 +90,49 @@ public class CountingSortBuiltIn {
     'Breaking stability unknowingly: plain write-back reorders equals; use prefix-sum placement when order matters.',
     'Recomputing max inside the loop: one pass finds it; repeated `Arrays.stream(a).max()` per element is O(n²).',
   ],
+  pythonCode: [
+    {
+      title: 'Counting sort from scratch',
+      description: 'Frequency table plus ordered write-back.',
+      code: `def counting_sort(a):
+    # O(n + k) time, O(k) space; stable variant below; requires small non-negative range
+    if not a:
+        return a
+    max_val = max(a)
+    count = [0] * (max_val + 1)
+    for x in a:
+        count[x] += 1
+
+    i = 0
+    for v in range(len(count)):
+        while count[v] > 0:
+            a[i] = v
+            i += 1
+            count[v] -= 1
+    return a
+
+
+# Demo
+ages = [4, 2, 2, 8, 3, 2, 4]
+counting_sort(ages)
+print(ages)  # [2, 2, 2, 3, 4, 4, 8]
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`collections.Counter`: frequency table for unknown ranges.',
+      code: `from collections import Counter
+
+ages = [4, 2, 2, 8, 3, 2, 4]
+counts = Counter(ages)
+print(counts)  # Counter({2: 3, 4: 2, 3: 1, 8: 1})
+
+# Reconstruct sorted order from the counter
+sorted_ages = sorted(ages)
+print(sorted_ages)  # [2, 2, 2, 3, 4, 4, 8]
+`,
+    },
+  ],
   vizId: 'counting-sort-steps',
   problemIds: ['sort-colors', 'h-index', 'valid-anagram'],
 };

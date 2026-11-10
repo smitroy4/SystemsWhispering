@@ -39,7 +39,7 @@ export interface ComplexityRow {
 export type TopicSection = 'core' | 'collections' | 'concurrent' | 'advanced';
 
 /** Structural grouping for data-structure topics (index page + sidebar). */
-export type TopicGroup = 'linear' | 'non-linear' | 'collections' | 'concurrent';
+export type TopicGroup = 'linear' | 'non-linear' | 'collections' | 'concurrent' | 'python';
 
 /** Publication status. Stubs are 'draft' until their content step marks them 'complete'. */
 export type TopicStatus = 'draft' | 'complete';
@@ -59,7 +59,8 @@ export interface Topic {
   prerequisites: string[];
   sections: Section[];
   complexity: ComplexityRow[];
-  javaCode: CodeSnippet[];
+  javaCode?: CodeSnippet[];
+  pythonCode?: CodeSnippet[];
   mistakes: string[];
   vizId?: string;
   problemIds: string[];

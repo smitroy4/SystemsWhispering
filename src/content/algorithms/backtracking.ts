@@ -102,6 +102,64 @@ public class Permutations {
     'Pruning after recursing: test constraints before the call, not inside it, or dead branches still cost.',
     'Exponential surprise: n = 25 subsets means 33M leaves — confirm constraints before brute force.',
   ],
+  pythonCode: [
+    {
+      title: 'Subsets from scratch',
+      description: 'Include/exclude with add-then-remove undo.',
+      code: `def subsets(a):
+    # O(n * 2^n) time, O(n) stack space
+    out = []
+    path = []
+
+    def dfs(i):
+        if i == len(a):
+            out.append(path.copy())  # copy! path keeps mutating
+            return
+        path.append(a[i])   # choose: include
+        dfs(i + 1)
+        path.pop()          # unchoose: undo
+        dfs(i + 1)          # choose: exclude
+
+    dfs(0)
+    return out
+
+
+# Demo
+print(len(subsets([1, 2, 3])))  # 8
+print(subsets([1, 2, 3]))
+`,
+    },
+    {
+      title: 'Permutations variant',
+      description: 'Same skeleton with a used-set instead of an index.',
+      code: `def permute(a):
+    # O(n * n!) time, O(n) space
+    out = []
+    path = []
+    used = [False] * len(a)
+
+    def dfs():
+        if len(path) == len(a):
+            out.append(path.copy())
+            return
+        for i in range(len(a)):
+            if used[i]:
+                continue  # prune: already placed
+            used[i] = True
+            path.append(a[i])
+            dfs()
+            path.pop()      # undo both choices
+            used[i] = False
+
+    dfs()
+    return out
+
+
+# Demo
+print(len(permute([1, 2, 3])))  # 6
+`,
+    },
+  ],
   vizId: 'backtracking-steps',
   problemIds: ['subsets', 'permutations', 'combination-sum'],
 };

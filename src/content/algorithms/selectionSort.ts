@@ -80,6 +80,42 @@ public class SelectionSortBuiltIn {
     'Assuming stability: equal elements can be leapfrogged — never use it where order of equals matters.',
     'Expecting early exit: selection sort always scans fully; sorted input costs the same O(n²).',
   ],
+  pythonCode: [
+    {
+      title: 'Selection sort from scratch',
+      description: 'Minimum-select with a self-swap guard.',
+      code: `def selection_sort(a):
+    # O(n^2) always; O(n) swaps; O(1) space; not stable
+    n = len(a)
+    for i in range(n - 1):
+        min_idx = i
+        for j in range(i + 1, n):
+            if a[j] < a[min_idx]:
+                min_idx = j
+        if min_idx != i:
+            a[i], a[min_idx] = a[min_idx], a[i]
+    return a
+
+
+# Demo
+scores = [5, 3, 8, 4, 2]
+selection_sort(scores)
+print(scores)  # [2, 3, 4, 5, 8]
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`list.sort()` / `sorted()`: Timsort, O(n log n).',
+      code: `scores = [5, 3, 8, 4, 2]
+scores.sort()
+print(scores)  # [2, 3, 4, 5, 8]
+
+# Partial sort: sorted() returns a new list
+smallest3 = sorted(scores)[:3]
+print(smallest3)  # [2, 3, 4]
+`,
+    },
+  ],
   vizId: 'selection-sort-steps',
   problemIds: ['sort-an-array', 'height-checker'],
 };

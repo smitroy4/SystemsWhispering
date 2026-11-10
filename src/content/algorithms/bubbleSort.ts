@@ -82,6 +82,43 @@ public class BubbleSortBuiltIn {
     'Swapping with addition/subtraction tricks: overflows and obfuscates — use a temp variable.',
     'Using bubble sort on large inputs in production: O(n²) with a big constant loses to `Arrays.sort` by orders of magnitude.',
   ],
+  pythonCode: [
+    {
+      title: 'Bubble sort from scratch',
+      description: 'Adjacent swaps with an early-exit flag.',
+      code: `def bubble_sort(a):
+    # O(n^2) worst/average, O(n) best with early exit; O(1) space
+    n = len(a)
+    for i in range(n - 1):
+        swapped = False
+        for j in range(n - 1 - i):
+            if a[j] > a[j + 1]:
+                a[j], a[j + 1] = a[j + 1], a[j]
+                swapped = True
+        if not swapped:
+            break
+    return a
+
+
+# Demo
+scores = [5, 3, 8, 4, 2]
+bubble_sort(scores)
+print(scores)  # [2, 3, 4, 5, 8]
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`list.sort()`: Timsort, O(n log n).',
+      code: `scores = [5, 3, 8, 4, 2]
+scores.sort()
+print(scores)  # [2, 3, 4, 5, 8]
+
+words = ["pear", "fig", "apple"]
+words.sort()
+print(words)  # ['apple', 'fig', 'pear']
+`,
+    },
+  ],
   vizId: 'bubble-sort-steps',
   problemIds: ['sort-colors', 'height-checker'],
 };

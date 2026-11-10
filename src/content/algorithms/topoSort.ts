@@ -130,6 +130,72 @@ public class TopoDfs {
     'Forgetting disconnected components: seed ALL indegree-zero vertices, not just node 0.',
     'Reversing DFS order wrong: postorder reversed, not preorder — finishing last means earliest.',
   ],
+  pythonCode: [
+    {
+      title: "Kahn's algorithm from scratch",
+      description: 'Indegree queue with built-in cycle verdict.',
+      code: `from collections import deque
+
+
+def topo_sort(adj):
+    # O(V + E) time, O(V) space
+    n = len(adj)
+    indegree = [0] * n
+    for vs in adj:
+        for v in vs:
+            indegree[v] += 1
+
+    ready = deque(i for i in range(n) if indegree[i] == 0)
+    out = []
+    while ready:
+        u = ready.popleft()
+        out.append(u)
+        for v in adj[u]:
+            indegree[v] -= 1
+            if indegree[v] == 0:
+                ready.append(v)
+
+    return out  # len(out) < n means a cycle exists
+
+
+# Demo
+adj = [[1, 2], [3], [3], []]  # 0 -> 1, 2 ; 1 -> 3 ; 2 -> 3
+print(topo_sort(adj))  # [0, 1, 2, 3]
+
+adj_cycle = [[1], [2], [0]]  # 0->1->2->0 cycle
+print(topo_sort(adj_cycle))  # [] (cycle detected)
+`,
+    },
+    {
+      title: 'DFS finishing-times variant',
+      description: 'Reverse postorder gives the same linearization.',
+      code: `def topo_sort_dfs(adj):
+    # O(V + E) time, O(V) stack space
+    n = len(adj)
+    seen = [False] * n
+    finish = []
+
+    def visit(u):
+        seen[u] = True
+        for v in adj[u]:
+            if not seen[v]:
+                visit(v)
+        finish.append(u)  # finished last => earliest in topo order
+
+    for s in range(n):
+        if not seen[s]:
+            visit(s)
+
+    finish.reverse()
+    return finish
+
+
+# Demo
+adj = [[1, 2], [3], [3], []]
+print(topo_sort_dfs(adj))  # e.g. [0, 2, 1, 3]
+`,
+    },
+  ],
   vizId: 'topological-sort-steps',
   problemIds: ['course-schedule', 'course-schedule-ii', 'find-eventual-safe-states'],
 };

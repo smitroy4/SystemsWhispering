@@ -91,6 +91,52 @@ export const twoPointersTopic: Topic = {
     'Moving the wrong side: advance the side the comparison rules out, not a fixed one.',
     'Forgetting 1-based answers: Two Sum II returns 1-indexed positions — add 1 at the end, not per step.',
   ],
+  pythonCode: [
+    {
+      title: 'Two Sum II from scratch',
+      description: 'Converging pointers on sorted input.',
+      code: `def two_sum_sorted(a, target):
+    # O(n) time, O(1) space; returns 1-indexed positions
+    left, right = 0, len(a) - 1
+    while left < right:
+        s = a[left] + a[right]
+        if s == target:
+            return [left + 1, right + 1]
+        elif s < target:
+            left += 1
+        else:
+            right -= 1
+    return [-1, -1]
+
+
+# Demo
+nums = [2, 7, 11, 15]
+print(two_sum_sorted(nums, 9))  # [1, 4]
+`,
+    },
+    {
+      title: 'Palindrome check',
+      description: 'Inward pointers skipping non-alphanumeric chars.',
+      code: `def is_palindrome(s):
+    left, right = 0, len(s) - 1
+    while left < right:
+        while left < right and not s[left].isalnum():
+            left += 1
+        while left < right and not s[right].isalnum():
+            right -= 1
+        if s[left].lower() != s[right].lower():
+            return False
+        left += 1
+        right -= 1
+    return True
+
+
+# Demo
+print(is_palindrome("A man, a plan, a canal: Panama"))  # True
+print(is_palindrome("race a car"))                       # False
+`,
+    },
+  ],
   vizId: 'two-pointers-steps',
   problemIds: ['two-sum-ii-input-array-is-sorted', 'container-with-most-water', 'valid-palindrome'],
 };

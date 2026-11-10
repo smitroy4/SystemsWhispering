@@ -165,32 +165,75 @@ export default function TopicPage({ category }: TopicPageProps) {
         )}
       </section>
 
-      <section className="topic-section" aria-label="Java code">
-        <h2 className="topic-section__title">Java code</h2>
-        {topic.javaCode.length > 1 ? (
-          <Tabs
-            tabs={topic.javaCode.map((snippet, i) => ({
-              id: `snippet-${i}`,
-              label: snippet.title,
-              content: (
-                <CodeBlock
-                  title={snippet.title}
-                  description={snippet.description}
-                  code={snippet.code}
-                />
-              ),
-            }))}
-          />
-        ) : (
-          topic.javaCode.map((snippet, i) => (
-            <CodeBlock
-              key={i}
-              title={snippet.title}
-              description={snippet.description}
-              code={snippet.code}
-            />
-          ))
-        )}
+      <section className="topic-section" aria-label="Code">
+        <h2 className="topic-section__title">Code</h2>
+        {(() => {
+          const java = topic.javaCode ?? [];
+          const python = topic.pythonCode ?? [];
+          if (java.length === 0 && python.length === 0) return null;
+          return (
+            <>
+              {java.length > 0 ? (
+                <div className="code-language">
+                  <h3 className="code-language__label">Java</h3>
+                  {java.length > 1 ? (
+                    <Tabs
+                      tabs={java.map((snippet, i) => ({
+                        id: `java-snippet-${i}`,
+                        label: snippet.title,
+                        content: (
+                          <CodeBlock
+                            title={snippet.title}
+                            description={snippet.description}
+                            code={snippet.code}
+                          />
+                        ),
+                      }))}
+                    />
+                  ) : (
+                    java.map((snippet, i) => (
+                      <CodeBlock
+                        key={i}
+                        title={snippet.title}
+                        description={snippet.description}
+                        code={snippet.code}
+                      />
+                    ))
+                  )}
+                </div>
+              ) : null}
+              {python.length > 0 ? (
+                <div className="code-language">
+                  <h3 className="code-language__label">Python</h3>
+                  {python.length > 1 ? (
+                    <Tabs
+                      tabs={python.map((snippet, i) => ({
+                        id: `python-snippet-${i}`,
+                        label: snippet.title,
+                        content: (
+                          <CodeBlock
+                            title={snippet.title}
+                            description={snippet.description}
+                            code={snippet.code}
+                          />
+                        ),
+                      }))}
+                    />
+                  ) : (
+                    python.map((snippet, i) => (
+                      <CodeBlock
+                        key={i}
+                        title={snippet.title}
+                        description={snippet.description}
+                        code={snippet.code}
+                      />
+                    ))
+                  )}
+                </div>
+              ) : null}
+            </>
+          );
+        })()}
       </section>
 
       <section className="topic-section" aria-label="Complexity">
@@ -216,14 +259,12 @@ export default function TopicPage({ category }: TopicPageProps) {
           <ul className="topic-problems">
             {problems.map((problem) => (
               <li key={problem.id} className="topic-problems__card">
-                <a
-                  href={problem.leetcodeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="topic-problems__link leet-link"
+                <Link
+                  to={`/problems/${problem.slug}`}
+                  className="topic-problems__link"
                 >
                   {problem.title}
-                </a>
+                </Link>
                 <div className="topic-problems__tags">
                   <Badge tone={difficultyTone(problem.difficulty)}>
                     {problem.difficulty}

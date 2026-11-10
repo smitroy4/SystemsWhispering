@@ -92,6 +92,55 @@ public class DepthGuard {
     'Exponential re-computation: naive fib repeats subtrees — memoize or go bottom-up.',
     'Mutating shared state across branches: backtracking needs undo, or siblings inherit garbage.',
   ],
+  pythonCode: [
+    {
+      title: 'Factorial, recursive and iterative',
+      description: 'Same answer, different space: O(n) frames vs O(1).',
+      code: `def factorial_recursive(n):
+    # O(n) time, O(n) stack space
+    if n <= 1:
+        return 1  # base case: answer directly
+    return n * factorial_recursive(n - 1)  # smaller copy
+
+
+def factorial_iterative(n):
+    # O(n) time, O(1) space
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+
+# Demo
+print(factorial_recursive(5))  # 120
+print(factorial_iterative(5))  # 120
+
+
+# Depth guard: Python has a recursion limit (~1000). Deep recursion -> loop.
+import sys
+print(sys.getrecursionlimit())  # typically 1000
+`,
+    },
+    {
+      title: 'Memoized Fibonacci',
+      description: 'Avoid exponential re-computation with a cache.',
+      code: `from functools import lru_cache
+
+
+@lru_cache(maxsize=None)
+def fib(n):
+    # O(n) time with memoization, O(n) space
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+
+# Demo
+print(fib(10))  # 55
+print(fib(50))  # 12586269025 (instant with cache)
+`,
+    },
+  ],
   vizId: 'recursion-call-stack',
   problemIds: ['fibonacci-number', 'climbing-stairs', 'powx-n'],
 };

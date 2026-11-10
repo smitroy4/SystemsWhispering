@@ -24,7 +24,7 @@ for (const problem of problems) {
   problemIds.add(problem.slug);
 }
 
-const VALID_GROUPS = new Set(['linear', 'non-linear', 'collections', 'concurrent']);
+const VALID_GROUPS = new Set(['linear', 'non-linear', 'collections', 'concurrent', 'python']);
 const VALID_STATUS = new Set(['draft', 'complete']);
 
 let errors = 0;

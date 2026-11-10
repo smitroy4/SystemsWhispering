@@ -124,6 +124,65 @@ public class BfsLevels {
     'Re-snapshoting queue size wrong: capture `queue.size()` before the inner loop or waves bleed together.',
     'Storing full paths per queue entry: O(V²) memory — store parents and reconstruct once instead.',
   ],
+  pythonCode: [
+    {
+      title: 'BFS from scratch',
+      description: 'Queue plus visited set over an adjacency list.',
+      code: `from collections import deque
+
+
+def bfs(adj, source):
+    # O(V + E) time, O(V) space
+    order = []
+    seen = [False] * len(adj)
+    q = deque([source])
+    seen[source] = True
+    while q:
+        u = q.popleft()
+        order.append(u)
+        for v in adj[u]:
+            if not seen[v]:
+                seen[v] = True
+                q.append(v)
+    return order
+
+
+# Demo
+adj = [[1, 2], [3], [3], []]  # 0 -> 1, 2 ; 1 -> 3 ; 2 -> 3
+print(bfs(adj, 0))  # [0, 1, 2, 3]
+`,
+    },
+    {
+      title: 'Level-order (per-wave)',
+      description: 'Snapshot queue size per wave to track levels.',
+      code: `from collections import deque
+
+
+def bfs_levels(adj, source):
+    # O(V + E) time, O(V) space
+    out = []
+    seen = [False] * len(adj)
+    q = deque([source])
+    seen[source] = True
+    while q:
+        wave = []
+        for _ in range(len(q)):
+            u = q.popleft()
+            wave.append(u)
+            for v in adj[u]:
+                if not seen[v]:
+                    seen[v] = True
+                    q.append(v)
+        out.append(wave)
+    return out
+
+
+# Demo
+adj = [[1, 2], [3], [3], []]
+print(bfs_levels(adj, 0))  # [[0], [1, 2], [3]]
+`,
+    },
+  ],
   vizId: 'bfs-steps',
   problemIds: ['binary-tree-level-order-traversal', 'number-of-islands', 'rotting-oranges'],
 };

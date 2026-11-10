@@ -102,5 +102,56 @@ public class InsertInterval {
     'Subtracting in comparators: s[0] - t[0] overflows — use Integer.compare / comparingInt.',
     'Forgetting the trailing interval: the last open merge must be flushed after the loop.',
   ],
+  pythonCode: [
+    {
+      title: 'Merge intervals from scratch',
+      description: 'Sort by start, extend-or-close sweep.',
+      code: `def merge(intervals):
+    # O(n log n) time (sort), O(n) space
+    if not intervals:
+        return []
+    intervals.sort(key=lambda x: x[0])
+    merged = []
+    for s in intervals:
+        if not merged or s[0] > merged[-1][1]:
+            merged.append([s[0], s[1]])
+        else:
+            merged[-1][1] = max(merged[-1][1], s[1])
+    return merged
+
+
+# Demo
+spans = [[1, 3], [2, 6], [8, 10], [15, 18]]
+print(merge(spans))  # [[1, 6], [8, 10], [15, 18]]
+`,
+    },
+    {
+      title: 'Insert interval variant',
+      description: 'Same sweep with one newcomer merged in flight.',
+      code: `def insert(intervals, new_interval):
+    # O(n) time (already sorted), O(n) space
+    out = []
+    i = 0
+    n = len(intervals)
+    while i < n and intervals[i][1] < new_interval[0]:
+        out.append(intervals[i])
+        i += 1
+    while i < n and intervals[i][0] <= new_interval[1]:
+        new_interval[0] = min(new_interval[0], intervals[i][0])
+        new_interval[1] = max(new_interval[1], intervals[i][1])
+        i += 1
+    out.append(new_interval)
+    while i < n:
+        out.append(intervals[i])
+        i += 1
+    return out
+
+
+# Demo
+spans = [[1, 3], [6, 9]]
+print(insert(spans, [2, 5]))  # [[1, 5], [6, 9]]
+`,
+    },
+  ],
   problemIds: ['merge-intervals', 'insert-interval', 'non-overlapping-intervals'],
 };

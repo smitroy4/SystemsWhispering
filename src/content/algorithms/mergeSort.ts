@@ -94,6 +94,57 @@ public class MergeSortBuiltIn {
     'Recursing without the `lo >= hi` base case: infinite recursion on empty ranges.',
     'Using merge sort where quicksort fits: the O(n) buffer is real memory — measure before defaulting to guarantees.',
   ],
+  pythonCode: [
+    {
+      title: 'Merge sort from scratch',
+      description: 'Recursive split with a reusable temp buffer.',
+      code: `def merge_sort(a):
+    # O(n log n) best/average/worst; O(n) space; stable
+    if len(a) <= 1:
+        return a
+
+    mid = len(a) // 2
+    left = merge_sort(a[:mid])
+    right = merge_sort(a[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        # <= takes from left on ties: preserves stability
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+
+# Demo
+scores = [5, 3, 8, 4, 2]
+print(merge_sort(scores))  # [2, 3, 4, 5, 8]
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`list.sort()` / `sorted()`: Timsort, stable O(n log n).',
+      code: `scores = [5, 3, 8, 4, 2]
+scores.sort()
+print(scores)  # [2, 3, 4, 5, 8]
+
+# sorted() returns a new list
+original = [5, 3, 8, 4, 2]
+copy = sorted(original)
+print(copy)    # [2, 3, 4, 5, 8]
+print(original)  # [5, 3, 8, 4, 2] (unchanged)
+`,
+    },
+  ],
   vizId: 'merge-sort-steps',
   problemIds: ['sort-an-array', 'merge-intervals', 'merge-sorted-array'],
 };

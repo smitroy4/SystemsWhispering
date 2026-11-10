@@ -120,6 +120,79 @@ public class Components {
     'Recursing on deep graphs: line-shaped input overflows the call stack — go iterative past ~10⁴ depth.',
     'Using DFS for unweighted shortest paths: depth-first arrival is arbitrary — BFS owns shortest hops.',
   ],
+  pythonCode: [
+    {
+      title: 'DFS from scratch',
+      description: 'Iterative with an explicit stack, plus the recursive twin.',
+      code: `from collections import deque
+
+
+def dfs_iterative(adj, source):
+    # O(V + E) time, O(V) space
+    order = []
+    seen = [False] * len(adj)
+    stack = deque([source])
+    while stack:
+        u = stack.pop()
+        if seen[u]:
+            continue
+        seen[u] = True
+        order.append(u)
+        # push right-to-left so left neighbors visit first
+        for v in reversed(adj[u]):
+            stack.append(v)
+    return order
+
+
+def dfs_recursive(adj, source):
+    # O(V + E) time, O(V) stack space
+    order = []
+    seen = [False] * len(adj)
+
+    def visit(u):
+        seen[u] = True
+        order.append(u)
+        for v in adj[u]:
+            if not seen[v]:
+                visit(v)
+
+    visit(source)
+    return order
+
+
+# Demo
+adj = [[1, 2], [3], [3], []]
+print(dfs_iterative(adj, 0))   # [0, 1, 3, 2]
+print(dfs_recursive(adj, 0))   # [0, 1, 3, 2]
+`,
+    },
+    {
+      title: 'Connected components',
+      description: 'One DFS per unvisited vertex counts components.',
+      code: `def count_components(adj):
+    # O(V + E) time, O(V) space
+    seen = [False] * len(adj)
+    components = 0
+
+    def visit(u):
+        seen[u] = True
+        for v in adj[u]:
+            if not seen[v]:
+                visit(v)
+
+    for s in range(len(adj)):
+        if not seen[s]:
+            components += 1
+            visit(s)
+    return components
+
+
+# Demo
+adj = [[1], [0], [3], [2], []]  # {0,1}, {2,3}, {4}
+print(count_components(adj))  # 3
+`,
+    },
+  ],
   vizId: 'dfs-steps',
   problemIds: ['number-of-islands', 'max-area-of-island', 'clone-graph'],
 };

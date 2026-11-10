@@ -103,6 +103,61 @@ public class QuickSortBuiltIn {
     'Expecting stability: in-place swaps cross equals — need stability, use merge sort.',
     'Ignoring stack depth on skewed partitions: worst case needs O(n) frames — random pivots keep it logarithmic.',
   ],
+  pythonCode: [
+    {
+      title: 'Quick sort from scratch',
+      description: 'Lomuto partition with a randomized pivot.',
+      code: `import random
+
+
+def quick_sort(a):
+    # O(n log n) average, O(n^2) worst; O(log n) stack average; in place
+    _quick_sort(a, 0, len(a) - 1)
+    return a
+
+
+def _quick_sort(a, lo, hi):
+    if lo >= hi:
+        return
+    p = _partition(a, lo, hi)
+    _quick_sort(a, lo, p - 1)
+    _quick_sort(a, p + 1, hi)
+
+
+def _partition(a, lo, hi):
+    # Randomized pivot dodges skewed / sorted input
+    pick = random.randint(lo, hi)
+    a[pick], a[hi] = a[hi], a[pick]
+    pivot = a[hi]
+    i = lo - 1
+    for j in range(lo, hi):
+        if a[j] <= pivot:
+            i += 1
+            a[i], a[j] = a[j], a[i]
+    a[i + 1], a[hi] = a[hi], a[i + 1]
+    return i + 1
+
+
+# Demo
+scores = [5, 3, 8, 4, 2, 7, 1]
+quick_sort(scores)
+print(scores)  # [1, 2, 3, 4, 5, 7, 8]
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`list.sort()` / `sorted()`: Timsort, stable O(n log n).',
+      code: `scores = [5, 3, 8, 4, 2, 7, 1]
+scores.sort()
+print(scores)  # [1, 2, 3, 4, 5, 7, 8]
+
+# sorted() returns a new list
+original = [5, 3, 8, 4, 2, 7, 1]
+copy = sorted(original)
+print(copy)   # [1, 2, 3, 4, 5, 7, 8]
+`,
+    },
+  ],
   vizId: 'quick-sort-steps',
   problemIds: ['sort-an-array', 'kth-largest-element-in-an-array', 'top-k-frequent-elements'],
 };

@@ -79,6 +79,69 @@ export const unionFindCycleTopic: Topic = {
     'Forgetting path compression in find: without it the "near-constant" promise collapses to O(n).',
     'Returning the wrong edge: Redundant Connection wants the LAST cycle-closing edge in input order — keep scanning.',
   ],
+  pythonCode: [
+    {
+      title: 'Cycle detection from scratch',
+      description: 'Union endpoints; same root means cycle.',
+      code: `class DisjointSet:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+        self.components = n
+
+    def find(self, x):
+        # Path compression: near-constant amortized
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        # Returns False if already connected (cycle signal)
+        rx, ry = self.find(x), self.find(y)
+        if rx == ry:
+            return False
+        if self.rank[rx] < self.rank[ry]:
+            rx, ry = ry, rx
+        self.parent[ry] = rx
+        if self.rank[rx] == self.rank[ry]:
+            self.rank[rx] += 1
+        self.components -= 1
+        return True
+
+
+def find_redundant(n, edges):
+    dsu = DisjointSet(n)
+    for u, v in edges:
+        if not dsu.union(u, v):
+            return (u, v)  # endpoints already connected: cycle
+    return None
+
+
+# Demo
+edges = [(0, 1), (1, 2), (2, 3), (3, 0), (0, 2)]
+print(find_redundant(4, edges))  # (3, 0) - last cycle-closing edge
+`,
+    },
+    {
+      title: 'Counting provinces variant',
+      description: 'Same DSU, different question: how many components?',
+      code: `def count_provinces(grid):
+    # O(n^2 * alpha(n)) time, O(n) space
+    n = len(grid)
+    dsu = DisjointSet(n)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if grid[i][j] == 1:
+                dsu.union(i, j)
+    return dsu.components
+
+
+# Demo
+grid = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
+print(count_provinces(grid))  # 2
+`,
+    },
+  ],
   vizId: 'union-find-cycle-steps',
   problemIds: ['redundant-connection', 'number-of-provinces', 'graph-valid-tree'],
 };

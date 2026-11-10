@@ -125,6 +125,83 @@ public class PrimDense {
     'Stopping at empty heap on disconnected graphs: V−1 attachments is the real done condition.',
     'Using Prim on sparse graphs by default: Kruskal’s sort-then-scan usually wins when E ≈ V.',
   ],
+  pythonCode: [
+    {
+      title: "Prim from scratch",
+      description: 'Heap frontier of crossing edges.',
+      code: `import heapq
+
+
+def mst_weight(adj):
+    # O((V + E) log V) time, O(V + E) space
+    n = len(adj)
+    in_tree = [False] * n
+    pq = []  # (weight, from, to)
+    in_tree[0] = True
+    for to, w in adj[0]:
+        heapq.heappush(pq, (w, 0, to))
+    total = 0
+    attached = 0
+    while pq and attached < n - 1:
+        w, _, v = heapq.heappop(pq)
+        if in_tree[v]:
+            continue
+        in_tree[v] = True
+        total += w
+        attached += 1
+        for to, edge_w in adj[v]:
+            if not in_tree[to]:
+                heapq.heappush(pq, (edge_w, v, to))
+    return total
+
+
+# Demo
+adj = [
+    [(1, 4), (2, 3)],   # 0
+    [(0, 4), (2, 1), (3, 2)],  # 1
+    [(0, 3), (1, 1), (3, 5)],  # 2
+    [(1, 2), (2, 5)],  # 3
+]
+print(mst_weight(adj))  # 6
+`,
+    },
+    {
+      title: 'Dense-graph variant',
+      description: 'O(V²) Prim with plain arrays, no heap.',
+      code: `import math
+
+
+def mst_weight_dense(w):
+    # O(V^2) time, O(V) space — better on dense graphs
+    n = len(w)
+    best = [math.inf] * n
+    in_tree = [False] * n
+    best[0] = 0
+    total = 0
+    for _ in range(n):
+        u = -1
+        for v in range(n):
+            if not in_tree[v] and (u < 0 or best[v] < best[u]):
+                u = v
+        in_tree[u] = True
+        total += best[u]
+        for v in range(n):
+            if not in_tree[v] and w[u][v] < best[v]:
+                best[v] = w[u][v]
+    return total
+
+
+# Demo
+w = [
+    [0, 4, 3, math.inf],
+    [4, 0, 1, 2],
+    [3, 1, 0, 5],
+    [math.inf, 2, 5, 0],
+]
+print(mst_weight_dense(w))  # 6
+`,
+    },
+  ],
   vizId: 'prim-steps',
   problemIds: ['min-cost-to-connect-all-points'],
 };

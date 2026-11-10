@@ -87,6 +87,50 @@ export const bigOTopic: Topic = {
     'Treating constants as decisive: 100n vs n² still loses at n = 101; growth beats tuning.',
     'Calling O(2n) or O(n + 5) a thing: drop constants and slower terms — it is just O(n).',
   ],
+  pythonCode: [
+    {
+      title: 'Timing growth empirically',
+      description: 'Measure doubling to feel O(n) vs O(n²) before analyzing.',
+      code: `import time
+
+
+def scan(a, target):
+    steps = 0
+    for x in a:
+        steps += 1
+        if x == target:
+            break
+    return steps
+
+
+# Demo
+for n in (1000, 2000, 4000, 8000):
+    a = [0] * n
+    a[-1] = 1  # worst case: target last
+    t0 = time.perf_counter()
+    steps = scan(a, 1)
+    dt = time.perf_counter() - t0
+    print(f"n={n} steps={steps} ns={dt * 1e9:,.0f}")
+`,
+    },
+    {
+      title: 'Logarithmic halving in code',
+      description: 'The shape of every O(log n) loop.',
+      code: `def steps(n):
+    count = 0
+    while n > 1:
+        n //= 2
+        count += 1
+    return count
+
+
+# Demo
+print(steps(8))        # 3
+print(steps(1024))     # 10
+print(steps(1048576))  # 20
+`,
+    },
+  ],
   vizId: 'big-o-curves',
   problemIds: ['binary-search', 'two-sum'],
 };

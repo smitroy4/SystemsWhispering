@@ -110,6 +110,84 @@ export const divideConquerTopic: Topic = {
     'Assuming D&C is optimal here: Kadane’s O(n) wins — use D&C where no linear scan exists.',
     'Recomputing crossing from scratch per level naively: the linear two-sided walk IS the efficient version.',
   ],
+  pythonCode: [
+    {
+      title: 'Max subarray from scratch',
+      description: 'Divide, conquer, and linear crossing combine.',
+      code: `import math
+
+
+class Result:
+    __slots__ = ('sum', 'left', 'right')
+
+    def __init__(self, sum, left, right):
+        self.sum = sum
+        self.left = left
+        self.right = right
+
+
+def max_subarray(a):
+    return _solve(a, 0, len(a) - 1).sum
+
+
+def _solve(a, lo, hi):
+    if lo == hi:
+        return Result(a[lo], lo, hi)
+
+    mid = lo + (hi - lo) // 2
+    left = _solve(a, lo, mid)
+    right = _solve(a, mid + 1, hi)
+    cross = _crossing(a, lo, mid, hi)
+
+    best = left if left.sum >= right.sum else right
+    return cross if cross.sum > best.sum else best
+
+
+def _crossing(a, lo, mid, hi):
+    left_sum = -math.inf
+    s = 0
+    best_l = mid
+    for i in range(mid, lo - 1, -1):
+        s += a[i]
+        if s > left_sum:
+            left_sum = s
+            best_l = i
+
+    right_sum = -math.inf
+    s = 0
+    best_r = mid + 1
+    for i in range(mid + 1, hi + 1):
+        s += a[i]
+        if s > right_sum:
+            right_sum = s
+            best_r = i
+
+    return Result(left_sum + right_sum, best_l, best_r)
+
+
+# Demo
+nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+print(max_subarray(nums))  # 6
+`,
+    },
+    {
+      title: 'Kadane (the O(n) rival)',
+      description: 'Linear scan every D&C solution should cite.',
+      code: `def kadane(a):
+    # O(n) time, O(1) space
+    best = running = a[0]
+    for x in a[1:]:
+        running = max(x, running + x)
+        best = max(best, running)
+    return best
+
+
+# Demo
+nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+print(kadane(nums))  # 6
+`,
+    },
+  ],
   vizId: 'divide-and-conquer-steps',
   problemIds: ['maximum-subarray', 'sort-an-array', 'search-a-2d-matrix'],
 };

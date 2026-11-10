@@ -103,6 +103,82 @@ public class KruskalRecords {
     'Using Kruskal for single-source paths: MST minimizes total wiring, not routes from A — that is Dijkstra.',
     'Forgetting both directions are one edge: list undirected edges once, or the DSU sees phantom duplicates.',
   ],
+  pythonCode: [
+    {
+      title: "Kruskal from scratch",
+      description: 'Sorted edges plus DSU referee.',
+      code: `class DisjointSet:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        rx, ry = self.find(x), self.find(y)
+        if rx == ry:
+            return False
+        if self.rank[rx] < self.rank[ry]:
+            rx, ry = ry, rx
+        self.parent[ry] = rx
+        if self.rank[rx] == self.rank[ry]:
+            self.rank[rx] += 1
+        return True
+
+
+def mst_weight(n, edges):
+    # O(E log E) time, O(V + E) space
+    edges = sorted(edges, key=lambda e: e[2])  # sort by weight ascending
+    dsu = DisjointSet(n)
+    total = 0
+    kept = 0
+    for u, v, w in edges:
+        if dsu.union(u, v):
+            total += w
+            kept += 1
+            if kept == n - 1:
+                break
+    return total
+
+
+# Demo
+edges = [(0, 1, 4), (0, 2, 3), (1, 2, 1), (1, 3, 2), (2, 3, 5)]
+print(mst_weight(4, edges))  # 6 = 1 + 2 + 3
+`,
+    },
+    {
+      title: 'Edge record variant',
+      description: 'Named tuples for readability instead of bare triples.',
+      code: `from collections import namedtuple
+
+Edge = namedtuple('Edge', ['u', 'v', 'w'])
+
+
+def mst_weight_records(n, edges):
+    edges = sorted(edges, key=lambda e: e.w)
+    dsu = DisjointSet(n)
+    total = 0
+    for e in edges:
+        if dsu.union(e.u, e.v):
+            total += e.w
+    return total
+
+
+# Demo
+edges = [
+    Edge(0, 1, 4),
+    Edge(0, 2, 3),
+    Edge(1, 2, 1),
+    Edge(1, 3, 2),
+    Edge(2, 3, 5),
+]
+print(mst_weight_records(4, edges))  # 6
+`,
+    },
+  ],
   vizId: 'kruskal-steps',
   problemIds: ['min-cost-to-connect-all-points', 'number-of-provinces'],
 };

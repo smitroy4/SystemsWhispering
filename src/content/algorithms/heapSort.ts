@@ -105,6 +105,62 @@ public class HeapSortBuiltIn {
     'Swapping with the smaller child on sink: max-heaps always promote the larger child.',
     'Expecting stability: distant swaps reorder equals — use merge sort when order of equals matters.',
   ],
+  pythonCode: [
+    {
+      title: 'Heap sort from scratch',
+      description: 'Bottom-up heapify plus extract-and-sink.',
+      code: `def heap_sort(a):
+    # O(n log n) best/average/worst; O(1) space; in place; not stable
+    n = len(a)
+
+    # Bottom-up heapify: sink every parent from last parent down to 0
+    for i in range(n // 2 - 1, -1, -1):
+        _sink(a, i, n)
+
+    # Extract: move max to the end, shrink, sink again
+    for end in range(n - 1, 0, -1):
+        a[0], a[end] = a[end], a[0]
+        _sink(a, 0, end)
+
+    return a
+
+
+def _sink(a, i, size):
+    while True:
+        left = 2 * i + 1
+        right = 2 * i + 2
+        largest = i
+        if left < size and a[left] > a[largest]:
+            largest = left
+        if right < size and a[right] > a[largest]:
+            largest = right
+        if largest == i:
+            break
+        a[i], a[largest] = a[largest], a[i]
+        i = largest
+
+
+# Demo
+scores = [5, 3, 8, 4, 2]
+heap_sort(scores)
+print(scores)  # [2, 3, 4, 5, 8]
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`heapq` module: heapify is O(n), heappop is O(log n).',
+      code: `import heapq
+
+scores = [5, 3, 8, 4, 2]
+heapq.heapify(scores)          # in place, O(n)
+print([heapq.heappop(scores) for _ in range(len(scores))])  # [2, 3, 4, 5, 8]
+
+# Or simply:
+scores = [5, 3, 8, 4, 2]
+print(sorted(scores))          # [2, 3, 4, 5, 8] — Timsort, stable O(n log n)
+`,
+    },
+  ],
   vizId: 'heap-sort-steps',
   problemIds: ['sort-an-array', 'kth-largest-element-in-an-array'],
 };

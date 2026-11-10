@@ -82,6 +82,48 @@ public class BinarySearchBuiltIn {
     'Misreading negative returns from `Arrays.binarySearch`: decode with `-result - 1` to get the insertion point.',
     'Moving bounds by `mid` instead of `mid ± 1`: the loop can stall forever on a two-element range.',
   ],
+  pythonCode: [
+    {
+      title: 'Binary search from scratch',
+      description: 'Overflow-safe midpoint with the [left, right] invariant.',
+      code: `def binary_search(a, target):
+    # O(log n) time, O(1) space; requires sorted input
+    left, right = 0, len(a) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if a[mid] == target:
+            return mid
+        elif a[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+
+
+# Demo
+scores = [2, 4, 7, 9, 12, 15, 21]
+print(binary_search(scores, 12))  # 4
+print(binary_search(scores, 5))   # -1
+`,
+    },
+    {
+      title: 'Python built-in equivalents',
+      description: '`bisect` module: lower/upper bound superpowers.',
+      code: `import bisect
+
+scores = [2, 4, 7, 9, 12, 15, 21]
+
+# bisect_left: first index where target could be inserted (lower bound)
+print(bisect.bisect_left(scores, 12))  # 4
+print(bisect.bisect_left(scores, 5))   # 2
+
+# bisect_right: first index strictly greater (upper bound)
+print(bisect.bisect_right(scores, 12))  # 5
+
+# In-operator on sorted lists is still O(n); use bisect for O(log n)
+`,
+    },
+  ],
   vizId: 'binary-search-steps',
   problemIds: ['binary-search', 'search-insert-position', 'first-bad-version'],
 };

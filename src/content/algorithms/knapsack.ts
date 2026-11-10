@@ -84,6 +84,47 @@ export const knapsackTopic: Topic = {
     'Forgetting the fit check: `w - weight` below zero indexes garbage — guard with `weight <= w`.',
     'Assuming polynomial: O(n·W) explodes when W is huge — that is pseudo-polynomial, still NP-hard.',
   ],
+  pythonCode: [
+    {
+      title: '0/1 Knapsack from scratch',
+      description: 'Full table with take-or-skip transition.',
+      code: `def knapsack(weight, value, capacity):
+    # O(n * W) time, O(n * W) space
+    n = len(weight)
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for w in range(capacity + 1):
+            dp[i][w] = dp[i - 1][w]  # skip item i
+            if weight[i - 1] <= w:
+                dp[i][w] = max(dp[i][w], value[i - 1] + dp[i - 1][w - weight[i - 1]])
+    return dp[n][capacity]
+
+
+# Demo
+weight = [1, 3, 4, 5]
+value = [1, 4, 5, 7]
+print(knapsack(weight, value, 7))  # 9 (items of weight 3 + 4)
+`,
+    },
+    {
+      title: 'Space-optimized variant',
+      description: 'One row walked backward so items stay single-use.',
+      code: `def knapsack_compact(weight, value, capacity):
+    # O(n * W) time, O(W) space
+    dp = [0] * (capacity + 1)
+    for i in range(len(weight)):
+        for w in range(capacity, weight[i] - 1, -1):
+            dp[w] = max(dp[w], value[i] + dp[w - weight[i]])
+    return dp[capacity]
+
+
+# Demo
+weight = [1, 3, 4, 5]
+value = [1, 4, 5, 7]
+print(knapsack_compact(weight, value, 7))  # 9
+`,
+    },
+  ],
   vizId: 'knapsack-steps',
   problemIds: ['partition-equal-subset-sum', 'coin-change', 'coin-change-ii', 'target-sum'],
 };

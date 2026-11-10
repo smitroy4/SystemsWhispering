@@ -106,5 +106,66 @@ public class LruCache<K, V> extends LinkedHashMap<K, V> {
     'Trusting Arrays.asList as immutable: it is fixed-size but writable — List.of is the true immutable.',
     'Ignoring views: subList/keySet write through to the original; structural changes invalidate them.',
   ],
+  pythonCode: [
+    {
+      title: 'Picking implementations',
+      description: 'One task, four canonical choices.',
+      code: `from collections import Counter, OrderedDict, deque
+
+
+# Counting: dict default (HashMap)
+freq = Counter(["a", "b", "a"])
+print(freq)  # Counter({'a': 2, 'b': 1})
+
+# Insertion-ordered counting: dict preserves order in Python 3.7+
+ordered = dict(freq)
+print(ordered)  # {'a': 2, 'b': 1}
+
+# Sorted keys with range views: no built-in TreeMap; sort keys as needed
+by_score = {50: "ada", 30: "bob", 40: "cid"}
+print(min(by_score))  # 30 (first key)
+print({k: by_score[k] for k in sorted(by_score) if 30 <= k < 50})  # {30: 'bob', 40: 'cid'}
+
+# Stack discipline: list (or deque), not legacy Stack
+history = []
+history.append("home")
+print(history[-1])  # home (peek)
+`,
+    },
+    {
+      title: 'LRU cache in five lines',
+      description: '`OrderedDict` move-to-end does the work.',
+      code: `from collections import OrderedDict
+
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)  # mark recently used
+        return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)  # evict oldest (FIFO)
+
+
+# Demo
+cache = LRUCache(2)
+cache.put(1, "a")
+cache.put(2, "b")
+cache.get(1)
+cache.put(3, "c")  # evicts 2, not 1
+print(dict(cache.cache))  # {1: 'a', 3: 'c'}
+`,
+    },
+  ],
   problemIds: ['two-sum', 'group-anagrams', 'top-k-frequent-elements', 'design-hashmap'],
 };

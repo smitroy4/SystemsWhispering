@@ -98,6 +98,52 @@ public class SlidingMax {
     'Scanning left-to-right for next-greater: the stack holds *previous* candidates — go right-to-left.',
     'Re-sorting per window: the deque maintains order incrementally — that is the entire O(n) win.',
   ],
+  pythonCode: [
+    {
+      title: 'Next greater element from scratch',
+      description: 'Right-to-left scan with an increasing stack.',
+      code: `def next_greater(a):
+    # O(n) time, O(n) space
+    ans = [-1] * len(a)
+    stack = []  # increasing values
+    for i in range(len(a) - 1, -1, -1):
+        while stack and stack[-1] <= a[i]:
+            stack.pop()  # smaller: useless to the left
+        ans[i] = stack[-1] if stack else -1
+        stack.append(a[i])
+    return ans
+
+
+# Demo
+print(next_greater([4, 5, 2, 10, 8]))  # [5, 10, 10, -1, -1]
+`,
+    },
+    {
+      title: 'Sliding window maximum variant',
+      description: 'Monotonic deque of indices with window eviction.',
+      code: `from collections import deque
+
+
+def max_window(a, k):
+    # O(n) time, O(k) space
+    ans = []
+    dq = deque()  # decreasing values (indices)
+    for i in range(len(a)):
+        if dq and dq[0] <= i - k:
+            dq.popleft()  # left the window
+        while dq and a[dq[-1]] <= a[i]:
+            dq.pop()  # smaller: never the max
+        dq.append(i)
+        if i >= k - 1:
+            ans.append(a[dq[0]])
+    return ans
+
+
+# Demo
+print(max_window([1, 3, -1, -3, 5, 3, 6, 7], 3))  # [3, 3, 5, 5, 6, 7]
+`,
+    },
+  ],
   vizId: 'monotonic-stack-steps',
   problemIds: ['daily-temperatures', 'next-greater-element-i', 'largest-rectangle-in-histogram', 'trapping-rain-water'],
 };

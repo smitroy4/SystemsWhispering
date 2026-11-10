@@ -89,5 +89,45 @@ public class Roster {
     'Returning internal mutable lists: callers mutate your guts — return copies or unmodifiable views.',
     'Calling it "pass by reference": Java has no reference parameters — say "reference copied by value".',
   ],
+  pythonCode: [
+    {
+      title: 'Copy semantics, demonstrated',
+      description: 'Primitives stay, mutations persist, rebinds do not.',
+      code: `def tweak(n, items, rebound):
+    n = 99           # local copy only (immutable int)
+    items.append("mutated")   # shared mutable object: caller sees this
+    rebound = []     # rebinds only the local name
+
+
+# Demo
+n = 1
+items = ["a"]
+rebound = ["keep"]
+tweak(n, items, rebound)
+print(n)      # 1
+print(items)  # ['a', 'mutated']
+print(rebound)  # ['keep']
+`,
+    },
+    {
+      title: 'Defensive copies in APIs',
+      description: 'Copy in, copy out — or expose read-only views.',
+      code: `class Roster:
+    def __init__(self, members):
+        self._members = list(members)  # copy in
+
+    @property
+    def members(self):
+        return tuple(self._members)  # immutable view out
+
+
+# Demo
+input_list = ["ada", "bob"]
+roster = Roster(input_list)
+input_list.append("mallory")
+print(roster.members)  # ('ada', 'bob'): smuggling failed
+`,
+    },
+  ],
   problemIds: ['reverse-string', 'copy-list-with-random-pointer'],
 };

@@ -104,6 +104,55 @@ public class FibonacciBuiltIn {
     'Deep linear recursion: depth n = 10⁵ overflows — convert to iteration for line-shaped call trees.',
     'Counting depth as nodes: stack space follows edges (depth), and fib(4) needs 4 frames, not 9.',
   ],
+  pythonCode: [
+    {
+      title: 'Fibonacci from scratch',
+      description: 'Naive recursion next to its memoized twin.',
+      code: `def fib_naive(n):
+    # O(2^n) time, O(n) stack space
+    if n <= 1:
+        return n
+    return fib_naive(n - 1) + fib_naive(n - 2)
+
+
+def fib_memo(n, cache=None):
+    # O(n) time, O(n) space
+    if cache is None:
+        cache = {}
+    if n <= 1:
+        return n
+    if n in cache:
+        return cache[n]
+    cache[n] = fib_memo(n - 1, cache) + fib_memo(n - 2, cache)
+    return cache[n]
+
+
+# Demo
+print(fib_naive(10))    # 55 (~177 calls)
+print(fib_memo(10))     # 55 (19 calls)
+print(fib_memo(100))    # 354224848179261915077 (instant with cache)
+`,
+    },
+    {
+      title: 'Python built-in equivalent',
+      description: '`functools.lru_cache` memoizes automatically.',
+      code: `from functools import lru_cache
+
+
+@lru_cache(maxsize=None)
+def fib(n):
+    # O(n) time with memoization
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+
+# Demo
+print(fib(10))   # 55
+print(fib(100))  # instant
+`,
+    },
+  ],
   vizId: 'recursion-tree-steps',
   problemIds: ['fibonacci-number', 'climbing-stairs', 'powx-n'],
 };

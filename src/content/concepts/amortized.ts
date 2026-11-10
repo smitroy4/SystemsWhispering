@@ -107,5 +107,67 @@ public class TwoStackQueue<E> {
     'Applying amortization to single operations: it describes sequences, never one call in isolation.',
     'Ignoring the two-stack queue pattern: it is the canonical interview amortized structure — know the once-per-element argument.',
   ],
+  pythonCode: [
+    {
+      title: 'Counting resize work',
+      description: 'Measure total copies across n appends to see amortization.',
+      code: `class AmortizedDemo:
+    def __init__(self):
+        self.data = [None] * 1
+        self.size = 0
+        self.copies = 0
+
+    def add(self, x):
+        if self.size == len(self.data):
+            bigger = [None] * (len(self.data) * 2)
+            for i in range(self.size):
+                bigger[i] = self.data[i]
+                self.copies += 1
+            self.data = bigger
+        self.data[self.size] = x
+        self.size += 1
+
+
+# Demo
+demo = AmortizedDemo()
+for i in range(1000):
+    demo.add(i)
+print(f"appends=1000 copies={demo.copies}")
+print(f"copies per append={demo.copies / 1000.0:.2f}")
+`,
+    },
+    {
+      title: 'Amortized queue with two stacks',
+      description: 'Each element shifts stacks at most once per cycle.',
+      code: `class TwoStackQueue:
+    def __init__(self):
+        self.inbox = []
+        self.outbox = []
+
+    def offer(self, x):
+        # O(1)
+        self.inbox.append(x)
+
+    def poll(self):
+        # O(1) amortized
+        if not self.outbox:
+            while self.inbox:
+                self.outbox.append(self.inbox.pop())  # each element moves once
+        if not self.outbox:
+            raise IndexError("poll from empty queue")
+        return self.outbox.pop()
+
+
+# Demo
+q = TwoStackQueue()
+q.offer(1)
+q.offer(2)
+print(q.poll())  # 1
+q.offer(3)
+print(q.poll())  # 2
+print(q.poll())  # 3
+`,
+    },
+  ],
   problemIds: ['implement-queue-using-stacks', 'design-hashmap'],
 };
